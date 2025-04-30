@@ -1,25 +1,44 @@
 {
   "name": "@choiceform/design-system",
   "version": "0.1.0",
+  "description": "A modern React UI component library",
   "sideEffects": false,
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "exports": {
-    ".": "./app/index.ts",
-    "./tailwind.css": "./app/tailwind.css"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tailwind": {
+      "types": "./dist/tailwind.d.ts",
+      "import": "./dist/tailwind.js",
+      "require": "./dist/tailwind.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
-    "build": "remix vite:build",
-    "build-storybook": "storybook build",
-    "dev": "concurrently typesafe-i18n \"remix vite:dev\"",
+    "dev": "storybook dev -p 6006",
+    "build": "pnpm run clean && vite build && tsc --emitDeclarationOnly",
+    "build:watch": "vite build --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:types": "tsc",
-    "plop": "pnpm dlx plop",
-    "preview": "wrangler pages dev ./build/client",
-    "start": "remix-serve ./build/server/index.js",
-    "storybook": "concurrently typesafe-i18n \"storybook dev -p 6006\"",
-    "tauri:build": "tauri build",
-    "tauri:dev": "tauri dev"
+    "clean": "rimraf dist",
+    "prepublishOnly": "pnpm run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "plop": "pnpm dlx plop"
   },
   "dependencies": {
     "@choiceform/icons-library": "^1.0.4",
@@ -31,11 +50,7 @@
     "@radix-ui/react-scroll-area": "1.0.4",
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-tooltip": "^1.1.7",
-    "@remix-run/node": "^2.10.3",
-    "@remix-run/react": "^2.10.3",
-    "@storybook/addons": "^7.6.17",
     "@tanstack/react-virtual": "^3.12.1",
-    "@types/opentype.js": "^1.3.8",
     "ahooks": "^3.8.0",
     "allotment": "^1.20.2",
     "chroma-js": "^2.4.2",
@@ -43,14 +58,9 @@
     "es-toolkit": "^1.13.1",
     "framer-motion": "^11.2.13",
     "nanoid": "^5.0.7",
-    "openai": "^4.33.0",
-    "opentype.js": "^1.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-textarea-autosize": "8.4.1",
-    "slate": "^0.100.0",
-    "slate-history": "^0.100.0",
-    "slate-react": "^0.100.1",
     "tailwind-merge": "^3.2.0",
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "4.0.4",
@@ -60,12 +70,13 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
-    "@remix-run/dev": "^2.11.2",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@storybook/addon-a11y": "^8.6.12",
     "@storybook/addon-docs": "^8.6.12",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^8.6.12",
     "@storybook/addon-onboarding": "^8.6.12",
+    "@storybook/addons": "^7.6.17",
     "@storybook/blocks": "^8.6.12",
     "@storybook/react": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
@@ -79,6 +90,7 @@
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-react": "^4.4.1",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -90,14 +102,19 @@
     "postcss": "^8.4.39",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "react-syntax-highlighter": "^15.6.1",
     "react-markdown": "^9.0.3",
+    "react-syntax-highlighter": "^15.6.1",
+    "rimraf": "^6.0.1",
     "storybook": "^8.6.12",
     "storybook-dark-mode": "^4.0.1",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
-    "vite-plugin-top-level-await": "^1.4.1",
-    "vite-tsconfig-paths": "^4.2.1",
-    "wrangler": "^3.64.0"
+    "vite-plugin-dts": "^4.5.3",
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
