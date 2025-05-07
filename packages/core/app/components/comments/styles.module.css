@@ -1,0 +1,15 @@
+@reference "../../tailwind.css";
+
+@layer components {
+  .comments-input {
+    grid-template-columns: calc(var(--spacing) * 6) 1fr;
+  }
+
+  .comment-item {
+    display: grid;
+    grid-template-rows: auto minmax(calc(var(--spacing) * 6), auto);
+    grid-template-columns: calc(var(--spacing) * 6) 1fr calc(var(--spacing) * 6);
+    grid-template-areas: "avatar meta action" ". content reaction" ". reactions .";
+    column-gap: calc(var(--spacing) * 2);
+  }
+}

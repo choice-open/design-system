@@ -1,0 +1,534 @@
+@import "./preflight.css";
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    @apply border-default-boundary;
+  }
+  body {
+    background-color: var(--background-default);
+    touch-action: pan-x pan-y;
+    color: var(--foreground-default);
+    font-weight: var(--font-weight-base);
+    font-size: var(--text-md);
+    line-height: var(--leading-md);
+    font-family: var(--font-en-us);
+    font-feature-settings:
+      "liga" on,
+      "calt" on;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  svg {
+    @apply flex-none;
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.light,
+[data-theme="light"] {
+  --blue-100: rgba(242, 249, 255, 1);
+  --blue-200: rgba(229, 244, 255, 1);
+  --blue-300: rgba(189, 227, 255, 1);
+  --blue-400: rgba(128, 202, 255, 1);
+  --blue-500: rgba(13, 153, 255, 1);
+  --blue-600: rgba(0, 123, 229, 1);
+  --blue-700: rgba(7, 104, 207, 1);
+  --blue-800: rgba(3, 74, 193, 1);
+  --blue-900: rgba(9, 48, 119, 1);
+  --blue-950: rgba(13, 25, 63, 1);
+
+  --vlolet-100: rgba(245, 245, 255, 1);
+  --vlolet-200: rgba(235, 235, 255, 1);
+  --vlolet-300: rgba(211, 209, 255, 1);
+  --vlolet-400: rgba(180, 178, 255, 1);
+  --vlolet-500: rgba(77, 73, 252, 1);
+  --vlolet-600: rgba(68, 61, 235.1);
+  --vlolet-700: rgba(61, 50, 226, 1);
+  --vlolet-800: rgba(54, 32, 223, 1);
+  --vlolet-900: rgba(47, 21, 172, 1);
+  --vlolet-950: rgba(29, 18, 84, 1);
+
+  --purple-100: rgba(249, 245, 255, 1);
+  --purple-200: rgba(241, 229, 255, 1);
+  --purple-300: rgba(228, 204, 255, 1);
+  --purple-400: rgba(217, 184, 255, 1);
+  --purple-500: rgba(151, 71, 255, 1);
+  --purple-600: rgba(134, 56, 229, 1);
+  --purple-700: rgba(124, 43, 218, 1);
+  --purple-800: rgba(104, 26, 187, 1);
+  --purple-900: rgba(75, 13, 135, 1);
+  --purple-950: rgba(45, 15, 70, 1);
+
+  --pink-100: rgba(255, 240, 254, 1);
+  --pink-200: rgba(255, 224, 252, 1);
+  --pink-300: rgba(255, 189, 242, 1);
+  --pink-400: rgba(255, 153, 224, 1);
+  --pink-500: rgba(255, 36, 189, 1);
+  --pink-600: rgba(234, 16, 172, 1);
+  --pink-700: rgba(203, 11, 150, 1);
+  --pink-800: rgba(151, 17, 114, 1);
+  --pink-900: rgba(95, 17, 76, 1);
+  --pink-950: rgba(69, 17, 56, 1);
+
+  --teal-100: rgba(235, 251, 255, 1);
+  --teal-200: rgba(206, 240, 248, 1);
+  --teal-300: rgba(182, 236, 247, 1);
+  --teal-400: rgba(117, 215, 240, 1);
+  --teal-500: rgba(0, 162, 194, 1);
+  --teal-600: rgba(0, 135, 168, 1);
+  --teal-700: rgba(4, 113, 149, 1);
+  --teal-800: rgba(8, 90, 120, 1);
+  --teal-900: rgba(9, 60, 83, 1);
+  --teal-950: rgba(14, 47, 67, 1);
+
+  --red-100: rgba(255, 245, 245, 1);
+  --red-200: rgba(255, 226, 224, 1);
+  --red-300: rgba(255, 199, 194, 1);
+  --red-400: rgba(255, 175, 163, 1);
+  --red-500: rgba(242, 72, 34, 1);
+  --red-600: rgba(220, 52, 18, 1);
+  --red-700: rgba(189, 41, 21, 1);
+  --red-800: rgba(159, 31, 24, 1);
+  --red-900: rgba(119, 18, 8, 1);
+  --red-950: rgba(102, 14, 11, 1);
+
+  --orange-100: rgba(255, 244, 229, 1);
+  --orange-200: rgba(255, 224, 194, 1);
+  --orange-300: rgba(252, 209, 156, 1);
+  --orange-400: rgba(255, 196, 112, 1);
+  --orange-500: rgba(255, 166, 41, 1);
+  --orange-600: rgba(252, 158, 36, 1);
+  --orange-700: rgba(247, 151, 34, 1);
+  --orange-800: rgba(221, 124, 14, 1);
+  --orange-900: rgba(206, 112, 18, 1);
+  --orange-950: rgba(138, 72, 15, 1);
+
+  --yellow-100: rgba(255, 251, 235, 1);
+  --yellow-200: rgba(255, 241, 194, 1);
+  --yellow-300: rgba(255, 232, 163, 1);
+  --yellow-400: rgba(255, 217, 102, 1);
+  --yellow-500: rgba(255, 205, 41, 1);
+  --yellow-600: rgba(255, 194, 26, 1);
+  --yellow-700: rgba(250, 184, 21, 1);
+  --yellow-800: rgba(235, 166, 17, 1);
+  --yellow-900: rgba(221, 148, 14, 1);
+  --yellow-950: rgba(184, 98, 0, 1);
+
+  --green-100: rgba(235, 255, 238, 1);
+  --green-200: rgba(207, 247, 211, 1);
+  --green-300: rgba(175, 244, 198, 1);
+  --green-400: rgba(133, 224, 163, 1);
+  --green-500: rgba(20, 174, 92, 1);
+  --green-600: rgba(0, 153, 81, 1);
+  --green-700: rgba(0, 128, 67, 1);
+  --green-800: rgba(3, 104, 56, 1);
+  --green-900: rgba(2, 70, 38, 1);
+  --green-950: rgba(8, 58, 35, 1);
+
+  --foreground-default: rgba(0, 0, 0, 0.9);
+  --foreground-secondary: rgba(0, 0, 0, 0.5);
+  --foreground-tertiary: rgba(0, 0, 0, 0.3);
+  --foreground-accent: var(--blue-600);
+  --foreground-success: var(--green-600);
+  --foreground-warning: var(--yellow-950);
+  --foreground-danger: var(--red-600);
+  --foreground-assistive: var(--pink-600);
+  --foreground-component: var(--purple-600);
+
+  --background-default: var(--color-white);
+  --background-secondary: var(--color-gray-100);
+  --background-secondary-active: var(--color-gray-200);
+  --background-selected: var(--blue-200);
+  --background-disabled: var(--color-gray-300);
+
+  --boundary-default: var(--color-gray-200);
+  --boundary-strong: var(--color-gray-800);
+  --boundary-selected-strong: var(--blue-600);
+
+  --shadow-shapes: 0px 1px 3px 0px rgba(0, 0, 0, 0.15), 0px 0px 0.5px 0px rgba(0, 0, 0, 0.3);
+
+  --shadow-stickies:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 3px 8px 0px rgba(0, 0, 0, 0.1),
+    0px 0px 0.5px 0px rgba(0, 0, 0, 0.18);
+
+  --shadow-tooltip:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1), 0px 5px 12px 0px rgba(0, 0, 0, 0.13),
+    0px 0px 0.5px 0px rgba(0, 0, 0, 0.15);
+
+  --shadow-menu:
+    0px 2px 5px 0px rgba(0, 0, 0, 0.15), 0px 10px 16px 0px rgba(0, 0, 0, 0.12),
+    0px 0px 0.5px 0px rgba(0, 0, 0, 0.12);
+
+  --shadow-modals:
+    0px 2px 5px 0px rgba(0, 0, 0, 0.15), 0px 10px 24px 0px rgba(0, 0, 0, 0.18),
+    0px 0px 0.5px 0px rgba(0, 0, 0, 0.08);
+
+  --focus-border: var(--blue-600);
+  --separator-border: var(--color-border-default);
+}
+
+.dark,
+[data-theme="dark"] {
+  --blue-100: rgba(226, 241, 253, 1);
+  --blue-200: rgba(207, 233, 252, 1);
+  --blue-300: rgba(168, 215, 250, 1);
+  --blue-400: rgba(124, 196, 248, 1);
+  --blue-500: rgba(12, 140, 233, 1);
+  --blue-600: rgba(10, 109, 194, 1);
+  --blue-700: rgba(16, 92, 173, 1);
+  --blue-800: rgba(24, 69, 145, 1);
+  --blue-900: rgba(27, 51, 95, 1);
+  --blue-950: rgba(22, 30, 54, 1);
+
+  --vlolet-100: rgba(245, 245, 255, 1);
+  --vlolet-200: rgba(230, 229, 255, 1);
+  --vlolet-300: rgba(206, 204, 255, 1);
+  --vlolet-400: rgba(185, 184, 255, 1);
+  --vlolet-500: rgba(61, 56, 245, 1);
+  --vlolet-600: rgba(59, 52, 213, 1);
+  --vlolet-700: rgba(55, 44, 201, 1);
+  --vlolet-800: rgba(57, 39, 190, 1);
+  --vlolet-900: rgba(48, 37, 121, 1);
+  --vlolet-950: rgba(29, 24, 53, 1);
+
+  --purple-100: rgba(241, 231, 254, 1);
+  --purple-200: rgba(227, 207, 252, 1);
+  --purple-300: rgba(214, 182, 251, 1);
+  --purple-400: rgba(209, 168, 255, 1);
+  --purple-500: rgba(138, 56, 245, 1);
+  --purple-600: rgba(122, 46, 214, 1);
+  --purple-700: rgba(101, 44, 168, 1);
+  --purple-800: rgba(80, 41, 122, 1);
+  --purple-900: rgba(62, 38, 84, 1);
+  --purple-950: rgba(31, 25, 36, 1);
+
+  --pink-100: rgba(253, 226, 251, 1);
+  --pink-200: rgba(252, 202, 248, 1);
+  --pink-300: rgba(251, 177, 237, 1);
+  --pink-400: rgba(252, 156, 224, 1);
+  --pink-500: rgba(243, 22, 176, 1);
+  --pink-600: rgba(208, 27, 156, 1);
+  --pink-700: rgba(150, 32, 122, 1);
+  --pink-800: rgba(104, 39, 94, 1);
+  --pink-900: rgba(70, 37, 62, 1);
+  --pink-950: rgba(35, 26, 33, 1);
+
+  --teal-100: rgba(221, 247, 253, 1);
+  --teal-200: rgba(188, 230, 241, 1);
+  --teal-300: rgba(164, 226, 239, 1);
+  --teal-400: rgba(103, 203, 228, 1);
+  --teal-500: rgba(8, 135, 160, 1);
+  --teal-600: rgba(8, 118, 145, 1);
+  --teal-700: rgba(10, 91, 118.1);
+  --teal-800: rgba(12, 69, 90, 1);
+  --teal-900: rgba(12, 41, 55, 1);
+  --teal-950: rgba(14, 31, 42, 1);
+
+  --red-100: rgba(254, 231, 231, 1);
+  --red-200: rgba(252, 205, 202, 1);
+  --red-300: rgba(251, 188, 182, 1);
+  --red-400: rgba(252, 163, 151, 1);
+  --red-500: rgba(224, 62, 26, 1);
+  --red-600: rgba(196, 56, 28, 1);
+  --red-700: rgba(150, 51, 35, 1);
+  --red-800: rgba(124, 38, 34, 1);
+  --red-900: rgba(84, 33, 28, 1);
+  --red-950: rgba(49, 24, 23, 1);
+
+  --orange-100: rgba(255, 237, 215, 1);
+  --orange-200: rgba(253, 217, 180, 1);
+  --orange-300: rgba(252, 198, 127, 1);
+  --orange-400: rgba(252, 179, 74, 1);
+  --orange-500: rgba(222, 125, 2, 1);
+  --orange-600: rgba(200, 111, 4, 1);
+  --orange-700: rgba(173, 95, 5, 1);
+  --orange-800: rgba(152, 83, 6, 1);
+  --orange-900: rgba(103, 56, 6, 1);
+  --orange-950: rgba(55, 29, 6, 1);
+
+  --yellow-100: rgba(253, 247, 221, 1);
+  --yellow-200: rgba(251, 232, 173, 1);
+  --yellow-300: rgba(249, 223, 144, 1);
+  --yellow-400: rgba(247, 209, 95, 1);
+  --yellow-500: rgba(243, 193, 27, 1);
+  --yellow-600: rgba(242, 181, 13, 1);
+  --yellow-700: rgba(228, 167, 17, 1);
+  --yellow-800: rgba(197, 128, 17, 1);
+  --yellow-900: rgba(146, 87, 17, 1);
+  --yellow-950: rgba(113, 68, 15, 1);
+
+  --green-100: rgba(221, 253, 226, 1);
+  --green-200: rgba(190, 239, 194, 1);
+  --green-300: rgba(161, 232, 185, 1);
+  --green-400: rgba(121, 210, 151, 1);
+  --green-500: rgba(25, 143, 81, 1);
+  --green-600: rgba(7, 131, 72, 1);
+  --green-700: rgba(10, 92, 53, 1);
+  --green-800: rgba(10, 76, 45, 1);
+  --green-900: rgba(8, 38, 24, 1);
+  --green-950: rgba(11, 30, 21, 1);
+
+  --foreground-default: var(--color-white);
+  --foreground-secondary: rgba(255, 255, 255, 0.7);
+  --foreground-tertiary: rgba(255, 255, 255, 0.4);
+  --foreground-accent: var(--blue-400);
+  --foreground-success: var(--green-400);
+  --foreground-warning: var(--yellow-400);
+  --foreground-danger: var(--red-400);
+  --foreground-assistive: var(--pink-400);
+  --foreground-component: var(--purple-400);
+
+  --background-default: var(--color-gray-800);
+  --background-secondary: var(--color-gray-700);
+  --background-secondary-active: var(--color-gray-600);
+  --background-selected: var(--blue-700);
+  --background-disabled: var(--color-gray-500);
+
+  --boundary-default: var(--color-gray-600);
+  --boundary-strong: rgba(255, 255, 255, 0.9);
+  --boundary-selected-strong: var(--blue-400);
+
+  --shadow-shapes:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.4), 0px 0px 0.5px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 0.5px 0px 0px rgba(255, 255, 255, 0.1) inset, 0px 0px 0.5px 0px rgba(0, 0, 0, 0.5);
+
+  --shadow-stickies:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.5), 0px 0px 0.5px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 3px 8px 0px rgba(0, 0, 0, 0.35), 0px 0.5px 0px 0px rgba(255, 255, 255, 0.08) inset;
+
+  --shadow-tooltip:
+    0px 0px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 5px 12px 0px rgba(0, 0, 0, 0.13),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+
+  --shadow-menu:
+    0px 2px 5px 0px rgba(0, 0, 0, 0.35), 0px 0px 0.5px 0px rgba(255, 255, 255, 0.35) inset,
+    0px 10px 16px 0px rgba(0, 0, 0, 0.35), 0px 0.5px 0px 0px rgba(255, 255, 255, 0.08) inset;
+
+  --shadow-modals:
+    0px 3px 5px 0px rgba(0, 0, 0, 0.35), 0px 0px 0.5px 0px rgba(255, 255, 255, 0.35) inset,
+    0px 10px 24px 0px rgba(0, 0, 0, 0.45), 0px 0.5px 0px 0px rgba(255, 255, 255, 0.08) inset;
+}
+
+@theme {
+  --color-*: initial;
+
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+
+  --color-gray-100: rgba(245, 245, 245, 1);
+  --color-gray-200: rgba(230, 230, 230, 1);
+  --color-gray-300: rgba(217, 217, 217, 1);
+  --color-gray-400: rgba(179, 179, 179, 1);
+  --color-gray-500: rgba(117, 117, 117, 1);
+  --color-gray-600: rgba(68, 68, 68, 1);
+  --color-gray-700: rgba(56, 56, 56, 1);
+  --color-gray-800: rgba(44, 44, 44, 1);
+  --color-gray-900: rgba(30, 30, 30, 1);
+  --color-gray-950: rgba(17, 17, 17, 1);
+
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
+
+  --color-vlolet-100: var(--vlolet-100);
+  --color-vlolet-200: var(--vlolet-200);
+  --color-vlolet-300: var(--vlolet-300);
+  --color-vlolet-400: var(--vlolet-400);
+  --color-vlolet-500: var(--vlolet-500);
+  --color-vlolet-600: var(--vlolet-600);
+  --color-vlolet-700: var(--vlolet-700);
+  --color-vlolet-800: var(--vlolet-800);
+  --color-vlolet-900: var(--vlolet-900);
+  --color-vlolet-950: var(--vlolet-950);
+
+  --color-purple-100: var(--purple-100);
+  --color-purple-200: var(--purple-200);
+  --color-purple-300: var(--purple-300);
+  --color-purple-400: var(--purple-400);
+  --color-purple-500: var(--purple-500);
+  --color-purple-600: var(--purple-600);
+  --color-purple-700: var(--purple-700);
+  --color-purple-800: var(--purple-800);
+  --color-purple-900: var(--purple-900);
+  --color-purple-950: var(--purple-950);
+
+  --color-pink-100: var(--pink-100);
+  --color-pink-200: var(--pink-200);
+  --color-pink-300: var(--pink-300);
+  --color-pink-400: var(--pink-400);
+  --color-pink-500: var(--pink-500);
+  --color-pink-600: var(--pink-600);
+  --color-pink-700: var(--pink-700);
+  --color-pink-800: var(--pink-800);
+  --color-pink-900: var(--pink-900);
+  --color-pink-950: var(--pink-950);
+
+  --color-teal-100: var(--teal-100);
+  --color-teal-200: var(--teal-200);
+  --color-teal-300: var(--teal-300);
+  --color-teal-400: var(--teal-400);
+  --color-teal-500: var(--teal-500);
+  --color-teal-600: var(--teal-600);
+  --color-teal-700: var(--teal-700);
+  --color-teal-800: var(--teal-800);
+  --color-teal-900: var(--teal-900);
+  --color-teal-950: var(--teal-950);
+
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-300: var(--red-300);
+  --color-red-400: var(--red-400);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+  --color-red-900: var(--red-900);
+  --color-red-950: var(--red-950);
+
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+  --color-orange-950: var(--orange-950);
+
+  --color-yellow-100: var(--yellow-100);
+  --color-yellow-200: var(--yellow-200);
+  --color-yellow-300: var(--yellow-300);
+  --color-yellow-400: var(--yellow-400);
+  --color-yellow-500: var(--yellow-500);
+  --color-yellow-600: var(--yellow-600);
+  --color-yellow-700: var(--yellow-700);
+  --color-yellow-800: var(--yellow-800);
+  --color-yellow-900: var(--yellow-900);
+  --color-yellow-950: var(--yellow-950);
+
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-green-900: var(--green-900);
+  --color-green-950: var(--green-950);
+
+  --color-default-foreground: var(--foreground-default);
+  --color-disabled-foreground: var(--foreground-tertiary);
+  --color-secondary-foreground: var(--foreground-secondary);
+  --color-tertiary-foreground: var(--foreground-tertiary);
+  --color-accent-foreground: var(--foreground-accent);
+  --color-success-foreground: var(--foreground-success);
+  --color-warning-foreground: var(--foreground-warning);
+  --color-danger-foreground: var(--foreground-danger);
+  --color-assistive-foreground: var(--foreground-assistive);
+  --color-component-foreground: var(--foreground-component);
+  --color-on-accent-foreground: var(--color-white);
+  --color-on-accent-secondary-foreground: rgba(255, 255, 255, 0.8);
+  --color-on-accent-tertiary-foreground: rgba(255, 255, 255, 0.4);
+
+  --color-default-background: var(--background-default);
+  --color-disabled-background: var(--background-disabled);
+  --color-secondary-background: var(--background-secondary);
+  --color-selected-background: var(--background-selected);
+  --color-secondary-activ-background: var(--background-secondary-active);
+  --color-accent-background: var(--blue-500);
+  --color-accent-active-background: var(--blue-600);
+  --color-success-background: var(--green-500);
+  --color-success-active-background: var(--green-600);
+  --color-warning-background: var(--yellow-500);
+  --color-warning-active-background: var(--yellow-600);
+  --color-danger-background: var(--red-500);
+  --color-danger-active-background: var(--red-600);
+  --color-assistive-background: var(--pink-500);
+  --color-assistive-active-background: var(--pink-600);
+  --color-component-background: var(--purple-500);
+  --color-component-active-background: var(--purple-600);
+  --color-menu-background: var(--color-gray-900);
+  --color-toolbar-background: var(--color-gray-800);
+
+  --color-default-boundary: var(--boundary-default);
+  --color-strong-boundary: var(--boundary-strong);
+  --color-selected-boundary: var(--blue-500);
+  --color-selected-strong-boundary: var(--boundary-selected-strong);
+  --color-menu-boundary: var(--color-gray-700);
+
+  --text-sm: 0.5625rem;
+  --text-md: 0.6875rem;
+  --text-lg: 0.8125rem;
+  --text-xl: 1rem;
+
+  --font-zh-cn:
+    "PingFang SC", "Helvetica Neue", "Helvetica", "STHeitiSC-Light", "Arial", sans-serif;
+  --font-zh-tw: "MHei", "Helvetica Neue", "Helvetica", "Arial", "Verdana";
+  --font-ja-jp:
+    "Apple TP", "Helvetica Neue", "Helvetica", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3",
+    "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "Arial", "Verdana", sans-serif;
+  --font-en-us: "Inter", "Myriad Set Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  --font-monospace:
+    SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-emoji: "EmojiMart,Segoe UI Emoji,Segoe UI Symbol,Segoe UI,Apple Color Emoji,Twemoji Mozilla,Noto Color Emoji,Android Emoji";
+
+  --font-weight-base: 400;
+  --font-weight-medium: 550;
+
+  --radius-sm: 0.125rem;
+  --radius-md: 0.3125rem;
+  --radius-lg: 0.8125rem;
+
+  --leading-sm: 0.875rem;
+  --leading-md: 1rem;
+  --leading-lg: 1.375rem;
+
+  --tracking-sm: 0.00281rem;
+  --tracking-md: 0.00344rem;
+  --tracking-lg: -0.002rem;
+
+  --shadow-*: initial;
+  --shadow-xs: var(--shadow-shapes);
+  --shadow-sm: var(--shadow-stickies);
+  --shadow-md: var(--shadow-tooltip);
+  --shadow-lg: var(--shadow-menu);
+  --shadow-xl: var(--shadow-modals);
+
+  --shadow-focus:
+    0px 0px 0px 1px var(--color-default-background), 0px 0px 0px 2px var(--color-selected-boundary);
+  --shadow-range-thumb:
+    0 0 0 2px rgb(255 255 255), 0 1px 4px 2px rgba(0 0 0 / 0.1), 0 4px 8px 2px rgba(0 0 0 / 0.1),
+    0 0 1px 2px rgba(0 0 0 / 0.3);
+  --shadow-line: inset 0 0 0 1px
+    color-mix(in oklch, var(--color-default-foreground) 10%, transparent);
+  --shadow-inset-border: inset 0 0 0 1px var(--color-default-boundary);
+  --shadow-border: 0 0 0 1px var(--color-default-boundary);
+
+  --shadow-checked-focused:
+    inset 0 0 0 1px var(--color-default-background), inset 0 0 0 8px var(--color-accent-background);
+
+  --z-index-sticky: 100;
+  --z-index-fixed: 700;
+  --z-index-backdrop: 800;
+  --z-index-modals: 810;
+  --z-index-popover: 820;
+  --z-index-menu: 910;
+  --z-index-tooltip: 1000;
+  --z-index-notification: 1100;
+  --z-index-scroll: 1200;
+}

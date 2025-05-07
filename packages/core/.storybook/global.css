@@ -1,0 +1,10 @@
+:root {
+  --code-background: rgb(250, 250, 250);
+  --code-text: rgb(56, 58, 66);
+  --code-text-key: rgb(64, 120, 242);
+  --code-text-value: rgb(183, 107, 1);
+}
+
+body {
+  overflow: hidden;
+}

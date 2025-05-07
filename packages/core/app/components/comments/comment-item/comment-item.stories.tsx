@@ -1,0 +1,384 @@
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useMemo, useState } from "react"
+import { CustomElement } from "../comment-input/types"
+import { Dialog } from "../../dialog"
+import { Modal } from "../../modal"
+import { PicturePreview } from "../../picture-preview"
+import { CommentItem } from "./comment-item"
+
+const meta = {
+  title: "Comments/CommentItem",
+  component: CommentItem,
+  decorators: [
+    (Story) => (
+      <Modal>
+        <Modal.Content className="w-80 p-0 py-4">
+          <Story />
+        </Modal.Content>
+      </Modal>
+    ),
+  ],
+} satisfies Meta<typeof CommentItem>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+// 基本评论示例（使用字符串日期）
+export const Basic: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=1",
+    name: "Jane Doe",
+    date: "2 hours ago",
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "This is a basic comment without any formatting." }],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 带格式的评论示例（1天前）- 中文
+export const WithFormattingChinese: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=2",
+    name: "John Smith",
+    date: new Date(Date.now() - 86400000), // 1 day ago
+    content: [
+      {
+        type: "paragraph",
+        children: [
+          { text: "这条评论包含 " },
+          { text: "粗体", bold: true },
+          { text: "、" },
+          { text: "斜体", italic: true },
+          { text: "和" },
+          { text: "下划线", underline: true },
+          { text: "文本，以及" },
+          { text: "删除线", strikethrough: true },
+          { text: "。" },
+        ],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 带格式的评论示例（1天前）- 英文
+export const WithFormattingEnglish: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=2",
+    name: "John Smith",
+    date: new Date(Date.now() - 86400000), // 1 day ago
+    content: [
+      {
+        type: "paragraph",
+        children: [
+          { text: "This comment has " },
+          { text: "bold", bold: true },
+          { text: ", " },
+          { text: "italic", italic: true },
+          { text: ", and " },
+          { text: "underlined", underline: true },
+          { text: " text, as well as " },
+          { text: "strikethrough", strikethrough: true },
+          { text: "." },
+        ],
+      } as CustomElement,
+    ],
+    locale: "en",
+  },
+}
+
+// 今日内评论示例（2小时前）- 中文
+export const RecentCommentChinese: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=9",
+    name: "Rebecca Moore",
+    date: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "这条评论是最近发布的，显示相对时间格式。" }],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 今日内评论示例（2小时前）- 英文
+export const RecentCommentEnglish: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=9",
+    name: "Rebecca Moore",
+    date: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "This comment was posted recently, showing the relative time format." }],
+      } as CustomElement,
+    ],
+    locale: "en",
+  },
+}
+
+// 本年内评论示例（3个月前）- 中文
+export const ThisYearCommentChinese: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=10",
+    name: "Thomas Wilson",
+    date: new Date(new Date().setMonth(new Date().getMonth() - 3)), // 3 months ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "这条评论发布于今年，显示月份和日期格式。" }],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 本年内评论示例（3个月前）- 英文
+export const ThisYearCommentEnglish: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=10",
+    name: "Thomas Wilson",
+    date: new Date(new Date().setMonth(new Date().getMonth() - 3)), // 3 months ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "This comment was posted within this year, showing month and day." }],
+      } as CustomElement,
+    ],
+    locale: "en",
+  },
+}
+
+// 去年评论示例 - 中文
+export const LastYearCommentChinese: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=11",
+    name: "Patricia Clark",
+    date: new Date(new Date().setFullYear(new Date().getFullYear() - 1)), // 1 year ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "这条评论发布于去年，显示完整日期格式。" }],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 去年评论示例 - 英文
+export const LastYearCommentEnglish: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=11",
+    name: "Patricia Clark",
+    date: new Date(new Date().setFullYear(new Date().getFullYear() - 1)), // 1 year ago
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "This comment was posted last year, showing the full date format." }],
+      } as CustomElement,
+    ],
+    locale: "en",
+  },
+}
+
+// 带提及和图片的评论示例
+export const WithMentionAndImage: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=3",
+    name: "Alex Johnson",
+    date: "5 hours ago",
+    content: [
+      {
+        type: "paragraph",
+        children: [
+          { text: "Take a look at this image " },
+          {
+            type: "mention",
+            user: {
+              id: "user-1",
+              name: "Sarah Parker",
+              avatar: "https://i.pravatar.cc/150?img=5",
+              email: "sarah.parker@example.com",
+            },
+            children: [{ text: "" }],
+          } as CustomElement,
+          { text: " shared:" },
+        ],
+      } as CustomElement,
+      {
+        type: "image",
+        attachments: [
+          {
+            url: "https://images.unsplash.com/photo-1745750747234-5df61f67a7bc?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            name: "Nature Image",
+          },
+        ],
+        children: [{ text: "" }],
+      } as CustomElement,
+      {
+        type: "paragraph",
+        children: [
+          { text: "What do you think? " },
+          {
+            type: "mention",
+            user: {
+              id: "user-2",
+              name: "Robert Davis",
+              avatar: "https://i.pravatar.cc/150?img=8",
+              email: "robert.davis@example.com",
+            },
+            children: [{ text: "" }],
+          } as CustomElement,
+          { text: " might have some thoughts on this." },
+        ],
+      } as CustomElement,
+    ],
+    locale: "zh-cn",
+  },
+}
+
+// 带列表的评论示例
+export const WithLists: Story = {
+  args: {
+    avatar: "https://i.pravatar.cc/150?img=4",
+    name: "Emily Wilson",
+    date: "1 day ago",
+    content: [
+      {
+        type: "paragraph",
+        children: [{ text: "Here are some key points:" }],
+      } as CustomElement,
+      {
+        type: "bulleted-list",
+        children: [
+          {
+            type: "list-item",
+            children: [{ text: "First bullet point" }],
+          } as CustomElement,
+          {
+            type: "list-item",
+            children: [{ text: "Second bullet point with " }, { text: "formatting", bold: true }],
+          } as CustomElement,
+          {
+            type: "list-item",
+            children: [{ text: "Third bullet point" }],
+          } as CustomElement,
+        ],
+      } as CustomElement,
+      {
+        type: "paragraph",
+        children: [{ text: "And a numbered list:" }],
+      } as CustomElement,
+      {
+        type: "numbered-list",
+        children: [
+          {
+            type: "list-item",
+            children: [{ text: "First numbered item" }],
+          } as CustomElement,
+          {
+            type: "list-item",
+            children: [{ text: "Second numbered item" }],
+          } as CustomElement,
+          {
+            type: "list-item",
+            children: [{ text: "Third numbered item" }],
+          } as CustomElement,
+        ],
+      } as CustomElement,
+    ],
+  },
+}
+
+// 多图片评论示例
+export const MultipleImages = {
+  render: function RenderStory() {
+    const [isOpen, setIsOpen] = useState(false)
+    const [imageIndex, setImageIndex] = useState<number | undefined>(undefined)
+
+    const content = [
+      {
+        type: "paragraph",
+        children: [{ text: "Check out these images from our trip:" }],
+      } as CustomElement,
+      {
+        type: "image",
+        attachments: [
+          {
+            url: "https://images.unsplash.com/photo-1745750747234-5df61f67a7bc?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            name: "Beach",
+          },
+          {
+            url: "https://images.unsplash.com/photo-1739989934289-4cb75f451a56?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            name: "Mountains",
+          },
+          {
+            url: "https://images.unsplash.com/photo-1746071062150-b12db59e9c53?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            name: "Forest",
+          },
+          {
+            url: "https://images.unsplash.com/photo-1745659601865-1af86dec8bcd?q=80&w=3183&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            name: "City",
+          },
+        ],
+        children: [{ text: "" }],
+      } as CustomElement,
+      {
+        type: "paragraph",
+        children: [{ text: "It was an amazing experience!" }],
+      } as CustomElement,
+    ]
+
+    const currentImage = useMemo(() => {
+      const image = content.find((item) => item.type === "image")
+      if (!image) return null
+      return image.attachments?.[imageIndex ?? 0]
+    }, [content, imageIndex])
+
+    const profiles = useMemo(() => {
+      return {
+        name: faker.person.fullName(),
+        avatar: faker.image.avatar(),
+        email: faker.internet.email(),
+      }
+    }, [])
+
+    return (
+      <>
+        <CommentItem
+          avatar={profiles.avatar}
+          name={profiles.name}
+          date={faker.date.recent()}
+          content={content}
+          handleOnImageClick={(index) => {
+            setImageIndex(index)
+            setIsOpen(true)
+          }}
+        />
+        {imageIndex !== undefined && (
+          <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            outsidePress
+            className="overflow-hidden"
+          >
+            <Dialog.Header title={currentImage?.name} />
+            <Dialog.Content className="overflow-hidden p-0">
+              <PicturePreview
+                src={currentImage?.url ?? ""}
+                fileName={currentImage?.name}
+              />
+            </Dialog.Content>
+          </Dialog>
+        )}
+      </>
+    )
+  },
+}

@@ -1,0 +1,157 @@
+import { useCallback, useEffect, useRef, useState } from "react"
+import { useEventCallback } from "usehooks-ts"
+
+interface Position {
+  x: number
+  y: number
+}
+
+interface DragState {
+  isDragging: boolean
+  position: Position | null
+}
+
+interface UseDragOptions {
+  draggable: boolean
+  floatingRef: { current: HTMLElement | null }
+}
+
+// Constants
+const MIN_VISIBLE_RATIO = 0.25 // 至少保留25%在可视范围内
+const HEADER_HEIGHT = 40 // header高度
+
+/**
+ * 调整位置以确保元素在视窗内可见
+ * @param position 当前位置
+ * @param dialogRect 元素的矩形信息
+ * @param viewportWidth 视窗宽度
+ * @param viewportHeight 视窗高度
+ */
+function adjustPosition(
+  position: Position,
+  dialogRect: DOMRect,
+  viewportWidth = window.innerWidth,
+  viewportHeight = window.innerHeight,
+): Position {
+  // 确保至少 25% 的窗口宽度在可视范围内
+  const minVisibleWidth = dialogRect.width * MIN_VISIBLE_RATIO
+  const maxLeft = viewportWidth - minVisibleWidth
+  const minLeft = minVisibleWidth - dialogRect.width
+
+  // 确保 header 始终在可视范围内
+  const maxTop = viewportHeight - HEADER_HEIGHT
+  const minTop = 0
+
+  return {
+    x: Math.min(Math.max(position.x, minLeft), maxLeft),
+    y: Math.min(Math.max(position.y, minTop), maxTop),
+  }
+}
+
+/**
+ * 拖拽功能 Hook
+ * @param options 配置选项
+ * @returns 拖拽状态和控制方法
+ */
+export function useDrag({ draggable, floatingRef }: UseDragOptions) {
+  const [state, setState] = useState<DragState>({
+    isDragging: false,
+    position: null,
+  })
+
+  const dragOriginRef = useRef({ x: 0, y: 0 })
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  // 开始拖拽
+  const handleDragStart = useEventCallback((e: React.MouseEvent) => {
+    if (!draggable) return
+    if (contentRef.current?.contains(e.target as Node)) return
+
+    if (!floatingRef.current) return
+
+    const rect = floatingRef.current.getBoundingClientRect()
+    if (!rect) return
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    // 记录拖拽起始点
+    dragOriginRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    }
+
+    // 设置初始位置
+    setState({
+      isDragging: true,
+      position: {
+        x: rect.left,
+        y: rect.top,
+      },
+    })
+  })
+
+  // 拖拽过程
+  const handleDrag = useCallback(
+    (e: MouseEvent) => {
+      if (!draggable || !state.isDragging || !floatingRef.current) return
+
+      // 计算新位置
+      const x = e.clientX - dragOriginRef.current.x
+      const y = e.clientY - dragOriginRef.current.y
+
+      setState((prev) => ({
+        ...prev,
+        position: { x, y },
+      }))
+    },
+    [draggable, state.isDragging, floatingRef],
+  )
+
+  // 结束拖拽
+  const handleDragEnd = useCallback(() => {
+    if (!draggable) return
+
+    if (floatingRef.current && state.position) {
+      const dialogRect = floatingRef.current.getBoundingClientRect()
+      const adjustedPosition = adjustPosition(state.position, dialogRect)
+
+      setState({
+        isDragging: false,
+        position: adjustedPosition,
+      })
+    } else {
+      setState({
+        isDragging: false,
+        position: null,
+      })
+    }
+  }, [draggable, state.position, floatingRef])
+
+  // 重置拖拽状态
+  const resetDragState = useCallback(() => {
+    setState({
+      isDragging: false,
+      position: null,
+    })
+  }, [])
+
+  // 添加和移除事件监听
+  useEffect(() => {
+    if (draggable && state.isDragging) {
+      document.addEventListener("mousemove", handleDrag)
+      document.addEventListener("mouseup", handleDragEnd)
+      return () => {
+        document.removeEventListener("mousemove", handleDrag)
+        document.removeEventListener("mouseup", handleDragEnd)
+      }
+    }
+  }, [draggable, state.isDragging, handleDrag, handleDragEnd])
+
+  return {
+    state,
+    contentRef,
+    handleDragStart,
+    resetDragState,
+  }
+}

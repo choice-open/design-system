@@ -1,0 +1,189 @@
+@layer components {
+  .scrollbar-hide {
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+    /* Safari and Chrome */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .properties-panel {
+    @apply relative flex flex-col;
+    &:not(:last-child) {
+      @apply border-b;
+    }
+  }
+
+  .rows {
+    @apply grid min-w-0 items-center pr-2 pl-4;
+  }
+  .rows--label {
+    @apply text-secondary-foreground mt-1 select-none;
+    padding-right: 0.125rem;
+    padding-left: 0.125rem;
+    font-weight: 500;
+    font-size: 0.5625rem;
+    line-height: 0.875rem;
+    letter-spacing: 0.016875rem;
+  }
+  .rows--single {
+    @apply gap-x-2 pr-4;
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1fr;
+    grid-template-areas: "label" "input";
+  }
+  .rows--two-columns {
+    @apply gap-x-2 pr-4;
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "label-1 label-2" "left right";
+  }
+  .rows--one-label-one-input {
+    @apply gap-x-2 pr-4;
+    grid-template-rows: 2rem;
+    grid-template-columns: 8fr 20fr;
+    grid-template-areas: "label input";
+  }
+  .rows--one-label-one-input-one-icon {
+    @apply gap-x-1 pr-2;
+    grid-template-rows: 2rem;
+    grid-template-columns: 8fr 20fr 1.5rem;
+    grid-template-areas: "label input icon";
+  }
+  .rows--one-label-two-input {
+    @apply gap-x-2 pr-4;
+    grid-template-rows: 2rem;
+    grid-template-columns: 8fr 10fr 10fr;
+    grid-template-areas: "label input-1 input-2";
+  }
+  .rows--one-icon-one-input {
+    @apply gap-x-2 pr-4;
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1.5rem 1fr;
+    grid-template-areas: ". label" "icon input";
+  }
+  .rows--one-input-one-icon {
+    @apply gap-x-2;
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1fr 1.5rem;
+    grid-template-areas: "label label" "input icon";
+  }
+  .rows--one-input-two-icon {
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
+    grid-template-areas: "label . . . ." "input . icon-1 . icon-2";
+  }
+  .rows--two-input-two-icon {
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: minmax(76px, 1fr) 0.5rem 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
+    grid-template-areas: "label-1 label-1 label-2 label-2 . . ." "input-1 . input-2 . icon-1 . icon-2";
+  }
+  .rows--two-input-one-icon {
+    @apply gap-x-2;
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1fr 1fr 1.5rem;
+    grid-template-areas: "label-1 label-2 label-2" "input-1 input-2 icon";
+  }
+  .rows--one-icon-one-input-two-icon {
+    grid-template-rows: auto minmax(2rem, auto);
+    grid-template-columns: 1.5rem 0.5rem 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
+    grid-template-areas: "label label label label label label label" "icon-1 . input . icon-2 . icon-3";
+  }
+  .rows--two-input-one-icon-double-row {
+    @apply gap-x-2;
+    grid-template-rows: auto 2rem 2rem;
+    grid-template-columns: 1fr 1fr 1.5rem;
+    grid-template-areas: "label-1 label-2 ." "input-1 input-3 icon-1" "input-2 input-3 icon-2";
+  }
+
+  .input-number {
+    grid-template-rows: 1.5rem;
+    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-areas: "prefix-handler variable input action suffix-handler";
+    &::before {
+      @apply pointer-events-none z-3 h-6 rounded-md border border-transparent;
+      grid-row: 1 / 2;
+      grid-column: 1 / 6;
+    }
+  }
+
+  .input-search {
+    @apply relative grid;
+    grid-template-columns: 1.5rem 1fr auto;
+    grid-template-areas: "icon input action";
+    &::before {
+      @apply pointer-events-none z-2 h-full rounded-md border border-transparent;
+      grid-row: 1 / 2;
+      grid-column: 1 / 4;
+    }
+  }
+
+  .input-fill {
+    @apply relative grid;
+    &::before {
+      @apply pointer-events-none z-2 h-6 rounded-md border border-transparent;
+      grid-row: 1 / 2;
+    }
+  }
+  .input-fill--hex {
+    grid-template-columns: 1fr;
+    grid-template-areas: "input-1";
+    &::before {
+      grid-column: 1 / 2;
+    }
+  }
+  .input-fill--hex-and-alpha {
+    grid-template-columns: 1fr 2px 52px;
+    grid-template-areas: "input-1 . input-2";
+    &::before {
+      grid-column: 1 / 4;
+    }
+  }
+  .input-fill--rgb {
+    grid-template-columns: 1fr 2px 1fr 2px 1fr;
+    grid-template-areas: "input-1 . input-2 . input-3";
+    &::before {
+      grid-column: 1 / 6;
+    }
+  }
+  .input-fill--rgb-and-alpha {
+    grid-template-columns: 1fr 2px 1fr 2px 1fr 2px 48px;
+    grid-template-areas: "input-1 . input-2 . input-3 . input-4";
+    &::before {
+      grid-column: 1 / 8;
+    }
+  }
+
+  .constraint-selector {
+    display: grid;
+    grid-template-rows: 1fr 0.875rem 1fr 0.875rem 1fr;
+    grid-template-columns: 1fr 0.875rem 1fr 0.875rem 1fr;
+    grid-template-areas: ". . input-1 . ." ".  . top . ." "input-2 left center right input-3" ". . bottom . ." ". . input-4 . .";
+    column-gap: 1px;
+    row-gap: 1px;
+    place-items: center;
+  }
+
+  .tree-list {
+    &[data-has-horizontal-scroll="true"] {
+      & .tree-list_node::after {
+        right: 0;
+      }
+    }
+  }
+
+  .tree-list__scroll-container {
+    overscroll-behavior: auto;
+    touch-action: pan-y;
+  }
+
+  .tree-list__content {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--tree-node-width);
+    height: var(--tree-list-height);
+  }
+}
