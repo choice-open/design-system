@@ -47,14 +47,9 @@ export function useHotkeys(configs: HotkeyConfig[]) {
   }, [configs, handleKeyDown])
 }
 
-// 导出快捷键常量，方便使用
 export const HOTKEYS = {
-  // 缩放相关
   ZOOM_IN: "mod+=",
   ZOOM_OUT: "mod+-",
   ZOOM_RESET: "mod+0",
-
-  // 其他常用快捷键可以在这里定义
   FIT_TO_SCREEN: "mod+1",
-  TOGGLE_FULLSCREEN: "f",
 }

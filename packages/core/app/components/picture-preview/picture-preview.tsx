@@ -34,7 +34,7 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
 
   const scheduleUpdate = useCallback(() => {
     if (rafId.current !== null) {
-      return // 已有计划更新，避免重复
+      return
     }
 
     rafId.current = requestAnimationFrame(() => {
@@ -221,48 +221,59 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
             className="border-x-default rounded-none"
             size="large"
           >
-            {Math.round(zoom * 100)}%
+            <span className="flex-1">{Math.round(zoom * 100)}%</span>
           </Dropdown.Trigger>
 
-          <Dropdown.Item onMouseUp={() => handleZoomMenuItemClick(zoomRef.current + ZOOM_STEP)}>
-            {LL.picturePreview.zoomIn()}
-          </Dropdown.Item>
-          <Dropdown.Item onMouseUp={() => handleZoomMenuItemClick(zoomRef.current - ZOOM_STEP)}>
-            {LL.picturePreview.zoomOut()}
-          </Dropdown.Item>
-          <Dropdown.Item
-            selected={zoomRef.current === 0.5}
-            onMouseUp={() => handleZoomMenuItemClick(0.5)}
-          >
-            {LL.picturePreview.zoomTo50()}
-          </Dropdown.Item>
-          <Dropdown.Item
-            selected={zoomRef.current === 1}
-            onMouseUp={() => handleZoomMenuItemClick(1)}
-          >
-            {LL.picturePreview.zoomTo100()}
-          </Dropdown.Item>
-          <Dropdown.Item
-            selected={zoomRef.current === 2}
-            onMouseUp={() => handleZoomMenuItemClick(2)}
-          >
-            {LL.picturePreview.zoomTo200()}
-          </Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item
-            onMouseUp={() => {
-              fitToView()
-            }}
-          >
-            {LL.picturePreview.fitToScreen()}
-          </Dropdown.Item>
-          <Dropdown.Item
-            onMouseUp={() => {
-              resetView()
-            }}
-          >
-            {LL.picturePreview.zoomReset()}
-          </Dropdown.Item>
+          <Dropdown.Content>
+            <Dropdown.Item
+              onMouseUp={() => handleZoomMenuItemClick(zoomRef.current + ZOOM_STEP)}
+              shortcut={{
+                keys: "+",
+                modifier: "command",
+              }}
+            >
+              <span className="flex-1">{LL.picturePreview.zoomIn()}</span>
+            </Dropdown.Item>
+            <Dropdown.Item
+              onMouseUp={() => handleZoomMenuItemClick(zoomRef.current - ZOOM_STEP)}
+              shortcut={{
+                keys: "-",
+                modifier: "command",
+              }}
+            >
+              <span className="flex-1">{LL.picturePreview.zoomOut()}</span>
+            </Dropdown.Item>
+            <Dropdown.Item
+              selected={zoomRef.current === 0.5}
+              onMouseUp={() => handleZoomMenuItemClick(0.5)}
+            >
+              <span className="flex-1">{LL.picturePreview.zoomTo50()}</span>
+            </Dropdown.Item>
+            <Dropdown.Item
+              selected={zoomRef.current === 1}
+              onMouseUp={() => handleZoomMenuItemClick(1)}
+            >
+              <span className="flex-1">{LL.picturePreview.zoomTo100()}</span>
+            </Dropdown.Item>
+            <Dropdown.Item
+              selected={zoomRef.current === 2}
+              onMouseUp={() => handleZoomMenuItemClick(2)}
+            >
+              <span className="flex-1">{LL.picturePreview.zoomTo200()}</span>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              onMouseUp={() => {
+                fitToView()
+              }}
+              shortcut={{
+                keys: "1",
+                modifier: "command",
+              }}
+            >
+              <span className="flex-1">{LL.picturePreview.fitToScreen()}</span>
+            </Dropdown.Item>
+          </Dropdown.Content>
         </Dropdown>
 
         <IconButton
