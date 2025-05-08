@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react"
 import AutoSize, { type TextareaAutosizeProps } from "react-textarea-autosize"
 import { tcx } from "~/utils"
-import { textareaTv } from "./tv"
+import { TextareaTv } from "./tv"
 
 export interface MultiLineTextInputProps extends Omit<TextareaAutosizeProps, "style" | "onChange"> {
   resizeHandle?: "none" | "both" | "horizontal" | "vertical"
@@ -36,7 +36,7 @@ export const MultiLineTextInput = forwardRef<HTMLTextAreaElement, MultiLineTextI
     const [hasMultipleRows, setIsHasMultipleRows] = useState(minRows > 1)
     const [isLimitReached, setIsLimitReached] = useState(false)
 
-    const styles = textareaTv({ variant, disabled, resizeHandle, selected, readOnly })
+    const styles = TextareaTv({ variant, disabled, resizeHandle, selected, readOnly })
 
     const handleHeightChange = (height: number, meta: TextareaHeightChangeMeta) => {
       if (minRows === 1) {

@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants"
 
-export const textareaTv = tv({
+export const TextareaTv = tv({
   base: [
     "min-w-0 rounded-md",
     "leading-md tracking-md text-md",

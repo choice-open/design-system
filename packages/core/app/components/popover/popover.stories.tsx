@@ -4,9 +4,9 @@ import type { Meta, StoryObj } from "@storybook/react"
 import React, { useMemo, useRef, useState } from "react"
 import { Button } from "../button"
 import { Dropdown } from "../dropdown"
+import { Input } from "../input"
 import { Select } from "../select"
 import { Tabs } from "../tabs"
-import { Input } from "../input"
 import { Popover } from "./popover"
 
 const meta: Meta<typeof Popover> = {

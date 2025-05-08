@@ -4,7 +4,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalInput,
   ModalMultiLineInput,
   ModalSelect,
 } from "./components"
@@ -21,7 +20,6 @@ interface ModalComponent
   Header: typeof ModalHeader
   Content: typeof ModalContent
   Footer: typeof ModalFooter
-  Input: typeof ModalInput
   MultiLineInput: typeof ModalMultiLineInput
   Select: typeof ModalSelect
 }
@@ -45,7 +43,6 @@ const Modal = ModalBase as ModalComponent
 Modal.Header = ModalHeader
 Modal.Content = ModalContent
 Modal.Footer = ModalFooter
-Modal.Input = ModalInput
 Modal.MultiLineInput = ModalMultiLineInput
 Modal.Select = ModalSelect
 export { Modal }

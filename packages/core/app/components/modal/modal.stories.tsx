@@ -1,15 +1,15 @@
 import { ChevronLeft, ThemeSunBright } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
 import { Story } from "@storybook/blocks"
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useState } from "react"
+import { Avatar } from "../avatar"
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
 import { Select } from "../select"
 import { Tabs } from "../tabs"
-import { Modal } from "./modal"
-import { Avatar } from "../avatar"
-import { faker } from "@faker-js/faker"
 import { TextField } from "../text-field"
+import { Modal } from "./modal"
 
 const meta: Meta<typeof Modal> = {
   title: "Overlays/Modal",
