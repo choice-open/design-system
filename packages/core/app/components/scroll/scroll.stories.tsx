@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { useMemo } from "react"
 import { Scroll } from "./scroll"
+import React from "react"
 
 const meta: Meta<typeof Scroll> = {
   title: "Scroll",

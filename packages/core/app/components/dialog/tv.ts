@@ -2,11 +2,9 @@ import { tv } from "tailwind-variants"
 
 export const dragDialogTv = tv({
   slots: {
-    overlay: "z-modals overflow-hidden cursor-default",
-    dialog: [
-      "rounded-lg relative flex flex-col bg-default-background shadow-xl max-w-fit z-modals",
-    ],
-    resizeWidthHandle: "absolute -right-1 top-0 h-full w-2 cursor-ew-resize",
+    overlay: "z-modals cursor-default overflow-hidden",
+    dialog: "",
+    resizeWidthHandle: "absolute top-0 -right-1 h-full w-2 cursor-ew-resize",
     resizeHeightHandle: "absolute -bottom-1 left-0 h-2 w-full cursor-ns-resize",
   },
   variants: {

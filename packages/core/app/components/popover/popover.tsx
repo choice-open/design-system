@@ -9,9 +9,8 @@ import {
 } from "@floating-ui/react"
 import { Slot } from "@radix-ui/react-slot"
 import React, { memo, useEffect, useId, useMemo } from "react"
-import { findChildByType, mergeRefs, tcx } from "~/utils"
-import { ModalContent } from "../modal"
-import { ModalTv } from "../modal/tv"
+import { findChildByType, mergeRefs } from "~/utils"
+import { Modal, ModalContent, ModalFooter } from "../modal"
 import { PopoverHeader, PopoverTrigger } from "./components"
 import { useDrag, useFloatingPopover } from "./hooks"
 import { PopoverContext } from "./popover-context"
@@ -165,8 +164,6 @@ export const DragPopover = memo(function DragPopover({
     ],
   )
 
-  const style = ModalTv()
-
   return (
     <FloatingNode id={nodeId}>
       <PopoverContext.Provider value={contextValue}>
@@ -179,7 +176,7 @@ export const DragPopover = memo(function DragPopover({
         >
           <FloatingPortal id={portalId}>
             {floating.innerOpen && (
-              <div
+              <Modal
                 ref={(node) => {
                   floating.refs.setFloating(node)
                   floatingRefMutable.current = node
@@ -188,7 +185,7 @@ export const DragPopover = memo(function DragPopover({
                   }
                 }}
                 style={combinedStyles}
-                className={tcx(tcx(style.root(), className))}
+                className={className}
                 data-state={floating.positionReady ? "open" : "opening"}
                 data-dragging={dragState.isDragging ? "true" : undefined}
                 data-draggable={draggable ? "true" : undefined}
@@ -200,7 +197,7 @@ export const DragPopover = memo(function DragPopover({
               >
                 {headerContent}
                 {contentContent}
-              </div>
+              </Modal>
             )}
           </FloatingPortal>
         </FloatingFocusManager>
@@ -213,6 +210,7 @@ interface PopoverComponent extends React.FC<PopoverProps> {
   Trigger: typeof PopoverTrigger
   Content: typeof ModalContent
   Header: typeof PopoverHeader
+  Footer: typeof ModalFooter
 }
 
 const PopoverBase: React.FC<PopoverProps> = memo((props) => {
@@ -233,4 +231,5 @@ export const Popover = Object.assign(PopoverBase, {
   Trigger: PopoverTrigger,
   Content: ModalContent,
   Header: PopoverHeader,
+  Footer: ModalFooter,
 }) as PopoverComponent

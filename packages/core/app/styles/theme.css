@@ -449,7 +449,7 @@
   --color-disabled-background: var(--background-disabled);
   --color-secondary-background: var(--background-secondary);
   --color-selected-background: var(--background-selected);
-  --color-secondary-activ-background: var(--background-secondary-active);
+  --color-secondary-active-background: var(--background-secondary-active);
   --color-accent-background: var(--blue-500);
   --color-accent-active-background: var(--blue-600);
   --color-success-background: var(--green-500);
@@ -511,16 +511,13 @@
 
   --shadow-focus:
     0px 0px 0px 1px var(--color-default-background), 0px 0px 0px 2px var(--color-selected-boundary);
-  --shadow-range-thumb:
-    0 0 0 2px rgb(255 255 255), 0 1px 4px 2px rgba(0 0 0 / 0.1), 0 4px 8px 2px rgba(0 0 0 / 0.1),
-    0 0 1px 2px rgba(0 0 0 / 0.3);
+
   --shadow-line: inset 0 0 0 1px
     color-mix(in oklch, var(--color-default-foreground) 10%, transparent);
+    
   --shadow-inset-border: inset 0 0 0 1px var(--color-default-boundary);
   --shadow-border: 0 0 0 1px var(--color-default-boundary);
-
-  --shadow-checked-focused:
-    inset 0 0 0 1px var(--color-default-background), inset 0 0 0 8px var(--color-accent-background);
+  --shadow-border-white: 0 0 0 1px var(--color-white);
 
   --z-index-sticky: 100;
   --z-index-fixed: 700;

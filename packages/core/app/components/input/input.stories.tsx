@@ -1,22 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
-import { TextInput } from "./text-input"
-import React from "react"
+import React, { useState } from "react"
+import { Input } from "./input"
 
-const meta: Meta<typeof TextInput> = {
-  title: "TextInput",
-  component: TextInput,
+const meta: Meta<typeof Input> = {
+  title: "Forms/Input",
+  component: Input,
 }
 
 export default meta
 
-type Story = StoryObj<typeof TextInput>
+type Story = StoryObj<typeof Input>
 
 /**
- * `TextInput` is a basic input component that can be used to input text.
+ * `Input` is a basic input component that can be used to input text.
  */
 export const Basic: Story = {
-  render: () => <TextInput />,
+  render: () => <Input />,
 }
 
 /**
@@ -26,10 +25,26 @@ export const Disabled: Story = {
   render: function DisabledStory() {
     const [value, setValue] = useState("Disabled")
     return (
-      <TextInput
+      <Input
         value={value}
         onChange={(value) => setValue(value)}
         disabled
+      />
+    )
+  },
+}
+
+/**
+ * The `readOnly` prop is used to make the input read-only.
+ */
+export const ReadOnly: Story = {
+  render: function ReadOnlyStory() {
+    const [value, setValue] = useState("Read Only")
+    return (
+      <Input
+        readOnly
+        value={value}
+        onChange={(value) => setValue(value)}
       />
     )
   },
@@ -43,7 +58,7 @@ export const Selected: Story = {
   render: function SelectedStory() {
     const [value, setValue] = useState("Selected")
     return (
-      <TextInput
+      <Input
         value={value}
         onChange={(value) => setValue(value)}
         selected
@@ -59,7 +74,7 @@ export const Placeholder: Story = {
   render: function PlaceholderStory() {
     const [value, setValue] = useState("")
     return (
-      <TextInput
+      <Input
         placeholder="Placeholder"
         value={value}
         onChange={(value) => setValue(value)}
@@ -79,12 +94,48 @@ export const Variants: Story = {
   render: function VariantsStory() {
     return (
       <>
-        <TextInput value="Default" />
-        <TextInput
-          value="Transparent"
-          variant="transparent"
+        <Input value="Default" />
+        <Input
+          value="Reset"
+          variant="reset"
         />
       </>
+    )
+  },
+}
+
+/**
+ * The `variant` prop is used to set the variant of the input.
+ * - `dark`: dark variant
+ * - `default`: default variant
+ * - `reset`: reset variant
+ */
+export const Dark: Story = {
+  render: function DarkStory() {
+    return (
+      <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+        <Input
+          variant="dark"
+          placeholder="Dark"
+        />
+      </div>
+    )
+  },
+}
+
+/**
+ * The `disabled` prop is used to disable the input.
+ */
+export const DarkWithDisabled: Story = {
+  render: function DarkWithDisabledStory() {
+    return (
+      <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+        <Input
+          variant="dark"
+          placeholder="Dark"
+          disabled
+        />
+      </div>
     )
   },
 }
@@ -96,7 +147,7 @@ export const Controlled: Story = {
   render: function ControlledStory() {
     const [value, setValue] = useState("Controlled")
     return (
-      <TextInput
+      <Input
         value={value}
         onChange={(value) => setValue(value)}
       />

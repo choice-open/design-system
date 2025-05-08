@@ -2,14 +2,14 @@ import { tv } from "tailwind-variants"
 
 export const ModalTv = tv({
   slots: {
-    root: "rounded-lg relative flex flex-col bg-body shadow-xl max-w-fit z-modals pointer-events-auto",
+    root: "bg-default-background z-modals pointer-events-auto relative flex max-w-fit flex-col rounded-lg shadow-xl",
   },
 })
 
 export const ModalHeaderTv = tv({
   slots: {
-    root: "h-10 border-b border-default-boundary flex flex-none items-center gap-2 justify-between w-full",
-    title: "p-2 font-medium leading-md tracking-md flex items-center gap-2",
+    root: "border-default-boundary flex h-10 w-full flex-none items-center justify-between gap-2 border-b",
+    title: "leading-md tracking-md flex items-center gap-2 p-2 font-medium",
     close: "p-2",
   },
   variants: {
@@ -35,6 +35,6 @@ export const ModalContentTv = tv({
 
 export const ModalFooterTv = tv({
   slots: {
-    root: "h-10 border-t border-default-boundary flex flex-none items-center gap-2 justify-between p-2",
+    root: "border-default-boundary flex h-10 flex-none items-center justify-between gap-2 border-t p-2",
   },
 })

@@ -1,6 +1,5 @@
-import { memo, ReactNode, useId } from "react"
+import { memo, useId } from "react"
 import { Select, SelectProps } from "~/components/select"
-import { TextInput, TextInputProps } from "~/components/text-input"
 
 interface ModalSelectProps extends Omit<SelectProps, "label"> {
   label?: string

@@ -2,39 +2,23 @@ import { tv } from "tailwind-variants"
 
 export const switchTv = tv({
   slots: {
-    root: [
-      // Layout
-      "flex items-center gap-2",
-      // Typography
-      "select-none",
-    ],
+    root: ["relative flex items-center gap-2", "select-none"],
     track: [
-      // Layout
       "relative",
-      // Shape
       "rounded-full",
-      // Border
-      "border border-solid",
-      // Size
-      "w-(--switch-width) h-(--switch-height)",
-      // Transition
+      "border border-solid border-transparent",
+      "h-(--switch-height) w-(--switch-width)",
       "transition-colors",
     ],
     thumb: [
-      // Layout
       "absolute",
-      // Shape
       "rounded-full",
-      // Size
-      "w-(--thumb-size) h-(--thumb-size)",
-      // Position
+      "h-(--thumb-size) w-(--thumb-size)",
       "top-(--thumb-margin) left-(--thumb-margin)",
-      // Focus
-      "peer-focus-visible:ring-1 peer-focus-visible:ring-accent/50",
     ],
     input: [
-      "peer appearance-none pointer-events-auto",
-      "absolute inset-0 opacity-0 cursor-default",
+      "peer pointer-events-auto appearance-none",
+      "absolute inset-0 cursor-default opacity-0",
     ],
   },
   variants: {
@@ -43,15 +27,9 @@ export const switchTv = tv({
       medium: {},
     },
     variant: {
-      default: {
-        track: "border-transparent",
-      },
-      accent: {
-        track: "border-transparent",
-      },
-      outline: {
-        track: "border-default-boundary bg-transparent",
-      },
+      default: {},
+      accent: {},
+      outline: {},
     },
     checked: {
       true: {},
@@ -60,12 +38,16 @@ export const switchTv = tv({
     disabled: {
       true: {
         root: "text-secondary-foreground",
-        track: "bg-secondary-background border-transparent",
+        track: "bg-disabled-background border-transparent",
         thumb: "bg-white",
       },
       false: {
         root: "text-default-foreground",
       },
+    },
+    focused: {
+      true: {},
+      false: {},
     },
   },
   compoundVariants: [
@@ -75,18 +57,18 @@ export const switchTv = tv({
       disabled: false,
       variant: ["default", "accent"],
       class: {
-        track: "bg-secondary-background",
+        track: "bg-secondary-active-background",
         thumb: "shadow-small bg-white",
       },
     },
     // 选中状态 - default
     {
-      variant: "default",
+      variant: ["default", "outline"],
       checked: true,
       disabled: false,
       class: {
         track: "bg-default-foreground",
-        thumb: "shadow-small bg-white",
+        thumb: "shadow-small bg-default-background",
       },
     },
     // 选中状态 - accent
@@ -99,24 +81,14 @@ export const switchTv = tv({
         thumb: "shadow-small bg-white",
       },
     },
-    // 选中状态 - outline
-    {
-      variant: "outline",
-      checked: true,
-      disabled: false,
-      class: {
-        track: "border-default-boundary-foreground bg-transparent",
-        thumb: "bg-default-foreground shadow-none",
-      },
-    },
     // 未选中状态 - outline
     {
       variant: "outline",
       checked: false,
       disabled: false,
       class: {
-        track: "border-default-boundary bg-transparent",
-        thumb: "bg-secondary-background shadow-none",
+        track: "border-default-foreground bg-transparent",
+        thumb: "bg-default-foreground shadow-none",
       },
     },
     // hover 状态 - default & accent
@@ -125,7 +97,7 @@ export const switchTv = tv({
       checked: false,
       disabled: false,
       class: {
-        track: "hover:bg-secondary-activ-background",
+        track: "hover:bg-secondary-active-background",
       },
     },
     // hover 状态 - outline
@@ -134,7 +106,73 @@ export const switchTv = tv({
       checked: false,
       disabled: false,
       class: {
-        track: "hover:border-secondary-activ-background",
+        track: "hover:bg-secondary-background",
+      },
+    },
+    {
+      focused: true,
+      checked: false,
+      disabled: false,
+      variant: ["default", "accent", "outline"],
+      class: {
+        track: "border-selected-boundary",
+        thumb: "shadow-none",
+      },
+    },
+    {
+      focused: true,
+      checked: true,
+      disabled: false,
+      variant: ["default", "outline"],
+      class: {
+        track: "border-selected-boundary shadow-switch-focused",
+        thumb: "shadow-border-white",
+      },
+    },
+    {
+      focused: true,
+      checked: true,
+      disabled: false,
+      variant: "accent",
+      class: {
+        track: "border-selected-boundary shadow-checked-focused",
+        thumb: "shadow-border-white",
+      },
+    },
+    {
+      focused: false,
+      checked: false,
+      disabled: false,
+      variant: ["default", "accent", "outline"],
+      class: {
+        track: "peer-focus-visible:border-selected-boundary",
+        thumb: "peer-focus-visible:shadow-border-white",
+      },
+    },
+    {
+      focused: false,
+      checked: true,
+      disabled: false,
+      variant: ["default", "outline"],
+      class: {
+        track: [
+          "peer-focus-visible:border-selected-boundary",
+          "peer-focus-visible:shadow-switch-focused",
+        ],
+        thumb: "peer-focus-visible:shadow-border-white",
+      },
+    },
+    {
+      focused: true,
+      checked: true,
+      disabled: false,
+      variant: "accent",
+      class: {
+        track: [
+          "peer-focus-visible:border-selected-boundary",
+          "peer-focus-visible:shadow-checked-focused",
+        ],
+        thumb: "peer-focus-visible:shadow-border-white",
       },
     },
   ],
@@ -143,5 +181,6 @@ export const switchTv = tv({
     variant: "default",
     checked: false,
     disabled: false,
+    focused: false,
   },
 })

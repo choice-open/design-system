@@ -16,7 +16,7 @@ import { MenuItem } from "./components"
 import { Menus } from "./menus"
 
 const meta: Meta<typeof MenuItem> = {
-  title: "Menus/MenuItem",
+  title: "Collections/MenuItem",
   component: MenuItem,
   decorators: [
     (Story) => (

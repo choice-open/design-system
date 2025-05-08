@@ -1,15 +1,15 @@
 import { faker } from "@faker-js/faker"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "../button"
-import { Dialog } from "./dialog"
 import { Dropdown } from "../dropdown"
-import { Select } from "../select"
 import { Popover } from "../popover"
-import React from "react"
+import { Scroll } from "../scroll"
+import { Select } from "../select"
+import { Dialog } from "./dialog"
 
 const meta: Meta<typeof Dialog> = {
-  title: "Dialog",
+  title: "Overlays/Dialog",
   component: Dialog,
 }
 
@@ -162,8 +162,13 @@ export const Resizable: Story = {
           onOpenChange={setOpen}
         >
           <Dialog.Header title="Resizable Dialog Title" />
-          <Dialog.Content className="w-96 overflow-y-auto p-3">
-            {faker.lorem.paragraphs(3)}
+          <Dialog.Content className="overflow-hidden">
+            <Scroll
+              className="h-full"
+              scrollbarMode="large-b"
+            >
+              <Scroll.Viewport className="h-full p-4">{faker.lorem.paragraphs(3)}</Scroll.Viewport>
+            </Scroll>
           </Dialog.Content>
         </Dialog>
       </>
@@ -184,15 +189,17 @@ export const Nested: Story = {
           onOpenChange={setOpen}
         >
           <Dialog.Header title="Nested Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
+          <Dialog.Content className="flex w-96 gap-4 p-4">
             <Select
               value="option-1"
               onChange={() => {}}
             >
               <Select.Trigger>Open</Select.Trigger>
-              <Select.Item value="option-1">Option 1</Select.Item>
-              <Select.Item value="option-2">Option 2</Select.Item>
-              <Select.Item value="option-3">Option 3</Select.Item>
+              <Select.Content>
+                <Select.Item value="option-1">Option 1</Select.Item>
+                <Select.Item value="option-2">Option 2</Select.Item>
+                <Select.Item value="option-3">Option 3</Select.Item>
+              </Select.Content>
             </Select>
             <Popover>
               <Popover.Trigger>
@@ -202,8 +209,10 @@ export const Nested: Story = {
             </Popover>
             <Dropdown>
               <Dropdown.Trigger>Open</Dropdown.Trigger>
-              <Dropdown.Item>Option 1</Dropdown.Item>
-              <Dropdown.Item>Option 2</Dropdown.Item>
+              <Dropdown.Content>
+                <Dropdown.Item>Option 1</Dropdown.Item>
+                <Dropdown.Item>Option 2</Dropdown.Item>
+              </Dropdown.Content>
             </Dropdown>
           </Dialog.Content>
         </Dialog>

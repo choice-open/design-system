@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { MultiLineTextInput } from "./multi-line-text-input"
 
 const meta: Meta<typeof MultiLineTextInput> = {
-  title: "MultiLineTextInput",
+  title: "Forms/MultiLineTextInput",
   component: MultiLineTextInput,
 }
 
@@ -64,9 +64,47 @@ export const Variants: Story = {
         <MultiLineTextInput value="Default" />
         <MultiLineTextInput
           value="Transparent"
-          variant="transparent"
+          variant="dark"
         />
       </>
+    )
+  },
+}
+
+/**
+ * The `dark` prop is used to set the dark variant of the input.
+ */
+export const Dark: Story = {
+  render: function DarkStory() {
+    const [value, setValue] = useState("Dark")
+    return (
+      <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+        <MultiLineTextInput
+          value={value}
+          onChange={(value) => setValue(value)}
+          variant="dark"
+          placeholder="Dark"
+        />
+      </div>
+    )
+  },
+}
+
+/**
+ * The `size` prop is used to set the size of the input.
+ * - `default`: default size
+ * - `large`: large size
+ */
+export const Sizes: Story = {
+  render: function SizesStory() {
+    const [value, setValue] = useState("Large")
+    return (
+      <MultiLineTextInput
+        value={value}
+        onChange={(value) => setValue(value)}
+        minRows={6}
+        maxRows={12}
+      />
     )
   },
 }

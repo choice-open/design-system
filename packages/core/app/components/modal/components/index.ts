@@ -1,6 +1,5 @@
 export * from "./modal-content"
 export * from "./modal-header"
 export * from "./modal-footer"
-export * from "./modal-input"
 export * from "./modal-select"
 export * from "./modal-multi-line-input"

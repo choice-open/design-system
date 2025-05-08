@@ -2,7 +2,7 @@ import { FloatingOverlay, FloatingPortal } from "@floating-ui/react"
 import { Slot } from "@radix-ui/react-slot"
 import React, { memo, useId, useMemo, useRef } from "react"
 import { findChildByType, tcx } from "~/utils"
-import { ModalContent } from "../modal"
+import { Modal, ModalContent } from "../modal"
 import { DialogBackdrop, DialogHeader, DialogTrigger } from "./components"
 import { DialogContext } from "./dialog-context"
 import { useDrag, useFloatingDialog, useResize } from "./hooks"
@@ -150,7 +150,7 @@ const DialogComponent = memo(function DialogComponent({
 
             {backdropContent}
 
-            <div
+            <Modal
               ref={(node) => {
                 if (node) {
                   dialogRef.current = node
@@ -201,7 +201,7 @@ const DialogComponent = memo(function DialogComponent({
                   }}
                 />
               )}
-            </div>
+            </Modal>
           </FloatingOverlay>
         </FloatingPortal>
       )}

@@ -47,19 +47,19 @@ export const iconButtonTv = tv({
       variant: ["default", "highlight"],
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-activ-background" },
+      class: { button: "hover:bg-secondary-background active:bg-secondary-active-background" },
     },
     {
       variant: "default",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-activ-background" },
+      class: { button: "bg-secondary-active-background" },
     },
     {
       variant: "secondary",
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-activ-background" },
+      class: { button: "hover:bg-secondary-background active:bg-secondary-active-background" },
     },
     {
       variant: "secondary",
@@ -71,13 +71,15 @@ export const iconButtonTv = tv({
       variant: "solid",
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-activ-background active:bg-secondary-activ-background" },
+      class: {
+        button: "hover:bg-secondary-active-background active:bg-secondary-active-background",
+      },
     },
     {
       variant: "solid",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-activ-background" },
+      class: { button: "bg-secondary-active-background" },
     },
     {
       variant: "highlight",
@@ -90,8 +92,11 @@ export const iconButtonTv = tv({
       active: false,
       disabled: false,
       class: {
-        button:
-          "text-default-foreground/50 hover:text-default-foreground active:text-default-foreground",
+        button: [
+          "text-default-foreground/50",
+          "hover:text-default-foreground",
+          "active:text-default-foreground",
+        ],
       },
     },
     {
@@ -111,7 +116,7 @@ export const iconButtonTv = tv({
 
 export const iconButtonGroupTv = tv({
   slots: {
-    container: "grid gap-x-px grid-cols-(--columns)",
-    button: ["flex-1", "first:rounded-l-md last:rounded-r-md rounded-none", "min-w-6 w-full"],
+    container: "grid grid-cols-(--columns) gap-x-px",
+    button: ["flex-1", "rounded-none first:rounded-l-md last:rounded-r-md", "w-full min-w-6"],
   },
 })

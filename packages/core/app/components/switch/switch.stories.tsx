@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 import { Tooltip } from "../tooltip"
 import { Switch } from "./switch"
 
@@ -18,13 +18,59 @@ type Story = StoryObj<typeof Switch>
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [value, setValue] = useState(false)
+    enum Variant {
+      Default = "default",
+      Accent = "accent",
+      Outline = "outline",
+    }
+
+    enum Size {
+      Small = "small",
+      Medium = "medium",
+    }
+
+    enum State {
+      Disabled = "disabled",
+      Enabled = "enabled",
+      Focused = "focused",
+    }
+
     return (
-      <Switch
-        aria-label="Switch"
-        value={value}
-        onChange={setValue}
-      />
+      <div className="flex flex-col gap-4">
+        {Object.values(Size).map((size, index) => (
+          <Fragment key={size}>
+            <span>{size}</span>
+            <div className="grid grid-cols-7 gap-2">
+              <span></span>
+              <span className="col-span-2">Disabled</span>
+              <span className="col-span-2">Enabled</span>
+              <span className="col-span-2">Focused</span>
+            </div>
+            <div className="grid grid-cols-7 gap-2">
+              {Object.values(Variant).map((variant) => (
+                <Fragment key={variant}>
+                  <span className="text-pink-500">{variant}</span>
+                  {Object.values(State).map((state) => (
+                    <Fragment key={state}>
+                      {[false, true].map((value) => (
+                        <Switch
+                          value={value}
+                          onChange={() => {}}
+                          variant={variant}
+                          size={size}
+                          disabled={state === State.Disabled}
+                          focused={state === State.Focused}
+                        />
+                      ))}
+                    </Fragment>
+                  ))}
+                </Fragment>
+              ))}
+            </div>
+            {index < Object.values(Size).length - 1 && <hr />}
+          </Fragment>
+        ))}
+      </div>
     )
   },
 }

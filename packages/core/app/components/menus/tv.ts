@@ -141,14 +141,6 @@ export const MenuDividerTv = tv({
   },
 })
 
-export const MenuSearchTv = tv({
-  slots: {
-    container: "bg-gray-700",
-    icon: "text-white/50 group-focus-within/search:text-white group-hover/search:text-white",
-    action: "hover:text-white",
-  },
-})
-
 export const MenuSearchEmptyTv = tv({
   slots: {
     root: "flex flex-col items-center justify-center gap-2 p-4 text-center",

@@ -134,7 +134,7 @@ export const buttonTv = tv({
     {
       active: true,
       variant: "solid",
-      class: { button: "bg-secondary-activ-background" },
+      class: { button: "bg-secondary-active-background" },
     },
     {
       active: true,
@@ -178,7 +178,7 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "solid",
-      class: { button: "active:bg-secondary-activ-background" },
+      class: { button: "active:bg-secondary-active-background" },
     },
     {
       disabled: false,

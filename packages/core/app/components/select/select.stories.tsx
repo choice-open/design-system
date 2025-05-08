@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import { Select } from "./select"
 
 const meta: Meta<typeof Select> = {
-  title: "Select",
+  title: "Collections/Select",
   component: Select,
 }
 

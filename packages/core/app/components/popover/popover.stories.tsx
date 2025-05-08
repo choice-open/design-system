@@ -6,11 +6,11 @@ import { Button } from "../button"
 import { Dropdown } from "../dropdown"
 import { Select } from "../select"
 import { Tabs } from "../tabs"
-import { TextInput } from "../text-input"
+import { Input } from "../input"
 import { Popover } from "./popover"
 
 const meta: Meta<typeof Popover> = {
-  title: "Popover",
+  title: "Overlays/Popover",
   component: Popover,
 }
 
@@ -99,7 +99,7 @@ export const Interactions: Story = {
 
         <Popover interactions="focus">
           <Popover.Trigger>
-            <TextInput placeholder="Use tab to focus" />
+            <Input placeholder="Use tab to focus" />
           </Popover.Trigger>
           <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
@@ -316,30 +316,32 @@ export const Nested: Story = {
         <Popover.Trigger>
           <Button>{open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
-        <Popover.Content className="flex gap-3 p-3">
-          <div className="flex gap-3">
-            <Select
-              value="option-1"
-              onChange={() => {}}
-            >
-              <Select.Trigger>Select</Select.Trigger>
+        <Popover.Content className="flex gap-4 p-4">
+          <Select
+            value="option-1"
+            onChange={() => {}}
+          >
+            <Select.Trigger>Select</Select.Trigger>
+            <Select.Content>
               <Select.Item value="option-1">Option 1</Select.Item>
               <Select.Item value="option-2">Option 2</Select.Item>
-            </Select>
+            </Select.Content>
+          </Select>
 
-            <Popover>
-              <Popover.Trigger>
-                <Button>Popover</Button>
-              </Popover.Trigger>
-              <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-            </Popover>
+          <Popover>
+            <Popover.Trigger>
+              <Button>Popover</Button>
+            </Popover.Trigger>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
+          </Popover>
 
-            <Dropdown disabledNested>
-              <Dropdown.Trigger>Dropdown</Dropdown.Trigger>
+          <Dropdown disabledNested>
+            <Dropdown.Trigger>Dropdown</Dropdown.Trigger>
+            <Dropdown.Content>
               <Dropdown.Item>Option 1</Dropdown.Item>
               <Dropdown.Item>Option 2</Dropdown.Item>
-            </Dropdown>
-          </div>
+            </Dropdown.Content>
+          </Dropdown>
         </Popover.Content>
       </Popover>
     )

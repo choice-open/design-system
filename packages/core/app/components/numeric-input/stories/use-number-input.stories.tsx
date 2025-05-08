@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
 import { useNumericInput } from "../hooks/use-numeric-input"
+import { Dot } from "@choiceform/icons-react"
+import React from "react"
 
 const meta: Meta = {
-  title: "NumericInput/useNumericInput",
+  title: "Forms/NumericInput/useNumericInput",
 }
 
 export default meta

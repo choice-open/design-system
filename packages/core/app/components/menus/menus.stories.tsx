@@ -7,7 +7,7 @@ import { MenuSearch, MenuSearchEmpty } from "./components"
 import { Menus } from "./menus"
 
 const meta: Meta<typeof Menus> = {
-  title: "Menus",
+  title: "Collections/Menus",
   component: Menus,
   decorators: [
     (Story) => (

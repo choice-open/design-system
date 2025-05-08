@@ -5,8 +5,8 @@ import { textareaTv } from "./tv"
 
 export interface MultiLineTextInputProps extends Omit<TextareaAutosizeProps, "style" | "onChange"> {
   resizeHandle?: "none" | "both" | "horizontal" | "vertical"
-  variant?: "default" | "transparent"
-  size?: "default" | "large"
+  variant?: "default" | "dark" | "reset"
+  selected?: boolean
   value?: string
   onChange?: (value: string) => void
 }
@@ -24,8 +24,9 @@ export const MultiLineTextInput = forwardRef<HTMLTextAreaElement, MultiLineTextI
       cacheMeasurements,
       resizeHandle = "none",
       variant = "default",
-      size = "default",
       disabled,
+      selected,
+      readOnly,
       value,
       onChange,
       onHeightChange,
@@ -35,7 +36,7 @@ export const MultiLineTextInput = forwardRef<HTMLTextAreaElement, MultiLineTextI
     const [hasMultipleRows, setIsHasMultipleRows] = useState(minRows > 1)
     const [isLimitReached, setIsLimitReached] = useState(false)
 
-    const style = textareaTv({ variant, size, disabled, resizeHandle })
+    const styles = textareaTv({ variant, disabled, resizeHandle, selected, readOnly })
 
     const handleHeightChange = (height: number, meta: TextareaHeightChangeMeta) => {
       if (minRows === 1) {
@@ -59,7 +60,7 @@ export const MultiLineTextInput = forwardRef<HTMLTextAreaElement, MultiLineTextI
         minRows={minRows}
         onHeightChange={handleHeightChange}
         data-has-multiple-rows={hasMultipleRows}
-        className={tcx(style, className)}
+        className={tcx(styles, className)}
         disabled={disabled}
         value={value}
         onChange={(e) => onChange?.(e.target.value)}

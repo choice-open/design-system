@@ -4,7 +4,7 @@ import { ContextMenu } from "."
 import React from "react"
 
 const meta: Meta<typeof ContextMenu> = {
-  title: "ContextMenu",
+  title: "Collections/ContextMenu",
   component: ContextMenu,
 }
 

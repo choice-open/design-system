@@ -11,9 +11,10 @@ import {
   FieldTypeDate,
   FieldTypeRating,
 } from "@choiceform/icons-react"
+import React from "react"
 
 const meta: Meta<typeof IconButton> = {
-  title: "IconButton",
+  title: "Buttons/IconButton",
   component: IconButton,
 }
 
@@ -67,21 +68,37 @@ export const Variants: Story = {
       <div className="flex flex-col items-start gap-4">
         <div className="flex gap-4">
           <Select
-            options={Object.values(Variant).map((variant) => ({
-              label: variant,
-              value: variant,
-            }))}
             value={variant}
             onChange={(value) => setVariant(value as Variant)}
-          />
+          >
+            <Select.Trigger>{variant}</Select.Trigger>
+            <Select.Content>
+              {Object.values(Variant).map((variant) => (
+                <Select.Item
+                  key={variant}
+                  value={variant}
+                >
+                  {variant}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
           <Select
-            options={Object.values(Size).map((size) => ({
-              label: size,
-              value: size,
-            }))}
             value={size}
             onChange={(value) => setSize(value as Size)}
-          />
+          >
+            <Select.Trigger>{size}</Select.Trigger>
+            <Select.Content>
+              {Object.values(Size).map((size) => (
+                <Select.Item
+                  key={size}
+                  value={size}
+                >
+                  {size}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
         </div>
 
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">

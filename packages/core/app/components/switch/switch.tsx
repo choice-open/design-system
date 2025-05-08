@@ -9,6 +9,7 @@ interface SwitchProps extends Omit<HTMLProps<HTMLInputElement>, "size" | "value"
   onChange: (value: boolean) => void
   size?: "small" | "medium"
   variant?: "default" | "accent" | "outline"
+  focused?: boolean
 }
 
 interface SwitchStyle extends React.CSSProperties {
@@ -47,6 +48,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     size = "medium",
     variant = "default",
     className,
+    focused,
     "aria-label": ariaLabel,
     "aria-describedby": ariaDescribedby,
     ...rest
@@ -55,7 +57,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   const id = useId()
   const descriptionId = useId()
 
-  const styles = switchTv({ size, variant, disabled, checked: value })
+  const styles = switchTv({ size, variant, disabled, checked: value, focused })
 
   const style = {
     "--thumb-translate": "calc(var(--switch-width) - var(--thumb-size) - var(--thumb-margin) * 4)",
@@ -68,27 +70,25 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       htmlFor={id}
     >
       <span className="sr-only">{value ? "Enabled" : "Disabled"}</span>
-
+      <input
+        ref={ref}
+        className={styles.input()}
+        type="checkbox"
+        id={id}
+        checked={value}
+        disabled={disabled}
+        onChange={(e) => {
+          onChange(e.target.checked)
+        }}
+        aria-label={ariaLabel || label?.toString()}
+        aria-describedby={ariaDescribedby || (label ? descriptionId : undefined)}
+        aria-checked={value}
+        {...rest}
+      />
       <div
         className={styles.track()}
         style={style}
       >
-        <input
-          ref={ref}
-          className={styles.input()}
-          type="checkbox"
-          id={id}
-          checked={value}
-          disabled={disabled}
-          onChange={(e) => {
-            onChange(e.target.checked)
-          }}
-          aria-label={ariaLabel || label?.toString()}
-          aria-describedby={ariaDescribedby || (label ? descriptionId : undefined)}
-          aria-checked={value}
-          {...rest}
-        />
-
         <motion.div
           className={styles.thumb()}
           initial={{ x: 0 }}

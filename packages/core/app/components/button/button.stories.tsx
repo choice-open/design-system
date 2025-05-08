@@ -7,7 +7,7 @@ import { Button } from "./button"
 import React from "react"
 
 const meta: Meta<typeof Button> = {
-  title: "Button",
+  title: "Buttons/Button",
   component: Button,
 }
 

@@ -3,9 +3,10 @@ import { Fragment, useState } from "react"
 import { Select } from "../select"
 import { ToggleButton } from "./toggle-button"
 import { FieldAdd, FieldTypeAttachment, FieldTypeCheckbox } from "@choiceform/icons-react"
+import React from "react"
 
 const meta: Meta<typeof ToggleButton> = {
-  title: "ToggleButton",
+  title: "Buttons/ToggleButton",
   component: ToggleButton,
 }
 
@@ -71,29 +72,53 @@ export const Variants: Story = {
       <div className="flex flex-col items-start gap-4">
         <div className="flex gap-4">
           <Select
-            options={Object.values(Variant).map((variant) => ({
-              label: variant,
-              value: variant,
-            }))}
             value={variant}
             onChange={(value) => setVariant(value as Variant)}
-          />
+          >
+            <Select.Trigger>{variant}</Select.Trigger>
+            <Select.Content>
+              {Object.values(Variant).map((variant) => (
+                <Select.Item
+                  key={variant}
+                  value={variant}
+                >
+                  {variant}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
           <Select
-            options={Object.values(Size).map((size) => ({
-              label: size,
-              value: size,
-            }))}
             value={size}
             onChange={(value) => setSize(value as Size)}
-          />
+          >
+            <Select.Trigger>{size}</Select.Trigger>
+            <Select.Content>
+              {Object.values(Size).map((size) => (
+                <Select.Item
+                  key={size}
+                  value={size}
+                >
+                  {size}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
           <Select
-            options={Object.values(Event).map((event) => ({
-              label: event,
-              value: event,
-            }))}
             value={event}
             onChange={(value) => setEvent(value as Event)}
-          />
+          >
+            <Select.Trigger>{event}</Select.Trigger>
+            <Select.Content>
+              {Object.values(Event).map((event) => (
+                <Select.Item
+                  key={event}
+                  value={event}
+                >
+                  {event}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select>
         </div>
 
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">

@@ -14,7 +14,7 @@ import { NumericInputVariableTrigger } from "../components/numeric-input-variabl
 import { NumericInput } from "../numeric-input"
 
 const meta: Meta<typeof NumericInput> = {
-  title: "NumericInput/Variable",
+  title: "Forms/NumericInput/Variable",
   component: NumericInput,
 }
 

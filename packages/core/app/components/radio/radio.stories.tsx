@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Fragment, useState } from "react"
+import React, { Fragment, useState } from "react"
 import { Radio } from "./radio"
 import { RadioGroup } from "./radio-group"
-import React from "react"
 
 const meta: Meta<typeof Radio> = {
-  title: "Radio",
+  title: "Forms/Radio",
   component: Radio,
 }
 

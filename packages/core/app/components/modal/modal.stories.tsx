@@ -9,9 +9,10 @@ import { Tabs } from "../tabs"
 import { Modal } from "./modal"
 import { Avatar } from "../avatar"
 import { faker } from "@faker-js/faker"
+import { TextField } from "../text-field"
 
 const meta: Meta<typeof Modal> = {
-  title: "Modal",
+  title: "Overlays/Modal",
   component: Modal,
 }
 
@@ -24,7 +25,7 @@ export const Basic: Story = {
     const [tab, setTab] = useState("tab-1")
     const [select, setSelect] = useState("option-1")
     return (
-      <Modal className="w-96">
+      <Modal className="w-md">
         <Modal.Header title="Modal" />
         <Modal.Header
           title={
@@ -58,9 +59,11 @@ export const Basic: Story = {
               <Select.Trigger prefixElement={<ThemeSunBright />}>
                 {select || "Select"}
               </Select.Trigger>
-              <Select.Item value="option-1">Option 1</Select.Item>
-              <Select.Item value="option-2">Option 2</Select.Item>
-              <Select.Item value="option-3">Option 3</Select.Item>
+              <Select.Content>
+                <Select.Item value="option-1">Option 1</Select.Item>
+                <Select.Item value="option-2">Option 2</Select.Item>
+                <Select.Item value="option-3">Option 3</Select.Item>
+              </Select.Content>
             </Select>
           }
         />
@@ -85,11 +88,13 @@ export const ModalContent: Story = {
     return (
       <Modal>
         <Modal.Header title="Modal" />
-        <Modal.Content className="w-[480px]">
-          <Modal.Input
-            label="Name"
-            placeholder="Please enter your name"
-          />
+        <Modal.Content className="flex w-md flex-col gap-4 p-4">
+          <TextField
+            size="large"
+            className="w-full"
+          >
+            <TextField.Label>Name</TextField.Label>
+          </TextField>
           <Modal.MultiLineInput
             label="Multi-line input"
             placeholder="Please enter your multi-line input"
@@ -111,9 +116,11 @@ export const ModalContent: Story = {
               />
               <span className="flex-1 truncate">{select || "Select"}</span>
             </Select.Trigger>
-            <Select.Item value="option-1">Option 1</Select.Item>
-            <Select.Item value="option-2">Option 2</Select.Item>
-            <Select.Item value="option-3">Option 3</Select.Item>
+            <Select.Content>
+              <Select.Item value="option-1">Option 1</Select.Item>
+              <Select.Item value="option-2">Option 2</Select.Item>
+              <Select.Item value="option-3">Option 3</Select.Item>
+            </Select.Content>
           </Modal.Select>
         </Modal.Content>
       </Modal>

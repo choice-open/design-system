@@ -10,7 +10,7 @@ export const ScrollTv = tv({
     ],
     thumb: [
       "relative flex-1 rounded",
-      "before:absolute before:left-1/2 before:top-1/2 before:h-full before:min-h-5 before:w-full before:min-w-5 z-5",
+      "z-5 before:absolute before:top-1/2 before:left-1/2 before:h-full before:min-h-5 before:w-full before:min-w-5",
       "before:-translate-x-1/2 before:-translate-y-1/2",
       "backdrop-blur-xs",
     ],
@@ -98,42 +98,42 @@ export const ScrollTv = tv({
       orientation: "vertical",
       scrollbarMode: "large-y",
       class: {
-        scrollbar: "px-0.5 py-3",
+        scrollbar: "px-0.5 py-2",
       },
     },
     {
       orientation: "vertical",
       scrollbarMode: "large-t",
       class: {
-        scrollbar: "px-0.5 pt-3",
+        scrollbar: "px-0.5 pt-2",
       },
     },
     {
       orientation: "vertical",
       scrollbarMode: "large-b",
       class: {
-        scrollbar: "px-0.5 pb-3",
+        scrollbar: "px-0.5 pb-2",
       },
     },
     {
       orientation: "horizontal",
       scrollbarMode: "large-x",
       class: {
-        scrollbar: "py-0.5 px-3",
+        scrollbar: "px-2 py-0.5",
       },
     },
     {
       orientation: "horizontal",
       scrollbarMode: "large-l",
       class: {
-        scrollbar: "py-0.5 pl-3",
+        scrollbar: "py-0.5 pl-2",
       },
     },
     {
       orientation: "horizontal",
       scrollbarMode: "large-r",
       class: {
-        scrollbar: "py-0.5 pr-3",
+        scrollbar: "py-0.5 pr-2",
       },
     },
   ],

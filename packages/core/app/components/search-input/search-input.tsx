@@ -1,67 +1,55 @@
-import { RemoveSmall, SearchSmall } from "@choiceform/icons-react"
+import { RemoveSmall, Search } from "@choiceform/icons-react"
 import { forwardRef } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { tcx } from "~/utils"
 import { IconButton } from "../icon-button"
-import { TextInput, type TextInputProps } from "../text-input"
+import { TextField, type TextFieldProps } from "../text-field"
 import { searchInputTv } from "./tv"
 
-export interface SearchInputProps extends TextInputProps {
-  className?: string
-  classNames?: {
-    container?: string
-    input?: string
-    icon?: string
-    action?: string
-  }
-}
+export interface SearchInputProps extends TextFieldProps {}
 
 export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props, ref) => {
   const {
     className,
-    classNames,
     placeholder = "Search ...",
     value,
     onChange,
-    size,
+    variant = "default",
+    disabled,
     ...rest
   } = props
-
-  const styles = searchInputTv({ size })
 
   const handleClear = useEventCallback(() => {
     onChange?.("")
   })
 
+  const style = searchInputTv({ variant, disabled })
+
   return (
-    <div className={tcx(styles.container(), classNames?.container, className)}>
-      <div className={tcx(styles.icon(), classNames?.icon)}>
-        <SearchSmall />
-      </div>
-
-      <TextInput
-        ref={ref}
-        type="text"
-        variant="transparent"
-        size={size}
-        className={tcx(styles.input(), classNames?.input)}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        {...rest}
-      />
-
+    <TextField
+      ref={ref}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      variant={variant}
+      disabled={disabled}
+      {...rest}
+    >
+      <TextField.Prefix className={style.icon()}>
+        <Search />
+      </TextField.Prefix>
       {value && (
-        <IconButton
-          className={tcx(styles.action(), classNames?.action)}
-          variant="ghost"
-          tooltip={{ content: "Clear" }}
-          onClick={handleClear}
-        >
-          <RemoveSmall />
-        </IconButton>
+        <TextField.Suffix>
+          <IconButton
+            className={style.action()}
+            variant="ghost"
+            tooltip={{ content: "Clear" }}
+            onClick={handleClear}
+          >
+            <RemoveSmall />
+          </IconButton>
+        </TextField.Suffix>
       )}
-    </div>
+    </TextField>
   )
 })
 

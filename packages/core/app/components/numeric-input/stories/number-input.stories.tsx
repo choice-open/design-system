@@ -1,15 +1,15 @@
-import { SvgIcon, SvgIconName } from "@choiceform/ui-react"
+import { Dot } from "@choiceform/icons-react"
 import { observable } from "@legendapp/state"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Checkbox } from "../../checkbox"
 import { Select } from "../../select"
-import { NumericInput } from "../numeric-input"
-import { NumericInputValue, NumberResult } from "../types"
 import { NumericInputMenuActionPrompt, NumericInputMenuTrigger } from "../components"
+import { NumericInput } from "../numeric-input"
+import { NumberResult, NumericInputValue } from "../types"
 
 const meta: Meta<typeof NumericInput> = {
-  title: "NumericInput",
+  title: "Forms/NumericInput",
   component: NumericInput,
 }
 
@@ -20,12 +20,12 @@ const selectOptions$ = observable([
   {
     label: "Fixed height",
     value: "fixed",
-    icon: <SvgIcon name={SvgIconName.interface.fixedHeight} />,
+    icon: <Dot />,
   },
   {
     label: "Hug contents",
     value: "hug",
-    icon: <SvgIcon name={SvgIconName.interface.hugHeight} />,
+    icon: <Dot />,
   },
   {
     divider: true,
@@ -33,12 +33,12 @@ const selectOptions$ = observable([
   {
     label: "Add min height...",
     value: "min",
-    icon: <SvgIcon name={SvgIconName.interface.minHeight} />,
+    icon: <Dot />,
   },
   {
     label: "Add max height...",
     value: "max",
-    icon: <SvgIcon name={SvgIconName.interface.maxHeight} />,
+    icon: <Dot />,
   },
 ])
 
@@ -200,7 +200,7 @@ export const Basic: Story = {
         <NumericInput
           prefixElement={
             <div>
-              <SvgIcon name={SvgIconName.interface.colorTypeGradient} />
+              <Dot />,
             </div>
           }
           value={prefixHandlerValueLeft}
@@ -312,7 +312,7 @@ export const Basic: Story = {
           selected={selected || menuOpenC}
           prefixElement={
             <div>
-              <SvgIcon name={SvgIconName.interface.effectLayerBlur} />
+              <Dot />,
             </div>
           }
           suffixElement={{
@@ -363,7 +363,7 @@ export const Basic: Story = {
         <NumericInput
           prefixElement={
             <div>
-              <SvgIcon name={SvgIconName.interface.effectLayerBlur} />
+              <Dot />,
             </div>
           }
           variableValue={10}
@@ -399,7 +399,7 @@ export const Basic: Story = {
         <NumericInput
           prefixElement={
             <div>
-              <SvgIcon name={SvgIconName.interface.effectLayerBlur} />
+              <Dot />,
             </div>
           }
           suffixElement={{
@@ -488,7 +488,7 @@ export const Disabled: Story = {
           selected={menuOpen}
           prefixElement={
             <div>
-              <SvgIcon name={SvgIconName.interface.effectLayerBlur} />
+              <Dot />,
             </div>
           }
           suffixElement={{

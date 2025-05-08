@@ -1,12 +1,13 @@
 import { tv } from "tailwind-variants"
 
-export const textareaTv = tv({
+export const InputTv = tv({
   base: [
-    "min-w-0 rounded-md",
+    "min-w-0 rounded-md px-2",
     "leading-md tracking-md text-md",
-    "px-1.75 py-1",
-    "cursor-default appearance-none",
+    "cursor-default",
+    "appearance-none",
   ],
+
   variants: {
     variant: {
       default: ["bg-secondary-background", "placeholder:text-secondary-foreground"],
@@ -25,11 +26,9 @@ export const textareaTv = tv({
       true: "",
       false: "",
     },
-    resizeHandle: {
-      none: "resize-none",
-      both: "resize",
-      horizontal: "resize-x",
-      vertical: "resize-y",
+    size: {
+      default: "h-6",
+      large: "h-8",
     },
   },
   compoundVariants: [
@@ -76,11 +75,11 @@ export const textareaTv = tv({
       class: "bg-gray-700 text-white/40",
     },
   ],
+
   defaultVariants: {
     variant: "default",
-    disabled: false,
-    resizeHandle: "none",
     selected: false,
+    disabled: false,
     readOnly: false,
   },
 })

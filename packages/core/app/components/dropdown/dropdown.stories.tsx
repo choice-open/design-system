@@ -7,7 +7,7 @@ import { KbdKey } from "../kbd"
 import { Dropdown } from "./dropdown"
 
 const meta: Meta<typeof Dropdown> = {
-  title: "Dropdown",
+  title: "Collections/Dropdown",
   component: Dropdown,
 }
 

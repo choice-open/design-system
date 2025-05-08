@@ -1,10 +1,10 @@
 import { RemoveSmall } from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { ChipsInput, RenderChipProps, type ChipsInputProps } from "."
 
 const meta = {
-  title: "ChipsInput",
+  title: "Forms/ChipsInput",
   component: ChipsInput,
 } satisfies Meta<typeof ChipsInput>
 

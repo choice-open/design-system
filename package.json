@@ -7,6 +7,7 @@
     "build": "pnpm --filter=\"./packages/**\" run build",
     "lint": "pnpm --filter=\"./packages/**\" run lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "core:dev": "pnpm --filter=\"@choiceform/design-system\" run dev",
     "core:build": "pnpm --filter=\"@choiceform/design-system\" run build",
     "storybook": "pnpm --filter=\"@choiceform/design-system\" run storybook",
     "test": "pnpm --filter=\"./packages/**\" run test",

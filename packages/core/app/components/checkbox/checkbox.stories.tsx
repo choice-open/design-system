@@ -4,7 +4,7 @@ import React, { Fragment, useState } from "react"
 import { Checkbox } from "./checkbox"
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Checkbox",
+  title: "Forms/Checkbox",
   component: Checkbox,
 }
 

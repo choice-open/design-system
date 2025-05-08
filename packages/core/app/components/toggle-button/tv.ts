@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants"
 export const toggleButtonTv = tv({
   slots: {
     root: ["relative"],
-    input: ["absolute inset-0 h-full w-full", "appearance-none opacity-0 pointer-events-auto peer"],
+    input: ["absolute inset-0 h-full w-full", "peer pointer-events-auto appearance-none opacity-0"],
     label: [
       "absolute inset-0 flex h-full w-full rounded-md",
       "items-center justify-center",
@@ -57,23 +57,26 @@ export const toggleButtonTv = tv({
       variant: "default",
       active: false,
       event: "click",
+      disabled: false,
       class: {
-        label: "active:bg-secondary-activ-background",
+        label: "active:bg-secondary-active-background",
       },
     },
     {
       variant: ["highlight", "secondary"],
       active: false,
       checked: false,
+      disabled: false,
       event: "click",
       class: {
-        label: "active:bg-secondary-activ-background",
+        label: "active:bg-secondary-active-background",
       },
     },
     {
       variant: ["highlight", "secondary"],
       active: false,
       checked: true,
+      disabled: false,
       event: "click",
       class: {
         label: "active:bg-accent-background/10",
@@ -84,13 +87,14 @@ export const toggleButtonTv = tv({
       active: true,
       disabled: false,
       class: {
-        label: "bg-secondary-activ-background",
+        label: "bg-secondary-active-background",
       },
     },
     {
       variant: "secondary",
       checked: false,
       focused: false,
+      disabled: false,
       class: {
         label: "border-default-boundary hover:bg-secondary-background",
       },
@@ -127,7 +131,7 @@ export const toggleButtonTv = tv({
       checked: true,
       disabled: true,
       class: {
-        label: "bg-secondary-activ-background",
+        label: "bg-secondary-active-background",
       },
     },
   ],

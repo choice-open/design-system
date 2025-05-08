@@ -1,6 +1,6 @@
 import { forwardRef, useCallback } from "react"
 import { type SearchInputProps } from "../../search-input"
-import { TextInput } from "../../text-input"
+import { Input } from "../../input"
 
 export const MenuInput = forwardRef<HTMLInputElement, SearchInputProps>((props, ref) => {
   const { className, onKeyDown, ...rest } = props
@@ -16,12 +16,12 @@ export const MenuInput = forwardRef<HTMLInputElement, SearchInputProps>((props, 
   )
 
   return (
-    <TextInput
+    <Input
       {...rest}
       ref={ref}
       autoFocus
       onKeyDown={handleKeyDown}
-      variant="menu"
+      variant="dark"
     />
   )
 })

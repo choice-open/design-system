@@ -3,11 +3,10 @@ import { useI18nContext } from "~/i18n"
 import { tcx } from "~/utils"
 import { Button } from "../../button"
 import { SearchInput, type SearchInputProps } from "../../search-input"
-import { MenuSearchEmptyTv, MenuSearchTv } from "../tv"
+import { MenuSearchEmptyTv } from "../tv"
 
 export const MenuSearch = forwardRef<HTMLInputElement, SearchInputProps>((props, ref) => {
   const { className, onKeyDown, ...rest } = props
-  const styles = MenuSearchTv()
 
   // 阻止键盘事件冒泡，防止被 useTypeahead 截获
   const handleKeyDown = useCallback(
@@ -25,11 +24,7 @@ export const MenuSearch = forwardRef<HTMLInputElement, SearchInputProps>((props,
       ref={ref}
       autoFocus
       onKeyDown={handleKeyDown}
-      classNames={{
-        container: styles.container(),
-        icon: styles.icon(),
-        action: styles.action(),
-      }}
+      variant="dark"
     />
   )
 })
