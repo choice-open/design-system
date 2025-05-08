@@ -1,5 +1,4 @@
 import { tv } from "tailwind-variants"
-import css from "./styles.module.css"
 
 export const CommentsTv = tv({
   slots: {
@@ -14,7 +13,7 @@ export const CommentsTv = tv({
         root: "p-0",
       },
       false: {
-        inputRoot: `${css["comments-input"]} p-4`,
+        inputRoot: "comments__input p-4",
       },
     },
   },

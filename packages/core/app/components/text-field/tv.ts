@@ -1,5 +1,4 @@
 import { tv } from "tailwind-variants"
-import css from "./styles.module.css"
 
 export const TextFieldTv = tv({
   slots: {
@@ -9,7 +8,7 @@ export const TextFieldTv = tv({
       "rounded-md",
       "focus-within:before:border-selected-boundary",
       "before:border-transparent",
-      css["text-field"],
+      "text-field",
     ],
     input: ["[grid-area:input]"],
     prefix: ["[grid-area:prefix]"],

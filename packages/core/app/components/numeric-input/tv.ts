@@ -1,9 +1,8 @@
 import { tv } from "tailwind-variants"
-import css from "./styles.module.css"
 
 export const NumericInputTv = tv({
   slots: {
-    container: ["group/input grid h-6 before:border-transparent", css["input-number"]],
+    container: ["group/input grid h-6 before:border-transparent", "input__number"],
     input: ["peer", "h-6 w-full", "cursor-default appearance-none truncate"],
     tooltip: "col-span-3 col-start-1 row-start-1 h-6",
   },
