@@ -14,12 +14,53 @@ import { Modal } from "./modal"
 const meta: Meta<typeof Modal> = {
   title: "Overlays/Modal",
   component: Modal,
+  tags: ["new"],
 }
 
 export default meta
 
 type Story = StoryObj<typeof Modal>
 
+/**
+ * `Modal` is a versatile overlay component for displaying focused content and gathering user input.
+ *
+ * Features:
+ * - Structured layout with header, content, and footer sections
+ * - Flexible header with support for custom elements (tabs, selects, navigation)
+ * - Customizable sizing and positioning
+ * - Specialized input components for modal contexts
+ * - Footer with action buttons
+ * - Proper focus management
+ *
+ * Usage Guidelines:
+ * - Use for important interactions that require focused attention
+ * - Structure content with clear headers and organized body content
+ * - Include appropriate action buttons in the footer
+ * - Consider responsive behavior for different screen sizes
+ * - Limit the number of interactive elements to maintain focus
+ *
+ * Accessibility:
+ * - Manages focus properly when opened and closed
+ * - Traps focus within the modal when open
+ * - Supports keyboard navigation and dismissal
+ * - Provides appropriate ARIA roles and attributes
+ * - Ensures adequate contrast for all elements
+ */
+
+/**
+ * Basic: Demonstrates the Modal component with different header configurations.
+ *
+ * Features:
+ * - Multiple header styles showcasing flexibility
+ * - Icon button for navigation or dismissal
+ * - Tabs integration for content organization
+ * - Select component in header for filtering or context
+ * - Basic content area with padding
+ * - Footer with action buttons
+ *
+ * This example shows how the Modal can be adapted for various UI patterns
+ * while maintaining a consistent structure and appearance.
+ */
 export const Basic: Story = {
   render: function BasicStory() {
     const [tab, setTab] = useState("tab-1")
@@ -82,6 +123,22 @@ export const Basic: Story = {
   },
 }
 
+/**
+ * ModalContent: Demonstrates specialized form elements designed for modals.
+ *
+ * Features:
+ * - TextField component integration
+ * - Modal.MultiLineInput for multi-line text entry
+ * - Modal.Select for dropdown selection with custom trigger content
+ * - Proper spacing and layout for form elements
+ * - Avatar integration with select component
+ *
+ * This pattern is useful for:
+ * - Forms and data entry dialogs
+ * - Settings or configuration panels
+ * - User input collection with proper validation
+ * - Creating consistent form experiences within modals
+ */
 export const ModalContent: Story = {
   render: function ModalContentStory() {
     const [select, setSelect] = useState("option-1")

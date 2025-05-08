@@ -19,13 +19,42 @@ export default meta
 type Story = StoryObj<typeof Popover>
 
 /**
- * `IfDragPopover` is a floating popover component with dragging support and flexible interaction modes.
- * - Floating positioning with auto-adjustment
- * - Draggable popover (optional)
- * - Multiple trigger modes (click/hover/focus)
- * - Custom header and content support
- * - `content`: The content of the popover.
- * - `children`: The trigger of the popover.
+ * `Popover` is a versatile floating overlay component for displaying contextual content.
+ *
+ * Features:
+ * - Multiple positioning options with automatic adjustment
+ * - Various interaction modes (click, hover, focus)
+ * - Optional draggable behavior
+ * - Controlled and uncontrolled usage
+ * - Header component for titles or complex UI
+ * - Support for nested interactive elements
+ * - Outside press handling with customizable ignore zones
+ *
+ * Usage Guidelines:
+ * - Use for contextual information, forms, or interactive controls
+ * - Choose appropriate interaction mode based on content importance
+ * - Consider placement based on available screen space
+ * - Add headers for context when content is complex
+ * - Use controlled mode when you need to manage open state externally
+ *
+ * Accessibility:
+ * - Proper focus management
+ * - Keyboard navigation support
+ * - Appropriate ARIA attributes
+ * - Screen reader announcements for state changes
+ * - Escape key dismissal
+ */
+
+/**
+ * Basic: Demonstrates the simplest Popover implementation.
+ *
+ * Features:
+ * - Click interaction (default behavior)
+ * - Automatic positioning
+ * - Clean, consistent styling
+ *
+ * This example shows the minimal configuration required to implement a
+ * functional popover with a button trigger and text content.
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -41,7 +70,16 @@ export const Basic: Story = {
 }
 
 /**
- * - `defaultOpen`: Whether the popover is open by default.
+ * DefaultOpen: Demonstrates a popover that starts in the open state.
+ *
+ * Features:
+ * - Pre-opened state on initial render
+ * - Maintains all other popover behaviors
+ *
+ * This pattern is useful for:
+ * - Drawing immediate attention to important content
+ * - Guiding users to available actions
+ * - Feature tours or onboarding
  */
 export const DefaultOpen: Story = {
   render: function DefaultOpenStory() {
@@ -57,7 +95,16 @@ export const DefaultOpen: Story = {
 }
 
 /**
- * - `offset`: The offset of the popover.
+ * Offset: Demonstrates customizing the distance between trigger and popover.
+ *
+ * Features:
+ * - Configurable spacing between trigger and content
+ * - Maintains proper positioning and alignment
+ *
+ * This pattern is useful for:
+ * - Creating more space between the trigger and content
+ * - Avoiding overlap with nearby elements
+ * - Achieving specific design requirements
  */
 export const Offset: Story = {
   render: function OffsetStory() {
@@ -73,11 +120,17 @@ export const Offset: Story = {
 }
 
 /**
- * - `interactions`: The interactions of the popover.
- *    - `none`: The popover is not open.
- *    - `hover`: The popover is open when the mouse is over the trigger.
- *    - `click`: The popover is open when the trigger is clicked.
- *    - `focus`: The popover is open when the trigger is focused.
+ * Interactions: Demonstrates different ways to trigger the popover.
+ *
+ * Features:
+ * - Hover interaction (shows on mouseover)
+ * - Click interaction (shows on click)
+ * - Focus interaction (shows on focus)
+ *
+ * Usage Guidelines:
+ * - Hover: Use for supplementary information that doesn't require action
+ * - Click: Use for interactive content or required user actions
+ * - Focus: Use for form-related hints or contextual help
  */
 export const Interactions: Story = {
   render: function InteractionsStory() {
@@ -109,8 +162,17 @@ export const Interactions: Story = {
 }
 
 /**
- * - `open`: Whether the popover is open.
- * - `onOpenChange`: Callback function that is called when the popover is opened or closed.
+ * Controlled: Demonstrates managing the popover's open state externally.
+ *
+ * Features:
+ * - External state management
+ * - Programmatic open/close control
+ * - Visual feedback on the trigger button
+ *
+ * This pattern is useful for:
+ * - Complex interactions with other components
+ * - Form validation or data-dependent display
+ * - Wizard or stepped interfaces
  */
 export const Controlled: Story = {
   render: function ControlledStory() {
@@ -130,9 +192,17 @@ export const Controlled: Story = {
 }
 
 /**
- * - `triggerRef`: The reference to the trigger element.
+ * TriggerRef: Demonstrates using an external trigger element.
  *
- * | The use case is when the trigger element is outside the Popover, manual control of the Popover's open and close state is required.
+ * Features:
+ * - Reference to external trigger element
+ * - Complete separation of trigger and popover
+ * - Controlled open state
+ *
+ * This pattern is useful for:
+ * - Complex layouts where the trigger needs to be in a different component
+ * - Dynamically generated UI where the popover needs to be positioned relative to existing elements
+ * - Advanced application architectures with separated components
  */
 export const TriggerRef: Story = {
   render: function TriggerRefStory() {
@@ -161,7 +231,17 @@ export const TriggerRef: Story = {
 }
 
 /**
- * - `placement`: The placement of the popover.
+ * Placement: Demonstrates different positioning options for the popover.
+ *
+ * Features:
+ * - 12 different placement options
+ * - Automatically adjusts to available space
+ * - Dynamic positioning based on trigger location
+ *
+ * Usage Guidelines:
+ * - Choose appropriate placement based on UI layout
+ * - Consider screen edges and available space
+ * - Default to logical positions (e.g., dropdown menus below triggers)
  */
 export const Placement: Story = {
   render: function PlacementStory() {
@@ -220,7 +300,17 @@ export const Placement: Story = {
 }
 
 /**
- * - `draggable`: Whether the popover is draggable.
+ * Draggable: Demonstrates a draggable popover with header.
+ *
+ * Features:
+ * - User can move the popover by dragging the header
+ * - Maintains state and content during dragging
+ * - Provides header as drag handle
+ *
+ * This pattern is useful for:
+ * - Complex UI where users may need to see content behind the popover
+ * - Workspaces or dashboard interfaces
+ * - Multi-step forms where comparing information is needed
  */
 export const Draggable: Story = {
   render: function DraggableStory() {
@@ -243,7 +333,17 @@ export const Draggable: Story = {
 }
 
 /**
- * - `outside-press-ignore` class is used to ignore the outside press event.
+ * OutsidePressIgnore: Demonstrates excluding elements from outside click dismissal.
+ *
+ * Features:
+ * - Define areas where clicks won't dismiss the popover
+ * - Maintains typical behavior for non-ignored areas
+ * - Uses CSS class-based targeting
+ *
+ * This pattern is useful for:
+ * - Complex interfaces with related but separate UI elements
+ * - Preventing accidental dismissal for important popovers
+ * - Creating modal-like experiences without full modals
  */
 export const OutsidePressIgnore: Story = {
   render: function OutsidePressIgnoreStory() {
@@ -266,7 +366,17 @@ export const OutsidePressIgnore: Story = {
 }
 
 /**
- * - `header`: The header of the popover.
+ * Header: Demonstrates adding complex UI to the popover header.
+ *
+ * Features:
+ * - Custom header content (tabs in this example)
+ * - Interactive elements within the header
+ * - State management for header components
+ *
+ * This pattern is useful for:
+ * - Categorized or tabbed content within a popover
+ * - Complex toolbars or controls
+ * - Multi-step or wizard interfaces
  */
 export const Header: Story = {
   render: function HeaderStory() {
@@ -305,6 +415,19 @@ export const Header: Story = {
   },
 }
 
+/**
+ * Nested: Demonstrates popovers containing other interactive components.
+ *
+ * Features:
+ * - Proper nesting of interactive components
+ * - Focus and event handling across nested elements
+ * - Multiple overlay layers with correct stacking
+ *
+ * This pattern is useful for:
+ * - Complex application interfaces
+ * - Rich editing tools or property panels
+ * - Form interfaces requiring nested selection controls
+ */
 export const Nested: Story = {
   render: function NestedStory() {
     const [open, setOpen] = useState(false)

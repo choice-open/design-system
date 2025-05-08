@@ -3,7 +3,7 @@ import type {
   CustomElement,
   ImageElement,
   MentionElement,
-} from "~/components/comments/comment-input/types"
+} from "~/components/experimental/comments/comment-input/types"
 import { AttachmentsComment, Mention } from "../../components/element"
 
 interface ExtendedRenderElementProps extends RenderElementProps {

@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system-monorepo",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "scripts": {
     "dev": "pnpm --filter=\"./packages/**\" --parallel run dev",
@@ -15,9 +15,11 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
+    "@storybook/addon-storysource": "^8.6.12",
     "prettier": "^3.5.3",
     "prettier-plugin-css-order": "^2.1.2",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "storybook-addon-tag-badges": "^1.4.0"
   },
   "engines": {
     "node": ">=18.0.0",

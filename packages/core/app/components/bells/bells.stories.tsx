@@ -8,8 +8,9 @@ import { Chip } from "../chip"
 import { bells } from "./bells"
 
 const meta = {
-  title: "Bells",
+  title: "Status/Bells",
   component: bells,
+  tags: ["new"],
 }
 
 export default meta
@@ -27,10 +28,37 @@ type Story = StoryObj<
 >
 
 /**
- * Bells are used to call attention to status, and come in a strong “filled” and light “outline” form.
- * We typically use them to call attention to things like “New” or “Beta” features, descriptions like “Added”, “Removed”, and labels for individuals, like “Admin”.
+ * Bells (toasts/notifications) are used to provide timely feedback or status updates to users.
+ *
+ * Features:
+ * - Supports rich content: text, icons, actions, and progress indicators.
+ * - Multiple variants for semantic meaning: default, accent, danger, success, warning, assistive.
+ * - Customizable with close buttons and multiple actions (e.g., dismiss, custom callbacks).
+ * - Integrates with Sonner for toast management and positioning.
+ *
+ * Usage:
+ * - Use bells to notify users of important events, confirmations, errors, or status changes.
+ * - Combine with icons and actions for interactive notifications.
+ * - Place the <Toaster /> component once in your app, typically near the root.
+ *
+ * Best Practices:
+ * - Keep notification messages concise and actionable.
+ * - Use semantic variants to match the type of feedback (e.g., success for completed actions, danger for errors).
+ * - Avoid overwhelming users with too many notifications at once.
+ * - Provide clear actions when user intervention is required.
+ *
+ * Accessibility:
+ * - Ensure notifications are accessible to screen readers.
+ * - Use sufficient color contrast for text and backgrounds.
+ * - Provide accessible labels for interactive elements within notifications.
  */
 
+/**
+ * Basic: Demonstrates the Bells component with various configurations.
+ * - Shows simple text notifications, notifications with icons, close buttons, actions, and progress indicators.
+ * - Useful for understanding how to trigger different types of bells and combine features.
+ * - Each button triggers a different bell configuration for demonstration purposes.
+ */
 export const Basic: Story = {
   render: function BasicStory() {
     return (
@@ -139,8 +167,10 @@ export const Basic: Story = {
 }
 
 /**
- * Our toasts come in various shapes and sizes.
- * Here are some examples that could be useful for conveying feedback on user-initiated actions.
+ * Color: Demonstrates the different color variants for the Bells component.
+ * - Shows how to use semantic variants: accent, danger, success, warning, assistive.
+ * - Each button triggers a bell with a different color and an associated action.
+ * - Useful for providing feedback that matches the context of the notification (e.g., error, success).
  */
 export const Color: Story = {
   render: function ColorStory() {

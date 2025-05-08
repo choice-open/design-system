@@ -17,8 +17,6 @@ export interface ContextMenuProps {
   onOpenChange?: (open: boolean) => void
   modal?: boolean
   selection?: boolean
-  // 内容选项
-  contentProps?: Omit<React.ComponentProps<typeof ContextMenuContent>, "children">
 }
 
 // Main ContextMenu component
@@ -28,7 +26,6 @@ const ContextMenuComponent = ({
   onOpenChange,
   modal = false,
   selection = false,
-  contentProps,
 }: ContextMenuProps) => {
   const contextValue = {
     open,
@@ -41,8 +38,13 @@ const ContextMenuComponent = ({
     children,
     ContextMenuTrigger,
     ContextMenuContent,
-    contentProps,
   )
+
+  if (!triggerElement || !contentElement) {
+    console.warn(
+      "ContextMenu requires both Trigger and Content elements. Please use ContextMenu.Trigger and ContextMenu.Content.",
+    )
+  }
 
   return (
     <ContextMenuContext.Provider value={contextValue}>

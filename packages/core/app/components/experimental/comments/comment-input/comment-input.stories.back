@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useMemo, useRef, useState } from "react"
 import { Descendant } from "slate"
-import { Avatar } from "../../avatar"
-import { Chip } from "../../chip"
+import { Avatar } from "../../../avatar"
+import { Chip } from "../../../chip"
 import { CommentItem } from "../comment-item"
-import { Dialog } from "../../dialog"
-import { Modal } from "../../modal"
-import { PicturePreview } from "../../picture-preview"
-import { Tabs } from "../../tabs"
+import { Dialog } from "../../../dialog"
+import { Modal } from "../../../modal"
+import { PicturePreview } from "../../../picture-preview"
+import { Tabs } from "../../../tabs"
 import { CommentInput } from "./comment-input"
 import {
   CommentInputEmojiPopover,
@@ -15,23 +15,13 @@ import {
   serializeToStructuredData,
   serializeToText,
 } from "./components"
-import type {
-  Attachment,
-  CustomElement,
-  Reaction,
-  StructuredData,
-  SubmittedCommentData,
-} from "./types"
+import type { Attachment, CustomElement, StructuredData } from "./types"
 import { faker } from "@faker-js/faker"
-
-// Extend SubmittedCommentData for this story
-interface ExtendedSubmittedCommentData extends SubmittedCommentData {
-  id: string
-  reactions?: Reaction[]
-}
+import { Reaction } from "../types"
+import { SubmittedCommentData } from "../types"
 
 const meta = {
-  title: "Comments/CommentInput",
+  title: "Pickers/Comments/CommentInput",
   component: CommentInput,
 } satisfies Meta<typeof CommentInput>
 
@@ -51,7 +41,7 @@ const OutputDisplay = ({
   submittedData,
 }: {
   data: Descendant[]
-  submittedData: ExtendedSubmittedCommentData[]
+  submittedData: SubmittedCommentData[]
 }) => {
   const [activeTab, setActiveTab] = useState<"current" | "html" | "text">("current")
 
@@ -197,7 +187,7 @@ const CommentInputWithOutput = ({
   variant?: "default" | "solid"
 }) => {
   const [value, setValue] = useState<Descendant[]>([])
-  const [submittedData, setSubmittedData] = useState<ExtendedSubmittedCommentData[]>([])
+  const [submittedData, setSubmittedData] = useState<SubmittedCommentData[]>([])
   const [currentValue, setCurrentValue] = useState<Descendant[]>([])
 
   const handleChange = (newValue: Descendant[]) => {
@@ -207,7 +197,7 @@ const CommentInputWithOutput = ({
 
   const handleSubmit = (data: Descendant[]) => {
     // Format data for CommentItem component
-    const commentItemData: ExtendedSubmittedCommentData = {
+    const commentItemData: SubmittedCommentData = {
       id: String(Date.now()),
       avatar: "https://i.pravatar.cc/150?u=john",
       name: "John Doe",
@@ -292,7 +282,7 @@ export const NoUsers: Story = {
 
 // Add this new EditableComment story component
 const EditableCommentExample = () => {
-  const [comments, setComments] = useState<ExtendedSubmittedCommentData[]>([
+  const [comments, setComments] = useState<SubmittedCommentData[]>([
     {
       id: "1",
       avatar: "https://i.pravatar.cc/150?u=john",
@@ -346,12 +336,12 @@ const EditableCommentExample = () => {
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null)
   const [currentValue, setCurrentValue] = useState<Descendant[]>([])
 
-  const handleEdit = (comment: ExtendedSubmittedCommentData) => {
+  const handleEdit = (comment: SubmittedCommentData) => {
     setEditingCommentId(comment.id)
     setCurrentValue(comment.content)
   }
 
-  const handleDelete = (comment: ExtendedSubmittedCommentData) => {
+  const handleDelete = (comment: SubmittedCommentData) => {
     setComments(comments.filter((c) => c.id !== comment.id))
   }
 
@@ -494,7 +484,7 @@ const EditableCommentExample = () => {
             users={mockUsers}
             placeholder="Add a comment..."
             onSubmit={(content) => {
-              const newComment: ExtendedSubmittedCommentData = {
+              const newComment: SubmittedCommentData = {
                 id: String(comments.length + 1),
                 avatar: "https://i.pravatar.cc/150?u=you",
                 name: "You",

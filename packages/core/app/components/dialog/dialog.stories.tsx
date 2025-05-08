@@ -18,12 +18,35 @@ export default meta
 type Story = StoryObj<typeof Dialog>
 
 /**
- * The `IfDragDialog` component is a draggable dialog component that is used to display a dialog.
- * It is a controlled component that requires a `open` prop and an `onOpenChange` prop.
- * - Draggable dialog window
- * - Resizable width/height
- * - Modal/non-modal modes
- * - Custom header support
+ * `Dialog` is a versatile overlay component for displaying modal or non-modal content.
+ *
+ * Features:
+ * - Modal and non-modal display modes
+ * - Draggable dialog window with customizable handle
+ * - Resizable width and height options
+ * - Customizable backdrop/overlay
+ * - Optional outside click dismissal
+ * - Header component with built-in close button
+ * - Structured content organization
+ * - Proper focus management
+ *
+ * Usage Guidelines:
+ * - Use for important information that requires user attention
+ * - Control visibility with `open` and `onOpenChange` props
+ * - Include a clear title in the Dialog.Header
+ * - Provide close/cancel actions for users
+ * - Consider using `outsidePress` for non-critical dialogs
+ *
+ * Accessibility:
+ * - Proper focus management when opened/closed
+ * - Keyboard navigation and dismissal
+ * - Screen reader announcements for modal state
+ * - ARIA attributes for semantic structure
+ */
+
+/**
+ * Basic: Demonstrates the standard Dialog component with header and content.
+ * This simple example shows the minimal required setup with controlled open state.
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -45,7 +68,9 @@ export const Basic: Story = {
 }
 
 /**
- * - `draggable`: Whether the dialog is draggable.
+ * Draggable: Demonstrates a dialog that can be moved around the screen.
+ * Enable this feature with the `draggable` prop to allow repositioning.
+ * The dialog header acts as the drag handle by default.
  */
 export const Draggable: Story = {
   render: function DragStory() {
@@ -68,8 +93,9 @@ export const Draggable: Story = {
 }
 
 /**
- * - `overlay`: Whether the dialog is an overlay.
- * - When `overlay` is enabled, the overlay will cover the page content.
+ * Overlay: Demonstrates a dialog with a backdrop overlay.
+ * Use the `overlay` prop to create a semi-transparent backdrop that covers the page.
+ * This creates a modal experience and helps focus attention on the dialog content.
  */
 export const Overlay: Story = {
   render: function OverlayStory() {
@@ -93,8 +119,9 @@ export const Overlay: Story = {
 }
 
 /**
- * - `overlay`: Whether the dialog is an overlay.
- * - `classNames.backdrop`: Custom backdrop class.
+ * CustomBackdrop: Demonstrates how to customize the backdrop component.
+ * Use Dialog.Backdrop to explicitly include and customize the backdrop element.
+ * This provides more control over the appearance and behavior of the overlay.
  */
 export const CustomBackdrop: Story = {
   render: function CustomBackdropStory() {
@@ -118,7 +145,9 @@ export const CustomBackdrop: Story = {
 }
 
 /**
- * - `outsidePress`: Whether the dialog can be closed by clicking outside the dialog.
+ * OutsidePress: Demonstrates a dialog that closes when clicking outside.
+ * Enable with the `outsidePress` prop to allow dismissal by clicking the backdrop.
+ * Use for less critical dialogs where quick dismissal is appropriate.
  */
 export const OutsidePress: Story = {
   render: function OutsidePressStory() {
@@ -141,11 +170,12 @@ export const OutsidePress: Story = {
 }
 
 /**
- * - `resizable`: Whether the dialog is resizable.
- * - `resizable.width`: Whether the dialog is resizable by width.
- * - `resizable.height`: Whether the dialog is resizable by height.
- *
- * | If `resizable` is enabled, it is recommended to set the className of the content to `overflow-y-auto` to prevent content overflow issues.
+ * Resizable: Demonstrates a dialog that can be resized by the user.
+ * Enable with the `resizable` prop and specify which dimensions can be adjusted.
+ * When using resizable dialogs:
+ * - Include scrollable content to handle overflow
+ * - Set appropriate min/max dimensions
+ * - Consider how content reflows when resized
  */
 export const Resizable: Story = {
   render: function ResizableStory() {
@@ -176,6 +206,11 @@ export const Resizable: Story = {
   },
 }
 
+/**
+ * Nested: Demonstrates how dialogs work with other overlay components.
+ * Shows proper stacking behavior with dropdowns, selects, and popovers.
+ * Dialog manages focus and keyboard interactions correctly with nested components.
+ */
 export const Nested: Story = {
   render: function NestedStory() {
     const [open, setOpen] = useState(false)

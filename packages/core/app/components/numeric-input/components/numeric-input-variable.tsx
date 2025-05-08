@@ -1,34 +1,42 @@
 import { forwardRef } from "react"
 import { tcx } from "~/utils"
+import { useNumericInputContext } from "../context"
+import { Chip } from "~/components/chip"
+import { NumericInputVariableTv } from "../tv"
 
 interface NumericInputVariableProps {
-  variableValue: number | null | undefined
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
   className?: string
-  classNames?: {
-    container?: string
-    button?: string
-  }
-  disabled?: boolean
+  hasPrefixElement?: boolean
+  value?: number | null
 }
 
-export const NumericInputVariable = forwardRef<HTMLButtonElement, NumericInputVariableProps>(
+export const NumericInputVariable = forwardRef<HTMLDivElement, NumericInputVariableProps>(
   (props, ref) => {
-    const { variableValue, onClick, className, classNames, disabled } = props
+    const { onClick, className, hasPrefixElement, value } = props
+    const context = useNumericInputContext()
+
+    const styles = NumericInputVariableTv({
+      prefixElement: hasPrefixElement,
+      variant: context.variant,
+      disabled: context.disabled,
+      selected: context.selected,
+    })
 
     return (
-      <div className={tcx("[grid-area:variable]", classNames?.container, className)}>
-        <button
+      <div className={tcx(styles.root(), className)}>
+        <Chip
+          as="button"
+          className={styles.chip()}
           ref={ref}
-          className={classNames?.button}
           onClick={(e) => {
             e.stopPropagation()
             onClick?.(e)
           }}
-          disabled={disabled}
+          disabled={context.disabled}
         >
-          {String(variableValue)}
-        </button>
+          {String(value)}
+        </Chip>
       </div>
     )
   },

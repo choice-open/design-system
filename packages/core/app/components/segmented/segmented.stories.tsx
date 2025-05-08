@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
-import { Segmented } from "./segmented"
 import { FieldTypeAttachment, FieldTypeCheckbox, FieldTypeCount } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useState } from "react"
+import { Segmented } from "./segmented"
 
 const meta = {
-  title: "Segmented",
+  title: "Buttons/Segmented",
   component: Segmented,
 } satisfies Meta<typeof Segmented>
 

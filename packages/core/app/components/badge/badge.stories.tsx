@@ -1,13 +1,13 @@
-import { Dot, SearchSmall } from "@choiceform/icons-react"
+import { Dot } from "@choiceform/icons-react"
 import { Story } from "@storybook/blocks"
 import type { Meta, StoryObj } from "@storybook/react"
-import React, { Fragment, useState } from "react"
-import { Select } from "../select"
+import React, { Fragment } from "react"
 import { Badge } from "./badge"
 
 const meta: Meta<typeof Badge> = {
-  title: "Badge",
+  title: "Feedback/Badge",
   component: Badge,
+  tags: ["new"],
 }
 
 export default meta
@@ -15,8 +15,28 @@ export default meta
 type Story = StoryObj<typeof Badge>
 
 /**
- * Badges are used to call attention to status, and come in a strong “filled” and light “outline” form.
- * We typically use them to call attention to things like “New” or “Beta” features, descriptions like “Added”, “Removed”, and labels for individuals, like “Admin”.
+ * Badges are used to call attention to status, and come in a strong "filled" and light "outline" form.
+ *
+ * Features:
+ * - Supports multiple variants: "default", "brand", "inverted", "component", "success", "warning", and "error" for different semantic meanings.
+ * - The `strong` prop toggles between a filled (strong) and outlined (subtle) appearance.
+ * - Can display icons (e.g., status dots) alongside text for richer context.
+ * - Designed to be compact and easily embeddable in lists, cards, or next to headings.
+ *
+ * Usage:
+ * - Use badges to highlight new or beta features, status changes (e.g., "Added", "Removed"), or user roles (e.g., "Admin").
+ * - Combine with icons to visually reinforce meaning (e.g., a dot for status).
+ * - Place badges near the content they annotate, such as next to feature names or user names.
+ *
+ * Best Practices:
+ * - Avoid overusing badges, as too many can reduce their impact.
+ * - Choose variant colors that align with your application's semantic color system.
+ * - Use concise, clear text within badges for quick recognition.
+ * - Ensure badges have sufficient contrast for accessibility.
+ *
+ * Accessibility:
+ * - Badges should have accessible text and sufficient color contrast.
+ * - When used with icons, ensure the icon is decorative or has an accessible label if it conveys meaning.
  */
 
 export const Basic: Story = {

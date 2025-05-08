@@ -1,8 +1,8 @@
 import { ArrowUp, AtSign, Image, Smile } from "@choiceform/icons-react"
 import { ChangeEvent, useRef } from "react"
 import { useI18nContext } from "~/i18n/i18n-react"
-import { Button } from "../../../button"
-import { IconButton } from "../../../icon-button"
+import { Button } from "../../../../button"
+import { IconButton } from "../../../../icon-button"
 import { CommentInputTv } from "../tv"
 
 interface CommentInputFooterProps {

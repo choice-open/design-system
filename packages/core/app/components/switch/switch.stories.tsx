@@ -4,7 +4,7 @@ import { Tooltip } from "../tooltip"
 import { Switch } from "./switch"
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch",
+  title: "Forms/Switch",
   component: Switch,
 }
 

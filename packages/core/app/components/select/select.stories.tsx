@@ -7,6 +7,7 @@ import { Select } from "./select"
 const meta: Meta<typeof Select> = {
   title: "Collections/Select",
   component: Select,
+  tags: ["upgrade"],
 }
 
 export default meta

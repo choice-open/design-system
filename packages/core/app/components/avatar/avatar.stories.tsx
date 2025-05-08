@@ -1,18 +1,26 @@
 import { faker } from "@faker-js/faker"
 import { Story } from "@storybook/blocks"
 import type { Meta, StoryObj } from "@storybook/react"
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { Avatar } from "./avatar"
 
 const meta: Meta<typeof Avatar> = {
-  title: "Avatar",
+  title: "Feedback/Avatar",
   component: Avatar,
+  tags: ["new"],
 }
 
 export default meta
 
 type Story = StoryObj<typeof Avatar>
 
+/**
+ * Basic: Demonstrates the Avatar component with different names and random background colors.
+ * - Shows how the Avatar can display initials or a fallback when no photo is provided.
+ * - Useful for user lists, team members, or any entity with a name.
+ * - The color prop customizes the background color for each avatar.
+ * - Names are generated randomly for demonstration.
+ */
 export const Basic: Story = {
   render: function BasicStory() {
     const colors = useMemo(() => {
@@ -45,6 +53,13 @@ export const Basic: Story = {
   },
 }
 
+/**
+ * Photo: Demonstrates the Avatar component with user photos.
+ * - Shows how to provide a photo prop to display a user's image.
+ * - If the photo fails to load, the Avatar will fallback to initials or a default state.
+ * - Useful for user profiles, comments, or chat applications.
+ * - Names and photos are generated randomly for demonstration.
+ */
 export const Photo: Story = {
   render: function PhotoStory() {
     const photos = useMemo(() => {
@@ -77,6 +92,12 @@ export const Photo: Story = {
   },
 }
 
+/**
+ * Sizes: Demonstrates the different size options for the Avatar component.
+ * - Shows how to use the size prop: "small", "medium", and "large".
+ * - Useful for adapting Avatar to different UI contexts (e.g., lists, profile pages, dashboards).
+ * - Each avatar is given a unique color and labeled with its size.
+ */
 export const Sizes: Story = {
   render: function SizesStory() {
     enum Sizes {
@@ -105,6 +126,12 @@ export const Sizes: Story = {
   },
 }
 
+/**
+ * States: Demonstrates the different visual states for the Avatar component.
+ * - Shows how to use the states prop: "default", "dash", "design", and "spotlight".
+ * - Each state may represent a different user status, role, or highlight in your application.
+ * - Useful for indicating user activity, special roles, or featured users.
+ */
 export const States: Story = {
   render: function StatesStory() {
     enum States {

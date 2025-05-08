@@ -39,6 +39,7 @@ const us = {
     zoomTo50: "Zoom to 50%",
     zoomTo100: "Zoom to 100%",
     zoomTo200: "Zoom to 200%",
+    error: "Image loading failed, please try again.",
   },
 } satisfies Translation
 

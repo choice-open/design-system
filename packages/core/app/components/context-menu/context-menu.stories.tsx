@@ -16,11 +16,28 @@ type Story = StoryObj<typeof ContextMenu>
  * It provides a styled context menu that can be triggered by right-clicking on an element.
  *
  * Features:
- * - Customizable menu items
- * - Support for disabled states
- * - Support for keyboard shortcuts
- * - Support for nested menus
- * - Support for dividers
+ * - Multiple menu items, labels, and dividers for organization
+ * - Support for nested submenus
+ * - Selection mode with visual indicators for selected items
+ * - Keyboard shortcut display
+ * - Disabled state support
+ * - Fully keyboard accessible
+ *
+ * Usage Guidelines:
+ * - Always include both Trigger and Content components
+ * - Use Content to wrap all menu items
+ * - For nested menus, use Submenu.Trigger and Submenu.Content
+ * - Group related items with labels and dividers
+ *
+ * Accessibility:
+ * - Fully keyboard navigable
+ * - Screen reader announcements for menu states
+ * - ARIA attributes for semantic structure
+ */
+
+/**
+ * Basic: Demonstrates a simple context menu with items, keyboard shortcuts, and a submenu.
+ * Shows the foundational usage pattern with trigger and content elements.
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -108,106 +125,9 @@ export const Basic: Story = {
 }
 
 /**
- * 简化的 API 用法示例
- *
- * 这个例子展示了如何使用简化后的 API，无需显式指定 Content 包装器。
- * 所有非 Trigger 的组件会自动被包装在一个 Content 组件中。
- */
-export const SimplifiedApi: Story = {
-  render: function SimplifiedApiStory() {
-    const [selectedItem, setSelectedItem] = useState("none")
-
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="mb-4">
-          <span>右键点击下方区域查看简化 API 的上下文菜单</span>
-          <div className="mt-2">选中项: {selectedItem}</div>
-          <div className="mt-1 text-sm text-gray-500">
-            注意: 这个例子无需使用 <code>&lt;ContextMenu.Content&gt;</code> 容器
-          </div>
-        </div>
-
-        <ContextMenu contentProps={{ sideOffset: 5, align: "start" }}>
-          <ContextMenu.Trigger>
-            <div className="flex h-64 w-96 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-              右键点击我 (简化 API)
-            </div>
-          </ContextMenu.Trigger>
-
-          {/* 无需 Content 包装器 */}
-          <ContextMenu.Item
-            onClick={() => setSelectedItem("剪切")}
-            shortcut={{
-              modifier: "command",
-              keys: "X",
-            }}
-          >
-            剪切
-          </ContextMenu.Item>
-
-          <ContextMenu.Item
-            onClick={() => setSelectedItem("复制")}
-            shortcut={{
-              modifier: "command",
-              keys: "C",
-            }}
-          >
-            复制
-          </ContextMenu.Item>
-
-          <ContextMenu.Item
-            onClick={() => setSelectedItem("粘贴")}
-            shortcut={{
-              modifier: "command",
-              keys: "V",
-            }}
-          >
-            粘贴
-          </ContextMenu.Item>
-
-          <ContextMenu.Divider />
-
-          <ContextMenu.Submenu>
-            <ContextMenu.Submenu.Trigger>排序选项</ContextMenu.Submenu.Trigger>
-
-            {/* 子菜单也无需 Content 包装器 */}
-            <ContextMenu.Item onClick={() => setSelectedItem("按名称排序")}>
-              按名称排序
-            </ContextMenu.Item>
-            <ContextMenu.Item onClick={() => setSelectedItem("按日期排序")}>
-              按日期排序
-            </ContextMenu.Item>
-            <ContextMenu.Item onClick={() => setSelectedItem("按大小排序")}>
-              按大小排序
-            </ContextMenu.Item>
-          </ContextMenu.Submenu>
-
-          <ContextMenu.Divider />
-
-          <ContextMenu.Item
-            disabled
-            onClick={() => setSelectedItem("删除")}
-            shortcut={{
-              modifier: "command",
-              keys: "⌫",
-            }}
-          >
-            删除 (禁用)
-          </ContextMenu.Item>
-        </ContextMenu>
-      </div>
-    )
-  },
-}
-
-/**
- * Shows how to use the `ContextMenu` component with selection.
- *
- * ### Features
- * - Display selected items with checkmarks (requires setting `selection={true}`)
- * - Support for disabled states
- *
- * When `selection` is set to `true`, the `selected` prop on items will display a checkmark.
+ * WithSelection: Demonstrates the selection mode feature.
+ * When selection={true} is set, the selected prop on items will display a checkmark.
+ * Useful for multi-select menus or indicating the currently active option.
  */
 export const WithSelection: Story = {
   render: function WithSelectionStory() {
@@ -235,17 +155,18 @@ export const WithSelection: Story = {
             </div>
           </ContextMenu.Trigger>
 
-          {/* 简化 API - 无需使用 Content 包装器 */}
-          <ContextMenu.Label>Options</ContextMenu.Label>
-          {options.map((option) => (
-            <ContextMenu.Item
-              key={option.id}
-              selected={option.id === selectedOption}
-              onClick={() => setSelectedOption(option.id)}
-            >
-              {option.label}
-            </ContextMenu.Item>
-          ))}
+          <ContextMenu.Content>
+            <ContextMenu.Label>Options</ContextMenu.Label>
+            {options.map((option) => (
+              <ContextMenu.Item
+                key={option.id}
+                selected={option.id === selectedOption}
+                onClick={() => setSelectedOption(option.id)}
+              >
+                {option.label}
+              </ContextMenu.Item>
+            ))}
+          </ContextMenu.Content>
         </ContextMenu>
       </div>
     )
@@ -253,8 +174,9 @@ export const WithSelection: Story = {
 }
 
 /**
- * Example showing selection with nested submenus.
- * This demonstrates how the selection feature works with multi-level menus.
+ * SelectionWithSubmenus: Demonstrates selection mode with nested submenus.
+ * Shows how to organize complex menu hierarchies while maintaining selection state.
+ * Each submenu has its own content wrapper to maintain proper structure.
  */
 export const SelectionWithSubmenus: Story = {
   render: function SelectionWithSubmenusStory() {
@@ -312,62 +234,70 @@ export const SelectionWithSubmenus: Story = {
             </div>
           </ContextMenu.Trigger>
 
-          <ContextMenu.Label>Categories</ContextMenu.Label>
-          {categories.map((category) => (
-            <ContextMenu.Item
-              key={category.id}
-              selected={category.id === selectedCategory}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              {category.label}
-            </ContextMenu.Item>
-          ))}
-
-          <ContextMenu.Divider />
-
-          <ContextMenu.Label>Submenus</ContextMenu.Label>
-
-          <ContextMenu.Submenu>
-            <ContextMenu.Submenu.Trigger>Files</ContextMenu.Submenu.Trigger>
-            <ContextMenu.Label>File Actions</ContextMenu.Label>
-            {fileOptions.map((option) => (
+          <ContextMenu.Content>
+            <ContextMenu.Label>Categories</ContextMenu.Label>
+            {categories.map((category) => (
               <ContextMenu.Item
-                key={option.id}
-                selected={option.id === selectedFileOption}
-                onClick={() => setSelectedFileOption(option.id)}
+                key={category.id}
+                selected={category.id === selectedCategory}
+                onClick={() => setSelectedCategory(category.id)}
               >
-                {option.label}
+                {category.label}
               </ContextMenu.Item>
             ))}
-          </ContextMenu.Submenu>
 
-          <ContextMenu.Submenu>
-            <ContextMenu.Submenu.Trigger>Edit</ContextMenu.Submenu.Trigger>
-            <ContextMenu.Label>Edit Actions</ContextMenu.Label>
-            {editOptions.map((option) => (
-              <ContextMenu.Item
-                key={option.id}
-                selected={option.id === selectedEditOption}
-                onClick={() => setSelectedEditOption(option.id)}
-              >
-                {option.label}
-              </ContextMenu.Item>
-            ))}
-          </ContextMenu.Submenu>
+            <ContextMenu.Divider />
 
-          <ContextMenu.Submenu>
-            <ContextMenu.Submenu.Trigger>View</ContextMenu.Submenu.Trigger>
-            <ContextMenu.Label>View Options</ContextMenu.Label>
-            {viewOptions.map((option) => (
-              <ContextMenu.Item
-                key={option.id}
-                selected={option.id === selectedViewOption}
-                onClick={() => setSelectedViewOption(option.id)}
-              >
-                {option.label}
-              </ContextMenu.Item>
-            ))}
-          </ContextMenu.Submenu>
+            <ContextMenu.Label>Submenus</ContextMenu.Label>
+
+            <ContextMenu.Submenu>
+              <ContextMenu.Submenu.Trigger>Files</ContextMenu.Submenu.Trigger>
+              <ContextMenu.Submenu.Content>
+                <ContextMenu.Label>File Actions</ContextMenu.Label>
+                {fileOptions.map((option) => (
+                  <ContextMenu.Item
+                    key={option.id}
+                    selected={option.id === selectedFileOption}
+                    onClick={() => setSelectedFileOption(option.id)}
+                  >
+                    {option.label}
+                  </ContextMenu.Item>
+                ))}
+              </ContextMenu.Submenu.Content>
+            </ContextMenu.Submenu>
+
+            <ContextMenu.Submenu>
+              <ContextMenu.Submenu.Trigger>Edit</ContextMenu.Submenu.Trigger>
+              <ContextMenu.Submenu.Content>
+                <ContextMenu.Label>Edit Actions</ContextMenu.Label>
+                {editOptions.map((option) => (
+                  <ContextMenu.Item
+                    key={option.id}
+                    selected={option.id === selectedEditOption}
+                    onClick={() => setSelectedEditOption(option.id)}
+                  >
+                    {option.label}
+                  </ContextMenu.Item>
+                ))}
+              </ContextMenu.Submenu.Content>
+            </ContextMenu.Submenu>
+
+            <ContextMenu.Submenu>
+              <ContextMenu.Submenu.Trigger>View</ContextMenu.Submenu.Trigger>
+              <ContextMenu.Submenu.Content>
+                <ContextMenu.Label>View Options</ContextMenu.Label>
+                {viewOptions.map((option) => (
+                  <ContextMenu.Item
+                    key={option.id}
+                    selected={option.id === selectedViewOption}
+                    onClick={() => setSelectedViewOption(option.id)}
+                  >
+                    {option.label}
+                  </ContextMenu.Item>
+                ))}
+              </ContextMenu.Submenu.Content>
+            </ContextMenu.Submenu>
+          </ContextMenu.Content>
         </ContextMenu>
       </div>
     )
@@ -375,8 +305,8 @@ export const SelectionWithSubmenus: Story = {
 }
 
 /**
- * Example demonstrating how labels are properly aligned in both selection
- * and non-selection modes.
+ * AlignedLabels: Demonstrates proper label alignment in both selection and non-selection modes.
+ * Shows how labels and items are properly spaced to accommodate selection indicators.
  */
 export const AlignedLabels: Story = {
   render: function AlignedLabelsStory() {
@@ -400,35 +330,37 @@ export const AlignedLabels: Story = {
               </div>
             </ContextMenu.Trigger>
 
-            <ContextMenu.Label>Section 1</ContextMenu.Label>
-            <ContextMenu.Item
-              selected={selectedInSection1 === "item1"}
-              onClick={() => setSelectedInSection1("item1")}
-            >
-              Item 1
-            </ContextMenu.Item>
-            <ContextMenu.Item
-              selected={selectedInSection1 === "item2"}
-              onClick={() => setSelectedInSection1("item2")}
-            >
-              Item 2
-            </ContextMenu.Item>
+            <ContextMenu.Content>
+              <ContextMenu.Label>Section 1</ContextMenu.Label>
+              <ContextMenu.Item
+                selected={selectedInSection1 === "item1"}
+                onClick={() => setSelectedInSection1("item1")}
+              >
+                Item 1
+              </ContextMenu.Item>
+              <ContextMenu.Item
+                selected={selectedInSection1 === "item2"}
+                onClick={() => setSelectedInSection1("item2")}
+              >
+                Item 2
+              </ContextMenu.Item>
 
-            <ContextMenu.Divider />
+              <ContextMenu.Divider />
 
-            <ContextMenu.Label>Section 2</ContextMenu.Label>
-            <ContextMenu.Item
-              selected={selectedInSection2 === "item1"}
-              onClick={() => setSelectedInSection2("item1")}
-            >
-              Item 1
-            </ContextMenu.Item>
-            <ContextMenu.Item
-              selected={selectedInSection2 === "item2"}
-              onClick={() => setSelectedInSection2("item2")}
-            >
-              Item 2
-            </ContextMenu.Item>
+              <ContextMenu.Label>Section 2</ContextMenu.Label>
+              <ContextMenu.Item
+                selected={selectedInSection2 === "item1"}
+                onClick={() => setSelectedInSection2("item1")}
+              >
+                Item 1
+              </ContextMenu.Item>
+              <ContextMenu.Item
+                selected={selectedInSection2 === "item2"}
+                onClick={() => setSelectedInSection2("item2")}
+              >
+                Item 2
+              </ContextMenu.Item>
+            </ContextMenu.Content>
           </ContextMenu>
         </div>
 
@@ -445,15 +377,17 @@ export const AlignedLabels: Story = {
               </div>
             </ContextMenu.Trigger>
 
-            <ContextMenu.Label>Section 1</ContextMenu.Label>
-            <ContextMenu.Item onClick={() => {}}>Item 1</ContextMenu.Item>
-            <ContextMenu.Item onClick={() => {}}>Item 2</ContextMenu.Item>
+            <ContextMenu.Content>
+              <ContextMenu.Label>Section 1</ContextMenu.Label>
+              <ContextMenu.Item onClick={() => {}}>Item 1</ContextMenu.Item>
+              <ContextMenu.Item onClick={() => {}}>Item 2</ContextMenu.Item>
 
-            <ContextMenu.Divider />
+              <ContextMenu.Divider />
 
-            <ContextMenu.Label>Section 2</ContextMenu.Label>
-            <ContextMenu.Item onClick={() => {}}>Item 1</ContextMenu.Item>
-            <ContextMenu.Item onClick={() => {}}>Item 2</ContextMenu.Item>
+              <ContextMenu.Label>Section 2</ContextMenu.Label>
+              <ContextMenu.Item onClick={() => {}}>Item 1</ContextMenu.Item>
+              <ContextMenu.Item onClick={() => {}}>Item 2</ContextMenu.Item>
+            </ContextMenu.Content>
           </ContextMenu>
         </div>
       </div>
@@ -462,7 +396,8 @@ export const AlignedLabels: Story = {
 }
 
 /**
- * Example showing how selection works with multiple menus.
+ * ComparisonWithAndWithoutSelection: Demonstrates the visual difference between menus with and without selection mode.
+ * Useful for understanding how selection affects the appearance and behavior of menu items.
  */
 export const ComparisonWithAndWithoutSelection: Story = {
   render: function ComparisonStory() {
@@ -495,15 +430,17 @@ export const ComparisonWithAndWithoutSelection: Story = {
               </div>
             </ContextMenu.Trigger>
 
-            {options.map((option) => (
-              <ContextMenu.Item
-                key={option.id}
-                selected={option.id === selectedOption1}
-                onClick={() => setSelectedOption1(option.id)}
-              >
-                {option.label}
-              </ContextMenu.Item>
-            ))}
+            <ContextMenu.Content>
+              {options.map((option) => (
+                <ContextMenu.Item
+                  key={option.id}
+                  selected={option.id === selectedOption1}
+                  onClick={() => setSelectedOption1(option.id)}
+                >
+                  {option.label}
+                </ContextMenu.Item>
+              ))}
+            </ContextMenu.Content>
           </ContextMenu>
         </div>
 
@@ -523,85 +460,18 @@ export const ComparisonWithAndWithoutSelection: Story = {
               </div>
             </ContextMenu.Trigger>
 
-            {options.map((option) => (
-              <ContextMenu.Item
-                key={option.id}
-                selected={option.id === selectedOption2}
-                onClick={() => setSelectedOption2(option.id)}
-              >
-                {option.label}
-              </ContextMenu.Item>
-            ))}
+            <ContextMenu.Content>
+              {options.map((option) => (
+                <ContextMenu.Item
+                  key={option.id}
+                  selected={option.id === selectedOption2}
+                  onClick={() => setSelectedOption2(option.id)}
+                >
+                  {option.label}
+                </ContextMenu.Item>
+              ))}
+            </ContextMenu.Content>
           </ContextMenu>
-        </div>
-      </div>
-    )
-  },
-}
-
-/**
- * 演示简化 API 的优点
- *
- * 本例展示了与传统方式（使用 Content 包装器）相比，简化 API 如何减少代码嵌套层次，
- * 使组件结构更加清晰。
- */
-export const SimplifiedApiComparison: Story = {
-  render: function SimplifiedApiComparisonStory() {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="mb-4">
-          <p className="text-lg font-medium">简化 API 的优点</p>
-          <p className="text-sm text-gray-500">
-            所有故事示例都已使用简化 API，无需显式添加 Content 包装器。这降低了代码的嵌套层次，
-            使组件结构更加清晰。
-          </p>
-          <p className="mt-2 text-sm text-gray-600">对比代码示例:</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-8">
-          <div className="rounded-lg border bg-gray-50 p-4">
-            <p className="mb-2 font-medium">传统 API</p>
-            <pre className="rounded bg-gray-100 p-2 text-xs">
-              {`<ContextMenu>
-  <ContextMenu.Trigger>
-    <div>触发区域</div>
-  </ContextMenu.Trigger>
-  <ContextMenu.Content>
-    <ContextMenu.Item>选项 1</ContextMenu.Item>
-    <ContextMenu.Item>选项 2</ContextMenu.Item>
-    <ContextMenu.Submenu>
-      <ContextMenu.Submenu.Trigger>
-        子菜单
-      </ContextMenu.Submenu.Trigger>
-      <ContextMenu.Submenu.Content>
-        <ContextMenu.Item>子选项 1</ContextMenu.Item>
-        <ContextMenu.Item>子选项 2</ContextMenu.Item>
-      </ContextMenu.Submenu.Content>
-    </ContextMenu.Submenu>
-  </ContextMenu.Content>
-</ContextMenu>`}
-            </pre>
-          </div>
-
-          <div className="rounded-lg border bg-gray-50 p-4">
-            <p className="mb-2 font-medium">简化 API</p>
-            <pre className="rounded bg-gray-100 p-2 text-xs">
-              {`<ContextMenu>
-  <ContextMenu.Trigger>
-    <div>触发区域</div>
-  </ContextMenu.Trigger>
-  <ContextMenu.Item>选项 1</ContextMenu.Item>
-  <ContextMenu.Item>选项 2</ContextMenu.Item>
-  <ContextMenu.Submenu>
-    <ContextMenu.Submenu.Trigger>
-      子菜单
-    </ContextMenu.Submenu.Trigger>
-    <ContextMenu.Item>子选项 1</ContextMenu.Item>
-    <ContextMenu.Item>子选项 2</ContextMenu.Item>
-  </ContextMenu.Submenu>
-</ContextMenu>`}
-            </pre>
-          </div>
         </div>
       </div>
     )

@@ -1,9 +1,10 @@
 import { Story } from "@storybook/blocks"
 import type { Meta, StoryObj } from "@storybook/react"
+import React from "react"
 import { Kbd } from "./kbd"
 
 const meta: Meta<typeof Kbd> = {
-  title: "Kbd",
+  title: "Data Display/Kbd",
   component: Kbd,
 }
 

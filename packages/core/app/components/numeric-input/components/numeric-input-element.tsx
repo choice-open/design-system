@@ -1,45 +1,48 @@
-import { Slot } from "@radix-ui/react-slot"
-import { memo, ReactNode } from "react"
+import { forwardRef, memo, ReactNode, useMemo } from "react"
 import { tcx } from "~/utils"
-import { numericInputElementTv } from "../tv"
+import { useNumericInputContext } from "../context"
+import { NumericInputElementTv } from "../tv"
 
-interface HandlerProps {
-  ref: (el: HTMLElement | null) => void
-  onPointerDown: (e: React.PointerEvent<HTMLElement>) => void
-  style?: React.CSSProperties
-}
+export type ElementType = "action" | "handler" | "menu"
 
-interface NumericInputElementProps {
-  handlerProps?: HandlerProps
+export interface NumericInputElementProps {
+  type?: ElementType
+  position?: "prefix" | "suffix"
+  children?: ReactNode
   className?: string
-  children: ReactNode
-  position: "prefix" | "suffix"
-  type: "handler" | "action" | "menu"
-  disabled?: boolean
 }
 
-const TAG_PROPS_MAP = {
-  handler: (props: HandlerProps | undefined) => props,
-  action: () => undefined,
-  menu: () => undefined,
-} as const
+export const NumericInputElement = memo(
+  forwardRef<HTMLDivElement, NumericInputElementProps>(function NumericInputElement(props, ref) {
+    const { type = "handler", className, position, children } = props
 
-export const NumericInputElement = memo(function NumericInputElement(
-  props: NumericInputElementProps,
-) {
-  const { handlerProps, className, children, position, type, disabled } = props
+    const context = useNumericInputContext()
+    const handlerProps = context.handlerProps
 
-  const handlerClassName = numericInputElementTv({ type, position, disabled })
-  const tagProps = TAG_PROPS_MAP[type](handlerProps)
+    const elementClassName = NumericInputElementTv({
+      type,
+      position,
+      disabled: context.disabled,
+      variant: context.variant,
+    })
 
-  return (
-    <Slot
-      {...tagProps}
-      className={tcx(handlerClassName, className)}
-    >
-      {children}
-    </Slot>
-  )
-})
+    const elementProps = useMemo(
+      () => (type === "handler" ? handlerProps : {}),
+      [type, handlerProps],
+    )
+
+    return (
+      <div
+        ref={ref}
+        className={tcx(elementClassName, className)}
+        data-element-position={position}
+        data-element-type={type}
+        {...elementProps}
+      >
+        {children}
+      </div>
+    )
+  }),
+)
 
 NumericInputElement.displayName = "NumericInputElement"

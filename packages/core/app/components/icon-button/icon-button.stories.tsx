@@ -22,6 +22,35 @@ export default meta
 
 type Story = StoryObj<typeof IconButton>
 
+/**
+ * `IconButton` is a button component specifically designed for displaying icons with proper
+ * accessibility and interaction states.
+ *
+ * Features:
+ * - Multiple visual variants for different contexts
+ * - Support for all button states (active, focused, loading, disabled)
+ * - Size options for different UI densities
+ * - Built-in tooltip support
+ * - Can be rendered as other elements via `asChild`
+ * - Group capability via IconButtonGroup for related actions
+ *
+ * Usage Guidelines:
+ * - Use for actions where an icon clearly communicates the purpose
+ * - Provide tooltip text for clarity (especially for less common icons)
+ * - Group related actions using IconButtonGroup
+ * - Choose variants that fit your visual hierarchy
+ *
+ * Accessibility:
+ * - Maintains focus states for keyboard navigation
+ * - Supports ARIA attributes for screen readers
+ * - Tooltip provides additional context for icon meaning
+ */
+
+/**
+ * Basic: Demonstrates the default IconButton component with an icon.
+ *
+ * This minimal example shows how to create a simple icon button with the default styling.
+ */
 export const Basic: Story = {
   render: function BasicStory() {
     return (
@@ -33,11 +62,22 @@ export const Basic: Story = {
 }
 
 /**
- * The `variant` prop is used to set the variant of the icon button.
- * - `default`: default variant
- * - `secondary`: secondary variant
- * - `solid`: solid variant
- * - `transparent`: transparent variant
+ * Variants: Demonstrates all visual variants, sizes, and states of the IconButton component.
+ *
+ * Features:
+ * - Interactive controls to switch between variants and sizes
+ * - Displays all possible states (rest, active, focused, loading, disabled)
+ * - Shows consistent styling across all combinations
+ *
+ * Variants:
+ * - `default`: Standard styling with hover and active states
+ * - `secondary`: Subdued styling for less prominent actions
+ * - `solid`: Filled background for primary or important actions
+ * - `highlight`: Visually distinctive for drawing attention
+ *
+ * Sizes:
+ * - `default`: Standard size for most interfaces
+ * - `large`: Larger size for touch targets or emphasis
  */
 export const Variants: Story = {
   render: function Variants() {
@@ -124,11 +164,17 @@ export const Variants: Story = {
 }
 
 /**
- * The `tooltip` prop is used to show a tooltip when hovering over the icon button.
- * - `content`: the content of the tooltip
- * - `placement`: the placement of the tooltip
- * - `open`: whether the tooltip is open
- * - `onOpenChange`: the callback function to handle the open state of the tooltip
+ * Tooltip: Demonstrates adding descriptive tooltips to IconButtons.
+ *
+ * Features:
+ * - Helpful text appears on hover/focus
+ * - Improves accessibility and usability
+ * - Clarifies the button's purpose when icons alone may be ambiguous
+ *
+ * Best Practices:
+ * - Use concise, clear tooltip text
+ * - Describe the action, not the icon
+ * - Consider tooltip placement based on button position
  */
 export const Tooltip: Story = {
   render: () => (
@@ -139,7 +185,19 @@ export const Tooltip: Story = {
 }
 
 /**
- * The `IconButtonGroup` component is used to group the icon buttons.
+ * Group: Demonstrates grouping related IconButtons together.
+ *
+ * Features:
+ * - Visual grouping of related actions
+ * - Consistent styling across grouped buttons
+ * - Proper spacing and borders between buttons
+ * - Ability to set a common variant for all buttons in the group
+ *
+ * Best Practices:
+ * - Group functionally related actions
+ * - Maintain a logical order (e.g., create, edit, delete)
+ * - Use consistent icons within a UI
+ * - Consider adding tooltips to each button in the group
  */
 export const Group: Story = {
   render: () => (
@@ -158,7 +216,21 @@ export const Group: Story = {
 }
 
 /**
- * The `asChild` prop is used to render the icon button as a child element.
+ * AsChild: Demonstrates rendering the IconButton as another element.
+ *
+ * Features:
+ * - Maintains IconButton styling while using different underlying elements
+ * - Useful for links, form elements, or custom components
+ * - Preserves accessibility features
+ *
+ * Usage:
+ * ```tsx
+ * <IconButton asChild>
+ *   <a href="/some-path">
+ *     <Icon />
+ *   </a>
+ * </IconButton>
+ * ```
  */
 export const AsChild: Story = {
   render: () => (

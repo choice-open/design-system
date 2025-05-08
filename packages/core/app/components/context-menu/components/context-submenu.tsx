@@ -32,7 +32,6 @@ export const ContextSubmenuRoot = forwardRef<HTMLDivElement, ContextSubmenuProps
       children,
       ContextSubmenuTrigger,
       ContextSubmenuContent,
-      contentProps,
     )
 
     return (

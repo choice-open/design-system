@@ -1,9 +1,12 @@
-import React, { HTMLProps, useEffect, useMemo, useRef } from "react"
-import { useEventCallback } from "usehooks-ts"
+import React, { HTMLProps, useCallback, useEffect, useRef, useState } from "react"
 import { PressMoveProps, useMergedValue, usePressMove } from "~/hooks"
 import { mergeRefs } from "~/utils"
 import { NumberResult, NumericInputValue } from "../types"
-import { dealWithNumericInputValue, dealWithNumericValueCatch } from "../utils"
+import { dealWithNumericInputValue } from "../utils/numeric-value-processor"
+import { useInputInteractions } from "./use-input-interactions"
+import { useModifierKeys } from "./use-modifier-keys"
+import { useNumericValueProcessing } from "./use-numeric-value-processing"
+import { useStepCalculation } from "./use-step-calculation"
 
 interface UseNumericInputProps<T extends NumericInputValue>
   extends Omit<HTMLProps<HTMLInputElement>, "value" | "defaultValue" | "onChange" | "onWheel"> {
@@ -25,6 +28,11 @@ interface UseNumericInputProps<T extends NumericInputValue>
   onPressEnd?: PressMoveProps["onPressEnd"]
 }
 
+/**
+ * 数值输入控件的主钩子，整合各种交互功能
+ * @param props 配置选项
+ * @returns 处理状态和事件处理器
+ */
 export function useNumericInput<T extends NumericInputValue>(props: UseNumericInputProps<T>) {
   const {
     decimal,
@@ -45,61 +53,35 @@ export function useNumericInput<T extends NumericInputValue>(props: UseNumericIn
   } = props
 
   const innerRef = useRef<HTMLInputElement>(null)
-  const handlerRef = useRef<HTMLElement | null>(null)
-  const shiftRef = useRef(false)
-  const metaRef = useRef(false)
-  const isFocused = useRef(false)
-  const realValue = useRef("")
-  const initialValueRef = useRef<string>("")
-  const expressionRef = useRef(expression)
-  expressionRef.current = expression
+  const [isFocused, setIsFocused] = useState(false)
+  const [displayValue, setDisplayValue] = useState("")
 
-  // Process default value
-  const defaultValuePre = useMemo(
-    () =>
-      defaultValue !== undefined && defaultValue !== null && defaultValue !== ""
-        ? dealWithNumericValueCatch({
-            input: defaultValue,
-            pattern: expression,
-            min,
-            max,
-            decimal,
-          })
-        : undefined,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
+  // 1. 使用子钩子处理不同关注点
+  const { shiftPressed, metaPressed } = useModifierKeys(disabled)
+  const getCurrentStep = useStepCalculation(shiftPressed, metaPressed, shiftStep, step)
+  const { valuePre, defaultValuePre, expressionRef } = useNumericValueProcessing({
+    value,
+    defaultValue,
+    expression,
+    min,
+    max,
+    decimal,
+  })
 
-  // Process current value
-  const valuePre = useMemo(
-    () =>
-      value !== undefined && value !== null && value !== ""
-        ? dealWithNumericValueCatch({
-            input: value,
-            pattern: expression,
-            min,
-            max,
-            decimal,
-          })
-        : undefined,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value],
-  )
-
+  // 2. 状态管理和合并
   const [innerValue, setValue] = useMergedValue({
     value: valuePre,
     defaultValue: defaultValuePre,
   })
 
-  // Handle expression changes
+  // 3. 更新显示值并同步到 input
   useEffect(() => {
     if (!innerValue) {
-      if (innerRef.current) {
-        innerRef.current.value = ""
-      }
+      setDisplayValue("")
       return
     }
 
+    // 处理表达式变化，但避免循环依赖
     const valuePre = dealWithNumericInputValue({
       input: innerValue.object,
       pattern: expression,
@@ -107,83 +89,101 @@ export function useNumericInput<T extends NumericInputValue>(props: UseNumericIn
       min,
       decimal,
     })
-    setValue(valuePre)
-    if (innerRef.current) {
-      innerRef.current.value = valuePre.string
+
+    // 只有当表达式导致实际值变化时才更新内部值
+    if (JSON.stringify(valuePre.object) !== JSON.stringify(innerValue.object)) {
+      setValue(valuePre)
     }
-  }, [expression])
 
-  const onKeyDown = useEventCallback((e: KeyboardEvent) => {
-    if (e.key === "Shift" && !shiftRef.current) {
-      shiftRef.current = true
-    }
-    if ((e.metaKey || e.altKey) && !metaRef.current) {
-      metaRef.current = true
-    }
-  })
+    setDisplayValue(valuePre.string)
+  }, [innerValue, expression, max, min, decimal, setValue])
 
-  const onKeyUp = useEventCallback((e: KeyboardEvent) => {
-    if (e.key === "Shift") {
-      shiftRef.current = false
-    }
-    if (!e.metaKey && !e.altKey) {
-      metaRef.current = false
-    }
-  })
+  // 4. 值更新处理
+  const updateValue = useCallback(
+    (updateFn?: (value: number) => number) => {
+      if (disabled || readOnly) return
 
-  // Handle modifier keys
-  useEffect(() => {
-    if (disabled) return
+      setValue((prev) => {
+        if (!prev) {
+          // 处理 prev 为空的情况，创建一个基于 0 的初始值
+          const initialValue = dealWithNumericInputValue({
+            input: 0,
+            pattern: expressionRef.current,
+            call: updateFn,
+            max,
+            min,
+            decimal,
+          })
 
-    document.body.addEventListener("keydown", onKeyDown)
-    document.body.addEventListener("keyup", onKeyUp)
-    return () => {
-      document.body.removeEventListener("keydown", onKeyDown)
-      document.body.removeEventListener("keyup", onKeyUp)
-    }
-  }, [disabled])
+          onChange?.(
+            (typeof value === "string"
+              ? initialValue.string
+              : typeof value === "number"
+                ? initialValue.array[0]
+                : Array.isArray(value)
+                  ? initialValue.array
+                  : initialValue.object) as T,
+            initialValue,
+          )
 
-  const getCurrentStep = () => {
-    if (shiftRef.current) return shiftStep
-    if (metaRef.current) return 1
-    return step
-  }
+          return initialValue
+        }
 
-  const updateValue = (updateFn?: (value: number) => number) => {
-    if (disabled || readOnly) return
+        const valuePre = dealWithNumericInputValue({
+          input: prev.object,
+          pattern: expressionRef.current,
+          call: updateFn,
+          max,
+          min,
+          decimal,
+        })
 
-    setValue((prev) => {
-      const valuePre = dealWithNumericInputValue({
-        input: prev ? prev.object : 0,
-        pattern: expressionRef.current,
-        call: updateFn,
-        max,
-        min,
-        decimal,
+        if (JSON.stringify(valuePre.object) !== JSON.stringify(prev.object)) {
+          onChange?.(
+            (typeof value === "string"
+              ? valuePre.string
+              : typeof value === "number"
+                ? valuePre.array[0]
+                : Array.isArray(value)
+                  ? valuePre.array
+                  : valuePre.object) as T,
+            valuePre,
+          )
+        }
+        return valuePre
       })
+    },
+    [disabled, readOnly, setValue, max, min, decimal, onChange, value],
+  )
 
-      if (JSON.stringify(valuePre.object) !== JSON.stringify(prev?.object)) {
-        onChange?.(
-          (typeof value === "string"
-            ? valuePre.string
-            : typeof value === "number"
-              ? valuePre.array[0]
-              : Array.isArray(value)
-                ? valuePre.array
-                : valuePre.object) as T,
-          valuePre,
-        )
-      }
-      return valuePre
-    })
-  }
+  // 5. 输入交互处理
+  const { inputHandlers } = useInputInteractions({
+    inputRef: innerRef,
+    displayValue,
+    setDisplayValue,
+    isFocused,
+    setIsFocused,
+    expression,
+    min,
+    max,
+    decimal,
+    disabled,
+    readOnly,
+    innerValue,
+    setValue,
+    updateValue,
+    getCurrentStep,
+    onChange,
+    onEmpty,
+    value,
+  })
 
-  // Handle press and move interactions
+  // 6. 拖拽交互处理
   const { isPressed: handlerPressed, pressMoveProps } = usePressMove({
     disabled,
     onPressStart: (e) => {
       // 保存当前 focus 状态
-      const wasFocused = isFocused.current
+      const wasFocused = isFocused
       if (onPressStart && "nativeEvent" in e) {
         onPressStart(e.nativeEvent as PointerEvent)
       }
@@ -200,7 +200,7 @@ export function useNumericInput<T extends NumericInputValue>(props: UseNumericIn
     },
     onPressEnd: (e) => {
       // 如果之前是 focused，在 exitPointerLock 后重新聚焦并选中
-      if (isFocused.current && innerRef.current) {
+      if (isFocused && innerRef.current) {
         requestAnimationFrame(() => {
           innerRef.current?.focus()
           innerRef.current?.select()
@@ -220,118 +220,18 @@ export function useNumericInput<T extends NumericInputValue>(props: UseNumericIn
     },
   })
 
-  // Sync input value with internal state
-  useEffect(() => {
-    if (innerRef.current) {
-      const newValue = innerValue?.string ?? ""
-      innerRef.current.value = newValue
-      realValue.current = newValue
-    }
-  }, [innerValue])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    realValue.current = e.target.value
-  }
-
-  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    initialValueRef.current = e.target.value
-    realValue.current = e.target.value
-    isFocused.current = true
-    e.target.select()
-  }
-
-  const handleInputBlur = () => {
-    isFocused.current = false
-    if (disabled || readOnly) return
-
-    try {
-      const valuePre = dealWithNumericInputValue({
-        input: realValue.current,
-        pattern: expression,
-        max,
-        min,
-        decimal,
-      })
-
-      // 比较字符串形式和计算结果值是否相同
-      // 1. 如果字符串形式完全相同，则不触发 onChange
-      // 2. 如果计算结果（array[0]）和当前值的计算结果相同，也不触发 onChange
-      if (
-        valuePre.string === innerValue?.string ||
-        (innerValue?.array[0] !== undefined &&
-          valuePre.array[0] !== undefined &&
-          valuePre.array[0] === innerValue.array[0])
-      ) {
-        // 无论是否触发 onChange，都应该更新输入框显示值为计算结果
-        if (innerRef.current) {
-          innerRef.current.value = valuePre.string
-          setValue(valuePre)
-        }
-        return
-      }
-
-      setValue(valuePre)
-      onChange?.(
-        (typeof value === "string"
-          ? valuePre.string
-          : typeof value === "number"
-            ? valuePre.array[0]
-            : Array.isArray(value)
-              ? valuePre.array
-              : valuePre.object) as T,
-        valuePre,
-      )
-
-      if (innerRef.current) {
-        innerRef.current.value = valuePre.string
-      }
-    } catch (_error) {
-      if (innerRef.current?.value === "") {
-        onEmpty?.()
-      }
-      if (initialValueRef.current && innerRef.current) {
-        innerRef.current.value = initialValueRef.current
-      }
-    }
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (disabled) return
-
-    if (e.key === "Enter") {
-      e.stopPropagation()
-      innerRef.current?.blur()
-    }
-    if (e.key === "ArrowUp") {
-      e.stopPropagation()
-      updateValue((value) => value + getCurrentStep())
-    }
-    if (e.key === "ArrowDown") {
-      e.stopPropagation()
-      updateValue((value) => value - getCurrentStep())
-    }
-  }
-
-  const inputProps: Omit<React.InputHTMLAttributes<HTMLInputElement>, "ref"> & {
-    ref: typeof ref
-  } = {
+  // 7. 组合最终结果
+  const inputProps = {
     ref: mergeRefs(innerRef, ref),
     disabled,
     readOnly,
-    onChange: handleInputChange,
-    onFocus: handleInputFocus,
-    onBlur: handleInputBlur,
-    onKeyDown: handleKeyDown,
+    value: displayValue,
+    ...inputHandlers,
   }
 
   const handlerProps = {
     ...pressMoveProps,
-    ref: (el: HTMLElement | null) => {
-      handlerRef.current = el
-      if (typeof pressMoveProps.ref === "function") {
-        pressMoveProps.ref(el)
-      }
-    },
+    ref: pressMoveProps.ref,
   }
 
   return {

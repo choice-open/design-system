@@ -16,21 +16,48 @@ export default meta
 type Story = StoryObj<typeof Button>
 
 /**
- * `Button` is a versatile button component with loading state and accessibility support.
+ * `Button` is a versatile, accessible button component supporting multiple visual styles, states, and behaviors.
  *
- * - Multiple visual variants
- * - Loading state with spinner
- * - Active/Selected states
- * - Accessibility support
+ * Features:
+ * - Multiple visual variants for different semantic actions (primary, secondary, destructive, etc.)
+ * - Size options for different UI contexts
+ * - Loading state with spinner for async actions
+ * - Active, focused, and disabled states
+ * - Can render as other elements via `asChild` (e.g., <a>, <div>)
+ * - Optional tooltip support for additional context
+ * - Supports icons and custom content
+ * - Full accessibility support (keyboard, ARIA, focus management)
+ *
+ * Usage:
+ * - Use for primary and secondary actions, destructive actions, or as links styled as buttons
+ * - Combine with icons for richer UI
+ * - Use tooltips for extra guidance or clarification
+ *
+ * Best Practices:
+ * - Use the appropriate variant for the action's importance and meaning
+ * - Keep button labels concise and action-oriented
+ * - Avoid using too many button styles on one screen
+ * - Ensure sufficient color contrast and accessible focus indicators
+ *
+ * Accessibility:
+ * - All states are accessible to screen readers and keyboard users
+ * - Tooltips are accessible and do not interfere with button focus
+ * - Use semantic HTML (button, a) for best accessibility
+ */
+
+/**
+ * Basic: Shows the default button usage.
+ * - Demonstrates a simple button with default styling.
+ * - Use for primary actions or as a starting point for customization.
  */
 export const Basic: Story = {
   render: () => <Button>Button</Button>,
 }
 
 /**
- * Available in different sizes:
- * - `default` height: 1.5rem / 24px (default)
- * - `large` height: 2rem / 32px
+ * Sizes: Demonstrates the different size options for the Button component.
+ * - Shows default and large button sizes.
+ * - Useful for adapting buttons to different UI layouts or prominence.
  */
 export const Sizes: Story = {
   render: () => (
@@ -42,16 +69,12 @@ export const Sizes: Story = {
 }
 
 /**
- * The button component comes with different variants:
- * - `primary`: Default button style
- * - `secondary`: Secondary button style
- * - `destructive`: Destructive button style
- * - `secondary-destruct`: Secondary destructive button style
- * - `inverse`: Inverse button style
- * - `success`: Success button style
- * - `link`: Link button style
- * - `link-danger`: Link danger button style
- * - `ghost`: Ghost button style
+ * Variants: Demonstrates all visual variants, sizes, and states for the Button component.
+ * - Shows how to use the variant, size, and state props.
+ * - Includes interactive controls for switching variants and sizes.
+ * - Demonstrates active, focused, loading, and disabled states.
+ * - Shows usage with and without icons.
+ * - Useful for previewing all button styles and states in your design system.
  */
 export const Variants: Story = {
   render: function Variants() {
@@ -92,28 +115,32 @@ export const Variants: Story = {
             onChange={(value) => setVariant(value as Variant)}
           >
             <Select.Trigger>{variant}</Select.Trigger>
-            {Object.values(Variant).map((variant) => (
-              <Select.Item
-                key={variant}
-                value={variant}
-              >
-                {variant}
-              </Select.Item>
-            ))}
+            <Select.Content>
+              {Object.values(Variant).map((variant) => (
+                <Select.Item
+                  key={variant}
+                  value={variant}
+                >
+                  {variant}
+                </Select.Item>
+              ))}
+            </Select.Content>
           </Select>
           <Select
             value={size}
             onChange={(value) => setSize(value as Size)}
           >
             <Select.Trigger>{size}</Select.Trigger>
-            {Object.values(Size).map((size) => (
-              <Select.Item
-                key={size}
-                value={size}
-              >
-                {size}
-              </Select.Item>
-            ))}
+            <Select.Content>
+              {Object.values(Size).map((size) => (
+                <Select.Item
+                  key={size}
+                  value={size}
+                >
+                  {size}
+                </Select.Item>
+              ))}
+            </Select.Content>
           </Select>
         </div>
 
@@ -151,8 +178,8 @@ export const Variants: Story = {
 }
 
 /**
- * The button can be rendered as other elements using the `asChild` prop.
- * - `asChild`: Render the button as other elements
+ * AsChild: Demonstrates rendering the Button as another element using the `asChild` prop.
+ * - Useful for rendering a button as a link or other custom element while retaining button styles and behaviors.
  */
 export const AsChild: Story = {
   render: () => (
@@ -165,8 +192,9 @@ export const AsChild: Story = {
 }
 
 /**
- * The button component can be used as a tooltip.
- * - `tooltip`: content of the tooltip
+ * Tooltip: Demonstrates the Button with a tooltip.
+ * - Shows how to add a tooltip for additional context or guidance.
+ * - Tooltips are accessible and appear on hover or focus.
  */
 export const Tooltip: Story = {
   render: () => <Button tooltip={{ content: "Tooltip" }}>Button</Button>,

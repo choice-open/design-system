@@ -35,7 +35,7 @@ export const TextareaTv = tv({
   compoundVariants: [
     {
       variant: ["default", "dark"],
-      class: "border border-solid",
+      class: "border border-solid border-transparent",
     },
     {
       variant: "default",
@@ -57,7 +57,7 @@ export const TextareaTv = tv({
       variant: "dark",
       selected: false,
       disabled: false,
-      class: ["hover:not-focus-within:border-gray-600", "focus-within:bg-gray-800"],
+      class: ["hover:not-focus-within:border-gray-600"],
     },
     {
       variant: ["dark", "default"],

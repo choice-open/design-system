@@ -3,7 +3,7 @@ import { forwardRef, memo, useMemo } from "react"
 import { MenuItem, type MenuItemProps } from "../../menus"
 
 export interface SelectItemPublicProps extends MenuItemProps {
-  value: string
+  value?: string
   disabled?: boolean
   active?: boolean
   selected?: boolean

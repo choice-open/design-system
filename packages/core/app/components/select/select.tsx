@@ -158,7 +158,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
   const [innerOffset, setInnerOffset] = useState(0)
 
   // 合并受控与非受控打开状态
-  const isOpen = controlledOpen !== undefined ? controlledOpen : open
+  const isControlledOpen = controlledOpen !== undefined ? controlledOpen : open
 
   // 生成唯一 ID
   const baseId = useId()
@@ -192,7 +192,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
   // 使用 floating-ui 设置浮动菜单 - 优化中间件配置
   const floating = useFloating({
     placement,
-    open: isOpen,
+    open: isControlledOpen,
     onOpenChange: handleOpenChange,
     whileElementsMounted: (reference, floating, update) => {
       // 优化更新策略，使用 RAF 节流更新
@@ -271,7 +271,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
 
   // 菜单打开时的效果
   useEffect(() => {
-    if (isOpen) {
+    if (isControlledOpen) {
       refs.selectTimeout.current = setTimeout(() => {
         refs.allowSelect.current = true
       }, 300)
@@ -285,7 +285,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       refs.allowSelect.current = false
       refs.allowMouseUp.current = true
     }
-  }, [isOpen])
+  }, [isControlledOpen])
 
   // 处理箭头滚动 - 优化事件回调，使用 useEventCallback 确保稳定引用
   const handleArrowScroll = useEventCallback((amount: number) => {
@@ -318,6 +318,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
   const handleSelect = useEventCallback((index: number) => {
     if (refs.allowSelect.current) {
       setSelectedIndex(index)
+      handleOpenChange(false)
       setOpen(false)
 
       const selectedOption = options[index]
@@ -441,7 +442,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       <Slot
         ref={floating.refs.setReference}
         aria-haspopup="menu"
-        aria-expanded={isOpen}
+        aria-expanded={isControlledOpen}
         aria-controls={menuId}
         {...interactions.getReferenceProps({
           disabled,
@@ -459,7 +460,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       </Slot>
 
       <FloatingPortal id={portalId}>
-        {isOpen && (
+        {isControlledOpen && (
           <FloatingOverlay
             lockScroll={!touch}
             className="z-menu"

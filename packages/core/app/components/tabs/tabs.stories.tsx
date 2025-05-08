@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { Tabs } from "./tabs"
 
 const meta: Meta<typeof Tabs> = {
-  title: "Tabs",
+  title: "Navigation/Tabs",
   component: Tabs,
 }
 

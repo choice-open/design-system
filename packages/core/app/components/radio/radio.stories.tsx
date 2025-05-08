@@ -13,8 +13,41 @@ export default meta
 type Story = StoryObj<typeof Radio>
 
 /**
- * - This is a controlled component that requires `value` and `onChange` props to control its state.
- * - Use `<Radio.Label>` to add a label to the radio
+ * `Radio` is a form control component that allows users to select a single option from a set.
+ *
+ * Features:
+ * - Multiple visual variants (default, accent, outline)
+ * - Support for disabled and focused states
+ * - Composable label via Radio.Label
+ * - Controlled usage for reliable state management
+ * - Group functionality via RadioGroup component
+ * - Proper keyboard and screen reader accessibility
+ *
+ * Usage Guidelines:
+ * - Use when users need to select exactly one option from a list
+ * - Provide clear, concise labels for each option
+ * - Use RadioGroup for related options
+ * - Always show all available options
+ * - Consider appropriate variant based on your UI
+ *
+ * Accessibility:
+ * - Proper role and ARIA attributes
+ * - Keyboard navigation with arrow keys in groups
+ * - Focus management and visible focus states
+ * - Label association for screen readers
+ * - Proper group semantics with fieldset/legend pattern
+ */
+
+/**
+ * Basic: Demonstrates all variants, states, and interactions of the Radio component.
+ *
+ * Features:
+ * - Three visual variants: default, accent, and outline
+ * - Different states: rest, focused, and disabled
+ * - On/off interactions for each variant and state
+ *
+ * This comprehensive example shows all possible combinations of
+ * variants, states, and interactions for the Radio component.
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -70,8 +103,19 @@ export const Basic: Story = {
     )
   },
 }
+
 /**
- * The `disabled` prop is used to disable the radio.
+ * Disabled: Demonstrates a radio button in the disabled state.
+ *
+ * Features:
+ * - Visual indication that the control cannot be interacted with
+ * - Prevents user interaction while maintaining form value
+ * - Proper styling that shows the control is unavailable
+ *
+ * Use disabled radio buttons when:
+ * - The option is not applicable in the current context
+ * - Permissions don't allow selection of this option
+ * - The option will become available based on other selections
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
@@ -89,10 +133,20 @@ export const Disabled: Story = {
 }
 
 /**
- * The `variant` prop is used to change the variant of the radio.
- * - `default`: The default variant of the radio.
- * - `accent`: The accent variant of the radio.
- * - `outline`: The outline variant of the radio.
+ * Variant: Demonstrates the different visual variants of the Radio component.
+ *
+ * Features:
+ * - Default: Standard styling with filled selection indicator
+ * - Accent: Themed styling with brand color accent
+ * - Outline: Minimal styling with outline appearance
+ *
+ * Usage Guidelines:
+ * - Default: Use for most standard forms and interfaces
+ * - Accent: Use to highlight important option groups
+ * - Outline: Use for secondary options or on colored backgrounds
+ *
+ * This example shows how the same functionality can be presented
+ * with different visual styles to match your design requirements.
  */
 export const Variant: Story = {
   render: function VariantStory() {
@@ -133,9 +187,21 @@ export const Variant: Story = {
 }
 
 /**
- * The `RadioGroup` component is used to group the radio. It supports two usage patterns:
- * 1. Providing options as a prop
- * 2. Using RadioGroup.Item as children
+ * Group: Demonstrates the RadioGroup component for managing related radio options.
+ *
+ * Features:
+ * - Two different usage patterns:
+ *   1. Providing options array via the options prop
+ *   2. Using RadioGroup.Item as children for more customization
+ * - Automatic state management across the group
+ * - Proper name attribution for form submission
+ * - Simplified onChange handling with single value
+ *
+ * Usage Guidelines:
+ * - Always use RadioGroup for related options
+ * - Use options prop for simple cases with consistent styling
+ * - Use RadioGroup.Item children for more complex layouts or custom styling
+ * - Provide a default selected value when appropriate
  */
 export const Group: Story = {
   render: function GroupStory() {
@@ -180,10 +246,21 @@ export const Group: Story = {
 }
 
 /**
- * The `RadioGroup` component has `variant` prop.
- * - `default`: The default variant of the radio.
- * - `accent`: The accent variant of the radio.
- * - `outline`: The outline variant of the radio.
+ * GroupVariant: Demonstrates applying visual variants to a RadioGroup.
+ *
+ * Features:
+ * - All RadioGroup.Items inherit the variant from the parent group
+ * - Consistent styling across all options in the group
+ * - Different variants affect the visual presentation of all radios
+ *
+ * Usage Guidelines:
+ * - Use the same variant across a logical group of options
+ * - Select variant based on the importance of the option group
+ * - Consider the visual hierarchy when choosing variants
+ *
+ * This example shows how selecting different variants affects
+ * the entire RadioGroup, and how the selected option itself
+ * controls which variant is applied.
  */
 export const GroupVariant: Story = {
   render: function GroupVariantStory() {

@@ -72,11 +72,7 @@ export const TextFieldTv = tv({
       variant: "dark",
       disabled: false,
       class: {
-        root: [
-          "bg-gray-700 text-white",
-          "hover:not-focus-within:before:border-gray-600",
-          "focus-within:bg-gray-800",
-        ],
+        root: ["bg-gray-700 text-white", "hover:not-focus-within:before:border-gray-600"],
         label: "text-white",
         description: "text-white/40",
       },

@@ -1,4 +1,4 @@
-import { Add, Delete, LoaderCircle, Reload } from "@choiceform/icons-react"
+import { Add, Delete, ImageRemove, InfoSquare, LoaderCircle, Reload } from "@choiceform/icons-react"
 import { forwardRef, HTMLProps, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { tcx } from "~/utils"
 import { Dropdown } from "../dropdown"
@@ -24,6 +24,7 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
 
   const [zoom, setZoom] = useState(INITIAL_ZOOM)
   const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   const internalRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
@@ -163,7 +164,7 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
     }
   }, [src])
 
-  const styles = PicturePreviewTv({ isLoading })
+  const styles = PicturePreviewTv({ isLoading, isError })
 
   return (
     <div
@@ -180,6 +181,16 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
           />
         </div>
       )}
+      {isError && (
+        <div className={styles.loading()}>
+          <ImageRemove
+            width={32}
+            height={32}
+          />
+          <span>{LL.picturePreview.error()}</span>
+        </div>
+      )}
+
       <div className={styles.content()}>
         <div
           ref={canvasRef}
@@ -195,102 +206,105 @@ export const PicturePreview = forwardRef<HTMLDivElement, PicturePreviewProps>((p
             loading="eager"
             decoding="async"
             onLoad={() => setIsLoading(false)}
+            onError={() => setIsError(true)}
           />
         </div>
       </div>
 
-      <div className={styles.controlGroup()}>
-        <IconButton
-          onClick={zoomOut}
-          className="rounded-none"
-          size="large"
-          tooltip={{
-            content: LL.picturePreview.zoomOut(),
-            shortcut: {
-              keys: "-",
-              modifier: "command",
-            },
-          }}
-        >
-          <Delete />
-        </IconButton>
-
-        <Dropdown selection>
-          <Dropdown.Trigger
-            variant="ghost"
-            className="border-x-default rounded-none"
+      {isError || isLoading ? null : (
+        <div className={styles.controlGroup()}>
+          <IconButton
+            onClick={zoomOut}
+            className="rounded-none"
             size="large"
-          >
-            <span className="flex-1">{Math.round(zoom * 100)}%</span>
-          </Dropdown.Trigger>
-
-          <Dropdown.Content>
-            <Dropdown.Item
-              onMouseUp={() => handleZoomMenuItemClick(zoomRef.current + ZOOM_STEP)}
-              shortcut={{
-                keys: "+",
-                modifier: "command",
-              }}
-            >
-              <span className="flex-1">{LL.picturePreview.zoomIn()}</span>
-            </Dropdown.Item>
-            <Dropdown.Item
-              onMouseUp={() => handleZoomMenuItemClick(zoomRef.current - ZOOM_STEP)}
-              shortcut={{
+            tooltip={{
+              content: LL.picturePreview.zoomOut(),
+              shortcut: {
                 keys: "-",
                 modifier: "command",
-              }}
-            >
-              <span className="flex-1">{LL.picturePreview.zoomOut()}</span>
-            </Dropdown.Item>
-            <Dropdown.Item
-              selected={zoomRef.current === 0.5}
-              onMouseUp={() => handleZoomMenuItemClick(0.5)}
-            >
-              <span className="flex-1">{LL.picturePreview.zoomTo50()}</span>
-            </Dropdown.Item>
-            <Dropdown.Item
-              selected={zoomRef.current === 1}
-              onMouseUp={() => handleZoomMenuItemClick(1)}
-            >
-              <span className="flex-1">{LL.picturePreview.zoomTo100()}</span>
-            </Dropdown.Item>
-            <Dropdown.Item
-              selected={zoomRef.current === 2}
-              onMouseUp={() => handleZoomMenuItemClick(2)}
-            >
-              <span className="flex-1">{LL.picturePreview.zoomTo200()}</span>
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              onMouseUp={() => {
-                fitToView()
-              }}
-              shortcut={{
-                keys: "1",
-                modifier: "command",
-              }}
-            >
-              <span className="flex-1">{LL.picturePreview.fitToScreen()}</span>
-            </Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
+              },
+            }}
+          >
+            <Delete />
+          </IconButton>
 
-        <IconButton
-          onClick={zoomIn}
-          className="rounded-none"
-          size="large"
-          tooltip={{
-            content: LL.picturePreview.zoomIn(),
-            shortcut: {
-              keys: "+",
-              modifier: "command",
-            },
-          }}
-        >
-          <Add />
-        </IconButton>
-      </div>
+          <Dropdown selection>
+            <Dropdown.Trigger
+              variant="ghost"
+              className="border-x-default rounded-none"
+              size="large"
+            >
+              <span className="flex-1">{Math.round(zoom * 100)}%</span>
+            </Dropdown.Trigger>
+
+            <Dropdown.Content>
+              <Dropdown.Item
+                onMouseUp={() => handleZoomMenuItemClick(zoomRef.current + ZOOM_STEP)}
+                shortcut={{
+                  keys: "+",
+                  modifier: "command",
+                }}
+              >
+                <span className="flex-1">{LL.picturePreview.zoomIn()}</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                onMouseUp={() => handleZoomMenuItemClick(zoomRef.current - ZOOM_STEP)}
+                shortcut={{
+                  keys: "-",
+                  modifier: "command",
+                }}
+              >
+                <span className="flex-1">{LL.picturePreview.zoomOut()}</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                selected={zoomRef.current === 0.5}
+                onMouseUp={() => handleZoomMenuItemClick(0.5)}
+              >
+                <span className="flex-1">{LL.picturePreview.zoomTo50()}</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                selected={zoomRef.current === 1}
+                onMouseUp={() => handleZoomMenuItemClick(1)}
+              >
+                <span className="flex-1">{LL.picturePreview.zoomTo100()}</span>
+              </Dropdown.Item>
+              <Dropdown.Item
+                selected={zoomRef.current === 2}
+                onMouseUp={() => handleZoomMenuItemClick(2)}
+              >
+                <span className="flex-1">{LL.picturePreview.zoomTo200()}</span>
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                onMouseUp={() => {
+                  fitToView()
+                }}
+                shortcut={{
+                  keys: "1",
+                  modifier: "command",
+                }}
+              >
+                <span className="flex-1">{LL.picturePreview.fitToScreen()}</span>
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+
+          <IconButton
+            onClick={zoomIn}
+            className="rounded-none"
+            size="large"
+            tooltip={{
+              content: LL.picturePreview.zoomIn(),
+              shortcut: {
+                keys: "+",
+                modifier: "command",
+              },
+            }}
+          >
+            <Add />
+          </IconButton>
+        </div>
+      )}
     </div>
   )
 })

@@ -2,13 +2,13 @@ import { faker } from "@faker-js/faker"
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useMemo, useState } from "react"
 import { CustomElement } from "../comment-input/types"
-import { Dialog } from "../../dialog"
-import { Modal } from "../../modal"
-import { PicturePreview } from "../../picture-preview"
+import { Dialog } from "../../../dialog"
+import { Modal } from "../../../modal"
+import { PicturePreview } from "../../../picture-preview"
 import { CommentItem } from "./comment-item"
 
 const meta = {
-  title: "Comments/CommentItem",
+  title: "Pickers/Comments/CommentItem",
   component: CommentItem,
   decorators: [
     (Story) => (

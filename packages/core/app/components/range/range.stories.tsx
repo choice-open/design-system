@@ -5,7 +5,7 @@ import { Popover } from "../popover"
 import { Range } from "./range"
 
 const meta: Meta<typeof Range> = {
-  title: "Range",
+  title: "Forms/Range",
   component: Range,
 }
 
@@ -14,18 +14,43 @@ export default meta
 type Story = StoryObj<typeof Range>
 
 /**
- * The `IfRange` component is a range input component that allows the user to select a value between a minimum and maximum value.
- * - `value`: The current value of the range input.
- * - `onChange`: The function to call when the value changes.
- * - `min`: The minimum value of the range input.
- * - `max`: The maximum value of the range input.
- * - `step`: The step value of the range input.
- * - `defaultValue`: The default value of the range input.
- * - `disabled`: Whether the range input is disabled.
+ * `Range` is a slider component that allows users to select a numeric value within a specified range.
  *
- *| Note: Since the `IfRange` component needs to calculate the scale and position of the Step dot,
- *  the width of the `IfRange` component is not adaptive and needs to be explicitly specified.
- *  Default value: trackSize: { width: 256, height: 16 }.
+ * Features:
+ * - Customizable minimum and maximum values
+ * - Optional step intervals with visual tick marks
+ * - Default value indicator with snap effect
+ * - Configurable track and thumb sizes
+ * - Disabled state support
+ * - Controlled and uncontrolled usage
+ * - Smooth drag interaction
+ *
+ * Usage Guidelines:
+ * - Use for selecting a value from a continuous range
+ * - Provide appropriate min, max, and step values for your use case
+ * - Consider using step marks for discrete values
+ * - Display the current value for better usability
+ * - Use defaultValue to indicate recommended or factory settings
+ * - Specify explicit width for consistent appearance
+ *
+ * Accessibility:
+ * - Keyboard support (arrow keys, home/end)
+ * - Proper ARIA attributes
+ * - Focus management
+ * - Screen reader compatibility
+ * - Appropriate contrast ratios
+ */
+
+/**
+ * Basic: Demonstrates the simplest Range implementation.
+ *
+ * Features:
+ * - Controlled component with value and onChange props
+ * - Default sizing and appearance
+ * - Smooth sliding interaction
+ *
+ * This example shows a minimal Range implementation with default props.
+ * The slider uses its default min (0), max (100), and step values.
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -43,9 +68,17 @@ export const Basic: Story = {
 }
 
 /**
- * The `step` prop is used to set the step value of the range input.
- * - `step`: The step value of the range input.
- * - Setting the `step` parameter will display tick marks on the Slider.
+ * Step: Demonstrates Range with discrete steps and tick marks.
+ *
+ * Features:
+ * - Visual tick marks for each step
+ * - Snapping to step values during dragging
+ * - Value display to show current selection
+ *
+ * Use stepped ranges when:
+ * - Only specific values are valid (like percentages in increments of 10)
+ * - Users benefit from visual indicators of available options
+ * - Precise selection between specific intervals is needed
  */
 export const Step: Story = {
   render: function StepStory() {
@@ -67,9 +100,19 @@ export const Step: Story = {
 }
 
 /**
- * The `defaultValue` here is not the default value of the range input, but rather the default value of the setting, indicating to the user the default parameter value on the scale.
- * The default value of the range can be set through the initial state value.
- * - Snap effect when near default value (if no step is set) 5% of the range
+ * DefaultValue: Demonstrates the defaultValue feature for indicating recommended settings.
+ *
+ * Features:
+ * - Visual indicator for the default/recommended value
+ * - Snap effect when dragging near the default value
+ * - No step marks, allowing continuous selection
+ *
+ * Note: This defaultValue is not the initial value of the slider, but rather
+ * a reference point on the scale. The initial value is set via state.
+ *
+ * Use defaultValue when:
+ * - There's a recommended or factory setting to highlight
+ * - Users should be aware of a standard value while still having freedom to adjust
  */
 export const DefaultValue: Story = {
   render: function DefaultValueStory() {
@@ -91,8 +134,17 @@ export const DefaultValue: Story = {
 }
 
 /**
- * The `defaultValue` here is not the default value of the range input, but rather the default value of the setting, indicating to the user the default parameter value on the scale.
- * The default value of the range can be set through the initial state value.
+ * DefaultValueAndStep: Demonstrates combining defaultValue with step marks.
+ *
+ * Features:
+ * - Both step marks and default value indicator
+ * - Snap effect to both steps and default value
+ * - Visual hierarchy showing both step intervals and recommended value
+ *
+ * This pattern is useful for:
+ * - Settings with both recommended values and required increments
+ * - Advanced controls where precision and guidance are both important
+ * - Helping users choose appropriate values within constraints
  */
 export const DefaultValueAndStep: Story = {
   render: function DefaultValueAndStepStory() {
@@ -115,8 +167,17 @@ export const DefaultValueAndStep: Story = {
 }
 
 /**
- * The `disabled` prop is used to disable the range input.
- * - `disabled`: Whether the range input is disabled.
+ * Disabled: Demonstrates the Range component in a disabled state.
+ *
+ * Features:
+ * - Visual indication that the control cannot be interacted with
+ * - Prevents user interaction while maintaining current value
+ * - Appropriate styling to show unavailable state
+ *
+ * Use disabled Range when:
+ * - The setting is not applicable in the current context
+ * - Permissions don't allow adjusting this setting
+ * - The control should show a value but not allow changes
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
@@ -138,9 +199,20 @@ export const Disabled: Story = {
 }
 
 /**
- * The `trackSize` and `thumbSize` props are used to set the size of the track and thumb.
- * - `trackSize`: The size of the track. Default: `{ width: 256, height: 16 }`
- * - `thumbSize`: The size of the thumb. Default: `14`
+ * CustomSize: Demonstrates configuring the Range component dimensions.
+ *
+ * Features:
+ * - Custom track width and height
+ * - Custom thumb size
+ * - Proportional adjustments to all visual elements
+ *
+ * Use custom sizing when:
+ * - Fitting into space-constrained layouts
+ * - Creating more compact or larger controls based on context
+ * - Matching specific design requirements
+ *
+ * Note: The Range component needs explicit width specification for proper
+ * calculation of step positions and thumb movement.
  */
 export const CustomSize: Story = {
   render: function CustomSizeStory() {
@@ -165,8 +237,22 @@ export const CustomSize: Story = {
   },
 }
 
+/**
+ * DraggableRangePopover: Demonstrates Range inside a draggable Popover component.
+ *
+ * Features:
+ * - Integration with Popover for contextual settings
+ * - Properly sized for compact display
+ * - Value display alongside the slider
+ * - Draggable container with proper interaction handling
+ *
+ * This pattern is useful for:
+ * - Quick adjustment panels that don't require dedicated forms
+ * - Property inspectors or editing tools
+ * - Settings that should be adjustable without navigating to a new screen
+ */
 export const DraggableRangePopover: Story = {
-  render: function BasicStory() {
+  render: function DraggableRangePopoverStory() {
     const [value, setValue] = useState(0)
 
     return (

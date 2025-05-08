@@ -168,9 +168,6 @@
   --shadow-modals:
     0px 2px 5px 0px rgba(0, 0, 0, 0.15), 0px 10px 24px 0px rgba(0, 0, 0, 0.18),
     0px 0px 0.5px 0px rgba(0, 0, 0, 0.08);
-
-  --focus-border: var(--blue-600);
-  --separator-border: var(--color-border-default);
 }
 
 .dark,
@@ -514,7 +511,7 @@
 
   --shadow-line: inset 0 0 0 1px
     color-mix(in oklch, var(--color-default-foreground) 10%, transparent);
-    
+
   --shadow-inset-border: inset 0 0 0 1px var(--color-default-boundary);
   --shadow-border: 0 0 0 1px var(--color-default-boundary);
   --shadow-border-white: 0 0 0 1px var(--color-white);

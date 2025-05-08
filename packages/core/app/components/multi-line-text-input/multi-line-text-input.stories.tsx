@@ -5,6 +5,7 @@ import { MultiLineTextInput } from "./multi-line-text-input"
 const meta: Meta<typeof MultiLineTextInput> = {
   title: "Forms/MultiLineTextInput",
   component: MultiLineTextInput,
+  tags: ["beta"],
 }
 
 export default meta
@@ -12,14 +13,53 @@ export default meta
 type Story = StoryObj<typeof MultiLineTextInput>
 
 /**
- * `MultiLineTextInput` is a basic input component that can be used to input text.
+ * `MultiLineTextInput` is a versatile textarea component for multi-line text entry with automatic height adjustment.
+ *
+ * Features:
+ * - Automatic height adjustment based on content
+ * - Multiple visual variants (default, dark)
+ * - Support for all standard input states (disabled, placeholder)
+ * - Controlled and uncontrolled usage
+ * - Minimum and maximum row limits
+ * - Full keyboard and screen reader accessibility
+ * - Consistent styling with the design system
+ *
+ * Usage Guidelines:
+ * - Use for longer text input or when line breaks are needed
+ * - Set appropriate min/max rows for your use case
+ * - Provide clear labels for accessibility (typically outside the component)
+ * - Use controlled mode when you need to validate or process input
+ * - Choose appropriate variants based on your UI background
+ *
+ * Accessibility:
+ * - Supports all standard textarea ARIA attributes
+ * - Maintains consistent focus states
+ * - Ensures proper contrast in all variants
+ * - Works with form labels and screen readers
+ */
+
+/**
+ * Basic: Demonstrates the default MultiLineTextInput component in its simplest form.
+ *
+ * This minimal example shows the standard appearance with default styling.
+ * Use this as a starting point for customization.
  */
 export const Basic: Story = {
   render: () => <MultiLineTextInput />,
 }
 
 /**
- * The `disabled` prop is used to disable the input.
+ * Disabled: Demonstrates the input in a disabled state.
+ *
+ * Features:
+ * - Visually indicates the input cannot be interacted with
+ * - Prevents user input and focus
+ * - Maintains form value during submission
+ *
+ * Use disabled inputs when:
+ * - The field is not applicable in the current context
+ * - Permissions don't allow editing this field
+ * - You want to prevent changes while preserving the value
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
@@ -35,7 +75,18 @@ export const Disabled: Story = {
 }
 
 /**
- * The `placeholder` prop is used to display a placeholder text.
+ * Placeholder: Demonstrates using placeholder text in the input.
+ *
+ * Features:
+ * - Provides hint text when the input is empty
+ * - Disappears when the user enters text
+ * - Helps users understand the expected content
+ *
+ * Best Practices:
+ * - Use concise, descriptive placeholder text
+ * - Don't rely on placeholders for critical information
+ * - Consider placeholder text as supplementary to labels
+ * - Ensure sufficient contrast for readability
  */
 export const Placeholder: Story = {
   render: function PlaceholderStory() {
@@ -51,11 +102,15 @@ export const Placeholder: Story = {
 }
 
 /**
- * The `variant` prop is used to set the variant of the input.
- * - `default`: default variant
- * - `transparent`: transparent variant
+ * Variants: Demonstrates different visual variants of the component.
  *
- * | The transparent variant is generally used in scenarios where no styling is needed.
+ * Features:
+ * - Default: Standard styled input with borders and background
+ * - Dark: Adjusted styling for dark backgrounds
+ *
+ * Usage:
+ * - Default: Use for most standard form contexts
+ * - Dark: Use when your form appears on a dark background
  */
 export const Variants: Story = {
   render: function VariantsStory() {
@@ -63,7 +118,7 @@ export const Variants: Story = {
       <>
         <MultiLineTextInput value="Default" />
         <MultiLineTextInput
-          value="Transparent"
+          value="Dark Variant"
           variant="dark"
         />
       </>
@@ -72,7 +127,17 @@ export const Variants: Story = {
 }
 
 /**
- * The `dark` prop is used to set the dark variant of the input.
+ * Dark: Demonstrates the input with dark styling on a dark background.
+ *
+ * Features:
+ * - Adjusted color scheme for dark backgrounds
+ * - Maintained readability and contrast
+ * - Same functionality as standard inputs
+ *
+ * Usage:
+ * - Use in dark UI sections or on colored backgrounds
+ * - Ensures proper contrast and visibility in dark environments
+ * - Maintains consistent user experience across light and dark modes
  */
 export const Dark: Story = {
   render: function DarkStory() {
@@ -91,9 +156,18 @@ export const Dark: Story = {
 }
 
 /**
- * The `size` prop is used to set the size of the input.
- * - `default`: default size
- * - `large`: large size
+ * Sizes: Demonstrates configuring the input with minimum and maximum rows.
+ *
+ * Features:
+ * - Auto-expanding behavior within defined limits
+ * - Minimum height to provide adequate space for entry
+ * - Maximum height to prevent excessive vertical growth
+ * - Scrolling when content exceeds maximum height
+ *
+ * Usage:
+ * - Set minRows for the initial display size
+ * - Set maxRows to limit the maximum height
+ * - Balance between providing adequate space and managing layout
  */
 export const Sizes: Story = {
   render: function SizesStory() {
@@ -110,7 +184,33 @@ export const Sizes: Story = {
 }
 
 /**
- * The `value` and `onChange` props are used to control the input value.
+ * Controlled: Demonstrates using the component in controlled mode.
+ *
+ * Features:
+ * - Input value managed by React state
+ * - Complete control over value changes
+ * - Enables validation, formatting, or transformation during input
+ * - Visual feedback of current value for demonstration
+ *
+ * Usage:
+ * ```tsx
+ * const [value, setValue] = useState("");
+ *
+ * // With validation
+ * const handleChange = (newValue) => {
+ *   // Apply validation or formatting logic
+ *   setValue(newValue);
+ * };
+ *
+ * return <MultiLineTextInput value={value} onChange={handleChange} />;
+ * ```
+ *
+ * Best Practices:
+ * - Use controlled inputs when you need to:
+ *   - Validate input on change
+ *   - Format values as they're entered
+ *   - Synchronize with other components
+ *   - Implement complex form logic
  */
 export const Controlled: Story = {
   render: function ControlledStory() {

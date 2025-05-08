@@ -8,6 +8,7 @@ import { TextField } from "./text-field"
 const meta = {
   title: "Forms/TextField",
   component: TextField,
+  tags: ["new"],
 } satisfies Meta<typeof TextField>
 
 export default meta

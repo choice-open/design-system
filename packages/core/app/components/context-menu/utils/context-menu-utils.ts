@@ -1,22 +1,19 @@
 import React, { ReactElement, ReactNode } from "react"
 
 /**
- * 处理菜单组件的子元素，分类为触发器、内容和其他元素
+ * 处理菜单组件的子元素，分类为触发器和内容元素
  * @param children 子元素
  * @param TriggerComponent 触发器组件
  * @param ContentComponent 内容组件
- * @param contentProps 内容组件的属性
  * @returns 处理后的元素对象
  */
-export function processMenuChildren<T extends Record<string, any>>(
+export function processMenuChildren(
   children: ReactNode,
   TriggerComponent: React.ComponentType<any>,
   ContentComponent: React.ComponentType<any>,
-  contentProps?: T,
 ) {
   let triggerElement: ReactElement | null = null
   let contentElement: ReactElement | null = null
-  const otherElements: ReactElement[] = []
 
   // 获取组件的显示名称，用于比较
   const triggerDisplayName = TriggerComponent.displayName || ""
@@ -39,23 +36,10 @@ export function processMenuChildren<T extends Record<string, any>>(
     ) {
       contentElement = child
     }
-    // 其他组件
-    else {
-      otherElements.push(child)
-    }
   })
-
-  // 如果没有显式的内容组件，但有其他元素，则创建一个内容组件包装它们
-  let finalContent: ReactElement | null = null
-  if (contentElement) {
-    finalContent = contentElement
-  } else if (otherElements.length > 0) {
-    finalContent = React.createElement(ContentComponent, contentProps, otherElements)
-  }
 
   return {
     triggerElement,
-    contentElement: finalContent,
-    otherElements,
+    contentElement,
   }
 }

@@ -1,152 +1,226 @@
-import React, { forwardRef, HTMLProps, ReactNode, useId, useRef } from "react"
+import React, {
+  Children,
+  cloneElement,
+  forwardRef,
+  HTMLProps,
+  isValidElement,
+  ReactElement,
+  ReactNode,
+  useId,
+  useMemo,
+  useRef,
+} from "react"
+import { useEventCallback } from "usehooks-ts"
 import { Tooltip, type TooltipProps } from "~/components/tooltip"
-import { PressMoveProps, useDisableScroll } from "~/hooks"
+import { useDisableScroll } from "~/hooks"
 import { mergeProps, mergeRefs, tcx } from "~/utils"
-import { NumericInputElement, NumericInputVariable } from "./components"
+import {
+  NumericInputElement,
+  NumericInputMenuActionPrompt,
+  NumericInputMenuTrigger,
+  NumericInputVariable,
+} from "./components"
+import { NumericInputContext, NumericInputContextValue } from "./context"
 import { useNumericInput } from "./hooks"
-import { numericInputTv } from "./tv"
+import { NumericInputTv } from "./tv"
 import { NumericInputValue } from "./types"
 import { dealWithNumericInputValue } from "./utils"
 
 export type NumericChangeDetail = ReturnType<typeof dealWithNumericInputValue>
 
-type ElementType = {
-  type: "handler" | "action" | "menu"
-  element: ReactNode
-}
-
 export interface NumericInputProps
-  extends Omit<HTMLProps<HTMLInputElement>, "value" | "defaultValue" | "onChange"> {
+  extends NumericInputContextValue,
+    Omit<
+      HTMLProps<HTMLInputElement>,
+      | "value"
+      | "defaultValue"
+      | "onChange"
+      | "children"
+      | "max"
+      | "min"
+      | "step"
+      | "disabled"
+      | "id"
+    > {
   className?: string
-  classNames?: {
-    container?: string
-    input?: string
-  }
-  selected?: boolean
-  decimal?: number
-  defaultValue?: NumericInputValue
-  disabled?: boolean
-  expression?: string
-  isConstrained?: boolean
-  isOverridden?: boolean
-  max?: number
-  min?: number
-  readOnly?: boolean
-  required?: boolean
-  shiftStep?: number
-  step?: number
-  value?: NumericInputValue
-  variableValue?: number | null
-  variant?: "transparent" | "default"
-  prefixElement?: ReactNode
-  suffixElement?: ElementType
   tooltip?: TooltipProps
-  onChange?: (value: NumericInputValue, detail: NumericChangeDetail) => void
-  onEmpty?: () => void
-  onPressEnd?: PressMoveProps["onPressEnd"]
-  onPressStart?: PressMoveProps["onPressStart"]
-  onVariableClick?: () => void
-  onIsEditingChange?: (isEditing: boolean) => void
   triggerRef?: React.RefObject<HTMLLabelElement> | ((el: HTMLLabelElement | null) => void)
+  children?: ReactNode
+  disabled?: boolean
+  onChange?: (value: NumericInputValue, detail: NumericChangeDetail) => void
 }
 
-export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
-  function NumericInput(props, ref) {
-    const {
-      className,
-      classNames,
-      decimal,
-      defaultValue,
-      disabled,
-      expression = "{value}",
-      isConstrained,
-      isOverridden,
-      max,
-      min,
-      readOnly,
-      required,
-      shiftStep = 10,
-      step = 1,
-      value,
-      variableValue,
-      variant = "default",
-      selected = false,
-      prefixElement,
-      suffixElement,
-      tooltip,
-      onChange,
-      onEmpty,
-      onPressEnd,
-      onPressStart,
-      onVariableClick,
-      onIsEditingChange,
-      triggerRef,
-      // A11y props
-      name,
-      "aria-label": ariaLabel,
-      "aria-describedby": ariaDescribedby,
-    } = props
+interface NumericInputComponent
+  extends React.ForwardRefExoticComponent<
+    NumericInputProps & React.RefAttributes<HTMLInputElement>
+  > {
+  Prefix: typeof NumericInputElement
+  Suffix: typeof NumericInputElement
+  Variable: typeof NumericInputVariable
+  MenuTrigger: typeof NumericInputMenuTrigger
+  ActionPrompt: typeof NumericInputMenuActionPrompt
+}
 
-    const id = useId()
-    const inputRef = useRef<HTMLInputElement>(null)
+export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>((props, ref) => {
+  const {
+    className,
+    decimal,
+    defaultValue,
+    disabled,
+    expression = "{value}",
+    max,
+    min,
+    readOnly,
+    required,
+    shiftStep = 10,
+    step = 1,
+    value,
+    variant = "default",
+    focused = false,
+    selected = false,
+    tooltip,
+    onChange,
+    onEmpty,
+    onPressEnd,
+    onPressStart,
+    onIsEditingChange,
+    triggerRef,
+    name,
+    "aria-label": ariaLabel,
+    "aria-describedby": ariaDescribedby,
+    children,
+  } = props
 
-    const { handlerPressed, inputProps, handlerProps } = useNumericInput({
-      decimal,
-      defaultValue,
-      disabled,
-      expression,
-      max,
-      min,
-      readOnly,
-      shiftStep,
-      step,
-      value: variableValue === value ? undefined : value,
-      onChange,
-      onEmpty,
-      onPressEnd,
-      onPressStart,
-      ref: mergeRefs(inputRef, ref),
-    })
+  const id = useId()
+  const inputRef = useRef<HTMLInputElement>(null)
 
-    const { disableScrollProps } = useDisableScroll({ ref: inputRef })
+  const { handlerPressed, inputProps, handlerProps } = useNumericInput({
+    decimal,
+    defaultValue,
+    disabled,
+    expression,
+    max,
+    min,
+    readOnly,
+    shiftStep,
+    step,
+    value,
+    onChange,
+    onEmpty,
+    onPressEnd,
+    onPressStart,
+    ref: mergeRefs(inputRef, ref),
+  })
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      onIsEditingChange?.(true)
-      inputProps.onFocus?.(e)
-    }
+  const { disableScrollProps } = useDisableScroll({ ref: inputRef })
 
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      onIsEditingChange?.(false)
-      inputProps.onBlur?.(e)
-    }
+  const handleFocus = useEventCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    onIsEditingChange?.(true)
+    inputProps.onFocus?.(e)
+  })
 
-    const styles = numericInputTv({
+  const handleBlur = useEventCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    onIsEditingChange?.(false)
+    inputProps.onBlur && inputProps.onBlur()
+  })
+
+  // 创建上下文值
+  const contextValue = useMemo<NumericInputContextValue>(
+    () => ({
       variant,
-      selected: selected || handlerPressed,
-      disabled,
-      isOverridden,
-      isConstrained,
-      prefixElement: !!prefixElement,
-      suffixElement: !!suffixElement,
-      suffixElementType: suffixElement?.type,
-      variableValue: !!variableValue,
-    })
 
-    return (
+      // 状态
+      value,
+      defaultValue,
+      disabled,
+      readOnly,
+      selected,
+      focused,
+      handlerPressed,
+
+      // 配置
+      min,
+      max,
+      step,
+      shiftStep,
+      decimal,
+      expression,
+
+      // 事件处理方法
+      onChange,
+      onEmpty,
+      onPressStart,
+      onPressEnd,
+      onIsEditingChange,
+
+      // 处理程序
+      handlerProps,
+    }),
+    [
+      variant,
+      value,
+      defaultValue,
+      disabled,
+      readOnly,
+      selected,
+      focused,
+      handlerPressed,
+      min,
+      max,
+      step,
+      shiftStep,
+      decimal,
+      expression,
+      onChange,
+      onEmpty,
+      onPressStart,
+      onPressEnd,
+      onIsEditingChange,
+      handlerProps,
+    ],
+  )
+
+  const childrenArray = Children.toArray(children)
+
+  const prefixElements = childrenArray.filter(
+    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Prefix,
+  )
+
+  const suffixElements = childrenArray.filter(
+    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Suffix,
+  )
+
+  const variableElement = childrenArray.filter(
+    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Variable,
+  )
+
+  const actionPromptElement = childrenArray.filter(
+    (child): child is ReactElement =>
+      isValidElement(child) && child.type === NumericInput.ActionPrompt,
+  )
+
+  const prefixNode = prefixElements[0] || null
+  const suffixNode = suffixElements[0] || null
+  const variableNode = variableElement[0] || null
+  const actionPromptNode = actionPromptElement[0] || null
+
+  const styles = NumericInputTv({
+    variant,
+    selected: selected || handlerPressed,
+    focused,
+    disabled,
+    prefixElement: !!prefixNode,
+    suffixElement: !!suffixNode,
+    variableValue: !!variableNode,
+  })
+
+  return (
+    <NumericInputContext.Provider value={contextValue}>
       <label
         ref={triggerRef}
-        className={tcx(styles.container(), classNames?.container, className)}
+        className={tcx(styles.container(), className)}
       >
-        {prefixElement && (
-          <NumericInputElement
-            position="prefix"
-            type="handler"
-            handlerProps={handlerProps}
-            disabled={disabled}
-          >
-            {prefixElement}
-          </NumericInputElement>
-        )}
+        {prefixNode && cloneElement(prefixNode, { position: "prefix" })}
 
         <input
           {...mergeProps(inputProps, disableScrollProps)}
@@ -158,7 +232,7 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
           autoComplete="off"
           spellCheck={false}
           required={required}
-          className={tcx("[grid-area:input]", styles.input(), classNames?.input)}
+          className={tcx("[grid-area:input]", styles.input())}
           disabled={disabled}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedby}
@@ -166,29 +240,11 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
           aria-valuemax={max}
         />
 
-        {variableValue && (
-          <NumericInputVariable
-            variableValue={variableValue}
-            classNames={{
-              container: styles.variableContainer(),
-              button: styles.variable(),
-            }}
-            onClick={onVariableClick}
-            aria-label="Toggle variable selection"
-            disabled={disabled}
-          />
-        )}
+        {variableNode && cloneElement(variableNode, { hasPrefixElement: !!prefixNode })}
 
-        {suffixElement && (
-          <NumericInputElement
-            position="suffix"
-            type={suffixElement?.type ?? "handler"}
-            handlerProps={handlerProps}
-            disabled={disabled}
-          >
-            {suffixElement?.element}
-          </NumericInputElement>
-        )}
+        {actionPromptNode && cloneElement(actionPromptNode)}
+
+        {suffixNode && cloneElement(suffixNode, { position: "suffix" })}
 
         {tooltip && (
           <Tooltip {...tooltip}>
@@ -204,8 +260,34 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
           </Tooltip>
         )}
       </label>
-    )
-  },
+    </NumericInputContext.Provider>
+  )
+})
+
+NumericInputBase.displayName = "NumericInput"
+
+const PrefixComponent = (props: React.ComponentProps<typeof NumericInputElement>) => (
+  <NumericInputElement {...props} />
 )
 
-NumericInput.displayName = "NumericInput"
+const SuffixComponent = (props: React.ComponentProps<typeof NumericInputElement>) => (
+  <NumericInputElement {...props} />
+)
+
+const VariableComponent = (props: React.ComponentProps<typeof NumericInputVariable>) => (
+  <NumericInputVariable {...props} />
+)
+
+const ActionPromptComponent = (
+  props: React.ComponentProps<typeof NumericInputMenuActionPrompt>,
+) => <NumericInputMenuActionPrompt {...props} />
+
+const MenuTrigger = NumericInputMenuTrigger
+
+export const NumericInput = Object.assign(NumericInputBase, {
+  Prefix: PrefixComponent,
+  Suffix: SuffixComponent,
+  Variable: VariableComponent,
+  ActionPrompt: ActionPromptComponent,
+  MenuTrigger,
+}) as NumericInputComponent

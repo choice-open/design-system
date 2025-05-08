@@ -55,6 +55,7 @@ export function useMergedValue<T>(options: Options<T>) {
       // Handle the case when switching from controlled to uncontrolled
       // Only update if we're switching modes
       stateRef.current = value as T
+      update()
     }
 
     prevValueRef.current = value

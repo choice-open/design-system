@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import { Dialog } from "../dialog"
+import { Dialog } from "../../dialog"
 import { Comments } from "./comments"
 import type { SubmittedCommentData, User } from "./types"
 import { comments$, useCommentsState, sortedComments$ } from "./state/comments-state"
 import { faker } from "@faker-js/faker"
-import { tcx } from "../../utils"
+import { tcx } from "../../../utils"
 
 const meta = {
-  title: "Comments",
+  title: "Pickers/Comments",
   component: Comments,
+  tags: ["experimental"],
 } satisfies Meta<typeof Comments>
 
 export default meta

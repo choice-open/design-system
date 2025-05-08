@@ -1,75 +1,45 @@
 import { tv } from "tailwind-variants"
+import css from "./styles.module.css"
 
-export const numericInputTv = tv({
+export const NumericInputTv = tv({
   slots: {
-    container: "h-6 group/input grid input-number",
-    input: [
-      "peer",
-      "h-6 w-full",
-      "cursor-default appearance-none truncate",
-      "disabled:bg-transparent disabled:text-secondary",
-      "placeholder:text-secondary",
-    ],
-    variableContainer: "flex flex-1 items-center pr-1",
-    variable: [
-      "flex h-5 items-center rounded-xs border px-1",
-      "shadow-small border-transparent bg-body",
-      "dark:border-white/20",
-      "select-none z-2",
-    ],
-    tooltip: "h-6 col-span-3 col-start-1 row-start-1",
+    container: ["group/input grid h-6 before:border-transparent", css["input-number"]],
+    input: ["peer", "h-6 w-full", "cursor-default appearance-none truncate"],
+    tooltip: "col-span-3 col-start-1 row-start-1 h-6",
   },
   variants: {
     variant: {
       default: {
-        container: "",
-        input: "bg-light-100",
+        input: "bg-secondary-background placeholder:text-secondary-foreground",
       },
-      transparent: {
-        container: "",
+      dark: {
+        input: "bg-gray-700 text-white placeholder:text-white/50",
       },
+      reset: {},
     },
     prefixElement: {
       true: {},
-      false: {
-        variableContainer: "pl-0.5 rounded-l-md",
-      },
+      false: {},
     },
     suffixElement: {
       true: {},
       false: {},
-    },
-    suffixElementType: {
-      handler: {},
-      action: {},
-      menu: {},
     },
     variableValue: {
       true: {},
       false: {},
     },
     selected: {
-      true: {
-        variable: "pointer-events-none",
-      },
-      false: {},
-    },
-    isOverridden: {
-      true: {},
-      false: {},
-    },
-    isConstrained: {
       true: {},
       false: {},
     },
     disabled: {
-      true: {
-        container: "before:border-light-200",
-        variableContainer: "text-secondary",
-      },
-      false: {
-        variableContainer: "peer-focus:[&>button]:border-accent peer-focus:[&>button]:bg-accent/20",
-      },
+      true: {},
+      false: {},
+    },
+    focused: {
+      true: {},
+      false: {},
     },
   },
   compoundSlots: [
@@ -78,7 +48,7 @@ export const numericInputTv = tv({
       slots: ["input"],
       variableValue: false,
       prefixElement: false,
-      class: "px-1.75",
+      class: "px-2",
     },
     // 无前缀时的圆角
     {
@@ -97,10 +67,10 @@ export const numericInputTv = tv({
   compoundVariants: [
     // 默认变体的状态样式
     {
-      variant: "default",
+      variant: ["default", "dark"],
       selected: true,
       class: {
-        container: "before:border-accent/50",
+        container: "before:border-selected-boundary/50",
       },
     },
     {
@@ -108,37 +78,57 @@ export const numericInputTv = tv({
       selected: false,
       class: {
         container: [
-          "focus-within:before:border-accent",
-          "not-focus-within:hover:before:border-light-200",
+          "focus-within:before:border-selected-boundary",
+          "not-focus-within:hover:before:border-default-boundary",
         ],
       },
     },
+    // dark变体
     {
-      variant: "default",
-      disabled: false,
+      variant: "dark",
+      selected: false,
       class: {
-        variableContainer: "bg-light-100",
+        container: [
+          "focus-within:before:border-selected-boundary",
+          "not-focus-within:hover:before:border-gray-600",
+        ],
+      },
+    },
+    // 禁用
+    {
+      disabled: true,
+      variant: "default",
+      class: {
+        container: "before:border-default-boundary",
+        input: "disabled:text-disabled-foreground disabled:bg-transparent",
       },
     },
     {
-      selected: false,
-      disabled: false,
+      disabled: true,
+      variant: "dark",
       class: {
-        variable: "cursor-pointer group-hover/input:bg-light-200",
+        container: "before:border-gray-600",
+        input: "disabled:bg-gray-700 disabled:text-white/50",
+      },
+    },
+    {
+      focused: true,
+      variant: ["default", "dark"],
+      class: {
+        container: "before:border-selected-boundary",
       },
     },
   ],
   defaultVariants: {
     variant: "default",
     selected: false,
-    isFocused: false,
-    isOverridden: false,
     disabled: false,
+    focused: false,
   },
 })
 
-export const numericInputMenuTriggerTv = tv({
-  base: "rounded-r-md flex-none rounded-l-none [grid-area:action]",
+export const NumericInputMenuTriggerTv = tv({
+  base: "flex-none rounded-l-none rounded-r-md [grid-area:action]",
   variants: {
     disabled: {
       true: "",
@@ -147,95 +137,126 @@ export const numericInputMenuTriggerTv = tv({
       menu: "",
       action: "",
     },
+    variant: {
+      default: "",
+      dark: "",
+      reset: "",
+    },
   },
   compoundVariants: [
     {
       disabled: false,
-      type: "menu",
-      class: "ml-px",
+      variant: "default",
+      type: "action",
+      class: "bg-secondary-background",
     },
     {
       disabled: false,
-      type: "action",
-      class: "bg-light-100",
+      variant: "dark",
+      class: "bg-gray-700 text-white/50",
+    },
+    {
+      disabled: true,
+      variant: "dark",
+      class: "bg-gray-700 text-white/50",
     },
   ],
   defaultVariants: {
     disabled: false,
     type: "menu",
+    variant: "default",
   },
 })
 
-export const numericInputVariableTv = tv({
-  base: ["mr-1 cursor-pointer", "flex h-5 items-center rounded-sm border px-1"],
-  variants: {
-    isFocused: {
-      true: "border-accent bg-accent/10",
-      false: "shadow-small group-hover/input:bg-light-200 border-transparent bg-white",
-    },
-  },
-  defaultVariants: {
-    isFocused: false,
-  },
-})
-
-export const numericInputVariableTriggerTv = tv({
+export const NumericInputVariableTv = tv({
   slots: {
-    container: "[grid-area:action] rounded-r-md bg-light-100",
-    trigger: "text-secondary-foreground hover:text-primary",
+    root: "flex flex-1 items-center pr-1 [grid-area:variable]",
+    chip: "z-2 select-none",
   },
   variants: {
-    type: {
-      OPEN: {},
-      UNLINK: {
-        trigger: "invisible",
+    prefixElement: {
+      true: {},
+      false: {
+        root: "rounded-l-md pl-1",
       },
     },
-    open: {
-      true: {},
+    variant: {
+      default: {},
+      dark: {},
+      reset: {},
+    },
+    disabled: {
+      true: {
+        root: "pointer-events-none",
+      },
+      false: {},
+    },
+    selected: {
+      true: {
+        root: "pointer-events-none",
+      },
       false: {},
     },
   },
   compoundVariants: [
     {
-      type: "OPEN",
-      open: false,
+      disabled: false,
+      variant: "default",
       class: {
-        trigger: "invisible group-hover/input:visible",
+        root: "bg-secondary-background",
+        chip: [
+          "group-focus-within/input:border-selected-boundary",
+          "group-focus-within/input:bg-selected-background",
+        ],
       },
     },
     {
-      type: "OPEN",
-      open: true,
+      disabled: false,
+      variant: "dark",
       class: {
-        trigger: "text-primary visible",
+        root: "bg-gray-700 text-white/50",
+        chip: [
+          "border-gray-600 bg-gray-800 text-white hover:bg-gray-700",
+          "group-focus-within/input:border-selected-boundary",
+          "group-focus-within/input:bg-blue-700",
+        ],
       },
     },
     {
-      type: "UNLINK",
-      open: false,
+      disabled: true,
+      variant: "default",
       class: {
-        trigger: "group-hover/input:visible selected:bg-transparent",
+        chip: "text-disabled-foreground",
+      },
+    },
+    {
+      disabled: true,
+      variant: "dark",
+      class: {
+        root: "bg-gray-700",
+        chip: "border-gray-600 bg-gray-700 text-gray-400",
       },
     },
   ],
   defaultVariants: {
-    type: "OPEN",
-    open: false,
+    prefixElement: false,
+    variant: "default",
+    disabled: false,
+    selected: false,
   },
 })
 
-export const numericInputElementTv = tv({
+export const NumericInputElementTv = tv({
   base: [
     "text-secondary-foreground select-none",
-    "h-6 w-6 z-2",
+    "z-2 h-6 w-6",
     "flex flex-none items-center justify-center",
   ],
   variants: {
     type: {
       handler: "select-none",
       action: "[grid-area:action]",
-      menu: "[grid-area:action]",
+      menu: "ml-px [grid-area:action]",
     },
     position: {
       prefix: "rounded-l-md",
@@ -243,7 +264,12 @@ export const numericInputElementTv = tv({
     },
     disabled: {
       true: "",
-      false: "bg-light-100",
+      false: "",
+    },
+    variant: {
+      default: "",
+      dark: "",
+      reset: "",
     },
   },
   compoundVariants: [
@@ -262,24 +288,40 @@ export const numericInputElementTv = tv({
       disabled: false,
       class: "cursor-ew-resize",
     },
+    {
+      disabled: false,
+      variant: "default",
+      class: "bg-secondary-background",
+    },
+    {
+      disabled: false,
+      variant: "dark",
+      class: "bg-gray-700 text-white/50",
+    },
+    {
+      disabled: true,
+      variant: "dark",
+      class: "bg-gray-700 text-white/50",
+    },
   ],
   defaultVariants: {
     disabled: false,
+    variant: "default",
   },
 })
 
-export const numericInputMenuActionPromptTv = tv({
+export const NumericInputMenuActionPromptTv = tv({
   base: [
     "[grid-area:action]",
-    "pr-2 pl-1",
+    "w-6 pr-2",
     "flex items-center justify-center",
     "rounded-r-md",
-    "pointer-events-none z-2",
+    "pointer-events-none z-3",
   ],
   variants: {
     disabled: {
       true: "text-secondary-foreground bg-default-background",
-      false: "bg-light-100 group-focus-within/input:hidden group-hover/input:hidden",
+      false: "bg-secondary-background group-focus-within/input:hidden group-hover/input:hidden",
     },
   },
   defaultVariants: {

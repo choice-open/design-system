@@ -134,6 +134,10 @@ type RootTranslation = {
 		 * 放​大​到​2​0​0​%
 		 */
 		zoomTo200: string
+		/**
+		 * 图​片​加​载​失​败​，​请​稍​后​再​试​。
+		 */
+		error: string
 	}
 }
 
@@ -257,6 +261,10 @@ export type TranslationFunctions = {
 		 * 放大到200%
 		 */
 		zoomTo200: () => LocalizedString
+		/**
+		 * 图片加载失败，请稍后再试。
+		 */
+		error: () => LocalizedString
 	}
 }
 

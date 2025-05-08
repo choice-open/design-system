@@ -1,31 +1,45 @@
-import { Dot } from "@choiceform/icons-react"
-import { observable } from "@legendapp/state"
+import {
+  ChevronDownSmall,
+  ColorTypeGradient,
+  ColorTypeSolid,
+  FixedHeight,
+  FixedWidth,
+  HugHeight,
+  HugWidth,
+  MaxHeight,
+  MinHeight,
+  Relative,
+  Variable,
+} from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useState } from "react"
-import { Checkbox } from "../../checkbox"
+import { useEventCallback } from "usehooks-ts"
+import { Dropdown } from "../../dropdown"
+import { IconButton } from "../../icon-button"
 import { Select } from "../../select"
-import { NumericInputMenuActionPrompt, NumericInputMenuTrigger } from "../components"
+import { NumericInputMenuTrigger } from "../components"
 import { NumericInput } from "../numeric-input"
 import { NumberResult, NumericInputValue } from "../types"
 
 const meta: Meta<typeof NumericInput> = {
   title: "Forms/NumericInput",
   component: NumericInput,
+  tags: ["upgrade"],
 }
 
 export default meta
 
 type Story = StoryObj<typeof NumericInput>
-const selectOptions$ = observable([
+const selectOptions = [
   {
     label: "Fixed height",
     value: "fixed",
-    icon: <Dot />,
+    icon: <FixedHeight />,
   },
   {
     label: "Hug contents",
     value: "hug",
-    icon: <Dot />,
+    icon: <HugHeight />,
   },
   {
     divider: true,
@@ -33,521 +47,472 @@ const selectOptions$ = observable([
   {
     label: "Add min height...",
     value: "min",
-    icon: <Dot />,
+    icon: <MinHeight />,
   },
   {
     label: "Add max height...",
     value: "max",
-    icon: <Dot />,
+    icon: <MaxHeight />,
   },
-])
+]
 
 /**
- * The `IfNumberInput` component is a specialized input field designed for numerical values with enhanced functionality
- * and customization options.
+ * # NumericInput Component
  *
- * ### Features
- * - Supports both direct number input and drag-to-adjust functionality
- * - Customizable prefix and suffix elements
- * - Variable binding support for dynamic value management
- * - Integrated menu trigger for additional options
- * - Supports disabled and selected states
- * - Expression pattern support for complex value formatting
- * - Multiple value handling with custom expressions
- * - Math expression evaluation
- * - Decimal precision control
+ * A sophisticated input component for handling numeric values with rich formatting,
+ * expression evaluation, and interactive features.
  *
- * ### Advanced Usage Patterns
+ * ## Key Features
  *
- * #### Expression Pattern
- * ```tsx
- * // Using expressions to format values
- * <IfNumberInput
- *   value="100px"
- *   expression="{value}px"
- *   onChange={(newValue) => setValue(newValue)}
- * />
- * ```
+ * - **Flexible Value Handling**: Supports simple numbers, mathematical expressions, and formatted values (with units)
+ * - **Multiple Interaction Modes**: Keyboard navigation, drag adjustments, menu selection
+ * - **Variable Binding**: Support for displaying and toggling variable values
+ * - **Rich Expression Formats**: Unit formatting (px, %, etc.), multi-value inputs, conditional formatting
+ * - **Customizable Appearance**: Prefix, suffix elements, dark theme
+ * - **State Management**: Disabled state, selected state, error handling
  *
- * #### Multiple Values
- * ```tsx
- * // Handling multiple values with a single input
- * <IfNumberInput
- *   value={{ x: 100, y: 200 }}
- *   expression="{x},{y}"
- *   onChange={(newValue) => setValue(newValue)}
- * />
- * ```
+ * ## Expression Format Examples
  *
- * #### Array Values
- * ```tsx
- * // Working with array values
- * <IfNumberInput
- *   value={[10, 20, 30]}
- *   onChange={(newValue) => setValue(newValue as number[])}
- * />
- * ```
+ * - Unit format: `"{value}px"` → displays "100px"
+ * - Multiple properties: `"{width}px, {height}px"` → displays "10px, 20px"
+ * - Conditional hiding: `"{value1}{value2,hidden}"` → shows value2 only when needed
  *
- * #### Constraints
- * ```tsx
- * // Adding value constraints
- * <IfNumberInput
- *   value={50}
- *   min={0}
- *   max={100}
- *   step={5}
- *   shiftStep={20}  // Larger steps when holding Shift
- *   decimal={0}     // No decimal places
- *   onChange={handleChange}
- * />
- * ```
+ * ## Advanced Features
  *
- * #### Dynamic Expressions
- * ```tsx
- * // Dynamic expression based on values
- * <IfNumberInput
- *   value={[100, 200]}
- *   expression="{value1}, {value2}"
- *   onChange={(_, { array }) => {
- *     const areAllValuesSame = array.every(v => v === array[0]);
- *     setExpression(areAllValuesSame ? "{value1}{value2,hidden}" : "{value1}, {value2}");
- *   }}
- * />
- * ```
+ * - **Math Evaluation**: Input mathematical expressions (e.g., "1+2*3")
+ * - **Keyboard Controls**:
+ *   - ↑/↓: Increase/decrease by step value
+ *   - Shift + ↑/↓: Use larger step
+ *   - Meta/Alt + ↑/↓: Use smaller step
+ * - **Variable Support**: Display variable values with `<NumericInput.Variable />` component
+ * - **Custom Menus**: Add dropdown menus with suffix of type "menu" or "action"
  *
- * #### Mixed Expressions
- * ```tsx
- * // Complex text with multiple values
- * <IfNumberInput
- *   value={{ value: 100, value2: 200, value3: 300 }}
- *   expression="This is {value,value2,value3} !"
- *   onChange={handleChange}
- * />
- * ```
+ * ## Best Practices
  *
- * #### Empty Value Handling
- * ```tsx
- * // Handling undefined/empty values
- * <IfNumberInput
- *   value={value}
- *   onChange={handleChange}
- *   onEmpty={() => setValue(undefined)}
- * />
- * ```
+ * - Provide clear prefix or suffix to indicate value type or unit
+ * - Use appropriate constraints (min, max, step) for better user experience
+ * - Always use expression pattern for complex formatted values
  *
- * #### Decimal Precision
- * ```tsx
- * // Controlling decimal places
- * <IfNumberInput
- *   value={100.12345678}
- *   decimal={5}
- *   onChange={handleChange}
- * />
- * ```
+ * ## Style Variants
  *
- * ### IfNumberValue Props
- *
- * ```tsx
- * export type IfNumberValue = IfNumberInputValue
- * export type IfNumberChangeDetail = ReturnType<typeof dealWithIfNumberInputValue>
- * ```
+ * - Default (light theme)
+ * - Dark theme: `variant="dark"`
+ * - Disabled state: `disabled={true}`
+ * - Selected state: `selected={true}`
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [disabled, setDisabled] = useState(false)
-    const [selected, setSelected] = useState(false)
-
-    const [singleValue, setSingleValue] = useState(100)
-    const [prefixHandlerValueLeft, setPrefixHandlerValueLeft] = useState(100)
-    const [prefixHandlerValueRight, setPrefixHandlerValueRight] = useState(100)
-    const [suffixHandlerValue, setSuffixHandlerValue] = useState(100)
-    const [prefixAndSuffixHandlerValueLeft, setPrefixAndSuffixHandlerValueLeft] = useState(100)
-    const [prefixAndSuffixHandlerValueRight, setPrefixAndSuffixHandlerValueRight] = useState(100)
-    const [suffixMenuValueLeft, setSuffixMenuValueLeft] = useState(100)
-    const [suffixMenuValueRight, setSuffixMenuValueRight] = useState(100)
-    const [suffixActionValue, setSuffixActionValue] = useState(100)
-
-    const [variableValue1, setVariableValue1] = useState(100)
-    const [variableValue2, setVariableValue2] = useState(100)
-    const [variableValue3, setVariableValue3] = useState(100)
-    const [variableValue4, setVariableValue4] = useState(100)
-
-    const [menuOpenA, setMenuOpenA] = useState(false)
-    const [menuOpenB, setMenuOpenB] = useState(false)
-    const [menuOpenC, setMenuOpenC] = useState(false)
-    const [menuValue, setMenuValue] = useState<string | null>("fixed")
+    const [value, setValue] = useState(10)
 
     return (
-      <div className="grid w-64 grid-cols-2 gap-2">
-        <Checkbox
-          value={disabled}
-          onChange={(checked) => setDisabled(checked)}
-          label="Disabled"
-        />
-        <Checkbox
-          value={selected}
-          onChange={(checked) => setSelected(checked)}
-          label="Selected"
-        />
-        <strong className="col-span-full">Single</strong>
-        <NumericInput
-          value={singleValue}
-          onChange={(newValue) => setSingleValue(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <strong className="col-span-full">Prefix Element (handler)</strong>
-        <NumericInput
-          prefixElement={
-            <div>
-              <Dot />,
-            </div>
-          }
-          value={prefixHandlerValueLeft}
-          onChange={(newValue) => setPrefixHandlerValueLeft(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <NumericInput
-          prefixElement={<div>X</div>}
-          value={prefixHandlerValueRight}
-          onChange={(newValue) => setPrefixHandlerValueRight(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <strong className="col-span-full">Suffix Element (handler)</strong>
-        <NumericInput
-          suffixElement={{
-            type: "handler",
-            element: <div className="w-fit pr-1.75">%</div>,
-          }}
-          value={suffixHandlerValue}
-          onChange={(newValue) => setSuffixHandlerValue(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <strong className="col-span-full">Prefix & Suffix Element (handler)</strong>
-        <NumericInput
-          prefixElement={<div>X</div>}
-          suffixElement={{
-            type: "handler",
-            element: <div className="w-fit pr-1.75">%</div>,
-          }}
-          value={prefixAndSuffixHandlerValueLeft}
-          onChange={(newValue) => setPrefixAndSuffixHandlerValueLeft(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <NumericInput
-          prefixElement={<div className="w-fit pl-1.75" />}
-          suffixElement={{
-            type: "handler",
-            element: <div className="w-fit pr-1.75">%</div>,
-          }}
-          value={prefixAndSuffixHandlerValueRight}
-          onChange={(newValue) => setPrefixAndSuffixHandlerValueRight(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <strong className="col-span-full">Suffix Element (menu)</strong>
-        <NumericInput
-          selected={selected || menuOpenA}
-          suffixElement={{
-            type: "action",
-            element: (
-              <Select
-                disabled={disabled}
-                open={menuOpenA}
-                onOpenChange={(open) => setMenuOpenA(open)}
-                value={menuValue ?? "fixed"}
-                onChange={(value) => {
-                  setMenuOpenA(false)
-                  setMenuValue(value)
-                }}
-                placement="bottom-end"
-                options={selectOptions$.get()}
-                classNames={{ list: "min-w-fit" }}
-                trigger={() => <NumericInputMenuTrigger aria-label="Open menu" />}
-              />
-            ),
-          }}
-          value={suffixMenuValueLeft}
-          onChange={(newValue) => setSuffixMenuValueLeft(newValue as number)}
-          disabled={disabled}
-        />
-
-        <NumericInput
-          selected={selected || menuOpenB}
-          prefixElement={
-            <div>
-              <SvgIcon name={SvgIconName.interface.effectLayerBlur} />
-            </div>
-          }
-          suffixElement={{
-            type: "action",
-            element: (
-              <Select
-                disabled={disabled}
-                open={menuOpenB}
-                onOpenChange={(open) => setMenuOpenB(open)}
-                value={menuValue ?? "fixed"}
-                onChange={(value) => {
-                  setMenuOpenB(false)
-                  setMenuValue(value)
-                }}
-                placement="bottom-end"
-                options={selectOptions$.get()}
-                classNames={{ list: "min-w-fit" }}
-                trigger={() => <NumericInputMenuTrigger aria-label="Open menu" />}
-              />
-            ),
-          }}
-          value={suffixMenuValueRight}
-          onChange={(newValue) => setSuffixMenuValueRight(newValue as number)}
-          disabled={disabled}
-        />
-
-        <strong className="col-span-full">Suffix Element (action)</strong>
-        <NumericInput
-          selected={selected || menuOpenC}
-          prefixElement={
-            <div>
-              <Dot />,
-            </div>
-          }
-          suffixElement={{
-            type: "action",
-            element: (
-              <>
-                {menuValue !== "fixed" && (
-                  <NumericInputMenuActionPrompt>
-                    {
-                      selectOptions$
-                        .get()
-                        .find((option) => option.value === menuValue)
-                        ?.label?.split(" ")[0]
-                    }
-                  </NumericInputMenuActionPrompt>
-                )}
-                <Select
-                  disabled={disabled}
-                  open={menuOpenC}
-                  onOpenChange={(open) => setMenuOpenC(open)}
-                  value={menuValue ?? "fixed"}
-                  onChange={(value) => {
-                    setMenuOpenC(false)
-                    setMenuValue(value)
-                  }}
-                  placement="bottom-end"
-                  options={selectOptions$.get()}
-                  classNames={{ list: "min-w-fit" }}
-                  trigger={() => <NumericInputMenuTrigger aria-label="Open menu" />}
-                />
-              </>
-            ),
-          }}
-          value={suffixActionValue}
-          onChange={(newValue) => setSuffixActionValue(newValue as number)}
-          disabled={disabled}
-        />
-
-        <strong className="col-span-full">Variable</strong>
-
-        <NumericInput
-          variableValue={10}
-          value={variableValue1}
-          onChange={(newValue) => setVariableValue1(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <NumericInput
-          prefixElement={
-            <div>
-              <Dot />,
-            </div>
-          }
-          variableValue={10}
-          value={variableValue2}
-          onChange={(newValue) => setVariableValue2(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <NumericInput
-          suffixElement={{
-            type: "action",
-            element: (
-              <Select
-                disabled={disabled}
-                placement="bottom-end"
-                options={selectOptions$.get()}
-                classNames={{ list: "min-w-fit" }}
-                trigger={() => (
-                  <NumericInputMenuTrigger
-                    aria-label="Open menu"
-                    type="action"
-                  />
-                )}
-              />
-            ),
-          }}
-          variableValue={10}
-          value={variableValue3}
-          onChange={(newValue) => setVariableValue3(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-        <NumericInput
-          prefixElement={
-            <div>
-              <Dot />,
-            </div>
-          }
-          suffixElement={{
-            type: "action",
-            element: (
-              <Select
-                disabled={disabled}
-                placement="bottom-end"
-                options={selectOptions$.get()}
-                classNames={{ list: "min-w-fit" }}
-                trigger={() => (
-                  <NumericInputMenuTrigger
-                    aria-label="Open menu"
-                    type="action"
-                  />
-                )}
-              />
-            ),
-          }}
-          variableValue={10}
-          value={variableValue4}
-          onChange={(newValue) => setVariableValue4(newValue as number)}
-          disabled={disabled}
-          selected={selected}
-        />
-      </div>
+      <NumericInput
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      />
     )
   },
 }
 
+/**
+ * Example showing NumericInput with a prefix element.
+ * Prefixes provide visual context for the input value, such as indicating the property type.
+ */
+export const Prefix: Story = {
+  render: function PrefixStory() {
+    const [value, setValue] = useState(10)
+    return (
+      <NumericInput
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      >
+        <NumericInput.Prefix>
+          <HugWidth />
+        </NumericInput.Prefix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example showing NumericInput with a suffix element.
+ * Suffixes help indicate units or provide additional context after the value.
+ */
+export const Suffix: Story = {
+  render: function SuffixStory() {
+    const [value, setValue] = useState(10)
+    return (
+      <NumericInput
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      >
+        <NumericInput.Suffix>
+          <Relative />
+        </NumericInput.Suffix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example showing NumericInput with both prefix and suffix elements.
+ * This pattern is useful for providing complete context around a value.
+ */
+export const PrefixAndSuffix: Story = {
+  render: function PrefixAndSuffixStory() {
+    const [value, setValue] = useState(10)
+    return (
+      <NumericInput
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      >
+        <NumericInput.Prefix>
+          <HugWidth />
+        </NumericInput.Prefix>
+        <NumericInput.Suffix>
+          <Relative />
+        </NumericInput.Suffix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example demonstrating a NumericInput with a dropdown menu in the suffix.
+ * This pattern allows additional actions to be performed on the input value.
+ * The menu is triggered by a button in the suffix position.
+ */
+export const SuffixMenu: Story = {
+  render: function SuffixMenuStory() {
+    const [value, setValue] = useState(10)
+    const [menuOpen, setMenuOpen] = useState(false)
+    return (
+      <NumericInput
+        focused={menuOpen}
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      >
+        <NumericInput.Suffix type="menu">
+          <Dropdown
+            open={menuOpen}
+            onOpenChange={setMenuOpen}
+            placement="bottom"
+          >
+            <Dropdown.Trigger asChild>
+              <IconButton className="rounded-l-none">
+                <ChevronDownSmall />
+              </IconButton>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item>
+                <FixedHeight />
+                Fixed height
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <HugHeight />
+                Hug contents
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>
+                <MinHeight />
+                Add min height...
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <MaxHeight />
+                Add max height...
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </NumericInput.Suffix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example showing a NumericInput with an action in the suffix.
+ * Action suffixes allow changing the behavior or formatting of the input.
+ * This example demonstrates a dropdown selector that changes the height behavior.
+ */
+export const SuffixAction: Story = {
+  render: function SuffixActionStory() {
+    const [value, setValue] = useState(10)
+    const [menuValue, setMenuValue] = useState("fixed")
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    return (
+      <NumericInput
+        focused={menuOpen}
+        value={value}
+        onChange={(newValue) => setValue(newValue as number)}
+      >
+        {menuValue !== "fixed" && (
+          <NumericInput.ActionPrompt>
+            {selectOptions.find((option) => option.value === menuValue)?.label?.split(" ")[0]}
+          </NumericInput.ActionPrompt>
+        )}
+
+        <NumericInput.Suffix type="action">
+          <Select
+            open={menuOpen}
+            onOpenChange={setMenuOpen}
+            value={menuValue}
+            onChange={(value) => setMenuValue(value)}
+            placement="bottom-end"
+          >
+            <Select.Trigger asChild>
+              <IconButton className="rounded-l-none">
+                <ChevronDownSmall />
+              </IconButton>
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Item value="fixed">
+                <FixedHeight />
+                Fixed height
+              </Select.Item>
+              <Select.Item value="hug">
+                <HugHeight />
+                Hug contents
+              </Select.Item>
+              <Select.Divider />
+              <Select.Item value="min">
+                <MinHeight />
+                Add min height...
+              </Select.Item>
+              <Select.Item value="max">
+                <MaxHeight />
+                Add max height...
+              </Select.Item>
+            </Select.Content>
+          </Select>
+        </NumericInput.Suffix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example demonstrating variable value support in NumericInput.
+ * Variables allow users to reference dynamic values instead of hardcoded numbers.
+ * This example shows how to toggle between a concrete value and a variable reference.
+ */
+export const AddVariable: Story = {
+  render: function AddVariableStory() {
+    const [value, setValue] = useState<number | undefined>(undefined)
+    const [variableValue, setVariableValue] = useState<number | null>(null)
+
+    const handleChange = useEventCallback((newValue) => {
+      setValue(newValue as number)
+    })
+
+    return (
+      <NumericInput
+        value={value}
+        onChange={handleChange}
+      >
+        <NumericInput.Prefix>
+          <FixedWidth />
+        </NumericInput.Prefix>
+
+        {variableValue && !value && <NumericInput.Variable value={variableValue} />}
+
+        <NumericInput.Suffix type="menu">
+          <Dropdown>
+            <Dropdown.Trigger asChild>
+              <IconButton className="rounded-l-none">
+                <Variable />
+              </IconButton>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item
+                onMouseUp={() => {
+                  setVariableValue(10)
+                  setValue(undefined)
+                }}
+              >
+                Add variable...
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </NumericInput.Suffix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example showing expression pattern support for formatting compound values.
+ * The expression "{width}px, {height}px" formats the value object with two properties.
+ * This pattern is ideal for dimension inputs or other multi-value scenarios.
+ */
+export const Expression: Story = {
+  render: function ExpressionStory() {
+    const [value, setValue] = useState({
+      width: 10,
+      height: 20,
+    })
+
+    return (
+      <NumericInput
+        expression="{width}px, {height}px"
+        value={value}
+        onChange={(newValue) => setValue(newValue as { width: number; height: number })}
+      >
+        <NumericInput.Prefix>
+          <FixedWidth />
+        </NumericInput.Prefix>
+      </NumericInput>
+    )
+  },
+}
+
+/**
+ * Example showing NumericInput in disabled state.
+ * Disabled inputs prevent user interaction but maintain visual consistency.
+ * This example shows both simple disabled inputs and complex ones with variables and menus.
+ */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [menuOpen, setMenuOpen] = useState(false)
-    const [menuValue, setMenuValue] = useState<string | null>("fixed")
-    const [suffixActionInput, setSuffixActionInput] = useState(10)
-
     return (
       <div className="grid w-64 grid-cols-2 gap-4">
         <NumericInput
           disabled
-          prefixElement={<div>X</div>}
           value={10}
           onChange={(newValue) => console.log(newValue)}
-          suffixElement={{
-            type: "action",
-            element: <div>Y</div>,
-          }}
-        />
+        >
+          <NumericInput.Prefix>
+            <ColorTypeSolid />
+          </NumericInput.Prefix>
+        </NumericInput>
         <NumericInput
           disabled
-          prefixElement={<div>X</div>}
           value={10}
           onChange={(newValue) => console.log(newValue)}
-          variableValue={10}
-          suffixElement={{
-            type: "action",
-            element: <div>Y</div>,
-          }}
-        />
-        <NumericInput
-          disabled
-          prefixElement={<div>X</div>}
-          value={10}
-          onChange={(newValue) => console.log(newValue)}
-          suffixElement={{
-            type: "action",
-            element: (
-              <Select
-                disabled
-                placement="bottom-end"
-                options={selectOptions$.get()}
-                classNames={{ list: "min-w-fit" }}
-                trigger={() => (
-                  <NumericInputMenuTrigger
-                    aria-label="Open menu"
-                    type="action"
-                  />
-                )}
-              />
-            ),
-          }}
-        />
+        >
+          <NumericInput.Prefix>
+            <ColorTypeSolid />
+          </NumericInput.Prefix>
 
-        <NumericInput
-          disabled
-          selected={menuOpen}
-          prefixElement={
-            <div>
-              <Dot />,
-            </div>
-          }
-          suffixElement={{
-            type: "action",
-            element: (
-              <>
-                {menuValue === "fixed" && (
-                  <NumericInputMenuActionPrompt disabled>
-                    {
-                      selectOptions$
-                        .get()
-                        .find((option) => option.value === menuValue)
-                        ?.label?.split(" ")[0]
-                    }
-                  </NumericInputMenuActionPrompt>
-                )}
-                <Select
-                  disabled
-                  open={menuOpen}
-                  onOpenChange={(open) => setMenuOpen(open)}
-                  value={menuValue ?? "fixed"}
-                  onChange={(value) => {
-                    setMenuOpen(false)
-                    setMenuValue(value)
-                  }}
-                  placement="bottom-end"
-                  options={selectOptions$.get()}
-                  classNames={{ list: "min-w-fit" }}
-                  trigger={() => (
-                    <NumericInputMenuTrigger
-                      aria-label="Open menu"
-                      type="action"
-                    />
-                  )}
+          <NumericInput.Variable value={10} />
+
+          <NumericInput.Suffix type="action">
+            <Select
+              disabled
+              placement="bottom-end"
+            >
+              <Select.Trigger asChild>
+                <NumericInputMenuTrigger
+                  aria-label="Open menu"
+                  type="action"
                 />
-              </>
-            ),
-          }}
-          value={suffixActionInput}
-          onChange={(newValue) => setSuffixActionInput(newValue as number)}
-        />
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Item value="fixed">
+                  <FixedHeight />
+                  Fixed height
+                </Select.Item>
+                <Select.Item value="hug">
+                  <HugHeight />
+                  Hug contents
+                </Select.Item>
+              </Select.Content>
+            </Select>
+          </NumericInput.Suffix>
+        </NumericInput>
       </div>
     )
   },
 }
 
 /**
- * This example demonstrates the calculation functionality of the number input.
- *
- * Features demonstrated:
- * 1. Entering mathematical expressions (e.g., 1+1) calculates the result (2)
- * 2. When the calculation result equals the current value, onChange won't be triggered
+ * Example showing NumericInput in dark theme variant.
+ * The dark theme is designed for use on dark backgrounds with adjusted colors.
+ * This example shows various states and configurations in dark mode.
+ */
+export const Dark: Story = {
+  render: function DarkStory() {
+    const [value, setValue] = useState(10)
+    return (
+      <div className="flex aspect-square flex-col items-center items-start justify-center gap-4 bg-gray-800 p-8">
+        <NumericInput
+          variant="dark"
+          value={value}
+          onChange={(newValue) => setValue(newValue as number)}
+        />
+        <NumericInput
+          variant="dark"
+          value={value}
+          onChange={(newValue) => setValue(newValue as number)}
+        >
+          <NumericInput.Prefix>
+            <ColorTypeSolid />
+          </NumericInput.Prefix>
+          <NumericInput.Variable value={10} />
+          <NumericInput.Suffix type="action">
+            <Select
+              disabled
+              placement="bottom-end"
+            >
+              <Select.Trigger asChild>
+                <NumericInput.MenuTrigger
+                  aria-label="Open menu"
+                  type="menu"
+                />
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Item value="fixed">
+                  <FixedHeight />
+                  Fixed height
+                </Select.Item>
+              </Select.Content>
+            </Select>
+          </NumericInput.Suffix>
+        </NumericInput>
+        <NumericInput
+          variant="dark"
+          value={value}
+          disabled
+          onChange={(newValue) => setValue(newValue as number)}
+        >
+          <NumericInput.Prefix>
+            <ColorTypeSolid />
+          </NumericInput.Prefix>
+          <NumericInput.Variable value={10} />
+          <NumericInput.Suffix type="action">
+            <Select
+              disabled
+              placement="bottom-end"
+            >
+              <Select.Trigger asChild>
+                <NumericInput.MenuTrigger
+                  aria-label="Open menu"
+                  type="menu"
+                />
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Item value="fixed">
+                  <FixedHeight />
+                  Fixed height
+                </Select.Item>
+              </Select.Content>
+            </Select>
+          </NumericInput.Suffix>
+        </NumericInput>
+      </div>
+    )
+  },
+}
+
+/**
+ * Example demonstrating the mathematical expression evaluation feature.
+ * This shows how NumericInput can:
+ * 1. Accept and evaluate mathematical expressions (e.g., 1+1)
+ * 2. Compare calculation results with current value
+ * 3. Only trigger onChange when the result differs from current value
  *
  * For example:
- * - When the value is 2, directly entering 2 won't trigger onChange
- * - When the value is 2, entering 1+1 (which also results in 2) won't trigger onChange
- * - When the value is 2, entering 3 or 1+2 (resulting in 3) will trigger onChange
- *
- * The console will show onChange event triggers, demonstrating that identical result values won't cause repeated triggers.
+ * - When value is 2, entering "2" won't trigger onChange
+ * - When value is 2, entering "1+1" won't trigger onChange (same result)
+ * - When value is 2, entering "3" or "1+2" will trigger onChange (different result)
  */
 export const ExpressionCalculation: Story = {
   render: function ExpressionCalculationStory() {
@@ -602,6 +567,79 @@ export const ExpressionCalculation: Story = {
             <p className="text-secondary-foreground mt-2 text-xs">
               Tip: Try entering &ldquo;1+1&rdquo;, &ldquo;2*1&rdquo;, &ldquo;4/2&rdquo; or other
               expressions that result in the current value
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * Example demonstrating expression calculations with unit formatting.
+ * Shows how:
+ * 1. Expressions with units like "{value}px" display values with units
+ * 2. Input expressions are evaluated before comparison
+ * 3. Similar expressions resulting in the same value won't trigger onChange
+ *
+ * For example:
+ * - When value is "24px", entering "24" or "12+12" won't trigger onChange
+ * - When value is "24px", entering "25" or "12+13" will trigger onChange
+ */
+export const UnitExpressionCalculation: Story = {
+  render: function UnitExpressionCalculationStory() {
+    const [value, setValue] = useState(24)
+    const [changeCount, setChangeCount] = useState(0)
+    const [lastInputText, setLastInputText] = useState("")
+
+    const handleChange = (newValue: NumericInputValue, detail: NumberResult) => {
+      console.log("onChange triggered with:", newValue, detail)
+      setValue(newValue as number)
+      setChangeCount((prev) => prev + 1)
+      setLastInputText(detail.string)
+    }
+
+    return (
+      <div className="grid w-96 gap-4">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-lg font-medium">Unit Expression Test</h3>
+          <p className="text-xs text-gray-600">
+            Try entering values and expressions with a pixel unit pattern:
+          </p>
+          <ul className="list-disc pl-5 text-xs text-gray-600">
+            <li>
+              Current value is {value}px, entering {value} won&apos;t trigger onChange
+            </li>
+            <li>
+              Entering expressions like &ldquo;{value / 2}+{value / 2}&rdquo; won&apos;t trigger
+              onChange
+            </li>
+            <li>Entering different values or expressions will trigger onChange</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col items-start gap-2">
+          <NumericInput
+            value={value}
+            onChange={handleChange}
+            expression="{value}px"
+          />
+
+          <div className="mt-2 rounded border bg-gray-50 p-3">
+            <p className="text-sm">
+              <b>Current value:</b> {value}px
+            </p>
+            <p className="text-sm">
+              <b>onChange trigger count:</b> {changeCount}
+            </p>
+            {lastInputText && (
+              <p className="text-sm">
+                <b>Last input text:</b> {lastInputText}
+              </p>
+            )}
+            <p className="text-secondary-foreground mt-2 text-xs">
+              Tip: Try entering &ldquo;12+12&rdquo;, &ldquo;24*1&rdquo;, or other expressions that
+              result in the current numerical value
             </p>
           </div>
         </div>

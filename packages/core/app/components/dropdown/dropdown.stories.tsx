@@ -9,6 +9,7 @@ import { Dropdown } from "./dropdown"
 const meta: Meta<typeof Dropdown> = {
   title: "Collections/Dropdown",
   component: Dropdown,
+  tags: ["upgrade"],
 }
 
 export default meta
@@ -17,32 +18,20 @@ import { Button } from "../button"
 type Story = StoryObj<typeof Dropdown>
 
 /**
- * The `Dropdown` component is a dropdown component that allows the user to select an option from a list.
+ * The `Dropdown` component is a versatile menu component that displays a list of options when triggered.
  *
- * ### Features
+ * Features:
  * - Flexible trigger element (button, icon, or custom component)
  * - Support for nested submenus
  * - Optional selection indicator
  * - Keyboard navigation support
  * - Customizable placement
+ * - Supports dividers and section labels
+ * - Searchable dropdown option
  *
- * ### Props
+ * Usage:
  * ```tsx
- * interface IfDropdown.ItemProps {
- *   children?: ReactNode
- *   disabled?: boolean
- *   selected?: boolean
- *   shortcut?: {
- *    modifier?: KbdKey | KbdKey[] | undefined
- *    keys?: ReactNode
- *   }
- *   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
- * }
- * ```
- *
- * ### Usage
- * ```tsx
- * <Dropdown trigger="Click me">
+ * <Dropdown>
  *   <Dropdown.Trigger>Click me</Dropdown.Trigger>
  *   <Dropdown.Content>
  *     <Dropdown.Item>Option 1</Dropdown.Item>
@@ -83,6 +72,26 @@ export const Basic: Story = {
   },
 }
 
+/**
+ * WithPrefix: Demonstrates adding an icon or element before the trigger text.
+ *
+ * Features:
+ * - Visual element preceding the trigger text
+ * - Enhances recognition and provides context
+ * - Aligns with design patterns for dropdown options
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger prefixElement={<Icon />}>
+ *     With Prefix
+ *   </Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const WithPrefix: Story = {
   render: function WithPrefixStory() {
     return (
@@ -103,6 +112,26 @@ export const WithPrefix: Story = {
   },
 }
 
+/**
+ * WithSuffix: Demonstrates adding an icon or element after the trigger text.
+ *
+ * Features:
+ * - Visual element following the trigger text
+ * - Useful for status indicators or additional controls
+ * - Maintains consistent spacing and alignment
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger suffixElement={<Icon />}>
+ *     With Suffix
+ *   </Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const WithSuffix: Story = {
   render: function WithSuffixStory() {
     return (
@@ -123,6 +152,26 @@ export const WithSuffix: Story = {
   },
 }
 
+/**
+ * LongerValue: Demonstrates handling longer text in the trigger with truncation.
+ *
+ * Features:
+ * - Text truncation with ellipsis
+ * - Fixed width constraint
+ * - Maintains clean UI with overflowing text
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger className="w-48">
+ *     <span className="flex-1 truncate">Very long value that would overflow</span>
+ *   </Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const LongerValue: Story = {
   render: function LongerValueStory() {
     return (
@@ -143,6 +192,26 @@ export const LongerValue: Story = {
   },
 }
 
+/**
+ * TriggerAsChild: Demonstrates using a custom component as the trigger.
+ *
+ * Features:
+ * - Composable trigger with any component
+ * - Maintains dropdown behavior with custom UI
+ * - Perfect for integrating with existing UI components
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger asChild>
+ *     <Button>Custom Button</Button>
+ *   </Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const TriggerAsChild: Story = {
   render: function TriggerAsChildStory() {
     return (
@@ -177,6 +246,26 @@ export const TriggerAsChild: Story = {
   },
 }
 
+/**
+ * MatchTriggerWidth: Demonstrates making the dropdown content match the trigger width.
+ *
+ * Features:
+ * - Content width synced with trigger width
+ * - Ensures visual alignment and consistency
+ * - Useful for form-like dropdown selectors
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown matchTriggerWidth={true}>
+ *   <Dropdown.Trigger className="w-64">
+ *     <span>Match Trigger Width</span>
+ *   </Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const MatchTriggerWidth: Story = {
   render: function MatchTriggerWidthStory() {
     return (
@@ -196,13 +285,13 @@ export const MatchTriggerWidth: Story = {
 /**
  * Demonstrates nested dropdown menus functionality.
  *
- * ### Features
+ * Features:
  * - Support for multiple levels of nesting
  * - Automatic submenu positioning
  * - Hover-based submenu activation
  * - Keyboard navigation across nested levels
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Parent">
  *   <Dropdown.Trigger>Parent</Dropdown.Trigger>
@@ -259,12 +348,12 @@ export const Nested: Story = {
 /**
  * Shows how to use dividers to group dropdown items.
  *
- * ### Features
+ * Features:
  * - Visual separation of related items
  * - Improved menu organization
  * - Maintains keyboard navigation
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Menu">
  *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
@@ -304,13 +393,13 @@ export const Divider: Story = {
 /**
  * Demonstrates selection functionality with visual indicators.
  *
- * ### Features
+ * Features:
  * - Visual selection indicator
  * - Support for single selection
  * - Controlled selection state
  * - Maintains selection state between opens
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Select" selection={true}>
  *   <Dropdown.Trigger>Select</Dropdown.Trigger>
@@ -394,13 +483,13 @@ const KEYS = [
 /**
  * Shows how to add keyboard shortcuts to dropdown items.
  *
- * ### Features
+ * Features:
  * - Display keyboard shortcuts
  * - Support for modifier keys
  * - Platform-specific shortcut display
  * - Visual alignment of shortcuts
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Menu">
  *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
@@ -445,12 +534,12 @@ export const Shortcut: Story = {
 /**
  * Shows how to handle disabled items in the dropdown.
  *
- * ### Features
+ * Features:
  * - Visual disabled state
  * - Prevents interaction with disabled items
  * - Maintains keyboard navigation
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Menu">
  *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
@@ -480,13 +569,13 @@ export const Disabled: Story = {
 /**
  * Demonstrates handling of long lists with scrolling.
  *
- * ### Features
+ * Features:
  * - Automatic scrolling behavior
  * - Maintains keyboard navigation
  * - Smooth scroll animations
  * - Virtualized rendering for performance
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown trigger="Menu">
  *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
@@ -518,13 +607,13 @@ export const LongList: Story = {
 /**
  * Shows different placement options for the dropdown menu.
  *
- * ### Features
+ * Features:
  * - Multiple placement options
  * - Automatic repositioning
  * - Handles viewport constraints
  * - Smooth transitions
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown
  *   placement="bottom-end"
@@ -553,6 +642,29 @@ export const Placement: Story = {
   },
 }
 
+/**
+ * Label: Demonstrates using section labels to organize dropdown items.
+ *
+ * Features:
+ * - Visual grouping of related items
+ * - Semantic structure for complex dropdowns
+ * - Improves usability for longer lists
+ * - Combines with dividers for clear separation
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Label>Group 1</Dropdown.Label>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *     <Dropdown.Divider />
+ *     <Dropdown.Label>Group 2</Dropdown.Label>
+ *     <Dropdown.Item>Option 2</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const Label: Story = {
   render: function LabelStory() {
     return (
@@ -576,6 +688,29 @@ export const Label: Story = {
   },
 }
 
+/**
+ * LabelWithSelection: Demonstrates combining section labels with selection functionality.
+ *
+ * Features:
+ * - Organized content with semantic sections
+ * - Selection indicators within grouped items
+ * - Maintains visual consistency with selection states
+ * - Proper interaction within labeled groups
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown selection={true}>
+ *   <Dropdown.Trigger>Menu</Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Label>Category 1</Dropdown.Label>
+ *     <Dropdown.Item selected={value === "item1"}>Item 1</Dropdown.Item>
+ *     <Dropdown.Divider />
+ *     <Dropdown.Label>Category 2</Dropdown.Label>
+ *     <Dropdown.Item selected={value === "item2"}>Item 2</Dropdown.Item>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const LabelWithSelection: Story = {
   render: function LabelWithSelectionStory() {
     const [selected, setSelected] = useState<string | null>(null)
@@ -609,13 +744,13 @@ export const LabelWithSelection: Story = {
 /**
  * Shows how to use the compound component pattern with Dropdown.Trigger instead of the trigger prop.
  *
- * ### Features
+ * Features:
  * - More declarative API
  * - Better composability
  * - Consistent with other component libraries
  * - Full control over the trigger element
  *
- * ### Usage
+ * Usage:
  * ```tsx
  * <Dropdown>
  *   <Dropdown.Trigger>Open Menu</Dropdown.Trigger>
@@ -630,8 +765,10 @@ export const WithTriggerComponent: Story = {
   render: function WithTriggerComponentStory() {
     return (
       <Dropdown>
-        <Dropdown.Trigger>
-          <span>Custom Trigger</span>
+        <Dropdown.Trigger asChild>
+          <IconButton>
+            <FieldTypeAttachment />
+          </IconButton>
         </Dropdown.Trigger>
         <Dropdown.Content>
           {Array.from({ length: 4 }).map((_, i) => (
@@ -652,6 +789,33 @@ export const WithTriggerComponent: Story = {
   },
 }
 
+/**
+ * SearchAndButton: Demonstrates advanced functionality with search, multi-selection, and actions.
+ *
+ * Features:
+ * - Integrated search functionality with filtering
+ * - Multi-select with persistent state
+ * - Nested submenus within searchable content
+ * - Action buttons for bulk operations
+ * - Empty state handling with clear option
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown selection={true}>
+ *   <Dropdown.Trigger>Search</Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Search value={search} onChange={setSearch} />
+ *     <Dropdown.Divider />
+ *     {filteredItems.map(item => (
+ *       <Dropdown.Item key={item.id} selected={selected.includes(item.id)}>
+ *         {item.label}
+ *       </Dropdown.Item>
+ *     ))}
+ *     <Dropdown.Button onClick={handleClearAll}>Clear All</Dropdown.Button>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
 export const SearchAndButton: Story = {
   render: function SearchAndButtonStory() {
     const [search, setSearch] = useState("")

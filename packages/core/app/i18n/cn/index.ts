@@ -39,6 +39,7 @@ const cn = {
     zoomTo50: "放大到50%",
     zoomTo100: "放大到100%",
     zoomTo200: "放大到200%",
+    error: "图片加载失败，请稍后再试。",
   },
 } satisfies BaseTranslation
 

@@ -39,7 +39,7 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
       tsconfigPaths(),
       dts({
         include: ["app"],
-        exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx"],
+        exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx", "app/components/experimental"],
         rollupTypes: true,
         copyDtsFiles: true,
       }),
