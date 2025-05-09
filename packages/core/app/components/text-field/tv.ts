@@ -8,7 +8,7 @@ export const TextFieldTv = tv({
       "rounded-md",
       "focus-within:before:border-selected-boundary",
       "before:border-transparent",
-      "text-field",
+      "fields__text-field",
     ],
     input: ["[grid-area:input]"],
     prefix: ["[grid-area:prefix]"],

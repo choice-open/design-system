@@ -99,7 +99,7 @@
     grid-template-areas: "label-1 label-2 ." "input-1 input-3 icon-1" "input-2 input-3 icon-2";
   }
 
-  .text-field {
+  .fields__text-field {
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "prefix input suffix";
     &::before {
