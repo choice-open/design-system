@@ -24,10 +24,38 @@ const LOCALES = [
   { value: "cn", label: "🇨🇳 中文" },
 ]
 
-const commonTheme = {
+const lightTheme = {
   brandTitle: "@choiceform/design-system",
-  brandUrl: "https://choiceform.com",
-  brandTarget: "_self",
+  brandUrl: "https://ui.choiceform.app",
+  brandImage: "https://assets.choiceform.app/favicons/dev/brand.png",
+
+  colorPrimary: "rgba(13, 153, 255, 1)",
+  colorSecondary: "rgba(13, 153, 255, 1)",
+  appBorderColor: "rgba(230, 230, 230, 1)",
+  appBorderRadius: 5,
+  appBg: "#ffffff",
+  appContentBg: "#ffffff",
+  appPreviewBg: "#ffffff",
+  barBg: "rgba(255, 255, 255, 1)",
+  buttonBorder: "rgba(230, 230, 230, 1)",
+  barTextColor: "rgba(0, 0, 0, 1)",
+}
+
+const darkTheme = {
+  brandTitle: "@choiceform/design-system",
+  brandUrl: "https://ui.choiceform.app",
+  brandImage: "https://assets.choiceform.app/favicons/dev/brand_dark.png",
+
+  colorPrimary: "rgba(7, 104, 207, 1)",
+  colorSecondary: "rgba(13, 153, 255, 1)",
+  appBorderColor: "rgba(68, 68, 68, 1)",
+  appBorderRadius: 5,
+  appBg: "rgba(30, 30, 30, 1)",
+  appContentBg: "rgba(30, 30, 30, 1)",
+  appPreviewBg: "rgba(30, 30, 30, 1)",
+  barBg: "rgba(30, 30, 30, 1)",
+  buttonBorder: "rgba(68, 68, 68, 1)",
+  barTextColor: "rgba(255, 255, 255, 1)",
 }
 
 declare global {
@@ -49,26 +77,15 @@ const prettierCache = {
   loadPromise: null as Promise<void> | null,
 }
 
-// 定义动画变量
-const fadeAnimation = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.2, ease: "easeInOut" },
-}
-
 // 使用 React.memo 包装 StoryRenderer 组件以减少不必要的重新渲染
 const StoryRenderer = React.memo(({ StoryFn, storyId }: { StoryFn: any; storyId: string }) => {
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={storyId}
-        {...fadeAnimation}
-        className="bg-default-background flex h-full w-full flex-col items-center justify-center"
-      >
-        <StoryFn />
-      </motion.div>
-    </AnimatePresence>
+    <div
+      key={storyId}
+      className="bg-default-background flex h-full w-full flex-col items-center justify-center"
+    >
+      <StoryFn />
+    </div>
   )
 })
 
@@ -89,94 +106,88 @@ const DocsPanel = React.memo(
     if (!visible) return null
 
     return (
-      <AnimatePresence mode="wait">
-        <motion.article
-          key={storyId}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeInOut", delay: 0.1 }}
-          className="prose-pre:p-0 prose-pre:text-(--code-text) prose-sm prose-neutral prose dark:prose-invert h-full w-full max-w-none overflow-y-auto border-l px-4 pb-16"
-        >
-          {name && (
-            <div className="bg-default-background sticky top-0 mb-4 flex flex-col border-b py-4">
-              <span className="text-secondary-foreground text-xl">{title}</span>
-              <h3 className="mt-0 mb-0 text-lg">
-                {componentName} / {name}
-              </h3>
-            </div>
-          )}
+      <article
+        key={storyId}
+        className="prose-pre:p-0 prose-pre:text-(--code-text) prose-sm prose-neutral prose dark:prose-invert h-full w-full max-w-none overflow-y-auto border-l px-4 pb-16"
+      >
+        {name && (
+          <div className="bg-default-background sticky top-0 mb-4 flex flex-col border-b py-4">
+            <span className="text-secondary-foreground text-xl">{title}</span>
+            <h3 className="mt-0 mb-0 text-lg">
+              {componentName} / {name}
+            </h3>
+          </div>
+        )}
 
-          {description && (
-            <Markdown
-              children={description}
-              components={{
-                code(props) {
-                  const { children, className, node, ...rest } = props
-                  const match = /language-(\w+)/.exec(className || "")
-                  return match ? (
-                    <SyntaxHighlighter
-                      language={match[1]}
-                      style={oneLight}
-                      customStyle={{
-                        fontSize: 11,
-                        fontFamily: "var(--font-mono)",
-                        backgroundColor: "var(--code-background)",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      {String(children).replace(/\n$/, "")}
-                    </SyntaxHighlighter>
-                  ) : (
-                    <code
-                      {...rest}
-                      className={className}
-                    >
-                      {children}
-                    </code>
-                  )
-                },
-              }}
-            />
-          )}
+        {description && (
+          <Markdown
+            children={description}
+            components={{
+              code(props) {
+                const { children, className, node, ...rest } = props
+                const match = /language-(\w+)/.exec(className || "")
+                return match ? (
+                  <SyntaxHighlighter
+                    language={match[1]}
+                    style={oneLight}
+                    customStyle={{
+                      fontSize: 11,
+                      fontFamily: "var(--font-mono)",
+                      backgroundColor: "var(--code-background)",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code
+                    {...rest}
+                    className={className}
+                  >
+                    {children}
+                  </code>
+                )
+              },
+            }}
+          />
+        )}
 
-          <hr className="mt-4 mb-4" />
+        <hr className="mt-4 mb-4" />
 
-          <p>Types</p>
-          {type && (
-            <SyntaxHighlighter
-              language="typescript"
-              style={oneLight}
-              customStyle={{
-                fontSize: 11,
-                fontFamily: "var(--font-mono)",
-                backgroundColor: "var(--code-background)",
-                borderRadius: "5px",
-              }}
-            >
-              {formattedTypes || ""}
-            </SyntaxHighlighter>
-          )}
+        <p>Types</p>
+        {type && (
+          <SyntaxHighlighter
+            language="typescript"
+            style={oneLight}
+            customStyle={{
+              fontSize: 11,
+              fontFamily: "var(--font-mono)",
+              backgroundColor: "var(--code-background)",
+              borderRadius: "5px",
+            }}
+          >
+            {formattedTypes || ""}
+          </SyntaxHighlighter>
+        )}
 
-          <p>Source</p>
-          {source && (
-            <SyntaxHighlighter
-              language="tsx"
-              style={oneLight}
-              wrapLines={true}
-              wrapLongLines={true}
-              customStyle={{
-                fontSize: 11,
-                fontFamily: "var(--font-mono)",
-                backgroundColor: "var(--code-background)",
-                borderRadius: "5px",
-              }}
-            >
-              {formattedCode || source}
-            </SyntaxHighlighter>
-          )}
-        </motion.article>
-      </AnimatePresence>
+        <p>Source</p>
+        {source && (
+          <SyntaxHighlighter
+            language="tsx"
+            style={oneLight}
+            wrapLines={true}
+            wrapLongLines={true}
+            customStyle={{
+              fontSize: 11,
+              fontFamily: "var(--font-mono)",
+              backgroundColor: "var(--code-background)",
+              borderRadius: "5px",
+            }}
+          >
+            {formattedCode || source}
+          </SyntaxHighlighter>
+        )}
+      </article>
     )
   },
 )
@@ -353,7 +364,7 @@ const withCustomDecorator: Decorator = (StoryFn, context) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="app h-screen w-full"
+        className="app h-screen w-screen"
       >
         <ToggleButton
           value={visible}
@@ -442,17 +453,11 @@ const preview: Preview = {
       stylePreview: true,
       dark: {
         ...themes.dark,
-        ...commonTheme,
-        appBg: "#161616",
-        barBg: "black",
-        background: "black",
-        appContentBg: "black",
-        appBorderRadius: 14,
+        ...darkTheme,
       },
       light: {
         ...themes.light,
-        ...commonTheme,
-        appBorderRadius: 14,
+        ...lightTheme,
       },
     },
   },
