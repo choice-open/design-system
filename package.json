@@ -10,9 +10,9 @@
     "core:dev": "pnpm --filter=\"@choiceform/design-system\" run dev",
     "core:build": "pnpm --filter=\"@choiceform/design-system\" run build",
     "core:storybook": "pnpm --filter=\"@choiceform/design-system\" run storybook",
-    "colors:dev": "pnpm --filter=\"@choiceform/design-system-colors\" run dev",
-    "colors:build": "pnpm --filter=\"@choiceform/design-system-colors\" run build",
-    "colors:storybook": "pnpm --filter=\"@choiceform/design-system-colors\" run storybook",
+    "colors:dev": "pnpm --filter=\"@choiceform/colors\" run dev",
+    "colors:build": "pnpm --filter=\"@choiceform/colors\" run build",
+    "colors:storybook": "pnpm --filter=\"@choiceform/colors\" run storybook",
     "test": "pnpm --filter=\"./packages/**\" run test",
     "clean": "pnpm --filter=\"./packages/**\" run clean",
     "preinstall": "npx only-allow pnpm"

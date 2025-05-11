@@ -100,11 +100,28 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
     }
 
     const contentChildren = Children.toArray(content.props.children)
-    const items = contentChildren.filter(
-      (child) =>
-        isValidElement(child) &&
-        (child.type === SelectItem || child.type === MenuDivider || child.type === MenuLabel),
-    )
+
+    // 添加递归函数处理Fragment内的子元素
+    const extractSelectItems = (children: React.ReactNode[]): React.ReactNode[] => {
+      const result: React.ReactNode[] = []
+
+      children.forEach((child) => {
+        if (!isValidElement(child)) return
+
+        if (child.type === SelectItem || child.type === MenuDivider || child.type === MenuLabel) {
+          result.push(child)
+        } else if (child.type === React.Fragment && child.props.children) {
+          // 处理Fragment内的子元素
+          const fragmentChildren = Children.toArray(child.props.children)
+          result.push(...extractSelectItems(fragmentChildren))
+        }
+      })
+
+      return result
+    }
+
+    // 使用递归函数处理所有子元素
+    const items = extractSelectItems(contentChildren)
 
     return [items, trigger, content]
   }, [children])
