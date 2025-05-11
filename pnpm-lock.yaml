@@ -26,12 +26,6 @@ importers:
 
   packages/colors:
     dependencies:
-      '@choiceform/design-system':
-        specifier: workspace:*
-        version: link:../core
-      '@choiceform/icons-react':
-        specifier: ^1.0.3
-        version: 1.0.3(react@18.2.0)
       '@floating-ui/react':
         specifier: 0.24.3
         version: 0.24.3(react-dom@18.2.0)(react@18.2.0)
@@ -77,9 +71,6 @@ importers:
       ts-pattern:
         specifier: ^5.5.0
         version: 5.7.0
-      typesafe-i18n:
-        specifier: ^5.26.2
-        version: 5.26.2(typescript@5.8.3)
       usehooks-ts:
         specifier: ^3.1.0
         version: 3.1.1(react@18.2.0)
@@ -96,6 +87,12 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.27.1
         version: 7.27.1(@babel/core@7.27.1)
+      '@choiceform/design-system':
+        specifier: workspace:*
+        version: link:../core
+      '@choiceform/icons-react':
+        specifier: ^1.0.3
+        version: 1.0.3(react@18.2.0)
       '@chromatic-com/storybook':
         specifier: ^3.2.4
         version: 3.2.6(react@18.2.0)(storybook@8.6.12)
@@ -1974,7 +1971,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: false
 
   /@chromatic-com/storybook@3.2.6(react@18.2.0)(storybook@8.6.12):
     resolution: {integrity: sha512-FDmn5Ry2DzQdik+eq2sp/kJMMT36Ewe7ONXUXM2Izd97c7r6R/QyGli8eyh/F0iyqVvbLveNYFyF0dBOJNwLqw==}
