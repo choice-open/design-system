@@ -2,7 +2,7 @@ import { FloatingOverlay, FloatingPortal } from "@floating-ui/react"
 import { Slot } from "@radix-ui/react-slot"
 import React, { memo, useId, useMemo, useRef } from "react"
 import { findChildByType, tcx } from "~/utils"
-import { Modal, ModalContent } from "../modal"
+import { Modal, ModalContent, ModalFooter } from "../modal"
 import { DialogBackdrop, DialogHeader, DialogTrigger } from "./components"
 import { DialogContext } from "./dialog-context"
 import { useDrag, useFloatingDialog, useResize } from "./hooks"
@@ -259,6 +259,7 @@ type DialogComponentType = React.FC<DialogProps> & {
   Content: typeof ModalContent
   Header: typeof DialogHeader
   Backdrop: typeof DialogBackdrop
+  Footer: typeof ModalFooter
 }
 
 export const Dialog = Object.assign(DialogComponent, {
@@ -266,4 +267,5 @@ export const Dialog = Object.assign(DialogComponent, {
   Content: ModalContent,
   Header: DialogHeader,
   Backdrop: DialogBackdrop,
+  Footer: ModalFooter,
 }) as DialogComponentType

@@ -445,8 +445,8 @@
   --color-default-background: var(--background-default);
   --color-disabled-background: var(--background-disabled);
   --color-secondary-background: var(--background-secondary);
-  --color-selected-background: var(--background-selected);
   --color-secondary-active-background: var(--background-secondary-active);
+  --color-selected-background: var(--background-selected);
   --color-accent-background: var(--blue-500);
   --color-accent-active-background: var(--blue-600);
   --color-success-background: var(--green-500);
