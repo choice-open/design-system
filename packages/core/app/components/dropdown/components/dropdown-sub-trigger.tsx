@@ -4,15 +4,11 @@ import { forwardRef, memo, useCallback, useContext, useEffect, useMemo, useRef }
 import { MenuItem, MenuItemProps } from "../../menus"
 import { DropdownContext } from "../dropdown-context"
 
-interface DropdownSubTriggerProps extends MenuItemProps {
-  selection?: boolean
-  active?: boolean
-}
+interface DropdownSubTriggerProps extends MenuItemProps {}
 
 export const DropdownSubTrigger = memo(
   forwardRef<HTMLButtonElement, DropdownSubTriggerProps>((props, forwardedRef) => {
     const {
-      selection,
       children,
       active,
       prefixElement,
@@ -78,9 +74,9 @@ export const DropdownSubTrigger = memo(
 
     const prefixConfig = useMemo(() => {
       if (prefixElement) return prefixElement
-      if (selection) return <></>
+      if (menu.selection) return <></>
       return undefined
-    }, [prefixElement, selection])
+    }, [prefixElement, menu.selection])
 
     return (
       <MenuItem

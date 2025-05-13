@@ -413,7 +413,6 @@ export const Divider: Story = {
 export const SelectionIcon: Story = {
   render: function SelectionIconStory() {
     const [selected, setSelected] = useState<string | null>(null)
-    console.log(selected)
     const items = Array.from({ length: 6 }, (_, i) => `Option ${i + 1}`)
     return (
       <Dropdown selection={true}>
@@ -430,6 +429,70 @@ export const SelectionIcon: Story = {
               {item}
             </Dropdown.Item>
           ))}
+        </Dropdown.Content>
+      </Dropdown>
+    )
+  },
+}
+
+/**
+ * Shows how to use nested dropdowns with selection functionality.
+ *
+ * Features:
+ * - Support for nested dropdowns
+ * - Automatic submenu positioning
+ * - Selection state within nested menus
+ * - Keyboard navigation across nested levels
+ *
+ * Usage:
+ * ```tsx
+ * <Dropdown>
+ *   <Dropdown.Trigger>Parent</Dropdown.Trigger>
+ *   <Dropdown.Content>
+ *     <Dropdown.Item>Option 1</Dropdown.Item>
+ *     <Dropdown.Item>Option 2</Dropdown.Item>
+ *     <Dropdown selection={true}>
+ *       <Dropdown.SubTrigger>Submenu</Dropdown.SubTrigger>
+ *       <Dropdown.Content>
+ *         <Dropdown.Item>Submenu Item 1</Dropdown.Item>
+ *         <Dropdown.Item>Submenu Item 2</Dropdown.Item>
+ *       </Dropdown.Content>
+ *     </Dropdown>
+ *   </Dropdown.Content>
+ * </Dropdown>
+ * ```
+ */
+export const NestedSelectionIcon: Story = {
+  render: function NestedSelectionIconStory() {
+    const [selected, setSelected] = useState<string | null>(null)
+    const items = Array.from({ length: 6 }, (_, i) => `Option ${i + 1}`)
+    const subItems = Array.from({ length: 5 }, (_, i) => `Submenu Item ${i + 1}`)
+    return (
+      <Dropdown>
+        <Dropdown.Trigger>
+          <span>Selection Icon</span>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          {items.map((item) => (
+            <Dropdown.Item key={item}>{item}</Dropdown.Item>
+          ))}
+          <Dropdown.Divider />
+          <Dropdown selection={true}>
+            <Dropdown.SubTrigger>
+              <span className="flex-1 truncate">Submenu</span>
+            </Dropdown.SubTrigger>
+            <Dropdown.Content>
+              {subItems.map((item) => (
+                <Dropdown.Item
+                  key={item}
+                  onMouseUp={() => setSelected(item)}
+                  selected={selected === item}
+                >
+                  {item}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Content>
+          </Dropdown>
         </Dropdown.Content>
       </Dropdown>
     )
