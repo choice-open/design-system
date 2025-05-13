@@ -309,3 +309,19 @@ export const Nested: Story = {
     )
   },
 }
+
+export const Footer: Story = {
+  render: function FooterStory() {
+    return (
+      <Dialog open={true}>
+        <Dialog.Header title="Dialog Title" />
+        <Dialog.Content className="flex flex-col gap-4 p-4">
+          {faker.lorem.paragraphs(3)}
+        </Dialog.Content>
+        <Dialog.Footer className="justify-end">
+          <Button>Close</Button>
+        </Dialog.Footer>
+      </Dialog>
+    )
+  },
+}

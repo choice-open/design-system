@@ -160,6 +160,10 @@ const DialogComponent = memo(function DialogComponent({
     return findChildByType(children, DialogBackdrop)
   }, [children])
 
+  const footerContent = useMemo(() => {
+    return findChildByType(children, ModalFooter)
+  }, [children])
+
   const contextValue = useMemo(
     () => ({
       open: floating.innerOpen,
@@ -222,6 +226,7 @@ const DialogComponent = memo(function DialogComponent({
             >
               {headerContent}
               {contentContent}
+              {footerContent}
 
               {resizable.width && (
                 <div
