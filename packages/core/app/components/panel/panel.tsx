@@ -1,7 +1,5 @@
-import { Children, createContext, forwardRef, HTMLProps, useContext, useMemo } from "react"
+import { Children, forwardRef, HTMLProps, useMemo } from "react"
 import { tcx } from "~/utils"
-import { propertiesPanelTv } from "./tv"
-import { PanelContext, usePanelContext } from "./context"
 import {
   PanelLabel,
   PanelPreviewer,
@@ -12,6 +10,8 @@ import {
   PanelSortableRow,
   PanelTitle,
 } from "./components"
+import { PanelContext, usePanelContext } from "./context"
+import { propertiesPanelTv } from "./tv"
 
 interface PanelProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
   className?: string
@@ -59,7 +59,7 @@ interface PanelComponentProps
   Row: typeof PanelRow
   RowLabel: typeof PanelRowLabel
   RowManyIcon: typeof PanelRowManyIcon
-  RowPreviewer: typeof PanelPreviewer
+  Previewer: typeof PanelPreviewer
 }
 
 export const PanelBase = forwardRef<HTMLDivElement, PanelProps>(function Panel(props, ref) {
@@ -147,5 +147,5 @@ Panel.SortableRow = PanelSortableRow
 Panel.Row = PanelRow
 Panel.RowLabel = PanelRowLabel
 Panel.RowManyIcon = PanelRowManyIcon
-Panel.RowPreviewer = PanelPreviewer
+Panel.Previewer = PanelPreviewer
 export { Panel }

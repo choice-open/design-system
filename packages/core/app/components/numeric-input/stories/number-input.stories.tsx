@@ -400,7 +400,7 @@ export const Disabled: Story = {
               placement="bottom-end"
             >
               <Select.Trigger asChild>
-                <NumericInputMenuTrigger
+                <NumericInput.MenuTrigger
                   aria-label="Open menu"
                   type="action"
                 />
