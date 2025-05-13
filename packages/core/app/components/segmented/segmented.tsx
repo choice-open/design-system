@@ -23,7 +23,7 @@ export interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChang
     option?: string
   }
   value?: string
-  tooltip?: Omit<TooltipProps, "content">
+  tooltip?: TooltipProps
   children?: ReactNode
   onChange?: (value: string) => void
 }
@@ -75,7 +75,6 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
           isActive,
           groupId: id,
           onChange: handleChange,
-          tooltipProps: tooltip,
         })
       })
     }, [validChildren, valueProp, id, handleChange, tooltip])

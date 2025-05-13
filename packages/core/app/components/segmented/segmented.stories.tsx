@@ -230,19 +230,25 @@ export const WithTooltip: Story = {
       >
         <Segmented.Item
           value="sun"
-          tooltip="Sun"
+          tooltip={{
+            content: "Sun",
+          }}
         >
           <FieldTypeAttachment />
         </Segmented.Item>
         <Segmented.Item
           value="moon"
-          tooltip="Moon"
+          tooltip={{
+            content: "Moon",
+          }}
         >
           <FieldTypeCheckbox />
         </Segmented.Item>
         <Segmented.Item
           value="system"
-          tooltip="System"
+          tooltip={{
+            content: "System",
+          }}
         >
           <FieldTypeCount />
         </Segmented.Item>

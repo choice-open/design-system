@@ -8,7 +8,7 @@ export interface SegmentedItemProps {
   className?: string
   value: string
   disabled?: boolean
-  tooltip?: string
+  tooltip?: TooltipProps
   children: ReactNode
   "aria-label"?: string
 }
@@ -16,7 +16,6 @@ export interface SegmentedItemProps {
 export type SegmentedItemInternalProps = SegmentedItemProps & {
   isActive?: boolean
   groupId?: string
-  tooltipProps?: Omit<TooltipProps, "content">
   onChange?: (value: string) => void
 }
 
@@ -30,7 +29,6 @@ export const SegmentedItem = memo(
       tooltip,
       isActive = false,
       groupId: externalGroupId,
-      tooltipProps,
       "aria-label": ariaLabel,
       onChange,
       ...rest
@@ -43,7 +41,7 @@ export const SegmentedItem = memo(
 
     const optionId = `${groupId}-${value}`
 
-    const ariaLabelProp = tooltip || (typeof children === "string" ? children : ariaLabel)
+    const ariaLabelProp = typeof children === "string" ? children : ariaLabel
 
     const handleChange = useEventCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.checked) {
@@ -92,14 +90,7 @@ export const SegmentedItem = memo(
     )
 
     if (tooltip) {
-      return (
-        <Tooltip
-          {...tooltipProps}
-          content={tooltip}
-        >
-          {label}
-        </Tooltip>
-      )
+      return <Tooltip {...tooltip}>{label}</Tooltip>
     }
 
     return label
