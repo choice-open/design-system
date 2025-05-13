@@ -2,9 +2,9 @@ import { tv } from "tailwind-variants"
 
 export const TextareaTv = tv({
   base: [
-    "min-w-0 rounded-md",
+    "h-auto w-full min-w-0 rounded-md",
     "leading-md tracking-md text-md",
-    "px-1.75 py-1",
+    "px-2 py-1",
     "cursor-default appearance-none",
   ],
   variants: {

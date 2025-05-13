@@ -1,70 +1,144 @@
-import { forwardRef, useState } from "react"
-import AutoSize, { type TextareaAutosizeProps } from "react-textarea-autosize"
-import { tcx } from "~/utils"
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
+import { createEditor, Descendant, Node, Transforms, Editor } from "slate"
+import { Slate, Editable, withReact } from "slate-react"
 import { TextareaTv } from "./tv"
+import { Scroll } from "../scroll/scroll"
+import { tcx } from "~/utils/tcx"
+import { mergeRefs } from "~/utils"
 
-export interface MultiLineTextInputProps extends Omit<TextareaAutosizeProps, "style" | "onChange"> {
-  resizeHandle?: "none" | "both" | "horizontal" | "vertical"
-  variant?: "default" | "dark" | "reset"
-  selected?: boolean
+export interface MultiLineTextInputProps {
   value?: string
   onChange?: (value: string) => void
+  minRows?: number
+  maxRows?: number
+  variant?: "default" | "dark" | "reset"
+  selected?: boolean
+  disabled?: boolean
+  readOnly?: boolean
+  className?: string
+  placeholder?: string
 }
 
-type TextareaHeightChangeMeta = {
-  rowHeight: number
+function stringToSlateValue(value?: string): Descendant[] {
+  return [
+    {
+      type: "paragraph",
+      children: [{ text: value ?? "" }],
+    },
+  ]
 }
 
-export const MultiLineTextInput = forwardRef<HTMLTextAreaElement, MultiLineTextInputProps>(
-  (props, ref) => {
-    const {
-      className,
+function slateValueToString(value: Descendant[]): string {
+  // 只取第一个段落的文本
+  return value && value.length > 0 ? Node.string(value[0] as Node) : ""
+}
+
+export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputProps>(
+  (
+    {
+      value = "",
+      onChange,
       minRows = 3,
       maxRows = 8,
-      cacheMeasurements,
-      resizeHandle = "none",
       variant = "default",
-      disabled,
       selected,
+      disabled,
       readOnly,
-      value,
-      onChange,
-      onHeightChange,
+      className,
+      placeholder,
       ...rest
-    } = props
+    },
+    ref,
+  ) => {
+    const editor = useMemo(() => withReact(createEditor()), [])
+    const [internalValue, setInternalValue] = useState<Descendant[]>(() =>
+      stringToSlateValue(value),
+    )
+    const prevValueRef = useRef(value)
+    const hasSelectedOnFocus = useRef(false)
 
-    const [hasMultipleRows, setIsHasMultipleRows] = useState(minRows > 1)
-    const [isLimitReached, setIsLimitReached] = useState(false)
-
-    const styles = TextareaTv({ variant, disabled, resizeHandle, selected, readOnly })
-
-    const handleHeightChange = (height: number, meta: TextareaHeightChangeMeta) => {
-      if (minRows === 1) {
-        setIsHasMultipleRows(height >= meta.rowHeight * 2)
+    // 外部 value 变化时同步到编辑器
+    useEffect(() => {
+      if (value !== prevValueRef.current) {
+        const slateVal = stringToSlateValue(value)
+        setInternalValue(slateVal)
+        prevValueRef.current = value
+        hasSelectedOnFocus.current = false // value 变化时允许再次全选
       }
-      if (maxRows > minRows) {
-        const limitReached = height >= maxRows * meta.rowHeight
-        setIsLimitReached(limitReached)
+    }, [value])
+
+    // 编辑器内容变化时，触发 onChange
+    const handleChange = (val: Descendant[]) => {
+      setInternalValue(val)
+      const str = slateValueToString(val)
+      if (str !== value) {
+        onChange?.(str)
       }
-      onHeightChange?.(height, meta)
+    }
+
+    // 计算高度样式
+    const lineHeight = 24
+    const minHeight = minRows * lineHeight
+    const maxHeight = maxRows * lineHeight
+
+    const styles = TextareaTv({ variant, disabled, selected, readOnly })
+
+    // focus 时全选内容
+    const handleFocus = () => {
+      if (!hasSelectedOnFocus.current) {
+        Transforms.select(editor, {
+          anchor: Editor.start(editor, []),
+          focus: Editor.end(editor, []),
+        })
+        hasSelectedOnFocus.current = true
+      }
     }
 
     return (
-      <AutoSize
-        {...rest}
+      <Scroll
         ref={ref}
-        data-1p-ignore
-        data-hide-scroll={!isLimitReached}
-        cacheMeasurements={cacheMeasurements}
-        maxRows={maxRows}
-        minRows={minRows}
-        onHeightChange={handleHeightChange}
-        data-has-multiple-rows={hasMultipleRows}
         className={tcx(styles, className)}
-        disabled={disabled}
-        value={value}
-        onChange={(e) => onChange?.(e.target.value)}
-      />
+        tabIndex={0}
+        aria-disabled={disabled}
+        aria-readonly={readOnly}
+        {...rest}
+      >
+        <Scroll.Viewport
+          style={{
+            minHeight: minHeight,
+            maxHeight: maxHeight,
+          }}
+        >
+          <Slate
+            editor={editor}
+            initialValue={internalValue}
+            onChange={handleChange}
+          >
+            <Editable
+              style={{
+                outline: "none",
+                background: "transparent",
+                minHeight: minHeight,
+              }}
+              readOnly={disabled || readOnly}
+              placeholder={placeholder}
+              onPaste={(e) => {
+                // 只允许粘贴纯文本
+                e.preventDefault()
+                const text = e.clipboardData.getData("text/plain")
+                editor.insertText(text)
+              }}
+              onFocus={handleFocus}
+              renderElement={(props) => <p {...props.attributes}>{props.children}</p>}
+              renderLeaf={(props) => <span {...props.attributes}>{props.children}</span>}
+              spellCheck
+              autoCorrect="on"
+              autoCapitalize="sentences"
+              tabIndex={0}
+            />
+          </Slate>
+        </Scroll.Viewport>
+      </Scroll>
     )
   },
 )

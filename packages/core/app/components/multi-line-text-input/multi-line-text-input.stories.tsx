@@ -45,7 +45,7 @@ type Story = StoryObj<typeof MultiLineTextInput>
  * Use this as a starting point for customization.
  */
 export const Basic: Story = {
-  render: () => <MultiLineTextInput />,
+  render: () => <MultiLineTextInput className="w-64" />,
 }
 
 /**
@@ -66,6 +66,7 @@ export const Disabled: Story = {
     const [value, setValue] = useState("Disabled")
     return (
       <MultiLineTextInput
+        className="w-64"
         value={value}
         onChange={(value) => setValue(value)}
         disabled
@@ -93,6 +94,7 @@ export const Placeholder: Story = {
     const [value, setValue] = useState("")
     return (
       <MultiLineTextInput
+        className="w-64"
         placeholder="Placeholder"
         value={value}
         onChange={(value) => setValue(value)}
@@ -115,13 +117,17 @@ export const Placeholder: Story = {
 export const Variants: Story = {
   render: function VariantsStory() {
     return (
-      <>
-        <MultiLineTextInput value="Default" />
+      <div className="flex flex-col gap-4">
+        <MultiLineTextInput
+          value="Default"
+          className="w-64"
+        />
         <MultiLineTextInput
           value="Dark Variant"
           variant="dark"
+          className="w-64"
         />
-      </>
+      </div>
     )
   },
 }
@@ -145,6 +151,7 @@ export const Dark: Story = {
     return (
       <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
         <MultiLineTextInput
+          className="w-64"
           value={value}
           onChange={(value) => setValue(value)}
           variant="dark"
@@ -176,8 +183,8 @@ export const Sizes: Story = {
       <MultiLineTextInput
         value={value}
         onChange={(value) => setValue(value)}
-        minRows={6}
-        maxRows={12}
+        minRows={12}
+        className="w-64"
       />
     )
   },
@@ -218,6 +225,7 @@ export const Controlled: Story = {
     return (
       <div className="flex flex-col gap-2">
         <MultiLineTextInput
+          className="w-64"
           value={value}
           onChange={(value) => setValue(value)}
         />
