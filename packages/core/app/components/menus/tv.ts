@@ -22,10 +22,7 @@ export const MenusTv = tv({
 
 export const MenuTriggerTv = tv({
   slots: {
-    root: [
-      "justify-start text-left",
-      // "hover:border-secondary-background hover:bg-secondary-background",
-    ],
+    root: "justify-start text-left",
     icon: "flex size-6 flex-none items-center justify-center",
   },
   variants: {
@@ -93,10 +90,7 @@ export const MenuItemTv = tv({
   },
   variants: {
     active: {
-      true: {
-        root: "bg-accent-background text-on-accent-foreground",
-        shortcut: "text-white",
-      },
+      true: {},
       false: {
         root: "bg-transparent",
         shortcut: "text-white/40",
@@ -127,6 +121,14 @@ export const MenuItemTv = tv({
       hasSuffix: false,
       class: {
         root: "gap-2",
+      },
+    },
+    {
+      disabled: false,
+      active: true,
+      class: {
+        root: "bg-accent-background text-on-accent-foreground",
+        shortcut: "text-white",
       },
     },
   ],
