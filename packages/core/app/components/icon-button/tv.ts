@@ -23,6 +23,7 @@ export const iconButtonTv = tv({
       solid: { button: "bg-secondary-background text-default-foreground" },
       highlight: {},
       ghost: {},
+      dark: { button: "text-white" },
       reset: {},
     },
     active: {
@@ -30,7 +31,7 @@ export const iconButtonTv = tv({
       false: {},
     },
     disabled: {
-      true: { button: "text-secondary-foreground" },
+      true: {},
       false: {},
     },
     focused: {
@@ -38,7 +39,7 @@ export const iconButtonTv = tv({
       false: {},
     },
     loading: {
-      true: { button: "text-secondary-foreground pointer-events-none" },
+      true: { button: "pointer-events-none" },
       false: {},
     },
   },
@@ -104,6 +105,38 @@ export const iconButtonTv = tv({
       active: true,
       disabled: false,
       class: { button: "text-default-foreground" },
+    },
+    {
+      variant: "dark",
+      active: false,
+      disabled: false,
+      class: { button: "hover:bg-gray-700 active:bg-gray-600" },
+    },
+    {
+      variant: "dark",
+      active: true,
+      disabled: false,
+      class: { button: "bg-gray-600" },
+    },
+    {
+      variant: ["default", "secondary", "solid", "highlight", "ghost"],
+      loading: true,
+      class: { button: "text-secondary-foreground" },
+    },
+    {
+      variant: ["default", "secondary", "solid", "highlight", "ghost"],
+      disabled: true,
+      class: { button: "text-secondary-foreground" },
+    },
+    {
+      variant: "dark",
+      loading: true,
+      class: { button: "text-gray-200" },
+    },
+    {
+      variant: "dark",
+      disabled: true,
+      class: { button: "text-gray-500" },
     },
   ],
   defaultVariants: {

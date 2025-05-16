@@ -18,6 +18,7 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> 
     | "link"
     | "link-danger"
     | "ghost"
+    | "dark"
   size?: "default" | "large"
   active?: boolean
   focused?: boolean

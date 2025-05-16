@@ -5,6 +5,7 @@ import { Fragment, useState } from "react"
 import { Select } from "../select"
 import { Button } from "./button"
 import React from "react"
+import { tcx } from "../../utils"
 
 const meta: Meta<typeof Button> = {
   title: "Buttons/Button",
@@ -89,6 +90,7 @@ export const Variants: Story = {
       Link = "link",
       LinkDanger = "link-danger",
       Ghost = "ghost",
+      Dark = "dark",
     }
 
     enum Size {
@@ -108,7 +110,12 @@ export const Variants: Story = {
     const [size, setSize] = useState<Size>(Size.Default)
 
     return (
-      <div className="flex flex-col items-start gap-4">
+      <div
+        className={tcx(
+          "flex flex-col items-start gap-4 rounded-lg p-4",
+          variant === Variant.Dark && "bg-gray-800",
+        )}
+      >
         <div className="flex gap-4">
           <Select
             value={variant}
@@ -147,7 +154,7 @@ export const Variants: Story = {
         <div className="grid grid-cols-[auto_1fr_1fr] items-center gap-4">
           {Object.values(State).map((state) => (
             <Fragment key={state}>
-              <span className="text-fuchsia-500 capitalize">{state}</span>
+              <span className="text-pink-500 capitalize">{state}</span>
               <Button
                 variant={variant}
                 size={size}

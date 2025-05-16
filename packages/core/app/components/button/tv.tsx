@@ -48,6 +48,9 @@ export const buttonTv = tv({
       ghost: {
         button: "text-default-foreground hover:bg-secondary-background bg-transparent",
       },
+      dark: {
+        button: "text-white bg-gray-800 border-gray-600",
+      },
     },
     active: {
       true: "",
@@ -83,13 +86,13 @@ export const buttonTv = tv({
       },
     },
     {
-      variant: ["secondary", "solid", "secondary-destruct", "link", "link-danger", "ghost"],
+      variant: ["secondary", "solid", "secondary-destruct", "link", "link-danger", "ghost", "dark"],
       class: {
         button: "focus-visible:border-selected-boundary",
       },
     },
     {
-      variant: ["secondary", "solid", "secondary-destruct", "link", "link-danger", "ghost"],
+      variant: ["secondary", "solid", "secondary-destruct", "link", "link-danger", "ghost", "dark"],
       focused: true,
       class: {
         button: "border-selected-boundary",
@@ -104,7 +107,7 @@ export const buttonTv = tv({
       },
     },
     {
-      variant: ["secondary", "secondary-destruct"],
+      variant: ["secondary", "secondary-destruct", "dark"],
       disabled: true,
       class: {
         button: "border-default-boundary text-disabled-foreground pointer-events-none",
@@ -118,6 +121,13 @@ export const buttonTv = tv({
           "text-disabled-foreground pointer-events-none",
           "data-[multi-element=true]:border-default-boundary",
         ],
+      },
+    },
+    {
+      variant: "dark",
+      disabled: true,
+      class: {
+        button: "text-gray-500 pointer-events-none border-gray-600",
       },
     },
     // 激活状态
@@ -160,6 +170,11 @@ export const buttonTv = tv({
       active: true,
       variant: "link-danger",
       class: { button: "bg-danger-active-background/10" },
+    },
+    {
+      active: true,
+      variant: "dark",
+      class: { button: "bg-gray-600" },
     },
     // 非禁用状态下的按压效果
     {
@@ -209,6 +224,12 @@ export const buttonTv = tv({
       loading: false,
       variant: "link-danger",
       class: { button: "active:bg-danger-active-background/10" },
+    },
+    {
+      disabled: false,
+      loading: false,
+      variant: "dark",
+      class: { button: "active:bg-gray-600" },
     },
   ],
   defaultVariants: {

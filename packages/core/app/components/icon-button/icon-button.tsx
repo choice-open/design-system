@@ -7,7 +7,7 @@ import { iconButtonTv } from "./tv"
 
 export interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
   className?: string
-  variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "reset"
+  variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "dark" | "reset" 
   size?: "default" | "large" | "reset"
   children?: React.ReactNode
   active?: boolean
