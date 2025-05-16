@@ -18,14 +18,11 @@ import { segmentedControlTv } from "./tv"
 
 export interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
   className?: string
-  classNames?: {
-    container?: string
-    option?: string
-  }
   value?: string
   tooltip?: TooltipProps
   children?: ReactNode
   onChange?: (value: string) => void
+  variant?: "default" | "dark"
 }
 
 const createGridTemplateStyles = (itemCount: number) => ({
@@ -37,7 +34,7 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
     const {
       value: valueProp,
       onChange,
-      classNames,
+      variant,
       className,
       tooltip,
       children,
@@ -74,12 +71,15 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
           key: value,
           isActive,
           groupId: id,
+          variant,
           onChange: handleChange,
         })
       })
-    }, [validChildren, valueProp, id, handleChange, tooltip])
+    }, [validChildren, valueProp, id, handleChange, tooltip, variant])
 
-    const containerClassName = tcx(segmentedControlTv().root(), classNames?.container, className)
+    const styles = segmentedControlTv({
+      variant,
+    })
 
     const ariaProps = {
       "aria-label": ariaLabel || "Options",
@@ -89,7 +89,7 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
     return (
       <div
         ref={ref}
-        className={containerClassName}
+        className={tcx(styles.root(), className)}
         style={gridStyles}
         role="radiogroup"
         {...ariaProps}

@@ -87,6 +87,7 @@ export const Disabled: Story = {
         </Segmented.Item>
         <Segmented.Item
           value="right"
+          disabled
           className="px-2"
         >
           Right
@@ -253,6 +254,40 @@ export const WithTooltip: Story = {
           <FieldTypeCount />
         </Segmented.Item>
       </Segmented>
+    )
+  },
+}
+
+export const Dark: Story = {
+  render: function DarkStory() {
+    const [value, setValue] = useState("sun")
+    return (
+      <div className="bg-gray-800 p-8">
+        <Segmented
+          value={value}
+          onChange={(value) => setValue(value)}
+          variant="dark"
+        >
+          <Segmented.Item
+            className="px-2"
+            value="sun"
+          >
+            Sun
+          </Segmented.Item>
+          <Segmented.Item
+            className="px-2"
+            value="moon"
+          >
+            Moon
+          </Segmented.Item>
+          <Segmented.Item
+            className="px-2"
+            value="system"
+          >
+            System
+          </Segmented.Item>
+        </Segmented>
+      </div>
     )
   },
 }

@@ -8,6 +8,7 @@ export interface SegmentedItemProps {
   className?: string
   value: string
   disabled?: boolean
+  variant?: "default" | "dark"
   tooltip?: TooltipProps
   children: ReactNode
   "aria-label"?: string
@@ -26,6 +27,7 @@ export const SegmentedItem = memo(
       children,
       value,
       disabled,
+      variant,
       tooltip,
       isActive = false,
       groupId: externalGroupId,
@@ -37,7 +39,7 @@ export const SegmentedItem = memo(
     const internalId = useId()
     const groupId = externalGroupId || internalId
 
-    const styles = segmentedControlTv({ active: isActive, disabled })
+    const styles = segmentedControlTv({ active: isActive, disabled, variant })
 
     const optionId = `${groupId}-${value}`
 
