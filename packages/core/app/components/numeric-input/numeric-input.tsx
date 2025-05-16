@@ -9,6 +9,7 @@ import React, {
   useId,
   useMemo,
   useRef,
+  useState,
 } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { Tooltip, type TooltipProps } from "~/components/tooltip"
@@ -119,13 +120,17 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
 
   const { disableScrollProps } = useDisableScroll({ ref: inputRef })
 
+  const [isFocused, setIsFocused] = useState(false)
+
   const handleFocus = useEventCallback((e: React.FocusEvent<HTMLInputElement>) => {
     onIsEditingChange?.(true)
+    setIsFocused(true)
     inputProps.onFocus?.(e)
   })
 
   const handleBlur = useEventCallback((e: React.FocusEvent<HTMLInputElement>) => {
     onIsEditingChange?.(false)
+    setIsFocused(false)
     inputProps.onBlur && inputProps.onBlur()
   })
 
@@ -251,16 +256,11 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
 
         {suffixNode && cloneElement(suffixNode, { position: "suffix" })}
 
-        {tooltip && (
+        {tooltip && !isFocused && (
           <Tooltip {...tooltip}>
             <span
               tabIndex={-1}
               className={styles.tooltip()}
-              onFocusCapture={() => {
-                if (inputRef.current) {
-                  inputRef.current.focus()
-                }
-              }}
             />
           </Tooltip>
         )}

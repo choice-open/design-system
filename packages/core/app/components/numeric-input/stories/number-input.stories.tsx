@@ -502,6 +502,18 @@ export const Dark: Story = {
   },
 }
 
+export const Tooltip: Story = {
+  render: function TooltipStory() {
+    return (
+      <NumericInput
+        tooltip={{
+          content: "This is a tooltip",
+        }}
+      />
+    )
+  },
+}
+
 /**
  * Example demonstrating the mathematical expression evaluation feature.
  * This shows how NumericInput can:

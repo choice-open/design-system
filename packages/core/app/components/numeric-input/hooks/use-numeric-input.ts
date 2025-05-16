@@ -72,6 +72,7 @@ export function useNumericInput<T extends NumericInputValue>(props: UseNumericIn
   const [innerValue, setValue] = useMergedValue({
     value: valuePre,
     defaultValue: defaultValuePre,
+    allowEmpty: true,
   })
 
   // 3. 更新显示值并同步到 input

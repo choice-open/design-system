@@ -30,6 +30,11 @@ type Options<T> = {
    * 当尝试设置与当前值相同的值时触发的回调。
    */
   onUnchange?: () => void
+  /**
+   * 是否允许使用空值。当设置为 true 时，
+   * 即使所有值源都是 undefined，也不会显示警告。
+   */
+  allowEmpty?: boolean
 }
 
 /**
@@ -43,7 +48,7 @@ function isUndefined<T>(value: T | undefined): value is undefined {
  * 确定初始状态值
  */
 function getInitialValue<T>(options: Options<T>): T {
-  const { value, defaultValue, defaultStateValue } = options
+  const { value, defaultValue, defaultStateValue, allowEmpty } = options
 
   if (!isUndefined(value)) {
     return value
@@ -57,7 +62,7 @@ function getInitialValue<T>(options: Options<T>): T {
     return (defaultStateValue as () => T)()
   }
 
-  if (isUndefined(defaultStateValue)) {
+  if (isUndefined(defaultStateValue) && !allowEmpty) {
     // 提供更明确的错误信息
     console.warn(
       "useMergedValue: No value source provided. Either value, defaultValue, or defaultStateValue must be provided.",

@@ -147,16 +147,6 @@
     }
   }
 
-  .constraint-selector {
-    display: grid;
-    grid-template-rows: 1fr 0.875rem 1fr 0.875rem 1fr;
-    grid-template-columns: 1fr 0.875rem 1fr 0.875rem 1fr;
-    grid-template-areas: ". . input-1 . ." ".  . top . ." "input-2 left center right input-3" ". . bottom . ." ". . input-4 . .";
-    column-gap: 1px;
-    row-gap: 1px;
-    place-items: center;
-  }
-
   .tree-list {
     &[data-has-horizontal-scroll="true"] {
       & .tree-list_node::after {
