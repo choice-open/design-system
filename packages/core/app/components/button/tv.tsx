@@ -49,8 +49,9 @@ export const buttonTv = tv({
         button: "text-default-foreground hover:bg-secondary-background bg-transparent",
       },
       dark: {
-        button: "text-white bg-gray-800 border-gray-600",
+        button: "border-gray-600 bg-gray-800 text-white",
       },
+      reset: {},
     },
     active: {
       true: "",
@@ -127,7 +128,7 @@ export const buttonTv = tv({
       variant: "dark",
       disabled: true,
       class: {
-        button: "text-gray-500 pointer-events-none border-gray-600",
+        button: "pointer-events-none border-gray-600 text-gray-500",
       },
     },
     // 激活状态

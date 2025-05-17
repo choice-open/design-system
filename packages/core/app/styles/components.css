@@ -185,6 +185,88 @@
     grid-template-columns: auto 1fr 2.5rem;
     grid-template-areas: "title . close" "input input input";
   }
+
+  @keyframes spinner-spin-shape1 {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(0, var(--bounce));
+    }
+    50% {
+      transform: translate(var(--bounce), var(--bounce));
+    }
+    75% {
+      transform: translate(var(--bounce), 0);
+    }
+  }
+  @keyframes spinner-spin-shape2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(calc(var(--bounce) * -1), 0);
+    }
+    50% {
+      transform: translate(calc(var(--bounce) * -1), var(--bounce));
+    }
+    75% {
+      transform: translate(0, var(--bounce));
+    }
+  }
+  @keyframes spinner-spin-shape3 {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(var(--bounce), 0);
+    }
+    50% {
+      transform: translate(var(--bounce), calc(var(--bounce) * -1));
+    }
+    75% {
+      transform: translate(0, calc(var(--bounce) * -1));
+    }
+  }
+  @keyframes spinner-spin-shape4 {
+    0% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(0, calc(var(--bounce) * -1));
+    }
+    50% {
+      transform: translate(calc(var(--bounce) * -1), calc(var(--bounce) * -1));
+    }
+    75% {
+      transform: translate(calc(var(--bounce) * -1), 0);
+    }
+  }
+
+  @keyframes spinner-bounce-left {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+      background-color: currentColor;
+    }
+    100% {
+      transform: translate3d(calc(var(--shape) / -1), 0, 0) scale(0.64);
+      background-color: transparent;
+    }
+  }
+  @keyframes spinner-bounce-right {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+      background-color: currentColor;
+    }
+    100% {
+      transform: translate3d(var(--shape), 0, 0) scale(0.64);
+      background-color: transparent;
+    }
+  }
 }
 
 @theme {
@@ -200,4 +282,11 @@
 
   --shadow-switch-focused:
     inset 0 0 0 1px var(--color-default-background), inset 0 0 0 8px var(--color-default-foreground);
+
+  --animate-spinner-spin-shape1: spinner-spin-shape1 2s linear 0s infinite normal;
+  --animate-spinner-spin-shape2: spinner-spin-shape2 2s linear 0s infinite normal;
+  --animate-spinner-spin-shape3: spinner-spin-shape3 2s linear 0s infinite normal;
+  --animate-spinner-spin-shape4: spinner-spin-shape4 2s linear 0s infinite normal;
+  --animate-spinner-bounce-left: spinner-bounce-left 0.5s infinite alternate ease;
+  --animate-spinner-bounce-right: spinner-bounce-right 0.5s infinite alternate ease;
 }

@@ -1,6 +1,6 @@
 import { LoaderCircle } from "@choiceform/icons-react"
 import { Slot } from "@radix-ui/react-slot"
-import { cloneElement, forwardRef, HTMLProps, isValidElement, useMemo } from "react"
+import { cloneElement, forwardRef, HTMLProps, isValidElement } from "react"
 import { isMultiElement, tcx } from "~/utils"
 import { Tooltip, type TooltipProps } from "../tooltip"
 import { buttonTv } from "./tv"
@@ -19,6 +19,7 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> 
     | "link-danger"
     | "ghost"
     | "dark"
+    | "reset"
   size?: "default" | "large"
   active?: boolean
   focused?: boolean

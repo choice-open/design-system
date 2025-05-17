@@ -113,6 +113,7 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
           "slate-react",
           "slate-history",
           "slate-hyperscript",
+          "sonner",
         ],
         output: [
           {
