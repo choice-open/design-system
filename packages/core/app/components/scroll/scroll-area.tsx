@@ -180,12 +180,7 @@ const ScrollAreaViewport = React.forwardRef<ScrollAreaViewportElement, ScrollAre
            * widths that change. We'll wait to see what use-cases consumers come up with there
            * before trying to resolve it.
            */}
-          <div
-            ref={context.onContentChange}
-            style={{ minWidth: "100%" }}
-          >
-            {children}
-          </div>
+          {children}
         </Primitive.div>
       </>
     )
@@ -193,6 +188,30 @@ const ScrollAreaViewport = React.forwardRef<ScrollAreaViewportElement, ScrollAre
 )
 
 ScrollAreaViewport.displayName = VIEWPORT_NAME
+
+/* -------------------------------------------------------------------------------------------------
+ * ScrollAreaViewportContent
+ * -----------------------------------------------------------------------------------------------*/
+
+const VIEWPORT_CONTENT_NAME = "ScrollAreaViewportContent"
+
+const ScrollAreaViewportContent = React.forwardRef<HTMLDivElement, PrimitiveDivProps>(
+  (props: ScopedProps<ScrollAreaViewportProps>) => {
+    const { children } = props
+    const context = useScrollAreaContext(VIEWPORT_NAME, props.__scopeScrollArea)
+    return (
+      <div
+        ref={context.onContentChange}
+        style={{ minWidth: "100%" }}
+        {...props}
+      >
+        {children}
+      </div>
+    )
+  },
+)
+
+ScrollAreaViewportContent.displayName = VIEWPORT_CONTENT_NAME
 
 /* -------------------------------------------------------------------------------------------------
  * ScrollAreaScrollbar
@@ -1037,6 +1056,7 @@ function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
 
 const Root = ScrollArea
 const Viewport = ScrollAreaViewport
+const Content = ScrollAreaViewportContent
 const Scrollbar = ScrollAreaScrollbar
 const Thumb = ScrollAreaThumb
 const Corner = ScrollAreaCorner
@@ -1052,6 +1072,7 @@ export {
   //
   Root,
   Viewport,
+  Content,
   Scrollbar,
   Thumb,
   Corner,

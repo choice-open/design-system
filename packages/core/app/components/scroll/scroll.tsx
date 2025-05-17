@@ -1,6 +1,6 @@
 import { forwardRef } from "react"
 import * as ScrollArea from "./scroll-area"
-import { ScrollAreaProps, Viewport } from "./scroll-area"
+import { Content, ScrollAreaProps, Viewport } from "./scroll-area"
 import { tcx } from "~/utils"
 import { ScrollTv } from "./tv"
 
@@ -68,4 +68,5 @@ ScrollComponent.displayName = "Scroll"
 
 export const Scroll = Object.assign(ScrollComponent, {
   Viewport: Viewport,
+  Content: Content,
 })

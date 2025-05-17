@@ -60,7 +60,9 @@ export const Basic: Story = {
 
     return (
       <Scroll className="h-64 w-64 overflow-hidden">
-        <Scroll.Viewport className="h-full">{contents}</Scroll.Viewport>
+        <Scroll.Viewport className="h-full">
+          <Scroll.Content>{contents}</Scroll.Content>
+        </Scroll.Viewport>
       </Scroll>
     )
   },
@@ -95,7 +97,9 @@ export const InModal: Story = {
             className="h-64 overflow-hidden"
             scrollbarMode="large-y"
           >
-            <Scroll.Viewport className="h-full p-4">{contents}</Scroll.Viewport>
+            <Scroll.Viewport className="h-full p-4">
+              <Scroll.Content>{contents}</Scroll.Content>
+            </Scroll.Viewport>
           </Scroll>
         </Modal.Content>
       </Modal>
@@ -133,7 +137,9 @@ export const InModalWithHeader: Story = {
             className="h-64 overflow-hidden"
             scrollbarMode="large-b"
           >
-            <Scroll.Viewport className="h-full p-4">{contents}</Scroll.Viewport>
+            <Scroll.Viewport className="h-full p-4">
+              <Scroll.Content>{contents}</Scroll.Content>
+            </Scroll.Viewport>
           </Scroll>
         </Modal.Content>
       </Modal>
