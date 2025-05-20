@@ -1,2 +1,5 @@
-export * from "./checkbox"
-export * from "./checkbox-label"
+export { Checkbox } from "./checkbox"
+export type { CheckboxProps } from "./checkbox"
+export type { CheckboxLabelProps } from "./checkbox-label"
+export { useCheckboxContext } from "./context"
+export type { CheckboxContextValue } from "./context"

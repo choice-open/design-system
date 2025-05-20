@@ -1,19 +1,9 @@
 import { Check, Indeterminate } from "@choiceform/icons-react"
-import {
-  Children,
-  cloneElement,
-  forwardRef,
-  HTMLProps,
-  isValidElement,
-  memo,
-  ReactElement,
-  ReactNode,
-  useId,
-  useMemo,
-} from "react"
+import { forwardRef, HTMLProps, memo, ReactNode, useId } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
-import { CheckboxLabel, type CheckboxLabelProps } from "./checkbox-label"
+import { CheckboxContext } from "./context"
+import { CheckboxLabel } from "./checkbox-label"
 import { checkboxTv } from "./tv"
 
 export interface CheckboxProps extends Omit<HTMLProps<HTMLInputElement>, "value" | "onChange"> {
@@ -55,49 +45,47 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
     onChange?.(e.target.checked)
   })
 
-  // 使用 useMemo 缓存子元素处理结果
-  const enhancedChildren = useMemo(() => {
-    return Children.map(children, (child) => {
-      if (isValidElement(child) && child.type === CheckboxLabel) {
-        return cloneElement(child as ReactElement<CheckboxLabelProps>, {
-          htmlFor: id,
-          id: descriptionId,
-          disabled,
-        })
-      }
-      return child
-    })
-  }, [children, id, descriptionId, disabled])
-
   return (
-    <div className={tcx(styles.root(), className)}>
-      <div className="pointer-events-none relative">
-        <input
-          ref={ref}
-          className={styles.input()}
-          type="checkbox"
-          id={id}
-          checked={value}
-          disabled={disabled}
-          onChange={handleChange}
-          aria-label={ariaLabel}
-          aria-describedby={ariaDescribedby || (enhancedChildren ? descriptionId : undefined)}
-          aria-checked={mixed ? "mixed" : value}
-          role="checkbox"
-          onKeyDown={(e) => {
-            if (e.key === " " || e.key === "Enter") {
-              e.preventDefault()
-              onChange?.(!value)
-            }
-          }}
-          {...rest}
-        />
+    <CheckboxContext.Provider
+      value={{
+        value,
+        onChange: (val) => onChange?.(val),
+        disabled,
+        id,
+        descriptionId,
+        variant,
+        mixed,
+      }}
+    >
+      <div className={tcx(styles.root(), className)}>
+        <div className="pointer-events-none relative">
+          <input
+            ref={ref}
+            className={styles.input()}
+            type="checkbox"
+            id={id}
+            checked={value}
+            disabled={disabled}
+            onChange={handleChange}
+            aria-label={ariaLabel}
+            aria-describedby={ariaDescribedby || descriptionId}
+            aria-checked={mixed ? "mixed" : value}
+            role="checkbox"
+            onKeyDown={(e) => {
+              if (e.key === " " || e.key === "Enter") {
+                e.preventDefault()
+                onChange?.(!value)
+              }
+            }}
+            {...rest}
+          />
 
-        <div className={styles.box()}>{value && (mixed ? <Indeterminate /> : <Check />)}</div>
+          <div className={styles.box()}>{value && (mixed ? <Indeterminate /> : <Check />)}</div>
+        </div>
+
+        {children}
       </div>
-
-      {enhancedChildren}
-    </div>
+    </CheckboxContext.Provider>
   )
 })
 

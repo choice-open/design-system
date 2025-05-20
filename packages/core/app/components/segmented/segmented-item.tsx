@@ -1,43 +1,33 @@
-import { forwardRef, memo, ReactNode, useId } from "react"
+import { forwardRef, memo, ReactNode } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
 import { Tooltip, type TooltipProps } from "../tooltip"
+import { useSegmentedContext } from "./context"
 import { segmentedControlTv } from "./tv"
 
 export interface SegmentedItemProps {
   className?: string
   value: string
   disabled?: boolean
-  variant?: "default" | "dark"
   tooltip?: TooltipProps
   children: ReactNode
   "aria-label"?: string
 }
 
-export type SegmentedItemInternalProps = SegmentedItemProps & {
-  isActive?: boolean
-  groupId?: string
-  onChange?: (value: string) => void
-}
-
 export const SegmentedItem = memo(
-  forwardRef<HTMLLabelElement, SegmentedItemInternalProps>(function SegmentedItem(props, ref) {
+  forwardRef<HTMLLabelElement, SegmentedItemProps>(function SegmentedItem(props, ref) {
     const {
       className,
       children,
       value,
       disabled,
-      variant,
       tooltip,
-      isActive = false,
-      groupId: externalGroupId,
       "aria-label": ariaLabel,
-      onChange,
       ...rest
     } = props
 
-    const internalId = useId()
-    const groupId = externalGroupId || internalId
+    const { value: selectedValue, onChange, groupId, variant } = useSegmentedContext()
+    const isActive = value === selectedValue
 
     const styles = segmentedControlTv({ active: isActive, disabled, variant })
 
@@ -47,7 +37,7 @@ export const SegmentedItem = memo(
 
     const handleChange = useEventCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.checked) {
-        onChange?.(value)
+        onChange(value)
       }
     })
 

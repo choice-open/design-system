@@ -1,4 +1,8 @@
 export { Radio } from "./radio"
 export { RadioGroup } from "./radio-group"
+export { RadioLabel } from "./radio-label"
+export { useRadioContext, useRadioGroupContext } from "./context"
 export type { RadioProps } from "./radio"
 export type { RadioGroupProps } from "./radio-group"
+export type { RadioLabelProps } from "./radio-label"
+export type { RadioContextType, RadioGroupContextType } from "./context"

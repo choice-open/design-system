@@ -1,4 +1,8 @@
-import { ButtonHTMLAttributes, forwardRef, memo, ReactNode } from "react"
+import { ButtonHTMLAttributes, forwardRef, KeyboardEvent, memo, MouseEvent, ReactNode } from "react"
+import { useEventCallback } from "usehooks-ts"
+import { tcx } from "~/utils"
+import { useTabsContext } from "./context"
+import { tabsTv } from "./tv"
 
 export interface TabItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value"> {
   value: string
@@ -7,13 +11,75 @@ export interface TabItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 export const TabItem = memo(
-  forwardRef<HTMLButtonElement, TabItemProps>(function TabItem({ children, ...props }, ref) {
+  forwardRef<HTMLButtonElement, TabItemProps>(function TabItem(
+    {
+      children,
+      value,
+      disabled,
+      className,
+      "aria-label": ariaLabel,
+      onMouseDown,
+      onKeyDown,
+      ...props
+    },
+    ref,
+  ) {
+    const { value: selectedValue, onChange, id } = useTabsContext()
+    const isActive = value === selectedValue
+    const styles = tabsTv({ active: isActive, disabled })
+    const tabId = `${id}-tab-${value}`
+
+    let ariaLabelText = ariaLabel
+    if (!ariaLabelText && typeof children === "string") {
+      ariaLabelText = children
+    }
+
+    const handleMouseDown = useEventCallback((e: MouseEvent<HTMLButtonElement>) => {
+      if (!disabled) {
+        e.preventDefault()
+        onChange(value)
+      }
+      e.stopPropagation()
+      if (onMouseDown) {
+        onMouseDown(e)
+      }
+    })
+
+    const handleKeyDown = useEventCallback((e: KeyboardEvent<HTMLButtonElement>) => {
+      if (!disabled && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault()
+        onChange(value)
+      }
+      if (onKeyDown) {
+        onKeyDown(e)
+      }
+    })
+
     return (
       <button
         ref={ref}
+        role="tab"
+        type="button"
+        aria-selected={isActive}
+        aria-disabled={disabled}
+        tabIndex={isActive ? 0 : -1}
+        id={tabId}
+        className={tcx(styles.tab(), className)}
+        onMouseDown={handleMouseDown}
+        onKeyDown={handleKeyDown}
+        value={value}
+        disabled={disabled}
         {...props}
       >
-        {children}
+        <>
+          <span
+            aria-hidden="true"
+            className={tcx(typeof children === "string" ? styles.label() : "sr-only")}
+          >
+            {typeof children === "string" ? children : ariaLabelText}
+          </span>
+          <span className={tcx(styles.label())}>{children}</span>
+        </>
       </button>
     )
   }),

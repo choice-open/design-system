@@ -1,28 +1,12 @@
-import {
-  Children,
-  cloneElement,
-  forwardRef,
-  HTMLProps,
-  isValidElement,
-  KeyboardEvent,
-  MouseEvent,
-  ReactElement,
-  ReactNode,
-  useId,
-  useMemo,
-} from "react"
+import { forwardRef, HTMLProps, ReactNode, useId } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
-import { TabItem, TabItemProps } from "./tab-item"
+import { TabsContext } from "./context"
+import { TabItem } from "./tab-item"
 import { tabsTv } from "./tv"
 
 interface TabsProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
   className?: string
-  classNames?: {
-    container?: string
-    tab?: string
-    label?: string
-  }
   value: string
   onChange?: (value: string) => void
   children?: ReactNode
@@ -33,11 +17,10 @@ interface TabsComponent
   Item: typeof TabItem
 }
 
-const TabsBase = forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref) {
+const TabsRoot = forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref) {
   const {
     value: valueProp,
     onChange,
-    classNames,
     className,
     "aria-label": ariaLabel,
     children,
@@ -45,113 +28,35 @@ const TabsBase = forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref)
   } = props
   const id = useId()
 
-  const handleMouseDown = useEventCallback(
-    (
-      e: MouseEvent<HTMLButtonElement>,
-      value: string,
-      disabled?: boolean,
-      originalHandler?: (e: MouseEvent<HTMLButtonElement>) => void,
-    ) => {
-      if (!disabled) {
-        e.preventDefault()
-        onChange?.(value)
-      }
-      e.stopPropagation()
-      if (originalHandler) {
-        originalHandler(e)
-      }
-    },
-  )
-
-  const handleKeyDown = useEventCallback(
-    (
-      e: KeyboardEvent<HTMLButtonElement>,
-      value: string,
-      disabled?: boolean,
-      originalHandler?: (e: KeyboardEvent<HTMLButtonElement>) => void,
-    ) => {
-      if (!disabled && (e.key === "Enter" || e.key === " ")) {
-        e.preventDefault()
-        onChange?.(value)
-      }
-      if (originalHandler) {
-        originalHandler(e)
-      }
-    },
-  )
-
-  const validChildren = useMemo(() => {
-    return Children.toArray(children).filter(
-      (child): child is ReactElement<TabItemProps> =>
-        isValidElement(child) && child.type === TabItem,
-    )
-  }, [children])
-
-  const renderTabItems = useMemo(() => {
-    return validChildren.map((tabChild, index) => {
-      const {
-        value,
-        disabled,
-        children: tabChildren,
-        "aria-label": itemAriaLabel,
-        onMouseDown: originalMouseDown,
-        onKeyDown: originalKeyDown,
-      } = tabChild.props
-      const isActive = value === valueProp
-      const styles = tabsTv({ active: isActive, disabled })
-      const tabId = `${id}-tab-${value}`
-
-      let ariaLabelText = itemAriaLabel
-      if (!ariaLabelText && typeof tabChildren === "string") {
-        ariaLabelText = tabChildren
-      }
-
-      return cloneElement(tabChild, {
-        key: value || index,
-        role: "tab",
-        type: "button" as const,
-        "aria-selected": isActive,
-        "aria-disabled": disabled,
-        tabIndex: isActive ? 0 : -1,
-        id: tabId,
-        className: tcx(styles.tab(), classNames?.tab, tabChild.props.className),
-        onMouseDown: (e) => handleMouseDown(e, value, disabled, originalMouseDown),
-        onKeyDown: (e) => handleKeyDown(e, value, disabled, originalKeyDown),
-        children: (
-          <>
-            <span
-              aria-hidden="true"
-              className={tcx(
-                typeof tabChildren === "string" ? styles.label() : "sr-only",
-                classNames?.label,
-              )}
-            >
-              {typeof tabChildren === "string" ? tabChildren : ariaLabelText}
-            </span>
-            <span className={tcx(styles.label(), classNames?.label)}>{tabChildren}</span>
-          </>
-        ),
-      })
-    })
-  }, [validChildren, valueProp, id, classNames, handleMouseDown, handleKeyDown])
+  const handleChange = useEventCallback((newValue: string) => {
+    onChange?.(newValue)
+  })
 
   return (
-    <div
-      ref={ref}
-      role="tablist"
-      aria-orientation="horizontal"
-      aria-label={ariaLabel || "Tabs"}
-      className={tcx(tabsTv().root(), classNames?.container, className)}
-      {...rest}
+    <TabsContext.Provider
+      value={{
+        value: valueProp,
+        onChange: handleChange,
+        id,
+      }}
     >
-      {renderTabItems}
-    </div>
+      <div
+        ref={ref}
+        role="tablist"
+        aria-orientation="horizontal"
+        aria-label={ariaLabel || "Tabs"}
+        className={tcx(tabsTv().root(), className)}
+        {...rest}
+      >
+        {children}
+      </div>
+    </TabsContext.Provider>
   )
 })
 
-TabsBase.displayName = "Tabs"
+TabsRoot.displayName = "Tabs"
 
-const Tabs = TabsBase as TabsComponent
+const Tabs = TabsRoot as TabsComponent
 Tabs.Item = TabItem
 
 export { Tabs }

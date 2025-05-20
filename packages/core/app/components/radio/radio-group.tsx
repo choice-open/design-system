@@ -1,27 +1,8 @@
-import {
-  createContext,
-  forwardRef,
-  HTMLProps,
-  memo,
-  ReactNode,
-  useCallback,
-  useContext,
-  useId,
-  useMemo,
-} from "react"
+import { forwardRef, HTMLProps, memo, ReactNode, useId, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
+import { RadioGroupContext, useRadioGroupContext } from "./context"
 import { Radio, RadioProps } from "./radio"
-
-interface RadioGroupContextType {
-  name: string
-  value: string
-  onChange: (value: string) => void
-  disabled?: boolean
-  variant?: "default" | "accent" | "outline"
-}
-
-const RadioGroupContext = createContext<RadioGroupContextType | undefined>(undefined)
 
 export interface RadioGroupProps extends Omit<HTMLProps<HTMLDivElement>, "value" | "onChange"> {
   options?: {
@@ -42,13 +23,7 @@ type RadioGroupItemProps = Omit<RadioProps, "value" | "onChange"> & {
 const RadioGroupItem = memo(
   forwardRef<HTMLInputElement, RadioGroupItemProps>(function RadioGroupItem(props, ref) {
     const { value, children, className, ...rest } = props
-    const context = useContext(RadioGroupContext)
-
-    if (!context) {
-      throw new Error("RadioGroupItem must be used within a RadioGroup")
-    }
-
-    const { name, value: selectedValue, onChange, disabled, variant } = context
+    const { name, value: selectedValue, onChange, disabled, variant } = useRadioGroupContext()
     const isChecked = selectedValue === value
 
     const handleChange = useEventCallback(() => {
@@ -99,27 +74,20 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
   )
 
   // 渲染基于选项的单选按钮
-  const renderOptionsRadios = useCallback(() => {
+  const renderOptionsRadios = useMemo(() => {
     if (!options) return null
 
-    return options.map((option) => {
-      const isChecked = value === option.value
-      const handleOptionChange = () => onChange(option.value)
-
-      return (
-        <Radio
-          key={option.value}
-          name={id}
-          value={isChecked}
-          disabled={disabled}
-          variant={variant}
-          onChange={handleOptionChange}
-        >
-          <Radio.Label>{option.label}</Radio.Label>
-        </Radio>
-      )
-    })
-  }, [options, value, onChange, id, disabled, variant])
+    return options.map((option) => (
+      <RadioGroupItem
+        key={option.value}
+        value={option.value}
+        disabled={disabled}
+        variant={variant}
+      >
+        {option.label}
+      </RadioGroupItem>
+    ))
+  }, [options, disabled, variant])
 
   return (
     <RadioGroupContext.Provider value={contextValue}>
@@ -131,7 +99,7 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
         aria-label={props["aria-label"]}
         {...rest}
       >
-        {options ? renderOptionsRadios() : children}
+        {options ? renderOptionsRadios : children}
       </div>
     </RadioGroupContext.Provider>
   )

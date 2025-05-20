@@ -137,30 +137,33 @@ export const MixedTabs: Story = {
       <Tabs
         value={selectedTab}
         onChange={(value) => setSelectedTab(value)}
-        classNames={{
-          label: "flex items-center gap-1",
-        }}
       >
         <Tabs.Item
           value="sun"
           aria-label="Sun"
         >
-          <ThemeSunBright />
-          <span>Sun</span>
+          <div className="flex items-center gap-1">
+            <ThemeSunBright />
+            <span>Sun</span>
+          </div>
         </Tabs.Item>
         <Tabs.Item
           value="moon"
           aria-label="Moon"
         >
-          <ThemeMoonDark />
-          <span>Moon</span>
+          <div className="flex items-center gap-1">
+            <ThemeMoonDark />
+            <span>Moon</span>
+          </div>
         </Tabs.Item>
         <Tabs.Item
           value="system"
           aria-label="System"
         >
-          <ThemeSystem />
-          <span>System</span>
+          <div className="flex items-center gap-1">
+            <ThemeSystem />
+            <span>System</span>
+          </div>
         </Tabs.Item>
       </Tabs>
     )

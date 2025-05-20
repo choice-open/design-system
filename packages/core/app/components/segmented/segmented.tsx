@@ -1,19 +1,9 @@
-import {
-  Children,
-  cloneElement,
-  ForwardedRef,
-  forwardRef,
-  HTMLProps,
-  isValidElement,
-  ReactElement,
-  ReactNode,
-  useId,
-  useMemo,
-} from "react"
+import { Children, ForwardedRef, forwardRef, HTMLProps, ReactNode, useId, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
 import { type TooltipProps } from "../tooltip"
-import { SegmentedItem, type SegmentedItemInternalProps } from "./segmented-item"
+import { SegmentedContext } from "./context"
+import { SegmentedItem } from "./segmented-item"
 import { segmentedControlTv } from "./tv"
 
 export interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
@@ -25,10 +15,6 @@ export interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChang
   variant?: "default" | "dark"
 }
 
-const createGridTemplateStyles = (itemCount: number) => ({
-  gridTemplateColumns: `repeat(${itemCount}, 1fr)`,
-})
-
 const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
   function SegmentedBase(props, ref) {
     const {
@@ -36,10 +22,10 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
       onChange,
       variant,
       className,
-      tooltip,
       children,
       "aria-label": ariaLabel,
       "aria-describedby": ariaDescribedby,
+      style,
       ...rest
     } = props
 
@@ -50,32 +36,15 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
       onChange?.(value)
     })
 
-    const validChildren = useMemo(() => {
-      return Children.toArray(children).filter(
-        (child): child is ReactElement<SegmentedItemInternalProps> =>
-          isValidElement(child) && child.type === SegmentedItem,
-      )
-    }, [children])
-
-    const itemCount = validChildren.length
-
-    const gridStyles = createGridTemplateStyles(itemCount)
-
-    const renderOptions = useMemo(() => {
-      return validChildren.map((child) => {
-        const childElement = child as ReactElement<SegmentedItemInternalProps>
-        const { value } = childElement.props
-        const isActive = value === valueProp
-
-        return cloneElement(childElement, {
-          key: value,
-          isActive,
-          groupId: id,
-          variant,
-          onChange: handleChange,
-        })
-      })
-    }, [validChildren, valueProp, id, handleChange, tooltip, variant])
+    // 计算子元素数量来设置网格列数
+    const itemCount = useMemo(() => Children.count(children), [children])
+    const gridStyles = useMemo(
+      () => ({
+        ...style,
+        gridTemplateColumns: `repeat(${itemCount}, 1fr)`,
+      }),
+      [style, itemCount],
+    )
 
     const styles = segmentedControlTv({
       variant,
@@ -87,23 +56,32 @@ const SegmentedBase = forwardRef<HTMLDivElement, SegmentedProps>(
     }
 
     return (
-      <div
-        ref={ref}
-        className={tcx(styles.root(), className)}
-        style={gridStyles}
-        role="radiogroup"
-        {...ariaProps}
-        {...rest}
+      <SegmentedContext.Provider
+        value={{
+          value: valueProp,
+          onChange: handleChange,
+          groupId: id,
+          variant,
+        }}
       >
-        <span
-          id={descriptionId}
-          className="sr-only"
+        <div
+          ref={ref}
+          className={tcx(styles.root(), className)}
+          style={gridStyles}
+          role="radiogroup"
+          {...ariaProps}
+          {...rest}
         >
-          Use arrow keys to navigate between options
-        </span>
+          <span
+            id={descriptionId}
+            className="sr-only"
+          >
+            Use arrow keys to navigate between options
+          </span>
 
-        {renderOptions}
-      </div>
+          {children}
+        </div>
+      </SegmentedContext.Provider>
     )
   },
 )

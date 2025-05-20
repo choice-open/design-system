@@ -1,17 +1,17 @@
 import { forwardRef, HTMLProps, memo, ReactNode } from "react"
 import { tcx } from "~/utils"
-import { useCheckboxContext } from "./context"
-import { checkboxTv } from "./tv"
+import { checkboxTv } from "../checkbox/tv"
+import { useRadioContext } from "./context"
 
-export interface CheckboxLabelProps
+export interface RadioLabelProps
   extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
   children: ReactNode
 }
 
-export const CheckboxLabel = memo(
-  forwardRef<HTMLLabelElement, CheckboxLabelProps>(function CheckboxLabel(props, ref) {
+export const RadioLabel = memo(
+  forwardRef<HTMLLabelElement, RadioLabelProps>(function RadioLabel(props, ref) {
     const { children, className, ...rest } = props
-    const { id, descriptionId, disabled } = useCheckboxContext()
+    const { id, descriptionId, disabled } = useRadioContext()
     const styles = checkboxTv({ disabled })
 
     return (
@@ -28,4 +28,4 @@ export const CheckboxLabel = memo(
   }),
 )
 
-CheckboxLabel.displayName = "Checkbox.Label"
+RadioLabel.displayName = "Radio.Label"

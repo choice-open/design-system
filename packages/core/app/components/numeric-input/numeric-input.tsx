@@ -4,7 +4,6 @@ import React, {
   forwardRef,
   HTMLProps,
   isValidElement,
-  ReactElement,
   ReactNode,
   useId,
   useMemo,
@@ -190,29 +189,45 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
     ],
   )
 
-  const childrenArray = Children.toArray(children)
+  // 合并递归查找，提升性能
+  const { prefix, suffix, variable, actionPrompt } = useMemo(() => {
+    const result: {
+      prefix: React.ReactElement[]
+      suffix: React.ReactElement[]
+      variable: React.ReactElement[]
+      actionPrompt: React.ReactElement[]
+    } = { prefix: [], suffix: [], variable: [], actionPrompt: [] }
+    function findAll(children: ReactNode) {
+      Children.forEach(children, (child) => {
+        if (isValidElement(child)) {
+          switch (child.type) {
+            case NumericInput.Prefix:
+              result.prefix.push(child)
+              break
+            case NumericInput.Suffix:
+              result.suffix.push(child)
+              break
+            case NumericInput.Variable:
+              result.variable.push(child)
+              break
+            case NumericInput.ActionPrompt:
+              result.actionPrompt.push(child)
+              break
+          }
+          if (child.props && child.props.children) {
+            findAll(child.props.children)
+          }
+        }
+      })
+    }
+    findAll(children)
+    return result
+  }, [children])
 
-  const prefixElements = childrenArray.filter(
-    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Prefix,
-  )
-
-  const suffixElements = childrenArray.filter(
-    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Suffix,
-  )
-
-  const variableElement = childrenArray.filter(
-    (child): child is ReactElement => isValidElement(child) && child.type === NumericInput.Variable,
-  )
-
-  const actionPromptElement = childrenArray.filter(
-    (child): child is ReactElement =>
-      isValidElement(child) && child.type === NumericInput.ActionPrompt,
-  )
-
-  const prefixNode = prefixElements[0] || null
-  const suffixNode = suffixElements[0] || null
-  const variableNode = variableElement[0] || null
-  const actionPromptNode = actionPromptElement[0] || null
+  const prefixNode = prefix[0] || null
+  const suffixNode = suffix[0] || null
+  const variableNode = variable[0] || null
+  const actionPromptNode = actionPrompt[0] || null
 
   const styles = NumericInputTv({
     variant,
