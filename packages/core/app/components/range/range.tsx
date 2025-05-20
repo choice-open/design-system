@@ -1,5 +1,13 @@
 import { clamp } from "es-toolkit"
-import { CSSProperties, forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import React, {
+  CSSProperties,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useEventCallback } from "usehooks-ts"
 import { mergeRefs, tcx } from "~/utils"
 import { rangeTv } from "./tv"
@@ -15,6 +23,10 @@ interface RangeProps {
   step?: number
   disabled?: boolean
   className?: string
+  connectsClassName?: {
+    positive?: string
+    negative?: string
+  }
   trackSize?: {
     width?: number
     height?: number
@@ -34,6 +46,10 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     step = 1,
     disabled = false,
     className,
+    connectsClassName = {
+      positive: "bg-accent-background",
+      negative: "bg-accent-background",
+    },
     trackSize = {
       width: 256,
       height: 16,
@@ -41,7 +57,6 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     thumbSize = 14,
   } = props
 
-  // Memoize conversion functions
   const valueToPosition = useCallback((val: number) => (val - min) / (max - min), [min, max])
 
   const positionToValue = useCallback(
@@ -49,26 +64,13 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     [min, max],
   )
 
-  // Memoize default step value calculation
   const defaultStepValue = useMemo(() => {
-    if (!defaultValue) return null
+    if (defaultValue === undefined || defaultValue === null) return null
     if (step > 1) {
-      const steps = Math.ceil((max - min) / step) + 1
-      let closestStep = min
-      let minDiff = Math.abs(defaultValue - min)
-
-      for (let i = 0; i < steps; i++) {
-        const stepValue = min + i * step
-        const diff = Math.abs(defaultValue - stepValue)
-        if (diff < minDiff) {
-          minDiff = diff
-          closestStep = stepValue
-        }
-      }
-      return closestStep
+      return Math.round((defaultValue - min) / step) * step + min
     }
     return defaultValue
-  }, [defaultValue, step, min, max])
+  }, [defaultValue, step, min])
 
   const sliderRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLDivElement>(null)
@@ -76,10 +78,10 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
   const isDragging = useRef(false)
 
   const [internalValue, setInternalValue] = useState(value ?? min)
+  const currentValue = value ?? internalValue
   const currentStepValue = useMemo(
-    () =>
-      step > 1 ? Math.round((value ?? internalValue) / step) * step : (value ?? internalValue),
-    [value, internalValue, step],
+    () => (step > 1 ? Math.round(currentValue / step) * step : currentValue),
+    [currentValue, step],
   )
 
   const [transforms, setTransforms] = useState({
@@ -87,11 +89,9 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     maxTransform: 0,
     transformX: 0,
   })
-  const [gradientPosition, setGradientPosition] = useState(0)
 
-  // Update computed values
   useEffect(() => {
-    const position = valueToPosition(value ?? internalValue)
+    const position = valueToPosition(currentValue)
     const minTransform = 1
     const maxTransform = (trackSize?.width ?? 0) - thumbSize - 1
     const transformX = minTransform + position * (maxTransform - minTransform)
@@ -101,11 +101,8 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
       maxTransform,
       transformX,
     })
+  }, [currentValue, trackSize?.width, thumbSize, valueToPosition])
 
-    setGradientPosition(((transformX + thumbSize / 2) / (trackSize?.width ?? 1)) * 100)
-  }, [value, internalValue, trackSize?.width, thumbSize, valueToPosition])
-
-  // Memoize dots data when using steps
   const dotsData = useMemo(() => {
     if (!step || step <= 1) return null
 
@@ -119,13 +116,11 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     })
   }, [step, min, max, valueToPosition])
 
-  // Memoize default value dot position
   const defaultDotPosition = useMemo(() => {
-    if (!defaultValue || step > 1) return null
+    if (defaultValue === undefined || defaultValue === null || step > 1) return null
     return valueToPosition(defaultValue)
   }, [defaultValue, step, valueToPosition])
 
-  // Handle position update
   const updatePosition = useEventCallback((clientX: number, isEnd?: boolean) => {
     const rect = sliderRef.current?.getBoundingClientRect()
     if (!rect) return
@@ -134,9 +129,8 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     const newValue = Math.round(positionToValue(newPosition) / step) * step
     let clampedValue = clamp(newValue, min, max)
 
-    // Add snap effect when near default value (if no step is set)
     if (defaultValue && step === 1) {
-      const snapThreshold = (max - min) * 0.05 // 5% of the range
+      const snapThreshold = (max - min) * 0.05
       const distanceToDefault = Math.abs(clampedValue - defaultValue)
 
       if (distanceToDefault <= snapThreshold) {
@@ -154,14 +148,12 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     onChange?.(clampedValue)
   })
 
-  // Sync external value to internal state
   useEffect(() => {
     if (value !== undefined) {
       setInternalValue(value)
     }
   }, [value])
 
-  // Handle pointer events
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (disabled) return
@@ -171,7 +163,6 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
       const thumb = thumbRef.current
       if (!thumb) return
 
-      // 确保在所有数据变动之前调用 onChangeStart
       onChangeStart?.()
 
       isDragging.current = true
@@ -196,7 +187,6 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
         updatePosition(e.clientX, true)
         isDragging.current = false
 
-        // 确保调用 onChangeEnd 后不再发生任何的数据变动
         onChangeEnd?.()
 
         window.removeEventListener("pointermove", handleMove)
@@ -223,7 +213,7 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     if (disabled) return
 
     const stepValue = e.shiftKey ? step * 10 : step
-    let newValue = value ?? internalValue
+    let newValue = currentValue
 
     switch (e.key) {
       case "ArrowLeft":
@@ -245,14 +235,12 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     }
   })
 
-  // Remove focus when disabled
   useEffect(() => {
     if (disabled && document.activeElement === inputRef.current) {
       inputRef.current?.blur()
     }
   }, [disabled])
 
-  // Memoize styles
   const styles = useMemo(
     () =>
       rangeTv({
@@ -263,6 +251,88 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
     [defaultStepValue, currentStepValue, step, defaultValue, disabled],
   )
 
+  const connectsClass = useMemo(() => {
+    if (disabled) return "bg-disabled-background"
+    if (currentValue < 0) return connectsClassName.negative
+    return connectsClassName.positive
+  }, [disabled, currentValue, connectsClassName])
+
+  const connectStyle = useMemo(() => {
+    return {
+      left:
+        min < 0
+          ? currentValue < 0
+            ? `${transforms.transformX + thumbSize / 2}px`
+            : "50%"
+          : (trackSize?.height ?? 0) / 2 + "px",
+      right:
+        min < 0
+          ? currentValue >= 0
+            ? `calc(100% - ${transforms.transformX + thumbSize / 2}px)`
+            : "50%"
+          : `calc(100% - ${transforms.transformX + thumbSize / 2}px)`,
+      height: trackSize?.height,
+    }
+  }, [min, currentValue, transforms.transformX, thumbSize, trackSize?.height])
+
+  const renderDots = useCallback(() => {
+    if (dotsData) {
+      return dotsData.map(({ value: dotValue, position: dotPosition }) => {
+        const { minTransform, maxTransform } = transforms
+        const dotTransform = minTransform + dotPosition * (maxTransform - minTransform)
+        const { dot } = rangeTv({
+          defaultStepValue: defaultStepValue === dotValue,
+          overStepValue: dotValue <= currentValue,
+        })
+        return (
+          <div
+            key={dotValue}
+            className={dot()}
+            style={{
+              left: dotTransform + thumbSize / 2,
+            }}
+          />
+        )
+      })
+    }
+
+    if (defaultDotPosition !== null && defaultDotPosition !== undefined) {
+      return (
+        <div
+          className={rangeTv({ defaultStepValue: true }).dot()}
+          style={{
+            left:
+              transforms.minTransform +
+              defaultDotPosition * (transforms.maxTransform - transforms.minTransform) +
+              thumbSize / 2,
+          }}
+        />
+      )
+    }
+
+    return null
+  }, [
+    dotsData,
+    defaultDotPosition,
+    defaultStepValue,
+    transforms.minTransform,
+    transforms.maxTransform,
+    thumbSize,
+    currentValue,
+  ])
+
+  useEffect(() => {
+    const noop = () => {}
+    return () => {
+      // 组件卸载时清理可能残留的事件监听器
+      if (typeof window !== "undefined") {
+        window.removeEventListener("pointermove", noop)
+        window.removeEventListener("pointerup", noop)
+        window.removeEventListener("pointercancel", noop)
+      }
+    }
+  }, [])
+
   return (
     <div
       ref={mergeRefs(sliderRef, ref)}
@@ -270,53 +340,20 @@ export const Range = forwardRef<HTMLDivElement, RangeProps>(function Range(props
       className={tcx(styles.container(), className)}
       style={
         {
-          height: trackSize?.height,
-          width: trackSize?.width,
-          "--active-color": disabled
-            ? "var(--color-selected-background)"
-            : "var(--color-accent-background)",
+          "--width": `${trackSize?.width}px`,
+          "--height": `${trackSize?.height}px`,
         } as CSSProperties
       }
     >
       <div
-        className={styles.trackGradient()}
-        style={{
-          background: `linear-gradient(to right, var(--active-color) ${gradientPosition}%, transparent ${gradientPosition}%)`,
-        }}
+        className={tcx(styles.connect(), connectsClass)}
+        style={connectStyle}
       />
 
-      {(step > 1 || defaultValue) && (
-        <div className={styles.dotContainer()}>
-          {dotsData ? (
-            dotsData.map(({ value: dotValue, position: dotPosition }) => {
-              const { minTransform, maxTransform } = transforms
-              const dotTransform = minTransform + dotPosition * (maxTransform - minTransform)
-              const { dot } = rangeTv({
-                defaultStepValue: defaultStepValue === dotValue,
-                overStepValue: dotValue <= (value ?? internalValue),
-              })
-              return (
-                <div
-                  key={dotValue}
-                  className={dot()}
-                  style={{
-                    left: dotTransform + thumbSize / 2,
-                  }}
-                />
-              )
-            })
-          ) : defaultDotPosition ? (
-            <div
-              className={rangeTv({ defaultStepValue: true }).dot()}
-              style={{
-                left:
-                  transforms.minTransform +
-                  defaultDotPosition * (transforms.maxTransform - transforms.minTransform) +
-                  thumbSize / 2,
-              }}
-            />
-          ) : null}
-        </div>
+      {step > 1 || defaultValue !== undefined ? (
+        <div className={styles.dotContainer()}>{renderDots()}</div>
+      ) : (
+        ""
       )}
 
       <div

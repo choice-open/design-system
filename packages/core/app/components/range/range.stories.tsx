@@ -67,6 +67,22 @@ export const Basic: Story = {
   },
 }
 
+export const Negative: Story = {
+  render: function NegativeStory() {
+    const [value, setValue] = useState(0)
+
+    return (
+      <Range
+        value={value}
+        onChange={setValue}
+        min={-100}
+        max={100}
+        defaultValue={0}
+      />
+    )
+  },
+}
+
 /**
  * Step: Demonstrates Range with discrete steps and tick marks.
  *
