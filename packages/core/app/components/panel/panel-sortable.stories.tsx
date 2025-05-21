@@ -204,6 +204,9 @@ const SortableRowContent = observer(function SortableRowContentInner({
           e.stopPropagation()
           handleVisible(item.id, !visible)
         }}
+        onMouseDown={(e) => {
+          e.stopPropagation()
+        }}
       >
         {visible ? <Visible /> : <Hidden />}
       </IconButton>
@@ -214,6 +217,9 @@ const SortableRowContent = observer(function SortableRowContentInner({
         onClick={(e) => {
           e.stopPropagation()
           handleRemove(item.id)
+        }}
+        onMouseDown={(e) => {
+          e.stopPropagation()
         }}
       >
         <DeleteSmall />
@@ -353,8 +359,7 @@ export const Basic: Story = {
     })
 
     const handleSelect = useEventCallback((id: string | null) => {
-      const currentSelectedId = selectedId$.peek()
-      selectedId$.set(currentSelectedId === id ? null : id)
+      selectedId$.set(id)
     })
 
     return (
