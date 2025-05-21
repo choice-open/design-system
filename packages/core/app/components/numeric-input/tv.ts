@@ -246,11 +246,7 @@ export const NumericInputVariableTv = tv({
 })
 
 export const NumericInputElementTv = tv({
-  base: [
-    "text-secondary-foreground select-none",
-    "z-2 h-6 w-6",
-    "flex flex-none items-center justify-center",
-  ],
+  base: ["select-none", "z-2 h-6 w-6", "flex flex-none items-center justify-center"],
   variants: {
     type: {
       handler: "select-none",
@@ -262,8 +258,8 @@ export const NumericInputElementTv = tv({
       suffix: "rounded-r-md",
     },
     disabled: {
-      true: "",
-      false: "",
+      true: "text-disabled-foreground",
+      false: "text-secondary-foreground",
     },
     variant: {
       default: "",
