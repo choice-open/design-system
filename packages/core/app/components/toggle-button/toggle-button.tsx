@@ -35,8 +35,10 @@ export const ToggleButton = forwardRef<HTMLInputElement, ToggleButtonProps>(
       "aria-describedby": ariaDescribedby,
       onChange,
       onMouseDown,
+      onContextMenu,
       ...rest
     } = props
+
     const id = useId()
     const descriptionId = useId()
 
@@ -54,6 +56,7 @@ export const ToggleButton = forwardRef<HTMLInputElement, ToggleButtonProps>(
       <div
         className={tcx(styles.root(), className)}
         role="presentation"
+        onContextMenu={onContextMenu}
       >
         <span className="sr-only">{value ? "Enabled" : "Disabled"}</span>
 
