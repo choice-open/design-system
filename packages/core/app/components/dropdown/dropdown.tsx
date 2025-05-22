@@ -45,13 +45,12 @@ import {
   MenuButton,
   MenuDivider,
   MenuInput,
-  MenuLabel,
   MenuScrollArrow,
   MenuSearch,
   MenuTrigger,
   MenuValue,
 } from "../menus"
-import { DropdownContent, DropdownItem, DropdownSubTrigger } from "./components"
+import { DropdownContent, DropdownItem, DropdownLabel, DropdownSubTrigger } from "./components"
 import { DropdownContext, DropdownSelectionContext } from "./dropdown-context"
 
 const PORTAL_ROOT_ID = "floating-menu-root"
@@ -77,7 +76,7 @@ interface DropdownComponentProps
   Divider: typeof MenuDivider
   Input: typeof MenuInput
   Item: typeof DropdownItem
-  Label: typeof MenuLabel
+  Label: typeof DropdownLabel
   Search: typeof MenuSearch
   SubTrigger: typeof DropdownSubTrigger
   Trigger: typeof MenuTrigger
@@ -340,8 +339,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
         )}
       >
         {isNested
-          ? subTriggerElement &&
-            React.cloneElement(subTriggerElement, { active: isControlledOpen, selection })
+          ? subTriggerElement && React.cloneElement(subTriggerElement, { active: isControlledOpen })
           : triggerElement && React.cloneElement(triggerElement, { active: isControlledOpen })}
       </Slot>
 
@@ -430,7 +428,7 @@ export const Dropdown = Object.assign(BaseDropdown, {
   Item: DropdownItem,
   SubTrigger: DropdownSubTrigger,
   Divider: MenuDivider,
-  Label: MenuLabel,
+  Label: DropdownLabel,
   Search: MenuSearch,
   Button: MenuButton,
   Input: MenuInput,

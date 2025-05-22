@@ -455,9 +455,8 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
           <MenuLabel
             key={`label-${index}`}
             selection
-          >
-            {child.props.children}
-          </MenuLabel>
+            {...child.props}
+          />
         )
       }
 

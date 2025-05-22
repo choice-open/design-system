@@ -51,19 +51,22 @@ export const DropdownSubTrigger = memo(
       menu.setHasFocusInside(true)
     })
 
-    const setRefs = useEventCallback((node: HTMLButtonElement | null) => {
-      buttonRef.current = node
+    const setRefs = useCallback(
+      (node: HTMLButtonElement | null) => {
+        buttonRef.current = node
 
-      if (typeof item.ref === "function") {
-        item.ref(node)
-      }
+        if (typeof item.ref === "function") {
+          item.ref(node)
+        }
 
-      if (typeof forwardedRef === "function") {
-        forwardedRef(node)
-      } else if (forwardedRef) {
-        forwardedRef.current = node
-      }
-    })
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node)
+        } else if (forwardedRef) {
+          forwardedRef.current = node
+        }
+      },
+      [item, forwardedRef],
+    )
 
     const prefixConfig = useMemo(() => {
       if (prefixElement) return prefixElement

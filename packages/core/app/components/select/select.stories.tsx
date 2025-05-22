@@ -489,6 +489,7 @@ export const ItemActive: Story = {
               </Select.Item>
             ))}
             <Select.Divider />
+            <Select.Label selection={false}>Open Popover</Select.Label>
             <Select.Item onClick={() => setOpen(true)}>
               <Settings />
               <Select.Value>Open Popover</Select.Value>
