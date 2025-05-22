@@ -24,13 +24,13 @@ const shouldShowArrow = (
 }
 
 interface MenuScrollArrowProps {
-  isPositioned: boolean
   dir: "up" | "down"
+  innerOffset: number
+  isPositioned: boolean
+  onHide?: () => void
+  onScroll: (amount: number) => void
   scrollRef: React.MutableRefObject<HTMLDivElement | null>
   scrollTop: number
-  innerOffset: number
-  onScroll: (amount: number) => void
-  onHide?: () => void
 }
 
 export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowProps) {
@@ -55,6 +55,7 @@ export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowPr
     if (!show && statusRef.current === "active") {
       onHide?.()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, scrollTop])
 
   const handlePointerEnter = () => {

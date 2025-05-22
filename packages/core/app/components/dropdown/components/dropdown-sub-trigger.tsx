@@ -3,11 +3,10 @@ import { useListItem } from "@floating-ui/react"
 import { forwardRef, memo, useCallback, useContext, useEffect, useMemo, useRef } from "react"
 import { MenuItem, MenuItemProps } from "../../menus"
 import { DropdownContext } from "../dropdown-context"
-
-interface DropdownSubTriggerProps extends MenuItemProps {}
+import { useEventCallback } from "usehooks-ts"
 
 export const DropdownSubTrigger = memo(
-  forwardRef<HTMLButtonElement, DropdownSubTriggerProps>((props, forwardedRef) => {
+  forwardRef<HTMLButtonElement, MenuItemProps>((props, forwardedRef) => {
     const {
       children,
       active,
@@ -47,30 +46,24 @@ export const DropdownSubTrigger = memo(
       }
     }, [isActive])
 
-    const handleFocus = useCallback(
-      (event: React.FocusEvent<HTMLButtonElement>) => {
-        props.onFocus?.(event)
-        menu.setHasFocusInside(true)
-      },
-      [menu, props],
-    )
+    const handleFocus = useEventCallback((event: React.FocusEvent<HTMLButtonElement>) => {
+      props.onFocus?.(event)
+      menu.setHasFocusInside(true)
+    })
 
-    const setRefs = useCallback(
-      (node: HTMLButtonElement | null) => {
-        buttonRef.current = node
+    const setRefs = useEventCallback((node: HTMLButtonElement | null) => {
+      buttonRef.current = node
 
-        if (typeof item.ref === "function") {
-          item.ref(node)
-        }
+      if (typeof item.ref === "function") {
+        item.ref(node)
+      }
 
-        if (typeof forwardedRef === "function") {
-          forwardedRef(node)
-        } else if (forwardedRef) {
-          forwardedRef.current = node
-        }
-      },
-      [item.ref, forwardedRef],
-    )
+      if (typeof forwardedRef === "function") {
+        forwardedRef(node)
+      } else if (forwardedRef) {
+        forwardedRef.current = node
+      }
+    })
 
     const prefixConfig = useMemo(() => {
       if (prefixElement) return prefixElement

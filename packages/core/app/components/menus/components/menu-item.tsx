@@ -4,20 +4,20 @@ import { Kbd, type KbdKey } from "../../kbd"
 import { MenuItemTv } from "../tv"
 
 export interface MenuItemProps extends React.HTMLAttributes<HTMLButtonElement> {
-  children?: ReactNode
   active?: boolean
-  disabled?: boolean
-  selected?: boolean
-  shortcut?: {
-    modifier?: KbdKey | KbdKey[] | undefined
-    keys?: ReactNode
-  }
+  children?: ReactNode
   classNames?: {
-    root?: string
     icon?: string
+    root?: string
     shortcut?: string
   }
+  disabled?: boolean
   prefixElement?: ReactNode
+  selected?: boolean
+  shortcut?: {
+    keys?: ReactNode
+    modifier?: KbdKey | KbdKey[] | undefined
+  }
   suffixElement?: ReactNode
 }
 

@@ -2,12 +2,12 @@ import { createContext, useContext } from "react"
 
 export interface DropdownContextType {
   activeIndex: number | null
-  setActiveIndex: (index: number | null) => void
+  close: () => void
   getItemProps: <T extends React.HTMLProps<HTMLElement>>(userProps?: T) => Record<string, unknown>
-  setHasFocusInside: (value: boolean) => void
   isOpen: boolean
   selection: boolean
-  close: () => void
+  setActiveIndex: (index: number | null) => void
+  setHasFocusInside: (value: boolean) => void
 }
 
 export const DropdownContext = createContext<DropdownContextType>({

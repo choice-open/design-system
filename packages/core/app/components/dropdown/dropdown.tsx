@@ -59,28 +59,28 @@ const DEFAULT_OFFSET = 4
 
 export interface DropdownProps extends HTMLProps<HTMLDivElement> {
   children?: ReactNode
-  nested?: boolean
-  selection?: boolean
-  portalId?: string
-  placement?: Placement
   disabledNested?: boolean
-  offset?: number
   matchTriggerWidth?: boolean
-  open?: boolean
+  nested?: boolean
+  offset?: number
   onOpenChange?: (open: boolean) => void
+  open?: boolean
+  placement?: Placement
+  portalId?: string
+  selection?: boolean
 }
 
 interface DropdownComponentProps
   extends React.ForwardRefExoticComponent<DropdownProps & React.RefAttributes<HTMLDivElement>> {
-  Item: typeof DropdownItem
-  Trigger: typeof MenuTrigger
-  SubTrigger: typeof DropdownSubTrigger
+  Button: typeof MenuButton
+  Content: typeof DropdownContent
   Divider: typeof MenuDivider
+  Input: typeof MenuInput
+  Item: typeof DropdownItem
   Label: typeof MenuLabel
   Search: typeof MenuSearch
-  Button: typeof MenuButton
-  Input: typeof MenuInput
-  Content: typeof DropdownContent
+  SubTrigger: typeof DropdownSubTrigger
+  Trigger: typeof MenuTrigger
   Value: typeof MenuValue
 }
 
@@ -246,29 +246,26 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
   })
 
   // Handle touch input
-  const handleTouchStart = useCallback(() => {
+  const handleTouchStart = useEventCallback(() => {
     setTouch(true)
-  }, [])
+  })
 
-  const handlePointerMove = useCallback(({ pointerType }: React.PointerEvent) => {
+  const handlePointerMove = useEventCallback(({ pointerType }: React.PointerEvent) => {
     if (pointerType !== "touch") {
       setTouch(false)
     }
-  }, [])
+  })
 
   // Handle scroll events
-  const handleScroll = useCallback(({ currentTarget }: React.UIEvent) => {
+  const handleScroll = useEventCallback(({ currentTarget }: React.UIEvent) => {
     flushSync(() => setScrollTop(currentTarget.scrollTop))
-  }, [])
+  })
 
   // Focus handling
-  const handleFocus = useCallback(
-    (event: React.FocusEvent<HTMLButtonElement>) => {
-      setHasFocusInside(false)
-      parent.setHasFocusInside(true)
-    },
-    [parent, rest],
-  )
+  const handleFocus = useEventCallback((event: React.FocusEvent<HTMLButtonElement>) => {
+    setHasFocusInside(false)
+    parent.setHasFocusInside(true)
+  })
 
   // Process children
   const { triggerElement, subTriggerElement, contentElement } = useMemo(() => {
@@ -303,9 +300,9 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
   }
 
   // Create close method
-  const handleClose = useCallback(() => {
+  const handleClose = useEventCallback(() => {
     handleOpenChange(false)
-  }, [handleOpenChange])
+  })
 
   // Create focus manager context
   const contextValue = useMemo(

@@ -20,14 +20,14 @@ interface MenusProps extends HTMLProps<HTMLDivElement> {
 
 interface MenusComponentProps
   extends React.ForwardRefExoticComponent<MenusProps & React.RefAttributes<HTMLDivElement>> {
-  Item: typeof MenuItem
   Button: typeof MenuButton
   Checkbox: typeof MenuCheckbox
   Divider: typeof MenuDivider
+  Input: typeof MenuInput
+  Item: typeof MenuItem
   Label: typeof MenuLabel
   Search: typeof MenuSearch
   SearchEmpty: typeof MenuSearchEmpty
-  Input: typeof MenuInput
   Value: typeof MenuValue
 }
 

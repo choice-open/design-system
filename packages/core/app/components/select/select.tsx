@@ -42,24 +42,24 @@ import { SelectContent, SelectItem, type SelectItemPublicProps } from "./compone
 const PORTAL_ROOT_ID = "floating-menu-root"
 
 export interface SelectProps {
+  children?: ReactNode
   disabled?: boolean
   matchTriggerWidth?: boolean
-  value?: string | null
   onChange?: (value: string) => void
-  open?: boolean
   onOpenChange?: (open: boolean) => void
-  portalId?: string
+  open?: boolean
   placement?: "bottom-start" | "bottom-end"
-  children?: ReactNode
+  portalId?: string
+  value?: string | null
 }
 
 interface SelectComponentType
   extends React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLButtonElement>> {
-  Item: typeof SelectItem
-  Trigger: typeof MenuTrigger
-  Divider: typeof MenuDivider
-  Label: typeof MenuLabel
   Content: typeof SelectContent
+  Divider: typeof MenuDivider
+  Item: typeof SelectItem
+  Label: typeof MenuLabel
+  Trigger: typeof MenuTrigger
   Value: typeof MenuValue
 }
 
@@ -303,6 +303,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       refs.allowSelect.current = false
       refs.allowMouseUp.current = true
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isControlledOpen])
 
   // 处理箭头滚动 - 优化事件回调，使用 useEventCallback 确保稳定引用
@@ -349,21 +350,10 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
   })
 
   // 注册列表项到 refs - 提取为可重用方法
-  const registerItem = useCallback(
-    (index: number, node: HTMLElement | null) => {
-      refs.list.current[index] = node
-      refs.listContent.current[index] = options[index]?.value || null
-    },
-    [options],
-  )
-
-  // 如果没有 triggerElement 或 contentElement，则无法渲染
-  if (!triggerElement || !contentElement) {
-    console.error(
-      "Select requires both Select.Trigger and Select.Content components as children. Example: <Select><Select.Trigger>Trigger</Select.Trigger><Select.Content>{items}</Select.Content></Select>",
-    )
-    return null
-  }
+  const registerItem = useEventCallback((index: number, node: HTMLElement | null) => {
+    refs.list.current[index] = node
+    refs.listContent.current[index] = options[index]?.value || null
+  })
 
   // 渲染优化 - 提取通用属性，减少重复
   // 使用 useCallback 缓存渲染函数，避免不必要的重新创建
@@ -396,7 +386,11 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
           refs.allowSelect.current = true
         },
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
-          customActive ? childProps.onClick?.(e) : handleSelect(optionIndex)
+          if (customActive) {
+            childProps.onClick?.(e)
+          } else {
+            handleSelect(optionIndex)
+          }
         },
         onMouseUp: () => {
           if (!refs.allowMouseUp.current || customActive) return
@@ -439,6 +433,9 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       currentSelectedIndex,
       blockSelection,
       interactions,
+      refs.allowSelect,
+      refs.allowMouseUp,
+      refs.selectTimeout,
       handleSelect,
       registerItem,
     ],
@@ -475,6 +472,14 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
       active: isControlledOpen,
     })
   }, [triggerElement, isControlledOpen])
+
+  // 如果没有 triggerElement 或 contentElement，则无法渲染
+  if (!triggerElement || !contentElement) {
+    console.error(
+      "Select requires both Select.Trigger and Select.Content components as children. Example: <Select><Select.Trigger>Trigger</Select.Trigger><Select.Content>{items}</Select.Content></Select>",
+    )
+    return null
+  }
 
   return (
     <>

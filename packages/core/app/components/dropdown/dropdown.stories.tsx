@@ -45,7 +45,7 @@ export const Basic: Story = {
     return (
       <Dropdown>
         <Dropdown.Trigger>
-          <Dropdown.Value>Interaction</Dropdown.Value>
+          <Dropdown.Value>111</Dropdown.Value>
         </Dropdown.Trigger>
         <Dropdown.Content>
           <Dropdown.Item>
@@ -220,6 +220,43 @@ export const TriggerAsChild: Story = {
           <IconButton variant="default">
             <FieldTypeAttachment />
           </IconButton>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item>
+            <Dropdown.Value>Attachment</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Checkbox</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Count</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Date</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Filter</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Rating</Dropdown.Value>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    )
+  },
+}
+
+export const TriggerAsChildWithForwardedProps: Story = {
+  render: function TriggerAsChildWithForwardedPropsStory() {
+    return (
+      <Dropdown>
+        <Dropdown.Trigger
+          asChild
+          enterForwardedProps={false}
+        >
+          <div className="data-[active=true]:bg-selected-background hover:bg-secondary-background rounded-md p-4">
+            Enter Forwarded Props
+          </div>
         </Dropdown.Trigger>
         <Dropdown.Content>
           <Dropdown.Item>

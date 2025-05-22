@@ -7,9 +7,10 @@ import { MenuTriggerTv } from "../tv"
 
 export interface MenuTriggerProps extends ButtonProps {
   asChild?: boolean
+  empty?: boolean
+  enterForwardedProps?: boolean
   prefixElement?: ReactNode
   suffixElement?: ReactNode
-  empty?: boolean
 }
 
 export const MenuTrigger = memo(
@@ -22,6 +23,10 @@ export const MenuTrigger = memo(
       prefixElement,
       suffixElement = <ChevronDownSmall />,
       empty,
+      enterForwardedProps = true,
+      active,
+      selected,
+      disabled,
       ...rest
     } = props
 
@@ -32,10 +37,19 @@ export const MenuTrigger = memo(
       size,
     })
 
+    const slotProps = enterForwardedProps
+      ? { ...rest, active, selected, disabled }
+      : {
+          ...rest,
+          ...(active !== undefined ? { "data-active": active } : {}),
+          ...(selected !== undefined ? { "data-selected": selected } : {}),
+          ...(disabled !== undefined ? { "data-disabled": disabled } : {}),
+        }
+
     return asChild ? (
       <Slot
         ref={ref}
-        {...rest}
+        {...slotProps}
       >
         {children}
       </Slot>
@@ -44,6 +58,9 @@ export const MenuTrigger = memo(
         ref={ref}
         className={tcx(styles.root(), className)}
         variant="secondary"
+        active={active}
+        selected={selected}
+        disabled={disabled}
         size={size}
         {...rest}
       >

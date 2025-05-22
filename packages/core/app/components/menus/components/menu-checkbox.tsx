@@ -4,9 +4,9 @@ import { MenuCheckboxTv } from "../tv"
 
 interface MenuCheckboxProps extends HTMLProps<HTMLDivElement> {
   active?: boolean
-  selected?: boolean
   disabled?: boolean
   indeterminate?: boolean
+  selected?: boolean
 }
 
 export const MenuCheckbox = memo(function MenuCheckbox(props: MenuCheckboxProps) {

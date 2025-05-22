@@ -36,12 +36,12 @@ export const MenuSearch = forwardRef<HTMLInputElement, SearchInputProps>((props,
 MenuSearch.displayName = "MenuSearch"
 
 interface MenuSearchEmptyProps extends React.HTMLAttributes<HTMLDivElement> {
-  onClear?: () => void
   children?: React.ReactNode
   defaultText?: {
     searchEmpty: string
     searchEmptyButton: string
   }
+  onClear?: () => void
 }
 
 export const MenuSearchEmpty = memo(function MenuSearchEmpty(props: MenuSearchEmptyProps) {
