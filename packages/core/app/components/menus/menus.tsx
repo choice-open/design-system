@@ -1,4 +1,4 @@
-import { forwardRef, HTMLProps } from "react"
+import React, { forwardRef, HTMLProps, Children, isValidElement, Fragment } from "react"
 import { tcx } from "~/utils"
 import {
   MenuButton,
@@ -36,6 +36,27 @@ export const MenusBase = forwardRef<HTMLDivElement, MenusProps>((props, ref) => 
 
   const styles = MenusTv({ matchTriggerWidth })
 
+  // 递归处理子组件，展开所有 Fragment
+  const processChildren = (children: React.ReactNode): React.ReactNode => {
+    return Children.map(children, (child) => {
+      if (isValidElement(child)) {
+        if (child.type === Fragment) {
+          return processChildren(child.props.children)
+        }
+
+        if (child.props.children) {
+          return React.cloneElement(child, {
+            ...child.props,
+            children: processChildren(child.props.children),
+          })
+        }
+      }
+      return child
+    })
+  }
+
+  const processedChildren = processChildren(children)
+
   return (
     <div
       ref={ref}
@@ -43,7 +64,7 @@ export const MenusBase = forwardRef<HTMLDivElement, MenusProps>((props, ref) => 
       {...rest}
       className={tcx(styles, className)}
     >
-      {children}
+      {processedChildren}
     </div>
   )
 })

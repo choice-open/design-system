@@ -85,7 +85,7 @@ export const WithPopover: Story = {
           <Popover.Trigger>
             <IconButton className="text-lg">{selectedEmoji || <RatingSmileRegular />}</IconButton>
           </Popover.Trigger>
-          <Popover.Content className="overflow-hidden p-0">
+          <Popover.Content>
             <EmojiPicker
               onEmojiSelect={(emoji) => {
                 handleEmojiSelect(emoji)

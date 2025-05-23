@@ -283,7 +283,7 @@ const ComprehensiveTreeList = observer(() => {
 
       // ======安全处理拖拽操作======
       // 获取所有源节点的路径和完整节点信息
-      const sourceNodeCopies: { path: (number | string)[]; node: TreeNodeData }[] = []
+      const sourceNodeCopies: { node: TreeNodeData; path: (number | string)[] }[] = []
 
       // 收集节点信息
       for (const node of sourceNodes) {

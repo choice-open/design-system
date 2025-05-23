@@ -49,7 +49,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
       dropPosition,
       level,
       isParentSelected,
-      index,
+      indexKey,
     },
     parentId,
   } = node
@@ -287,7 +287,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
         }
         data-node-id={id}
         data-node-level={level}
-        data-node-index={index}
+        data-node-index-key={indexKey}
         data-node-parent-id={parentId}
         data-is-dragging={isDragging}
         data-is-selected={isSelected}

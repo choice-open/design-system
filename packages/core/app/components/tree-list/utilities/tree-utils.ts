@@ -49,7 +49,7 @@ export function flattenTree(
         isDropTarget: false,
         isParentSelected,
         level,
-        index: result.length,
+        indexKey: node.indexKey as string,
       },
     }
 

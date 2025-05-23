@@ -1,12 +1,18 @@
 import { LoaderCircle } from "@choiceform/icons-react"
 import { Slot } from "@radix-ui/react-slot"
-import { cloneElement, forwardRef, HTMLProps, isValidElement } from "react"
+import { cloneElement, forwardRef, HTMLProps, isValidElement, useMemo } from "react"
 import { isMultiElement, tcx } from "~/utils"
 import { Tooltip, type TooltipProps } from "../tooltip"
 import { buttonTv } from "./tv"
 
 export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
+  active?: boolean
+  asChild?: boolean
   className?: string
+  focused?: boolean
+  loading?: boolean
+  size?: "default" | "large"
+  tooltip?: TooltipProps
   variant?:
     | "primary"
     | "secondary"
@@ -20,12 +26,6 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> 
     | "ghost"
     | "dark"
     | "reset"
-  size?: "default" | "large"
-  active?: boolean
-  focused?: boolean
-  loading?: boolean
-  tooltip?: TooltipProps
-  asChild?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
@@ -40,6 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     asChild,
     children,
     tooltip,
+    "aria-label": ariaLabel,
     ...rest
   } = props
 
@@ -62,6 +63,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     children
   )
 
+  const ariaLabelProps = useMemo(() => {
+    if (typeof children === "string") {
+      return children
+    }
+
+    return props["aria-label"]
+  }, [children, props])
+
   const button = (
     <Button
       {...rest}
@@ -70,6 +79,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || loading}
       className={tcx(style.button(), className)}
       data-multi-element={isMultiElement(content)}
+      aria-disabled={disabled || loading}
+      aria-busy={loading}
+      aria-label={ariaLabelProps}
     >
       {content}
     </Button>

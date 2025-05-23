@@ -4,20 +4,20 @@ import { TreeNodeType, KeyboardNavigationState } from "../types"
 
 export interface UseKeyboardNavigationProps {
   data: TreeNodeType[]
-  flattenedNodes: TreeNodeType[]
   expandedNodeIds: Set<string>
-  selectedNodeIds: Set<string>
-  keyboardState: KeyboardNavigationState
-  setKeyboardState: React.Dispatch<React.SetStateAction<KeyboardNavigationState>>
-  setExpandedNodeIds: React.Dispatch<React.SetStateAction<Set<string>>>
-  selectAllVisibleItems: () => void
+  flattenedNodes: TreeNodeType[]
   keyboardNavigation: boolean
-  selectionMode: "single" | "multiple"
+  keyboardState: KeyboardNavigationState
+  onNodeExpand?: (node: TreeNodeType, isExpanded: boolean) => void
   onNodeSelect?: (
     selectedNodes: TreeNodeType[],
     event?: React.MouseEvent | React.KeyboardEvent,
   ) => void
-  onNodeExpand?: (node: TreeNodeType, isExpanded: boolean) => void
+  selectAllVisibleItems: () => void
+  selectedNodeIds: Set<string>
+  selectionMode: "single" | "multiple"
+  setExpandedNodeIds: React.Dispatch<React.SetStateAction<Set<string>>>
+  setKeyboardState: React.Dispatch<React.SetStateAction<KeyboardNavigationState>>
   startRename: (node: TreeNodeType) => void
 }
 

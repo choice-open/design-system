@@ -3,13 +3,13 @@ import { TreeNodeType } from "../types"
 import { getNodesInRange } from "../utilities/tree-utils"
 
 export interface UseSelectionProps {
-  selectedNodeIds: Set<string>
   flattenedNodes: TreeNodeType[]
-  selectionMode: "single" | "multiple"
   onNodeSelect?: (
     selectedNodes: TreeNodeType[],
     event?: React.MouseEvent | React.KeyboardEvent,
   ) => void
+  selectedNodeIds: Set<string>
+  selectionMode: "single" | "multiple"
 }
 
 export function useSelection({
