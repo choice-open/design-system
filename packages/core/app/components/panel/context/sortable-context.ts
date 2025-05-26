@@ -2,6 +2,8 @@ import React, { createContext, useContext } from "react"
 import type { PanelDropPosition } from "../hooks"
 
 export interface SortableItem {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
   id: string
   indexKey: string
 }
