@@ -42,6 +42,15 @@ const AllotmentContainer = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
+function sortByIndex<T extends { indexKey: string }>(a: T, b: T) {
+  if (a.indexKey < b.indexKey) {
+    return -1
+  } else if (a.indexKey > b.indexKey) {
+    return 1
+  }
+  return 0
+}
+
 // 初始化fractional indexing器作为全局实例
 const globalIndexGenerator = new IndexGenerator([])
 
@@ -127,13 +136,13 @@ const SortableRowContent = observer(function SortableRowContentInner({
   sortableTriggerRefs,
   open$,
   selectedId$,
-  handleSelect,
-  handleVisible,
-  handleRemove,
+  onSelect,
+  onVisible,
+  onRemove,
 }: {
-  handleRemove: (id: string) => void
-  handleSelect: (id: string | null) => void
-  handleVisible: (id: string, visible: boolean) => void
+  onRemove: (id: string) => void
+  onSelect: (id: string | null) => void
+  onVisible: (id: string, visible: boolean) => void
   open$: Observable<string | null>
   selectedId$: Observable<string | null>
   sortableTriggerRefs: React.MutableRefObject<Map<string, HTMLFieldSetElement>>
@@ -157,7 +166,7 @@ const SortableRowContent = observer(function SortableRowContentInner({
       type="one-icon-one-input-two-icon"
       onClick={(e) => {
         e.stopPropagation()
-        handleSelect(item.id)
+        onSelect(item.id)
       }}
     >
       <IconButton
@@ -197,12 +206,13 @@ const SortableRowContent = observer(function SortableRowContentInner({
           <Select.Item value={item.indexKey}>{valueToDisplay}</Select.Item>
         </Select.Content>
       </Select>
+
       <IconButton
         className="[grid-area:icon-2]"
         tooltip={{ content: "Visible" }}
         onClick={(e) => {
           e.stopPropagation()
-          handleVisible(item.id, !visible)
+          onVisible(item.id, !visible)
         }}
         onMouseDown={(e) => {
           e.stopPropagation()
@@ -216,7 +226,7 @@ const SortableRowContent = observer(function SortableRowContentInner({
         tooltip={{ content: "Delete" }}
         onClick={(e) => {
           e.stopPropagation()
-          handleRemove(item.id)
+          onRemove(item.id)
         }}
         onMouseDown={(e) => {
           e.stopPropagation()
@@ -233,13 +243,15 @@ const Sortable = observer(function Sortable({
   sortableTriggerRefs,
   open$,
   selectedId$,
-  handleSelect,
-  handleVisible,
-  handleRemove,
+  onSelect,
+  onVisible,
+  onRemove,
+  onDrop,
 }: {
-  handleRemove: (id: string) => void
-  handleSelect: (id: string | null) => void
-  handleVisible: (id: string, visible: boolean) => void
+  onDrop: (id: string, newIndex: number) => void
+  onRemove: (id: string) => void
+  onSelect: (id: string | null) => void
+  onVisible: (id: string, visible: boolean) => void
   open$: Observable<string | null>
   selectedId$: Observable<string | null>
   sortableTriggerRefs: React.MutableRefObject<Map<string, HTMLFieldSetElement>>
@@ -250,17 +262,16 @@ const Sortable = observer(function Sortable({
     <Panel.Sortable
       data={sortData}
       selectedId={selectedId$.get()}
-      indexGenerator={globalIndexGenerator}
-      onDataChange={(data) => SORT_DATA$.set(data as { id: string; indexKey: string }[])}
+      onDrop={onDrop}
       onSelectedIdChange={(id) => selectedId$.set(id)}
     >
       <SortableRowContent
         sortableTriggerRefs={sortableTriggerRefs}
         open$={open$}
         selectedId$={selectedId$}
-        handleSelect={handleSelect}
-        handleVisible={handleVisible}
-        handleRemove={handleRemove}
+        onSelect={onSelect}
+        onVisible={onVisible}
+        onRemove={onRemove}
       />
     </Panel.Sortable>
   )
@@ -362,6 +373,41 @@ export const Basic: Story = {
       selectedId$.set(id)
     })
 
+    const handleDrop = useEventCallback((id: string, newIndex: number) => {
+      batch(() => {
+        const sortItems = SORT_DATA$.peek()
+        const indexList = sortItems.map((item) => item.indexKey)
+
+        const itemToMove = sortItems.find((item) => item.id === id)
+        if (!itemToMove) return
+
+        // 更新索引键列表
+        globalIndexGenerator.updateList(indexList)
+
+        let newIndexKey: string | undefined
+        if (newIndex === 0) {
+          newIndexKey = globalIndexGenerator.keyBefore(sortItems[0]?.indexKey)
+        } else if (newIndex === sortItems.length - 1) {
+          newIndexKey = globalIndexGenerator.keyEnd()
+        } else {
+          newIndexKey = globalIndexGenerator.keyAfter(sortItems[newIndex - 1].indexKey)
+        }
+
+        if (!newIndexKey) return
+
+        // 更新排序数据
+        const newSortItems = sortItems.map((item) =>
+          item.id === id ? { ...item, indexKey: newIndexKey } : item,
+        )
+
+        // 重新排序
+        newSortItems.sort((a, b) => sortByIndex(a, b))
+
+        // 更新索引键列表
+        SORT_DATA$.set(newSortItems)
+      })
+    })
+
     // 键盘删除
     useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -375,7 +421,7 @@ export const Basic: Story = {
       return () => {
         window.removeEventListener("keydown", handleKeyDown)
       }
-    }, [])
+    }, [handleRemove, selectedId$])
 
     return (
       <>
@@ -394,9 +440,10 @@ export const Basic: Story = {
               sortableTriggerRefs={sortableTriggerRefs}
               open$={open$}
               selectedId$={selectedId$}
-              handleSelect={handleSelect}
-              handleVisible={handleVisible}
-              handleRemove={handleRemove}
+              onSelect={handleSelect}
+              onVisible={handleVisible}
+              onRemove={handleRemove}
+              onDrop={handleDrop}
             />
           </Panel>
         </AllotmentContainer>
