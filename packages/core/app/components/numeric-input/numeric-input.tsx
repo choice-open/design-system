@@ -42,27 +42,27 @@ export interface NumericInputProps
       | "disabled"
       | "id"
     > {
+  children?: ReactNode
   className?: string
   classNames?: {
     container?: string
     input?: string
   }
-  tooltip?: TooltipProps
-  triggerRef?: React.RefObject<HTMLLabelElement> | ((el: HTMLLabelElement | null) => void)
-  children?: ReactNode
   disabled?: boolean
   onChange?: (value: NumericInputValue, detail: NumericChangeDetail) => void
+  tooltip?: TooltipProps
+  triggerRef?: React.RefObject<HTMLLabelElement> | ((el: HTMLLabelElement | null) => void)
 }
 
 interface NumericInputComponent
   extends React.ForwardRefExoticComponent<
     NumericInputProps & React.RefAttributes<HTMLInputElement>
   > {
+  ActionPrompt: typeof NumericInputMenuActionPrompt
+  MenuTrigger: typeof NumericInputMenuTrigger
   Prefix: typeof NumericInputElement
   Suffix: typeof NumericInputElement
   Variable: typeof NumericInputVariable
-  MenuTrigger: typeof NumericInputMenuTrigger
-  ActionPrompt: typeof NumericInputMenuActionPrompt
 }
 
 export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>((props, ref) => {
@@ -130,7 +130,7 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
   const handleBlur = useEventCallback((e: React.FocusEvent<HTMLInputElement>) => {
     onIsEditingChange?.(false)
     setIsFocused(false)
-    inputProps.onBlur && inputProps.onBlur()
+    inputProps.onBlur?.()
   })
 
   // 创建上下文值
@@ -192,10 +192,10 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
   // 合并递归查找，提升性能
   const { prefix, suffix, variable, actionPrompt } = useMemo(() => {
     const result: {
+      actionPrompt: React.ReactElement[]
       prefix: React.ReactElement[]
       suffix: React.ReactElement[]
       variable: React.ReactElement[]
-      actionPrompt: React.ReactElement[]
     } = { prefix: [], suffix: [], variable: [], actionPrompt: [] }
     function findAll(children: ReactNode) {
       Children.forEach(children, (child) => {
@@ -244,6 +244,12 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
       <label
         ref={triggerRef}
         className={tcx(styles.container(), classNames?.container, className)}
+        onMouseDown={(e) => {
+          e.stopPropagation()
+        }}
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
       >
         {prefixNode && cloneElement(prefixNode, { position: "prefix" })}
 
