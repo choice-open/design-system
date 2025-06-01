@@ -9,3 +9,6 @@ dist
 
 *storybook.log
 storybook-static
+
+# Jest test results
+.jest-test-results.json
