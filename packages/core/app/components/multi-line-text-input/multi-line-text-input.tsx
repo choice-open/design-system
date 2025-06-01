@@ -1,22 +1,22 @@
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
 import { createEditor, Descendant, Node, Transforms, Editor } from "slate"
-import { Slate, Editable, withReact } from "slate-react"
+import { Slate, Editable, withReact, RenderElementProps, RenderLeafProps } from "slate-react"
 import { TextareaTv } from "./tv"
 import { Scroll } from "../scroll/scroll"
 import { tcx } from "~/utils/tcx"
 import { mergeRefs } from "~/utils"
 
 export interface MultiLineTextInputProps {
-  value?: string
-  onChange?: (value: string) => void
-  minRows?: number
-  maxRows?: number
-  variant?: "default" | "dark" | "reset"
-  selected?: boolean
-  disabled?: boolean
-  readOnly?: boolean
   className?: string
+  disabled?: boolean
+  maxRows?: number
+  minRows?: number
+  onChange?: (value: string) => void
   placeholder?: string
+  readOnly?: boolean
+  selected?: boolean
+  value?: string
+  variant?: "default" | "dark" | "reset"
 }
 
 function stringToSlateValue(value?: string): Descendant[] {
@@ -32,6 +32,10 @@ function slateValueToString(value: Descendant[]): string {
   // 只取第一个段落的文本
   return value && value.length > 0 ? Node.string(value[0] as Node) : ""
 }
+
+// 提取渲染函数到组件外部
+const renderElement = (props: RenderElementProps) => <p {...props.attributes}>{props.children}</p>
+const renderLeaf = (props: RenderLeafProps) => <span {...props.attributes}>{props.children}</span>
 
 export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputProps>(
   (
@@ -129,8 +133,8 @@ export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputP
                 editor.insertText(text)
               }}
               onFocus={handleFocus}
-              renderElement={(props) => <p {...props.attributes}>{props.children}</p>}
-              renderLeaf={(props) => <span {...props.attributes}>{props.children}</span>}
+              renderElement={renderElement}
+              renderLeaf={renderLeaf}
               spellCheck
               autoCorrect="on"
               autoCapitalize="sentences"

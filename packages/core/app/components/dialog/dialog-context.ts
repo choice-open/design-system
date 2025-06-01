@@ -1,15 +1,15 @@
 import { createContext, useContext } from "react"
 
 interface DialogContextValue {
+  contentRef: React.RefObject<HTMLDivElement>
+  descriptionId: string
+  dialogRef: React.RefObject<HTMLDivElement>
+  draggable?: boolean
+  handleDragStart?: (e: React.MouseEvent) => void
+  onCloseClick: () => void
   open: boolean
   setOpen: (open: boolean) => void
   titleId: string
-  descriptionId: string
-  draggable?: boolean
-  handleDragStart?: (e: React.MouseEvent) => void
-  contentRef: React.RefObject<HTMLDivElement>
-  dialogRef: React.RefObject<HTMLDivElement>
-  onCloseClick: () => void
 }
 
 export const DialogContext = createContext<DialogContextValue | null>(null)

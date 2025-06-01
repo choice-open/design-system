@@ -10,19 +10,19 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useMergedValue } from "~/hooks"
 
 interface UseFloatingDialogParams {
-  open?: boolean
-  defaultOpen?: boolean
-  onOpenChange?: (open: boolean) => void
-  outsidePress?: boolean
+  afterOpenChange?: (isOpen: boolean) => void
   autoUpdate?: boolean
+  defaultOpen?: boolean
   draggable?: boolean
+  onOpenChange?: (open: boolean) => void
+  open?: boolean
+  outsidePress?: boolean
+  rememberPosition?: boolean
+  rememberSize?: boolean
   resetDragState: () => void
   resetPosition?: () => void
   resetResizeState: () => void
   resetSize?: () => void
-  rememberPosition?: boolean
-  rememberSize?: boolean
-  afterOpenChange?: (isOpen: boolean) => void
 }
 
 export function useFloatingDialog({
@@ -141,7 +141,7 @@ export function useFloatingDialog({
   const getStyles = useCallback(
     (
       dragPosition: { x: number; y: number } | null,
-      resizeSize?: { width: number; height: number },
+      resizeSize?: { height: number; width: number },
     ) => {
       // 如果存在拖拽位置且拖拽功能开启，优先使用拖拽位置
       if (dragPosition && draggable) {

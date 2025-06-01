@@ -11,26 +11,26 @@ import { dragDialogTv } from "./tv"
 const PORTAL_ROOT_ID = "floating-modal-root"
 
 export interface DialogProps {
-  className?: string
+  afterOpenChange?: (isOpen: boolean) => void
   children?: React.ReactNode
-  draggable?: boolean
-  resizable?: {
-    width?: boolean
-    height?: boolean
-  }
-  defaultWidth?: number
+  className?: string
   defaultHeight?: number
-  minWidth?: number
+  defaultWidth?: number
+  draggable?: boolean
+  maxHeight?: number
   maxWidth?: number
   minHeight?: number
-  maxHeight?: number
-  overlay?: boolean
-  outsidePress?: boolean
-  open?: boolean
+  minWidth?: number
   onOpenChange?: (open: boolean) => void
-  afterOpenChange?: (isOpen: boolean) => void
+  open?: boolean
+  outsidePress?: boolean
+  overlay?: boolean
   rememberPosition?: boolean
   rememberSize?: boolean
+  resizable?: {
+    height?: boolean
+    width?: boolean
+  }
 }
 
 const DialogComponent = memo(function DialogComponent({
@@ -100,7 +100,7 @@ const DialogComponent = memo(function DialogComponent({
   })
 
   const getStyleWithDefaults = useMemo(() => {
-    let sizeObj: { width: number; height: number } | undefined = undefined
+    let sizeObj: { height: number; width: number } | undefined = undefined
 
     if (resizeState.size) {
       sizeObj = {
@@ -121,10 +121,10 @@ const DialogComponent = memo(function DialogComponent({
 
     return floating.getStyles(dragState.position || null, sizeObj)
   }, [
-    floating.getStyles,
-    dragState.position,
     resizeState.size,
     isResizable,
+    floating,
+    dragState.position,
     resizable.width,
     resizable.height,
     defaultWidth,
@@ -260,11 +260,11 @@ const DialogComponent = memo(function DialogComponent({
 })
 
 type DialogComponentType = React.FC<DialogProps> & {
-  Trigger: typeof DialogTrigger
-  Content: typeof ModalContent
-  Header: typeof DialogHeader
   Backdrop: typeof DialogBackdrop
+  Content: typeof ModalContent
   Footer: typeof ModalFooter
+  Header: typeof DialogHeader
+  Trigger: typeof DialogTrigger
 }
 
 export const Dialog = Object.assign(DialogComponent, {

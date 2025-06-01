@@ -57,7 +57,7 @@ export const MonthCalendarHeader = memo(function MonthCalendarHeader(props: Prop
         <IconButton
           variant={variant}
           onClick={handlePrevMonth}
-          aria-label="上个月"
+          aria-label="Previous month"
         >
           {direction === "vertical" ? <ChevronUpSmall /> : <ChevronLeftSmall />}
         </IconButton>
@@ -65,7 +65,7 @@ export const MonthCalendarHeader = memo(function MonthCalendarHeader(props: Prop
         <IconButton
           variant={variant}
           onClick={handleNextMonth}
-          aria-label="下个月"
+          aria-label="Next month"
         >
           {direction === "vertical" ? <ChevronDownSmall /> : <ChevronRightSmall />}
         </IconButton>

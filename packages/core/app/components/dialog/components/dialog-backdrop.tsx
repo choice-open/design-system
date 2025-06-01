@@ -1,12 +1,9 @@
-import { motion } from "framer-motion"
+import { motion, MotionProps } from "framer-motion"
 import { forwardRef, memo } from "react"
 import { tcx } from "~/utils"
 
-interface DialogBackdropProps {
+interface DialogBackdropProps extends MotionProps {
   className?: string
-  initial?: Record<string, any>
-  animate?: Record<string, any>
-  transition?: Record<string, any>
 }
 
 export const DialogBackdrop = memo(

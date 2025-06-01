@@ -17,8 +17,8 @@ interface DragState {
 
 interface UseDragOptions {
   enabled?: boolean
-  onDragStart?: (e: React.MouseEvent) => void
   onDragEnd?: (position: Position) => void
+  onDragStart?: (e: React.MouseEvent) => void
   rememberPosition?: boolean
 }
 

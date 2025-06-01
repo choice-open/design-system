@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
 
 interface Size {
-  width: number
   height: number
+  width: number
 }
 
 interface ResizeDirection {
-  width: boolean
   height: boolean
+  width: boolean
 }
 
 interface ResizeState {
@@ -17,15 +17,15 @@ interface ResizeState {
 }
 
 interface UseResizeOptions {
-  enabled?: boolean
-  defaultWidth?: number
   defaultHeight?: number
-  minWidth?: number
+  defaultWidth?: number
+  enabled?: boolean
+  maxHeight?: number
   maxWidth?: number
   minHeight?: number
-  maxHeight?: number
-  onResizeStart?: (e: React.MouseEvent, direction: ResizeDirection) => void
+  minWidth?: number
   onResizeEnd?: (size: Size) => void
+  onResizeStart?: (e: React.MouseEvent, direction: ResizeDirection) => void
   rememberSize?: boolean
 }
 

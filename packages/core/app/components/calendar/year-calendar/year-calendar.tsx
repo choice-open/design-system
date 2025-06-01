@@ -197,7 +197,6 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
         handleToday={handleToday}
         isNextDisabled={navigationState.isNextDisabled}
         isPrevDisabled={navigationState.isPrevDisabled}
-        locale={locale}
         startDisplayYear={displayInfo.startDisplayYear}
         variant={variant}
       />

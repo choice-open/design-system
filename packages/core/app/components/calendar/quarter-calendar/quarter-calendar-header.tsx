@@ -1,5 +1,5 @@
 import { ChevronLeftSmall, ChevronRightSmall, Undo } from "@choiceform/icons-react"
-import type { Locale } from "date-fns"
+import { format, type Locale } from "date-fns"
 import { forwardRef, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
@@ -16,7 +16,6 @@ export interface QuarterCalendarHeaderProps {
   handleToday: () => void
   isNextDisabled: boolean
   isPrevDisabled: boolean
-  locale?: Locale | string
   variant?: "default" | "dark"
 }
 
@@ -31,30 +30,10 @@ export const QuarterCalendarHeader = forwardRef<HTMLDivElement, QuarterCalendarH
       handleToday,
       isNextDisabled,
       isPrevDisabled,
-      locale,
       variant = "default",
     } = props
 
-    const safeLocale = resolveLocale(locale)
     const tv = QuarterCalendarTv({ variant })
-
-    // 本地化文本
-    const labels = useMemo(() => {
-      if (isChineseLocale(safeLocale)) {
-        return {
-          prevLabel: "上一年",
-          nextLabel: "下一年",
-          todayLabel: "今年",
-          yearTitle: `${currentYear}年`,
-        }
-      }
-      return {
-        prevLabel: "Previous year",
-        nextLabel: "Next year",
-        todayLabel: "This year",
-        yearTitle: currentYear.toString(),
-      }
-    }, [safeLocale, currentYear])
 
     const handleTodayClick = useEventCallback(() => {
       handleToday()
@@ -70,7 +49,7 @@ export const QuarterCalendarHeader = forwardRef<HTMLDivElement, QuarterCalendarH
           className={tv.title()}
           data-testid="year-title"
         >
-          {labels.yearTitle}
+          {format(currentYear, "yyyy")}
         </h3>
 
         <div
@@ -81,7 +60,7 @@ export const QuarterCalendarHeader = forwardRef<HTMLDivElement, QuarterCalendarH
             <IconButton
               variant={variant}
               onClick={handleTodayClick}
-              aria-label={labels.todayLabel}
+              aria-label="Back to current year"
               data-testid="today-button"
             >
               <Undo />
@@ -92,7 +71,7 @@ export const QuarterCalendarHeader = forwardRef<HTMLDivElement, QuarterCalendarH
             variant={variant}
             onClick={handlePrevious}
             disabled={isPrevDisabled}
-            aria-label={labels.prevLabel}
+            aria-label="Previous year"
             data-testid="prev-button"
           >
             <ChevronLeftSmall />
@@ -101,7 +80,7 @@ export const QuarterCalendarHeader = forwardRef<HTMLDivElement, QuarterCalendarH
             variant={variant}
             onClick={handleNext}
             disabled={isNextDisabled}
-            aria-label={labels.nextLabel}
+            aria-label="Next year"
             data-testid="next-button"
           >
             <ChevronRightSmall />

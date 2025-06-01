@@ -196,7 +196,6 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
         handleToday={handleToday}
         isNextDisabled={navigationState.isNextDisabled}
         isPrevDisabled={navigationState.isPrevDisabled}
-        locale={locale}
         variant={variant}
       />
 
