@@ -110,6 +110,10 @@ export const MenuItemTv = tv({
       true: { root: "gap-1 pr-1" },
       false: { root: "pr-2" },
     },
+    variant: {
+      default: {},
+      highlight: {},
+    },
   },
   compoundVariants: [
     {
@@ -127,6 +131,15 @@ export const MenuItemTv = tv({
         shortcut: "text-white",
       },
     },
+    {
+      disabled: false,
+      variant: "highlight",
+      selected: true,
+      active: false,
+      class: {
+        root: "bg-white/10",
+      },
+    },
   ],
   defaultVariants: {
     active: false,
@@ -134,6 +147,7 @@ export const MenuItemTv = tv({
     selected: false,
     hasPrefix: false,
     hasSuffix: false,
+    variant: "default",
   },
 })
 

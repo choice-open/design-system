@@ -7,20 +7,20 @@ import { useMemoizedFn, useUpdate } from "ahooks"
  */
 type Options<T> = {
   /**
-   * 受控模式下的值。提供此参数会使组件进入受控模式。
-   * 在受控模式下，组件状态完全由此值控制。
+   * 是否允许使用空值。当设置为 true 时，
+   * 即使所有值源都是 undefined，也不会显示警告。
    */
-  value?: T
-  /**
-   * 非受控模式下的初始值。仅在组件首次渲染时使用。
-   * 只有在未提供 value 时才会使用此值。
-   */
-  defaultValue?: T
+  allowEmpty?: boolean
   /**
    * 内部状态的默认值，当 value 和 defaultValue 都未提供时使用。
    * 可以是一个值或返回值的函数（惰性初始化）。
    */
   defaultStateValue?: T | (() => T)
+  /**
+   * 非受控模式下的初始值。仅在组件首次渲染时使用。
+   * 只有在未提供 value 时才会使用此值。
+   */
+  defaultValue?: T
   /**
    * 值变化时的回调函数。
    * 在受控模式下，此回调应更新 value。
@@ -31,10 +31,10 @@ type Options<T> = {
    */
   onUnchange?: () => void
   /**
-   * 是否允许使用空值。当设置为 true 时，
-   * 即使所有值源都是 undefined，也不会显示警告。
+   * 受控模式下的值。提供此参数会使组件进入受控模式。
+   * 在受控模式下，组件状态完全由此值控制。
    */
-  allowEmpty?: boolean
+  value?: T
 }
 
 /**
@@ -62,12 +62,11 @@ function getInitialValue<T>(options: Options<T>): T {
     return (defaultStateValue as () => T)()
   }
 
-  if (isUndefined(defaultStateValue) && !allowEmpty) {
-    // 提供更明确的错误信息
-    console.warn(
-      "useMergedValue: No value source provided. Either value, defaultValue, or defaultStateValue must be provided.",
-    )
-  }
+  // if (isUndefined(defaultStateValue) && !allowEmpty) {
+  //   console.warn(
+  //     "useMergedValue: No value source provided. Either value, defaultValue, or defaultStateValue must be provided.",
+  //   )
+  // }
 
   return defaultStateValue as T
 }

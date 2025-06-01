@@ -1,5 +1,5 @@
+import { isFunction } from "es-toolkit"
 import * as React from "react"
-import { isFunction } from "./assertion"
 
 export type ReactRef<T> = React.RefObject<T> | React.MutableRefObject<T> | React.Ref<T>
 

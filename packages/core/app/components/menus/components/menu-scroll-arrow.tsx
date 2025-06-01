@@ -2,6 +2,7 @@ import { ChevronDownSmall, ChevronUpSmall } from "@choiceform/icons-react"
 import { useLayoutEffect, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 import { MenuScrollArrowTv } from "../tv"
+import { tcx } from "~/utils/tcx"
 
 const SCROLL_ARROW_PADDING = 16
 
@@ -24,6 +25,7 @@ const shouldShowArrow = (
 }
 
 interface MenuScrollArrowProps {
+  className?: string
   dir: "up" | "down"
   innerOffset: number
   isPositioned: boolean
@@ -34,7 +36,8 @@ interface MenuScrollArrowProps {
 }
 
 export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowProps) {
-  const { isPositioned, dir, scrollRef, scrollTop, onScroll, innerOffset, onHide } = props
+  const { isPositioned, dir, scrollRef, scrollTop, onScroll, innerOffset, onHide, className } =
+    props
 
   const [show, setShow] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -108,7 +111,7 @@ export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowPr
 
   return (
     <div
-      className={styles}
+      className={tcx(styles, className)}
       data-dir={dir}
       ref={ref}
       aria-hidden

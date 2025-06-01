@@ -2,11 +2,7 @@ import { Children, ComponentType, ReactElement, ReactNode } from "react"
 
 import { isValidElement } from "react"
 
-export const __DEV__ = import.meta.env?.MODE === "development"
-export const __PROD__ = import.meta.env?.MODE === "production"
-export const __TEST__ = import.meta.env?.MODE === "test"
-
-export function assert(condition: any, message?: string): asserts condition {
+export function assert(condition: unknown, message?: string): asserts condition {
   if (!condition) {
     throw new Error(message)
   }
@@ -68,6 +64,7 @@ export const isMultiElement = (children: ReactNode): boolean => {
 
 export const findChildByType = (
   children: ReactNode,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentType: ComponentType<any>,
 ): ReactElement | null => {
   let result: ReactElement | null = null

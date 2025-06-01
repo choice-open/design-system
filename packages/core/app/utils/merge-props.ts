@@ -1,7 +1,7 @@
-import { isFunction } from "./assertion"
+import { isFunction } from "es-toolkit"
 
 interface Props {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 type PropsArg = Props | null | undefined
@@ -10,16 +10,18 @@ type PropsArg = Props | null | undefined
 type TupleTypes<T> = { [P in keyof T]: T[P] } extends { [key: number]: infer V }
   ? NullToObject<V>
   : never
-type NullToObject<T> = T extends null | undefined ? {} : T
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
+type NullToObject<T> = T extends null | undefined ? object : T
+type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (
+  k: infer I,
+) => void
   ? I
   : never
 
 /**
  * Chains multiple event handlers together
  */
-function chain(...callbacks: (Function | undefined)[]): Function {
-  return (...args: any[]) => {
+function chain(...callbacks: ((...args: unknown[]) => unknown)[]): (...args: unknown[]) => unknown {
+  return (...args: unknown[]) => {
     for (const callback of callbacks) {
       if (typeof callback === "function") {
         callback(...args)
@@ -51,15 +53,15 @@ function mergeIds(a: string, b: string): string {
  */
 export function mergeProps<T extends PropsArg[]>(...args: T): UnionToIntersection<TupleTypes<T>> {
   // Start with a base clone of the first argument
-  let result: Props = { ...args[0] }
+  const result: Props = { ...args[0] }
 
   for (let i = 1; i < args.length; i++) {
-    let props = args[i]
+    const props = args[i]
     if (!props) continue
 
-    for (let key in props) {
-      let a = result[key]
-      let b = props[key]
+    for (const key in props) {
+      const a = result[key]
+      const b = props[key]
 
       // Chain events (onX functions where X is uppercase)
       if (
@@ -80,7 +82,7 @@ export function mergeProps<T extends PropsArg[]>(...args: T): UnionToIntersectio
         result[key] = mergeClassNames(a, b)
         // Merge ids
       } else if (key === "id" && a && b) {
-        result.id = mergeIds(a, b)
+        result.id = mergeIds(a as string, b as string)
         // Override others
       } else {
         result[key] = b !== undefined ? b : a
