@@ -176,9 +176,24 @@ export function useDateInput(props: UseDateInputProps) {
       setValue((prev) => {
         let baseDate = prev
 
-        // 如果没有当前值，使用今天作为基准
+        // 如果没有当前值，智能选择基准日期
         if (!baseDate || !isValid(baseDate)) {
-          baseDate = new Date()
+          if (minDate && maxDate) {
+            // 如果有最小和最大日期限制，使用中间值作为基准
+            const minTime = minDate.getTime()
+            const maxTime = maxDate.getTime()
+            const midTime = Math.floor((minTime + maxTime) / 2)
+            baseDate = new Date(midTime)
+          } else if (minDate) {
+            // 只有最小日期限制，使用最小日期作为基准
+            baseDate = minDate
+          } else if (maxDate) {
+            // 只有最大日期限制，使用最大日期往前1天作为基准（给拖拽留空间）
+            baseDate = addDays(maxDate, -1)
+          } else {
+            // 没有日期限制，使用今天
+            baseDate = new Date()
+          }
         }
 
         // 如果提供了更新函数，应用它
@@ -197,7 +212,7 @@ export function useDateInput(props: UseDateInputProps) {
         return newDate
       })
     },
-    [disabled, readOnly, setValue, isDateInRange],
+    [disabled, readOnly, setValue, isDateInRange, minDate, maxDate],
   )
 
   // 🚀 优化：使用 useEventCallback 的解析函数
@@ -409,10 +424,37 @@ export function useDateInput(props: UseDateInputProps) {
       } else if (inputValue.trim()) {
         // 尝试解析当前输入
         const parsed = parseWithOptimization(inputValue.trim())
-        baseDate = parsed && isValid(parsed) ? parsed : new Date()
+        if (parsed && isValid(parsed)) {
+          baseDate = parsed
+        } else {
+          // 解析失败时使用智能基准日期选择
+          if (minDate && maxDate) {
+            const minTime = minDate.getTime()
+            const maxTime = maxDate.getTime()
+            const midTime = Math.floor((minTime + maxTime) / 2)
+            baseDate = new Date(midTime)
+          } else if (minDate) {
+            baseDate = minDate
+          } else if (maxDate) {
+            baseDate = addDays(maxDate, -1)
+          } else {
+            baseDate = new Date()
+          }
+        }
       } else {
-        // 使用今天作为默认基准
-        baseDate = new Date()
+        // 没有输入时使用智能基准日期选择
+        if (minDate && maxDate) {
+          const minTime = minDate.getTime()
+          const maxTime = maxDate.getTime()
+          const midTime = Math.floor((minTime + maxTime) / 2)
+          baseDate = new Date(midTime)
+        } else if (minDate) {
+          baseDate = minDate
+        } else if (maxDate) {
+          baseDate = addDays(maxDate, -1)
+        } else {
+          baseDate = new Date()
+        }
       }
 
       // 🔄 计算增量和新日期

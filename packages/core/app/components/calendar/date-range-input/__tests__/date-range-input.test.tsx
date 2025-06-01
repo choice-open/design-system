@@ -87,8 +87,8 @@ describe("DateRangeInput 逻辑测试", () => {
         />,
       )
 
-      // 相同日期：0天
-      expect(screen.getByText("0 days")).toBeInTheDocument()
+      // 相同日期：显示为1天（单数形式）
+      expect(screen.getByText("1 day")).toBeInTheDocument()
     })
 
     it("应该正确计算较大日期范围", () => {

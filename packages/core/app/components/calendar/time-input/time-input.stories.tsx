@@ -301,10 +301,27 @@ export const Combined: Story = {
         setValue(newDate)
         setOpen(false)
       } else if (activeInput === "range-start") {
-        setStartTime(newDate as Date | null)
+        if (newDate) {
+          const currentRange =
+            startTime && endTime ? endTime.getTime() - startTime.getTime() : 1 * 60 * 60 * 1000
+          const newEnd = new Date(newDate.getTime() + currentRange)
+          setStartTime(newDate)
+          setEndTime(newEnd)
+          console.log("🔥 Calendar start推动:", {
+            newStart: newDate.toTimeString(),
+            newEnd: newEnd.toTimeString(),
+            rangeHours: currentRange / (60 * 60 * 1000),
+          })
+        } else {
+          setStartTime(newDate)
+        }
         setOpen(false)
       } else if (activeInput === "range-end") {
-        setEndTime(newDate as Date | null)
+        if (newDate && startTime && newDate <= startTime) {
+          setStartTime(newDate)
+          console.log("🔥 Calendar end推动start:", newDate.toTimeString())
+        }
+        setEndTime(newDate)
         setOpen(false)
       }
     })
@@ -357,8 +374,36 @@ export const Combined: Story = {
               format={format}
               startValue={startTime}
               endValue={endTime}
-              onStartChange={setStartTime}
-              onEndChange={setEndTime}
+              onStartChange={(newStart) => {
+                console.log("🔥 Start onChange:", newStart)
+                if (newStart) {
+                  // 计算当前range长度（毫秒），fallback为1小时
+                  const currentRange =
+                    startTime && endTime
+                      ? endTime.getTime() - startTime.getTime()
+                      : 1 * 60 * 60 * 1000
+                  // 保持range长度
+                  const newEnd = new Date(newStart.getTime() + currentRange)
+                  setStartTime(newStart)
+                  setEndTime(newEnd)
+                  console.log("🔥 Start推动:", {
+                    newStart: newStart.toTimeString(),
+                    newEnd: newEnd.toTimeString(),
+                    rangeHours: currentRange / (60 * 60 * 1000),
+                  })
+                } else {
+                  setStartTime(newStart)
+                }
+              }}
+              onEndChange={(newEnd) => {
+                console.log("🔥 End onChange:", newEnd)
+                if (newEnd && startTime && newEnd <= startTime) {
+                  // end <= start 时推动start
+                  setStartTime(newEnd)
+                  console.log("🔥 End推动start:", newEnd.toTimeString())
+                }
+                setEndTime(newEnd)
+              }}
               onStartFocus={() => {
                 setActiveInput("range-start")
                 setOpen(true)
@@ -367,6 +412,7 @@ export const Combined: Story = {
                 setActiveInput("range-end")
                 setOpen(true)
               }}
+              onEnterKeyDown={() => setOpen(false)}
             />
           </Panel.Row>
         </Panel>

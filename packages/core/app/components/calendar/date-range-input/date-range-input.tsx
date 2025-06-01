@@ -1,5 +1,5 @@
 import { ArrowRight } from "@choiceform/icons-react"
-import { formatDistanceStrict, Locale } from "date-fns"
+import { formatDistanceStrict, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { useMemo } from "react"
 import { DateInput } from "../date-input"
@@ -7,15 +7,27 @@ import type { DateFormat } from "../types"
 import { resolveLocale } from "../utils"
 
 interface DateRangeInputProps {
+  endDisabled?: boolean
   endPlaceholder?: string
   endValue?: Date | null
   format?: DateFormat
   locale?: Locale | string
+  maxDate?: Date
+  minDate?: Date
   onEndChange?: (date: Date | null) => void
   onEndFocus?: () => void
   onEnterKeyDown?: () => void
   onStartChange?: (date: Date | null) => void
   onStartFocus?: () => void
+  /**
+   * 范围长度显示精度，控制范围计算的最小单位
+   * @default 1 - 最小单位为1天
+   * @example 0.5 - 最小单位为0.5天（半天）
+   * @example 0.1 - 最小单位为0.1天（2.4小时）
+   * @example 0.25 - 最小单位为0.25天（6小时）
+   */
+  rangePrecision?: number
+  startDisabled?: boolean
   startPlaceholder?: string
   startValue?: Date | null
 }
@@ -33,16 +45,30 @@ export const DateRangeInput = (props: DateRangeInputProps) => {
     onStartFocus,
     onEndFocus,
     onEnterKeyDown,
+    startDisabled,
+    endDisabled,
+    maxDate,
+    minDate,
   } = props
 
   // 🔧 使用公用的 locale 解析
   const locale = resolveLocale(propLocale)
 
   const rangeLength = useMemo(() => {
-    if (!startValue || !endValue) return 0
+    if (!startValue || !endValue) return ""
 
-    // 使用 date-fns 的 formatDistanceStrict 进行多语言格式化
-    // 支持所有 date-fns locale 的天数显示
+    // 特殊处理：相同日期显示为1天
+    if (startValue.getTime() === endValue.getTime()) {
+      // 创建1天的差距让formatDistanceStrict处理
+      const oneDayLater = new Date(startValue.getTime() + 24 * 60 * 60 * 1000)
+      return formatDistanceStrict(startValue, oneDayLater, {
+        locale,
+        unit: "day",
+        addSuffix: false,
+      })
+    }
+
+    // 其他情况使用 formatDistanceStrict
     return formatDistanceStrict(startValue, endValue, {
       locale,
       unit: "day",
@@ -61,7 +87,8 @@ export const DateRangeInput = (props: DateRangeInputProps) => {
         value={startValue}
         onChange={onStartChange}
         onEnterKeyDown={onEnterKeyDown}
-        maxDate={endValue || undefined}
+        disabled={startDisabled}
+        minDate={minDate}
       />
 
       <DateInput
@@ -73,10 +100,14 @@ export const DateRangeInput = (props: DateRangeInputProps) => {
         value={endValue}
         onChange={onEndChange}
         onEnterKeyDown={onEnterKeyDown}
-        minDate={startValue || undefined}
         prefixElement={<ArrowRight />}
+        disabled={endDisabled}
+        maxDate={maxDate}
       />
-      <span className="text-secondary-foreground col-span-3 col-start-5 row-start-2 truncate select-none">
+      <span
+        className="text-secondary-foreground col-span-3 col-start-5 row-start-2 truncate select-none"
+        data-testid="range-length"
+      >
         {rangeLength}
       </span>
     </>

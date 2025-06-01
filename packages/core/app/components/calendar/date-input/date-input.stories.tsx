@@ -1,4 +1,4 @@
-import { FieldTypeDateAndTime } from "@choiceform/icons-react"
+import { FieldTypeDateAndTime, ArrowRight } from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { addDays, isToday } from "date-fns"
 import { de, enUS, fr, zhCN } from "date-fns/locale"
@@ -975,10 +975,32 @@ export const Combined: Story = {
         setDate(newDate)
         setDateOpen(false)
       } else if (activeInput === "range-start") {
-        setStart(newDate as Date | null)
+        // 🔥 日历选择start时也要推动end
+        const startDate = newDate as Date | null
+        if (startDate) {
+          // 计算当前range长度（毫秒），fallback为1天（与初始状态一致）
+          const currentRange =
+            start && end ? end.getTime() - start.getTime() : 1 * 24 * 60 * 60 * 1000
+          const newEnd = new Date(startDate.getTime() + currentRange)
+          setStart(startDate)
+          setEnd(newEnd)
+          console.log("🔥 Calendar start推动:", {
+            newStart: startDate.toISOString(),
+            newEnd: newEnd.toISOString(),
+            rangeDays: currentRange / (24 * 60 * 60 * 1000),
+          })
+        } else {
+          setStart(startDate)
+        }
         setDateOpen(false)
       } else if (activeInput === "range-end") {
-        setEnd(newDate as Date | null)
+        // 🔥 日历选择end时也要检查推动
+        const endDate = newDate as Date | null
+        if (endDate && start && endDate <= start) {
+          setStart(endDate)
+          console.log("🔥 Calendar end推动start:", endDate.toISOString())
+        }
+        setEnd(endDate)
         setDateOpen(false)
       }
     }
@@ -998,6 +1020,26 @@ export const Combined: Story = {
       <>
         <Panel className="w-80 rounded-lg border">
           <Panel.Title title="Select Date" />
+          <Panel.Row>
+            <Select
+              value={localeKey}
+              onChange={setLocaleKey}
+            >
+              <Select.Trigger className="[grid-area:input]">
+                <Select.Value>{localeDisplayNames[localeKey] || localeKey}</Select.Value>
+              </Select.Trigger>
+              <Select.Content>
+                {Object.keys(LOCALE_MAP).map((localeKey) => (
+                  <Select.Item
+                    key={localeKey}
+                    value={localeKey}
+                  >
+                    {localeDisplayNames[localeKey] || localeKey}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select>
+          </Panel.Row>
           <Panel.Row>
             <Select
               value={localeKey}
@@ -1050,8 +1092,34 @@ export const Combined: Story = {
               locale={localeKey}
               startValue={start}
               endValue={end}
-              onStartChange={setStart}
-              onEndChange={setEnd}
+              onStartChange={(newStart) => {
+                console.log("🔥 Start onChange:", newStart)
+                if (newStart) {
+                  // 计算当前range长度（毫秒），fallback为1天（与初始状态一致）
+                  const currentRange =
+                    start && end ? end.getTime() - start.getTime() : 1 * 24 * 60 * 60 * 1000
+                  // 保持range长度
+                  const newEnd = new Date(newStart.getTime() + currentRange)
+                  setStart(newStart)
+                  setEnd(newEnd)
+                  console.log("🔥 Start推动:", {
+                    newStart: newStart.toISOString(),
+                    newEnd: newEnd.toISOString(),
+                    rangeDays: currentRange / (24 * 60 * 60 * 1000),
+                  })
+                } else {
+                  setStart(newStart)
+                }
+              }}
+              onEndChange={(newEnd) => {
+                console.log("🔥 End onChange:", newEnd)
+                if (newEnd && start && newEnd <= start) {
+                  // end <= start 时推动start
+                  setStart(newEnd)
+                  console.log("🔥 End推动start:", newEnd.toISOString())
+                }
+                setEnd(newEnd)
+              }}
               onStartFocus={() => {
                 setActiveInput("range-start")
                 setDateOpen(true)
@@ -1063,6 +1131,8 @@ export const Combined: Story = {
               onEnterKeyDown={() => {
                 setDateOpen(false)
               }}
+              startPlaceholder="Start Date"
+              endPlaceholder="End Date"
             />
           </Panel.Row>
         </Panel>
@@ -1087,8 +1157,6 @@ export const Combined: Story = {
               value={currentValue}
               onChange={handleValueChange}
               selectionMode="single"
-              minDate={activeInput === "range-end" ? start || undefined : undefined}
-              maxDate={activeInput === "range-start" ? end || undefined : undefined}
             />
           </Popover.Content>
         </Popover>

@@ -1,21 +1,26 @@
 import { ArrowRight } from "@choiceform/icons-react"
-import { Locale, differenceInMinutes, format, isBefore } from "date-fns"
+import { Locale, differenceInMinutes, format } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { useMemo } from "react"
 import { TimeInput } from "../time-input"
 import type { TimeFormat } from "../types"
 import { resolveLocale } from "../utils"
+import { TextFieldProps } from "~/components/text-field"
 
-interface TimeRangeInputProps {
+interface TimeRangeInputProps extends TextFieldProps {
+  endDisabled?: boolean
   endPlaceholder?: string
   endValue?: Date | null
   format?: TimeFormat
   locale?: Locale | string
+  maxTime?: Date
+  minTime?: Date
   onEndChange?: (time: Date | null) => void
   onEndFocus?: () => void
   onEnterKeyDown?: () => void
   onStartChange?: (time: Date | null) => void
   onStartFocus?: () => void
+  startDisabled?: boolean
   startPlaceholder?: string
   startValue?: Date | null
 }
@@ -100,19 +105,14 @@ export const TimeRangeInput = (props: TimeRangeInputProps) => {
     onStartFocus,
     onEndFocus,
     onEnterKeyDown,
+    startDisabled,
+    endDisabled,
+    maxTime,
+    minTime,
   } = props
 
   // 🔧 使用公用的 locale 解析
   const locale = resolveLocale(propLocale)
-
-  // 检测是否为跨日时间范围
-  const isCrossMidnight = useMemo(() => {
-    if (!startValue || !endValue) return false
-
-    // 使用 date-fns 的 isBefore 来比较时间
-    // 如果结束时间在开始时间之前（同一天），则认为是跨日
-    return isBefore(endValue, startValue)
-  }, [startValue, endValue])
 
   const rangeDuration = useMemo(() => {
     if (!startValue || !endValue) return ""
@@ -143,7 +143,8 @@ export const TimeRangeInput = (props: TimeRangeInputProps) => {
         value={startValue}
         onChange={onStartChange}
         onEnterKeyDown={onEnterKeyDown}
-        maxTime={isCrossMidnight ? undefined : endValue || undefined}
+        disabled={startDisabled}
+        minTime={minTime}
       />
 
       <TimeInput
@@ -155,8 +156,9 @@ export const TimeRangeInput = (props: TimeRangeInputProps) => {
         value={endValue}
         onChange={onEndChange}
         onEnterKeyDown={onEnterKeyDown}
-        minTime={isCrossMidnight ? undefined : startValue || undefined}
         prefixElement={<ArrowRight />}
+        disabled={endDisabled}
+        maxTime={maxTime}
       />
       <span className="text-secondary-foreground col-span-3 col-start-5 row-start-2 truncate select-none">
         {rangeDuration}

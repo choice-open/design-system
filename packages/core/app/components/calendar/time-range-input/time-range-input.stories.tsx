@@ -37,6 +37,86 @@ const TimeRangeDemo = (args: React.ComponentProps<typeof TimeRangeInput>) => {
   )
 }
 
+// 范围同步演示组件
+const RangeSyncDemo = () => {
+  const [startValue, setStartValue] = useState<Date | null>(timeStringToDate("09:00"))
+  const [endValue, setEndValue] = useState<Date | null>(timeStringToDate("17:00"))
+
+  const handleStartChange = (newStart: Date | null) => {
+    console.log("🔥 Start onChange:", newStart)
+    if (newStart) {
+      // 计算当前range长度（毫秒），fallback为8小时
+      const currentRange =
+        startValue && endValue ? endValue.getTime() - startValue.getTime() : 8 * 60 * 60 * 1000
+      // 保持range长度
+      const newEnd = new Date(newStart.getTime() + currentRange)
+      setStartValue(newStart)
+      setEndValue(newEnd)
+      console.log("🔥 Start推动:", {
+        newStart: newStart.toTimeString(),
+        newEnd: newEnd.toTimeString(),
+        rangeHours: currentRange / (60 * 60 * 1000),
+      })
+    } else {
+      setStartValue(newStart)
+    }
+  }
+
+  const handleEndChange = (newEnd: Date | null) => {
+    console.log("🔥 End onChange:", newEnd)
+    if (newEnd && startValue && newEnd <= startValue) {
+      // end <= start 时推动start
+      setStartValue(newEnd)
+      console.log("🔥 End推动start:", newEnd.toTimeString())
+    }
+    setEndValue(newEnd)
+  }
+
+  return (
+    <div className="space-y-6">
+      <Panel className="w-96">
+        <Panel.Row type="two-input-two-icon">
+          <TimeRangeInput
+            startValue={startValue}
+            endValue={endValue}
+            onStartChange={handleStartChange}
+            onEndChange={handleEndChange}
+            startPlaceholder="开始时间"
+            endPlaceholder="结束时间"
+            format="HH:mm"
+          />
+        </Panel.Row>
+      </Panel>
+
+      <div className="space-y-4 text-sm">
+        <div className="font-medium">🎯 时间范围同步逻辑</div>
+        <div className="space-y-2 text-gray-600">
+          <div>
+            • <strong>开始时间变化</strong>：自动调整结束时间，保持原有范围长度
+          </div>
+          <div>
+            • <strong>结束时间变化</strong>：如果 结束 ≤ 开始，则推动开始时间到结束位置
+          </div>
+          <div>
+            • <strong>动态范围</strong>
+            ：先调整结束时间设置想要的范围长度，然后开始时间的任何变化都会保持这个长度
+          </div>
+        </div>
+
+        <div className="rounded-lg bg-blue-50 p-4">
+          <div className="font-medium text-blue-800">🧪 测试步骤</div>
+          <div className="mt-2 space-y-1 text-blue-700">
+            <div>1. 调整结束时间到比如 19:00 → 范围变成10小时</div>
+            <div>2. 修改开始时间到 10:00 → 结束时间自动调整到 20:00 保持10小时距离</div>
+            <div>3. 设置结束时间早于开始时间（如 08:00）→ 开始时间被推到 08:00</div>
+            <div>4. 支持跨日范围：开始时间 22:00，结束时间次日 06:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // 基础用法
 export const Default: Story = {
   args: {
@@ -45,6 +125,11 @@ export const Default: Story = {
     format: "HH:mm",
   },
   render: (args) => <TimeRangeDemo {...args} />,
+}
+
+// 时间范围同步
+export const RangeSynchronization: Story = {
+  render: () => <RangeSyncDemo />,
 }
 
 // 预设时间范围
