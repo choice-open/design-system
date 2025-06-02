@@ -395,7 +395,7 @@ const withCustomDecorator: Decorator = (StoryFn, context) => {
 }
 
 const preview: Preview = {
-  decorators: [withCustomDecorator, (Story) => <Story />],
+  // decorators: [withCustomDecorator, (Story) => <Story />],
   parameters: {
     layout: "fullscreen",
     controls: {

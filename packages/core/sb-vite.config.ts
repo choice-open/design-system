@@ -13,10 +13,6 @@ export default defineConfig(({ mode }) => {
         name: "fix-storybook-modules",
         enforce: "pre",
         resolveId(id) {
-          // 处理 addons 模块
-          if (id.includes("@storybook/addons")) {
-            return "\0virtual:@storybook/addons"
-          }
           return null
         },
         load(id) {
@@ -114,9 +110,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
-      alias: {
-        "@storybook/addons": "@storybook/manager-api",
-      },
+      alias: {},
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
     },
     optimizeDeps: {
