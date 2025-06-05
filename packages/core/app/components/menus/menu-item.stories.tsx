@@ -212,7 +212,7 @@ export const WithShortcutStory: Story = {
             active={activeIndex === index}
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
-            shortcut={option.shortcut as { modifier: KbdKey; keys: ReactNode }}
+            shortcut={option.shortcut as { keys: ReactNode; modifier: KbdKey }}
           >
             <span className="flex-1 truncate">{option.label}</span>
           </Menus.Item>
@@ -416,6 +416,32 @@ export const WithBadgeStory: Story = {
             <span className="flex-1 truncate">{option.label}</span>
           </Menus.Item>
         ))}
+      </Menus>
+    )
+  },
+}
+
+export const Variant: Story = {
+  render: function VariantStory() {
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    return (
+      <Menus>
+        <Menus.Item
+          variant="highlight"
+          active={activeIndex === 0}
+          onMouseEnter={() => setActiveIndex(0)}
+          onMouseLeave={() => setActiveIndex(null)}
+        >
+          Highlight
+        </Menus.Item>
+        <Menus.Item
+          variant="danger"
+          active={activeIndex === 1}
+          onMouseEnter={() => setActiveIndex(1)}
+          onMouseLeave={() => setActiveIndex(null)}
+        >
+          Danger
+        </Menus.Item>
       </Menus>
     )
   },

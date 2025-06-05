@@ -136,8 +136,7 @@ export const MenuItemTv = tv({
     {
       disabled: false,
       variant: "highlight",
-      selected: true,
-      active: false,
+      active: true,
       class: {
         root: "bg-white/10",
       },
@@ -145,8 +144,7 @@ export const MenuItemTv = tv({
     {
       disabled: false,
       variant: "danger",
-      selected: true,
-      active: false,
+      active: true,
       class: {
         root: "bg-danger-background text-on-accent-foreground",
       },

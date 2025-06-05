@@ -192,6 +192,22 @@ export const LongerValue: Story = {
   },
 }
 
+export const Variant: Story = {
+  render: function VariantStory() {
+    return (
+      <Dropdown>
+        <Dropdown.Trigger>
+          <Dropdown.Value>Variant</Dropdown.Value>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item variant="highlight">Highlight</Dropdown.Item>
+          <Dropdown.Item variant="danger">Danger</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    )
+  },
+}
+
 /**
  * TriggerAsChild: Demonstrates using a custom component as the trigger.
  *

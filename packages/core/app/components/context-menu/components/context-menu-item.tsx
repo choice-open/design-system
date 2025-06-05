@@ -19,7 +19,7 @@ export interface ContextMenuItemProps {
     modifier?: KbdKey | KbdKey[] | undefined
   }
   suffixElement?: ReactNode
-  variant?: "default" | "highlight" | "danger" | "reste"
+  variant?: "default" | "highlight" | "danger" | "reset"
 }
 
 export const ContextMenuItem = forwardRef<HTMLDivElement, ContextMenuItemProps>(
