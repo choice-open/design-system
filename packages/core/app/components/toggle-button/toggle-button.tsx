@@ -5,17 +5,17 @@ import { tcx } from "~/utils"
 
 interface ToggleButtonProps
   extends Omit<HTMLProps<HTMLInputElement>, "value" | "onChange" | "size"> {
-  className?: string
-  children?: React.ReactNode
-  value: boolean
-  variant?: "default" | "secondary" | "highlight"
-  size?: "default" | "large"
-  disabled?: boolean
   active?: boolean
+  children?: React.ReactNode
+  className?: string
+  disabled?: boolean
+  event?: "click" | "mousedown"
   focused?: boolean
   onChange?: (value: boolean) => void
+  size?: "default" | "large"
   tooltip?: TooltipProps
-  event?: "click" | "mousedown"
+  value: boolean
+  variant?: "default" | "secondary" | "highlight" | "reset"
 }
 
 export const ToggleButton = forwardRef<HTMLInputElement, ToggleButtonProps>(

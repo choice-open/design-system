@@ -16,6 +16,7 @@ export const toggleButtonTv = tv({
       default: {},
       secondary: {},
       highlight: {},
+      reset: {},
     },
     size: {
       default: { root: "h-6 w-6" },
