@@ -114,7 +114,7 @@ export const MenuItemTv = tv({
       default: {},
       highlight: {},
       danger: {},
-      reste: {},
+      reset: {},
     },
   },
   compoundVariants: [
