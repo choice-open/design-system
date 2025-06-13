@@ -3,6 +3,7 @@ import { TextField, TextFieldProps } from "~/components/text-field"
 import { tcx } from "~/utils"
 
 interface ModalInputProps extends TextFieldProps {
+  autoFocus?: boolean
   className?: string
   description?: string
   label?: string
@@ -15,6 +16,7 @@ interface ModalInputProps extends TextFieldProps {
 export const ModalInput = memo(
   forwardRef<HTMLInputElement, ModalInputProps>((props, ref) => {
     const {
+      autoFocus,
       className,
       label,
       placeholder,
@@ -28,6 +30,7 @@ export const ModalInput = memo(
     return (
       <TextField
         ref={ref}
+        autoFocus={autoFocus}
         placeholder={placeholder}
         size={size}
         value={value}

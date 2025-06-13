@@ -4,6 +4,7 @@ import { MultiLineTextInput, MultiLineTextInputProps } from "~/components/multi-
 interface ModalMultiLineInputProps extends MultiLineTextInputProps {
   description?: string
   label?: string
+  maxRows?: number
   minRows?: number
   onChange?: (value: string) => void
   placeholder?: string
@@ -13,7 +14,7 @@ interface ModalMultiLineInputProps extends MultiLineTextInputProps {
 export const ModalMultiLineInput = memo(function ModalMultiLineInput(
   props: ModalMultiLineInputProps,
 ) {
-  const { label, placeholder, minRows = 10, description, value, onChange, ...rest } = props
+  const { label, placeholder, minRows = 10, maxRows, description, value, onChange, ...rest } = props
   const id = useId()
   const inputRef = useRef<HTMLDivElement>(null)
 
@@ -32,6 +33,9 @@ export const ModalMultiLineInput = memo(function ModalMultiLineInput(
         ref={inputRef}
         placeholder={placeholder}
         minRows={minRows}
+        maxRows={maxRows}
+        value={value}
+        onChange={onChange}
         {...rest}
       />
       {description && <p className="text-secondary-foreground">{description}</p>}
