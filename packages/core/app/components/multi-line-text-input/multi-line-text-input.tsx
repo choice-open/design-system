@@ -75,12 +75,17 @@ export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputP
 
         setInternalValue(slateValue)
 
-        // 手动更新 Slate 编辑器内容
+        // 使用 Slate 的 Transforms API 正确更新编辑器内容
         isUpdatingFromProps.current = true
         Editor.withoutNormalizing(editor, () => {
-          // 使用更高效的方式：直接替换 children 而不是删除后插入
-          Transforms.removeNodes(editor, { at: [] })
-          Transforms.insertNodes(editor, slateValue, { at: [0] })
+          // 直接使用 insertText 替换整个编辑器内容
+          // at 选项会自动删除指定范围的内容并插入新文本
+          Transforms.insertText(editor, value || "", {
+            at: {
+              anchor: Editor.start(editor, []),
+              focus: Editor.end(editor, []),
+            },
+          })
         })
         isUpdatingFromProps.current = false
 

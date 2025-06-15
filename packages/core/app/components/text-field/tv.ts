@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants"
 
 export const TextFieldTv = tv({
   slots: {
-    container: ["flex flex-col items-start gap-1"],
+    container: ["flex min-w-0 flex-col items-start gap-1"],
     root: [
       "group/text-field relative grid",
       "rounded-md",
