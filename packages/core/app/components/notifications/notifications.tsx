@@ -1,11 +1,8 @@
+import { useMemo } from "react"
 import { toast as sonnerToast, ToasterProps } from "sonner"
 import { NotificationsTv } from "./tv"
 
 interface NotificationsProps extends ToasterProps {
-  className?: string
-  id: string | number
-  icon: React.ReactNode
-  text: string
   actions?: (id: string | number) => {
     action?: {
       content: React.ReactNode
@@ -16,12 +13,22 @@ interface NotificationsProps extends ToasterProps {
       onClick: () => void
     }
   }
+  className?: string
+  icon: React.ReactNode
+  id: string | number
+  text: string
 }
 
 const Toast = (props: NotificationsProps) => {
   const { className, icon, text, actions, id } = props
 
   const styles = NotificationsTv({ actions: !!actions })
+
+  // 🔧 缓存 actions 结果，避免重复调用
+  const actionButtons = useMemo(() => {
+    if (!actions) return null
+    return actions(id)
+  }, [actions, id])
 
   return (
     <div className={styles.root({ className })}>
@@ -30,25 +37,27 @@ const Toast = (props: NotificationsProps) => {
         <div className={styles.text()}>{text}</div>
       </div>
 
-      {actions && (
+      {actionButtons && (
         <div className={styles.actions()}>
-          <button
-            className={styles.button()}
-            onClick={() => {
-              actions(id).action?.onClick()
-            }}
-          >
-            {actions(id).action?.content}
-          </button>
-
-          {actions(id).dismiss && (
+          {actionButtons.action && (
             <button
               className={styles.button()}
               onClick={() => {
-                actions(id).dismiss?.onClick()
+                actionButtons.action?.onClick()
               }}
             >
-              {actions(id).dismiss?.content}
+              {actionButtons.action.content}
+            </button>
+          )}
+
+          {actionButtons.dismiss && (
+            <button
+              className={styles.button()}
+              onClick={() => {
+                actionButtons.dismiss?.onClick()
+              }}
+            >
+              {actionButtons.dismiss.content}
             </button>
           )}
         </div>
@@ -61,6 +70,7 @@ export function notifications(toast: Omit<NotificationsProps, "id">) {
   return sonnerToast.custom((id) => (
     <Toast
       id={id}
+      className={toast.className}
       icon={toast.icon}
       text={toast.text}
       actions={toast.actions}

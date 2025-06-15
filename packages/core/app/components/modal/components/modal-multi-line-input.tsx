@@ -1,20 +1,15 @@
 import { memo, useId, useRef } from "react"
 import { MultiLineTextInput, MultiLineTextInputProps } from "~/components/multi-line-text-input"
 
-interface ModalMultiLineInputProps extends MultiLineTextInputProps {
+interface ModalMultiLineInputProps extends Omit<MultiLineTextInputProps, "children"> {
   description?: string
   label?: string
-  maxRows?: number
-  minRows?: number
-  onChange?: (value: string) => void
-  placeholder?: string
-  value?: string
 }
 
 export const ModalMultiLineInput = memo(function ModalMultiLineInput(
   props: ModalMultiLineInputProps,
 ) {
-  const { label, placeholder, minRows = 10, maxRows, description, value, onChange, ...rest } = props
+  const { label, description, ...rest } = props
   const id = useId()
   const inputRef = useRef<HTMLDivElement>(null)
 
@@ -31,11 +26,6 @@ export const ModalMultiLineInput = memo(function ModalMultiLineInput(
       )}
       <MultiLineTextInput
         ref={inputRef}
-        placeholder={placeholder}
-        minRows={minRows}
-        maxRows={maxRows}
-        value={value}
-        onChange={onChange}
         {...rest}
       />
       {description && <p className="text-secondary-foreground">{description}</p>}

@@ -1,6 +1,6 @@
 import { LayoutWallpaper } from "@choiceform/icons-react"
 import type { StoryObj } from "@storybook/react"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { toast as sonnerToast, Toaster } from "sonner"
 import { tcx } from "../../utils"
 import { Button } from "../button"
@@ -17,12 +17,12 @@ export default meta
 type Story = StoryObj<
   typeof meta & {
     args: {
-      icon: React.ReactNode
-      text: string
       actions: (id: string | number) => {
         action?: { label: string; onClick: () => void }
         dismiss?: { label: string; onClick: () => void }
       }
+      icon: React.ReactNode
+      text: string
     }
   }
 >
@@ -161,6 +161,118 @@ export const Basic: Story = {
         >
           With progress
         </Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * UseEffect: Demonstrates using bells within useEffect, similar to real-world scenarios.
+ * - Simulates triggering bells based on component state or external conditions
+ * - Tests action callbacks and state management within effects
+ * - Shows proper cleanup and state synchronization
+ * - Useful for testing the scenario where bells are triggered programmatically
+ */
+export const UseEffect: Story = {
+  render: function UseEffectStory() {
+    const [isVisible, setIsVisible] = useState(false)
+    const [showNotification, setShowNotification] = useState(false)
+    const [notificationId, setNotificationId] = useState<string | number | null>(null)
+    const [actionCount, setActionCount] = useState(0)
+
+    // 模拟检测某种条件的 effect
+    useEffect(() => {
+      if (!isVisible) return
+
+      const interval = setInterval(() => {
+        // 模拟检测到需要显示通知的条件
+        if (!showNotification) {
+          const bellId = bells({
+            variant: "accent",
+            icon: <LayoutWallpaper />,
+            text: "Content is not in the viewport, click the button to return to the content area",
+            action: (id) => (
+              <Chip
+                size="medium"
+                className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
+                onClick={() => {
+                  // 测试闭包中的状态更新
+                  setActionCount((prev) => prev + 1)
+                  setIsVisible(false)
+                  sonnerToast.dismiss(id)
+                }}
+              >
+                Back to content ({actionCount})
+              </Chip>
+            ),
+            duration: Infinity,
+            onClose: (id) => {
+              setShowNotification(false)
+              setNotificationId(null)
+            },
+          })
+
+          setNotificationId(bellId)
+          setShowNotification(true)
+        }
+      }, 2000)
+
+      return () => clearInterval(interval)
+    }, [isVisible, showNotification, actionCount])
+
+    // 清理 effect
+    useEffect(() => {
+      return () => {
+        if (notificationId) {
+          sonnerToast.dismiss(notificationId)
+        }
+      }
+    }, [notificationId])
+
+    return (
+      <div className="flex flex-col gap-4">
+        <Toaster position="bottom-center" />
+
+        <div className="flex gap-2">
+          <Button
+            variant={isVisible ? "primary" : "secondary"}
+            onClick={() => {
+              setIsVisible(!isVisible)
+              if (isVisible && notificationId) {
+                sonnerToast.dismiss(notificationId)
+                setShowNotification(false)
+              }
+            }}
+          >
+            {isVisible ? "Stop detecting" : "Start detecting"}
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setActionCount(0)
+              setShowNotification(false)
+              if (notificationId) {
+                sonnerToast.dismiss(notificationId)
+              }
+            }}
+          >
+            Reset
+          </Button>
+        </div>
+
+        <div className="text-secondary-foreground text-sm">
+          <p>Status: {isVisible ? "Detecting" : "Not detecting"}</p>
+          <p>Notification: {showNotification ? "Yes" : "No"}</p>
+          <p>Action count: {actionCount}</p>
+          <p className="mt-2">
+            Click &quot;Start detecting&quot; to automatically display a notification within 2
+            seconds.
+            <br />
+            Click the &quot;Back to content&quot; button in the notification to test state updates
+            and closure issues.
+          </p>
+        </div>
       </div>
     )
   },

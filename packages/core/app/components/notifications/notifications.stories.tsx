@@ -1,6 +1,6 @@
 import { LayoutWallpaper } from "@choiceform/icons-react"
 import type { StoryObj } from "@storybook/react"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { toast as sonnerToast, Toaster } from "sonner"
 import { Button } from "../button"
 import { Dialog } from "../dialog"
@@ -16,12 +16,12 @@ export default meta
 type Story = StoryObj<
   typeof meta & {
     args: {
-      icon: React.ReactNode
-      text: string
       actions: {
         action: { label: string; onClick: () => void }
         dismiss: { label: string; onClick: () => void }
       }
+      icon: React.ReactNode
+      text: string
     }
   }
 >
@@ -149,6 +149,115 @@ export const Basic: Story = {
         >
           Notification with actions and dismiss
         </Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * UseEffect: Demonstrates using notifications within useEffect for programmatic triggers.
+ * - Tests notifications triggered by component state changes
+ * - Shows proper action handling and state management in effects
+ * - Validates cleanup and state synchronization
+ * - Useful for testing real-world scenarios where notifications are triggered programmatically
+ */
+export const UseEffect: Story = {
+  render: function UseEffectStory() {
+    const [isMonitoring, setIsMonitoring] = useState(false)
+    const [hasNotification, setHasNotification] = useState(false)
+    const [notificationId, setNotificationId] = useState<string | number | null>(null)
+    const [actionCount, setActionCount] = useState(0)
+
+    // 模拟监控条件的 effect
+    useEffect(() => {
+      if (!isMonitoring) return
+
+      const timer = setTimeout(() => {
+        if (!hasNotification) {
+          const id = notifications({
+            icon: <LayoutWallpaper />,
+            text: "System detected an issue. Please take action or dismiss this notification.",
+            actions: (toastId) => ({
+              action: {
+                content: `Fix Issue (${actionCount})`,
+                onClick: () => {
+                  setActionCount((prev) => prev + 1)
+                  setIsMonitoring(false)
+                  setHasNotification(false)
+                  sonnerToast.dismiss(toastId)
+                },
+              },
+              dismiss: {
+                content: "Ignore",
+                onClick: () => {
+                  setHasNotification(false)
+                  sonnerToast.dismiss(toastId)
+                },
+              },
+            }),
+          })
+
+          setNotificationId(id)
+          setHasNotification(true)
+        }
+      }, 1500)
+
+      return () => clearTimeout(timer)
+    }, [isMonitoring, hasNotification, actionCount])
+
+    // 清理 effect
+    useEffect(() => {
+      return () => {
+        if (notificationId) {
+          sonnerToast.dismiss(notificationId)
+        }
+      }
+    }, [notificationId])
+
+    return (
+      <div className="flex flex-col gap-4">
+        <Toaster position="bottom-right" />
+
+        <div className="flex gap-2">
+          <Button
+            variant={isMonitoring ? "primary" : "secondary"}
+            onClick={() => {
+              setIsMonitoring(!isMonitoring)
+              if (isMonitoring && notificationId) {
+                sonnerToast.dismiss(notificationId)
+                setHasNotification(false)
+              }
+            }}
+          >
+            {isMonitoring ? "Stop Monitoring" : "Start Monitoring"}
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setActionCount(0)
+              setHasNotification(false)
+              if (notificationId) {
+                sonnerToast.dismiss(notificationId)
+              }
+            }}
+          >
+            Reset State
+          </Button>
+        </div>
+
+        <div className="text-secondary-foreground text-sm">
+          <p>Monitoring: {isMonitoring ? "Active" : "Inactive"}</p>
+          <p>Notification: {hasNotification ? "Visible" : "Hidden"}</p>
+          <p>Action count: {actionCount}</p>
+          <p className="mt-2">
+            Click &quot;Start Monitoring&quot; to automatically trigger a notification after 1.5
+            seconds.
+            <br />
+            Click the &quot;Fix Issue&quot; button in the notification to test state updates and
+            closure handling.
+          </p>
+        </div>
       </div>
     )
   },

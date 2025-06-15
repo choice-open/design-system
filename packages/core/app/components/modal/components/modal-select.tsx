@@ -2,8 +2,8 @@ import { memo, useId } from "react"
 import { Select, SelectProps } from "~/components/select"
 
 interface ModalSelectProps extends Omit<SelectProps, "label"> {
-  label?: string
   description?: string
+  label?: string
 }
 
 export const ModalSelect = memo(function ModalSelect(props: ModalSelectProps) {

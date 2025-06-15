@@ -8,26 +8,26 @@ import { IconButton } from "../icon-button"
 import { BellsTv } from "./tv"
 
 export interface BellsProps extends ToasterProps {
+  action?: (id: string | number) => React.ReactNode
   className?: string
   classNames?: {
-    root?: string
+    button?: string
+    close?: string
     content?: string
     icon?: string
-    text?: string
-    close?: string
-    button?: string
     progress?: string
+    root?: string
+    text?: string
   }
-  id: string | number
   icon?: React.ReactNode
-  text: string
-  progress?: boolean
-  variant?: "default" | "accent" | "success" | "warning" | "danger" | "assistive" | "reset"
-  action?: (id: string | number) => React.ReactNode
+  id: string | number
   onClose?: (id: string | number) => void
+  progress?: boolean
+  text: string
+  variant?: "default" | "accent" | "success" | "warning" | "danger" | "assistive" | "reset"
 }
 
-const CloseButton = memo(({ onClick, className }: { onClick: () => void; className: string }) => (
+const CloseButton = memo(({ onClick, className }: { className: string; onClick: () => void }) => (
   <IconButton
     variant="reset"
     className={className}
@@ -85,18 +85,15 @@ const BellBase = (props: BellsProps) => {
   const scheduleAutoClose = useCallback(
     (delay: number) => {
       cancelAutoClose()
-      if (delay > 0) {
+      if (delay > 0 && duration !== Infinity) {
         autoCloseTimerRef.current = window.setTimeout(closeNotification, delay)
-      } else {
-        // 如果延迟已经为零或负数，立即关闭
-        closeNotification()
       }
     },
-    [cancelAutoClose, closeNotification],
+    [cancelAutoClose, closeNotification, duration],
   )
 
   const handleMouseEnter = useEventCallback(() => {
-    if (!progress) return
+    if (!progress || duration === Infinity) return
 
     setIsPaused(true)
     pauseTimeRef.current = Date.now()
@@ -105,7 +102,7 @@ const BellBase = (props: BellsProps) => {
   })
 
   const handleMouseLeave = useEventCallback(() => {
-    if (!progress || !isPaused) return
+    if (!progress || !isPaused || duration === Infinity) return
 
     setIsPaused(false)
     const pauseDuration = Date.now() - pauseTimeRef.current
@@ -126,23 +123,33 @@ const BellBase = (props: BellsProps) => {
     scheduleAutoClose(remainingTime)
   })
 
+  // 缓存 action 结果，避免每次渲染都重新创建
+  const actionElement = useCallback(() => {
+    if (!action) return null
+    return action(id)
+  }, [action, id])
+
   useEffect(() => {
+    if (duration === Infinity) return
+
     startTimeRef.current = Date.now()
     totalPausedTimeRef.current = 0
 
-    // 启动动画
-    controls.start({
-      x: "0%",
-      transition: {
-        duration: duration / 1000,
-        ease: "linear",
-      },
-    })
+    // 启动动画（仅当 duration 不是 Infinity 时）
+    if (progress) {
+      controls.start({
+        x: "0%",
+        transition: {
+          duration: duration / 1000,
+          ease: "linear",
+        },
+      })
+    }
 
     scheduleAutoClose(duration)
 
     return cancelAutoClose
-  }, [controls, duration, scheduleAutoClose, cancelAutoClose])
+  }, [controls, duration, scheduleAutoClose, cancelAutoClose, progress])
 
   return (
     <div
@@ -150,7 +157,7 @@ const BellBase = (props: BellsProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {progress && (
+      {progress && duration !== Infinity && (
         <motion.div
           initial={{ x: "-100%" }}
           animate={controls}
@@ -162,7 +169,7 @@ const BellBase = (props: BellsProps) => {
 
         <div className={tcx(styles.text(), classNames?.text)}>{text}</div>
 
-        {action && action(id)}
+        {actionElement()}
       </div>
 
       {onClose && (
@@ -180,17 +187,23 @@ const BellBase = (props: BellsProps) => {
 export const Bell = memo(BellBase)
 
 export function bells(bell: Omit<BellsProps, "id">) {
-  return sonnerToast.custom((id) => (
-    <Bell
-      id={id}
-      className={bell.className}
-      icon={bell.icon}
-      text={bell.text}
-      action={bell.action}
-      onClose={bell.onClose}
-      progress={bell.progress}
-      duration={bell.duration}
-      variant={bell.variant}
-    />
-  ))
+  return sonnerToast.custom(
+    (id) => (
+      <Bell
+        id={id}
+        className={bell.className}
+        classNames={bell.classNames}
+        icon={bell.icon}
+        text={bell.text}
+        action={bell.action}
+        onClose={bell.onClose}
+        progress={bell.progress}
+        duration={bell.duration}
+        variant={bell.variant}
+      />
+    ),
+    {
+      duration: bell.duration === Infinity ? Infinity : undefined,
+    },
+  )
 }

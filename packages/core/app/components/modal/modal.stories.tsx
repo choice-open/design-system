@@ -162,12 +162,14 @@ export const ModalContent: Story = {
         <Modal.Header title="Modal" />
         <Modal.Content className="flex w-md flex-col gap-4 p-4">
           <Modal.Input
+            size="large"
             label="Name"
             placeholder="Please enter your name"
             description="This is a description"
             value={input}
             onChange={setInput}
           />
+
           <Modal.MultiLineInput
             label="Multi-line input"
             placeholder="Please enter your multi-line input"
@@ -175,6 +177,7 @@ export const ModalContent: Story = {
             value={multiLineInput}
             onChange={setMultiLineInput}
           />
+
           <Modal.Select
             label="Select"
             value={select}
