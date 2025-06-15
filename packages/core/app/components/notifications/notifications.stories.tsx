@@ -106,6 +106,17 @@ export const Basic: Story = {
           variant="secondary"
           onClick={() => {
             notifications({
+              html: "Lorem ipsum dolor sit amet, <strong class='text-red-500'>consectetur adipiscing elit</strong>. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            })
+          }}
+        >
+          HTML Notification
+        </Button>
+
+        <Button
+          variant="secondary"
+          onClick={() => {
+            notifications({
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               actions: (id) => ({
@@ -148,6 +159,33 @@ export const Basic: Story = {
           }}
         >
           Notification with actions and dismiss
+        </Button>
+
+        <Button
+          variant="secondary"
+          onClick={() => {
+            notifications({
+              icon: "🎉",
+              html: "Duplicated project <b>Original Project</b> to <b>New Project Copy</b>",
+              actions: (id) => ({
+                action: {
+                  content: "View Project",
+                  onClick: () => {
+                    setOpen(true)
+                    sonnerToast.dismiss(id)
+                  },
+                },
+                dismiss: {
+                  content: "Dismiss",
+                  onClick: () => {
+                    sonnerToast.dismiss(id)
+                  },
+                },
+              }),
+            })
+          }}
+        >
+          Notification with HTML content
         </Button>
       </div>
     )

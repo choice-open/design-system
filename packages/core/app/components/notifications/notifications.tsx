@@ -14,15 +14,16 @@ interface NotificationsProps extends ToasterProps {
     }
   }
   className?: string
-  icon: React.ReactNode
+  html?: string
+  icon?: React.ReactNode
   id: string | number
-  text: string
+  text?: string
 }
 
 const Toast = (props: NotificationsProps) => {
-  const { className, icon, text, actions, id } = props
+  const { className, icon, text, html, actions, id } = props
 
-  const styles = NotificationsTv({ actions: !!actions })
+  const styles = NotificationsTv({ actions: !!actions, icon: !!icon })
 
   // 🔧 缓存 actions 结果，避免重复调用
   const actionButtons = useMemo(() => {
@@ -30,11 +31,18 @@ const Toast = (props: NotificationsProps) => {
     return actions(id)
   }, [actions, id])
 
+  // 验证至少有 text 或 html 其中一个
+  if (!text && !html) {
+    console.warn("Notifications: Either 'text' or 'html' prop is required")
+  }
+
   return (
     <div className={styles.root({ className })}>
       <div className={styles.content()}>
-        <div className={styles.icon()}>{icon}</div>
-        <div className={styles.text()}>{text}</div>
+        {icon && <div className={styles.icon()}>{icon}</div>}
+        <div className={styles.text()}>
+          {html ? <span dangerouslySetInnerHTML={{ __html: html }} /> : text}
+        </div>
       </div>
 
       {actionButtons && (
@@ -70,10 +78,7 @@ export function notifications(toast: Omit<NotificationsProps, "id">) {
   return sonnerToast.custom((id) => (
     <Toast
       id={id}
-      className={toast.className}
-      icon={toast.icon}
-      text={toast.text}
-      actions={toast.actions}
+      {...toast}
     />
   ))
 }

@@ -19,11 +19,12 @@ export interface BellsProps extends ToasterProps {
     root?: string
     text?: string
   }
+  html?: string
   icon?: React.ReactNode
   id: string | number
   onClose?: (id: string | number) => void
   progress?: boolean
-  text: string
+  text?: string
   variant?: "default" | "accent" | "success" | "warning" | "danger" | "assistive" | "reset"
 }
 
@@ -45,6 +46,7 @@ const BellBase = (props: BellsProps) => {
     classNames,
     icon,
     text,
+    html,
     action,
     id,
     onClose,
@@ -61,6 +63,11 @@ const BellBase = (props: BellsProps) => {
   const totalPausedTimeRef = useRef<number>(0)
 
   const styles = BellsTv({ action: !!action, close: !!onClose, variant })
+
+  // 验证至少有 text 或 html 其中一个
+  if (!text && !html) {
+    console.warn("Bells: Either 'text' or 'html' prop is required")
+  }
 
   // 取消当前的自动关闭计时器
   const cancelAutoClose = useCallback(() => {
@@ -167,7 +174,9 @@ const BellBase = (props: BellsProps) => {
       <div className={tcx(styles.content(), classNames?.content)}>
         {icon && <div className={tcx(styles.icon(), classNames?.icon)}>{icon}</div>}
 
-        <div className={tcx(styles.text(), classNames?.text)}>{text}</div>
+        <div className={tcx(styles.text(), classNames?.text)}>
+          {html ? <span dangerouslySetInnerHTML={{ __html: html }} /> : text}
+        </div>
 
         {actionElement()}
       </div>
@@ -195,6 +204,7 @@ export function bells(bell: Omit<BellsProps, "id">) {
         classNames={bell.classNames}
         icon={bell.icon}
         text={bell.text}
+        html={bell.html}
         action={bell.action}
         onClose={bell.onClose}
         progress={bell.progress}

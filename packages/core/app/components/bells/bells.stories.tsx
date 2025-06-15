@@ -78,6 +78,17 @@ export const Basic: Story = {
           variant="secondary"
           onClick={() => {
             bells({
+              html: "Successfully <b class='text-red-500'>duplicated</b> project to <em class='text-blue-500'>My New Project</em>! 🎉",
+              icon: <LayoutWallpaper />,
+            })
+          }}
+        >
+          Bell with HTML
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            bells({
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             })
@@ -190,7 +201,7 @@ export const UseEffect: Story = {
           const bellId = bells({
             variant: "accent",
             icon: <LayoutWallpaper />,
-            text: "Content is not in the viewport, click the button to return to the content area",
+            html: "Detect content out of viewport, click button back to content",
             action: (id) => (
               <Chip
                 size="medium"
