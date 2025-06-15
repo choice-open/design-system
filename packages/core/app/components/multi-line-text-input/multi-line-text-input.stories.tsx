@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useState } from "react"
 import { MultiLineTextInput } from "./multi-line-text-input"
+import { Button } from "../button"
+import { Popover } from "../popover"
 
 const meta: Meta<typeof MultiLineTextInput> = {
   title: "Forms/MultiLineTextInput",
@@ -230,6 +232,82 @@ export const Controlled: Story = {
           onChange={(value) => setValue(value)}
         />
         <div className="text-secondary-foreground text-sm">Value: {value}</div>
+      </div>
+    )
+  },
+}
+
+/**
+ * InPopover: Demonstrates the MultiLineTextInput component inside a Popover.
+ *
+ * This story tests the fix for the issue where props.value wouldn't display correctly
+ * in Slate.js when the component is mounted inside a popover. The component should
+ * now properly show the initial value when the popover opens.
+ *
+ * Features:
+ * - Tests value synchronization when mounted in popover
+ * - Demonstrates controlled input behavior in overlay contexts
+ * - Shows proper Slate.js editor content management
+ */
+export const InPopover: Story = {
+  render: function InPopoverStory() {
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState(
+      "This is a test text\nIn popover should be able to display initial value",
+    )
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-2 self-start">
+          <Button
+            onClick={() => setValue("This is a test text\nModified content\nTest dynamic update")}
+          >
+            Update text
+          </Button>
+          <Button onClick={() => setValue("")}>Clear text</Button>
+        </div>
+
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
+        >
+          <Popover.Trigger>
+            <Button
+              active={open}
+              className="self-start"
+            >
+              {open ? "Close" : "Open"} Popover
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content className="w-80 p-4">
+            <div className="flex flex-col gap-3">
+              <div className="text-sm font-medium">Multi-line text input</div>
+              <MultiLineTextInput
+                value={value}
+                onChange={setValue}
+                placeholder="Please enter text..."
+                minRows={3}
+                maxRows={6}
+                className="w-full"
+              />
+              <div className="text-secondary-foreground">
+                Current value: {value ? `"${value}"` : "Empty"}
+              </div>
+            </div>
+          </Popover.Content>
+        </Popover>
+
+        <div className="text-secondary-foreground">
+          <div>Test scenarios:</div>
+          <ul className="list-disc pl-4 text-xs">
+            <li>Initial value should be displayed correctly when popover is opened</li>
+            <li>
+              New value should be displayed when the value is modified outside the popover and the
+              popover is reopened
+            </li>
+            <li>Editing text in the popover should work normally</li>
+          </ul>
+        </div>
       </div>
     )
   },

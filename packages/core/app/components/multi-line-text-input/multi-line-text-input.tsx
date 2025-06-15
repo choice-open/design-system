@@ -1,10 +1,9 @@
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
-import { createEditor, Descendant, Node, Transforms, Editor } from "slate"
-import { Slate, Editable, withReact, RenderElementProps, RenderLeafProps } from "slate-react"
-import { TextareaTv } from "./tv"
-import { Scroll } from "../scroll/scroll"
+import { createEditor, Descendant, Editor, Node, Transforms } from "slate"
+import { Editable, RenderElementProps, RenderLeafProps, Slate, withReact } from "slate-react"
 import { tcx } from "~/utils/tcx"
-import { mergeRefs } from "~/utils"
+import { Scroll } from "../scroll/scroll"
+import { TextareaTv } from "./tv"
 
 export interface MultiLineTextInputProps {
   className?: string
@@ -55,24 +54,48 @@ export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputP
     ref,
   ) => {
     const editor = useMemo(() => withReact(createEditor()), [])
-    const [internalValue, setInternalValue] = useState<Descendant[]>(() =>
-      stringToSlateValue(value),
-    )
+
+    // 缓存 Slate 值的计算，避免不必要的重新计算
+    const slateValue = useMemo(() => stringToSlateValue(value), [value])
+
+    const [internalValue, setInternalValue] = useState<Descendant[]>(() => slateValue)
     const prevValueRef = useRef(value)
     const hasSelectedOnFocus = useRef(false)
+    const isUpdatingFromProps = useRef(false)
 
     // 外部 value 变化时同步到编辑器
     useEffect(() => {
       if (value !== prevValueRef.current) {
-        const slateVal = stringToSlateValue(value)
-        setInternalValue(slateVal)
+        // 检查编辑器当前内容是否已经匹配，避免不必要的更新
+        const currentContent = slateValueToString(editor.children)
+        if (currentContent === value) {
+          prevValueRef.current = value
+          return
+        }
+
+        setInternalValue(slateValue)
+
+        // 手动更新 Slate 编辑器内容
+        isUpdatingFromProps.current = true
+        Editor.withoutNormalizing(editor, () => {
+          // 使用更高效的方式：直接替换 children 而不是删除后插入
+          Transforms.removeNodes(editor, { at: [] })
+          Transforms.insertNodes(editor, slateValue, { at: [0] })
+        })
+        isUpdatingFromProps.current = false
+
         prevValueRef.current = value
         hasSelectedOnFocus.current = false // value 变化时允许再次全选
       }
-    }, [value])
+    }, [value, editor, slateValue])
 
     // 编辑器内容变化时，触发 onChange
     const handleChange = (val: Descendant[]) => {
+      // 避免在从 props 更新时触发 onChange，防止循环
+      if (isUpdatingFromProps.current) {
+        return
+      }
+
       setInternalValue(val)
       const str = slateValueToString(val)
       if (str !== value) {
