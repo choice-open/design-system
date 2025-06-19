@@ -44,7 +44,6 @@
     "prestorybook": "pnpm run test:generate-output"
   },
   "dependencies": {
-    "@choiceform/icons-react": "^1.0.3",
     "@date-fns/tz": "^1.2.0",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
@@ -79,6 +78,7 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
+    "@choiceform/icons-react": "^1.1.0",
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
