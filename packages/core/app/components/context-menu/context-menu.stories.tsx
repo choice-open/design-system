@@ -1,123 +1,55 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { useState } from "react"
-import { ContextMenu } from "."
-import React from "react"
+import React, { useState } from "react"
+import { Dropdown } from "../dropdown"
+import { ContextMenu } from "./context-menu"
 
 const meta: Meta<typeof ContextMenu> = {
   title: "Collections/ContextMenu",
   component: ContextMenu,
+  tags: ["upgrade"],
 }
 
 export default meta
+
 type Story = StoryObj<typeof ContextMenu>
 
 /**
- * The ContextMenu component is a right-click menu component based on Radix UI's Context Menu.
- * It provides a styled context menu that can be triggered by right-clicking on an element.
+ * Basic: The simplest usage of ContextMenu.
  *
  * Features:
- * - Multiple menu items, labels, and dividers for organization
- * - Support for nested submenus
- * - Selection mode with visual indicators for selected items
- * - Keyboard shortcut display
- * - Disabled state support
- * - Fully keyboard accessible
+ * - Right-click triggered context menu
+ * - Virtual positioning at mouse cursor location
+ * - Keyboard navigation support
+ * - Automatic dismissal on click outside
  *
- * Usage Guidelines:
- * - Always include both Trigger and Content components
- * - Use Content to wrap all menu items
- * - For nested menus, use Submenu.Trigger and Submenu.Content
- * - Group related items with labels and dividers
- *
- * Accessibility:
- * - Fully keyboard navigable
- * - Screen reader announcements for menu states
- * - ARIA attributes for semantic structure
- */
-
-/**
- * Basic: Demonstrates a simple context menu with items, keyboard shortcuts, and a submenu.
- * Shows the foundational usage pattern with trigger and content elements.
+ * Implementation notes:
+ * - Uses @floating-ui/react for positioning and interactions
+ * - Fully reuses Dropdown sub-components (Content, Item, etc.)
+ * - Supports all standard menu features like dividers and variants
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [selectedItem, setSelectedItem] = useState("none")
-
     return (
-      <div className="flex flex-col gap-4">
-        <div className="mb-4">
-          <span>Right-click on the area below to show the context menu</span>
-          <div className="mt-2">Selected Item: {selectedItem}</div>
-        </div>
-
+      <div className="flex h-64 items-center justify-center">
         <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="flex h-64 w-96 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-              Right-click me
+          <ContextMenu.Target>
+            <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8">
+              Right click me to open context menu
             </div>
-          </ContextMenu.Trigger>
-
+          </ContextMenu.Target>
           <ContextMenu.Content>
-            <ContextMenu.Item
-              onClick={() => setSelectedItem("Cut")}
-              shortcut={{
-                modifier: "command",
-                keys: "X",
-              }}
-            >
-              <ContextMenu.Value>Cut</ContextMenu.Value>
-            </ContextMenu.Item>
-
-            <ContextMenu.Item
-              onClick={() => setSelectedItem("Copy")}
-              shortcut={{
-                modifier: "command",
-                keys: "C",
-              }}
-            >
+            <ContextMenu.Item>
               <ContextMenu.Value>Copy</ContextMenu.Value>
             </ContextMenu.Item>
-
-            <ContextMenu.Item
-              onClick={() => setSelectedItem("Paste")}
-              shortcut={{
-                modifier: "command",
-                keys: "V",
-              }}
-            >
+            <ContextMenu.Item>
+              <ContextMenu.Value>Cut</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
               <ContextMenu.Value>Paste</ContextMenu.Value>
             </ContextMenu.Item>
-
             <ContextMenu.Divider />
-
-            <ContextMenu.Submenu>
-              <ContextMenu.Submenu.Trigger>
-                <ContextMenu.Value>Sort Options</ContextMenu.Value>
-              </ContextMenu.Submenu.Trigger>
-              <ContextMenu.Submenu.Content>
-                <ContextMenu.Item onClick={() => setSelectedItem("Sort by Name")}>
-                  <ContextMenu.Value>Sort by Name</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Item onClick={() => setSelectedItem("Sort by Date")}>
-                  <ContextMenu.Value>Sort by Date</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Item onClick={() => setSelectedItem("Sort by Size")}>
-                  <ContextMenu.Value>Sort by Size</ContextMenu.Value>
-                </ContextMenu.Item>
-              </ContextMenu.Submenu.Content>
-            </ContextMenu.Submenu>
-
-            <ContextMenu.Divider />
-
-            <ContextMenu.Item
-              disabled
-              onClick={() => setSelectedItem("Delete")}
-              shortcut={{
-                modifier: "command",
-                keys: "⌫",
-              }}
-            >
-              <ContextMenu.Value>Delete (Disabled)</ContextMenu.Value>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Delete</ContextMenu.Value>
             </ContextMenu.Item>
           </ContextMenu.Content>
         </ContextMenu>
@@ -127,43 +59,44 @@ export const Basic: Story = {
 }
 
 /**
- * WithSelection: Demonstrates the selection mode feature.
- * When selection={true} is set, the selected prop on items will display a checkmark.
- * Useful for multi-select menus or indicating the currently active option.
+ * WithSelection: Demonstrates selection functionality with visual indicators.
+ *
+ * Features:
+ * - Visual selection indicator (check mark)
+ * - Controlled selection state
+ * - Selection persists between menu opens
+ * - Automatic menu closure on selection
+ *
+ * Usage:
+ * - Set `selection={true}` on the ContextMenu
+ * - Use `selected` prop on items to indicate selection state
+ * - Handle selection via `onMouseUp` callback
  */
 export const WithSelection: Story = {
   render: function WithSelectionStory() {
+    const [selected, setSelected] = useState<string | null>("option1")
+
     const options = [
-      { id: "1", label: "Option 1" },
-      { id: "2", label: "Option 2" },
-      { id: "3", label: "Option 3" },
+      { id: "option1", label: "Option 1" },
+      { id: "option2", label: "Option 2" },
+      { id: "option3", label: "Option 3" },
     ]
 
-    const [selectedOption, setSelectedOption] = useState(options[0].id)
-
     return (
-      <div className="flex flex-col gap-4">
-        <div className="mb-4">
-          <span>Right-click on the area below to show the context menu with selection</span>
-          <div className="mt-2">
-            Selected Option: {options.find((o) => o.id === selectedOption)?.label}
-          </div>
-        </div>
-
+      <div className="flex h-64 items-center justify-center">
         <ContextMenu selection={true}>
-          <ContextMenu.Trigger>
-            <div className="flex h-64 w-96 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-              Right-click to select an option
+          <ContextMenu.Target>
+            <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8">
+              Right click me for selection menu
             </div>
-          </ContextMenu.Trigger>
-
+          </ContextMenu.Target>
           <ContextMenu.Content>
-            <ContextMenu.Label>Options</ContextMenu.Label>
+            <ContextMenu.Label>Select an option</ContextMenu.Label>
             {options.map((option) => (
               <ContextMenu.Item
                 key={option.id}
-                selected={option.id === selectedOption}
-                onClick={() => setSelectedOption(option.id)}
+                selected={selected === option.id}
+                onMouseUp={() => setSelected(option.id)}
               >
                 <ContextMenu.Value>{option.label}</ContextMenu.Value>
               </ContextMenu.Item>
@@ -176,135 +109,120 @@ export const WithSelection: Story = {
 }
 
 /**
- * SelectionWithSubmenus: Demonstrates selection mode with nested submenus.
- * Shows how to organize complex menu hierarchies while maintaining selection state.
- * Each submenu has its own content wrapper to maintain proper structure.
+ * SharedMenuContent: Demonstrates how to share menu content between Dropdown and ContextMenu.
+ *
+ * This is the key business value of ContextMenu - complete component reuse.
+ *
+ * Features:
+ * - Same menu content works in both Dropdown and ContextMenu
+ * - Uses Dropdown components (Content, Item, etc.) for compatibility
+ * - Reduces code duplication and ensures consistency
+ * - Demonstrates the "write once, use everywhere" approach
+ *
+ * Technical implementation:
+ * - ContextMenu internally reuses all Dropdown sub-components
+ * - Content is defined as JSX variable (not function component) for better compatibility
+ * - Both components share the same interaction patterns
  */
-export const SelectionWithSubmenus: Story = {
-  render: function SelectionWithSubmenusStory() {
-    const categories = [
-      { id: "files", label: "Files" },
-      { id: "edit", label: "Edit" },
-      { id: "view", label: "View" },
-    ]
-
-    const fileOptions = [
-      { id: "new", label: "New File" },
-      { id: "open", label: "Open File" },
-      { id: "save", label: "Save" },
-    ]
-
-    const editOptions = [
-      { id: "cut", label: "Cut" },
-      { id: "copy", label: "Copy" },
-      { id: "paste", label: "Paste" },
-    ]
-
-    const viewOptions = [
-      { id: "explorer", label: "Explorer" },
-      { id: "search", label: "Search" },
-      { id: "debug", label: "Debug" },
-    ]
-
-    const [selectedCategory, setSelectedCategory] = useState("files")
-    const [selectedFileOption, setSelectedFileOption] = useState("new")
-    const [selectedEditOption, setSelectedEditOption] = useState("copy")
-    const [selectedViewOption, setSelectedViewOption] = useState("explorer")
+export const SharedMenuContent: Story = {
+  render: function SharedMenuContentStory() {
+    // Shared menu content - uses Dropdown components for compatibility
+    const sharedMenuContent = (
+      <Dropdown.Content>
+        <Dropdown.Item>
+          <Dropdown.Value>New File</Dropdown.Value>
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Dropdown.Value>New Folder</Dropdown.Value>
+        </Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item>
+          <Dropdown.Value>Import</Dropdown.Value>
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Dropdown.Value>Export</Dropdown.Value>
+        </Dropdown.Item>
+      </Dropdown.Content>
+    )
 
     return (
-      <div className="flex flex-col gap-4">
-        <div className="mb-4">
-          <span>Right-click on the area below to show nested menus with selection</span>
-          <div className="mt-2">
-            <div>Selected Category: {categories.find((c) => c.id === selectedCategory)?.label}</div>
-            <div>
-              Selected File Option: {fileOptions.find((o) => o.id === selectedFileOption)?.label}
-            </div>
-            <div>
-              Selected Edit Option: {editOptions.find((o) => o.id === selectedEditOption)?.label}
-            </div>
-            <div>
-              Selected View Option: {viewOptions.find((o) => o.id === selectedViewOption)?.label}
-            </div>
-          </div>
+      <div className="flex h-64 flex-col gap-8">
+        {/* Dropdown using shared menu content */}
+        <div>
+          <p className="mb-2">Dropdown with shared menu content</p>
+
+          <Dropdown>
+            <Dropdown.Trigger>
+              <Dropdown.Value>Click for Dropdown Menu</Dropdown.Value>
+            </Dropdown.Trigger>
+            {sharedMenuContent}
+          </Dropdown>
         </div>
 
-        <ContextMenu selection={true}>
-          <ContextMenu.Trigger>
-            <div className="flex h-64 w-96 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-              Right-click to see nested menus with selection
+        {/* ContextMenu using the same content */}
+        <div>
+          <p className="mb-2">Context menu with same content</p>
+          <ContextMenu>
+            <ContextMenu.Target>
+              <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8">
+                Right click me for context menu (same content)
+              </div>
+            </ContextMenu.Target>
+            {sharedMenuContent}
+          </ContextMenu>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * WithDividers: Shows complex menu structure with dividers and labels.
+ *
+ * Features:
+ * - Section labels for grouping
+ * - Visual dividers for separation
+ * - Different item variants (danger, highlight)
+ * - Hierarchical menu organization
+ *
+ * Use cases:
+ * - File manager context menus
+ * - Complex application menus
+ * - Settings and configuration menus
+ */
+export const WithDividers: Story = {
+  render: function WithDividersStory() {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <ContextMenu>
+          <ContextMenu.Target>
+            <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8 text-center">
+              Right click for complex menu
             </div>
-          </ContextMenu.Trigger>
-
+          </ContextMenu.Target>
           <ContextMenu.Content>
-            <ContextMenu.Label>Categories</ContextMenu.Label>
-            {categories.map((category) => (
-              <ContextMenu.Item
-                key={category.id}
-                selected={category.id === selectedCategory}
-                onClick={() => setSelectedCategory(category.id)}
-              >
-                <ContextMenu.Value>{category.label}</ContextMenu.Value>
-              </ContextMenu.Item>
-            ))}
-
+            <ContextMenu.Label>File Operations</ContextMenu.Label>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Open</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Open in New Tab</ContextMenu.Value>
+            </ContextMenu.Item>
             <ContextMenu.Divider />
-
-            <ContextMenu.Label>Submenus</ContextMenu.Label>
-
-            <ContextMenu.Submenu>
-              <ContextMenu.Submenu.Trigger>
-                <ContextMenu.Value>Files</ContextMenu.Value>
-              </ContextMenu.Submenu.Trigger>
-              <ContextMenu.Submenu.Content>
-                <ContextMenu.Label>File Actions</ContextMenu.Label>
-                {fileOptions.map((option) => (
-                  <ContextMenu.Item
-                    key={option.id}
-                    selected={option.id === selectedFileOption}
-                    onClick={() => setSelectedFileOption(option.id)}
-                  >
-                    <ContextMenu.Value>{option.label}</ContextMenu.Value>
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Submenu.Content>
-            </ContextMenu.Submenu>
-
-            <ContextMenu.Submenu>
-              <ContextMenu.Submenu.Trigger>
-                <ContextMenu.Value>Edit</ContextMenu.Value>
-              </ContextMenu.Submenu.Trigger>
-              <ContextMenu.Submenu.Content>
-                <ContextMenu.Label>Edit Actions</ContextMenu.Label>
-                {editOptions.map((option) => (
-                  <ContextMenu.Item
-                    key={option.id}
-                    selected={option.id === selectedEditOption}
-                    onClick={() => setSelectedEditOption(option.id)}
-                  >
-                    <ContextMenu.Value>{option.label}</ContextMenu.Value>
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Submenu.Content>
-            </ContextMenu.Submenu>
-
-            <ContextMenu.Submenu>
-              <ContextMenu.Submenu.Trigger>
-                <ContextMenu.Value>View</ContextMenu.Value>
-              </ContextMenu.Submenu.Trigger>
-              <ContextMenu.Submenu.Content>
-                <ContextMenu.Label>View Options</ContextMenu.Label>
-                {viewOptions.map((option) => (
-                  <ContextMenu.Item
-                    key={option.id}
-                    selected={option.id === selectedViewOption}
-                    onClick={() => setSelectedViewOption(option.id)}
-                  >
-                    <ContextMenu.Value>{option.label}</ContextMenu.Value>
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Submenu.Content>
-            </ContextMenu.Submenu>
+            <ContextMenu.Label>Edit Operations</ContextMenu.Label>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Cut</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Copy</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Paste</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Divider />
+            <ContextMenu.Item variant="danger">
+              <ContextMenu.Value>Delete</ContextMenu.Value>
+            </ContextMenu.Item>
           </ContextMenu.Content>
         </ContextMenu>
       </div>
@@ -313,98 +231,76 @@ export const SelectionWithSubmenus: Story = {
 }
 
 /**
- * AlignedLabels: Demonstrates proper label alignment in both selection and non-selection modes.
- * Shows how labels and items are properly spaced to accommodate selection indicators.
+ * FileManagerExample: Real-world example showing menu sharing in a file manager scenario.
+ *
+ * Business scenario:
+ * - Same file operations available in toolbar dropdown and right-click menu
+ * - Ensures consistent user experience across interaction methods
+ * - Reduces development and maintenance overhead
+ *
+ * Features:
+ * - Identical functionality in both interaction patterns
+ * - Dynamic menu content based on data
+ * - Action callbacks with logging
+ * - Demonstrates practical component reuse
  */
-export const AlignedLabels: Story = {
-  render: function AlignedLabelsStory() {
-    const [selectedInSection1, setSelectedInSection1] = useState("item1")
-    const [selectedInSection2, setSelectedInSection2] = useState("item2")
+export const FileManagerExample: Story = {
+  render: function FileManagerExampleStory() {
+    const fileOperations = [
+      { id: "open", label: "Open" },
+      { id: "rename", label: "Rename" },
+      { id: "copy", label: "Copy" },
+      { id: "move", label: "Move" },
+      { id: "delete", label: "Delete", variant: "danger" as const },
+    ]
+
+    // File operations menu - reusable in both dropdown and context menu
+    const fileOperationsMenu = (
+      <Dropdown.Content>
+        <Dropdown.Label>File Operations</Dropdown.Label>
+        {fileOperations.map((operation) => (
+          <Dropdown.Item
+            key={operation.id}
+            variant={operation.variant}
+            onClick={() => console.log(`Executing ${operation.label} operation`)}
+          >
+            <Dropdown.Value>{operation.label}</Dropdown.Value>
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Content>
+    )
 
     return (
-      <div className="grid grid-cols-2 gap-8">
-        <div className="flex flex-col gap-4">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium">With Selection</h3>
-            <p className="text-secondary-foreground text-sm">
-              Labels are aligned with menu items, with space for icons
-            </p>
+      <div className="space-y-8 p-8">
+        <h2 className="text-lg font-semibold">File Manager Example</h2>
+
+        <div className="flex gap-4">
+          <div>
+            <p className="mb-2">Toolbar Button</p>
+            <Dropdown>
+              <Dropdown.Trigger>
+                <Dropdown.Value>File Operations</Dropdown.Value>
+              </Dropdown.Trigger>
+              {fileOperationsMenu}
+            </Dropdown>
           </div>
 
-          <ContextMenu selection={true}>
-            <ContextMenu.Trigger>
-              <div className="flex h-64 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-                Right-click to see aligned labels (with selection)
-              </div>
-            </ContextMenu.Trigger>
-
-            <ContextMenu.Content>
-              <ContextMenu.Label>Section 1</ContextMenu.Label>
-              <ContextMenu.Item
-                selected={selectedInSection1 === "item1"}
-                onClick={() => setSelectedInSection1("item1")}
-              >
-                <ContextMenu.Value>Item 1</ContextMenu.Value>
-              </ContextMenu.Item>
-              <ContextMenu.Item
-                selected={selectedInSection1 === "item2"}
-                onClick={() => setSelectedInSection1("item2")}
-              >
-                <ContextMenu.Value>Item 2</ContextMenu.Value>
-              </ContextMenu.Item>
-
-              <ContextMenu.Divider />
-
-              <ContextMenu.Label>Section 2</ContextMenu.Label>
-              <ContextMenu.Item
-                selected={selectedInSection2 === "item1"}
-                onClick={() => setSelectedInSection2("item1")}
-              >
-                <ContextMenu.Value>Item 1</ContextMenu.Value>
-              </ContextMenu.Item>
-              <ContextMenu.Item
-                selected={selectedInSection2 === "item2"}
-                onClick={() => setSelectedInSection2("item2")}
-              >
-                <ContextMenu.Value>Item 2</ContextMenu.Value>
-              </ContextMenu.Item>
-            </ContextMenu.Content>
-          </ContextMenu>
+          <div>
+            <p className="mb-2">Right-click Menu</p>
+            <ContextMenu>
+              <ContextMenu.Target>
+                <div className="bg-secondary-background border-accent-background rounded border-2 border-dashed p-4">
+                  📁 Folder (right-click)
+                </div>
+              </ContextMenu.Target>
+              {fileOperationsMenu}
+            </ContextMenu>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium">Without Selection</h3>
-            <p className="text-secondary-foreground text-sm">Labels without additional spacing</p>
-          </div>
-
-          <ContextMenu selection={false}>
-            <ContextMenu.Trigger>
-              <div className="flex h-64 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-                Right-click to see aligned labels (without selection)
-              </div>
-            </ContextMenu.Trigger>
-
-            <ContextMenu.Content>
-              <ContextMenu.Label>Section 1</ContextMenu.Label>
-              <ContextMenu.Item onClick={() => {}}>
-                <ContextMenu.Value>Item 1</ContextMenu.Value>
-              </ContextMenu.Item>
-              <ContextMenu.Item onClick={() => {}}>
-                <ContextMenu.Value>Item 2</ContextMenu.Value>
-              </ContextMenu.Item>
-
-              <ContextMenu.Divider />
-
-              <ContextMenu.Label>Section 2</ContextMenu.Label>
-              <ContextMenu.Item onClick={() => {}}>
-                <ContextMenu.Value>Item 1</ContextMenu.Value>
-              </ContextMenu.Item>
-              <ContextMenu.Item onClick={() => {}}>
-                <ContextMenu.Value>Item 2</ContextMenu.Value>
-              </ContextMenu.Item>
-            </ContextMenu.Content>
-          </ContextMenu>
+        <div className="bg-accent-background rounded-lg p-4 text-sm">
+          <strong>Business Value:</strong> Same menu logic works in both toolbar dropdown and
+          right-click menu, reducing code duplication and ensuring interaction consistency.
         </div>
       </div>
     )
@@ -412,85 +308,175 @@ export const AlignedLabels: Story = {
 }
 
 /**
- * ComparisonWithAndWithoutSelection: Demonstrates the visual difference between menus with and without selection mode.
- * Useful for understanding how selection affects the appearance and behavior of menu items.
+ * NestedSubmenus: Demonstrates nested context menus with multiple levels.
+ *
+ * Features:
+ * - Multiple levels of nested submenus
+ * - Hover-based submenu activation (hover over submenu triggers)
+ * - Keyboard navigation across nested levels (use arrow keys)
+ * - Automatic submenu positioning (prevents overflow)
+ * - Mixed content (regular items + submenus)
+ *
+ * Implementation:
+ * - Uses nested ContextMenu components for submenus
+ * - SubTrigger components indicate expandable items (show arrow icon)
+ * - Supports unlimited nesting depth
+ * - Maintains consistent interaction patterns
+ *
+ * Use cases:
+ * - File explorer context menus
+ * - Complex application menus
+ * - Hierarchical command structures
+ * - Multi-level category selections
  */
-export const ComparisonWithAndWithoutSelection: Story = {
-  render: function ComparisonStory() {
-    const options = [
-      { id: "1", label: "Option 1" },
-      { id: "2", label: "Option 2" },
-      { id: "3", label: "Option 3" },
-    ]
-
-    const [selectedOption1, setSelectedOption1] = useState(options[0].id)
-    const [selectedOption2, setSelectedOption2] = useState(options[0].id)
-
+export const NestedSubmenus: Story = {
+  render: function NestedSubmenusStory() {
     return (
-      <div className="grid grid-cols-2 gap-8">
-        <div className="flex flex-col gap-4">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium">With Selection</h3>
-            <p className="text-secondary-foreground text-sm">
-              selection={"{true}"} - Shows checkmarks on selected items
-            </p>
-            <div className="mt-2">
-              Selected: {options.find((o) => o.id === selectedOption1)?.label}
+      <div className="flex h-96 items-center justify-center">
+        <ContextMenu>
+          <ContextMenu.Target>
+            <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8 text-center">
+              Right click for nested menus
             </div>
-          </div>
+          </ContextMenu.Target>
+          <ContextMenu.Content>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Cut</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Copy</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Paste</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Divider />
 
-          <ContextMenu selection={true}>
-            <ContextMenu.Trigger>
-              <div className="flex h-64 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-                Right-click me (with selection)
-              </div>
-            </ContextMenu.Trigger>
-
-            <ContextMenu.Content>
-              {options.map((option) => (
-                <ContextMenu.Item
-                  key={option.id}
-                  selected={option.id === selectedOption1}
-                  onClick={() => setSelectedOption1(option.id)}
-                >
-                  <ContextMenu.Value>{option.label}</ContextMenu.Value>
+            {/* First level submenu - Share (no Target needed for nested) */}
+            <ContextMenu>
+              <ContextMenu.SubTrigger>
+                <ContextMenu.Value>Share</ContextMenu.Value>
+              </ContextMenu.SubTrigger>
+              <ContextMenu.Content>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Copy Link</ContextMenu.Value>
                 </ContextMenu.Item>
-              ))}
-            </ContextMenu.Content>
-          </ContextMenu>
-        </div>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Email</ContextMenu.Value>
+                </ContextMenu.Item>
 
-        <div className="flex flex-col gap-4">
-          <div className="mb-4">
-            <h3 className="text-lg font-medium">Without Selection</h3>
-            <p className="text-secondary-foreground text-sm">
-              selection={"{false}"} - No checkmarks shown
-            </p>
-            <div className="mt-2">
-              Selected: {options.find((o) => o.id === selectedOption2)?.label}
+                {/* Second level submenu - Social Media (also no Target) */}
+                <ContextMenu>
+                  <ContextMenu.SubTrigger>
+                    <ContextMenu.Value>Social Media</ContextMenu.Value>
+                  </ContextMenu.SubTrigger>
+                  <ContextMenu.Content>
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>Twitter</ContextMenu.Value>
+                    </ContextMenu.Item>
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>Facebook</ContextMenu.Value>
+                    </ContextMenu.Item>
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>LinkedIn</ContextMenu.Value>
+                    </ContextMenu.Item>
+                  </ContextMenu.Content>
+                </ContextMenu>
+
+                <ContextMenu.Divider />
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Generate QR Code</ContextMenu.Value>
+                </ContextMenu.Item>
+              </ContextMenu.Content>
+            </ContextMenu>
+
+            {/* First level submenu - Export */}
+            <ContextMenu>
+              <ContextMenu.SubTrigger>
+                <ContextMenu.Value>Export</ContextMenu.Value>
+              </ContextMenu.SubTrigger>
+              <ContextMenu.Content>
+                <ContextMenu.Label>File Formats</ContextMenu.Label>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>PDF</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>PNG</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>SVG</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Divider />
+
+                {/* Second level submenu - Advanced Options */}
+                <ContextMenu>
+                  <ContextMenu.SubTrigger>
+                    <ContextMenu.Value>Advanced Options</ContextMenu.Value>
+                  </ContextMenu.SubTrigger>
+                  <ContextMenu.Content>
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>High Quality</ContextMenu.Value>
+                    </ContextMenu.Item>
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>Compressed</ContextMenu.Value>
+                    </ContextMenu.Item>
+                    <ContextMenu.Divider />
+                    <ContextMenu.Item>
+                      <ContextMenu.Value>Custom Settings</ContextMenu.Value>
+                    </ContextMenu.Item>
+                  </ContextMenu.Content>
+                </ContextMenu>
+              </ContextMenu.Content>
+            </ContextMenu>
+
+            <ContextMenu.Divider />
+            <ContextMenu.Item>
+              <ContextMenu.Value>Properties</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item variant="danger">
+              <ContextMenu.Value>Delete</ContextMenu.Value>
+            </ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu>
+      </div>
+    )
+  },
+}
+
+/**
+ * WithDisabledItems: Demonstrates disabled menu items.
+ *
+ * Features:
+ * - Visual disabled state
+ * - Prevents interaction with disabled items
+ * - Maintains keyboard navigation flow
+ * - Useful for conditional menu states
+ */
+export const WithDisabledItems: Story = {
+  render: function WithDisabledItemsStory() {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <ContextMenu>
+          <ContextMenu.Target>
+            <div className="bg-secondary-background border-accent-background rounded-lg border-2 border-dashed p-8">
+              Right click for menu with disabled items
             </div>
-          </div>
-
-          <ContextMenu selection={false}>
-            <ContextMenu.Trigger>
-              <div className="flex h-64 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-4">
-                Right-click me (without selection)
-              </div>
-            </ContextMenu.Trigger>
-
-            <ContextMenu.Content>
-              {options.map((option) => (
-                <ContextMenu.Item
-                  key={option.id}
-                  selected={option.id === selectedOption2}
-                  onClick={() => setSelectedOption2(option.id)}
-                >
-                  <ContextMenu.Value>{option.label}</ContextMenu.Value>
-                </ContextMenu.Item>
-              ))}
-            </ContextMenu.Content>
-          </ContextMenu>
-        </div>
+          </ContextMenu.Target>
+          <ContextMenu.Content>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Available Action</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item disabled>
+              <ContextMenu.Value>Disabled Action</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Another Available Action</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Divider />
+            <ContextMenu.Item disabled>
+              <ContextMenu.Value>Also Disabled</ContextMenu.Value>
+            </ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu>
       </div>
     )
   },

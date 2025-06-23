@@ -227,7 +227,7 @@ export const DragPopover = memo(function DragPopover({
                 aria-describedby={descriptionId}
               >
                 {headerContent}
-                {contentContent}
+                {floating.positionReady && contentContent}
               </Modal>
             )}
           </FloatingPortal>

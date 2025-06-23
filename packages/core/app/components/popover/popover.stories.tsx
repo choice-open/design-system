@@ -657,3 +657,38 @@ export const MultiTrigger: Story = {
     )
   },
 }
+
+export const Test: Story = {
+  parameters: {
+    layout: "fullscreen",
+  },
+  decorators: [
+    (Story) => (
+      <div className="flex h-screen w-screen items-end justify-center p-8">
+        <Story />
+      </div>
+    ),
+  ],
+  render: function TestStory() {
+    const [open, setOpen] = useState(false)
+    const triggerRef = useRef<HTMLButtonElement>(null)
+    return (
+      <div>
+        <Popover
+          draggable
+          triggerRef={triggerRef}
+          open={open}
+          onOpenChange={setOpen}
+        >
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
+        </Popover>
+        <Button
+          ref={triggerRef}
+          onClick={() => setOpen(!open)}
+        >
+          Open
+        </Button>
+      </div>
+    )
+  },
+}

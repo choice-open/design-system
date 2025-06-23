@@ -1,73 +1,287 @@
-import * as CM from "@radix-ui/react-context-menu"
-import { ReactNode } from "react"
-import { MenuValue } from "../menus"
 import {
-  ContextMenuContent,
-  ContextMenuDivider,
-  ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuTrigger,
-  ContextSubmenu,
-} from "./components"
-import { ContextMenuContext } from "./context-menu-context"
-import { processMenuChildren } from "./utils"
+  FloatingFocusManager,
+  FloatingList,
+  FloatingNode,
+  FloatingOverlay,
+  FloatingPortal,
+  FloatingTree,
+  Placement,
+  useFloatingParentNodeId,
+} from "@floating-ui/react"
+import React, {
+  cloneElement,
+  HTMLProps,
+  memo,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react"
+import {
+  DropdownContent,
+  DropdownItem,
+  DropdownLabel,
+  DropdownSubTrigger,
+} from "../dropdown/components"
+import { DropdownContext, DropdownSelectionContext } from "../dropdown/dropdown-context"
+import {
+  MenuButton,
+  MenuDivider,
+  MenuInput,
+  MenuScrollArrow,
+  MenuSearch,
+  MenuValue,
+} from "../menus"
+import { useContextMenu } from "./hooks"
 
-export interface ContextMenuProps extends CM.ContextMenuProps {
-  children: ReactNode
-  modal?: boolean
+const PORTAL_ROOT_ID = "floating-menu-root"
+
+export interface ContextMenuProps extends HTMLProps<HTMLDivElement> {
+  children?: ReactNode
+  offset?: number
   onOpenChange?: (open: boolean) => void
   open?: boolean
+  placement?: Placement
+  portalId?: string
   selection?: boolean
 }
 
-// Main ContextMenu component
-const ContextMenuComponent = ({
-  children,
-  open,
-  onOpenChange,
-  modal = false,
-  selection = false,
-}: ContextMenuProps) => {
-  const contextValue = {
-    open,
-    onOpenChange,
-    selection,
-  }
+interface ContextMenuTargetProps extends HTMLProps<HTMLDivElement> {
+  children: ReactNode
+}
 
-  // 使用公共函数处理子元素
-  const { triggerElement, contentElement } = processMenuChildren(
-    children,
-    ContextMenuTrigger,
-    ContextMenuContent,
+interface ContextMenuComponentProps
+  extends React.ForwardRefExoticComponent<ContextMenuProps & React.RefAttributes<HTMLDivElement>> {
+  Button: typeof MenuButton
+  Content: typeof DropdownContent
+  Divider: typeof MenuDivider
+  Input: typeof MenuInput
+  Item: typeof DropdownItem
+  Label: typeof DropdownLabel
+  Search: typeof MenuSearch
+  SubTrigger: typeof DropdownSubTrigger
+  Target: React.FC<ContextMenuTargetProps>
+  Value: typeof MenuValue
+}
+
+// Context for ContextMenu
+interface ContextMenuContextType {
+  handleContextMenu: (e: MouseEvent) => void
+}
+
+const ContextMenuContext = React.createContext<ContextMenuContextType | null>(null)
+
+// ContextMenu Target component
+const ContextMenuTarget: React.FC<ContextMenuTargetProps> = ({ children, ...props }) => {
+  const contextMenu = useContext(ContextMenuContext)
+
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      contextMenu?.handleContextMenu(e.nativeEvent)
+    },
+    [contextMenu],
   )
 
-  if (!triggerElement || !contentElement) {
-    console.warn(
-      "ContextMenu requires both Trigger and Content elements. Please use ContextMenu.Trigger and ContextMenu.Content.",
-    )
-  }
-
   return (
-    <ContextMenuContext.Provider value={contextValue}>
-      <CM.Root
-        modal={modal}
-        dir="ltr"
-        onOpenChange={onOpenChange}
-      >
-        {triggerElement}
-        {contentElement}
-      </CM.Root>
-    </ContextMenuContext.Provider>
+    <div
+      {...props}
+      onContextMenu={handleContextMenu}
+    >
+      {children}
+    </div>
   )
 }
 
-// Assemble the compound component
-export const ContextMenu = Object.assign(ContextMenuComponent, {
-  Trigger: ContextMenuTrigger,
-  Content: ContextMenuContent,
-  Item: ContextMenuItem,
-  Divider: ContextMenuDivider,
-  Submenu: ContextSubmenu,
-  Label: ContextMenuLabel,
-  Value: MenuValue,
+const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMenuProps) {
+  const {
+    children,
+    offset,
+    placement,
+    portalId = PORTAL_ROOT_ID,
+    selection,
+    open,
+    onOpenChange,
+    ...rest
+  } = props
+
+  // Use the custom hook for all logic
+  const {
+    isControlledOpen,
+    scrollTop,
+    isPositioned,
+    isNested,
+    scrollRef,
+    elementsRef,
+    labelsRef,
+    menuId,
+    nodeId,
+    refs,
+    floatingStyles,
+    context,
+    getReferenceProps,
+    getFloatingProps,
+    getItemProps,
+    dropdownContextValue,
+    contextMenuContextValue,
+    handleArrowScroll,
+    handleArrowHide,
+    handleTouchStart,
+    handlePointerMove,
+    handleScroll,
+  } = useContextMenu({
+    offset,
+    placement,
+    selection,
+    open,
+    onOpenChange,
+  })
+
+  // Process children to find target, subtrigger and content
+  const { targetElement, subTriggerElement, contentElement } = useMemo(() => {
+    const childrenArray = React.Children.toArray(children)
+
+    const target = childrenArray.find(
+      (child) => React.isValidElement(child) && child.type === ContextMenuTarget,
+    ) as React.ReactElement | null
+
+    const subTrigger = childrenArray.find(
+      (child) => React.isValidElement(child) && child.type === DropdownSubTrigger,
+    ) as React.ReactElement | null
+
+    // Find content element - specifically look for DropdownContent
+    const content = childrenArray.find(
+      (child) => React.isValidElement(child) && child.type === DropdownContent,
+    ) as React.ReactElement | null
+
+    return {
+      targetElement: target,
+      subTriggerElement: subTrigger,
+      contentElement: content,
+    }
+  }, [children])
+
+  return (
+    <FloatingNode id={nodeId}>
+      <ContextMenuContext.Provider value={contextMenuContextValue}>
+        {/* Render target for root level, SubTrigger for nested */}
+        {isNested
+          ? subTriggerElement && (
+              <div
+                ref={refs.setReference}
+                {...getReferenceProps(
+                  dropdownContextValue.getItemProps({
+                    role: "menuitem",
+                  }),
+                )}
+              >
+                {cloneElement(subTriggerElement, { active: isControlledOpen })}
+              </div>
+            )
+          : targetElement}
+
+        <DropdownContext.Provider value={dropdownContextValue}>
+          <DropdownSelectionContext.Provider value={selection || false}>
+            <FloatingList
+              elementsRef={elementsRef}
+              labelsRef={labelsRef}
+            >
+              <FloatingPortal id={portalId}>
+                {isControlledOpen && (
+                  <FloatingOverlay
+                    lockScroll={true}
+                    className="z-menu"
+                  >
+                    <FloatingFocusManager
+                      context={context}
+                      modal={false}
+                      initialFocus={0}
+                      returnFocus={false}
+                    >
+                      <div
+                        id={menuId}
+                        style={floatingStyles}
+                        ref={refs.setFloating}
+                        onTouchStart={handleTouchStart}
+                        onPointerMove={handlePointerMove}
+                        {...getFloatingProps({
+                          onContextMenu(e) {
+                            e.preventDefault()
+                          },
+                        })}
+                      >
+                        {contentElement &&
+                          (typeof contentElement.type === "function" ? (
+                            // If it's a function component, render directly with props
+                            <contentElement.type
+                              {...contentElement.props}
+                              ref={scrollRef}
+                              onScroll={handleScroll}
+                              {...rest}
+                            />
+                          ) : (
+                            // If it's a regular element, use cloneElement
+                            cloneElement(contentElement, {
+                              ref: scrollRef,
+                              onScroll: handleScroll,
+                              ...rest,
+                            })
+                          ))}
+
+                        {["up", "down"].map((dir) => (
+                          <MenuScrollArrow
+                            key={dir}
+                            dir={dir as "up" | "down"}
+                            scrollTop={scrollTop}
+                            scrollRef={scrollRef}
+                            innerOffset={0}
+                            isPositioned={isPositioned}
+                            onScroll={handleArrowScroll}
+                            onHide={handleArrowHide}
+                          />
+                        ))}
+                      </div>
+                    </FloatingFocusManager>
+                  </FloatingOverlay>
+                )}
+              </FloatingPortal>
+            </FloatingList>
+          </DropdownSelectionContext.Provider>
+        </DropdownContext.Provider>
+      </ContextMenuContext.Provider>
+    </FloatingNode>
+  )
 })
+
+ContextMenuComponent.displayName = "ContextMenuComponent"
+
+// Create base ContextMenu component
+const BaseContextMenu = memo(function ContextMenu(props: ContextMenuProps) {
+  const { children, ...rest } = props
+  const parentId = useFloatingParentNodeId()
+
+  if (parentId === null) {
+    return (
+      <FloatingTree>
+        <ContextMenuComponent {...rest}>{children}</ContextMenuComponent>
+      </FloatingTree>
+    )
+  }
+
+  return <ContextMenuComponent {...props}>{children}</ContextMenuComponent>
+})
+
+// Add static properties and export
+export const ContextMenu = Object.assign(BaseContextMenu, {
+  displayName: "ContextMenu",
+  Target: ContextMenuTarget,
+  Item: DropdownItem,
+  SubTrigger: DropdownSubTrigger,
+  Divider: MenuDivider,
+  Label: DropdownLabel,
+  Search: MenuSearch,
+  Button: MenuButton,
+  Input: MenuInput,
+  Content: DropdownContent,
+  Value: MenuValue,
+}) as unknown as ContextMenuComponentProps

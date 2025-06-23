@@ -1,6 +1,0 @@
-export * from "./context-menu-content"
-export * from "./context-menu-divider"
-export * from "./context-menu-item"
-export * from "./context-menu-label"
-export * from "./context-menu-trigger"
-export * from "./context-submenu"
