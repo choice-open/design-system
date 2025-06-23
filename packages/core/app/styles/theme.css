@@ -147,6 +147,7 @@
   --background-secondary: var(--color-gray-100);
   --background-secondary-hover: var(--color-gray-200);
   --background-secondary-secondary: var(--color-gray-300);
+  --background-tertiary: var(--color-gray-200);
   --background-selected: var(--blue-200);
   --background-disabled: var(--color-gray-300);
   --background-inverse: var(--color-gray-800);
@@ -282,6 +283,7 @@
   --background-secondary: var(--color-gray-700);
   --background-secondary-hover: var(--color-gray-600);
   --background-secondary-secondary: var(--color-gray-500);
+  --background-tertiary: var(--color-gray-600);
   --background-selected: var(--blue-700);
   --background-disabled: var(--color-gray-500);
   --background-inverse: var(--color-white);
@@ -440,6 +442,8 @@
   --color-secondary-hover-background: var(--background-secondary-hover);
   --color-secondary-secondary-background: var(--background-secondary-secondary);
   --color-selected-background: var(--background-selected);
+
+  --color-tertiary-background: var(--background-tertiary);
 
   --color-accent-background: var(--blue-500);
   --color-accent-hover-background: var(--blue-600);
