@@ -60,7 +60,7 @@ export const toggleButtonTv = tv({
       event: "click",
       disabled: false,
       class: {
-        label: "active:bg-secondary-active-background",
+        label: "active:bg-secondary-hover-background",
       },
     },
     {
@@ -70,7 +70,7 @@ export const toggleButtonTv = tv({
       disabled: false,
       event: "click",
       class: {
-        label: "active:bg-secondary-active-background",
+        label: "active:bg-secondary-hover-background",
       },
     },
     {
@@ -88,7 +88,7 @@ export const toggleButtonTv = tv({
       active: true,
       disabled: false,
       class: {
-        label: "bg-secondary-active-background",
+        label: "bg-secondary-hover-background",
       },
     },
     {
@@ -132,7 +132,7 @@ export const toggleButtonTv = tv({
       checked: true,
       disabled: true,
       class: {
-        label: "bg-secondary-active-background",
+        label: "bg-secondary-hover-background",
       },
     },
   ],

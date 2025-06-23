@@ -57,7 +57,7 @@ export const switchTv = tv({
       disabled: false,
       variant: ["default", "accent"],
       class: {
-        track: "bg-secondary-active-background",
+        track: "bg-secondary-hover-background",
         thumb: "shadow-small bg-white",
       },
     },
@@ -97,7 +97,7 @@ export const switchTv = tv({
       checked: false,
       disabled: false,
       class: {
-        track: "hover:bg-secondary-active-background",
+        track: "hover:bg-secondary-hover-background",
       },
     },
     // hover 状态 - outline

@@ -48,19 +48,19 @@ export const iconButtonTv = tv({
       variant: ["default", "highlight"],
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-active-background" },
+      class: { button: "hover:bg-secondary-background active:bg-secondary-hover-background" },
     },
     {
       variant: "default",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-active-background" },
+      class: { button: "bg-secondary-hover-background" },
     },
     {
       variant: "secondary",
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-active-background" },
+      class: { button: "hover:bg-secondary-background active:bg-secondary-hover-background" },
     },
     {
       variant: "secondary",
@@ -73,14 +73,14 @@ export const iconButtonTv = tv({
       active: false,
       disabled: false,
       class: {
-        button: "hover:bg-secondary-active-background active:bg-secondary-active-background",
+        button: "hover:bg-secondary-hover-background active:bg-secondary-hover-background",
       },
     },
     {
       variant: "solid",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-active-background" },
+      class: { button: "bg-secondary-hover-background" },
     },
     {
       variant: "highlight",

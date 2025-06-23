@@ -34,7 +34,7 @@ export const buttonTv = tv({
         button: "border-danger-foreground/40 text-danger-foreground",
       },
       inverse: {
-        button: "bg-default-foreground text-default-background",
+        button: "bg-inverse-background text-inverse-foreground",
       },
       success: {
         button: "bg-success-background text-on-accent-foreground",
@@ -135,7 +135,7 @@ export const buttonTv = tv({
     {
       active: true,
       variant: "primary",
-      class: { button: "bg-accent-active-background" },
+      class: { button: "bg-accent-hover-background" },
     },
     {
       active: true,
@@ -145,22 +145,22 @@ export const buttonTv = tv({
     {
       active: true,
       variant: "solid",
-      class: { button: "bg-secondary-active-background" },
+      class: { button: "bg-secondary-hover-background" },
     },
     {
       active: true,
       variant: "destructive",
-      class: { button: "bg-danger-active-background" },
+      class: { button: "bg-danger-hover-background" },
     },
     {
       active: true,
       variant: "inverse",
-      class: { button: "bg-secondary-foreground text-default-background" },
+      class: { button: "bg-secondary-foreground text-inverse-foreground" },
     },
     {
       active: true,
       variant: "success",
-      class: { button: "bg-success-active-background" },
+      class: { button: "bg-success-hover-background" },
     },
     {
       active: true,
@@ -170,7 +170,7 @@ export const buttonTv = tv({
     {
       active: true,
       variant: "link-danger",
-      class: { button: "bg-danger-active-background/10" },
+      class: { button: "bg-danger-hover-background/10" },
     },
     {
       active: true,
@@ -182,7 +182,7 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "primary",
-      class: { button: "active:bg-accent-active-background" },
+      class: { button: "active:bg-accent-hover-background" },
     },
     {
       disabled: false,
@@ -194,13 +194,13 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "solid",
-      class: { button: "active:bg-secondary-active-background" },
+      class: { button: "active:bg-secondary-hover-background" },
     },
     {
       disabled: false,
       loading: false,
       variant: "destructive",
-      class: { button: "active:bg-danger-active-background" },
+      class: { button: "active:bg-danger-hover-background" },
     },
     {
       disabled: false,
@@ -212,7 +212,7 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "success",
-      class: { button: "active:bg-success-active-background" },
+      class: { button: "active:bg-success-hover-background" },
     },
     {
       disabled: false,
@@ -224,7 +224,7 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "link-danger",
-      class: { button: "active:bg-danger-active-background/10" },
+      class: { button: "active:bg-danger-hover-background/10" },
     },
     {
       disabled: false,

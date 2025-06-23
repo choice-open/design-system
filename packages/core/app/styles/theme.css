@@ -141,12 +141,15 @@
   --foreground-danger: var(--red-600);
   --foreground-assistive: var(--pink-600);
   --foreground-component: var(--purple-600);
+  --foreground-inverse: var(--color-white);
 
   --background-default: var(--color-white);
   --background-secondary: var(--color-gray-100);
-  --background-secondary-active: var(--color-gray-200);
+  --background-secondary-hover: var(--color-gray-200);
+  --background-secondary-secondary: var(--color-gray-300);
   --background-selected: var(--blue-200);
   --background-disabled: var(--color-gray-300);
+  --background-inverse: var(--color-gray-800);
 
   --boundary-default: var(--color-gray-200);
   --boundary-strong: var(--color-gray-800);
@@ -281,12 +284,15 @@
   --foreground-danger: var(--red-400);
   --foreground-assistive: var(--pink-400);
   --foreground-component: var(--purple-400);
+  --foreground-inverse: var(--color-black);
 
   --background-default: var(--color-gray-800);
   --background-secondary: var(--color-gray-700);
-  --background-secondary-active: var(--color-gray-600);
+  --background-secondary-hover: var(--color-gray-600);
+  --background-secondary-secondary: var(--color-gray-500);
   --background-selected: var(--blue-700);
   --background-disabled: var(--color-gray-500);
+  --background-inverse: var(--color-white);
 
   --boundary-default: var(--color-gray-600);
   --boundary-strong: rgba(255, 255, 255, 0.9);
@@ -442,24 +448,41 @@
   --color-on-accent-foreground: var(--color-white);
   --color-on-accent-secondary-foreground: rgba(255, 255, 255, 0.8);
   --color-on-accent-tertiary-foreground: rgba(255, 255, 255, 0.4);
+  --color-inverse-foreground: var(--foreground-inverse);
 
   --color-default-background: var(--background-default);
   --color-disabled-background: var(--background-disabled);
+  --color-inverse-background: var(--background-inverse);
+
   --color-secondary-background: var(--background-secondary);
-  --color-secondary-active-background: var(--background-secondary-active);
+  --color-secondary-hover-background: var(--background-secondary-hover);
+  --color-secondary-secondary-background: var(--background-secondary-secondary);
   --color-selected-background: var(--background-selected);
+
   --color-accent-background: var(--blue-500);
-  --color-accent-active-background: var(--blue-600);
+  --color-accent-hover-background: var(--blue-600);
+  --color-accent-secondary-background: var(--blue-700);
+
   --color-success-background: var(--green-500);
-  --color-success-active-background: var(--green-600);
+  --color-success-hover-background: var(--green-600);
+  --color-success-secondary-background: var(--green-700);
+
   --color-warning-background: var(--yellow-500);
-  --color-warning-active-background: var(--yellow-600);
+  --color-warning-hover-background: var(--yellow-600);
+  --color-warning-secondary-background: var(--yellow-700);
+
   --color-danger-background: var(--red-500);
-  --color-danger-active-background: var(--red-600);
+  --color-danger-hover-background: var(--red-600);
+  --color-danger-secondary-background: var(--red-700);
+
   --color-assistive-background: var(--pink-500);
-  --color-assistive-active-background: var(--pink-600);
+  --color-assistive-hover-background: var(--pink-600);
+  --color-assistive-secondary-background: var(--pink-700);
+
   --color-component-background: var(--purple-500);
-  --color-component-active-background: var(--purple-600);
+  --color-component-hover-background: var(--purple-600);
+  --color-component-secondary-background: var(--purple-700);
+  
   --color-menu-background: var(--color-gray-900);
   --color-toolbar-background: var(--color-gray-800);
 
