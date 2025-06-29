@@ -47,6 +47,7 @@ function adjustSize(
 // 根据调整方向获取对应的鼠标样式
 function getCursorStyle(direction: ResizeDirection | null): string {
   if (!direction) return "default"
+  if (direction.width && direction.height) return "nwse-resize"
   if (direction.width) return "ew-resize"
   if (direction.height) return "ns-resize"
   return "default"
@@ -154,6 +155,9 @@ export function useResize(
       const rect = elementRef.current?.getBoundingClientRect()
       if (!rect) return
 
+      // 确保在拖拽过程中鼠标样式保持正确
+      document.body.style.cursor = getCursorStyle(direction)
+
       let newWidth = rect.width
       let newHeight = rect.height
 
@@ -241,11 +245,30 @@ export function useResize(
 
   useEffect(() => {
     if (enabled && state.isResizing) {
+      // 添加键盘事件监听，按ESC取消调整
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          handleResizeEnd()
+        }
+      }
+
+      // 添加窗口失焦事件监听，防止用户切换窗口时调整状态未正确清理
+      const handleWindowBlur = () => {
+        handleResizeEnd()
+      }
+
       document.addEventListener("mousemove", handleResize)
       document.addEventListener("mouseup", handleResizeEnd)
+      document.addEventListener("keydown", handleKeyDown)
+      window.addEventListener("blur", handleWindowBlur)
+
       return () => {
         document.removeEventListener("mousemove", handleResize)
         document.removeEventListener("mouseup", handleResizeEnd)
+        document.removeEventListener("keydown", handleKeyDown)
+        window.removeEventListener("blur", handleWindowBlur)
+        // 确保清理时恢复鼠标样式
+        document.body.style.cursor = "default"
       }
     }
   }, [enabled, state.isResizing, handleResize, handleResizeEnd])

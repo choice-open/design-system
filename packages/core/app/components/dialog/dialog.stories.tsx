@@ -196,6 +196,9 @@ export const OutsidePress: Story = {
  * - Include scrollable content to handle overflow
  * - Set appropriate min/max dimensions
  * - Consider how content reflows when resized
+ * - Use the corner handle (bottom-right) to resize both width and height simultaneously
+ * - Cursor styles are maintained throughout the resize operation for better UX
+ * - Press ESC to cancel ongoing resize operations
  */
 export const Resizable: Story = {
   render: function ResizableStory() {
@@ -210,9 +213,13 @@ export const Resizable: Story = {
           resizable={{ width: true, height: true }}
           open={open}
           onOpenChange={setOpen}
+          maxWidth={1024}
+          maxHeight={768}
+          defaultWidth={256}
+          defaultHeight={480}
         >
           <Dialog.Header title="Resizable Dialog Title" />
-          <Dialog.Content className="max-w-xl min-w-md overflow-hidden">
+          <Dialog.Content className="w-full min-w-0 overflow-hidden">
             <Scroll
               className="h-full"
               scrollbarMode="large-b"
@@ -252,6 +259,66 @@ export const RememberSize: Story = {
               scrollbarMode="large-b"
             >
               <Scroll.Viewport className="h-full p-4">{faker.lorem.paragraphs(3)}</Scroll.Viewport>
+            </Scroll>
+          </Dialog.Content>
+        </Dialog>
+      </>
+    )
+  },
+}
+
+/**
+ * CornerResize: Demonstrates the corner resize handle for simultaneous width and height adjustment.
+ * The 16x16 corner handle appears in the bottom-right when both width and height resize are enabled.
+ * This provides an intuitive way to resize the dialog in both dimensions at once.
+ *
+ * Features:
+ * - Persistent cursor styles during resize operations (even when mouse leaves the handle)
+ * - Three different cursor styles for different resize modes
+ * - ESC key cancellation support
+ * - Automatic cleanup when window loses focus
+ */
+export const CornerResize: Story = {
+  render: function CornerResizeStory() {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <>
+        <Button onClick={() => setOpen(!open)}>Open Corner Resize Dialog</Button>
+        <Dialog
+          draggable
+          overlay
+          resizable={{ width: true, height: true }}
+          open={open}
+          onOpenChange={setOpen}
+          defaultWidth={320}
+          defaultHeight={240}
+          minWidth={200}
+          minHeight={150}
+          maxWidth={800}
+          maxHeight={600}
+        >
+          <Dialog.Header title="Corner Resize Demo" />
+          <Dialog.Content className="w-full min-w-0 overflow-hidden">
+            <Scroll
+              className="h-full"
+              scrollbarMode="large-b"
+            >
+              <Scroll.Viewport className="h-full p-4">
+                <div className="space-y-2">
+                  <p>
+                    Use the corner handle (bottom-right) to resize both width and height
+                    simultaneously.
+                  </p>
+                  <p>You can also use the individual handles:</p>
+                  <ul className="list-inside list-disc space-y-1">
+                    <li>Right edge: width only</li>
+                    <li>Bottom edge: height only</li>
+                    <li>Bottom-right corner: both dimensions</li>
+                  </ul>
+                  <p>{faker.lorem.paragraph(2)}</p>
+                </div>
+              </Scroll.Viewport>
             </Scroll>
           </Dialog.Content>
         </Dialog>

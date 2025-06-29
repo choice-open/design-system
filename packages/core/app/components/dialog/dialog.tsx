@@ -251,6 +251,18 @@ const DialogComponent = memo(function DialogComponent({
                   }}
                 />
               )}
+
+              {resizable.width && resizable.height && (
+                <div
+                  className={style.resizeCornerHandle()}
+                  aria-label="Resize dialog width and height"
+                  tabIndex={0}
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                    handleResizeStart(e, { width: true, height: true })
+                  }}
+                />
+              )}
             </Modal>
           </FloatingOverlay>
         </FloatingPortal>
