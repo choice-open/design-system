@@ -1,4 +1,4 @@
-import { useCallback, useRef, useMemo } from "react"
+import { useCallback, useRef, useMemo, useEffect } from "react"
 import type { ScrollState } from "../types"
 
 /**
@@ -58,6 +58,27 @@ export function useThumbDrag(
   const startPos = useRef(0)
   const startScroll = useRef(0)
   const rafId = useRef<number>()
+  const cleanupRef = useRef<(() => void) | null>(null)
+
+  // 确保组件卸载时清理事件监听器
+  useEffect(() => {
+    return () => {
+      // 清理拖拽状态
+      isDragging.current = false
+
+      // 清理RAF
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current)
+        rafId.current = undefined
+      }
+
+      // 清理事件监听器
+      if (cleanupRef.current) {
+        cleanupRef.current()
+        cleanupRef.current = null
+      }
+    }
+  }, [])
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -109,7 +130,16 @@ export function useThumbDrag(
         }
         document.removeEventListener("mousemove", handleMouseMove)
         document.removeEventListener("mouseup", handleMouseUp)
+        cleanupRef.current = null
       }
+
+      // 创建清理函数
+      const cleanup = () => {
+        document.removeEventListener("mousemove", handleMouseMove)
+        document.removeEventListener("mouseup", handleMouseUp)
+      }
+
+      cleanupRef.current = cleanup
 
       document.addEventListener("mousemove", handleMouseMove, { passive: true })
       document.addEventListener("mouseup", handleMouseUp, { passive: true })

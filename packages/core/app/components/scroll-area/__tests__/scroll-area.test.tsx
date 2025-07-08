@@ -191,6 +191,39 @@ describe("ScrollArea - Edge Cases & Quality Tests", () => {
         jest.advanceTimersByTime(1000)
       })
     })
+
+    it("handles component unmount during thumb drag", () => {
+      const { unmount } = render(
+        <ScrollArea type="always">
+          <ScrollArea.Viewport data-testid="viewport">
+            <ScrollArea.Content>
+              <div style={{ height: "2000px" }}>Large content</div>
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>,
+      )
+
+      const scrollbar = screen.getByRole("scrollbar")
+      const thumb = scrollbar.querySelector('[role="button"]') as HTMLElement
+
+      // Start dragging
+      fireEvent.mouseDown(thumb, { clientY: 100 })
+
+      // Simulate mousemove (drag in progress)
+      fireEvent.mouseMove(document, { clientY: 150 })
+
+      // Track event listeners before unmount
+      const removeEventListenerSpy = jest.spyOn(document, "removeEventListener")
+
+      // Unmount during drag
+      unmount()
+
+      // Verify event listeners were cleaned up
+      expect(removeEventListenerSpy).toHaveBeenCalledWith("mousemove", expect.any(Function))
+      expect(removeEventListenerSpy).toHaveBeenCalledWith("mouseup", expect.any(Function))
+
+      removeEventListenerSpy.mockRestore()
+    })
   })
 
   describe("Orientation Complexity", () => {
