@@ -14,7 +14,8 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState, useMemo } from "react"
+import { useEventCallback } from "usehooks-ts"
 import { useMergedValue } from "~/hooks"
 
 interface UseFloatingPopoverParams {
@@ -24,7 +25,7 @@ interface UseFloatingPopoverParams {
   delay?: { close?: number; open?: number }
   draggable: boolean
   interactions?: "hover" | "click" | "focus" | "none"
-  nodeId: string
+  nodeId: string | undefined
   offset?: number
   onOpenChange?: (open: boolean) => void
   open?: boolean
@@ -52,119 +53,97 @@ export function useFloatingPopover({
   rememberPosition = false,
   autoSize = true,
 }: UseFloatingPopoverParams) {
-  const [positionReady, setPositionReady] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
   const positionRef = useRef({ x: 0, y: 0 })
-  const rafIdRef = useRef<number | null>(null)
 
   const triggerRefs = useRef({
     last: null as HTMLElement | null,
     changed: false,
   })
 
+  // 🔧 使用官方推荐的受控/非受控状态管理
   const [innerOpen, setInnerOpen] = useMergedValue({
     value: open,
     defaultValue: defaultOpen,
-    onChange: (isOpen) => {
-      onOpenChange?.(isOpen)
-    },
+    onChange: onOpenChange,
   })
 
-  const middleware = [
-    offset(offsetDistance),
-    flip({ padding: 8 }),
-    shift({ mainAxis: true, crossAxis: true }),
-    autoSize
-      ? size({
-          apply({ availableWidth, availableHeight, elements }) {
-            const maxWidth = Math.min(availableWidth, 320)
-            Object.assign(elements.floating.style, {
-              maxWidth: `${maxWidth}px`,
-              maxHeight: `${availableHeight}px`,
-            })
-          },
-          padding: 16,
-        })
-      : undefined,
-  ]
-
-  // 清理RAF
-  useEffect(() => {
-    return () => {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current)
-      }
-    }
-  }, [])
-
-  const { refs, floatingStyles, context, x, y } = useFloating({
-    nodeId,
-    open: innerOpen,
-    onOpenChange: (open) => {
-      // 只处理关闭情况
-      if (!open) {
-        // 设置正在关闭状态
-        setIsClosing(true)
-        // 先重置拖拽状态，保持位置不变
-        resetDragState()
-        setPositionReady(false)
-        // 关闭Popover
-        setInnerOpen(false)
-
-        // 如果不需要记住位置，在下一帧重置位置
-        if (!rememberPosition) {
-          // 清理可能存在的之前的RAF
-          if (rafIdRef.current !== null) {
-            cancelAnimationFrame(rafIdRef.current)
-          }
-
-          // 在下一帧重置位置，确保UI先更新
-          rafIdRef.current = requestAnimationFrame(() => {
-            resetPosition()
-            setIsClosing(false)
-            rafIdRef.current = null
+  // 🔧 使用 useMemo 缓存 middleware 数组，避免每次渲染重新创建
+  const middleware = useMemo(() => {
+    return [
+      offset(offsetDistance),
+      flip({ padding: 8 }),
+      shift({ mainAxis: true, crossAxis: true }),
+      autoSize
+        ? size({
+            apply({ availableWidth, availableHeight, elements }) {
+              const maxWidth = Math.min(availableWidth, 320)
+              Object.assign(elements.floating.style, {
+                maxWidth: `${maxWidth}px`,
+                maxHeight: `${availableHeight}px`,
+              })
+            },
+            padding: 16,
           })
-        }
+        : undefined,
+    ].filter(Boolean) // 过滤掉 undefined
+  }, [offsetDistance, autoSize])
+
+  // 🔧 缓存 onOpenChange 回调，避免每次渲染重新创建
+  const handleOpenChange = useEventCallback((nextOpen: boolean) => {
+    if (!nextOpen) {
+      // 关闭逻辑
+      setIsClosing(true)
+      resetDragState()
+      setInnerOpen(false)
+
+      // 如果不记住位置，重置位置
+      if (!rememberPosition) {
+        requestAnimationFrame(() => {
+          resetPosition()
+          setIsClosing(false)
+        })
       } else {
-        setInnerOpen(open)
+        setIsClosing(false)
       }
-    },
+    } else {
+      // 开启逻辑
+      setIsClosing(false)
+      setInnerOpen(nextOpen)
+    }
+  })
+
+  // 🔧 使用官方推荐的 useFloating 模式
+  const { refs, floatingStyles, context, x, y, isPositioned } = useFloating({
+    nodeId,
+    open: innerOpen, // 直接传递状态
+    onOpenChange: handleOpenChange,
     placement,
     middleware,
     whileElementsMounted: autoUpdate ? floatingAutoUpdate : undefined,
   })
 
-  // 打开时重置就绪状态
+  // 🔧 使用官方推荐的 isPositioned 来管理位置状态
   useEffect(() => {
-    if (innerOpen) {
-      setIsClosing(false)
-      setPositionReady(false)
-    }
-  }, [innerOpen])
-
-  // 位置计算完成后设置就绪状态
-  useEffect(() => {
-    if (innerOpen && x !== null && y !== null) {
+    if (innerOpen && isPositioned && x !== null && y !== null) {
       // 保存位置信息
       positionRef.current = { x, y }
-
-      // 使用RAF设置就绪状态
-      const frameId = requestAnimationFrame(() => {
-        setPositionReady(true)
-      })
-
-      return () => cancelAnimationFrame(frameId)
     }
-  }, [innerOpen, x, y])
+  }, [innerOpen, isPositioned, x, y])
 
   const hover = useHover(context, {
-    handleClose: safePolygon({ blockPointerEvents: true, buffer: 1 }),
     enabled: interactions === "hover",
-    delay,
+
+    mouseOnly: true,
+    restMs: 150,
   })
 
   const click = useClick(context, {
     enabled: interactions === "click",
+    // 🔧 使用 mousedown 事件而不是 click，提前处理，避免与 dismiss 冲突
+    event: "mousedown",
+    // 🔧 如果已经有其他 Popover 打开，点击时保持逻辑一致
+    stickIfOpen: false,
   })
 
   const focus = useFocus(context, {
@@ -189,6 +168,7 @@ export function useFloatingPopover({
     enabled: interactions !== "none",
     escapeKey: true,
     outsidePress: outsidePressHandler,
+    bubbles: true,
   })
 
   const role = useRole(context)
@@ -242,7 +222,7 @@ export function useFloatingPopover({
     refs,
     triggerRefs,
     context,
-    positionReady,
+    positionReady: isPositioned, // 🔧 使用官方的 isPositioned
     innerOpen,
     setInnerOpen,
     x,

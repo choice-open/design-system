@@ -449,9 +449,153 @@ export const MarginalConditions: Story = {
   },
 }
 
+/**
+ * Multiple: Tests multiple Select components on the same page to ensure proper event handling.
+ *
+ * This story verifies:
+ * - Multiple selects can be opened independently
+ * - Opening one select closes others (proper event handling)
+ * - No event conflicts between multiple floating elements
+ * - Proper focus management across multiple selects
+ *
+ * Expected behavior:
+ * - Click a select trigger to open its dropdown
+ * - Opening another select should close the first one
+ * - All selects should work independently without conflicts
+ */
+export const Multiple: Story = {
+  render: function MultipleStory() {
+    const [value1, setValue1] = useState<string>("option-1")
+    const [value2, setValue2] = useState<string>("option-b")
+    const [value3, setValue3] = useState<string>("choice-i")
+
+    const options1 = Array.from({ length: 5 }, (_, i) => ({
+      value: `option-${i + 1}`,
+      label: `Option ${i + 1}`,
+    }))
+
+    const options2 = Array.from({ length: 5 }, (_, i) => ({
+      value: `option-${String.fromCharCode(97 + i)}`,
+      label: `Option ${String.fromCharCode(65 + i)}`,
+    }))
+
+    const options3 = Array.from({ length: 5 }, (_, i) => ({
+      value: `choice-${String.fromCharCode(105 + i)}`,
+      label: `Choice ${String.fromCharCode(73 + i)}`,
+    }))
+
+    return (
+      <div className="flex flex-col gap-8 p-8">
+        <div className="text-lg font-medium">Multiple Select Components Test</div>
+
+        <div className="flex flex-wrap gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm text-stone-600">First Select</label>
+            <Select
+              value={value1}
+              onChange={setValue1}
+            >
+              <Select.Trigger className="w-48">
+                <Select.Value>{value1 || "Select option..."}</Select.Value>
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Label>Number Options</Select.Label>
+                {options1.map((option) => (
+                  <Select.Item
+                    key={option.value}
+                    value={option.value}
+                  >
+                    <Select.Value>{option.label}</Select.Value>
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-sm text-stone-600">Second Select</label>
+            <Select
+              value={value2}
+              onChange={setValue2}
+            >
+              <Select.Trigger className="w-48">
+                <Select.Value>{value2 || "Select option..."}</Select.Value>
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Label>Letter Options</Select.Label>
+                {options2.map((option) => (
+                  <Select.Item
+                    key={option.value}
+                    value={option.value}
+                  >
+                    <FieldTypeAttachment />
+                    <Select.Value>{option.label}</Select.Value>
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-sm text-stone-600">Third Select</label>
+            <Select
+              value={value3}
+              onChange={setValue3}
+              placement="bottom-end"
+            >
+              <Select.Trigger className="w-48">
+                <Select.Value>{value3 || "Select option..."}</Select.Value>
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Label>Choice Options</Select.Label>
+                {options3.map((option) => (
+                  <Select.Item
+                    key={option.value}
+                    value={option.value}
+                  >
+                    <FieldTypeCheckbox />
+                    <Select.Value>{option.label}</Select.Value>
+                  </Select.Item>
+                ))}
+                <Select.Divider />
+                <Select.Item
+                  value="special"
+                  disabled
+                >
+                  <FieldTypeCount />
+                  <Select.Value>Disabled Option</Select.Value>
+                </Select.Item>
+              </Select.Content>
+            </Select>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2 rounded-lg bg-stone-50 p-4">
+          <div className="text-sm font-medium text-stone-700">Current Values:</div>
+          <div className="text-sm text-stone-600">
+            First: <span className="font-mono">{value1}</span>
+          </div>
+          <div className="text-sm text-stone-600">
+            Second: <span className="font-mono">{value2}</span>
+          </div>
+          <div className="text-sm text-stone-600">
+            Third: <span className="font-mono">{value3}</span>
+          </div>
+        </div>
+
+        <div className="text-xs text-stone-500">
+          💡 Test: Try opening different selects rapidly to ensure proper event handling and no
+          conflicts.
+        </div>
+      </div>
+    )
+  },
+}
+
 export const ItemActive: Story = {
   render: function ItemActiveStory() {
     const [open, setOpen] = useState(false)
+    const [selectOpen, setSelectOpen] = useState(false)
     const itemRef = useRef<HTMLDivElement>(null)
     const [value, setValue] = useState<string | null>(null)
 
@@ -469,6 +613,8 @@ export const ItemActive: Story = {
         <Select
           value={value}
           onChange={setValue}
+          open={selectOpen}
+          onOpenChange={setSelectOpen}
         >
           <Select.Trigger className="relative">
             <Select.Value>
@@ -490,7 +636,12 @@ export const ItemActive: Story = {
             ))}
             <Select.Divider />
             <Select.Label selection={false}>Open Popover</Select.Label>
-            <Select.Item onClick={() => setOpen(true)}>
+            <Select.Item
+              onClick={() => {
+                setOpen(true)
+                setSelectOpen(false)
+              }}
+            >
               <Settings />
               <Select.Value>Open Popover</Select.Value>
             </Select.Item>

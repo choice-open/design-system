@@ -5,7 +5,7 @@ import { tcx } from "../../utils"
 import { Button } from "../button"
 import { Dropdown } from "../dropdown"
 import { IconButton } from "../icon-button"
-import { Scroll } from "../scroll"
+import { ScrollArea } from "../scroll-area"
 import { Splitter } from "../splitter"
 import { Panel } from "./panel"
 
@@ -35,13 +35,15 @@ const AllotmentContainer = ({
       </Splitter.Pane>
 
       <Splitter.Pane minSize={240}>
-        <Scroll orientation="vertical">
-          <Scroll.Viewport className="bg-default-background pb-16">
-            <div className="min-w-0 border-b p-4 font-medium">{header}</div>
+        <ScrollArea>
+          <ScrollArea.Viewport className="bg-default-background pb-16">
+            <ScrollArea.Content>
+              <div className="min-w-0 border-b p-4 font-medium">{header}</div>
 
-            {children}
-          </Scroll.Viewport>
-        </Scroll>
+              {children}
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </Splitter.Pane>
     </Splitter>
   )

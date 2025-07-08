@@ -4,9 +4,9 @@ import React, { useState } from "react"
 import { Button } from "../button"
 import { Dropdown } from "../dropdown"
 import { Popover } from "../popover"
-import { Scroll } from "../scroll"
 import { Select } from "../select"
 import { Dialog } from "./dialog"
+import { ScrollArea } from "../scroll-area"
 
 const meta: Meta<typeof Dialog> = {
   title: "Overlays/Dialog",
@@ -220,12 +220,14 @@ export const Resizable: Story = {
         >
           <Dialog.Header title="Resizable Dialog Title" />
           <Dialog.Content className="w-full min-w-0 overflow-hidden">
-            <Scroll
+            <ScrollArea
               className="h-full"
               scrollbarMode="large-b"
             >
-              <Scroll.Viewport className="h-full p-4">{faker.lorem.paragraphs(3)}</Scroll.Viewport>
-            </Scroll>
+              <ScrollArea.Viewport className="h-full p-4">
+                <ScrollArea.Content>{faker.lorem.paragraphs(3)}</ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </Dialog.Content>
         </Dialog>
       </>
@@ -254,12 +256,14 @@ export const RememberSize: Story = {
         >
           <Dialog.Header title="Remember Size Dialog Title" />
           <Dialog.Content className="max-w-96 overflow-hidden">
-            <Scroll
+            <ScrollArea
               className="h-full"
               scrollbarMode="large-b"
             >
-              <Scroll.Viewport className="h-full p-4">{faker.lorem.paragraphs(3)}</Scroll.Viewport>
-            </Scroll>
+              <ScrollArea.Viewport className="h-full p-4">
+                <ScrollArea.Content>{faker.lorem.paragraphs(3)}</ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </Dialog.Content>
         </Dialog>
       </>
@@ -300,12 +304,12 @@ export const CornerResize: Story = {
         >
           <Dialog.Header title="Corner Resize Demo" />
           <Dialog.Content className="w-full min-w-0 overflow-hidden">
-            <Scroll
+            <ScrollArea
               className="h-full"
               scrollbarMode="large-b"
             >
-              <Scroll.Viewport className="h-full p-4">
-                <div className="space-y-2">
+              <ScrollArea.Viewport className="h-full p-4">
+                <ScrollArea.Content className="space-y-2">
                   <p>
                     Use the corner handle (bottom-right) to resize both width and height
                     simultaneously.
@@ -317,9 +321,9 @@ export const CornerResize: Story = {
                     <li>Bottom-right corner: both dimensions</li>
                   </ul>
                   <p>{faker.lorem.paragraph(2)}</p>
-                </div>
-              </Scroll.Viewport>
-            </Scroll>
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </Dialog.Content>
         </Dialog>
       </>

@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
 import { createEditor, Descendant, Editor, Node, Transforms } from "slate"
 import { Editable, RenderElementProps, RenderLeafProps, Slate, withReact } from "slate-react"
 import { tcx } from "~/utils/tcx"
-import { Scroll } from "../scroll/scroll"
+import { ScrollArea } from "../scroll-area"
 import { TextareaTv } from "./tv"
 
 export interface MultiLineTextInputProps {
@@ -33,7 +33,14 @@ function slateValueToString(value: Descendant[]): string {
 }
 
 // 提取渲染函数到组件外部
-const renderElement = (props: RenderElementProps) => <p {...props.attributes}>{props.children}</p>
+const renderElement = (props: RenderElementProps) => (
+  <p
+    {...props.attributes}
+    className="text-balance break-all hyphens-auto"
+  >
+    {props.children}
+  </p>
+)
 const renderLeaf = (props: RenderLeafProps) => <span {...props.attributes}>{props.children}</span>
 
 export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputProps>(
@@ -127,50 +134,53 @@ export const MultiLineTextInput = forwardRef<HTMLDivElement, MultiLineTextInputP
     }
 
     return (
-      <Scroll
+      <ScrollArea
         className={tcx(styles, className)}
         tabIndex={0}
         aria-disabled={disabled}
         aria-readonly={readOnly}
         {...rest}
       >
-        <Scroll.Viewport
+        <ScrollArea.Viewport
           style={{
             minHeight: minHeight,
             maxHeight: maxHeight,
           }}
         >
-          <Slate
-            editor={editor}
-            initialValue={internalValue}
-            onChange={handleChange}
-          >
-            <Editable
-              ref={ref}
-              style={{
-                outline: "none",
-                background: "transparent",
-                minHeight: minHeight,
-              }}
-              readOnly={disabled || readOnly}
-              placeholder={placeholder}
-              onPaste={(e) => {
-                // 只允许粘贴纯文本
-                e.preventDefault()
-                const text = e.clipboardData.getData("text/plain")
-                editor.insertText(text)
-              }}
-              onFocus={handleFocus}
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              spellCheck
-              autoCorrect="on"
-              autoCapitalize="sentences"
-              tabIndex={0}
-            />
-          </Slate>
-        </Scroll.Viewport>
-      </Scroll>
+          <ScrollArea.Content className="flex flex-col">
+            <Slate
+              editor={editor}
+              initialValue={internalValue}
+              onChange={handleChange}
+            >
+              <Editable
+                ref={ref}
+                className="min-w-0"
+                style={{
+                  outline: "none",
+                  background: "transparent",
+                  minHeight: minHeight,
+                }}
+                readOnly={disabled || readOnly}
+                placeholder={placeholder}
+                onPaste={(e) => {
+                  // 只允许粘贴纯文本
+                  e.preventDefault()
+                  const text = e.clipboardData.getData("text/plain")
+                  editor.insertText(text)
+                }}
+                onFocus={handleFocus}
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                spellCheck
+                autoCorrect="on"
+                autoCapitalize="sentences"
+                tabIndex={0}
+              />
+            </Slate>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+      </ScrollArea>
     )
   },
 )

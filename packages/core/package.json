@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "0.9.9",
+  "version": "0.9.91",
   "description": "A modern React UI component library",
   "sideEffects": false,
   "type": "module",
@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "@date-fns/tz": "^1.2.0",
-    "@floating-ui/react": "0.24.3",
-    "@floating-ui/react-dom": "2.1.2",
+    "@floating-ui/react": "0.27.13",
+    "@floating-ui/react-dom": "2.1.4",
     "@legendapp/state": "v3.0.0-beta.26",
     "@radix-ui/number": "^1.1.1",
     "@radix-ui/react-direction": "^1.1.1",

@@ -29,7 +29,7 @@ import { IconButton, IconButtonGroup } from "../icon-button"
 import { Input } from "../input"
 import { NumericInput } from "../numeric-input"
 import { Panel } from "../panel"
-import { Scroll } from "../scroll"
+import { ScrollArea } from "../scroll-area"
 import { Segmented } from "../segmented"
 import { Select } from "../select"
 import { Splitter } from "../splitter"
@@ -61,13 +61,15 @@ const AllotmentContainer = ({
       </Splitter.Pane>
 
       <Splitter.Pane minSize={240}>
-        <Scroll className="h-full overflow-hidden">
-          <Scroll.Viewport className="bg-default-background h-full pb-16">
-            <div className="border-b p-4 text-sm font-medium">{header}</div>
+        <ScrollArea className="h-full overflow-hidden">
+          <ScrollArea.Viewport className="bg-default-background h-full pb-16">
+            <ScrollArea.Content>
+              <div className="border-b p-4 text-sm font-medium">{header}</div>
 
-            {children}
-          </Scroll.Viewport>
-        </Scroll>
+              {children}
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </Splitter.Pane>
     </Splitter>
   )

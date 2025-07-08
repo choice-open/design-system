@@ -7,7 +7,7 @@ import { IndexGenerator } from "fractional-indexing-jittered"
 import { nanoid } from "nanoid"
 import React, { useEffect, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { IconButton, Popover, Scroll, Select, Splitter } from "../../components"
+import { IconButton, Popover, ScrollArea, Select, Splitter } from "../../components"
 import { tcx } from "../../utils"
 import { useSortableRowItem } from "./context"
 import { Panel } from "./panel"
@@ -32,11 +32,11 @@ const AllotmentContainer = ({ children }: { children: React.ReactNode }) => {
       </Splitter.Pane>
 
       <Splitter.Pane minSize={240}>
-        <Scroll>
-          <Scroll.Viewport className="bg-default-background h-full pb-16">
-            <Scroll.Content className="h-full">{children}</Scroll.Content>
-          </Scroll.Viewport>
-        </Scroll>
+        <ScrollArea>
+          <ScrollArea.Viewport className="bg-default-background h-full pb-16">
+            <ScrollArea.Content className="h-full">{children}</ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </Splitter.Pane>
     </Splitter>
   )

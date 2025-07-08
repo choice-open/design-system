@@ -5,14 +5,12 @@ import React, { useMemo, useRef, useState } from "react"
 import { Button } from "../button"
 import { Dropdown } from "../dropdown"
 import { Input } from "../input"
+import { NumericInputMenuTrigger } from "../numeric-input/components"
+import { NumericInput } from "../numeric-input/numeric-input"
+import { ScrollArea } from "../scroll-area"
 import { Select } from "../select"
 import { Tabs } from "../tabs"
 import { Popover } from "./popover"
-import { Scroll } from "../scroll"
-import { NumericInput } from "../numeric-input/numeric-input"
-import { IconButton } from "../icon-button"
-import { EllipsisSmall } from "@choiceform/icons-react"
-import { NumericInputMenuTrigger } from "../numeric-input/components"
 
 const meta: Meta<typeof Popover> = {
   title: "Overlays/Popover",
@@ -128,40 +126,78 @@ export const Offset: Story = {
  * Interactions: Demonstrates different ways to trigger the popover.
  *
  * Features:
- * - Hover interaction (shows on mouseover)
- * - Click interaction (shows on click)
- * - Focus interaction (shows on focus)
+ * - Click interaction (default)
+ * - Hover interaction with optimized configuration
+ * - Focus interaction for accessibility
+ * - Manual control with none interaction
  *
- * Usage Guidelines:
- * - Hover: Use for supplementary information that doesn't require action
- * - Click: Use for interactive content or required user actions
- * - Focus: Use for form-related hints or contextual help
+ * Note: Hover interaction has been optimized to prevent flickering:
+ * - move: false - prevents accidental triggers during movement
+ * - mouseOnly: true - avoids touch event interference
+ * - optimized delays and safePolygon settings
  */
 export const Interactions: Story = {
   render: function InteractionsStory() {
+    const [manualOpen, setManualOpen] = useState(false)
+
     return (
-      <>
-        <Popover interactions="hover">
-          <Popover.Trigger>
-            <Button>Hover</Button>
-          </Popover.Trigger>
-          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-        </Popover>
+      <div className="grid grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Click (Default)</h3>
+          <Popover>
+            <Popover.Trigger>
+              <Button>Click to open</Button>
+            </Popover.Trigger>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
+          </Popover>
 
-        <Popover interactions="click">
-          <Popover.Trigger>
-            <Button>Click</Button>
-          </Popover.Trigger>
-          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-        </Popover>
+          <h3 className="text-lg font-semibold">Hover ✅ (Fixed)</h3>
+          <div className="rounded border border-green-200 bg-green-50 p-2">
+            <p className="mb-2 text-xs text-green-700">
+              ✅ 修复了开启关闭循环问题：
+              <br />• move: false - 禁用移动触发
+              <br />• mouseOnly: true - 只响应鼠标事件
+              <br />• 优化了延迟和 safePolygon 配置
+            </p>
+            <Popover interactions="hover">
+              <Popover.Trigger>
+                <Button>Hover to open</Button>
+              </Popover.Trigger>
+              <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
+            </Popover>
+          </div>
+        </div>
 
-        <Popover interactions="focus">
-          <Popover.Trigger>
-            <Input placeholder="Use tab to focus" />
-          </Popover.Trigger>
-          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-        </Popover>
-      </>
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Focus</h3>
+          <Popover interactions="focus">
+            <Popover.Trigger>
+              <Button>Focus to open</Button>
+            </Popover.Trigger>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
+          </Popover>
+
+          <h3 className="text-lg font-semibold">Manual Control</h3>
+          <div className="space-y-2">
+            <Button
+              onClick={() => setManualOpen(!manualOpen)}
+              variant={manualOpen ? "secondary" : "primary"}
+            >
+              {manualOpen ? "Close" : "Open"} Manually
+            </Button>
+            <Popover
+              interactions="none"
+              open={manualOpen}
+              onOpenChange={setManualOpen}
+            >
+              <Popover.Trigger>
+                <Button disabled>Manual trigger</Button>
+              </Popover.Trigger>
+              <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
+            </Popover>
+          </div>
+        </div>
+      </div>
     )
   },
 }
@@ -192,6 +228,115 @@ export const Controlled: Story = {
         </Popover.Trigger>
         <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
+    )
+  },
+}
+
+/**
+ * ControlledFixed: 验证受控模式修复效果
+ *
+ * Features:
+ * - ✅ 修复后的受控模式
+ * - 多次开启关闭测试
+ * - 基于 Floating UI 官方模式
+ * - 状态同步验证
+ */
+export const ControlledFixed: Story = {
+  render: function ControlledFixedStory() {
+    const [open, setOpen] = useState(false)
+    const [toggleCount, setToggleCount] = useState(0)
+
+    const handleToggle = () => {
+      setOpen(!open)
+      setToggleCount((prev) => prev + 1)
+    }
+
+    const handleOpenChange = (isOpen: boolean) => {
+      setOpen(isOpen)
+      if (isOpen) {
+        setToggleCount((prev) => prev + 1)
+      }
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+          <h3 className="mb-2 text-lg font-semibold text-green-900">✅ 受控模式修复验证</h3>
+          <p className="text-sm text-green-800">
+            基于 Floating UI 官方文档的正确实现，解决了开启一次关闭后无法再次显示的问题
+          </p>
+        </div>
+
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <div className="mb-4 space-y-2">
+            <div className="text-sm font-medium text-gray-700">
+              当前状态：
+              <span className={`font-mono ${open ? "text-green-600" : "text-red-600"}`}>
+                {open ? "OPEN" : "CLOSED"}
+              </span>
+            </div>
+            <div className="text-sm text-gray-600">
+              切换次数：<span className="font-mono">{toggleCount}</span>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={handleToggle}
+              className={`rounded px-4 py-2 font-medium transition-colors ${
+                open
+                  ? "bg-red-500 text-white hover:bg-red-600"
+                  : "bg-green-500 text-white hover:bg-green-600"
+              }`}
+            >
+              {open ? "关闭" : "开启"} Popover
+            </button>
+
+            <button
+              onClick={() => setOpen(true)}
+              disabled={open}
+              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:bg-gray-400"
+            >
+              强制开启
+            </button>
+
+            <button
+              onClick={() => setOpen(false)}
+              disabled={!open}
+              className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600 disabled:bg-gray-400"
+            >
+              强制关闭
+            </button>
+          </div>
+        </div>
+
+        <Popover
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <Popover.Trigger>
+            <Button>Popover 触发器</Button>
+          </Popover.Trigger>
+          <Popover.Content className="w-80 p-4">
+            <div className="space-y-3">
+              <h4 className="text-lg font-semibold">✅ 修复验证成功</h4>
+              <p className="text-sm text-gray-600">
+                这个 Popover 使用受控模式，基于 Floating UI 官方文档的正确实现。
+              </p>
+              <div className="rounded border border-green-200 bg-green-50 p-3">
+                <h5 className="font-medium text-green-800">修复内容：</h5>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-green-700">
+                  <li>使用官方的 isPositioned 替代自定义 positionReady</li>
+                  <li>简化状态管理逻辑，移除复杂的 RAF 处理</li>
+                  <li>修复 useMergedValue 与 useFloating 的状态同步</li>
+                  <li>遵循 Floating UI 官方推荐的实现模式</li>
+                </ul>
+              </div>
+              <div className="font-mono text-xs text-gray-500">切换次数：{toggleCount}</div>
+            </div>
+          </Popover.Content>
+        </Popover>
+      </div>
     )
   },
 }
@@ -268,22 +413,28 @@ export const Placement: Story = {
     const [placement, setPlacement] = useState<FloatingPlacement>("bottom-start")
     const [open, setOpen] = useState(false)
 
+    const handleButtonClick = (newPlacement: FloatingPlacement) => {
+      React.startTransition(() => {
+        setPlacement(newPlacement)
+        setOpen(true)
+      })
+    }
+
     return (
       <>
         <div className="grid grid-cols-3 gap-2">
           {PLACEMENTS.map((option) => {
             return (
               <Button
+                active={placement === option.value && open}
+                variant="secondary"
                 ref={(node) => {
                   if (node) {
                     triggerRefs.current.set(option.value, node)
                   }
                 }}
                 key={option.value}
-                onMouseDown={() => {
-                  setPlacement(option.value as FloatingPlacement)
-                  setOpen(true)
-                }}
+                onMouseDown={() => handleButtonClick(option.value as FloatingPlacement)}
               >
                 {option.label}
               </Button>
@@ -556,9 +707,11 @@ export const AutoHeight: Story = {
           </Popover.Trigger>
           <Popover.Header title="Auto Height" />
           <Popover.Content className="flex w-64 flex-col overflow-hidden">
-            <Scroll className="flex flex-col">
-              <Scroll.Viewport className="p-3">{faker.lorem.sentences(50)}</Scroll.Viewport>
-            </Scroll>
+            <ScrollArea className="flex flex-col">
+              <ScrollArea.Viewport className="p-3">
+                <ScrollArea.Content>{faker.lorem.sentences(50)}</ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </Popover.Content>
         </Popover>
 
@@ -585,6 +738,13 @@ export const MultiTrigger: Story = {
 
     const [open, setOpen] = useState(false)
 
+    const handleTriggerClick = (trigger: "left" | "right") => {
+      React.startTransition(() => {
+        setCurrentTrigger(trigger)
+        setOpen(true)
+      })
+    }
+
     return (
       <div className="grid grid-cols-2 gap-4">
         <NumericInput
@@ -602,12 +762,7 @@ export const MultiTrigger: Story = {
               <Dropdown.Content>
                 <Dropdown.Item>Option 1</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item
-                  onMouseUp={() => {
-                    setCurrentTrigger("left")
-                    setOpen(true)
-                  }}
-                >
+                <Dropdown.Item onMouseUp={() => handleTriggerClick("left")}>
                   Open Popover
                 </Dropdown.Item>
               </Dropdown.Content>
@@ -630,12 +785,7 @@ export const MultiTrigger: Story = {
               <Dropdown.Content>
                 <Dropdown.Item>Option 1</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item
-                  onMouseUp={() => {
-                    setCurrentTrigger("right")
-                    setOpen(true)
-                  }}
-                >
+                <Dropdown.Item onMouseUp={() => handleTriggerClick("right")}>
                   Open Popover
                 </Dropdown.Item>
               </Dropdown.Content>
@@ -688,6 +838,159 @@ export const Test: Story = {
         >
           Open
         </Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * MultiplePopovers: 测试多个 Popover 同时存在的情况
+ *
+ * Features:
+ * - 多个 Popover 同时存在
+ * - 测试开启关闭逻辑
+ * - 验证 FloatingTree 的作用
+ *
+ * 问题重现：
+ * 1. 点击第一个 Popover 打开
+ * 2. 点击第二个 Popover 时，第一个会先关闭
+ * 3. 需要再次点击第二个按钮才能打开第二个 Popover
+ */
+export const MultiplePopovers: Story = {
+  render: function MultiplePopoversStory() {
+    const [popover1Open, setPopover1Open] = useState(false)
+    const [popover2Open, setPopover2Open] = useState(false)
+    const [popover3Open, setPopover3Open] = useState(false)
+
+    return (
+      <div className="space-y-8">
+        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <h3 className="mb-2 text-lg font-semibold text-orange-900">🔍 问题重现测试</h3>
+          <p className="text-sm text-orange-800">
+            测试场景：在一个画布上有多个 Popover，当第一个 Popover 打开时，点击第二个 Popover 按钮
+          </p>
+          <div className="mt-2 text-xs text-orange-700">
+            <strong>预期行为：</strong>第一个关闭，第二个立即打开
+            <br />
+            <strong>实际行为：</strong>第一个关闭，需要再次点击第二个按钮才能打开
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="space-y-4">
+            <h4 className="font-medium">Popover 1</h4>
+            <div className="text-sm text-gray-600">状态: {popover1Open ? "开启" : "关闭"}</div>
+            <Popover
+              open={popover1Open}
+              onOpenChange={setPopover1Open}
+            >
+              <Popover.Trigger>
+                <Button variant={popover1Open ? "secondary" : "primary"}>Popover 1</Button>
+              </Popover.Trigger>
+              <Popover.Content className="w-64 p-3">
+                <div className="space-y-2">
+                  <h5 className="font-medium">Popover 1 内容</h5>
+                  <p className="text-sm text-gray-600">
+                    这是第一个 Popover 的内容。现在保持打开状态，然后点击 Popover 2 按钮测试。
+                  </p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setPopover1Open(false)}
+                  >
+                    关闭
+                  </Button>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-medium">Popover 2</h4>
+            <div className="text-sm text-gray-600">状态: {popover2Open ? "开启" : "关闭"}</div>
+            <Popover
+              open={popover2Open}
+              onOpenChange={setPopover2Open}
+            >
+              <Popover.Trigger>
+                <Button variant={popover2Open ? "secondary" : "primary"}>Popover 2</Button>
+              </Popover.Trigger>
+              <Popover.Content className="w-64 p-3">
+                <div className="space-y-2">
+                  <h5 className="font-medium">Popover 2 内容</h5>
+                  <p className="text-sm text-gray-600">
+                    这是第二个 Popover 的内容。如果点击一次就能打开说明问题已修复。
+                  </p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setPopover2Open(false)}
+                  >
+                    关闭
+                  </Button>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-medium">Popover 3</h4>
+            <div className="text-sm text-gray-600">状态: {popover3Open ? "开启" : "关闭"}</div>
+            <Popover
+              open={popover3Open}
+              onOpenChange={setPopover3Open}
+            >
+              <Popover.Trigger>
+                <Button variant={popover3Open ? "secondary" : "primary"}>Popover 3</Button>
+              </Popover.Trigger>
+              <Popover.Content className="w-64 p-3">
+                <div className="space-y-2">
+                  <h5 className="font-medium">Popover 3 内容</h5>
+                  <p className="text-sm text-gray-600">这是第三个 Popover 的内容。</p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setPopover3Open(false)}
+                  >
+                    关闭
+                  </Button>
+                </div>
+              </Popover.Content>
+            </Popover>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <h4 className="mb-2 font-medium">测试步骤：</h4>
+          <ol className="list-inside list-decimal space-y-1 text-sm text-gray-700">
+            <li>点击 &quot;Popover 1&quot; 按钮打开第一个 Popover</li>
+            <li>保持 Popover 1 打开状态，点击 &quot;Popover 2&quot; 按钮</li>
+            <li>观察是否需要点击两次才能打开 Popover 2</li>
+            <li>测试 Popover 2 → Popover 3 的切换</li>
+            <li>测试 Popover 3 → Popover 1 的切换</li>
+          </ol>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setPopover1Open(false)
+              setPopover2Open(false)
+              setPopover3Open(false)
+            }}
+          >
+            关闭所有 Popover
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setPopover1Open(true)
+              setPopover2Open(true)
+              setPopover3Open(true)
+            }}
+          >
+            打开所有 Popover（测试重叠）
+          </Button>
+        </div>
       </div>
     )
   },

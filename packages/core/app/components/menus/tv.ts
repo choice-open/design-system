@@ -198,7 +198,7 @@ export const MenuButtonTv = tv({
 export const MenuScrollArrowTv = tv({
   base: [
     "absolute flex h-6 w-full items-center justify-center overflow-hidden",
-    "z-menu border-white/10 bg-gray-900 text-white hover:bg-gray-800",
+    "z-menu pointer-events-auto border-white/10 bg-gray-900 text-white hover:bg-gray-800",
   ],
   variants: {
     dir: {

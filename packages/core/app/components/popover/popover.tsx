@@ -8,7 +8,7 @@ import {
   useFloatingParentNodeId,
 } from "@floating-ui/react"
 import { Slot } from "@radix-ui/react-slot"
-import React, { memo, useEffect, useId, useMemo } from "react"
+import React, { memo, useEffect, useId, useMemo, useRef, useCallback } from "react"
 import { findChildByType, mergeRefs } from "~/utils"
 import { Modal, ModalContent, ModalFooter } from "../modal"
 import { PopoverHeader, PopoverTrigger } from "./components"
@@ -76,6 +76,7 @@ export const DragPopover = memo(function DragPopover({
   focusManagerProps = {
     returnFocus: true,
     guards: false,
+    modal: false,
   },
   outsidePressIgnore,
   portalId = PORTAL_ROOT_ID,
@@ -86,7 +87,8 @@ export const DragPopover = memo(function DragPopover({
   const descriptionId = useId()
   const nodeId = useFloatingNodeId()
 
-  const floatingRefMutable = useMemo(() => ({ current: null as HTMLElement | null }), [])
+  // 🔧 移除不必要的 useMemo，简单对象不需要缓存
+  const floatingRefMutable = useRef<HTMLElement | null>(null)
 
   const {
     state: dragState,
@@ -124,9 +126,22 @@ export const DragPopover = memo(function DragPopover({
     }
   }, [externalTriggerRef, floating])
 
+  // 🔧 缓存样式计算函数
   const combinedStyles = useMemo(() => {
     return floating.getStyles(dragState.position, dragState.isDragging)
   }, [floating, dragState.position, dragState.isDragging])
+
+  // 🔧 缓存内联函数，避免每次渲染重新创建
+  const handleFloatingRef = useCallback(
+    (node: HTMLElement | null) => {
+      floating.refs.setFloating(node)
+      floatingRefMutable.current = node
+      if (contentRef && node) {
+        mergeRefs(contentRef)(node as HTMLDivElement)
+      }
+    },
+    [floating.refs, contentRef],
+  )
 
   const triggerContent = useMemo(() => {
     return findChildByType(children, PopoverTrigger)
@@ -149,6 +164,7 @@ export const DragPopover = memo(function DragPopover({
     )
   }, [children, draggable, handleDragStart])
 
+  // 🔧 contentContent 的依赖项优化
   const contentContent = useMemo(() => {
     const contentChild = findChildByType(children, ModalContent)
 
@@ -162,8 +178,9 @@ export const DragPopover = memo(function DragPopover({
         {contentChild}
       </Slot>
     )
-  }, [children, descriptionId, dragContentRef])
+  }, [children, dragContentRef, descriptionId])
 
+  // 🔧 优化 Context value，减少不必要的依赖项
   const contextValue = useMemo(
     () => ({
       open: floating.innerOpen,
@@ -179,19 +196,18 @@ export const DragPopover = memo(function DragPopover({
       descriptionId,
       dragContentRef,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       floating.innerOpen,
       floating.setInnerOpen,
-      externalTriggerRef,
       floating.getReferenceProps,
       floating.getFloatingProps,
       floating.refs,
       floating.handleClose,
+      externalTriggerRef,
       draggable,
       handleDragStart,
-      titleId,
-      descriptionId,
-      dragContentRef,
+      // titleId, descriptionId, dragContentRef 是稳定的，移除
     ],
   )
 
@@ -207,13 +223,7 @@ export const DragPopover = memo(function DragPopover({
           <FloatingPortal id={portalId}>
             {floating.innerOpen && (
               <Modal
-                ref={(node) => {
-                  floating.refs.setFloating(node)
-                  floatingRefMutable.current = node
-                  if (contentRef && node) {
-                    mergeRefs(contentRef)(node)
-                  }
-                }}
+                ref={handleFloatingRef}
                 style={combinedStyles}
                 className={className}
                 data-state={floating.positionReady ? "open" : "opening"}

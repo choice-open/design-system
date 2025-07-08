@@ -280,8 +280,15 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
 
   // 设置交互处理程序 - 优化配置，明确分离关注点
   const interactions = useInteractions([
-    useClick(floating.context, { event: "mousedown" }),
-    useDismiss(floating.context),
+    useClick(floating.context, {
+      event: "mousedown",
+      // 🔧 如果已经有其他 Popover 打开，点击时保持逻辑一致
+      stickIfOpen: false,
+    }),
+    useDismiss(floating.context, {
+      bubbles: true,
+      escapeKey: true,
+    }),
     useRole(floating.context, { role: "listbox" }),
     useInnerOffset(floating.context, {
       enabled: !fallback,
@@ -525,7 +532,7 @@ const SelectComponent = forwardRef<HTMLButtonElement, SelectProps>(function Sele
         {isControlledOpen && (
           <FloatingOverlay
             lockScroll={!touch}
-            className="z-menu"
+            className="z-menu pointer-events-none"
           >
             <FloatingFocusManager
               context={floating.context}

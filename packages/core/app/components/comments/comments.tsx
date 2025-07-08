@@ -2,10 +2,10 @@ import { observer } from "@legendapp/state/react"
 import { createRef, forwardRef, HTMLProps, useMemo, useRef, useState } from "react"
 import { Descendant } from "slate"
 import { useEventCallback } from "usehooks-ts"
-import { tcx } from "~/utils"
 import { Avatar } from "~/components/avatar"
 import { Button } from "~/components/button"
-import { Scroll } from "~/components/scroll"
+import { tcx } from "~/utils"
+import { ScrollArea } from "../scroll-area"
 import { CommentInput } from "./comment-input"
 import { CommentInputEmojiPopover } from "./comment-input/components"
 import { CommentItem } from "./comment-item"
@@ -135,16 +135,16 @@ const CommentsComponent = forwardRef<HTMLDivElement, CommentsProps>((props, ref)
 
   return (
     <>
-      <Scroll
+      <ScrollArea
         className={tcx("flex h-full flex-col", className)}
         scrollbarMode="large-b"
         ref={ref}
       >
-        <Scroll.Viewport
+        <ScrollArea.Viewport
           ref={scrollToBottomRef}
           onScroll={handleScroll}
         >
-          <Scroll.Content>
+          <ScrollArea.Content>
             {/* 加载更早评论的按钮 - 放在顶部 */}
             {pagination.hasMore && (
               <div className="flex justify-center py-2">
@@ -231,9 +231,9 @@ const CommentsComponent = forwardRef<HTMLDivElement, CommentsProps>((props, ref)
                 onTypingChange={handleTypingChange}
               />
             </div>
-          </Scroll.Content>
-        </Scroll.Viewport>
-      </Scroll>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+      </ScrollArea>
 
       <CommentInputEmojiPopover
         setSelectedEmoji={(emoji) => {

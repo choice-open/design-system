@@ -1,6 +1,6 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
 import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { Scroll } from "~/components"
+import { ScrollArea } from "~/components"
 import { tcx } from "~/utils"
 import { TreeNode } from "./components"
 import {
@@ -524,12 +524,12 @@ export const TreeList = (props: TreeListProps) => {
           }
         }}
       >
-        <Scroll className="h-full overflow-hidden">
-          <Scroll.Viewport
+        <ScrollArea className="h-full overflow-hidden">
+          <ScrollArea.Viewport
             ref={listRef}
             className="tree-list__viewport h-full"
           >
-            <div className="tree-list__content">
+            <ScrollArea.Content className="tree-list__content">
               {virtualScroll ? (
                 <>
                   {virtualizer.getVirtualItems().map((virtualItem) => {
@@ -555,9 +555,9 @@ export const TreeList = (props: TreeListProps) => {
               ) : (
                 visibleNodes.map((node) => renderTreeNode(node))
               )}
-            </div>
-          </Scroll.Viewport>
-        </Scroll>
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </div>
     </TreeContext.Provider>
   )

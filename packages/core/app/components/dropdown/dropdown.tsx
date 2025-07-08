@@ -146,15 +146,12 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
   const isNested = !disabledNested && parentId != null
 
   // Handle state changes with proper controlled/uncontrolled behavior
-  const handleOpenChange = useCallback(
-    (newOpen: boolean) => {
-      if (controlledOpen === undefined) {
-        setIsOpen(newOpen)
-      }
-      onOpenChange?.(newOpen)
-    },
-    [controlledOpen, onOpenChange],
-  )
+  const handleOpenChange = useEventCallback((newOpen: boolean) => {
+    if (controlledOpen === undefined) {
+      setIsOpen(newOpen)
+    }
+    onOpenChange?.(newOpen)
+  })
 
   // Floating UI setup
   const { refs, floatingStyles, context, isPositioned } = useFloating({
@@ -192,10 +189,15 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     event: "mousedown",
     toggle: !isNested,
     ignoreMouse: isNested,
+    // 🔧 如果已经有其他 Popover 打开，点击时保持逻辑一致
+    stickIfOpen: false,
   })
 
   const role = useRole(context, { role: "menu" })
-  const dismiss = useDismiss(context)
+  const dismiss = useDismiss(context, {
+    bubbles: true,
+    escapeKey: true,
+  })
 
   const listNavigation = useListNavigation(context, {
     listRef: elementsRef,
@@ -285,6 +287,11 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     parent.setHasFocusInside(true)
   })
 
+  // Create close method
+  const handleClose = useEventCallback(() => {
+    handleOpenChange(false)
+  })
+
   // Process children
   const { triggerElement, subTriggerElement, contentElement } = useMemo(() => {
     const childrenArray = React.Children.toArray(children)
@@ -316,11 +323,6 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
       "Dropdown requires a Dropdown.Content component as a child. Example: <Dropdown><Dropdown.Trigger>Trigger</Dropdown.Trigger><Dropdown.Content>{items}</Dropdown.Content></Dropdown>",
     )
   }
-
-  // Create close method
-  const handleClose = useEventCallback(() => {
-    handleOpenChange(false)
-  })
 
   // Create focus manager context
   const contextValue = useMemo(
@@ -372,7 +374,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
               {isControlledOpen && (
                 <FloatingOverlay
                   lockScroll={!touch}
-                  className="z-menu"
+                  className="z-menu pointer-events-none"
                 >
                   <FloatingFocusManager
                     context={context}

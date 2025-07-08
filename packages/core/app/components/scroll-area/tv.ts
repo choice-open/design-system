@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants"
 
 export const ScrollTv = tv({
   slots: {
-    root: "h-full min-h-0 overflow-hidden",
+    root: "relative h-full min-h-0 overflow-hidden",
     scrollbar: [
       "z-scroll",
       "flex touch-none select-none",

@@ -84,13 +84,18 @@ export function useThumbDrag(
     (e: React.MouseEvent) => {
       if (!viewport) return
 
+      // 🔧 修复：获取scrollbar元素而不是依赖viewport
+      const target = e.currentTarget as HTMLElement
+      const scrollbar = target.closest('[role="scrollbar"]') as HTMLElement
+      if (!scrollbar) return
+
       isDragging.current = true
       startPos.current = orientation === "vertical" ? e.clientY : e.clientX
       startScroll.current =
         orientation === "vertical" ? scrollState.scrollTop : scrollState.scrollLeft
 
       const handleMouseMove = (e: MouseEvent) => {
-        if (!isDragging.current || !viewport) return
+        if (!isDragging.current || !viewport || !scrollbar) return
 
         // 使用RAF节流，确保拖拽流畅且不阻塞UI
         if (rafId.current) {
@@ -103,8 +108,10 @@ export function useThumbDrag(
 
           if (orientation === "vertical") {
             const scrollableHeight = scrollState.scrollHeight - scrollState.clientHeight
-            const thumbTrackHeight = scrollState.clientHeight
-            const scrollDelta = (delta / thumbTrackHeight) * scrollableHeight
+            // 使用scrollbar的实际高度而不是viewport高度
+            const scrollbarRect = scrollbar.getBoundingClientRect()
+            const scrollbarHeight = scrollbarRect.height
+            const scrollDelta = (delta / scrollbarHeight) * scrollableHeight
             const newScrollTop = Math.max(
               0,
               Math.min(startScroll.current + scrollDelta, scrollableHeight),
@@ -112,8 +119,10 @@ export function useThumbDrag(
             viewport.scrollTop = newScrollTop
           } else {
             const scrollableWidth = scrollState.scrollWidth - scrollState.clientWidth
-            const thumbTrackWidth = scrollState.clientWidth
-            const scrollDelta = (delta / thumbTrackWidth) * scrollableWidth
+            // 使用scrollbar的实际宽度而不是viewport宽度
+            const scrollbarRect = scrollbar.getBoundingClientRect()
+            const scrollbarWidth = scrollbarRect.width
+            const scrollDelta = (delta / scrollbarWidth) * scrollableWidth
             const newScrollLeft = Math.max(
               0,
               Math.min(startScroll.current + scrollDelta, scrollableWidth),

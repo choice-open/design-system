@@ -1098,3 +1098,153 @@ export const SearchAndButton: Story = {
     )
   },
 }
+
+/**
+ * MultipleDropdowns: 测试多个 Dropdown 同时存在的切换问题
+ *
+ * Features:
+ * - 多个 Dropdown 同时存在
+ * - 测试从一个打开的 Dropdown 切换到另一个
+ * - 验证是否需要双击问题
+ *
+ * 问题重现：
+ * 1. 点击第一个 Dropdown 打开
+ * 2. 点击第二个 Dropdown 时，第一个会先关闭
+ * 3. 修复前：需要再次点击第二个 Dropdown 才能打开
+ * 4. 修复后：一次点击即可完成切换
+ */
+export const MultipleDropdowns: Story = {
+  render: function MultipleDropdownsStory() {
+    const [dropdown1Open, setDropdown1Open] = useState(false)
+    const [dropdown2Open, setDropdown2Open] = useState(false)
+    const [dropdown3Open, setDropdown3Open] = useState(false)
+
+    return (
+      <div className="space-y-8">
+        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <h3 className="mb-2 text-lg font-semibold text-orange-900">🔍 多 Dropdown 切换测试</h3>
+          <p className="text-sm text-orange-800">
+            测试场景：当第一个 Dropdown 打开时，点击第二个 Dropdown 的 Trigger
+          </p>
+          <div className="mt-2 text-xs text-orange-700">
+            <strong>修复前：</strong>第一个关闭，需要再次点击第二个才能打开
+            <br />
+            <strong>修复后：</strong>第一个关闭，第二个立即打开（一次点击完成切换）
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <h4 className="font-medium">Dropdown 1</h4>
+            <div className="text-sm text-gray-600">状态: {dropdown1Open ? "开启" : "关闭"}</div>
+            <Dropdown
+              open={dropdown1Open}
+              onOpenChange={setDropdown1Open}
+            >
+              <Dropdown.Trigger>
+                <Dropdown.Value>
+                  {dropdown1Open ? "Dropdown 1 (开启)" : "Dropdown 1"}
+                </Dropdown.Value>
+              </Dropdown.Trigger>
+              <Dropdown.Content>
+                <Dropdown.Label>Dropdown 1 内容</Dropdown.Label>
+                <Dropdown.Item>Option 1</Dropdown.Item>
+                <Dropdown.Item>Option 2</Dropdown.Item>
+                <Dropdown.Item>Option 3</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Button onClick={() => setDropdown1Open(false)}>关闭</Dropdown.Button>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+
+          <div>
+            <h4 className="font-medium">Dropdown 2</h4>
+            <div className="text-sm text-gray-600">状态: {dropdown2Open ? "开启" : "关闭"}</div>
+            <Dropdown
+              open={dropdown2Open}
+              onOpenChange={setDropdown2Open}
+            >
+              <Dropdown.Trigger>
+                <Dropdown.Value>
+                  {dropdown2Open ? "Dropdown 2 (开启)" : "Dropdown 2"}
+                </Dropdown.Value>
+              </Dropdown.Trigger>
+              <Dropdown.Content>
+                <Dropdown.Label>Dropdown 2 内容</Dropdown.Label>
+                <Dropdown.Item>Item A</Dropdown.Item>
+                <Dropdown.Item>Item B</Dropdown.Item>
+                <Dropdown.Item>Item C</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Button onClick={() => setDropdown2Open(false)}>关闭</Dropdown.Button>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+
+          <div>
+            <h4 className="font-medium">Dropdown 3</h4>
+            <div className="text-sm text-gray-600">状态: {dropdown3Open ? "开启" : "关闭"}</div>
+            <Dropdown
+              open={dropdown3Open}
+              onOpenChange={setDropdown3Open}
+            >
+              <Dropdown.Trigger>
+                <Dropdown.Value>
+                  {dropdown3Open ? "Dropdown 3 (开启)" : "Dropdown 3"}
+                </Dropdown.Value>
+              </Dropdown.Trigger>
+              <Dropdown.Content>
+                <Dropdown.Label>Dropdown 3 内容</Dropdown.Label>
+                <Dropdown.Item>Choice X</Dropdown.Item>
+                <Dropdown.Item>Choice Y</Dropdown.Item>
+                <Dropdown.Item>Choice Z</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Button onClick={() => setDropdown3Open(false)}>关闭</Dropdown.Button>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+          <h4 className="mb-2 font-medium text-green-900">✅ 修复效果</h4>
+          <p className="text-sm text-green-800">
+            使用 requestAnimationFrame 延迟 tree.events.click 处理，确保新 Dropdown 打开后再关闭其他
+            Dropdown
+          </p>
+        </div>
+
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <h4 className="mb-2 font-medium">测试步骤：</h4>
+          <ol className="list-inside list-decimal space-y-1 text-sm text-gray-700">
+            <li>点击 &quot;Dropdown 1&quot; 打开第一个下拉菜单</li>
+            <li>保持 Dropdown 1 打开状态，点击 &quot;Dropdown 2&quot;</li>
+            <li>观察是否需要点击两次才能打开 Dropdown 2</li>
+            <li>测试 Dropdown 2 → Dropdown 3 的切换</li>
+            <li>测试 Dropdown 3 → Dropdown 1 的切换</li>
+          </ol>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Dropdown.Button
+            onClick={() => {
+              setDropdown1Open(false)
+              setDropdown2Open(false)
+              setDropdown3Open(false)
+            }}
+          >
+            关闭所有 Dropdown
+          </Dropdown.Button>
+
+          <Dropdown.Button
+            onClick={() => {
+              setDropdown1Open(true)
+              setDropdown2Open(true)
+              setDropdown3Open(true)
+            }}
+          >
+            打开所有 Dropdown（测试重叠）
+          </Dropdown.Button>
+        </div>
+      </div>
+    )
+  },
+}

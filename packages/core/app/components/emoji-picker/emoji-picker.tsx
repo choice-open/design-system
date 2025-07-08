@@ -11,7 +11,7 @@ import {
 } from "@choiceform/icons-react"
 import React, { memo, useMemo, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { Scroll } from "../scroll"
+import { ScrollArea } from "../scroll-area"
 import { SearchInput } from "../search-input"
 import { Segmented } from "../segmented"
 import { EmojiCategoryHeader, EmojiEmpty, EmojiFooter, EmojiItem } from "./components"
@@ -167,15 +167,15 @@ export const EmojiPicker = memo(function EmojiPicker({
         )}
       </div>
 
-      <Scroll
+      <ScrollArea
         variant={variant}
         className={tv.scroll()}
       >
-        <Scroll.Viewport
+        <ScrollArea.Viewport
           ref={scrollRef}
           className="h-full"
         >
-          <Scroll.Content
+          <ScrollArea.Content
             className={tv.content()}
             style={contentStyle}
           >
@@ -233,9 +233,9 @@ export const EmojiPicker = memo(function EmojiPicker({
             ) : (
               <EmojiEmpty variant={variant} />
             )}
-          </Scroll.Content>
-        </Scroll.Viewport>
-      </Scroll>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+      </ScrollArea>
 
       <EmojiFooter
         hoveredEmoji={hoveredEmoji}
