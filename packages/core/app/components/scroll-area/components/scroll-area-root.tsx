@@ -1,0 +1,233 @@
+import React, { createContext, forwardRef, useCallback, useContext, useMemo, useState } from "react"
+import { tcx } from "../../../utils"
+import {
+  useHasOverflow,
+  useKeyboardNavigation,
+  useScrollbarShouldShow,
+  useScrollStateAndVisibility,
+  useThumbDrag,
+  useThumbStyle,
+} from "../hooks"
+import { ScrollTv } from "../tv"
+import type {
+  ScrollAreaContextType,
+  ScrollAreaProps,
+  ScrollAreaRenderProp,
+  ScrollPosition,
+} from "../types"
+import { ScrollAreaScrollbar } from "./scroll-area-scrollbar"
+import { ScrollAreaThumb } from "./scroll-area-thumb"
+import { ScrollAreaCorner } from "./scroll-area-corner"
+
+const ScrollAreaContext = createContext<ScrollAreaContextType | null>(null)
+
+export function useScrollAreaContext() {
+  const context = useContext(ScrollAreaContext)
+  if (!context) {
+    throw new Error("ScrollArea compound components must be used within ScrollArea")
+  }
+  return context
+}
+
+// 生成唯一ID的辅助函数
+function generateId(prefix: string) {
+  return `${prefix}-${Math.random().toString(36).substr(2, 9)}`
+}
+
+export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
+  (
+    {
+      className,
+      classNames,
+      children,
+      orientation = "vertical",
+      scrollbarMode = "default",
+      variant = "auto",
+      type = "hover",
+      id,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
+      ...props
+    },
+    ref,
+  ) => {
+    const [content, setContent] = useState<HTMLDivElement | null>(null)
+    const [viewport, setViewport] = useState<HTMLDivElement | null>(null)
+    const [scrollbarX, setScrollbarX] = useState<HTMLDivElement | null>(null)
+    const [scrollbarY, setScrollbarY] = useState<HTMLDivElement | null>(null)
+    const [thumbX, setThumbX] = useState<HTMLDivElement | null>(null)
+    const [thumbY, setThumbY] = useState<HTMLDivElement | null>(null)
+
+    // 生成唯一ID
+    const rootId = useMemo(() => id || generateId("scroll-area"), [id])
+    const viewportId = useMemo(() => generateId("scroll-viewport"), [])
+    const scrollbarXId = useMemo(() => generateId("scroll-x"), [])
+    const scrollbarYId = useMemo(() => generateId("scroll-y"), [])
+
+    const { scrollState, isHovering, isScrolling, handleMouseEnter, handleMouseLeave } =
+      useScrollStateAndVisibility(viewport)
+
+    // 使用新的键盘导航 hook
+    const { handleKeyDown } = useKeyboardNavigation(viewport, orientation)
+
+    // 缓存静态配置，避免每次渲染重新创建
+    const staticConfig = useMemo(
+      () => ({
+        orientation,
+        scrollbarMode,
+        variant,
+        type,
+      }),
+      [orientation, scrollbarMode, variant, type],
+    )
+
+    // 缓存Context值，只在相关状态变化时才更新
+    const contextValue: ScrollAreaContextType = useMemo(
+      () => ({
+        content,
+        orientation: staticConfig.orientation,
+        scrollState,
+        scrollbarMode: staticConfig.scrollbarMode,
+        scrollbarX,
+        scrollbarY,
+        setContent,
+        setScrollbarX,
+        setScrollbarY,
+        setThumbX,
+        setThumbY,
+        setViewport,
+        thumbX,
+        thumbY,
+        variant: staticConfig.variant,
+        viewport,
+        type: staticConfig.type,
+        isHovering,
+        isScrolling,
+        // 添加 ID 相关的值
+        rootId,
+        viewportId,
+        scrollbarXId,
+        scrollbarYId,
+      }),
+      [
+        content,
+        scrollState,
+        scrollbarX,
+        scrollbarY,
+        thumbX,
+        thumbY,
+        viewport,
+        isHovering,
+        isScrolling,
+        staticConfig,
+        rootId,
+        viewportId,
+        scrollbarXId,
+        scrollbarYId,
+      ],
+    )
+
+    // 缓存TV配置
+    const tvConfig = useMemo(
+      () =>
+        ScrollTv({
+          variant,
+          scrollbarMode,
+          orientation: orientation === "both" ? "vertical" : orientation,
+        }),
+      [variant, scrollbarMode, orientation],
+    )
+
+    // 缓存render prop的位置计算，只在scrollState变化时重新计算
+    const scrollPosition = useMemo<ScrollPosition>(() => {
+      const maxScrollTop = Math.max(0, scrollState.scrollHeight - scrollState.clientHeight)
+      const maxScrollLeft = Math.max(0, scrollState.scrollWidth - scrollState.clientWidth)
+
+      return {
+        top: maxScrollTop > 0 ? scrollState.scrollTop / maxScrollTop : 0,
+        left: maxScrollLeft > 0 ? scrollState.scrollLeft / maxScrollLeft : 0,
+      }
+    }, [
+      scrollState.scrollTop,
+      scrollState.scrollLeft,
+      scrollState.scrollHeight,
+      scrollState.clientHeight,
+      scrollState.scrollWidth,
+      scrollState.clientWidth,
+    ])
+
+    // 判断children是否是函数（render prop）
+    const isRenderProp = typeof children === "function"
+
+    // 如果是render prop，调用函数；否则直接使用children
+    const renderedChildren = isRenderProp
+      ? (children as ScrollAreaRenderProp)(scrollPosition)
+      : children
+
+    // 自动渲染滚动条组件
+    const autoScrollbars = useMemo(() => {
+      const scrollbars = []
+
+      // 根据 orientation 自动添加对应的滚动条
+      if (orientation === "vertical" || orientation === "both") {
+        scrollbars.push(
+          <ScrollAreaScrollbar
+            key="vertical"
+            orientation="vertical"
+          >
+            <ScrollAreaThumb orientation="vertical" />
+          </ScrollAreaScrollbar>,
+        )
+      }
+
+      if (orientation === "horizontal" || orientation === "both") {
+        scrollbars.push(
+          <ScrollAreaScrollbar
+            key="horizontal"
+            orientation="horizontal"
+          >
+            <ScrollAreaThumb orientation="horizontal" />
+          </ScrollAreaScrollbar>,
+        )
+      }
+
+      // 如果是双向滚动，添加 Corner
+      if (orientation === "both") {
+        scrollbars.push(<ScrollAreaCorner key="corner" />)
+      }
+
+      return scrollbars
+    }, [orientation])
+
+    return (
+      <ScrollAreaContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          id={rootId}
+          className={tcx(tvConfig.root(), classNames?.root, className)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onKeyDown={handleKeyDown}
+          // WAI-ARIA 属性
+          role="application"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={`${viewportId}-desc`}
+          {...props}
+        >
+          {/* 隐藏的描述元素 */}
+          <div
+            id={`${viewportId}-desc`}
+            className="sr-only"
+          >
+            Use arrow keys to scroll, Page Up/Down for larger steps, Home/End for start/end
+          </div>
+          {renderedChildren}
+          {autoScrollbars}
+        </div>
+      </ScrollAreaContext.Provider>
+    )
+  },
+)
+
+ScrollAreaRoot.displayName = "ScrollArea.Root"

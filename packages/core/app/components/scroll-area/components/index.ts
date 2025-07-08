@@ -1,0 +1,6 @@
+export { ScrollAreaRoot, useScrollAreaContext } from "./scroll-area-root"
+export { ScrollAreaViewport } from "./scroll-area-viewport"
+export { ScrollAreaContent } from "./scroll-area-content"
+export { ScrollAreaScrollbar } from "./scroll-area-scrollbar"
+export { ScrollAreaThumb } from "./scroll-area-thumb"
+export { ScrollAreaCorner } from "./scroll-area-corner"

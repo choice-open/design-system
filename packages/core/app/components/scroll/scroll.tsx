@@ -6,15 +6,15 @@ import { ScrollTv } from "./tv"
 
 export interface ScrollProps extends ScrollAreaProps {
   classNames?: {
-    root?: string
     content?: string
+    corner?: string
+    root?: string
     scrollbar?: string
     thumb?: string
-    corner?: string
   }
-  variant?: "auto" | "light" | "dark"
-  scrollbarMode?: "default" | "large-y" | "large-t" | "large-b" | "large-x" | "large-l" | "large-r"
   orientation?: "vertical" | "horizontal" | "both"
+  scrollbarMode?: "default" | "large-y" | "large-t" | "large-b" | "large-x" | "large-l" | "large-r"
+  variant?: "auto" | "light" | "dark"
 }
 
 const ScrollComponent = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
