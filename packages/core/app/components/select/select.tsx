@@ -176,7 +176,6 @@ const SelectComponent = memo(
         } = child.props as MenuContextItemProps
 
         return {
-          label: typeof itemChildren === "string" ? itemChildren : undefined,
           value: itemValue,
           disabled: itemDisabled,
           _originalIndex: index,
@@ -221,7 +220,6 @@ const SelectComponent = memo(
     const [scrollTop, setScrollTop] = useState(0)
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [activeIndex, setActiveIndex] = useState<number | null>(null)
-    const [blockSelection, setBlockSelection] = useState(false)
     const [innerOffset, setInnerOffset] = useState(0) // 关键：内部偏移
 
     // 合并受控与非受控打开状态
@@ -253,7 +251,6 @@ const SelectComponent = memo(
     if (!open) {
       if (innerOffset !== 0) setInnerOffset(0)
       if (fallback) setFallback(false)
-      if (blockSelection) setBlockSelection(false)
     }
 
     // 核心：macOS 风格的 floating 配置
@@ -450,7 +447,7 @@ const SelectComponent = memo(
         selectableIndex++ // 递增可选择项目索引
 
         const isSelected = currentSelectedIndex === currentSelectableIndex
-        const isDisabled = blockSelection || !!option.disabled
+        const isDisabled = !!option.disabled
 
         // 检查是否有自定义的 onClick
         const childProps = option.element?.props as MenuContextItemProps
@@ -505,7 +502,7 @@ const SelectComponent = memo(
           </MenuContextItem>
         )
       })
-    }, [options, currentSelectedIndex, blockSelection, refs, handleSelect, registerItem])
+    }, [options, currentSelectedIndex, refs, handleSelect, registerItem])
 
     const enhancedTriggerElement = useMemo(() => {
       if (!triggerElement) return null
