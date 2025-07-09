@@ -27,7 +27,7 @@ export interface TooltipProps {
   placement?: Placement
   portalId?: string
   shortcut?: {
-    keys: ReactNode
+    keys?: ReactNode
     modifier?: KbdKey[]
   }
   variant?: "default" | "light"
@@ -73,7 +73,7 @@ export function Tooltip(props: TooltipProps) {
               className="ml-2 opacity-50"
               keys={shortcut.modifier}
             >
-              {shortcut.keys}
+              {shortcut?.keys}
             </Kbd>
           )}
         </TooltipContent>
