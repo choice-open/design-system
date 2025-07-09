@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "0.9.91",
+  "version": "0.9.92",
   "description": "A modern React UI component library",
   "sideEffects": false,
   "type": "module",
@@ -48,10 +48,6 @@
     "@floating-ui/react": "0.27.13",
     "@floating-ui/react-dom": "2.1.4",
     "@legendapp/state": "v3.0.0-beta.26",
-    "@radix-ui/number": "^1.1.1",
-    "@radix-ui/react-direction": "^1.1.1",
-    "@radix-ui/react-slot": "1.2.0",
-    "@radix-ui/react-tooltip": "1.1.7",
     "@tanstack/react-virtual": "^3.12.1",
     "ahooks": "^3.8.0",
     "allotment": "^1.20.4",

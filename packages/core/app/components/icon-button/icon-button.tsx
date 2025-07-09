@@ -1,21 +1,21 @@
 import { LoaderCircle } from "@choiceform/icons-react"
-import { Slot } from "@radix-ui/react-slot"
 import { forwardRef, HTMLProps } from "react"
 import { tcx } from "~/utils"
+import { Slot } from "../slot"
 import { Tooltip, type TooltipProps } from "../tooltip"
 import { iconButtonTv } from "./tv"
 
 export interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
-  className?: string
-  variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "dark" | "reset" 
-  size?: "default" | "large" | "reset"
-  children?: React.ReactNode
   active?: boolean
+  asChild?: boolean
+  children?: React.ReactNode
+  className?: string
   disabled?: boolean
   focused?: boolean
   loading?: boolean
+  size?: "default" | "large" | "reset"
   tooltip?: TooltipProps
-  asChild?: boolean
+  variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "dark" | "reset"
 }
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(

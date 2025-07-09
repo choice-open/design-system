@@ -1,6 +1,6 @@
-import { Slot } from "@radix-ui/react-slot"
 import { Children, cloneElement, CSSProperties, forwardRef, HTMLProps, isValidElement } from "react"
 import { tcx } from "~/utils"
+import { Slot } from "../slot"
 import { type IconButtonProps } from "./icon-button"
 import { iconButtonGroupTv } from "./tv"
 

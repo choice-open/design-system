@@ -7,7 +7,7 @@ interface MenuContextContentProps extends HTMLProps<HTMLDivElement> {
 }
 
 export const MenuContextContent = forwardRef<HTMLDivElement, MenuContextContentProps>(
-  (props, ref) => {
+  function MenuContextContent(props, ref) {
     const { children, className, matchTriggerWidth, ...rest } = props
 
     return (

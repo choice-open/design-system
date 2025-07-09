@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot"
 import { useControllableValue } from "ahooks"
 import {
   type FocusEvent,
@@ -15,37 +14,38 @@ import {
 import { useEventCallback } from "usehooks-ts"
 import { mergeRefs, tcx } from "~/utils"
 import { Chip } from "../chip"
+import { Slot } from "../slot"
 import { chipsInputTv } from "./tv"
 
 export interface RenderChipProps {
   chip: string
-  index: number
-  isSelected: boolean
   disabled?: boolean
   handleChipClick: (index: number) => void
   handleChipRemoveClick: (index: number) => void
+  index: number
+  isSelected: boolean
 }
 
 export interface ChipsInputProps
   extends Omit<HTMLProps<HTMLDivElement>, "value" | "onChange" | "defaultValue" | "size"> {
+  allowDuplicates?: boolean
+  children?: React.ReactNode
   classNames?: {
-    root?: string
-    input?: string
     chip?: string
     chipCloseButton?: string
     chipText?: string
+    input?: string
     nesting?: string
+    root?: string
   }
-  value?: string[]
-  onChange?: (value: string[]) => void
+  disabled?: boolean
   onAdd?: (value: string) => void
+  onChange?: (value: string[]) => void
   onRemove?: (value: string) => void
   placeholder?: string
-  disabled?: boolean
-  size?: "default" | "large"
-  children?: React.ReactNode
-  allowDuplicates?: boolean
   renderChip?: (props: RenderChipProps) => ReactNode
+  size?: "default" | "large"
+  value?: string[]
 }
 
 export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, ref) => {

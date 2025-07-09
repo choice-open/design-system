@@ -1,7 +1,7 @@
 import { LoaderCircle } from "@choiceform/icons-react"
-import { Slot } from "@radix-ui/react-slot"
 import { cloneElement, forwardRef, HTMLProps, isValidElement, useMemo } from "react"
 import { isMultiElement, tcx } from "~/utils"
+import { Slot } from "../slot"
 import { Tooltip, type TooltipProps } from "../tooltip"
 import { buttonTv } from "./tv"
 

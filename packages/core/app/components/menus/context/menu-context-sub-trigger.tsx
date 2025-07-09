@@ -1,9 +1,9 @@
 import { ChevronRightSmall } from "@choiceform/icons-react"
 import { useListItem } from "@floating-ui/react"
 import { forwardRef, memo, useCallback, useContext, useEffect, useMemo, useRef } from "react"
+import { useEventCallback } from "usehooks-ts"
 import { MenuItem, MenuItemProps } from ".."
 import { MenuContext } from "./menu-context"
-import { useEventCallback } from "usehooks-ts"
 
 export const MenuContextSubTrigger = memo(
   forwardRef<HTMLButtonElement, MenuItemProps>((props, forwardedRef) => {
@@ -29,19 +29,19 @@ export const MenuContextSubTrigger = memo(
       [item.index, menu.activeIndex, active],
     )
 
+    // 优化：减少事件监听器重复绑定，将激活状态检查移到事件处理器内部
     useEffect(() => {
       const currentRef = buttonRef.current
       if (!currentRef) return
 
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (isActive && (e.key === "Enter" || e.key === "ArrowRight")) {
+        // 将激活状态检查移到事件处理器内部，避免重复绑定
+        const currentlyActive = item.index === menu.activeIndex || !!active
+        if (currentlyActive && (e.key === "Enter" || e.key === "ArrowRight")) {
           e.preventDefault()
           e.stopPropagation()
-          const clickEvent = new MouseEvent("click", {
-            bubbles: true,
-            cancelable: true,
-          })
-          currentRef.dispatchEvent(clickEvent)
+          // 直接调用 click() 方法，避免创建 MouseEvent
+          currentRef.click()
         }
       }
 
@@ -49,7 +49,7 @@ export const MenuContextSubTrigger = memo(
       return () => {
         currentRef.removeEventListener("keydown", handleKeyDown)
       }
-    }, [isActive])
+    }, [item.index, menu.activeIndex, active]) // 依赖具体值而不是计算结果
 
     const handleFocus = useEventCallback((event: React.FocusEvent<HTMLButtonElement>) => {
       props.onFocus?.(event)
@@ -73,6 +73,7 @@ export const MenuContextSubTrigger = memo(
       [item, forwardedRef],
     )
 
+    // 前缀配置 - 使用复用的空 Fragment
     const prefixConfig = useMemo(() => {
       if (prefixElement) return prefixElement
       if (menu.selection) return <></>

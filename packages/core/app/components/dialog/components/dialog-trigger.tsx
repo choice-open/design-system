@@ -1,5 +1,5 @@
-import { Slot } from "@radix-ui/react-slot"
 import { forwardRef, memo } from "react"
+import { Slot } from "../../slot"
 import { useDialogContext } from "../dialog-context"
 
 interface DialogTriggerProps {

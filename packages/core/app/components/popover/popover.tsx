@@ -1,4 +1,4 @@
-import type { FloatingContext, Placement } from "@floating-ui/react"
+import type { Placement } from "@floating-ui/react"
 import {
   FloatingFocusManager,
   FloatingNode,
@@ -7,10 +7,10 @@ import {
   useFloatingNodeId,
   useFloatingParentNodeId,
 } from "@floating-ui/react"
-import { Slot } from "@radix-ui/react-slot"
-import React, { memo, useEffect, useId, useMemo, useRef, useCallback } from "react"
+import React, { memo, useCallback, useEffect, useId, useMemo, useRef } from "react"
 import { findChildByType, mergeRefs } from "~/utils"
 import { Modal, ModalContent, ModalFooter } from "../modal"
+import { Slot } from "../slot"
 import { PopoverHeader, PopoverTrigger } from "./components"
 import { useDrag, useFloatingPopover } from "./hooks"
 import { PopoverContext } from "./popover-context"

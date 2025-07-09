@@ -17,3 +17,5 @@ export const MenuContextLabel = memo(function MenuContextLabel(props: MenuLabelP
     />
   )
 })
+
+MenuContextLabel.displayName = "MenuContextLabel"

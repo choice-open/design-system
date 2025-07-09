@@ -1,6 +1,6 @@
-import { Slot } from "@radix-ui/react-slot"
 import { forwardRef, memo } from "react"
 import { mergeRefs } from "~/utils"
+import { Slot } from "../../slot"
 import { usePopoverContext } from "../popover-context"
 
 export const PopoverTrigger = memo(

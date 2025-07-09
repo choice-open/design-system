@@ -1,6 +1,6 @@
 import { Check } from "@choiceform/icons-react"
 import { useFloatingTree, useListItem } from "@floating-ui/react"
-import { forwardRef, memo, useContext, useMemo, useCallback } from "react"
+import { forwardRef, memo, startTransition, useCallback, useContext, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { MenuItem, type MenuItemProps } from "../components/menu-item"
 import { MenuContext } from "./menu-context"
@@ -63,10 +63,10 @@ export const MenuContextItem = memo(
         event.stopPropagation()
         onClick?.(event)
 
-        // 延迟触发 tree 关闭，确保用户的 onClick 操作完成
-        setTimeout(() => {
+        // 使用 startTransition 优化性能，避免 setTimeout
+        startTransition(() => {
           tree?.events.emit("click")
-        }, 0)
+        })
       })
 
       // 处理鼠标按下事件（防止事件冒泡）
@@ -79,10 +79,10 @@ export const MenuContextItem = memo(
         event.stopPropagation()
         onMouseUp?.(event)
 
-        // 延迟触发 tree 关闭，确保用户的 onMouseUp 操作完成
-        setTimeout(() => {
+        // 使用 startTransition 优化性能，避免 setTimeout
+        startTransition(() => {
           tree?.events.emit("click")
-        }, 0)
+        })
       })
 
       // 处理触摸开始事件
@@ -101,7 +101,7 @@ export const MenuContextItem = memo(
         menu.setHasFocusInside(true)
       })
 
-      // 前缀元素配置
+      // 前缀元素配置 - 使用复用的空 Fragment
       const prefixConfig = useMemo(() => {
         if (prefixElement !== undefined) return prefixElement
         if (menu.selection && !customActive) {

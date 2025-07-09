@@ -1,8 +1,8 @@
 import { ChevronDownSmall } from "@choiceform/icons-react"
-import { Slot } from "@radix-ui/react-slot"
 import { forwardRef, memo, ReactNode } from "react"
 import { tcx } from "~/utils"
 import { Button, type ButtonProps } from "../../button"
+import { Slot } from "../../slot"
 import { MenuTriggerTv } from "../tv"
 
 export interface MenuTriggerProps extends ButtonProps {
