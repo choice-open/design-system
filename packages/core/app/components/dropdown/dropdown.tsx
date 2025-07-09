@@ -56,6 +56,7 @@ import {
   useMenuScroll,
 } from "../menus"
 import { Slot } from "../slot"
+import { tcx } from "~/utils"
 
 const PORTAL_ROOT_ID = "floating-menu-root"
 const DEFAULT_OFFSET = 4
@@ -112,7 +113,7 @@ const DropdownComponent = memo(
       onOpenChange,
       focusManagerProps = {
         returnFocus: false,
-        modal: false,
+        modal: true,
       },
     } = props
 
@@ -366,7 +367,7 @@ const DropdownComponent = memo(
             {isControlledOpen && (
               <FloatingOverlay
                 lockScroll={!touch}
-                className="z-menu pointer-events-none"
+                className={tcx("z-menu", focusManagerProps.modal ? "" : "pointer-events-none")}
               >
                 <FloatingFocusManager
                   context={context}

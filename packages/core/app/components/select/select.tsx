@@ -50,6 +50,7 @@ import {
   type MenuContextItemProps,
 } from "../menus"
 import { Slot } from "../slot"
+import { tcx } from "~/utils"
 
 const PORTAL_ROOT_ID = "floating-menu-root"
 
@@ -99,7 +100,7 @@ const SelectComponent = memo(
       children,
       focusManagerProps = {
         returnFocus: false,
-        modal: false,
+        modal: true,
       },
     } = props
 
@@ -547,7 +548,7 @@ const SelectComponent = memo(
           {isControlledOpen && (
             <FloatingOverlay
               lockScroll={!touch}
-              className="z-menu pointer-events-none"
+              className={tcx("z-menu", focusManagerProps.modal ? "" : "pointer-events-none")}
             >
               <FloatingFocusManager
                 context={floating.context}

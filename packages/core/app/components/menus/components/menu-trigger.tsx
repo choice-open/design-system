@@ -38,7 +38,19 @@ export const MenuTrigger = memo(
     })
 
     const slotProps = enterForwardedProps
-      ? { ...rest, active, selected, disabled }
+      ? {
+          ...rest,
+          active,
+          selected,
+          disabled,
+          onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation()
+            e.preventDefault()
+            if (rest.onClick) {
+              rest.onClick(e)
+            }
+          },
+        }
       : {
           ...rest,
           ...(active !== undefined ? { "data-active": active } : {}),
