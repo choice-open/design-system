@@ -8,45 +8,30 @@
 body {
 }
 
-.custom-container .docblock-source {
+.sb-unstyled .docblock-source {
   box-shadow: none;
   border: 1px solid var(--color-default-boundary);
   border-radius: var(--radius-xl);
   background-color: transparent;
-  color: var(--color-default-foreground);
 }
 
-/* 只重置 Storybook 的特定样式，保留 prose 样式 */
-.css-x28zkw :where(h1:not(.sb-anchor, .sb-unstyled, .sb-unstyled h1)),
-.css-x28zkw :where(h2:not(.sb-anchor, .sb-unstyled, .sb-unstyled h2)),
-.css-x28zkw :where(h3:not(.sb-anchor, .sb-unstyled, .sb-unstyled h3)),
-.css-x28zkw :where(h4:not(.sb-anchor, .sb-unstyled, .sb-unstyled h4)),
-.css-x28zkw :where(h5:not(.sb-anchor, .sb-unstyled, .sb-unstyled h5)),
-.css-x28zkw :where(h6:not(.sb-anchor, .sb-unstyled, .sb-unstyled h6)) {
-  margin: revert !important;
-  border-bottom: none !important;
-  padding: revert !important;
-  color: revert !important;
-  font-weight: revert !important;
-  font-size: revert !important;
-  line-height: revert !important;
-  font-family: revert !important;
-  -webkit-font-smoothing: revert !important;
-  -webkit-tap-highlight-color: revert !important;
-  position: revert !important;
-  cursor: revert !important;
+.sb-unstyled .docblock-source .css-11xgcgt {
+  right: 0.25rem !important;
+  bottom: 0.25rem !important;
+  background: transparent !important;
+}
+.sb-unstyled .docblock-source .css-1fdphfk {
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--radius-lg) !important;
+  background: transparent !important;
+  color: var(--color-default-foreground) !important;
+  font-size: 0.6875rem !important;
+  line-height: 1rem !important;
 }
 
-/* 特别针对已知的 Storybook 样式类 */
-.css-x28zkw {
-  font-family: revert !important;
-}
-
-/* 确保 prose 容器内的元素不被 Storybook 样式影响 */
-.prose.prose-slate :where(h1, h2, h3, h4, h5, h6, p, li, ul, ol, blockquote, hr, figure, pre),
-.prose.prose-lg :where(h1, h2, h3, h4, h5, h6, p, li, ul, ol, blockquote, hr, figure, pre) {
-  /* 让 prose 样式优先 */
-  all: revert;
+.sb-unstyled .docblock-source .css-1fdphfk:hover {
+  background: var(--color-secondary-background) !important;
 }
 
 /* 移除 Storybook 特有的字体 */
@@ -57,35 +42,97 @@ body {
 .sbdocs.sbdocs-wrapper {
   background-color: transparent;
 }
-.token.keyword,
-.token.attr-value,
-.token.atrule {
-  color: var(--color-accent-foreground) !important;
-}
-.token.operator,
-.token.punctuation,
-.token.selector,
-.token.tag,
-.token.class-name {
-  color: var(--color-default-foreground) !important;
+
+.docblock-source pre.prismjs {
+  padding: 1rem !important;
+  color: #000000cc !important;
+  font-size: 0.6875rem !important;
+  line-height: 1rem !important;
+  &:where(.dark *) {
+    color: #ffffffcc !important;
+  }
 }
 
-.token.attr-name {
-  color: var(--color-warning-foreground) !important;
+.docblock-source .prismjs .token.constant,
+.docblock-source .prismjs .token.keyword,
+.docblock-source .prismjs .token.operator,
+.docblock-source .prismjs .token.selector,
+.docblock-source .prismjs .token.tag,
+.docblock-source .prismjs .token.class-name {
+  color: #cb0b96 !important;
+  &:where(.dark *) {
+    color: #fc9ce0 !important;
+  }
 }
+
+.docblock-source .prismjs .token.comment {
+  color: #00000080 !important;
+  &:where(.dark *) {
+    color: #ffffff80 !important;
+  }
+}
+
+.docblock-source .prismjs .token.attr-value,
+.docblock-source .prismjs .token.string,
+.docblock-source .prismjs .token.property,
+.token.tag.script.language-javascript.boolean {
+  color: #c53e0d !important;
+  &:where(.dark *) {
+    color: #fcb34a !important;
+  }
+}
+
+.docblock-source .prismjs .token.punctuation {
+  color: #000000cc !important;
+  &:where(.dark *) {
+    color: #ffffffcc !important;
+  }
+}
+
 .token.variable,
-.token.comment {
-  color: var(--color-success-foreground) !important;
-}
-.token.string,
-.token.property {
-  color: var(--color-danger-foreground) !important;
-}
-
-.token.function {
-  color: var(--color-accent-foreground) !important;
+.token.attr-name,
+.token.tag.script.language-javascript.punctuation {
+  color: #093077 !important;
+  &:where(.dark *) {
+    color: #7cc4f8 !important;
+  }
 }
 
-.token.number {
-  color: var(--color-warning-foreground) !important;
+.docblock-source .prismjs .token.rule {
+  color: #0768cf !important;
+  &:where(.dark *) {
+    color: #7cc4f8 !important;
+  }
+}
+
+.language-tsx .token.arrow.operator,
+.language-tsx .token.maybe-class-name,
+.language-tsx .token.function.maybe-class-name {
+  color: #0768cf !important;
+  &:where(.dark *) {
+    color: #d1a8ff !important;
+  }
+}
+
+.language-tsx .token.method.function.property-access,
+.language-tsx .token.tag.attr-name,
+.language-tsx .token.function {
+  color: #0768cf !important;
+  &:where(.dark *) {
+    color: #7cc4f8 !important;
+  }
+}
+
+.language-tsx .token.property-access {
+  color: #093077 !important;
+  &:where(.dark *) {
+    color: #7cc4f8 !important;
+  }
+}
+
+.language-bash .token.function {
+  color: #cb0b96 !important;
+  &:where(.dark *) {
+    color: #fc9ce0 !important;
+  }
 }

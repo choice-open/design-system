@@ -21,6 +21,8 @@
     "calendar:storybook": "pnpm --filter=\"@choiceform/calendar\" run storybook",
     "calendar:lint": "eslint packages/calendar/app/**/*.{ts,tsx} --ext .ts,.tsx",
     "calendar:lint:fix": "eslint packages/calendar/app/**/*.{ts,tsx} --ext .ts,.tsx --fix",
+    "docs:dev": "pnpm --filter=\"@design-system/docs\" run dev",
+    "docs:build": "pnpm --filter=\"@design-system/docs\" run build",
     "test": "pnpm --filter=\"./packages/**\" run test",
     "clean": "pnpm --filter=\"./packages/**\" run clean",
     "preinstall": "npx only-allow pnpm"

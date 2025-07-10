@@ -38,13 +38,18 @@ addons.setConfig({
       tags: "new",
       badge: {
         text: "New 🔆",
-        bgColor: "transparent",
-        fgColor: "rgba(13, 153, 255, 1)",
-        borderColor: "transparent",
+        style: {
+          backgroundColor: "transparent",
+          color: "rgba(13, 153, 255, 1)",
+          borderColor: "transparent",
+        },
         tooltip: "Recently added components or props/features",
       },
       display: {
-        sidebar: ["component"],
+        sidebar: {
+          skipInherited: true,
+          type: "component",
+        },
         toolbar: false,
       },
     },
@@ -52,13 +57,18 @@ addons.setConfig({
       tags: "beta",
       badge: {
         text: "Beta ⚡️",
-        bgColor: "transparent",
-        fgColor: "rgba(151, 71, 255, 1)",
-        borderColor: "transparent",
+        style: {
+          backgroundColor: "transparent",
+          color: "rgba(151, 71, 255, 1)",
+          borderColor: "transparent",
+        },
         tooltip: "Warn that a component or prop is not stable yet",
       },
       display: {
-        sidebar: ["component"],
+        sidebar: {
+          skipInherited: true,
+          type: "component",
+        },
         toolbar: false,
       },
     },
@@ -66,14 +76,19 @@ addons.setConfig({
       tags: "upgrade",
       badge: {
         text: "Upgrade ☘️",
-        bgColor: "transparent",
-        fgColor: "rgba(20, 174, 92, 1)",
-        borderColor: "transparent",
+        style: {
+          backgroundColor: "transparent",
+          color: "rgba(20, 174, 92, 1)",
+          borderColor: "transparent",
+        },
         tooltip:
           "Indicates that a component or feature has been significantly improved or changed, and users are encouraged to update to the latest version to benefit from new enhancements, optimizations, or important fixes. ",
       },
       display: {
-        sidebar: ["component"],
+        sidebar: {
+          skipInherited: true,
+          type: "component",
+        },
         toolbar: false,
       },
     },
@@ -81,14 +96,19 @@ addons.setConfig({
       tags: "experimental",
       badge: {
         text: "Experimental 🔬",
-        bgColor: "transparent",
-        fgColor: "rgba(255, 149, 0, 1)",
-        borderColor: "transparent",
+        style: {
+          backgroundColor: "transparent",
+          color: "rgba(255, 149, 0, 1)",
+          borderColor: "transparent",
+        },
         tooltip:
           "Indicates that a component or feature is experimental and may be unstable or subject to change. Use with caution and expect breaking changes. ",
       },
       display: {
-        sidebar: ["component"],
+        sidebar: {
+          skipInherited: true,
+          type: "component",
+        },
         toolbar: false,
       },
     },
@@ -96,13 +116,18 @@ addons.setConfig({
       tags: "code-only",
       badge: {
         text: "Code Only 💻",
-        bgColor: "transparent",
-        fgColor: "rgba(30, 174, 219, 1)",
-        borderColor: "transparent",
+        style: {
+          backgroundColor: "transparent",
+          color: "rgba(30, 174, 219, 1)",
+          borderColor: "transparent",
+        },
         tooltip: "Indicates that a component or feature is code only.",
       },
       display: {
-        sidebar: ["component"],
+        sidebar: {
+          skipInherited: true,
+          type: "component",
+        },
         toolbar: false,
       },
     },

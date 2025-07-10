@@ -14,3 +14,4 @@ storybook-static
 .jest-test-results.json
 
 dist-demo
+.next

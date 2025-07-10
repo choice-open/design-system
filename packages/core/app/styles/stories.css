@@ -1,0 +1,5 @@
+@layer components {
+  .story-container {
+    @apply prose prose-sm dark:prose-invert prose-pre:bg-transparent prose-pre:p-0 prose-pre:m-0 mx-auto max-w-2xl p-4;
+  }
+}
