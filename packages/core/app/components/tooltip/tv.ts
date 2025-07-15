@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants"
 
 export const tooltipContentVariants = tv({
   slots: {
-    root: "z-tooltip rounded-md px-2 py-1",
+    root: "rounded-md px-2 py-1",
     arrow: "translate-none",
   },
   variants: {

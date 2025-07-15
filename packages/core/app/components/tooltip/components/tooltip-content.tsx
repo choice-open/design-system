@@ -64,6 +64,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
           ref={ref}
           style={state.floatingStyles}
           {...state.getFloatingProps(rest)}
+          className="z-tooltip"
         >
           <div
             className={tcx(tv.root({ className }))}
