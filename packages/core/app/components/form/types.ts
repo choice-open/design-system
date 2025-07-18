@@ -268,7 +268,7 @@ type CommonExcludedPropsWithChildrenAndSize = CommonExcludedProps | "children" |
 /**
  * 选择类组件的选项类型
  */
-export interface SelectOption<T = string> {
+interface SelectOption<T = string> {
   divider?: boolean
   label?: string
   value?: T
@@ -277,7 +277,7 @@ export interface SelectOption<T = string> {
 /**
  * 分段控件的选项类型
  */
-export interface SegmentedOption<T = string> {
+interface SegmentedOption<T = string> {
   content?: string | ReactNode
   value?: T
 }
