@@ -1,43 +1,38 @@
-import { Label } from "~/components/label"
 import { Input } from "../../input"
 import type { InputAdapterProps } from "../types"
-import { FormTv } from "../tv"
+import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
  * Input 适配器 - 将 Input 组件适配到 Form 系统
- *
- * 核心功能：
- * 1. 值绑定
- * 2. 事件处理
- * 3. 错误状态显示
- * 4. 样式适配
  */
 export function InputAdapter<T extends string>({
+  className,
   label,
   description,
+  error,
   value,
   onChange,
   onBlur,
-  error,
-  errors,
   ...props
 }: InputAdapterProps<T>) {
-  const tv = FormTv()
+  const filteredProps = filterFormProps(props)
+
   return (
-    <fieldset className={tv.field()}>
-      {label && <Label htmlFor={props.name}>{label}</Label>}
+    <BaseAdapter
+      className={className}
+      label={label}
+      description={description}
+      error={error}
+      htmlFor={props.name}
+    >
       <Input
         id={props.name}
-        type={props.type}
-        name={props.name}
         value={String(value || "")}
         onChange={(inputValue) => onChange?.(inputValue as T)}
         onBlur={onBlur}
-        {...props}
+        {...filteredProps}
       />
-      {description && <p className={tv.description()}>{description}</p>}
-      {(error || errors?.length) && <p className={tv.error()}>{error}</p>}
-    </fieldset>
+    </BaseAdapter>
   )
 }
 

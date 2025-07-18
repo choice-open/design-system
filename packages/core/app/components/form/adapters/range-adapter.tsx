@@ -1,6 +1,6 @@
-import { Label, Range, Switch } from "~/components"
-import { FormTv } from "../tv"
-import type { RangeAdapterProps, SwitchAdapterProps } from "../types"
+import { Range } from "~/components"
+import type { RangeAdapterProps } from "../types"
+import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
  * Switch 适配器 - 将 Switch 组件适配到 Form 系统
@@ -12,47 +12,35 @@ import type { RangeAdapterProps, SwitchAdapterProps } from "../types"
  * 4. 样式适配
  */
 export function RangeAdapter<T extends number>({
+  className,
   label,
   description,
+  error,
   value,
   onChange,
   onBlur,
   onFocus,
-  error,
-  errors,
-  // 表单字段特定属性，不传递给组件
-  onBlurAsync,
-  onBlurAsyncDebounceMs,
-  onChangeAsync,
-  onChangeAsyncDebounceMs,
-  onFocusAsync,
-  onFocusAsyncDebounceMs,
-  size: fieldSize,
   ...props
 }: RangeAdapterProps<T>) {
-  const tv = FormTv()
-
-  // 排除会造成类型冲突的属性，传递其他所有属性
-  const { ...rangeProps } = props
+  const { ...filteredProps } = filterFormProps(props)
 
   return (
-    <fieldset className={tv.field()}>
-      {label && (
-        <Label
-          as="legend"
-          className="mb-2"
-        >
-          {label}
-        </Label>
-      )}
-      <Range
-        value={value}
-        onChange={(inputValue) => onChange(inputValue as T)}
-        {...rangeProps}
-      />
-      {description && <p className={tv.description()}>{description}</p>}
-      {(error || errors?.length) && <p className={tv.error()}>{error}</p>}
-    </fieldset>
+    <BaseAdapter
+      className={className}
+      label={label}
+      description={description}
+      error={error}
+      legendMode={true}
+    >
+      <div className="flex items-center gap-2">
+        <Range
+          value={value}
+          onChange={(inputValue) => onChange(inputValue as T)}
+          {...filteredProps}
+        />
+        <div className="flex-1 text-right">{value}</div>
+      </div>
+    </BaseAdapter>
   )
 }
 

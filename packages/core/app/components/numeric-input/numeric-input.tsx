@@ -49,9 +49,10 @@ export interface NumericInputProps
     input?: string
   }
   disabled?: boolean
+  id?: string
   onChange?: (value: NumericInputValue, detail: NumericChangeDetail) => void
   tooltip?: TooltipProps
-  triggerRef?: React.RefObject<HTMLLabelElement> | ((el: HTMLLabelElement | null) => void)
+  triggerRef?: React.RefObject<HTMLDivElement> | ((el: HTMLDivElement | null) => void)
 }
 
 interface NumericInputComponent
@@ -67,6 +68,7 @@ interface NumericInputComponent
 
 export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>((props, ref) => {
   const {
+    id,
     className,
     classNames,
     decimal,
@@ -96,7 +98,6 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
     children,
   } = props
 
-  const id = useId()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { handlerPressed, inputProps, handlerProps } = useNumericInput({
@@ -241,7 +242,7 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
 
   return (
     <NumericInputContext.Provider value={contextValue}>
-      <label
+      <div
         ref={triggerRef}
         className={tcx(styles.container(), classNames?.container, className)}
         onMouseDown={(e) => {
@@ -255,8 +256,8 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
 
         <input
           {...mergeProps(inputProps, disableScrollProps)}
-          id={id}
           name={name}
+          id={id}
           onFocus={handleFocus}
           onBlur={handleBlur}
           data-1p-ignore
@@ -285,7 +286,7 @@ export const NumericInputBase = forwardRef<HTMLInputElement, NumericInputProps>(
             />
           </Tooltip>
         )}
-      </label>
+      </div>
     </NumericInputContext.Provider>
   )
 })

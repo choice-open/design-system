@@ -7,6 +7,9 @@ export {
   TextareaAdapter,
   SwitchAdapter,
   RangeAdapter,
+  NumericInputAdapter,
+  MultiSelectAdapter,
+  SegmentedAdapter,
 } from "./adapters"
 
 // 导出类型
@@ -23,6 +26,9 @@ import {
   TextareaAdapter,
   SwitchAdapter,
   RangeAdapter,
+  NumericInputAdapter,
+  MultiSelectAdapter,
+  SegmentedAdapter,
 } from "./adapters"
 
 /**
@@ -45,6 +51,9 @@ export function useForm(options: {
     RadioGroup: RadioGroupAdapter,
     Switch: SwitchAdapter,
     Range: RangeAdapter,
+    NumericInput: NumericInputAdapter,
+    MultiSelect: MultiSelectAdapter,
+    Segmented: SegmentedAdapter,
     Button: Button,
   })
 

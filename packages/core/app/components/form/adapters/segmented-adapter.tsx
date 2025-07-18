@@ -1,9 +1,9 @@
-import { RadioGroup } from "~/components"
-import type { RadioGroupAdapterProps } from "../types"
+import { Segmented } from "~/components"
+import type { SegmentedAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * RadioGroup 适配器 - 将 RadioGroup 组件适配到 Form 系统
+ * Segmented 适配器 - 将 Segmented 组件适配到 Form 系统
  *
  * 核心功能：
  * 1. 值绑定
@@ -11,7 +11,7 @@ import { BaseAdapter, filterFormProps } from "./base-adapter"
  * 3. 错误状态显示
  * 4. 样式适配
  */
-export function RadioGroupAdapter<T extends string>({
+export function SegmentedAdapter<T extends string>({
   className,
   label,
   description,
@@ -21,8 +21,9 @@ export function RadioGroupAdapter<T extends string>({
   onBlur,
   onFocus,
   name,
+  options,
   ...props
-}: RadioGroupAdapterProps<T>) {
+}: SegmentedAdapterProps<T>) {
   const { ref, ...filteredProps } = filterFormProps(props)
 
   return (
@@ -33,29 +34,38 @@ export function RadioGroupAdapter<T extends string>({
       error={error}
       legendMode={true}
     >
-      <RadioGroup
+      <Segmented
         value={value}
         onChange={(inputValue) => onChange(inputValue as T)}
         onBlur={onBlur}
         onFocus={onFocus}
         {...filteredProps}
-      />
+      >
+        {options?.map((option) => (
+          <Segmented.Item
+            key={option.value}
+            value={option.value as T}
+          >
+            {option.content}
+          </Segmented.Item>
+        ))}
+      </Segmented>
     </BaseAdapter>
   )
 }
 
 // 为了方便使用，导出一个创建适配器的工厂函数
-export const createRadioGroupAdapter = <T extends string>(
-  defaultProps?: Partial<RadioGroupAdapterProps<T>>,
+export const createSegmentedAdapter = <T extends string>(
+  defaultProps?: Partial<SegmentedAdapterProps<T>>,
 ) => {
-  const AdapterComponent = (props: RadioGroupAdapterProps<T>) => (
-    <RadioGroupAdapter<T>
+  const AdapterComponent = (props: SegmentedAdapterProps<T>) => (
+    <SegmentedAdapter<T>
       {...defaultProps}
       {...props}
     />
   )
 
-  AdapterComponent.displayName = "RadioGroupAdapter"
+  AdapterComponent.displayName = "SegmentedAdapter"
 
   return AdapterComponent
 }

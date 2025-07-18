@@ -6,6 +6,9 @@ import { TextareaProps } from "../textarea"
 import type { RadioGroupProps } from "../radio"
 import { SwitchProps } from "../switch"
 import { RangeProps } from "../range"
+import { NumericInputProps } from "../numeric-input"
+import { MultiSelectProps } from "../multi-select"
+import { SegmentedProps } from "../segmented"
 
 /**
  * 表单验证器类型
@@ -217,6 +220,10 @@ export interface FormFieldCommonProps<T = unknown> {
   value: T
 }
 
+// ============================================================================
+// 适配器基础类型 - 重构后的类型层次结构
+// ============================================================================
+
 /**
  * 表单字段适配器基础属性
  * 包含所有表单字段的通用属性
@@ -225,9 +232,7 @@ export interface FormFieldAdapterProps<T = unknown> {
   /** 字段描述 */
   description?: string | ReactNode
   /** 单个错误信息 */
-  error?: string
-  /** 多个错误信息 */
-  errors?: string[]
+  error?: string | ReactNode
   /** 字段标签 */
   label?: string
   /** 失焦回调 */
@@ -252,54 +257,142 @@ export interface FormFieldAdapterProps<T = unknown> {
 }
 
 /**
- * Input 适配器 Props - 继承 Input 的原生 props
+ * 通用适配器属性排除模式
+ * 定义需要从原组件 props 中排除的属性
  */
-export interface InputAdapterProps<T extends string = string>
-  extends Omit<InputProps, "value" | "onChange" | "onBlur" | "onFocus" | "size">,
-    FormFieldAdapterProps<T> {}
+type CommonExcludedProps = "value" | "onChange" | "onBlur" | "onFocus"
+type CommonExcludedPropsWithChildren = CommonExcludedProps | "children"
+type CommonExcludedPropsWithSize = CommonExcludedProps | "size"
+type CommonExcludedPropsWithChildrenAndSize = CommonExcludedProps | "children" | "size"
 
 /**
- * Textarea 适配器 Props - 继承 Textarea 的原生 props
+ * 选择类组件的选项类型
  */
-export interface TextareaAdapterProps<T extends string = string>
-  extends Omit<TextareaProps, "value" | "onChange" | "onBlur" | "onFocus" | "size">,
-    FormFieldAdapterProps<T> {}
-
-/**
- * Select 适配器 Props - 继承 Select 的原生 props
- */
-export interface SelectAdapterProps<T extends string = string>
-  extends Omit<SelectProps, "value" | "onChange" | "children" | "size">,
-    FormFieldAdapterProps<T> {
-  name?: string
-  options?: Array<{
-    divider?: boolean
-    label?: string
-    value?: T
-  }>
-  placeholder?: string
+export interface SelectOption<T = string> {
+  divider?: boolean
+  label?: string
+  value?: T
 }
 
 /**
- * Checkbox 适配器 Props - 继承 Checkbox 的原生 props
+ * 分段控件的选项类型
+ */
+export interface SegmentedOption<T = string> {
+  content?: string | ReactNode
+  value?: T
+}
+
+/**
+ * 基础适配器工厂类型
+ * 用于创建标准的适配器类型
+ */
+export type BaseAdapterProps<
+  TComponent,
+  TValue,
+  TExcluded extends string = CommonExcludedProps,
+> = Omit<TComponent, TExcluded> & FormFieldAdapterProps<TValue>
+
+/**
+ * 带尺寸排除的适配器工厂类型
+ * 用于需要排除 size 属性的组件
+ */
+export type AdapterPropsWithoutSize<
+  TComponent,
+  TValue,
+  TExcluded extends string = CommonExcludedProps,
+> = Omit<TComponent, TExcluded> & Omit<FormFieldAdapterProps<TValue>, "size">
+
+/**
+ * 选择类适配器工厂类型
+ * 用于需要 options 和 placeholder 的选择组件
+ */
+export type SelectAdapterPropsBase<
+  TComponent,
+  TValue,
+  TExcluded extends string = CommonExcludedPropsWithChildrenAndSize,
+> = Omit<TComponent, TExcluded> &
+  FormFieldAdapterProps<TValue> & {
+    name?: string
+    options?: SelectOption<TValue>[]
+    placeholder?: string
+  }
+
+// ============================================================================
+// 具体适配器类型定义
+// ============================================================================
+
+/**
+ * 文本输入类适配器 (Input, Textarea)
+ */
+export type InputAdapterProps<T extends string = string> = BaseAdapterProps<
+  InputProps,
+  T,
+  CommonExcludedPropsWithSize
+>
+
+export type TextareaAdapterProps<T extends string = string> = BaseAdapterProps<
+  TextareaProps,
+  T,
+  CommonExcludedPropsWithSize
+>
+
+/**
+ * 选择类适配器 (Select, MultiSelect)
+ */
+export type SelectAdapterProps<T extends string = string> = SelectAdapterPropsBase<SelectProps, T>
+
+export type MultiSelectAdapterProps<T extends string = string> = Omit<
+  MultiSelectProps,
+  CommonExcludedPropsWithChildrenAndSize
+> &
+  FormFieldAdapterProps<T[]> & {
+    name?: string
+    options?: SelectOption<T>[]
+    placeholder?: string
+  }
+
+/**
+ * 布尔类适配器 (Checkbox, Switch)
  */
 export interface CheckboxAdapterProps<T extends boolean = boolean>
-  extends Omit<CheckboxProps, "value" | "onChange" | "onBlur" | "onFocus" | "children" | "size">,
+  extends Omit<CheckboxProps, CommonExcludedPropsWithChildrenAndSize>,
     Omit<FormFieldAdapterProps<T>, "value"> {
   value: T | undefined
 }
 
+export type SwitchAdapterProps<T extends boolean = boolean> = BaseAdapterProps<
+  SwitchProps,
+  T,
+  CommonExcludedPropsWithChildrenAndSize
+>
+
 /**
- * RadioGroup 适配器 Props - 继承 RadioGroup 的原生 props
+ * 数字类适配器 (Range, NumericInput)
  */
-export interface RadioGroupAdapterProps<T extends string = string>
-  extends Omit<RadioGroupProps, "value" | "onChange" | "onBlur" | "onFocus" | "children" | "size">,
-    FormFieldAdapterProps<T> {}
+export type RangeAdapterProps<T extends number = number> = BaseAdapterProps<
+  RangeProps,
+  T,
+  CommonExcludedPropsWithChildrenAndSize
+>
 
-export interface SwitchAdapterProps<T extends boolean = boolean>
-  extends Omit<SwitchProps, "value" | "onChange" | "onBlur" | "onFocus" | "children" | "size">,
-    FormFieldAdapterProps<T> {}
+export type NumericInputAdapterProps<T extends number = number> = AdapterPropsWithoutSize<
+  NumericInputProps,
+  T
+>
 
-export interface RangeAdapterProps<T extends number = number>
-  extends Omit<RangeProps, "value" | "onChange" | "onBlur" | "onFocus" | "children" | "size">,
-    FormFieldAdapterProps<T> {}
+/**
+ * 单选类适配器 (RadioGroup, Segmented)
+ */
+export type RadioGroupAdapterProps<T extends string = string> = BaseAdapterProps<
+  RadioGroupProps,
+  T,
+  CommonExcludedPropsWithChildrenAndSize
+>
+
+export type SegmentedAdapterProps<T extends string = string> = Omit<
+  SegmentedProps,
+  CommonExcludedPropsWithChildrenAndSize
+> &
+  FormFieldAdapterProps<T> & {
+    options?: SegmentedOption<T>[]
+  }

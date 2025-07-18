@@ -56,6 +56,7 @@ const PORTAL_ROOT_ID = "floating-menu-root"
 
 export interface SelectProps {
   children?: React.ReactNode
+  className?: string
   disabled?: boolean
   focusManagerProps?: FloatingFocusManagerProps
   matchTriggerWidth?: boolean
@@ -90,6 +91,7 @@ interface SelectComponentType
 const SelectComponent = memo(
   forwardRef<HTMLDivElement, SelectProps>(function SelectComponent(props, ref) {
     const {
+      className,
       matchTriggerWidth = false,
       value,
       onChange,
@@ -574,6 +576,7 @@ const SelectComponent = memo(
                     id={menuId}
                     ref={floating.refs.setFloating}
                     style={floating.floatingStyles}
+                    className={className}
                   >
                     <MenuContext.Provider value={menuContextValue}>
                       {cloneElement(contentElement, {

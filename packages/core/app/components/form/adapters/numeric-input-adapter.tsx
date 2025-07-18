@@ -1,11 +1,11 @@
-import { Textarea } from "~/components"
-import type { TextareaAdapterProps } from "../types"
+import { NumericInput } from "../../numeric-input"
+import type { NumericInputAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Textarea 适配器 - 将 Textarea 组件适配到 Form 系统
+ * NumericInput 适配器 - 将 NumericInput 组件适配到 Form 系统
  */
-export function TextareaAdapter<T extends string>({
+export function NumericInputAdapter<T extends number>({
   className,
   label,
   description,
@@ -13,8 +13,9 @@ export function TextareaAdapter<T extends string>({
   value,
   onChange,
   onBlur,
+  children,
   ...props
-}: TextareaAdapterProps<T>) {
+}: NumericInputAdapterProps<T>) {
   const filteredProps = filterFormProps(props)
 
   return (
@@ -25,29 +26,31 @@ export function TextareaAdapter<T extends string>({
       error={error}
       htmlFor={props.name}
     >
-      <Textarea
+      <NumericInput
         id={props.name}
-        value={String(value || "")}
+        value={value}
         onChange={(inputValue) => onChange?.(inputValue as T)}
         onBlur={onBlur}
         {...filteredProps}
-      />
+      >
+        {children}
+      </NumericInput>
     </BaseAdapter>
   )
 }
 
 // 为了方便使用，导出一个创建适配器的工厂函数
-export const createTextareaAdapter = <T extends string>(
-  defaultProps?: Partial<TextareaAdapterProps<T>>,
+export const createNumericInputAdapter = <T extends number>(
+  defaultProps?: Partial<NumericInputAdapterProps<T>>,
 ) => {
-  const AdapterComponent = (props: TextareaAdapterProps<T>) => (
-    <TextareaAdapter<T>
+  const AdapterComponent = (props: NumericInputAdapterProps<T>) => (
+    <NumericInputAdapter<T>
       {...defaultProps}
       {...props}
     />
   )
 
-  AdapterComponent.displayName = "TextareaAdapter"
+  AdapterComponent.displayName = "NumericInputAdapter"
 
   return AdapterComponent
 }

@@ -2,7 +2,7 @@ import { tv } from "tailwind-variants"
 
 export const FormTv = tv({
   slots: {
-    field: ["flex flex-col gap-2"],
+    field: ["flex min-w-0 flex-col gap-2"],
     error: [
       "leading-md tracking-md",
       "px-0.5",

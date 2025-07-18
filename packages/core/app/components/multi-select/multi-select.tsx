@@ -44,6 +44,7 @@ import {
   MenuContextLabel,
   MenuDivider,
   MenuScrollArrow,
+  MenuValue,
   useMenuScroll,
   type MenuContextItemProps,
 } from "../menus"
@@ -57,6 +58,7 @@ const PORTAL_ROOT_ID = "floating-menu-root"
 
 export interface MultiSelectProps {
   children?: React.ReactNode
+  className?: string
   closeOnSelect?: boolean
   disabled?: boolean
   focusManagerProps?: FloatingFocusManagerProps
@@ -95,6 +97,7 @@ interface MultiSelectComponentType
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
   Trigger: typeof MultiSelectTrigger
+  Value: typeof MenuValue
 }
 
 /**
@@ -111,6 +114,7 @@ interface MultiSelectComponentType
 const MultiSelectComponent = memo(
   forwardRef<HTMLDivElement, MultiSelectProps>(function MultiSelectComponent(props, ref) {
     const {
+      className,
       closeOnSelect = false,
       getDisplayValue,
       i18n,
@@ -525,6 +529,7 @@ const MultiSelectComponent = memo(
                     id={menuId}
                     ref={refs.setFloating}
                     style={floatingStyles}
+                    className={className}
                   >
                     <MenuContext.Provider value={menuContextValue}>
                       {cloneElement(contentElement, {
@@ -596,6 +601,7 @@ export const MultiSelect = Object.assign(BaseMultiSelect, {
   Divider: MenuDivider,
   Label: MenuContextLabel,
   Content: MenuContextContent,
+  Value: MenuValue,
 }) as MultiSelectComponentType
 
 MultiSelect.displayName = "MultiSelect"

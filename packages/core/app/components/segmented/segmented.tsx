@@ -7,11 +7,11 @@ import { SegmentedItem } from "./segmented-item"
 import { segmentedControlTv } from "./tv"
 
 export interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
-  className?: string
-  value?: string
-  tooltip?: TooltipProps
   children?: ReactNode
+  className?: string
   onChange?: (value: string) => void
+  tooltip?: TooltipProps
+  value?: string
   variant?: "default" | "dark"
 }
 

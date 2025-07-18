@@ -1,42 +1,38 @@
 import { Fragment } from "react"
-import { Label } from "~/components/label"
 import { Select } from "../../select"
 import type { SelectAdapterProps } from "../types"
-import { FormTv } from "../tv"
+import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
  * Select 适配器 - 将 Select 组件适配到 Form 系统
- *
- * 核心功能：
- * 1. 值绑定
- * 2. 事件处理
- * 3. 错误状态显示
- * 4. 样式适配
  */
 export function SelectAdapter<T extends string>({
+  className,
   label,
   description,
+  error,
   value,
   onChange,
   onBlur,
-  error,
-  errors,
   options = [],
   placeholder,
   ...props
 }: SelectAdapterProps<T>) {
-  // 将 value 转换为 string 用于比较
+  const filteredProps = filterFormProps(props)
   const stringValue = String(value || "")
 
-  const tv = FormTv()
-
   return (
-    <fieldset className={tv.field()}>
-      {label && <Label htmlFor={props.name}>{label}</Label>}
+    <BaseAdapter
+      className={className}
+      label={label}
+      description={description}
+      error={error}
+      htmlFor={props.name}
+    >
       <Select
         value={stringValue}
         onChange={(selectedValue) => onChange?.(selectedValue as T)}
-        {...props}
+        {...filteredProps}
       >
         <Select.Trigger
           id={props.name}
@@ -64,9 +60,7 @@ export function SelectAdapter<T extends string>({
           ))}
         </Select.Content>
       </Select>
-      {description && <p className={tv.description()}>{description}</p>}
-      {(error || errors?.length) && <p className={tv.error()}>{error}</p>}
-    </fieldset>
+    </BaseAdapter>
   )
 }
 

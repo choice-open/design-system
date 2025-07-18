@@ -33,7 +33,7 @@ import React, { useState } from "react"
 import { Textarea } from "./index"
 
 const meta: Meta<typeof Textarea> = {
-  title: "Components/Textarea",
+  title: "Forms/Textarea",
   component: Textarea,
   parameters: {
     layout: "centered",
