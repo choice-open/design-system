@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { motion } from "framer-motion"
 import React, { useState } from "react"
-import { SpringVisualizer } from "./spring-visualizer"
-import { Range } from "../range"
-import { useForm } from "../form"
 import { Label } from "../label"
+import { Range } from "../range"
+import { SpringVisualizer } from "./spring-visualizer"
 
 const meta: Meta<typeof SpringVisualizer> = {
   title: "Utilities/SpringVisualizer",
