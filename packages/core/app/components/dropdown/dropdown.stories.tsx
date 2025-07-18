@@ -802,3 +802,23 @@ export const Large: Story = {
     )
   },
 }
+
+/**
+ * Match trigger width
+ */
+export const MatchTriggerWidth: Story = {
+  render: function MatchTriggerWidthStory() {
+    return (
+      <Dropdown matchTriggerWidth>
+        <Dropdown.Trigger className="w-64">
+          <Dropdown.Value>Match Trigger Width</Dropdown.Value>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item>Option 1</Dropdown.Item>
+          <Dropdown.Item>Option 2</Dropdown.Item>
+          <Dropdown.Item>Option 3</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    )
+  },
+}

@@ -6,7 +6,7 @@ import { TextField, type TextFieldProps } from "../text-field"
 import { searchInputTv } from "./tv"
 
 export interface SearchInputProps extends TextFieldProps {
-  defaultText?: {
+  i18n?: {
     clear: string
     placeholder: string
   }
@@ -19,7 +19,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props
     onChange,
     variant = "default",
     disabled,
-    defaultText = {
+    i18n = {
       clear: "Clear",
     },
     ...rest
@@ -49,7 +49,7 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>((props
           <IconButton
             className={style.action()}
             variant="ghost"
-            tooltip={{ content: defaultText.clear }}
+            tooltip={{ content: i18n.clear }}
             onClick={handleClear}
           >
             <RemoveSmall />

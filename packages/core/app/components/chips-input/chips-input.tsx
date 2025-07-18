@@ -137,6 +137,22 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
     props.onFocus?.(e)
   })
 
+  const handleInputBlur = useEventCallback((e: FocusEvent<HTMLInputElement>) => {
+    // When input loses focus, if there's content, convert it to a chip
+    const trimmedValue = inputValue.trim()
+    if (trimmedValue) {
+      // Check if it's a duplicate when allowDuplicates is false
+      if (!allowDuplicates && chips.includes(trimmedValue)) {
+        // If it's a duplicate, just clear the input without adding
+        setInputValue("")
+      } else {
+        // Add the chip (this will also clear the input if successful)
+        addChip(inputValue)
+      }
+    }
+    props.onBlur?.(e)
+  })
+
   const handleChipClick = useEventCallback((index: number) => {
     if (selectedChipIndex === index) {
       setSelectedChipIndex(null)
@@ -220,6 +236,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         onCompositionEnd={() => setIsComposing(false)}
         onCompositionStart={() => setIsComposing(true)}
         onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
         placeholder={chips.length === 0 ? placeholder : ""}
         value={inputValue}
         style={{
