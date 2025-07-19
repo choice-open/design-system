@@ -948,9 +948,6 @@ importers:
       '@choiceform/icons-react':
         specifier: ^1.2.0
         version: 1.2.0(react@18.3.1)
-      '@date-fns/tz':
-        specifier: ^1.2.0
-        version: 1.2.0
       '@floating-ui/react':
         specifier: 0.27.13
         version: 0.27.13(react-dom@18.3.1)(react@18.3.1)
@@ -960,30 +957,15 @@ importers:
       '@legendapp/state':
         specifier: v3.0.0-beta.26
         version: 3.0.0-beta.26(react@18.3.1)
-      '@tanstack/react-form':
-        specifier: ^1.14.1
-        version: 1.14.1(react-dom@18.3.1)(react@18.3.1)
-      '@tanstack/react-virtual':
-        specifier: ^3.12.1
-        version: 3.13.10(react-dom@18.3.1)(react@18.3.1)
       ahooks:
         specifier: ^3.8.0
         version: 3.8.5(react@18.3.1)
-      allotment:
-        specifier: ^1.20.4
-        version: 1.20.4(react-dom@18.3.1)(react@18.3.1)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
       es-toolkit:
         specifier: ^1.13.1
         version: 1.39.4
-      fractional-indexing-jittered:
-        specifier: ^1.0.0
-        version: 1.0.0
       framer-motion:
         specifier: ^11.2.13
         version: 11.18.2(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1)(react@18.3.1)
@@ -999,9 +981,6 @@ importers:
       nanoid:
         specifier: ^5.0.7
         version: 5.1.5
-      react-textarea-autosize:
-        specifier: ^8.5.9
-        version: 8.5.9(@types/react@18.3.23)(react@18.3.1)
       slate:
         specifier: ^0.117.2
         version: 0.117.2
