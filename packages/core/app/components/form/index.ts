@@ -17,6 +17,7 @@ export type * from "./types"
 
 // 导入 TanStack Form
 import { useForm as useTanStackForm } from "@tanstack/react-form"
+export { useForm as useTanStackForm, useStore as useTanstackFormStore } from "@tanstack/react-form"
 import { Button } from "../button"
 import {
   CheckboxAdapter,
