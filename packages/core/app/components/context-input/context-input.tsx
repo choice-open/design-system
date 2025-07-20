@@ -1,0 +1,136 @@
+import React, { forwardRef, useCallback } from "react"
+import { ReactEditor } from "slate-react"
+import {
+  ContextInputHeader,
+  CopyButton,
+  InsertMentionsButton,
+  MentionMenu,
+  SlateEditor,
+} from "./components"
+import { ContextInputEditorContext, useContextInput, useMentions, useSlateEditor } from "./hooks"
+import type { ContextInputProps, MentionItem } from "./types"
+import { contextInputTv } from "./tv"
+
+interface ContextInputComponent
+  extends React.ForwardRefExoticComponent<ContextInputProps & React.RefAttributes<HTMLDivElement>> {
+  CopyButton: typeof CopyButton
+  Header: typeof ContextInputHeader
+  InsertMentionsButton: typeof InsertMentionsButton
+}
+
+// 主要的 ContextInput 组件
+const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function ContextInputBase(
+  {
+    value,
+    placeholder = "输入消息...",
+    disabled = false,
+    maxLength,
+    autoFocus = false,
+    className,
+    triggers = [],
+    maxSuggestions = 10,
+    variant = "default",
+    onChange,
+    onFocus,
+    onBlur,
+    onKeyDown,
+    onMentionSelect,
+    renderMention,
+    renderSuggestion,
+    children,
+    ...props
+  },
+  ref,
+) {
+  // 创建编辑器实例
+  const editor = useSlateEditor()
+
+  // Context input 状态管理
+  const { slateValue, handleChange } = useContextInput({
+    value,
+    onChange,
+  })
+
+  // 处理 mention 搜索关闭
+  const handleSearchClose = useCallback(() => {
+    // 关闭时重新 focus 编辑器
+    ReactEditor.focus(editor)
+  }, [editor])
+
+  // Mentions hook
+  const mentions = useMentions({
+    editor,
+    triggers,
+    maxSuggestions,
+    onMentionSelect,
+    onSearchClose: handleSearchClose,
+  })
+
+  // 键盘事件处理
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      // 先处理 mentions 键盘事件
+      if (mentions.handleKeyDown(event)) {
+        return
+      }
+
+      // 处理其他键盘事件
+      onKeyDown?.(event)
+    },
+    [mentions, onKeyDown],
+  )
+
+  // 处理建议选择
+  const handleSuggestionSelect = useCallback(
+    (mention: MentionItem, index: number) => {
+      mentions.selectMention(index)
+    },
+    [mentions],
+  )
+
+  // 获取建议位置
+  const suggestionPosition = mentions.getSuggestionPosition()
+
+  const tv = contextInputTv({ hasHeader: !!children })
+
+  return (
+    <ContextInputEditorContext.Provider value={editor}>
+      <div className={tv.container({ className })}>
+        {children}
+        <SlateEditor
+          ref={ref}
+          hasHeader={!!children}
+          editor={editor}
+          slateValue={slateValue}
+          placeholder={placeholder}
+          disabled={disabled}
+          maxLength={maxLength}
+          autoFocus={autoFocus}
+          variant={variant}
+          renderMention={renderMention}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          {...props}
+        />
+      </div>
+      <MentionMenu
+        isOpen={mentions.searchState.isSearching && !!suggestionPosition}
+        onClose={mentions.closeMentionSearch}
+        suggestions={mentions.searchState.suggestions}
+        loading={mentions.searchState.loading}
+        position={suggestionPosition}
+        onSelect={handleSuggestionSelect}
+        renderSuggestion={renderSuggestion}
+      />
+    </ContextInputEditorContext.Provider>
+  )
+})
+
+const ContextInput = ContextInputBase as ContextInputComponent
+ContextInput.Header = ContextInputHeader
+ContextInput.CopyButton = CopyButton
+ContextInput.InsertMentionsButton = InsertMentionsButton
+
+export { ContextInput }
