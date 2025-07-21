@@ -1,5 +1,5 @@
 import { resolve } from "path"
-import { ConfigEnv, defineConfig, UserConfig } from "vite"
+import { ConfigEnv, defineConfig, PluginOption, UserConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import dts from "vite-plugin-dts"
 import { libInjectCss } from "vite-plugin-lib-inject-css"
@@ -35,14 +35,14 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
       },
     },
     plugins: [
-      react(),
-      tsconfigPaths(),
+      react() as PluginOption,
+      tsconfigPaths() as PluginOption,
       dts({
         include: ["app"],
-        exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx", "app/components/experimental"],
-        rollupTypes: true,
+        exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx"],
+        rollupTypes: false,
         copyDtsFiles: true,
-      }),
+      }) as PluginOption,
       libInjectCss(),
       tailwindcss(),
       {

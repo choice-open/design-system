@@ -2,8 +2,7 @@ import { useMemo } from "react"
 import { createEditor } from "slate"
 import { withHistory } from "slate-history"
 import { withReact } from "slate-react"
-import { withMaxLength } from "../extensions/with-max-length"
-import { withMentions } from "../extensions/with-mentions"
+import { withMaxLength, withMentions } from "../extensions"
 
 export const useSlateEditor = (maxLength?: number) => {
   const editor = useMemo(() => {

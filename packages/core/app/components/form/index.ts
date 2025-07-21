@@ -19,18 +19,17 @@ export type * from "./types"
 import { useForm as useTanStackForm } from "@tanstack/react-form"
 export * as TanstackReactForm from "@tanstack/react-form"
 import { Button } from "../button"
-import {
-  CheckboxAdapter,
-  InputAdapter,
-  RadioGroupAdapter,
-  SelectAdapter,
-  TextareaAdapter,
-  SwitchAdapter,
-  RangeAdapter,
-  NumericInputAdapter,
-  MultiSelectAdapter,
-  SegmentedAdapter,
-} from "./adapters"
+// Import adapters directly from their individual files to avoid circular dependency
+import { InputAdapter } from "./adapters/input-adapter"
+import { SelectAdapter } from "./adapters/select-adapter"
+import { TextareaAdapter } from "./adapters/textarea-adapter"
+import { CheckboxAdapter } from "./adapters/checkbox-adapter"
+import { RadioGroupAdapter } from "./adapters/raido-group-adapter"
+import { SwitchAdapter } from "./adapters/switch-adapter"
+import { RangeAdapter } from "./adapters/range-adapter"
+import { NumericInputAdapter } from "./adapters/numeric-input-adapter"
+import { MultiSelectAdapter } from "./adapters/multi-select-adapter"
+import { SegmentedAdapter } from "./adapters/segmented-adapter"
 
 /**
  * 增强版的 useForm hook
