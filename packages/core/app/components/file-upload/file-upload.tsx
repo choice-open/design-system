@@ -357,17 +357,6 @@ export {
   FileUploadItemProgress,
   FileUploadList,
   FileUploadTrigger,
-  Item,
-  ItemDelete,
-  ItemMetadata,
-  ItemPreview,
-  ItemProgress,
-  List,
-  //
-  Root,
-  Trigger,
-  //
   useStore as useFileUpload,
-  //
   type FileUploadRootProps,
 }
