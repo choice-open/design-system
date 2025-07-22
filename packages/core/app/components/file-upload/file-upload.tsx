@@ -332,21 +332,20 @@ const FileUploadRoot = forwardRef<HTMLDivElement, FileUploadRootProps>((props, f
 })
 FileUploadRoot.displayName = ROOT_NAME
 
-const FileUpload = FileUploadRoot
-const Root = FileUploadRoot
-const Dropzone = FileUploadDropzone
-const Trigger = FileUploadTrigger
-const List = FileUploadList
-const Item = FileUploadItem
-const ItemPreview = FileUploadItemPreview
-const ItemMetadata = FileUploadItemMetadata
-const ItemProgress = FileUploadItemProgress
-const ItemDelete = FileUploadItemDelete
-const Clear = FileUploadClear
+// 创建复合组件
+const FileUpload = Object.assign(FileUploadRoot, {
+  Dropzone: FileUploadDropzone,
+  Trigger: FileUploadTrigger,
+  List: FileUploadList,
+  Item: FileUploadItem,
+  ItemPreview: FileUploadItemPreview,
+  ItemMetadata: FileUploadItemMetadata,
+  ItemProgress: FileUploadItemProgress,
+  ItemDelete: FileUploadItemDelete,
+  Clear: FileUploadClear,
+})
 
 export {
-  Clear,
-  Dropzone,
   FileUpload,
   FileUploadClear,
   FileUploadDropzone,
