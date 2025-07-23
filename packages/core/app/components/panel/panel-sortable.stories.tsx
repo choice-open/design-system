@@ -279,6 +279,258 @@ const Sortable = observer(function Sortable({
   )
 })
 
+export const SingleItem: Story = {
+  render: function SingleItemStory() {
+    const sortableTriggerRefs = useRef<Map<string, HTMLFieldSetElement>>(new Map())
+    const open$ = useObservable<string | null>(null)
+    const selectedId$ = useObservable<string | null>(null)
+
+    // 创建只有一个item的独立数据源
+    const singleItemId = nanoid()
+    const singleItemIndexKey = globalIndexGenerator.keyStart()
+
+    const singleSortData$ = useObservable([
+      {
+        id: singleItemId,
+        indexKey: singleItemIndexKey,
+      },
+    ])
+
+    const singleItemsData$ = useObservable({
+      [singleItemId]: {
+        visible: true,
+        value: "Single Item",
+      },
+    })
+
+    const handleAdd = useEventCallback(() => {
+      batch(() => {
+        const items = singleSortData$.peek()
+        const newId = nanoid()
+
+        let newIndexKey
+        if (items.length === 0) {
+          newIndexKey = globalIndexGenerator.keyStart()
+        } else {
+          const lastItem = items[items.length - 1]
+          newIndexKey = globalIndexGenerator.keyAfter(lastItem.indexKey)
+        }
+
+        updateKeysList(newIndexKey)
+
+        const newSortItem = {
+          id: newId,
+          indexKey: newIndexKey,
+        }
+
+        const newItemData = {
+          visible: true,
+          value: `Item ${items.length + 1}`,
+        }
+
+        singleSortData$.set([...items, newSortItem])
+
+        singleItemsData$.set({
+          ...singleItemsData$.peek(),
+          [newId]: newItemData,
+        })
+      })
+    })
+
+    const handleRemove = useEventCallback((id: string) => {
+      batch(() => {
+        const sortItems = singleSortData$.peek()
+        const itemToRemove = sortItems.find((item) => item.id === id)
+        if (!itemToRemove) return
+
+        const newSortItems = sortItems.filter((item) => item.id !== id)
+        singleSortData$.set(newSortItems)
+
+        const itemsData = singleItemsData$.peek()
+        const newItemsData = { ...itemsData }
+        delete newItemsData[id]
+        singleItemsData$.set(newItemsData)
+
+        selectedId$.set(null)
+      })
+    })
+
+    const handleVisible = useEventCallback((id: string, visible: boolean) => {
+      batch(() => {
+        const itemsData = singleItemsData$.peek()
+
+        if (itemsData[id]) {
+          singleItemsData$.set({
+            ...itemsData,
+            [id]: {
+              ...itemsData[id],
+              visible,
+            },
+          })
+
+          selectedId$.set(null)
+        }
+      })
+    })
+
+    const handleSelect = useEventCallback((id: string | null) => {
+      selectedId$.set(id)
+    })
+
+    const handleDrop = useEventCallback(
+      (position: "top" | "bottom" | null, id: string, newIndex: number) => {
+        // 单个item场景下的拖拽处理（虽然不会触发，但保持接口一致）
+        console.log("Drop handler called for single item scenario")
+      },
+    )
+
+    // 键盘删除
+    useEffect(() => {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        const id = selectedId$.get()
+        if ((e.key === "Delete" || e.key === "Backspace") && id) {
+          handleRemove(id)
+        }
+      }
+
+      window.addEventListener("keydown", handleKeyDown)
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown)
+      }
+    }, [handleRemove, selectedId$])
+
+    const SingleItemSortableRowContent = observer(function SingleItemSortableRowContent() {
+      const item = useSortableRowItem<{ id: string; indexKey: string }>()
+      const itemsData = use$(singleItemsData$)
+
+      // 获取当前行的具体显示数据
+      const currentItemDisplayData = itemsData[item.id]
+      const visible = currentItemDisplayData ? currentItemDisplayData.visible : true
+      const valueToDisplay = currentItemDisplayData ? currentItemDisplayData.value : item.indexKey
+
+      return (
+        <Panel.SortableRow
+          ref={(el) => {
+            if (el) {
+              sortableTriggerRefs.current.set(item.id, el)
+            }
+          }}
+          type="one-icon-one-input-two-icon"
+          onClick={(e) => {
+            e.stopPropagation()
+            handleSelect(item.id)
+          }}
+        >
+          <IconButton
+            active={open$.get() === item.id}
+            variant="highlight"
+            className={tcx("[grid-area:icon-1]", !visible && "text-disabled-foreground")}
+            tooltip={{ content: "Effect drop shadow-sm" }}
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+            onMouseDown={(e) => {
+              e.stopPropagation()
+              selectedId$.set(null)
+              if (open$.get() !== item.id) {
+                open$.set(item.id)
+              } else {
+                open$.set(null)
+              }
+            }}
+          >
+            <EffectDropShadow />
+          </IconButton>
+
+          <Select
+            matchTriggerWidth
+            value={item.indexKey}
+          >
+            <Select.Trigger
+              className={tcx(
+                !visible && "text-disabled-foreground",
+                "group-data-[selected=true]/sortable-row:border-selected-boundary [grid-area:input]",
+              )}
+            >
+              <span className="flex-1 truncate">{valueToDisplay}</span>
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Item value={item.indexKey}>{valueToDisplay}</Select.Item>
+            </Select.Content>
+          </Select>
+
+          <IconButton
+            className="[grid-area:icon-2]"
+            tooltip={{ content: "Visible" }}
+            onClick={(e) => {
+              e.stopPropagation()
+              handleVisible(item.id, !visible)
+            }}
+            onMouseDown={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            {visible ? <Visible /> : <Hidden />}
+          </IconButton>
+
+          <IconButton
+            className="[grid-area:icon-3]"
+            tooltip={{ content: "Delete" }}
+            onClick={(e) => {
+              e.stopPropagation()
+              handleRemove(item.id)
+            }}
+            onMouseDown={(e) => {
+              e.stopPropagation()
+            }}
+          >
+            <DeleteSmall />
+          </IconButton>
+        </Panel.SortableRow>
+      )
+    })
+
+    const SingleItemSortable = observer(function SingleItemSortable() {
+      const sortData = use$(singleSortData$)
+
+      return (
+        <Panel.Sortable
+          data={sortData}
+          selectedId={selectedId$.get()}
+          onDrop={handleDrop}
+          onSelectedIdChange={(id) => selectedId$.set(id)}
+        >
+          <SingleItemSortableRowContent />
+        </Panel.Sortable>
+      )
+    })
+
+    return (
+      <>
+        <AllotmentContainer>
+          <Panel>
+            <Panel.Title title="Single Item (No Drag Handle)">
+              <IconButton
+                onClick={handleAdd}
+                tooltip={{ content: "Add item" }}
+              >
+                <AddSmall />
+              </IconButton>
+            </Panel.Title>
+
+            <SingleItemSortable />
+          </Panel>
+        </AllotmentContainer>
+
+        <SortablePopover
+          triggerRefs={sortableTriggerRefs}
+          open$={open$}
+        />
+      </>
+    )
+  },
+}
+
 export const Basic: Story = {
   render: function BasicStory() {
     const sortableTriggerRefs = useRef<Map<string, HTMLFieldSetElement>>(new Map())

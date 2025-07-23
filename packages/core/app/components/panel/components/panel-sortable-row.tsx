@@ -17,13 +17,17 @@ export const PanelSortableRow = memo(
     const item = useSortableRowItem<SortableItem>()
     const { id } = item
 
-    const { selectedId, isDragging, isNodeBeingDragged, handleMouseDown } = useSortablePane()
+    const { selectedId, isDragging, isNodeBeingDragged, handleMouseDown, itemCount } =
+      useSortablePane()
     const rowRef = useRef<HTMLFieldSetElement>(null)
 
     const isBeingDragged = isNodeBeingDragged(id)
+    const isSingleItem = itemCount <= 1
 
     const handleOnMouseDown = useEventCallback((e: React.MouseEvent) => {
       e.stopPropagation()
+      // 如果只有一个item，不启动拖拽
+      if (isSingleItem) return
       handleMouseDown(id, e)
     })
 
@@ -31,6 +35,7 @@ export const PanelSortableRow = memo(
       selected: selectedId === id,
       dragging: isDragging,
       beingDragged: isBeingDragged,
+      singleItem: isSingleItem,
     })
 
     return (

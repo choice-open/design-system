@@ -33,6 +33,7 @@ export interface SortablePaneContextValue {
   isDragging: boolean
   isDropTarget: (id: string) => boolean
   isNodeBeingDragged: (id: string) => boolean
+  itemCount: number
   onSelectedIdChange: (id: string | null) => void
   selectedId: string | null
 }

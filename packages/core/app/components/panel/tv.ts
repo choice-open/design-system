@@ -90,10 +90,15 @@ export const panelSortableRowTv = tv({
       true: { handle: "cursor-grabbing opacity-100" },
       false: { handle: "opacity-0 hover:opacity-100" },
     },
+    singleItem: {
+      true: { handle: "hidden" },
+      false: "",
+    },
   },
   defaultVariants: {
     selected: false,
     dragging: false,
     beingDragged: false,
+    singleItem: false,
   },
 })

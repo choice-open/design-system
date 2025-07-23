@@ -119,6 +119,7 @@ export const PanelSortable = forwardRef(function PanelSortable<T extends Sortabl
       isNodeBeingDragged: isItemBeingDragged,
       isDropTarget,
       getDropPosition,
+      itemCount: data.length,
     }),
     [
       selectedId,
@@ -128,6 +129,7 @@ export const PanelSortable = forwardRef(function PanelSortable<T extends Sortabl
       isItemBeingDragged,
       isDropTarget,
       getDropPosition,
+      data.length,
     ],
   )
 
