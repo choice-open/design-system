@@ -1,5 +1,5 @@
 import { Dot } from "@choiceform/icons-react"
-import { forwardRef, HTMLProps, memo, ReactNode, useId } from "react"
+import { forwardRef, HTMLProps, memo, ReactNode, useId, isValidElement } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
 import { checkboxTv } from "../checkbox/tv"
@@ -7,12 +7,12 @@ import { RadioContext } from "./context"
 import { RadioLabel } from "./radio-label"
 
 export interface RadioProps extends Omit<HTMLProps<HTMLInputElement>, "value" | "onChange"> {
+  children?: ReactNode
   className?: string
-  variant?: "default" | "accent" | "outline"
-  value: boolean
   focused?: boolean
   onChange: (value: boolean) => void
-  children?: ReactNode
+  value: boolean
+  variant?: "default" | "accent" | "outline"
 }
 
 const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
@@ -44,6 +44,14 @@ const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props,
     onChange(e.target.checked)
   })
 
+  // 自动将字符串类型的 children 包装成 RadioLabel
+  const renderChildren = () => {
+    if (typeof children === "string" || typeof children === "number") {
+      return <RadioLabel>{children}</RadioLabel>
+    }
+    return children
+  }
+
   return (
     <RadioContext.Provider value={{ id, descriptionId, disabled }}>
       <div className={tcx(styles.root(), className)}>
@@ -72,7 +80,7 @@ const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props,
           <div className={styles.box()}>{value && <Dot />}</div>
         </div>
 
-        {children}
+        {renderChildren()}
       </div>
     </RadioContext.Provider>
   )

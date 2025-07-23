@@ -1,5 +1,5 @@
 import { Check, Indeterminate } from "@choiceform/icons-react"
-import { forwardRef, HTMLProps, memo, ReactNode, useId } from "react"
+import { forwardRef, HTMLProps, memo, ReactNode, useId, isValidElement } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { tcx } from "~/utils"
 import { CheckboxContext } from "./context"
@@ -45,6 +45,14 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
     onChange?.(e.target.checked)
   })
 
+  // 自动将字符串类型的 children 包装成 CheckboxLabel
+  const renderChildren = () => {
+    if (typeof children === "string" || typeof children === "number") {
+      return <CheckboxLabel>{children}</CheckboxLabel>
+    }
+    return children
+  }
+
   return (
     <CheckboxContext.Provider
       value={{
@@ -83,7 +91,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
           <div className={styles.box()}>{value && (mixed ? <Indeterminate /> : <Check />)}</div>
         </div>
 
-        {children}
+        {renderChildren()}
       </div>
     </CheckboxContext.Provider>
   )

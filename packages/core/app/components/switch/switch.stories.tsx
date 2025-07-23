@@ -12,21 +12,41 @@ export default meta
 type Story = StoryObj<typeof Switch>
 
 /**
- * The `IfSwitch` component is a switch component that is used to toggle a value.
+ * The `Switch` component is a toggle control for binary states like on/off or enabled/disabled.
  * It is a controlled component that requires a `value` prop and an `onChange` prop.
- * - There is no `label` prop, you need to use the `aria-label` prop to set the label.
+ *
+ * Features:
+ * - Multiple visual variants (default, accent, outline)
+ * - Two sizes (small, medium)
+ * - Support for disabled and focused states
+ * - Two label approaches: simple string children or explicit `<Switch.Label>` for complex content
+ * - Full keyboard and screen reader accessibility
+ *
+ * Usage Guidelines:
+ * - Use for immediate toggle actions (unlike checkboxes in forms)
+ * - Provide clear labels that describe the state being toggled
+ * - Simple labels: `<Switch>Label text</Switch>`
+ * - Complex labels: `<Switch><Switch.Label>Complex content</Switch.Label></Switch>`
+ * - Consider using tooltips for additional context when needed
+ *
+ * Best Practices:
+ * - Always provide a visible label (string or `<Switch.Label>`)
+ * - Use simple string children for basic labels
+ * - Use `<Switch.Label>` for labels with formatting or complex content
+ * - Make the toggle action and its effect immediately apparent
+ * - Choose appropriate size and variant based on context
  */
 export const Basic: Story = {
   render: function BasicStory() {
     enum Variant {
-      Default = "default",
       Accent = "accent",
+      Default = "default",
       Outline = "outline",
     }
 
     enum Size {
-      Small = "small",
       Medium = "medium",
+      Small = "small",
     }
 
     enum State {
@@ -54,6 +74,7 @@ export const Basic: Story = {
                     <Fragment key={state}>
                       {[false, true].map((value) => (
                         <Switch
+                          key={`${variant}-${state}-${value}`}
                           value={value}
                           onChange={() => {}}
                           variant={variant}
@@ -86,19 +107,21 @@ export const Sizes: Story = {
     const [medium, setMedium] = useState(false)
 
     return (
-      <>
+      <div className="flex flex-col gap-4">
         <Switch
           value={small}
           onChange={setSmall}
           size="small"
-          label="Small size"
-        />
+        >
+          Small size
+        </Switch>
         <Switch
           value={medium}
           onChange={setMedium}
-          label="Medium size"
-        />
-      </>
+        >
+          Medium size
+        </Switch>
+      </div>
     )
   },
 }
@@ -116,26 +139,29 @@ export const Variants: Story = {
     const [outlineVariant, setOutlineVariant] = useState(false)
 
     return (
-      <>
+      <div className="flex flex-col gap-4">
         <Switch
           value={defaultVariant}
           onChange={setDefaultVariant}
           variant="default"
-          label="Default variant"
-        />
+        >
+          Default variant
+        </Switch>
         <Switch
           value={accentVariant}
           onChange={setAccentVariant}
           variant="accent"
-          label="Accent variant"
-        />
+        >
+          Accent variant
+        </Switch>
         <Switch
           value={outlineVariant}
           onChange={setOutlineVariant}
           variant="outline"
-          label="Outline variant"
-        />
-      </>
+        >
+          Outline variant
+        </Switch>
+      </div>
     )
   },
 }
@@ -151,44 +177,86 @@ export const Disabled: Story = {
     const [disabledChecked, setDisabledChecked] = useState(true)
 
     return (
-      <>
+      <div className="flex flex-col gap-4">
         <Switch
           value={disabled}
           onChange={setDisabled}
-          label="Disabled unchecked"
           disabled
-        />
+        >
+          Disabled unchecked
+        </Switch>
         <Switch
           value={disabledChecked}
           onChange={setDisabledChecked}
-          label="Disabled checked"
           disabled
-        />
-      </>
+        >
+          Disabled checked
+        </Switch>
+      </div>
     )
   },
 }
 
 /**
- * The `label` prop is used to set the label of the switch.
- * - `string`: The label of the switch.
+ * Label Usage: Demonstrates two ways to use labels with Switch.
+ * - Simple string children: automatically wrapped with Switch.Label
+ * - Explicit Switch.Label: for more complex label content
  */
-export const Label: Story = {
-  render: function LabelStory() {
-    const [label, setLabel] = useState(false)
+export const LabelUsage: Story = {
+  render: function LabelUsageStory() {
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div>
+          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <Switch
+            value={simple}
+            onChange={setSimple}
+          >
+            Simple text label
+          </Switch>
+        </div>
+
+        <div>
+          <h4 className="mb-2 font-medium">Explicit Switch.Label (for complex content):</h4>
+          <Switch
+            value={explicit}
+            onChange={setExplicit}
+          >
+            <Switch.Label>
+              <span className="text-accent-foreground">Complex</span> label with{" "}
+              <strong>formatting</strong>
+            </Switch.Label>
+          </Switch>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * Legacy Label Prop: Shows backward compatibility with the label prop.
+ * Note: The label prop is still supported for backward compatibility,
+ * but using children is now the preferred approach.
+ */
+export const LegacyLabelProp: Story = {
+  render: function LegacyLabelPropStory() {
+    const [value, setValue] = useState(false)
 
     return (
       <Switch
-        value={label}
-        onChange={setLabel}
-        label="Switch with label"
+        value={value}
+        onChange={setValue}
+        label="Switch with legacy label prop"
       />
     )
   },
 }
 
 /**
- * The IfSwitch component does not have a built-in tooltip interface and requires the use of the `IfTooltip` component to implement it.
+ * The Switch component does not have a built-in tooltip interface and requires the use of the `Tooltip` component to implement it.
  */
 export const WithTooltip: Story = {
   render: function WithTooltipStory() {
@@ -198,7 +266,9 @@ export const WithTooltip: Story = {
         <Switch
           value={tooltip}
           onChange={setTooltip}
-        />
+        >
+          Switch with tooltip
+        </Switch>
       </Tooltip>
     )
   },

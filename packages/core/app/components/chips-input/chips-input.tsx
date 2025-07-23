@@ -31,6 +31,7 @@ export interface ChipsInputProps
   allowDuplicates?: boolean
   children?: React.ReactNode
   disabled?: boolean
+  id?: string
   onAdd?: (value: string) => void
   onChange?: (value: string[]) => void
   onRemove?: (value: string) => void
@@ -42,6 +43,7 @@ export interface ChipsInputProps
 
 export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, ref) => {
   const {
+    id,
     className,
     value: valueProp,
     onChange,
@@ -229,6 +231,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
       })}
 
       <input
+        id={id}
         ref={inputRef}
         className={tcx(tv.input())}
         disabled={disabled}

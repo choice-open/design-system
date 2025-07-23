@@ -1,12 +1,11 @@
 import { ChevronDownSmall, RemoveTiny } from "@choiceform/icons-react"
-import { forwardRef, memo, ReactNode, useCallback, useMemo, useRef } from "react"
+import { forwardRef, HTMLProps, memo, ReactNode, useCallback, useMemo, useRef } from "react"
 import { mergeRefs, tcx } from "~/utils"
 import { Chip, ChipProps } from "../../chip"
 import { multiSelectTriggerTv } from "../tv"
 
-export interface MultiSelectTriggerProps {
+export interface MultiSelectTriggerProps extends Omit<HTMLProps<HTMLDivElement>, "title" | "size"> {
   children?: ReactNode
-  className?: string
   disabled?: boolean
   getDisplayValue?: (value: string) => string
   maxChips?: number

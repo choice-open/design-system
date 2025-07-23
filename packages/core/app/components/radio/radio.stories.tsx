@@ -6,6 +6,7 @@ import { RadioGroup } from "./radio-group"
 const meta: Meta<typeof Radio> = {
   title: "Forms/Radio",
   component: Radio,
+  tags: ["autodocs"],
 }
 
 export default meta
@@ -18,7 +19,7 @@ type Story = StoryObj<typeof Radio>
  * Features:
  * - Multiple visual variants (default, accent, outline)
  * - Support for disabled and focused states
- * - Composable label via Radio.Label
+ * - Two label approaches: simple string children or explicit `<Radio.Label>` for complex content
  * - Controlled usage for reliable state management
  * - Group functionality via RadioGroup component
  * - Proper keyboard and screen reader accessibility
@@ -28,6 +29,8 @@ type Story = StoryObj<typeof Radio>
  * - Provide clear, concise labels for each option
  * - Use RadioGroup for related options
  * - Always show all available options
+ * - Simple labels: `<Radio>Label text</Radio>`
+ * - Complex labels: `<Radio><Radio.Label>Complex content</Radio.Label></Radio>`
  * - Consider appropriate variant based on your UI
  *
  * Accessibility:
@@ -52,19 +55,19 @@ type Story = StoryObj<typeof Radio>
 export const Basic: Story = {
   render: function BasicStory() {
     enum State {
-      Rest = "rest",
-      Focused = "focused",
       Disabled = "disabled",
+      Focused = "focused",
+      Rest = "rest",
     }
 
     enum Interaction {
-      On = "on",
       Off = "off",
+      On = "on",
     }
 
     enum Variant {
-      Default = "default",
       Accent = "accent",
+      Default = "default",
       Outline = "outline",
     }
 
@@ -89,7 +92,7 @@ export const Basic: Story = {
                           console.log(value)
                         }}
                       >
-                        <Radio.Label>{interaction}</Radio.Label>
+                        {interaction}
                       </Radio>
                     </Fragment>
                   ))}
@@ -126,7 +129,7 @@ export const Disabled: Story = {
         onChange={setValue}
         disabled
       >
-        <Radio.Label>Disabled</Radio.Label>
+        Disabled
       </Radio>
     )
   },
@@ -163,7 +166,7 @@ export const Variant: Story = {
           value={variant.default}
           onChange={(value) => setVariant({ ...variant, default: value })}
         >
-          <Radio.Label>Default</Radio.Label>
+          Default
         </Radio>
         <Radio
           name="variant"
@@ -171,7 +174,7 @@ export const Variant: Story = {
           onChange={(value) => setVariant({ ...variant, accent: value })}
           variant="accent"
         >
-          <Radio.Label>Accent</Radio.Label>
+          Accent
         </Radio>
         <Radio
           name="variant"
@@ -179,9 +182,48 @@ export const Variant: Story = {
           onChange={(value) => setVariant({ ...variant, outline: value })}
           variant="outline"
         >
-          <Radio.Label>Outline</Radio.Label>
+          Outline
         </Radio>
       </>
+    )
+  },
+}
+
+/**
+ * Label Usage: Demonstrates two ways to use labels with Radio.
+ * - Simple string children: automatically wrapped with Radio.Label
+ * - Explicit Radio.Label: for more complex label content
+ */
+export const LabelUsage: Story = {
+  render: function LabelUsageStory() {
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div>
+          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <Radio
+            value={simple}
+            onChange={setSimple}
+          >
+            Simple text label
+          </Radio>
+        </div>
+
+        <div>
+          <h4 className="mb-2 font-medium">Explicit Radio.Label (for complex content):</h4>
+          <Radio
+            value={explicit}
+            onChange={setExplicit}
+          >
+            <Radio.Label>
+              <span className="text-accent-foreground">Complex</span> label with{" "}
+              <strong>formatting</strong>
+            </Radio.Label>
+          </Radio>
+        </div>
+      </div>
     )
   },
 }

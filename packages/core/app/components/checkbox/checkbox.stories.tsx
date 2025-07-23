@@ -21,16 +21,20 @@ type Story = StoryObj<typeof Checkbox>
  * - Supports three states: checked, unchecked, and mixed (indeterminate)
  * - Multiple visual variants: default, accent, outline
  * - Disabled and focused states for accessibility and usability
- * - Composable label via `<Checkbox.Label>` for proper association and accessibility
+ * - Two label approaches: simple string children or explicit `<Checkbox.Label>` for complex content
  * - Can be grouped for multi-select scenarios
  *
  * Usage:
  * - Use for toggling settings, selecting items, or multi-select lists
  * - Use the mixed state for parent checkboxes representing a partially selected group
  * - Combine with labels for clarity and accessibility
+ * - Simple labels: `<Checkbox>Label text</Checkbox>`
+ * - Complex labels: `<Checkbox><Checkbox.Label>Complex content</Checkbox.Label></Checkbox>`
  *
  * Best Practices:
- * - Always provide a visible label using `<Checkbox.Label>`
+ * - Always provide a visible label (string or `<Checkbox.Label>`)
+ * - Use simple string children for basic labels
+ * - Use `<Checkbox.Label>` for labels with formatting or complex content
  * - Use the controlled pattern for predictable state management
  * - Clearly indicate disabled and mixed states
  * - Group related checkboxes for multi-select scenarios
@@ -87,7 +91,7 @@ export const Basic: Story = {
                         focused={state === State.Focused}
                         variant={variant}
                       >
-                        <Checkbox.Label>{interaction}</Checkbox.Label>
+                        {interaction}
                       </Checkbox>
                     </Fragment>
                   ))}
@@ -117,7 +121,7 @@ export const Disabled: Story = {
         onChange={(value) => setValue(value)}
         disabled
       >
-        <Checkbox.Label>Disabled</Checkbox.Label>
+        Disabled
       </Checkbox>
     )
   },
@@ -141,21 +145,21 @@ export const Variant: Story = {
           value={variant.default}
           onChange={(value) => setVariant({ ...variant, default: value })}
         >
-          <Checkbox.Label>Default</Checkbox.Label>
+          Default
         </Checkbox>
         <Checkbox
           value={variant.accent}
           onChange={(value) => setVariant({ ...variant, accent: value })}
           variant="accent"
         >
-          <Checkbox.Label>Accent</Checkbox.Label>
+          Accent
         </Checkbox>
         <Checkbox
           value={variant.outline}
           onChange={(value) => setVariant({ ...variant, outline: value })}
           variant="outline"
         >
-          <Checkbox.Label>Outline</Checkbox.Label>
+          Outline
         </Checkbox>
       </div>
     )
@@ -189,9 +193,48 @@ export const Group: Story = {
               )
             }}
           >
-            <Checkbox.Label>{option.label}</Checkbox.Label>
+            {option.label}
           </Checkbox>
         ))}
+      </div>
+    )
+  },
+}
+
+/**
+ * Label Usage: Demonstrates two ways to use labels with Checkbox.
+ * - Simple string children: automatically wrapped with Checkbox.Label
+ * - Explicit Checkbox.Label: for more complex label content
+ */
+export const LabelUsage: Story = {
+  render: function LabelUsageStory() {
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div>
+          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <Checkbox
+            value={simple}
+            onChange={setSimple}
+          >
+            Simple text label
+          </Checkbox>
+        </div>
+
+        <div>
+          <h4 className="mb-2 font-medium">Explicit Checkbox.Label (for complex content):</h4>
+          <Checkbox
+            value={explicit}
+            onChange={setExplicit}
+          >
+            <Checkbox.Label>
+              <span className="text-accent-foreground">Complex</span> label with{" "}
+              <strong>formatting</strong>
+            </Checkbox.Label>
+          </Checkbox>
+        </div>
       </div>
     )
   },

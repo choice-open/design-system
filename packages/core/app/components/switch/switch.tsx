@@ -1,16 +1,30 @@
 import { motion } from "framer-motion"
-import { forwardRef, HTMLProps, useId } from "react"
+import { forwardRef, HTMLProps, useId, ReactNode, memo } from "react"
 import { tcx } from "~/utils"
 import { switchTv } from "./tv"
 
+// Switch Label 子组件
+export interface SwitchLabelProps {
+  children: ReactNode
+  className?: string
+}
+
+export const SwitchLabel = memo(function SwitchLabel({ children, className }: SwitchLabelProps) {
+  return <span className={className}>{children}</span>
+})
+
+SwitchLabel.displayName = "Switch.Label"
+
 export interface SwitchProps
-  extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange"> {
+  extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange" | "children"> {
+  children?: ReactNode
   className?: string
   focused?: boolean
+  label?: string
   onChange: (value: boolean) => void
   size?: "small" | "medium"
   value: boolean
-  variant?: "default" | "accent" | "outline"
+  variant?: "default" | "accent" | "outline" // 保持向后兼容性
 }
 
 interface SwitchStyle extends React.CSSProperties {
@@ -40,11 +54,12 @@ const switch_sizes = {
   },
 } as const
 
-export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(props, ref) {
+const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(function Switch(props, ref) {
   const {
     value,
     onChange,
     label,
+    children,
     disabled,
     size = "medium",
     variant = "default",
@@ -65,6 +80,27 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     ...switch_sizes[size].style,
   } as SwitchStyle
 
+  // 自动将字符串类型的 children 包装成 SwitchLabel，或使用 label prop（向后兼容）
+  const renderLabel = () => {
+    if (children) {
+      if (typeof children === "string" || typeof children === "number") {
+        return (
+          <span id={descriptionId}>
+            <SwitchLabel>{children}</SwitchLabel>
+          </span>
+        )
+      }
+      return <span id={descriptionId}>{children}</span>
+    }
+    if (label) {
+      return <span id={descriptionId}>{label}</span>
+    }
+    return null
+  }
+
+  const labelContent = renderLabel()
+  const hasLabel = children || label
+
   return (
     <label
       className={tcx(styles.root(), className)}
@@ -81,8 +117,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         onChange={(e) => {
           onChange(e.target.checked)
         }}
-        aria-label={ariaLabel || label?.toString()}
-        aria-describedby={ariaDescribedby || (label ? descriptionId : undefined)}
+        aria-label={ariaLabel || (typeof children === "string" ? children : label?.toString())}
+        aria-describedby={ariaDescribedby || (hasLabel ? descriptionId : undefined)}
         aria-checked={value}
         {...rest}
       />
@@ -99,9 +135,19 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         />
       </div>
 
-      {label && <span id={descriptionId}>{label}</span>}
+      {labelContent}
     </label>
   )
 })
 
+const MemoizedSwitch = memo(SwitchBase) as unknown as SwitchType
+
+interface SwitchType {
+  (props: SwitchProps & { ref?: React.Ref<HTMLInputElement> }): JSX.Element
+  Label: typeof SwitchLabel
+  displayName?: string
+}
+
+export const Switch = MemoizedSwitch as SwitchType
+Switch.Label = SwitchLabel
 Switch.displayName = "Switch"
