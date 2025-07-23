@@ -35,9 +35,10 @@ export function MultiSelectAdapter<T extends string>({
       >
         <MultiSelect.Trigger
           placeholder={placeholder}
-          getDisplayValue={(displayValue) =>
-            options.find((opt) => String(opt.value) === displayValue)?.label || displayValue
-          }
+          getDisplayValue={(displayValue) => {
+            const option = options.find((opt) => String(opt.value) === displayValue)
+            return option?.label ? String(option.label) : displayValue
+          }}
         />
 
         <MultiSelect.Content>
