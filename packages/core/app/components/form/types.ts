@@ -72,7 +72,7 @@ export interface FieldConfig<T = unknown> {
   componentProps?: Record<string, unknown>
   description?: string
   disabled?: boolean
-  label?: string
+  label?: string | ReactNode
   name: string
   placeholder?: string
   required?: boolean
@@ -204,7 +204,7 @@ export interface FormFieldErrorProps {
 export interface FormFieldInfoProps {
   className?: string
   description?: string
-  label?: string
+  label?: string | ReactNode
   required?: boolean
   variant?: "default" | "dark"
 }
@@ -234,7 +234,7 @@ export interface FormFieldAdapterProps<T = unknown> {
   /** 单个错误信息 */
   error?: string | ReactNode
   /** 字段标签 */
-  label?: string
+  label?: string | ReactNode
   /** 失焦回调 */
   onBlur?: () => void
   /** 异步失焦验证 */
@@ -260,7 +260,7 @@ export interface FormFieldAdapterProps<T = unknown> {
  * 通用适配器属性排除模式
  * 定义需要从原组件 props 中排除的属性
  */
-type CommonExcludedProps = "value" | "onChange" | "onBlur" | "onFocus"
+type CommonExcludedProps = "value" | "onChange" | "onBlur" | "onFocus" | "label"
 type CommonExcludedPropsWithChildren = CommonExcludedProps | "children"
 type CommonExcludedPropsWithSize = CommonExcludedProps | "size"
 type CommonExcludedPropsWithChildrenAndSize = CommonExcludedProps | "children" | "size"
@@ -270,7 +270,7 @@ type CommonExcludedPropsWithChildrenAndSize = CommonExcludedProps | "children" |
  */
 interface SelectOption<T = string> {
   divider?: boolean
-  label?: string
+  label?: string | ReactNode
   value?: T
 }
 

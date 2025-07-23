@@ -13,7 +13,7 @@ export interface BaseAdapterProps {
   description?: string | ReactNode
   error?: string | ReactNode
   htmlFor?: string
-  label?: string
+  label?: string | ReactNode
   legendMode?: boolean // 是否使用 legend 模式（用于 radio/checkbox 组）
 }
 

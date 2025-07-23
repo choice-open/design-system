@@ -1,25 +1,23 @@
 import { forwardRef, memo, useId } from "react"
-import { Input, InputProps, Label } from "~/components"
+import { Label, Textarea, TextareaProps } from "~/components"
 import { tcx } from "~/utils"
 
-interface ModalInputProps extends Omit<InputProps, "size" | "label"> {
+interface ModalTextareaProps extends Omit<TextareaProps, "children" | "label"> {
   description?: string
   label?: React.ReactNode
-  size?: "default" | "large"
 }
 
-export const ModalInput = memo(
-  forwardRef<HTMLInputElement, ModalInputProps>((props, ref) => {
-    const { className, label, description, size, ...rest } = props
+export const ModalTextarea = memo(
+  forwardRef<HTMLTextAreaElement, ModalTextareaProps>((props, ref) => {
+    const { className, label, description, ...rest } = props
     const id = useId()
 
     return (
       <fieldset className={tcx("flex w-full min-w-0 flex-col gap-2", className)}>
         {label && <Label htmlFor={id}>{label}</Label>}
-        <Input
+        <Textarea
           id={id}
           ref={ref}
-          size={size}
           {...rest}
         />
         {description && <p className="text-secondary-foreground">{description}</p>}
@@ -28,4 +26,4 @@ export const ModalInput = memo(
   }),
 )
 
-ModalInput.displayName = "ModalInput"
+ModalTextarea.displayName = "ModalTextarea"

@@ -60,7 +60,7 @@ export const Input: Story = {
             {(field) => (
               <form.Input
                 name={field.name}
-                label="onChange validation"
+                label={<div className="text-red-500">onChange validation</div>}
                 value={field.state.value as string}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}

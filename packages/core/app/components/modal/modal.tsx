@@ -1,14 +1,15 @@
 import { forwardRef, HTMLProps, ReactNode } from "react"
 import { tcx } from "~/utils"
 import {
+  ModalBackdrop,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalInput,
   ModalMultiLineInput,
   ModalSelect,
-  ModalBackdrop,
+  ModalTextarea,
 } from "./components"
-import { ModalInput } from "./components/modal-input"
 import { ModalTv } from "./tv"
 
 interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
@@ -26,6 +27,7 @@ interface ModalComponent
   Input: typeof ModalInput
   MultiLineInput: typeof ModalMultiLineInput
   Select: typeof ModalSelect
+  Textarea: typeof ModalTextarea
 }
 
 const ModalBase = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
@@ -50,5 +52,6 @@ Modal.Footer = ModalFooter
 Modal.Input = ModalInput
 Modal.MultiLineInput = ModalMultiLineInput
 Modal.Select = ModalSelect
+Modal.Textarea = ModalTextarea
 Modal.Backdrop = ModalBackdrop
 export { Modal }

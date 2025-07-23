@@ -6,7 +6,7 @@ import { tcx } from "~/utils"
 interface ModalSelectProps extends Omit<SelectProps, "label"> {
   className?: string
   description?: string
-  label?: string
+  label?: React.ReactNode
 }
 
 export const ModalSelect = memo(function ModalSelect(props: ModalSelectProps) {

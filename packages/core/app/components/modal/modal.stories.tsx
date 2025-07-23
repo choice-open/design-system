@@ -6,14 +6,12 @@ import React, { useState } from "react"
 import { Avatar } from "../avatar"
 import { Button } from "../button"
 import { IconButton } from "../icon-button"
+import { LinkButton } from "../link-button"
+import { SearchInput } from "../search-input"
 import { Select } from "../select"
 import { Tabs } from "../tabs"
 import { TextField } from "../text-field"
 import { Modal } from "./modal"
-import { SearchInput } from "../search-input"
-import { LinkButton } from "../link-button"
-import { ModalInput } from "./components/modal-input"
-import { Dropdown } from "../dropdown"
 
 const meta: Meta<typeof Modal> = {
   title: "Overlays/Modal",
@@ -170,6 +168,7 @@ export const ModalContent: Story = {
     const [search, setSearch] = useState("")
     const [select, setSelect] = useState("option-1")
     const [input, setInput] = useState("")
+    const [textarea, setTextarea] = useState("")
     const [multiLineInput, setMultiLineInput] = useState("")
     const [dropdown, setDropdown] = useState("option-1")
     const [open, setOpen] = useState(false)
@@ -224,6 +223,13 @@ export const ModalContent: Story = {
             description="This is a description"
             value={input}
             onChange={setInput}
+          />
+          <Modal.Textarea
+            label="Textarea"
+            placeholder="Please enter your textarea"
+            description="This is a description"
+            value={textarea}
+            onChange={setTextarea}
           />
 
           <Modal.MultiLineInput
