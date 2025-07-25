@@ -14,6 +14,7 @@ import { calculateInitialPosition } from "../utils"
 interface UseFloatingDialogParams {
   afterOpenChange?: (isOpen: boolean) => void
   autoUpdate?: boolean
+  closeOnEscape?: boolean
   defaultOpen?: boolean
   initialPosition?: DialogPosition
   onOpenChange?: (open: boolean) => void
@@ -34,6 +35,7 @@ export function useFloatingDialog({
   onOpenChange,
   outsidePress = false,
   autoUpdate = true,
+  closeOnEscape = true,
   initialPosition = "center",
   resetDragState,
   resetPosition,
@@ -233,14 +235,14 @@ export function useFloatingDialog({
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && innerOpen) {
+      if (e.key === "Escape" && innerOpen && closeOnEscape) {
         handleClose()
       }
     }
 
     document.addEventListener("keydown", handleEscape)
     return () => document.removeEventListener("keydown", handleEscape)
-  }, [innerOpen, handleClose])
+  }, [innerOpen, handleClose, closeOnEscape])
 
   return {
     refs,

@@ -546,3 +546,59 @@ export const FocusManagerProps: Story = {
     )
   },
 }
+
+/**
+ * CloseOnEscape: Demonstrates the closeOnEscape prop functionality.
+ * By default, dialogs can be closed with the ESC key. This story shows
+ * two dialogs - one with ESC key enabled (default) and one with it disabled.
+ */
+export const CloseOnEscape: Story = {
+  render: function CloseOnEscapeStory() {
+    const [escEnabledOpen, setEscEnabledOpen] = useState(false)
+    const [escDisabledOpen, setEscDisabledOpen] = useState(false)
+
+    return (
+      <div className="flex gap-4">
+        <div className="flex flex-col gap-2">
+          <Button onClick={() => setEscEnabledOpen(true)}>Dialog with ESC (Default)</Button>
+          <p className="text-secondary-foreground text-sm">Press ESC to close</p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <Button onClick={() => setEscDisabledOpen(true)}>Dialog without ESC</Button>
+          <p className="text-secondary-foreground text-sm">ESC key disabled</p>
+        </div>
+
+        {/* Dialog with ESC enabled (default behavior) */}
+        <Dialog
+          open={escEnabledOpen}
+          onOpenChange={setEscEnabledOpen}
+          closeOnEscape={true}
+        >
+          <Dialog.Header title="ESC Key Enabled" />
+          <Dialog.Content className="w-96 p-3">
+            <p>This dialog can be closed by pressing the ESC key.</p>
+            <p className="text-secondary-foreground mt-2 text-sm">
+              Try pressing ESC to close this dialog.
+            </p>
+          </Dialog.Content>
+        </Dialog>
+
+        {/* Dialog with ESC disabled */}
+        <Dialog
+          open={escDisabledOpen}
+          onOpenChange={setEscDisabledOpen}
+          closeOnEscape={false}
+        >
+          <Dialog.Header title="ESC Key Disabled" />
+          <Dialog.Content className="w-96 p-3">
+            <p>This dialog cannot be closed by pressing the ESC key.</p>
+            <p className="text-secondary-foreground mt-2 text-sm">
+              You must use the close button or click outside (if enabled) to close this dialog.
+            </p>
+          </Dialog.Content>
+        </Dialog>
+      </div>
+    )
+  },
+}
