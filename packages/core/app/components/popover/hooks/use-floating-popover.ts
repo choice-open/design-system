@@ -21,6 +21,7 @@ import { useMergedValue } from "~/hooks"
 interface UseFloatingPopoverParams {
   autoSize?: boolean
   autoUpdate?: boolean
+  closeOnEscape?: boolean
   defaultOpen?: boolean
   delay?: { close?: number; open?: number }
   draggable: boolean
@@ -47,6 +48,7 @@ export function useFloatingPopover({
   outsidePressIgnore,
   delay,
   autoUpdate = true,
+  closeOnEscape = true,
   draggable,
   nodeId,
   resetDragState,
@@ -185,7 +187,7 @@ export function useFloatingPopover({
 
   const dismiss = useDismiss(context, {
     enabled: interactions !== "none",
-    escapeKey: true,
+    escapeKey: closeOnEscape,
     outsidePress: outsidePressHandler,
     bubbles: true,
   })

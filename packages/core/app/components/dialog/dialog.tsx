@@ -30,6 +30,7 @@ export interface DialogProps {
   afterOpenChange?: (isOpen: boolean) => void
   children?: React.ReactNode
   className?: string
+  closeOnEscape?: boolean
   defaultHeight?: number
   defaultWidth?: number
   draggable?: boolean
@@ -55,6 +56,7 @@ export interface DialogProps {
 const DialogComponent = memo(function DialogComponent({
   className,
   children,
+  closeOnEscape = true,
   draggable = false,
   initialPosition = "center",
   positionPadding = 32,
@@ -111,6 +113,7 @@ const DialogComponent = memo(function DialogComponent({
     open: controlledOpen,
     onOpenChange,
     outsidePress,
+    closeOnEscape,
     initialPosition,
     resetDragState,
     resetPosition,

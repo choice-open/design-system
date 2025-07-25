@@ -1084,3 +1084,63 @@ export const MaxWidth: Story = {
     )
   },
 }
+
+/**
+ * CloseOnEscape: Demonstrates the closeOnEscape prop functionality.
+ * By default, popovers can be closed with the ESC key. This story shows
+ * two popovers - one with ESC key enabled (default) and one with it disabled.
+ */
+export const CloseOnEscape: Story = {
+  render: function CloseOnEscapeStory() {
+    const [escEnabledOpen, setEscEnabledOpen] = useState(false)
+    const [escDisabledOpen, setEscDisabledOpen] = useState(false)
+
+    return (
+      <div className="flex gap-8">
+        <div className="flex flex-col gap-2">
+          <Button onClick={() => setEscEnabledOpen(!escEnabledOpen)}>
+            Popover with ESC (Default)
+          </Button>
+          <p className="text-secondary-foreground text-sm">Press ESC to close</p>
+
+          <Popover
+            open={escEnabledOpen}
+            onOpenChange={setEscEnabledOpen}
+            closeOnEscape={true}
+          >
+            <Popover.Trigger>
+              <Button style={{ display: "none" }}>Hidden Trigger</Button>
+            </Popover.Trigger>
+            <Popover.Content className="w-72 p-3">
+              <p>This popover can be closed by pressing the ESC key.</p>
+              <p className="text-secondary-foreground mt-2 text-sm">
+                Try pressing ESC to close this popover.
+              </p>
+            </Popover.Content>
+          </Popover>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <Button onClick={() => setEscDisabledOpen(!escDisabledOpen)}>Popover without ESC</Button>
+          <p className="text-secondary-foreground text-sm">ESC key disabled</p>
+
+          <Popover
+            open={escDisabledOpen}
+            onOpenChange={setEscDisabledOpen}
+            closeOnEscape={false}
+          >
+            <Popover.Trigger>
+              <Button style={{ display: "none" }}>Hidden Trigger</Button>
+            </Popover.Trigger>
+            <Popover.Content className="w-72 p-3">
+              <p>This popover cannot be closed by pressing the ESC key.</p>
+              <p className="text-secondary-foreground mt-2 text-sm">
+                You must click outside or use the button to close this popover.
+              </p>
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    )
+  },
+}

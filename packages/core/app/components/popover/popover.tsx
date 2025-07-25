@@ -37,6 +37,7 @@ export interface PopoverProps {
   autoUpdate?: boolean
   children?: React.ReactNode
   className?: string
+  closeOnEscape?: boolean
   contentRef?: React.RefObject<HTMLDivElement>
   defaultOpen?: boolean
   delay?: { close?: number; open?: number }
@@ -71,6 +72,7 @@ export const DragPopover = memo(function DragPopover({
   onOpenChange,
   defaultOpen,
   autoUpdate = true,
+  closeOnEscape = true,
   contentRef,
   delay,
   initialFocus,
@@ -118,6 +120,7 @@ export const DragPopover = memo(function DragPopover({
     open,
     outsidePressIgnore,
     placement,
+    closeOnEscape,
     rememberPosition,
     resetDragState,
     resetPosition,
