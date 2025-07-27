@@ -1,13 +1,13 @@
 import { createContext, useContext } from "react"
 
 export interface CheckboxContextValue {
-  value?: boolean
+  descriptionId?: string
   disabled?: boolean
   id: string
-  descriptionId?: string
-  onChange: (value: boolean) => void
-  variant?: "default" | "accent" | "outline"
   mixed?: boolean
+  onChange: (value: boolean) => void
+  value?: boolean
+  variant?: "default" | "accent" | "outline"
 }
 
 export const CheckboxContext = createContext<CheckboxContextValue | null>(null)

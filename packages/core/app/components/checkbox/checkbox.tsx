@@ -30,7 +30,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
     "aria-describedby": ariaDescribedby,
     ...rest
   } = props
-  const id = useId()
+  const internalId = useId()
   const descriptionId = useId()
 
   const styles = checkboxTv({
@@ -59,7 +59,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
         value,
         onChange: (val) => onChange?.(val),
         disabled,
-        id,
+        id: props.id || internalId,
         descriptionId,
         variant,
         mixed,
@@ -71,7 +71,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
             ref={ref}
             className={styles.input()}
             type="checkbox"
-            id={id}
+            id={props.id || internalId}
             checked={value}
             disabled={disabled}
             onChange={handleChange}

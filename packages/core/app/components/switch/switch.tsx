@@ -70,7 +70,7 @@ const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(function Switch(pro
     ...rest
   } = props
 
-  const id = useId()
+  const internalId = useId()
   const descriptionId = useId()
 
   const styles = switchTv({ size, variant, disabled, checked: value, focused })
@@ -104,14 +104,14 @@ const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(function Switch(pro
   return (
     <label
       className={tcx(styles.root(), className)}
-      htmlFor={id}
+      htmlFor={props.id || internalId}
     >
       <span className="sr-only">{value ? "Enabled" : "Disabled"}</span>
       <input
         ref={ref}
         className={styles.input()}
         type="checkbox"
-        id={id}
+        id={props.id || internalId}
         checked={value}
         disabled={disabled}
         onChange={(e) => {
