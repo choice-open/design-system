@@ -85,7 +85,7 @@ export function useFloatingPopover({
             apply({ availableWidth, availableHeight, elements, rects }) {
               const maxWidth = Math.min(availableWidth, maxWidthValue)
               Object.assign(elements.floating.style, {
-                maxWidth: `${maxWidth}px`,
+                maxWidth: matchTriggerWidth ? undefined : `${maxWidth}px`,
                 maxHeight: `${availableHeight}px`,
               })
               if (matchTriggerWidth) {
