@@ -334,3 +334,72 @@ export const GroupVariant: Story = {
     )
   },
 }
+
+/**
+ * GroupWithDisabledOptions: Demonstrates a RadioGroup with some options disabled.
+ *
+ * Features:
+ * - Mix of enabled and disabled options in the same group
+ * - Disabled options maintain visual consistency but prevent interaction
+ * - Users can only select from available (enabled) options
+ * - Proper accessibility support for disabled options
+ *
+ * Usage Guidelines:
+ * - Use when certain options are conditionally unavailable
+ * - Maintain visual presence of disabled options for context
+ * - Ensure at least one option remains enabled for meaningful selection
+ * - Consider providing feedback about why options are disabled
+ *
+ * This example shows two different approaches:
+ * 1. Using the options prop with disabled property
+ * 2. Using RadioGroup.Item with disabled prop for individual control
+ */
+export const GroupWithDisabledOptions: Story = {
+  render: function GroupWithDisabledOptionsStory() {
+    const optionsWithDisabled = [
+      { value: "option1", label: "Available Option", disabled: false },
+      { value: "option2", label: "Disabled Option", disabled: true },
+      { value: "option3", label: "Another Available", disabled: false },
+      { value: "option4", label: "Also Disabled", disabled: true },
+    ]
+
+    const [selectedValue1, setSelectedValue1] = useState("option1")
+    const [selectedValue2, setSelectedValue2] = useState("custom1")
+
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <h4 className="font-medium">Using options prop with disabled property:</h4>
+          <RadioGroup
+            options={optionsWithDisabled}
+            value={selectedValue1}
+            onChange={setSelectedValue1}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <h4 className="font-medium">Using RadioGroup.Item with individual disabled control:</h4>
+          <RadioGroup
+            value={selectedValue2}
+            onChange={setSelectedValue2}
+          >
+            <RadioGroup.Item value="custom1">First Choice (Available)</RadioGroup.Item>
+            <RadioGroup.Item
+              value="custom2"
+              disabled
+            >
+              Second Choice (Disabled)
+            </RadioGroup.Item>
+            <RadioGroup.Item value="custom3">Third Choice (Available)</RadioGroup.Item>
+            <RadioGroup.Item
+              value="custom4"
+              disabled
+            >
+              Fourth Choice (Disabled)
+            </RadioGroup.Item>
+          </RadioGroup>
+        </div>
+      </div>
+    )
+  },
+}

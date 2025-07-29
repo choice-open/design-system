@@ -8,6 +8,7 @@ export interface RadioGroupProps extends Omit<HTMLProps<HTMLDivElement>, "value"
   children?: ReactNode
   onChange: (value: string) => void
   options?: {
+    disabled?: boolean
     label: string
     value: string
   }[]
@@ -22,8 +23,8 @@ type RadioGroupItemProps = Omit<RadioProps, "value" | "onChange"> & {
 
 const RadioGroupItem = memo(
   forwardRef<HTMLInputElement, RadioGroupItemProps>(function RadioGroupItem(props, ref) {
-    const { value, children, className, ...rest } = props
-    const { name, value: selectedValue, onChange, disabled, variant } = useRadioGroupContext()
+    const { value, children, className, disabled, ...rest } = props
+    const { name, value: selectedValue, onChange, variant } = useRadioGroupContext()
     const isChecked = selectedValue === value
 
     const handleChange = useEventCallback(() => {
@@ -81,13 +82,13 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
       <RadioGroupItem
         key={option.value}
         value={option.value}
-        disabled={disabled}
+        disabled={option.disabled || disabled}
         variant={variant}
       >
         {option.label}
       </RadioGroupItem>
     ))
-  }, [options, disabled, variant])
+  }, [disabled, options, variant])
 
   return (
     <RadioGroupContext.Provider value={contextValue}>
