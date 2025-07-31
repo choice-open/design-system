@@ -9,12 +9,11 @@ export const CommandTabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) =>
 
   return (
     <Tabs
-      value={props.value || "all"}
+      ref={ref}
       variant={props.variant || context.variant}
       className={tv.tabs()}
-    >
-      {props.children}
-    </Tabs>
+      {...props}
+    />
   )
 })
 

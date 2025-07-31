@@ -2634,13 +2634,13 @@ export const WithTabs: Story = {
             value={activeTab}
             onChange={setActiveTab}
           >
-            <Tabs.Item value="all">All ({allItems.length})</Tabs.Item>
-            <Tabs.Item value="files">
+            <Command.TabItem value="all">All ({allItems.length})</Command.TabItem>
+            <Command.TabItem value="files">
               Files ({allItems.filter((i) => i.category === "files").length})
-            </Tabs.Item>
-            <Tabs.Item value="actions">
+            </Command.TabItem>
+            <Command.TabItem value="actions">
               Actions ({allItems.filter((i) => i.category === "actions").length})
-            </Tabs.Item>
+            </Command.TabItem>
           </Command.Tabs>
 
           <Command.List className="h-64">
