@@ -1,8 +1,8 @@
-import { tv } from "tailwind-variants" 
+import { tv } from "tailwind-variants"
 
-export const SplitterTv = tv({ 
-    slots: { root: "", }, 
-    variants: { }, 
-    compoundVariants: [ ],
-    defaultVariants: { },
- })
+export const SplitterTv = tv({
+  slots: { root: "" },
+  variants: {},
+  compoundVariants: [],
+  defaultVariants: {},
+})

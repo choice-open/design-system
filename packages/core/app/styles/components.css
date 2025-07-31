@@ -1,16 +1,16 @@
 @layer components {
   .allotment-module_splitView__L-yRc {
-    height: 100%;
-    overflow: hidden;
     position: relative;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   .allotment-module_splitView__L-yRc > .allotment-module_sashContainer__fzwJF {
-    height: 100%;
-    pointer-events: none;
     position: absolute;
     width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 
   .allotment-module_splitView__L-yRc
@@ -20,17 +20,17 @@
   }
 
   .allotment-module_splitView__L-yRc > .allotment-module_splitViewContainer__rQnVa {
-    height: 100%;
     position: relative;
-    white-space: nowrap;
     width: 100%;
+    height: 100%;
+    white-space: nowrap;
   }
 
   .allotment-module_splitView__L-yRc
     > .allotment-module_splitViewContainer__rQnVa
     > .allotment-module_splitViewView__MGZ6O {
-    overflow: hidden;
     position: absolute;
+    overflow: hidden;
     white-space: initial;
   }
 
@@ -49,27 +49,27 @@
   .allotment-module_splitView__L-yRc.allotment-module_separatorBorder__x-rDS
     > .allotment-module_splitViewContainer__rQnVa
     > .allotment-module_splitViewView__MGZ6O:not(:first-child)::before {
-    background-color: var(--separator-border);
-    content: " ";
-    left: 0;
-    pointer-events: none;
     position: absolute;
     top: 0;
+    left: 0;
     z-index: 5;
+    background-color: var(--separator-border);
+    pointer-events: none;
+    content: " ";
   }
 
   .allotment-module_splitView__L-yRc.allotment-module_separatorBorder__x-rDS.allotment-module_vertical__WSwwa
     > .allotment-module_splitViewContainer__rQnVa
     > .allotment-module_splitViewView__MGZ6O:not(:first-child)::before {
-    height: 1px;
     width: 100%;
+    height: 1px;
   }
 
   .allotment-module_splitView__L-yRc.allotment-module_separatorBorder__x-rDS.allotment-module_horizontal__7doS8
     > .allotment-module_splitViewContainer__rQnVa
     > .allotment-module_splitViewView__MGZ6O:not(:first-child)::before {
-    height: 100%;
     width: 1px;
+    height: 100%;
   }
 
   .sash-module_sash__K-9lB {
@@ -114,28 +114,28 @@
   }
 
   .sash-module_sash__K-9lB.sash-module_vertical__pB-rs {
-    cursor: ew-resize;
     top: 0;
+    cursor: ew-resize;
     width: var(--sash-size);
     height: 100%;
   }
 
   .sash-module_sash__K-9lB.sash-module_horizontal__kFbiw {
-    cursor: ns-resize;
     left: 0;
+    cursor: ns-resize;
     width: 100%;
     height: var(--sash-size);
   }
 
   .sash-module_sash__K-9lB:not(.sash-module_disabled__Hm-wx)
     > .sash-module_orthogonal-drag-handle__Yii2- {
-    content: " ";
-    height: calc(var(--sash-size) * 2);
-    width: calc(var(--sash-size) * 2);
-    z-index: 100;
     display: block;
-    cursor: all-scroll;
     position: absolute;
+    z-index: 100;
+    cursor: all-scroll;
+    width: calc(var(--sash-size) * 2);
+    height: calc(var(--sash-size) * 2);
+    content: " ";
   }
 
   .sash-module_sash__K-9lB.sash-module_horizontal__kFbiw.sash-module_orthogonal-edge-north__f7Noe:not(
@@ -162,14 +162,14 @@
 
   .sash-module_sash__K-9lB.sash-module_vertical__pB-rs
     > .sash-module_orthogonal-drag-handle__Yii2-.sash-module_start__uZEDk {
-    left: calc(var(--sash-size) * -0.5);
     top: calc(var(--sash-size) * -1);
+    left: calc(var(--sash-size) * -0.5);
   }
 
   .sash-module_sash__K-9lB.sash-module_vertical__pB-rs
     > .sash-module_orthogonal-drag-handle__Yii2-.sash-module_end__0TP-R {
-    left: calc(var(--sash-size) * -0.5);
     bottom: calc(var(--sash-size) * -1);
+    left: calc(var(--sash-size) * -0.5);
   }
 
   .sash-module_sash__K-9lB.sash-module_horizontal__kFbiw
@@ -185,23 +185,23 @@
   }
 
   .sash-module_sash__K-9lB:before {
-    content: "";
-    pointer-events: none;
     position: absolute;
-    width: 100%;
-    height: 100%;
     transition: background-color var(--sash-hover-transition-duration) ease-out;
     background: transparent;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    content: "";
   }
 
   .sash-module_sash__K-9lB.sash-module_vertical__pB-rs:before {
-    width: var(--sash-hover-size);
     left: calc(50% - (var(--sash-hover-size) / 2));
+    width: var(--sash-hover-size);
   }
 
   .sash-module_sash__K-9lB.sash-module_horizontal__kFbiw:before {
-    height: var(--sash-hover-size);
     top: calc(50% - (var(--sash-hover-size) / 2));
+    height: var(--sash-hover-size);
   }
 
   .sash-module_sash__K-9lB.sash-module_hover__80W6I:before,
@@ -360,8 +360,8 @@
   }
 
   .condition__group {
-    grid-template-columns: 1fr 1.5rem;
     grid-template-rows: repeat(auto-fill, minmax(0, 1fr));
+    grid-template-columns: 1fr 1.5rem;
   }
 
   .condition__logical-operator {
@@ -369,15 +369,15 @@
     bottom: 2.75rem;
     &:before {
       position: absolute;
-      content: "";
-      width: 1.5rem;
-      left: 1.5rem;
       top: 1.25rem;
       bottom: 1.25rem;
-      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-      border-left: 1px solid var(--color-default-boundary);
+      left: 1.5rem;
       border-top: 1px solid var(--color-default-boundary);
       border-bottom: 1px solid var(--color-default-boundary);
+      border-left: 1px solid var(--color-default-boundary);
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+      width: 1.5rem;
+      content: "";
     }
     &[data-level="0"] {
       top: 0.25rem;

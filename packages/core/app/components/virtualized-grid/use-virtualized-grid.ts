@@ -119,7 +119,12 @@ export function useConfigData<P>(
       }
     }
 
-    if (overscanValue === null || gridGapValue === null || columnCountValue === null || entries === null) {
+    if (
+      overscanValue === null ||
+      gridGapValue === null ||
+      columnCountValue === null ||
+      entries === null
+    ) {
       return null
     }
     return {
@@ -222,7 +227,7 @@ export function useRenderData<P>(
 ): RenderDataProps<P> | null {
   return useMemo(() => {
     if (layoutData === null || configData === null) return null
-    
+
     // Handle edge cases
     if (layoutData.cells.length === 0) {
       return { cellsToRender: [], firstRenderedRowNumber: null, firstRenderedRowOffset: null }
@@ -240,10 +245,11 @@ export function useRenderData<P>(
 
       // Convert overscan from rows to approximate pixel margin
       // For better UX, we calculate average row height and multiply by overscan
-      const averageRowHeight = layoutData.cells.length > 0 
-        ? layoutData.totalHeight / Math.ceil(layoutData.cells.length / configData.columnCount)
-        : 100
-      
+      const averageRowHeight =
+        layoutData.cells.length > 0
+          ? layoutData.totalHeight / Math.ceil(layoutData.cells.length / configData.columnCount)
+          : 100
+
       const overscanMargin = configData.overscan * averageRowHeight
 
       const renderTop = windowTop - overscanMargin
@@ -257,7 +263,7 @@ export function useRenderData<P>(
         // Extract visible cells
         for (let i = firstIndex; i <= lastIndex; i++) {
           const cell = layoutData.cells[i]
-          
+
           if (firstRenderedRowNumber === null) {
             firstRenderedRowNumber = cell.rowNumber
             firstRenderedRowOffset = cell.offset

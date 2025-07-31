@@ -4,7 +4,7 @@ export const CommentItemTv = tv({
   slots: {
     root: "comment__item group/comment-item items-center px-4 py-1 text-lg",
     avatar: "mr-3 flex-shrink-0 [grid-area:avatar]",
-    meta: "flex cursor-default gap-1 leading-5 [grid-area:meta] select-none",
+    meta: "flex cursor-default gap-1 leading-5 select-none [grid-area:meta]",
     name: "tracking-lg font-medium",
     date: "text-secondary-foreground",
     actionMenu: "[grid-area:action]",

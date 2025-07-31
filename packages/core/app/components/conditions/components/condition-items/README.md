@@ -196,7 +196,7 @@ export function ColorInput({ condition, field, disabled, onChange }: BaseFieldIn
       value={String(condition.value || "#000000")}
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
-      className="h-10 w-16 rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+      className="h-10 w-16 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
     />
   )
 }

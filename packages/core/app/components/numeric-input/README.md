@@ -250,7 +250,7 @@ function CustomNumericInput() {
       />
       <div
         {...handlerProps}
-        className="cursor-ew-resize select-none px-2"
+        className="cursor-ew-resize px-2 select-none"
       >
         ⟷
       </div>

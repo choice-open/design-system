@@ -53,11 +53,7 @@ export const FileUploadItemPreview = forwardRef<HTMLDivElement, FileUploadItemPr
         data-slot="file-upload-preview"
         {...previewProps}
         ref={forwardedRef}
-        className={tcx(
-          itemPreview(),
-          isImage ? itemPreviewImage() : itemPreviewIcon(),
-          className,
-        )}
+        className={tcx(itemPreview(), isImage ? itemPreviewImage() : itemPreviewIcon(), className)}
       >
         {onPreviewRender(itemContext.fileState.file)}
         {children}

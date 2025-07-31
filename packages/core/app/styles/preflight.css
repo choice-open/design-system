@@ -84,14 +84,14 @@
   select,
   button,
   textarea {
-    -webkit-text-decoration: none;
+    vertical-align: inherit;
     cursor: inherit;
-    font: inherit;
-    letter-spacing: inherit;
     margin: 0;
     outline: none;
     padding: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    -webkit-text-decoration: none;
     text-decoration: none;
-    vertical-align: inherit;
   }
 }

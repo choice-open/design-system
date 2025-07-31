@@ -4,8 +4,8 @@ import { kbdTv } from "./tv"
 import { KbdKey, kbdKeysLabelMap, kbdKeysMap } from "./utils"
 
 export interface KbdProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  keys?: KbdKey | KbdKey[]
   children?: React.ReactNode
+  keys?: KbdKey | KbdKey[]
 }
 
 export const Kbd = (props: KbdProps) => {
