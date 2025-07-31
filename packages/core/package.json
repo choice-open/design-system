@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "0.9.994",
+  "version": "0.9.995",
   "description": "A modern React UI component library",
   "sideEffects": false,
   "type": "module",
@@ -54,7 +54,6 @@
     "ahooks": "^3.8.0",
     "allotment": "^1.20.4",
     "classnames": "^2.5.1",
-    "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "es-toolkit": "^1.13.1",
     "fractional-indexing-jittered": "^1.0.0",

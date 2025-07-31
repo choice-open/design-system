@@ -1,4 +1,16 @@
-import { Choiceform, File, Folder, SearchSmall, Settings, UserSmall } from "@choiceform/icons-react"
+import {
+  ChevronLeftSmall,
+  Choiceform,
+  ColorAlpha,
+  ColorOpacity,
+  ColorTypeGradient,
+  ColorTypeSolid,
+  File,
+  Folder,
+  SearchSmall,
+  Settings,
+  UserSmall,
+} from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useEffect, useRef, useState } from "react"
 import { Badge } from "../badge"
@@ -8,6 +20,12 @@ import { Kbd } from "../kbd"
 import { Tabs } from "../tabs"
 import { useCommandState } from "./hooks"
 import { Command } from "./index"
+import { Dialog } from "../dialog"
+import { faker } from "@faker-js/faker"
+import { Avatar } from "../avatar"
+import { Checkbox } from "../checkbox"
+import { Chip } from "../chip"
+import { IconButton } from "../icon-button"
 
 const meta: Meta<typeof Command> = {
   title: "Collections/Command",
@@ -82,25 +100,104 @@ export const Basic: Story = {
 }
 
 /**
+ * **With Prefix and Suffix**
+ *
+ * Shows how to use prefix and suffix elements in a command item.
+ *
+ */
+export const WithPrefixAndSuffix: Story = {
+  render: function WithPrefixAndSuffix() {
+    return (
+      <Command
+        loop
+        className="w-96 overflow-hidden rounded-xl shadow-lg"
+      >
+        <Command.Input placeholder="Search commands..." />
+        <Command.List>
+          <Command.Item
+            prefixElement={<ColorAlpha />}
+            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+          >
+            <Command.Value>Photoshop</Command.Value>
+          </Command.Item>
+          <Command.Item prefixElement={<ColorOpacity />}>
+            <Command.Value>Illustrator</Command.Value>
+          </Command.Item>
+          <Command.Item
+            prefixElement={<ColorTypeGradient />}
+            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+          >
+            <Command.Value>Lightroom</Command.Value>
+          </Command.Item>
+          <Command.Item
+            prefixElement={<ColorTypeSolid />}
+            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+          >
+            <Command.Value>InDesign</Command.Value>
+          </Command.Item>
+        </Command.List>
+      </Command>
+    )
+  },
+}
+
+/**
+ * **With Shortcut**
+ *
+ * Shows how to use a shortcut in a command item.
+ *
+ * ```tsx
+ * <Command.Item shortcut={{ keys: "F", modifier: "command" }}>
+ *   <Command.Value>Photoshop</Command.Value>
+ * </Command.Item>
+ * ```
+ *
+ */
+export const WithShortcut: Story = {
+  render: function WithShortcut() {
+    return (
+      <Command
+        loop
+        className="w-96 overflow-hidden rounded-xl shadow-lg"
+      >
+        <Command.Input placeholder="Search commands..." />
+        <Command.List>
+          <Command.Item
+            prefixElement={<ColorAlpha />}
+            shortcut={{ keys: "P", modifier: "command" }}
+          >
+            <Command.Value>Photoshop</Command.Value>
+          </Command.Item>
+          <Command.Item
+            prefixElement={<ColorOpacity />}
+            shortcut={{ keys: "I", modifier: "command" }}
+          >
+            <Command.Value>Illustrator</Command.Value>
+          </Command.Item>
+          <Command.Item
+            prefixElement={<ColorTypeGradient />}
+            shortcut={{ keys: "L", modifier: "command" }}
+          >
+            <Command.Value>Lightroom</Command.Value>
+          </Command.Item>
+          <Command.Item
+            prefixElement={<ColorTypeSolid />}
+            shortcut={{ keys: "D", modifier: "command" }}
+          >
+            <Command.Value>InDesign</Command.Value>
+          </Command.Item>
+        </Command.List>
+      </Command>
+    )
+  },
+}
+
+/**
  * **Grouped Commands**
  *
  * Organizes commands into logical groups with headings and separators.
  * Perfect for categorizing different types of actions or content.
  *
- * ```tsx
- * <Command>
- *   <Command.Input />
- *   <Command.List>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>Calendar</Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>Profile</Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command>
- * ```
  */
 export const WithGroups: Story = {
   render: () => (
@@ -108,46 +205,64 @@ export const WithGroups: Story = {
       <Command.Input placeholder="Search commands..." />
       <Command.List>
         <Command.Group heading="Suggestions">
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-red-200">
-              <SearchSmall />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-red-300 text-red-700">
+                <SearchSmall />
+              </div>
+            }
+          >
             <Command.Value>Search</Command.Value>
           </Command.Item>
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-blue-200">
-              <File />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-blue-300 text-blue-700">
+                <File />
+              </div>
+            }
+          >
             <Command.Value>New File</Command.Value>
           </Command.Item>
         </Command.Group>
 
         <Command.Group heading="Settings">
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-green-200">
-              <UserSmall />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-green-300 text-green-700">
+                <UserSmall />
+              </div>
+            }
+          >
             <Command.Value>Profile</Command.Value>
           </Command.Item>
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-yellow-200">
-              <Settings />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-yellow-300 text-yellow-700">
+                <Settings />
+              </div>
+            }
+          >
             <Command.Value>Settings</Command.Value>
           </Command.Item>
         </Command.Group>
 
         <Command.Group heading="Files">
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-purple-200">
-              <Folder />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-purple-300 text-purple-700">
+                <Folder />
+              </div>
+            }
+          >
             <Command.Value>Documents</Command.Value>
           </Command.Item>
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-pink-200">
-              <Folder />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-pink-300 text-pink-700">
+                <Folder />
+              </div>
+            }
+          >
             <Command.Value>Downloads</Command.Value>
           </Command.Item>
         </Command.Group>
@@ -159,65 +274,52 @@ export const WithGroups: Story = {
 export const Large: Story = {
   render: () => (
     <Command
+      loop
       size="large"
-      className="w-96 overflow-hidden rounded-xl shadow-lg"
+      className="w-xl overflow-hidden rounded-xl shadow-lg"
     >
-      <Command.Input placeholder="Search commands..." />
-      <Command.List>
+      <Command.Input
+        variant="reset"
+        className="mx-0 mb-0 rounded-none"
+        placeholder="Search commands..."
+      />
+      <Command.Divider alwaysRender />
+      <Command.List className="h-64">
+        <Command.Empty>
+          <div className="py-6 text-center">
+            <p>No results found.</p>
+            <p className="text-secondary-foreground mt-1">Try adjusting your search terms.</p>
+          </div>
+        </Command.Empty>
         <Command.Group heading="Suggestions">
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-red-200">
-              <SearchSmall />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-red-300 text-red-700">
+                <SearchSmall />
+              </div>
+            }
+            shortcut={{ keys: "F", modifier: "command" }}
+          >
             <Command.Value>Search</Command.Value>
-            <Kbd
-              className="text-secondary-foreground"
-              keys="command"
-            >
-              F
-            </Kbd>
           </Command.Item>
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-blue-200">
-              <File />
-            </Command.Icon>
+          <Command.Item
+            prefixElement={
+              <div className="flex size-5 items-center justify-center rounded-md bg-blue-300 text-blue-700">
+                <File />
+              </div>
+            }
+            shortcut={{ keys: "N", modifier: "command" }}
+          >
             <Command.Value>New File</Command.Value>
-            <Kbd
-              className="text-secondary-foreground"
-              keys="command"
-            >
-              N
-            </Kbd>
           </Command.Item>
         </Command.Group>
 
         <Command.Group heading="Settings">
           <Command.Item>
-            <Command.Icon className="mr-2 bg-green-200">
-              <UserSmall />
-            </Command.Icon>
             <Command.Value>Profile</Command.Value>
           </Command.Item>
           <Command.Item>
-            <Command.Icon className="mr-2 bg-yellow-200">
-              <Settings />
-            </Command.Icon>
             <Command.Value>Settings</Command.Value>
-          </Command.Item>
-        </Command.Group>
-
-        <Command.Group heading="Files">
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-purple-200">
-              <Folder />
-            </Command.Icon>
-            <Command.Value>Documents</Command.Value>
-          </Command.Item>
-          <Command.Item>
-            <Command.Icon className="mr-2 bg-pink-200">
-              <Folder />
-            </Command.Icon>
-            <Command.Value>Downloads</Command.Value>
           </Command.Item>
         </Command.Group>
       </Command.List>
@@ -243,25 +345,21 @@ export const Large: Story = {
  */
 export const WithEmptyState: Story = {
   render: () => (
-    <div className="w-96 rounded-lg border shadow-lg">
-      <Command>
-        <Command.Input placeholder="Try searching for 'xyz'..." />
-        <Command.List>
-          <Command.Empty>
-            <div className="py-6 text-center">
-              <SearchSmall className="text-secondary-foreground mx-auto mb-2 h-8 w-8" />
-              <p>No results found.</p>
-              <p className="text-secondary-foreground mt-1">Try adjusting your search terms.</p>
-            </div>
-          </Command.Empty>
-          <Command.Group heading="Quick Actions">
-            <Command.Item>Create New File</Command.Item>
-            <Command.Item>Open Settings</Command.Item>
-            <Command.Item>View Profile</Command.Item>
-          </Command.Group>
-        </Command.List>
-      </Command>
-    </div>
+    <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+      <Command.Input placeholder="Try searching for 'xyz'..." />
+      <Command.List className="h-48">
+        <Command.Empty>
+          <SearchSmall className="mx-auto mb-2 h-8 w-8" />
+          <p>No results found.</p>
+          <p className="mt-1">Try adjusting your search terms.</p>
+        </Command.Empty>
+        <Command.Group heading="Quick Actions">
+          <Command.Item>Create New File</Command.Item>
+          <Command.Item>Open Settings</Command.Item>
+          <Command.Item>View Profile</Command.Item>
+        </Command.Group>
+      </Command.List>
+    </Command>
   ),
 }
 
@@ -282,61 +380,208 @@ export const WithEmptyState: Story = {
  * </Command.Dialog>
  * ```
  */
+
+const commandOptions = [
+  {
+    label: "Files",
+    items: Array.from({ length: 4 }, (_, i) => ({
+      icon: `https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`,
+      label: faker.music.songName(),
+      value: i.toString(),
+    })),
+  },
+  {
+    label: "Settings",
+    items: Array.from({ length: 4 }, (_, j) => ({
+      icon: `https://api.dicebear.com/7.x/avataaars/svg?seed=${j + 4}`,
+      label: faker.music.songName(),
+      value: (j + 4).toString(),
+    })),
+  },
+]
+
 export const DialogMode: Story = {
   render: function DialogStory() {
+    const commandRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
     const [open, setOpen] = useState(false)
+    const [selected, setSelected] = useState("")
+    const [entered, setEntered] = useState("")
+
+    useEffect(() => {
+      if (open) {
+        setTimeout(() => {
+          inputRef.current?.focus()
+        }, 200)
+      }
+    }, [open])
+
+    useEffect(() => {
+      const down = (e) => {
+        if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+          e.preventDefault()
+          setOpen((open) => !open)
+        }
+      }
+
+      document.addEventListener("keydown", down)
+      return () => document.removeEventListener("keydown", down)
+    }, [])
+
+    useEffect(() => {
+      if (entered) {
+        setOpen(false)
+      }
+    }, [entered])
 
     return (
       <div>
-        <button
-          className="ring-offset-background focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-10 items-center justify-center rounded-md border px-4 py-2 font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+        <Button
           onClick={() => setOpen(true)}
+          variant="secondary"
         >
-          Open Command Palette
-          <kbd className="bg-muted text-secondary-foreground pointer-events-none ml-2 inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono font-medium opacity-100 select-none">
-            <span className="">⌘</span>K
-          </kbd>
-        </button>
+          {commandOptions
+            .find((group) => group.items.some((item) => item.value === entered))
+            ?.items.find((item) => item.value === entered)?.label || "Open Command Palette"}
+          <Kbd keys="command">K</Kbd>
+        </Button>
 
-        <Command.Dialog
+        <Dialog
           open={open}
           onOpenChange={setOpen}
+          outsidePress={true}
+          className="overflow-hidden"
+          transitionStylesProps={{
+            duration: 200,
+          }}
         >
-          <Command.Input placeholder="Type a command or search..." />
-          <Command.List>
-            <Command.Empty>No results found.</Command.Empty>
-            <Command.Group heading="Suggestions">
-              <Command.Item onSelect={() => setOpen(false)}>
-                <Command.Icon>
-                  <SearchSmall />
-                </Command.Icon>
-                <span>Search Files</span>
-              </Command.Item>
-              <Command.Item onSelect={() => setOpen(false)}>
-                <Command.Icon>
-                  <File />
-                </Command.Icon>
-                <span>Create New File</span>
-              </Command.Item>
-            </Command.Group>
-            <Command.Separator />
-            <Command.Group heading="Navigation">
-              <Command.Item onSelect={() => setOpen(false)}>
-                <Command.Icon>
-                  <UserSmall />
-                </Command.Icon>
-                <span>Go to Profile</span>
-              </Command.Item>
-              <Command.Item onSelect={() => setOpen(false)}>
-                <Command.Icon>
-                  <Settings />
-                </Command.Icon>
-                <span>Open Settings</span>
-              </Command.Item>
-            </Command.Group>
-          </Command.List>
-        </Command.Dialog>
+          <Dialog.Content className="w-xl overflow-hidden">
+            <Command
+              loop
+              size="large"
+              ref={commandRef}
+              value={selected}
+              onChange={setSelected}
+            >
+              <Command.Input
+                ref={inputRef}
+                variant="reset"
+                className="mx-0 mb-0 rounded-none"
+                placeholder="Search commands..."
+              />
+              <Command.Divider alwaysRender />
+              <Command.List className="h-64">
+                <Command.Empty>
+                  <p>No results found.</p>
+                  <p className="mt-1">Try adjusting your search terms.</p>
+                </Command.Empty>
+                {commandOptions.map((group, index) => (
+                  <Command.Group
+                    key={`${group.label}-${index}`}
+                    heading={group.label}
+                  >
+                    {group.items.map((item, index) => (
+                      <Command.Item
+                        key={`${item.value}-${index}`}
+                        value={item.value}
+                        onSelect={() => {
+                          setSelected(item.value)
+                          setEntered(item.value)
+                        }}
+                        prefixElement={
+                          <Avatar
+                            photo={item.icon}
+                            name={item.label}
+                          />
+                        }
+                      >
+                        <Command.Value>{item.label}</Command.Value>
+                      </Command.Item>
+                    ))}
+                  </Command.Group>
+                ))}
+              </Command.List>
+            </Command>
+          </Dialog.Content>
+        </Dialog>
       </div>
+    )
+  },
+}
+
+export const DarkMode: Story = {
+  render: function DarkModeStory() {
+    return (
+      <Command
+        loop
+        variant="dark"
+        className="w-96 overflow-hidden rounded-xl shadow-lg"
+      >
+        <Command.Input placeholder="Search commands..." />
+
+        <Command.List>
+          <Command.Empty>
+            <p>No results found.</p>
+            <p className="mt-1">Try adjusting your search terms.</p>
+          </Command.Empty>
+
+          <Command.Group heading="Files">
+            <Command.Item
+              prefixElement={<ColorAlpha />}
+              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            >
+              <Command.Value>Photoshop</Command.Value>
+            </Command.Item>
+            <Command.Item prefixElement={<ColorOpacity />}>
+              <Command.Value>Illustrator</Command.Value>
+            </Command.Item>
+            <Command.Item
+              prefixElement={<ColorTypeGradient />}
+              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            >
+              <Command.Value>Lightroom</Command.Value>
+            </Command.Item>
+            <Command.Item
+              prefixElement={<ColorTypeSolid />}
+              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            >
+              <Command.Value>InDesign</Command.Value>
+            </Command.Item>
+          </Command.Group>
+        </Command.List>
+      </Command>
+    )
+  },
+}
+
+/**
+ * **Disabled Command**
+ *
+ * Shows a disabled command with a disabled item.
+ * Useful for providing user feedback during search operations.
+ *
+ * ```tsx
+ * <Command>
+ *   <Command.Input />
+ *   <Command.List>
+ *     <Command.Item disabled>...</Command.Item>
+ *   </Command.List>
+ * </Command>
+ * ```
+ */
+export const DisabledCommand: Story = {
+  render: function DisabledCommandStory() {
+    return (
+      <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+        <Command.Input placeholder="Search commands..." />
+        <Command.List className="h-48">
+          <Command.Group heading="Quick Actions">
+            <Command.Item>Create New File</Command.Item>
+            <Command.Item>Open Settings</Command.Item>
+            <Command.Item disabled>View Profile (Disabled)</Command.Item>
+          </Command.Group>
+        </Command.List>
+      </Command>
     )
   },
 }
@@ -350,7 +595,7 @@ export const DialogMode: Story = {
  * ```tsx
  * const [value, setValue] = useState("")
  *
- * <Command value={value} onValueChange={setValue}>
+ * <Command value={value} onChange={setValue}>
  *   <Command.Input />
  *   <Command.List>
  *     <Command.Item value="item1">Item 1</Command.Item>
@@ -374,41 +619,40 @@ export const ControlledState: Story = {
           </p>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command
-            value={value}
-            onValueChange={setValue}
-          >
-            <Command.Input
-              placeholder="Search commands..."
-              value={search}
-              onValueChange={setSearch}
-            />
-            <Command.List>
-              <Command.Empty>No results found.</Command.Empty>
-              <Command.Group heading="Account">
-                <Command.Item value="profile">
-                  <UserSmall className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </Command.Item>
-                <Command.Item value="settings">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </Command.Item>
-              </Command.Group>
-              <Command.Group heading="Actions">
-                <Command.Item value="search">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Search</span>
-                </Command.Item>
-                <Command.Item value="files">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>Files</span>
-                </Command.Item>
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+        <Command
+          value={value}
+          onChange={setValue}
+          className="w-96 overflow-hidden rounded-xl shadow-lg"
+        >
+          <Command.Input
+            placeholder="Search commands..."
+            value={search}
+            onChange={setSearch}
+          />
+          <Command.List>
+            <Command.Empty>No results found.</Command.Empty>
+            <Command.Group heading="Account">
+              <Command.Item value="profile">
+                <UserSmall className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </Command.Item>
+              <Command.Item value="settings">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </Command.Item>
+            </Command.Group>
+            <Command.Group heading="Actions">
+              <Command.Item value="search">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Search</span>
+              </Command.Item>
+              <Command.Item value="files">
+                <File className="mr-2 h-4 w-4" />
+                <span>Files</span>
+              </Command.Item>
+            </Command.Group>
+          </Command.List>
+        </Command>
       </div>
     )
   },
@@ -466,30 +710,33 @@ export const WithCustomFiltering: Story = {
           </p>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command filter={customFilter}>
-            <Command.Input
-              placeholder="Try 'user' or 'set'..."
-              value={search}
-              onValueChange={setSearch}
-            />
-            <Command.List>
-              <Command.Empty>No matches found.</Command.Empty>
-              <Command.Group heading="Actions">
-                {items.map((item) => (
-                  <Command.Item
-                    key={item.value}
-                    value={item.label}
-                  >
-                    <item.icon className="mr-2 h-4 w-4" />
-                    <span>{item.label}</span>
-                    <span className="text-secondary-foreground ml-auto">{item.value}</span>
-                  </Command.Item>
-                ))}
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+        <Command
+          filter={customFilter}
+          className="w-96 overflow-hidden rounded-xl shadow-lg"
+        >
+          <Command.Input
+            placeholder="Try 'user' or 'set'..."
+            value={search}
+            onChange={setSearch}
+          />
+          <Command.List>
+            <Command.Empty>No matches found.</Command.Empty>
+            <Command.Group heading="Actions">
+              {items.map((item) => (
+                <Command.Item
+                  key={item.value}
+                  value={item.label}
+                  prefixElement={<item.icon />}
+                  suffixElement={
+                    <span className="text-secondary-foreground mr-1">{item.value}</span>
+                  }
+                >
+                  <Command.Value>{item.label}</Command.Value>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          </Command.List>
+        </Command>
       </div>
     )
   },
@@ -584,74 +831,29 @@ export const KeyboardNavigation: Story = {
     }
 
     return (
-      <div className="space-y-6">
+      <div className="w-96 space-y-6">
         {/* Control Panel */}
-        <div className="bg-muted/30 flex flex-wrap gap-4 rounded-lg border p-4">
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={vimBindings}
-              onChange={(e) => setVimBindings(e.target.checked)}
-              className="rounded"
-            />
-            <span className="">Enable Vim Bindings (Ctrl+J/K/N/P)</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={loop}
-              onChange={(e) => setLoop(e.target.checked)}
-              className="rounded"
-            />
-            <span className="">Enable Loop Navigation</span>
-          </label>
-        </div>
-
-        {/* Real-time Action Feedback */}
-        <div className="bg-muted/30 rounded-lg border p-4">
-          <h3 className="mb-3 font-medium">🎹 Live Keyboard Activity Monitor</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h4 className="mb-2 font-medium">Last Action:</h4>
-              {lastAction ? (
-                <div className="bg-background rounded p-2">
-                  <div className="font-mono text-blue-600">{lastAction.key}</div>
-                  <div className="text-secondary-foreground">{lastAction.action}</div>
-                  <div className="text-secondary-foreground">{lastAction.timestamp}</div>
-                </div>
-              ) : (
-                <div className="text-secondary-foreground">Press keys to see actions...</div>
-              )}
-            </div>
-            <div>
-              <h4 className="mb-2 font-medium">Recent Actions:</h4>
-              <div className="max-h-24 overflow-y-auto">
-                {keyLog.length === 0 ? (
-                  <div className="text-secondary-foreground">
-                    Action history will appear here...
-                  </div>
-                ) : (
-                  keyLog.map((log, i) => (
-                    <div
-                      key={i}
-                      className="flex justify-between py-0.5"
-                    >
-                      <span className="font-mono">{log.key}</span>
-                      <span className="text-secondary-foreground">{log.action}</span>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-wrap gap-4 rounded-xl border p-4">
+          <Checkbox
+            value={vimBindings}
+            onChange={(v) => setVimBindings(v)}
+          >
+            Enable Vim Bindings (Ctrl+J/K/N/P)
+          </Checkbox>
+          <Checkbox
+            value={loop}
+            onChange={(v) => setLoop(v)}
+          >
+            Enable Loop Navigation
+          </Checkbox>
         </div>
 
         {/* Keyboard Shortcuts Reference */}
-        <div className="bg-muted/30 rounded-lg border p-4">
+        <div className="rounded-xl border p-4">
           <h3 className="mb-3 font-medium">⌨️ Complete Keyboard Shortcuts Reference</h3>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-col gap-4">
             <div>
-              <h4 className="mb-2 font-medium text-blue-600">Basic Navigation</h4>
+              <h4 className="mb-2 font-medium">Basic Navigation</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <div className="flex gap-1">
@@ -665,11 +867,11 @@ export const KeyboardNavigation: Story = {
                   <span>Select item</span>
                 </div>
                 <div className="flex justify-between">
-                  <Kbd keys="home" />
+                  <Kbd>Home</Kbd>
                   <span>First item</span>
                 </div>
                 <div className="flex justify-between">
-                  <Kbd keys="end" />
+                  <Kbd>End</Kbd>
                   <span>Last item</span>
                 </div>
               </div>
@@ -727,137 +929,137 @@ export const KeyboardNavigation: Story = {
         </div>
 
         {/* Interactive Command Component */}
-        <div className="w-full max-w-2xl rounded-lg border shadow-lg">
-          <Command
-            vimBindings={vimBindings}
-            loop={loop}
-            value={selectedValue}
-            onValueChange={setSelectedValue}
-            onKeyDown={handleKeyDown}
-          >
-            <Command.Input placeholder="🎯 Focus here and try the keyboard shortcuts above..." />
-            <Command.List>
-              <Command.Empty>No results found.</Command.Empty>
 
-              <Command.Group heading="📁 File Operations">
-                <Command.Item value="new-file">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>New File</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    N
-                  </Kbd>
-                </Command.Item>
-                <Command.Item value="open-file">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>Open File</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    O
-                  </Kbd>
-                </Command.Item>
-                <Command.Item value="save-file">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>Save File</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    S
-                  </Kbd>
-                </Command.Item>
-              </Command.Group>
+        <Command
+          className="w-96 overflow-hidden rounded-xl shadow-lg"
+          vimBindings={vimBindings}
+          loop={loop}
+          value={selectedValue}
+          onChange={setSelectedValue}
+          onKeyDown={handleKeyDown}
+        >
+          <Command.Input placeholder="🎯 Focus here and try the keyboard shortcuts above..." />
+          <Command.List className="h-64">
+            <Command.Empty>No results found.</Command.Empty>
 
-              <Command.Group heading="🔍 Search & Navigation">
-                <Command.Item value="search-files">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Search Files</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    F
-                  </Kbd>
-                </Command.Item>
-                <Command.Item value="go-to-line">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Go to Line</span>
-                  <Kbd
-                    keys="ctrl"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    G
-                  </Kbd>
-                </Command.Item>
-                <Command.Item value="find-replace">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Find & Replace</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    H
-                  </Kbd>
-                </Command.Item>
-              </Command.Group>
+            <Command.Group heading="File Operations">
+              <Command.Item value="new-file">
+                <File className="mr-2 h-4 w-4" />
+                <span>New File</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  N
+                </Kbd>
+              </Command.Item>
+              <Command.Item value="open-file">
+                <File className="mr-2 h-4 w-4" />
+                <span>Open File</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  O
+                </Kbd>
+              </Command.Item>
+              <Command.Item value="save-file">
+                <File className="mr-2 h-4 w-4" />
+                <span>Save File</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  S
+                </Kbd>
+              </Command.Item>
+            </Command.Group>
 
-              <Command.Group heading="👤 User & Settings">
-                <Command.Item value="user-profile">
-                  <UserSmall className="mr-2 h-4 w-4" />
-                  <span>User Profile</span>
-                </Command.Item>
-                <Command.Item value="preferences">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Preferences</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    ,
-                  </Kbd>
-                </Command.Item>
-                <Command.Item value="shortcuts">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Keyboard Shortcuts</span>
-                  <Kbd
-                    keys="command"
-                    className="text-secondary-foreground ml-auto"
-                  >
-                    K
-                  </Kbd>
-                </Command.Item>
-              </Command.Group>
+            <Command.Group heading="Search & Navigation">
+              <Command.Item value="search-files">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Search Files</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  F
+                </Kbd>
+              </Command.Item>
+              <Command.Item value="go-to-line">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Go to Line</span>
+                <Kbd
+                  keys="ctrl"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  G
+                </Kbd>
+              </Command.Item>
+              <Command.Item value="find-replace">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Find & Replace</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  H
+                </Kbd>
+              </Command.Item>
+            </Command.Group>
 
-              <Command.Group heading="🎨 Appearance">
-                <Command.Item value="theme-light">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Light Theme</span>
-                </Command.Item>
-                <Command.Item value="theme-dark">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Dark Theme</span>
-                </Command.Item>
-                <Command.Item value="theme-auto">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Auto Theme</span>
-                </Command.Item>
-              </Command.Group>
-            </Command.List>
+            <Command.Group heading="User & Settings">
+              <Command.Item value="user-profile">
+                <UserSmall className="mr-2 h-4 w-4" />
+                <span>User Profile</span>
+              </Command.Item>
+              <Command.Item value="preferences">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Preferences</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  ,
+                </Kbd>
+              </Command.Item>
+              <Command.Item value="shortcuts">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Keyboard Shortcuts</span>
+                <Kbd
+                  keys="command"
+                  className="text-secondary-foreground ml-auto"
+                >
+                  K
+                </Kbd>
+              </Command.Item>
+            </Command.Group>
 
-            <Command.Footer>
-              <div className="text-secondary-foreground flex items-center justify-between">
-                <span>
-                  Selected: <strong>{selectedValue || "None"}</strong>
-                </span>
-                <span>Try all keyboard shortcuts above! 🎹</span>
-              </div>
-            </Command.Footer>
-          </Command>
-        </div>
+            <Command.Group heading="Appearance">
+              <Command.Item value="theme-light">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Light Theme</span>
+              </Command.Item>
+              <Command.Item value="theme-dark">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Dark Theme</span>
+              </Command.Item>
+              <Command.Item value="theme-auto">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Auto Theme</span>
+              </Command.Item>
+            </Command.Group>
+          </Command.List>
+
+          <Command.Footer>
+            <div className="text-secondary-foreground flex items-center justify-between">
+              <span>
+                Selected: <strong>{selectedValue || "None"}</strong>
+              </span>
+              <span>Try all keyboard shortcuts above! 🎹</span>
+            </div>
+          </Command.Footer>
+        </Command>
 
         {/* Usage Tips */}
         <div className="rounded-lg border bg-blue-50 p-4">
@@ -937,34 +1139,32 @@ export const LargeDataset: Story = {
           </p>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command>
-            <Command.Input placeholder="Search 100 items..." />
-            <Command.List className="max-h-64">
-              <Command.Empty>No results found in {items.length} items.</Command.Empty>
-              {categories.map((category) => (
-                <Command.Group
-                  key={category}
-                  heading={category}
-                >
-                  {items
-                    .filter((item) => item.category === category)
-                    .map((item) => (
-                      <Command.Item
-                        key={item.id}
-                        value={`${item.name} ${item.description}`}
-                      >
-                        <div className="flex flex-col items-start">
-                          <span>{item.name}</span>
-                          <span className="text-secondary-foreground">{item.description}</span>
-                        </div>
-                      </Command.Item>
-                    ))}
-                </Command.Group>
-              ))}
-            </Command.List>
-          </Command>
-        </div>
+        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+          <Command.Input placeholder="Search 100 items..." />
+          <Command.List className="max-h-64">
+            <Command.Empty>No results found in {items.length} items.</Command.Empty>
+            {categories.map((category) => (
+              <Command.Group
+                key={category}
+                heading={category}
+              >
+                {items
+                  .filter((item) => item.category === category)
+                  .map((item) => (
+                    <Command.Item
+                      key={item.id}
+                      value={`${item.name} ${item.description}`}
+                    >
+                      <div className="flex flex-col items-start">
+                        <span>{item.name}</span>
+                        <span className="text-secondary-foreground">{item.description}</span>
+                      </div>
+                    </Command.Item>
+                  ))}
+              </Command.Group>
+            ))}
+          </Command.List>
+        </Command>
       </div>
     )
   },
@@ -992,69 +1192,84 @@ export const LargeDataset: Story = {
  * ```
  */
 export const ComplexItems: Story = {
-  render: () => (
-    <div className="w-96 rounded-lg border shadow-lg">
-      <Command>
+  render: function ComplexItems() {
+    const commandOptions = [
+      {
+        label: "Recent Files",
+        group: [
+          {
+            label: "Project",
+            value: "project-readme",
+            description: "Modified 2 hours ago • 1.2 KB",
+            prefixElement: <File />,
+            suffixElement: <Badge>MD</Badge>,
+          },
+          {
+            label: "Config",
+            value: "config-file",
+            description: "Modified yesterday • 0.8 KB",
+            prefixElement: <Settings />,
+          },
+          {
+            label: "README",
+            value: "readme-file",
+            description: "Modified 2 hours ago • 1.2 KB",
+            prefixElement: <File />,
+            suffixElement: <Badge>MD</Badge>,
+          },
+        ],
+      },
+      {
+        label: "Team Members",
+        group: [
+          {
+            label: "John Doe",
+            value: "john-doe",
+            description: "Senior Developer • Online",
+            prefixElement: <UserSmall />,
+            suffixElement: <Badge>Online</Badge>,
+          },
+          {
+            label: "Jane Smith",
+            value: "jane-smith",
+            description: "UI/UX Designer • Away",
+            prefixElement: <UserSmall />,
+            suffixElement: <Badge>Away</Badge>,
+          },
+        ],
+      },
+    ]
+    return (
+      <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
         <Command.Input placeholder="Search files and users..." />
         <Command.List>
           <Command.Empty>No results found.</Command.Empty>
-          <Command.Group heading="Recent Files">
-            <Command.Item value="project-readme Project README file">
-              <div className="flex w-full items-center justify-between">
-                <div className="flex items-center">
-                  <File className="mr-3 h-4 w-4" />
-                  <div>
-                    <div className="font-medium">Project README</div>
-                    <div className="text-secondary-foreground">Modified 2 hours ago • 1.2 KB</div>
+          {commandOptions.map((option) => (
+            <Command.Group
+              key={option.label}
+              heading={option.label}
+            >
+              {option.group.map((item) => (
+                <Command.Item
+                  key={item.value}
+                  value={item.value}
+                >
+                  <div className="flex flex-1 flex-col gap-1">
+                    <div className="flex items-center gap-1">
+                      {item.prefixElement}
+                      <div className="flex-1">{item.label}</div>
+                      {item.suffixElement}
+                    </div>
+                    <div className="text-secondary-foreground">{item.description}</div>
                   </div>
-                </div>
-                <div className="rounded bg-blue-100 px-2 py-1 text-blue-800">MD</div>
-              </div>
-            </Command.Item>
-            <Command.Item value="config-file Application configuration">
-              <div className="flex w-full items-center justify-between">
-                <div className="flex items-center">
-                  <Settings className="mr-3 h-4 w-4" />
-                  <div>
-                    <div className="font-medium">config.json</div>
-                    <div className="text-secondary-foreground">Modified yesterday • 0.8 KB</div>
-                  </div>
-                </div>
-                <div className="rounded bg-green-100 px-2 py-1">JSON</div>
-              </div>
-            </Command.Item>
-          </Command.Group>
-          <Command.Separator />
-          <Command.Group heading="Team Members">
-            <Command.Item value="john-doe John Doe Developer">
-              <div className="flex w-full items-center justify-between">
-                <div className="flex items-center">
-                  <UserSmall className="mr-3 h-4 w-4" />
-                  <div>
-                    <div className="font-medium">John Doe</div>
-                    <div className="text-secondary-foreground">Senior Developer • Online</div>
-                  </div>
-                </div>
-                <div className="h-2 w-2 rounded-full bg-green-500"></div>
-              </div>
-            </Command.Item>
-            <Command.Item value="jane-smith Jane Smith Designer">
-              <div className="flex w-full items-center justify-between">
-                <div className="flex items-center">
-                  <UserSmall className="mr-3 h-4 w-4" />
-                  <div>
-                    <div className="font-medium">Jane Smith</div>
-                    <div className="text-secondary-foreground">UI/UX Designer • Away</div>
-                  </div>
-                </div>
-                <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
-              </div>
-            </Command.Item>
-          </Command.Group>
+                </Command.Item>
+              ))}
+            </Command.Group>
+          ))}
         </Command.List>
       </Command>
-    </div>
-  ),
+    )
+  },
 }
 
 /**
@@ -1164,7 +1379,7 @@ export const WithFooter: Story = {
           ref={commandRef}
           loop
           className="w-96 overflow-hidden rounded-xl shadow-lg"
-          onValueChange={setSelectedCommand}
+          onChange={setSelectedCommand}
           onKeyDown={(e) => {
             // Handle global Command shortcuts
             if (e.key === "k" && e.metaKey) {
@@ -1195,9 +1410,7 @@ export const WithFooter: Story = {
             ))}
           </Command.List>
           <Command.Footer>
-            <Command.Icon>
-              <Choiceform />
-            </Command.Icon>
+            <span className="text-secondary-foreground px-2">Choiceform</span>
             <Dropdown
               open={open}
               onOpenChange={setOpen}
@@ -1268,8 +1481,8 @@ export const CoreMechanismStore: Story = {
     })
 
     return (
-      <div className="space-y-6">
-        <div className="bg-muted/30 rounded-lg border p-4">
+      <div className="w-96 space-y-6">
+        <div className="rounded-lg border p-4">
           <h3 className="mb-3 font-medium">🏗️ Internal State Monitor</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -1290,43 +1503,42 @@ export const CoreMechanismStore: Story = {
           </div>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command
-            onValueChange={(value) => {
-              setDebugInfo((prev) => ({ ...prev, value, updateCount: prev.updateCount + 1 }))
+        <Command
+          className="w-96 overflow-hidden rounded-xl shadow-lg"
+          onChange={(value) => {
+            setDebugInfo((prev) => ({ ...prev, value, updateCount: prev.updateCount + 1 }))
+          }}
+        >
+          <Command.Input
+            placeholder="Type to see state changes..."
+            onChange={(search) => {
+              setDebugInfo((prev) => ({ ...prev, search, updateCount: prev.updateCount + 1 }))
             }}
-          >
-            <Command.Input
-              placeholder="Type to see state changes..."
-              onValueChange={(search) => {
-                setDebugInfo((prev) => ({ ...prev, search, updateCount: prev.updateCount + 1 }))
-              }}
-            />
-            <Command.List>
-              <Command.Empty>No results found.</Command.Empty>
-              <Command.Group heading="Files">
-                <Command.Item value="new-file">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>New File</span>
-                </Command.Item>
-                <Command.Item value="open-file">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>Open File</span>
-                </Command.Item>
-              </Command.Group>
-              <Command.Group heading="Actions">
-                <Command.Item value="search-files">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Search Files</span>
-                </Command.Item>
-                <Command.Item value="settings">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </Command.Item>
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+          />
+          <Command.List>
+            <Command.Empty>No results found.</Command.Empty>
+            <Command.Group heading="Files">
+              <Command.Item value="new-file">
+                <File className="mr-2 h-4 w-4" />
+                <span>New File</span>
+              </Command.Item>
+              <Command.Item value="open-file">
+                <File className="mr-2 h-4 w-4" />
+                <span>Open File</span>
+              </Command.Item>
+            </Command.Group>
+            <Command.Group heading="Actions">
+              <Command.Item value="search-files">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Search Files</span>
+              </Command.Item>
+              <Command.Item value="settings">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </Command.Item>
+            </Command.Group>
+          </Command.List>
+        </Command>
 
         <div className="text-secondary-foreground">
           💡 <strong>How it works:</strong> The store uses a centralized state with subscribe/emit
@@ -1385,8 +1597,8 @@ export const CoreMechanismValueRegistration: Story = {
     }
 
     return (
-      <div className="space-y-6">
-        <div className="bg-muted/30 rounded-lg border p-4">
+      <div className="w-96 space-y-6">
+        <div className="rounded-lg border p-4">
           <h3 className="mb-3 font-medium">📝 Value Registration Log</h3>
           <div className="max-h-32 overflow-y-auto">
             {registrationLog.length === 0 ? (
@@ -1424,44 +1636,42 @@ export const CoreMechanismValueRegistration: Story = {
           <span className="flex items-center">Items: {itemCount}</span>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command>
-            <Command.Input placeholder="Search to trigger value matching..." />
-            <Command.List>
-              <Command.Empty>No matches found.</Command.Empty>
-              <Command.Group heading="Dynamic Items">
-                {Array.from({ length: itemCount }, (_, i) => (
-                  <Command.Item
-                    key={i}
-                    value={`dynamic-item-${i + 1} item ${i + 1} test`}
-                  >
-                    <File className="mr-2 h-4 w-4" />
-                    <span>Dynamic Item {i + 1}</span>
-                    <span className="text-secondary-foreground ml-auto">Keywords: test, item</span>
-                  </Command.Item>
-                ))}
-              </Command.Group>
-              <Command.Group heading="Aliased Items">
+        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+          <Command.Input placeholder="Search to trigger value matching..." />
+          <Command.List className="h-40">
+            <Command.Empty>No matches found.</Command.Empty>
+            <Command.Group heading="Dynamic Items">
+              {Array.from({ length: itemCount }, (_, i) => (
                 <Command.Item
-                  value="javascript-file"
-                  keywords={["js", "script", "code"]}
+                  key={i}
+                  value={`dynamic-item-${i + 1} item ${i + 1} test`}
                 >
                   <File className="mr-2 h-4 w-4" />
-                  <span>app.js</span>
-                  <span className="text-secondary-foreground ml-auto">Try: js, script</span>
+                  <span>Dynamic Item {i + 1}</span>
+                  <span className="text-secondary-foreground ml-auto">Keywords: test, item</span>
                 </Command.Item>
-                <Command.Item
-                  value="stylesheet-file"
-                  keywords={["css", "style", "design"]}
-                >
-                  <File className="mr-2 h-4 w-4" />
-                  <span>styles.css</span>
-                  <span className="text-secondary-foreground ml-auto">Try: css, style</span>
-                </Command.Item>
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+              ))}
+            </Command.Group>
+            <Command.Group heading="Aliased Items">
+              <Command.Item
+                value="javascript-file"
+                keywords={["js", "script", "code"]}
+              >
+                <File className="mr-2 h-4 w-4" />
+                <span>app.js</span>
+                <span className="text-secondary-foreground ml-auto">Try: js, script</span>
+              </Command.Item>
+              <Command.Item
+                value="stylesheet-file"
+                keywords={["css", "style", "design"]}
+              >
+                <File className="mr-2 h-4 w-4" />
+                <span>styles.css</span>
+                <span className="text-secondary-foreground ml-auto">Try: css, style</span>
+              </Command.Item>
+            </Command.Group>
+          </Command.List>
+        </Command>
 
         <div className="text-secondary-foreground">
           💡 <strong>How it works:</strong> useValue() runs on every render (no deps array) to keep
@@ -1501,8 +1711,6 @@ export const CoreMechanismAsyncScheduling: Story = {
       }>
     >([])
 
-    const [isProcessing, setIsProcessing] = useState(false)
-
     const simulateScheduledOperation = (priority: number, operation: string) => {
       const id = Date.now()
 
@@ -1540,8 +1748,8 @@ export const CoreMechanismAsyncScheduling: Story = {
     }
 
     return (
-      <div className="space-y-6">
-        <div className="bg-muted/30 rounded-lg border p-4">
+      <div className="w-96 space-y-6">
+        <div className="rounded-lg border p-4">
           <h3 className="mb-3 font-medium">⚡ Async Operation Scheduler</h3>
           <div className="max-h-40 overflow-y-auto">
             {operationLog.length === 0 ? (
@@ -1599,35 +1807,33 @@ export const CoreMechanismAsyncScheduling: Story = {
           </button>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command>
-            <Command.Input
-              placeholder="Type to trigger real scheduling..."
-              onValueChange={() => {
-                simulateScheduledOperation(1, "Search triggered: selectFirstItem()")
-                simulateScheduledOperation(2, "Search triggered: filterItems()")
-                simulateScheduledOperation(3, "Search triggered: sort()")
-              }}
-            />
-            <Command.List>
-              <Command.Empty>No results found.</Command.Empty>
-              <Command.Group heading="Test Items">
-                <Command.Item value="item-1">
-                  <SearchSmall className="mr-2 h-4 w-4" />
-                  <span>Search Item 1</span>
-                </Command.Item>
-                <Command.Item value="item-2">
-                  <File className="mr-2 h-4 w-4" />
-                  <span>File Item 2</span>
-                </Command.Item>
-                <Command.Item value="item-3">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings Item 3</span>
-                </Command.Item>
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+          <Command.Input
+            placeholder="Type to trigger real scheduling..."
+            onChange={() => {
+              simulateScheduledOperation(1, "Search triggered: selectFirstItem()")
+              simulateScheduledOperation(2, "Search triggered: filterItems()")
+              simulateScheduledOperation(3, "Search triggered: sort()")
+            }}
+          />
+          <Command.List className="h-40">
+            <Command.Empty>No results found.</Command.Empty>
+            <Command.Group heading="Test Items">
+              <Command.Item value="item-1">
+                <SearchSmall className="mr-2 h-4 w-4" />
+                <span>Search Item 1</span>
+              </Command.Item>
+              <Command.Item value="item-2">
+                <File className="mr-2 h-4 w-4" />
+                <span>File Item 2</span>
+              </Command.Item>
+              <Command.Item value="item-3">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings Item 3</span>
+              </Command.Item>
+            </Command.Group>
+          </Command.List>
+        </Command>
 
         <div className="text-secondary-foreground">
           💡 <strong>How it works:</strong> schedule() queues operations by priority in the next
@@ -1733,8 +1939,8 @@ export const CoreMechanismFuzzySearch: Story = {
     }, [search])
 
     return (
-      <div className="space-y-6">
-        <div className="bg-muted/30 rounded-lg border p-4">
+      <div className="w-96 space-y-6">
+        <div className="rounded-xl border p-4">
           <h3 className="mb-3 font-medium">🔍 Search Score Visualization</h3>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -1755,7 +1961,7 @@ export const CoreMechanismFuzzySearch: Story = {
                       </span>
                     )}
                     <div className="flex items-center gap-1">
-                      <div className="h-2 w-16 rounded bg-gray-200">
+                      <div className="h-1 w-16 rounded bg-gray-200">
                         <div
                           className="h-full rounded bg-gradient-to-r from-red-400 to-green-400"
                           style={{ width: `${item.score * 100}%` }}
@@ -1770,7 +1976,7 @@ export const CoreMechanismFuzzySearch: Story = {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 rounded-xl border p-4">
           <div>
             <h4 className="mb-2 font-medium">🎯 Score Legend</h4>
             <div className="space-y-1">
@@ -1787,46 +1993,43 @@ export const CoreMechanismFuzzySearch: Story = {
             <h4 className="mb-2 font-medium">💡 Try These Searches</h4>
             <div className="flex flex-wrap gap-1">
               {["file", "js", "user", "set", "css", "new", "search"].map((term) => (
-                <button
+                <Chip
                   key={term}
                   onClick={() => setSearch(term)}
-                  className="rounded bg-blue-100 px-2 py-1 text-blue-800"
                 >
                   {term}
-                </button>
+                </Chip>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="w-96 rounded-lg border shadow-lg">
-          <Command>
-            <Command.Input
-              placeholder="Type to see live scoring..."
-              value={search}
-              onValueChange={setSearch}
-            />
-            <Command.List>
-              <Command.Empty>No matches found.</Command.Empty>
-              <Command.Group heading="Live Search Results">
-                {scores
-                  .filter((item) => item.score > 0)
-                  .map((item) => (
-                    <Command.Item
-                      key={item.item}
-                      value={item.value}
-                    >
-                      <File className="mr-2 h-4 w-4" />
-                      <span>{item.item}</span>
-                      <span className="text-secondary-foreground ml-auto">
-                        {item.score.toFixed(2)}
-                      </span>
-                    </Command.Item>
-                  ))}
-              </Command.Group>
-            </Command.List>
-          </Command>
-        </div>
+        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+          <Command.Input
+            placeholder="Type to see live scoring..."
+            value={search}
+            onChange={setSearch}
+          />
+          <Command.List>
+            <Command.Empty>No matches found.</Command.Empty>
+            <Command.Group heading="Live Search Results">
+              {scores
+                .filter((item) => item.score > 0)
+                .map((item) => (
+                  <Command.Item
+                    key={item.item}
+                    value={item.value}
+                  >
+                    <File className="mr-2 h-4 w-4" />
+                    <span>{item.item}</span>
+                    <span className="text-secondary-foreground ml-auto">
+                      {item.score.toFixed(2)}
+                    </span>
+                  </Command.Item>
+                ))}
+            </Command.Group>
+          </Command.List>
+        </Command>
 
         <div className="text-secondary-foreground">
           💡 <strong>How it works:</strong> The scoring algorithm evaluates match quality using
@@ -1868,9 +2071,9 @@ export const NestedItems: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="rounded-lg border bg-blue-50 p-3">
-          <div className="mb-2 font-medium text-blue-800">🧭 Navigation Guide:</div>
-          <ul className="space-y-1 text-blue-700">
+        <div className="rounded-xl border p-4">
+          <div className="mb-2 font-medium">Navigation Guide:</div>
+          <ul className="space-y-1">
             <li>• Select items to navigate deeper into subcategories</li>
             <li>
               • <Kbd keys="escape" /> or <Kbd keys="backspace" /> (when search is empty) to go back
@@ -1893,15 +2096,28 @@ export const NestedItems: Story = {
           <Command.Input
             placeholder={page ? `Search in ${page}...` : "Type a command or search..."}
             value={search}
-            onValueChange={setSearch}
+            onChange={setSearch}
+            variant="reset"
+            className="mb-0"
+            prefixElement={
+              page && (
+                <IconButton
+                  variant="secondary"
+                  onClick={() => setPages((pages) => pages.slice(0, -1))}
+                >
+                  <ChevronLeftSmall />
+                </IconButton>
+              )
+            }
           />
+          <Command.Divider />
           <Command.List>
             <Command.Empty>No results found.</Command.Empty>
 
             {/* Root level */}
             {!page && (
               <>
-                <Command.Group heading="🗂️ Categories">
+                <Command.Group heading="Categories">
                   <Command.Item onSelect={() => setPages([...pages, "projects"])}>
                     <Folder className="mr-2 h-4 w-4" />
                     <span>Search projects…</span>
@@ -1921,7 +2137,7 @@ export const NestedItems: Story = {
             {/* Projects page */}
             {page === "projects" && (
               <>
-                <Command.Group heading="📁 Recent Projects">
+                <Command.Group heading="Recent Projects">
                   <Command.Item value="project-a">
                     <File className="mr-2 h-4 w-4" />
                     <span>Design System</span>
@@ -1941,7 +2157,7 @@ export const NestedItems: Story = {
             {/* Teams page */}
             {page === "teams" && (
               <>
-                <Command.Group heading="👥 Available Teams">
+                <Command.Group heading="Available Teams">
                   <Command.Item value="team-design">
                     <UserSmall className="mr-2 h-4 w-4" />
                     <span>Design Team</span>
@@ -1961,7 +2177,7 @@ export const NestedItems: Story = {
             {/* Settings page */}
             {page === "settings" && (
               <>
-                <Command.Group heading="⚙️ Preferences">
+                <Command.Group heading="Preferences">
                   <Command.Item value="theme-settings">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Theme Settings</span>
@@ -2014,10 +2230,10 @@ export const ConditionalSubItems: Story = {
     }
 
     return (
-      <div className="space-y-4">
-        <div className="rounded-lg border bg-amber-50 p-3">
-          <div className="mb-2 font-medium text-amber-800">🔍 Search Behavior:</div>
-          <ul className="space-y-1 text-amber-700">
+      <div className="w-96 space-y-4">
+        <div className="rounded-xl border p-4">
+          <div className="mb-2 font-medium">Search Behavior:</div>
+          <ul className="space-y-1">
             <li>
               • <strong>Normal view:</strong> Shows only main items
             </li>
@@ -2033,74 +2249,80 @@ export const ConditionalSubItems: Story = {
 
         <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
           <Command.Input placeholder="Start typing to reveal sub-items..." />
-          <Command.List>
+          <Command.List className="h-64">
             <Command.Empty>No results found.</Command.Empty>
 
-            <Command.Group heading="🎨 Appearance">
-              <Command.Item value="change-theme">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Change theme…</span>
+            <Command.Group heading="Appearance">
+              <Command.Item
+                value="change-theme"
+                prefixElement={<Settings />}
+              >
+                <Command.Value>Change theme…</Command.Value>
               </Command.Item>
               <SubItem value="change-theme-dark">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-gray-800" />
-                  <span>Change theme to dark</span>
+                  <Command.Value>Change theme to dark</Command.Value>
                 </div>
               </SubItem>
               <SubItem value="change-theme-light">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full border bg-white" />
-                  <span>Change theme to light</span>
+                  <Command.Value>Change theme to light</Command.Value>
                 </div>
               </SubItem>
               <SubItem value="change-theme-auto">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-gradient-to-r from-gray-800 to-white" />
-                  <span>Change theme to auto</span>
+                  <Command.Value>Change theme to auto</Command.Value>
                 </div>
               </SubItem>
             </Command.Group>
 
-            <Command.Group heading="🔔 Notifications">
-              <Command.Item value="notification-settings">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Notification settings…</span>
+            <Command.Group heading="Notifications">
+              <Command.Item
+                value="notification-settings"
+                prefixElement={<Settings />}
+              >
+                <Command.Value>Notification settings…</Command.Value>
               </Command.Item>
               <SubItem value="enable-notifications">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-green-500" />
-                  <span>Enable all notifications</span>
+                  <Command.Value>Enable all notifications</Command.Value>
                 </div>
               </SubItem>
               <SubItem value="disable-notifications">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-red-500" />
-                  <span>Disable all notifications</span>
+                  <Command.Value>Disable all notifications</Command.Value>
                 </div>
               </SubItem>
               <SubItem value="notification-schedule">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-blue-500" />
-                  <span>Set notification schedule</span>
+                  <Command.Value>Set notification schedule</Command.Value>
                 </div>
               </SubItem>
             </Command.Group>
 
-            <Command.Group heading="🔐 Privacy">
-              <Command.Item value="privacy-settings">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Privacy settings…</span>
+            <Command.Group heading="Privacy">
+              <Command.Item
+                value="privacy-settings"
+                prefixElement={<Settings />}
+              >
+                <Command.Value>Privacy settings…</Command.Value>
               </Command.Item>
               <SubItem value="clear-data">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-orange-500" />
-                  <span>Clear browsing data</span>
+                  <Command.Value>Clear browsing data</Command.Value>
                 </div>
               </SubItem>
               <SubItem value="manage-cookies">
                 <div className="ml-6 flex items-center">
                   <div className="mr-2 h-3 w-3 rounded-full bg-purple-500" />
-                  <span>Manage cookies</span>
+                  <Command.Value>Manage cookies</Command.Value>
                 </div>
               </SubItem>
             </Command.Group>
@@ -2196,10 +2418,10 @@ export const AsyncResults: Story = {
     }, [])
 
     return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between rounded-lg border bg-green-50 p-3">
+      <div className="w-96 space-y-4">
+        <div className="flex items-center justify-between rounded-xl border p-4">
           <div className="">
-            <div className="font-medium">📡 Async Data Loading</div>
+            <div className="font-medium">Async Data Loading</div>
             <div className="text-secondary-foreground">
               Status: {loading ? "Loading..." : error ? "Error" : `${items.length} items loaded`}
             </div>
@@ -2214,19 +2436,17 @@ export const AsyncResults: Story = {
 
         <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
           <Command.Input placeholder="Search items..." />
-          <Command.List>
+          <Command.List className="h-64">
             {loading && (
               <Command.Loading>
-                <div className="flex items-center justify-center py-6">
-                  <div className="text-secondary-foreground">🔄 Fetching fresh data...</div>
-                </div>
+                <Command.Value>Fetching fresh data...</Command.Value>
               </Command.Loading>
             )}
 
             {error && (
-              <div className="flex items-center justify-center py-6">
-                <div className="text-destructive">❌ {error}</div>
-              </div>
+              <Command.Empty>
+                <Command.Value>Error: {error}</Command.Value>
+              </Command.Empty>
             )}
 
             {!loading && !error && items.length === 0 && (
@@ -2234,14 +2454,13 @@ export const AsyncResults: Story = {
             )}
 
             {!loading && !error && (
-              <Command.Group heading={`🍎 Fresh Items (${items.length})`}>
+              <Command.Group heading={`Fresh Items (${items.length})`}>
                 {items.map((item) => (
                   <Command.Item
                     key={`fruit-${item}`}
                     value={item}
                   >
-                    <span className="mr-2">🍎</span>
-                    <span>{item}</span>
+                    <Command.Value>{item}</Command.Value>
                   </Command.Item>
                 ))}
               </Command.Group>
@@ -2267,7 +2486,7 @@ export const AsyncResults: Story = {
  * - Integrated with Command's existing filtering system
  *
  * ```tsx
- * <Command.Tabs value={activeTab} onValueChange={setActiveTab}>
+ * <Command.Tabs value={activeTab} onChange={setActiveTab}>
  *   <Tabs.Item value="all">All</Tabs.Item>
  *   <Tabs.Item value="files">Files</Tabs.Item>
  *   <Tabs.Item value="actions">Actions</Tabs.Item>
@@ -2369,8 +2588,8 @@ export const WithTabs: Story = {
 
     return (
       <div className="w-96 space-y-4">
-        <div className="rounded-lg border p-4">
-          <div className="mb-2 font-medium">🗂️ Tabbed Filtering:</div>
+        <div className="rounded-xl border p-4">
+          <div className="mb-2 font-medium">Tabbed Filtering:</div>
           <ul className="space-y-1">
             <li>• Use tabs to quickly filter items by category</li>
             <li>• &quot;All&quot; tab shows all items across categories</li>
@@ -2409,11 +2628,11 @@ export const WithTabs: Story = {
           <Command.Input
             placeholder={`Search ${activeTab === "all" ? "all items" : activeTab}...`}
             value={searchValue}
-            onValueChange={setSearchValue}
+            onChange={setSearchValue}
           />
           <Command.Tabs
             value={activeTab}
-            onValueChange={setActiveTab}
+            onChange={setActiveTab}
           >
             <Tabs.Item value="all">All ({allItems.length})</Tabs.Item>
             <Tabs.Item value="files">
@@ -2437,8 +2656,8 @@ export const WithTabs: Story = {
                     key={item.id}
                     value={item.id}
                     keywords={item.keywords}
+                    prefixElement={item.icon}
                   >
-                    <Command.Icon>{item.icon}</Command.Icon>
                     <Command.Value>{item.label}</Command.Value>
                   </Command.Item>
                 ))}

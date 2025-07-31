@@ -1,12 +1,10 @@
-// Individual exports for external usage
-export { Command as CommandRoot } from "./command"
+export { Command as CommandRoot, defaultFilter } from "./command"
 export { useCommandState } from "./hooks"
-export { defaultFilter } from "./command"
 
-// Compound component for Storybook and internal usage
+import { TabItem } from "../tabs"
 import { Command as CommandRoot } from "./command"
 import {
-  CommandDialog,
+  CommandDivider,
   CommandEmpty,
   CommandFooter,
   CommandGroup,
@@ -14,14 +12,11 @@ import {
   CommandItem,
   CommandList,
   CommandLoading,
-  CommandSeparator,
-  CommandIcon,
-  CommandValue,
   CommandTabs,
+  CommandValue,
 } from "./components"
 
 export const Command = Object.assign(CommandRoot, {
-  Dialog: CommandDialog,
   Empty: CommandEmpty,
   Footer: CommandFooter,
   Group: CommandGroup,
@@ -29,8 +24,8 @@ export const Command = Object.assign(CommandRoot, {
   Item: CommandItem,
   List: CommandList,
   Loading: CommandLoading,
-  Separator: CommandSeparator,
-  Icon: CommandIcon,
+  Divider: CommandDivider,
   Value: CommandValue,
   Tabs: CommandTabs,
+  TabItem: TabItem,
 })

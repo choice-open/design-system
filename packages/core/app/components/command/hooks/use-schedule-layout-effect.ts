@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useIsomorphicLayoutEffect } from "usehooks-ts"
-import { useLazyRef } from "./use-lazy-ref"
+import { useLazyRef } from "~/hooks"
 
 /** 在下一个 layout effect 周期内以命令式方式运行函数。 */
 export const useScheduleLayoutEffect = () => {

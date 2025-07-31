@@ -3,6 +3,7 @@ import {
   FloatingFocusManagerProps,
   FloatingOverlay,
   FloatingPortal,
+  UseTransitionStylesProps,
 } from "@floating-ui/react"
 import React, { memo, useId, useMemo, useRef } from "react"
 import { findChildByType, tcx } from "~/utils"
@@ -51,6 +52,7 @@ export interface DialogProps {
     height?: boolean
     width?: boolean
   }
+  transitionStylesProps?: UseTransitionStylesProps
 }
 
 const DialogComponent = memo(function DialogComponent({
@@ -75,6 +77,7 @@ const DialogComponent = memo(function DialogComponent({
   rememberPosition = false,
   rememberSize = false,
   focusManagerProps = { initialFocus: 1 },
+  transitionStylesProps,
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -123,6 +126,7 @@ const DialogComponent = memo(function DialogComponent({
     rememberSize,
     afterOpenChange,
     positionPadding,
+    transitionStylesProps,
   })
 
   const getStyleWithDefaults = useMemo(() => {
@@ -231,11 +235,14 @@ const DialogComponent = memo(function DialogComponent({
     <DialogContext.Provider value={contextValue}>
       {triggerContent}
 
-      {floating.innerOpen && (
+      {floating.innerOpen && floating.isMounted && (
         <FloatingPortal id={PORTAL_ROOT_ID}>
           <FloatingOverlay
             lockScroll
             className={tcx(style.overlay())}
+            style={{
+              ...floating.styles,
+            }}
           >
             <FloatingFocusManager
               context={floating.context}

@@ -19,6 +19,7 @@ interface CreateCommandContextOptions {
   sort: () => void
   state: React.MutableRefObject<State>
   store: Store
+  variant?: "default" | "dark"
 }
 
 export function createCommandContext(options: CreateCommandContextOptions): Context {
@@ -39,6 +40,7 @@ export function createCommandContext(options: CreateCommandContextOptions): Cont
     sort,
     state,
     store,
+    variant,
   } = options
 
   function score(value: string, keywords?: string[]) {
@@ -133,5 +135,6 @@ export function createCommandContext(options: CreateCommandContextOptions): Cont
     listInnerRef,
     store,
     size,
+    variant,
   }
 }

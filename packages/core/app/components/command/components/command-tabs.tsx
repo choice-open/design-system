@@ -1,37 +1,21 @@
-import { forwardRef, HTMLProps, ReactNode } from "react"
-import { tcx } from "~/utils"
-import { Tabs } from "../../tabs"
+import { forwardRef } from "react"
+import { Tabs, type TabsProps } from "~/components"
+import { useCommand } from "../hooks/use-command"
 import { commandTabsTv } from "../tv"
 
-export interface CommandTabsProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
-  children?: ReactNode
-  className?: string
-  onValueChange?: (value: string) => void
-  value?: string
-  variant?: "default" | "dark"
-}
+export const CommandTabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
+  const context = useCommand()
+  const tv = commandTabsTv()
 
-export const CommandTabs = forwardRef<HTMLDivElement, CommandTabsProps>(
-  ({ className, children, value, onValueChange, variant = "default", ...props }, ref) => {
-    const tv = commandTabsTv()
-
-    return (
-      <div
-        ref={ref}
-        className={tcx(tv.root({ className }))}
-        {...props}
-      >
-        <Tabs
-          value={value || "all"}
-          onChange={onValueChange}
-          variant={variant}
-          className={tv.tabs()}
-        >
-          {children}
-        </Tabs>
-      </div>
-    )
-  },
-)
+  return (
+    <Tabs
+      value={props.value || "all"}
+      variant={props.variant || context.variant}
+      className={tv.tabs()}
+    >
+      {props.children}
+    </Tabs>
+  )
+})
 
 CommandTabs.displayName = "CommandTabs"

@@ -1,81 +1,76 @@
-import React, { forwardRef, useEffect, useMemo, useRef } from "react"
+import React, { forwardRef, HTMLProps, useEffect, useId, useMemo, useRef } from "react"
 import { tcx } from "~/utils"
 import { GroupContext, useCommand, useCommandState, useValue } from "../hooks"
-import { commandGroupTv, commandTv } from "../tv"
+import { commandGroupTv } from "../tv"
 
-export interface CommandGroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Whether this group is forcibly rendered regardless of filtering. */
+export interface CommandGroupProps extends HTMLProps<HTMLDivElement> {
   forceMount?: boolean
-  /** Optional heading to render for this group. */
   heading?: React.ReactNode
-  /** If no heading is provided, you must provide a value that is unique for this group. */
   value?: string
 }
 
-export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>(
-  ({ className, heading, children, forceMount, value, ...props }, forwardedRef) => {
-    const id = React.useId()
-    const ref = useRef<HTMLDivElement | null>(null)
-    const headingRef = useRef<HTMLDivElement | null>(null)
-    const headingId = React.useId()
-    const context = useCommand()
+export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>((props, forwardedRef) => {
+  const { className, heading, children, forceMount, value, ...rest } = props
+  const id = useId()
+  const ref = useRef<HTMLDivElement | null>(null)
+  const headingRef = useRef<HTMLDivElement | null>(null)
+  const headingId = React.useId()
+  const context = useCommand()
 
-    const render = useCommandState((state) =>
-      forceMount
+  const render = useCommandState((state) =>
+    forceMount
+      ? true
+      : context.filter() === false
         ? true
-        : context.filter() === false
+        : !state.search
           ? true
-          : !state.search
-            ? true
-            : state.filtered.groups.has(id),
-    )
+          : state.filtered.groups.has(id),
+  )
 
-    // Register group
-    useEffect(() => {
-      return context.group(id)
-    }, [context, id])
+  // 注册group
+  useEffect(() => {
+    return context.group(id)
+  }, [context, id])
 
-    // Handle value
-    const valueDeps = useMemo(() => [value, heading, headingRef], [value, heading])
-    useValue(id, ref, valueDeps)
+  const valueDeps = useMemo(() => [value, heading, headingRef], [value, heading])
+  useValue(id, ref, valueDeps)
 
-    const contextValue = useMemo(() => ({ id, forceMount }), [id, forceMount])
+  const contextValue = useMemo(() => ({ id, forceMount }), [id, forceMount])
 
-    const tv = commandGroupTv()
+  const tv = commandGroupTv({ variant: context.variant })
 
-    if (!render) return null
+  if (!render) return null
 
-    return (
-      <div
-        ref={(el) => {
-          ref.current = el
-          if (typeof forwardedRef === "function") forwardedRef(el)
-          else if (forwardedRef) forwardedRef.current = el
-        }}
-        {...props}
-        className={tcx(tv.root({ className }))}
-        role="presentation"
-        data-value={value}
-      >
-        {heading && (
-          <div
-            ref={headingRef}
-            className={tcx(tv.heading())}
-            aria-hidden
-            id={headingId}
-          >
-            {heading}
-          </div>
-        )}
+  return (
+    <div
+      ref={(el) => {
+        ref.current = el
+        if (typeof forwardedRef === "function") forwardedRef(el)
+        else if (forwardedRef) forwardedRef.current = el
+      }}
+      {...rest}
+      className={tcx(tv.root({ className }))}
+      role="presentation"
+      data-value={value}
+    >
+      {heading && (
         <div
-          role="group"
-          aria-labelledby={heading ? headingId : undefined}
+          ref={headingRef}
+          className={tcx(tv.heading())}
+          aria-hidden
+          id={headingId}
         >
-          <GroupContext.Provider value={contextValue}>{children}</GroupContext.Provider>
+          {heading}
         </div>
+      )}
+      <div
+        role="group"
+        aria-labelledby={heading ? headingId : undefined}
+      >
+        <GroupContext.Provider value={contextValue}>{children}</GroupContext.Provider>
       </div>
-    )
-  },
-)
+    </div>
+  )
+})
 
 CommandGroup.displayName = "CommandGroup"

@@ -49,11 +49,12 @@ export const Command = forwardRef<HTMLDivElement, CommandProps>((props, forwarde
     label,
     children,
     value,
-    onValueChange,
+    onChange: onValueChange,
     filter,
     shouldFilter,
     loop,
     size = "default",
+    variant = "default",
     disablePointerSelection = false,
     vimBindings = true,
     className,
@@ -68,7 +69,7 @@ export const Command = forwardRef<HTMLDivElement, CommandProps>((props, forwarde
 
   const schedule = useScheduleLayoutEffect()
 
-  const tv = commandTv({ size })
+  const tv = commandTv({ variant })
 
   /** Controlled mode `value` handling. */
   const store: Store = useMemo(() => {
@@ -114,7 +115,7 @@ export const Command = forwardRef<HTMLDivElement, CommandProps>((props, forwarde
           if (propsRef.current?.value !== undefined) {
             // If controlled, just call the callback instead of updating state internally
             const newValue = (value ?? "") as string
-            propsRef.current.onValueChange?.(newValue)
+            propsRef.current.onChange?.(newValue)
             return
           }
         }
@@ -352,6 +353,7 @@ export const Command = forwardRef<HTMLDivElement, CommandProps>((props, forwarde
         sort,
         state,
         store,
+        variant,
       }),
     [], // ❌ 空依赖数组，和原始实现一致
   )

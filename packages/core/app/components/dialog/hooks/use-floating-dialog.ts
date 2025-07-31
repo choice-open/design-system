@@ -4,7 +4,10 @@ import {
   useDismiss,
   useFloating,
   useInteractions,
+  useTransitionStyles,
+  useTransitionStatus,
   useRole,
+  UseTransitionStylesProps,
 } from "@floating-ui/react"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useMergedValue } from "~/hooks"
@@ -27,6 +30,7 @@ interface UseFloatingDialogParams {
   resetPosition?: () => void
   resetResizeState: () => void
   resetSize?: () => void
+  transitionStylesProps?: UseTransitionStylesProps
 }
 
 export function useFloatingDialog({
@@ -45,6 +49,9 @@ export function useFloatingDialog({
   rememberSize = false,
   positionPadding = 32,
   afterOpenChange,
+  transitionStylesProps = {
+    duration: 0,
+  },
 }: UseFloatingDialogParams) {
   const [isReady, setIsReady] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -120,6 +127,8 @@ export function useFloatingDialog({
     },
     whileElementsMounted: autoUpdate ? floatingAutoUpdate : undefined,
   })
+
+  const { isMounted, styles } = useTransitionStyles(context, transitionStylesProps)
 
   useEffect(() => {
     if (innerOpen) {
@@ -258,5 +267,7 @@ export function useFloatingDialog({
       elementRef?: React.RefObject<HTMLElement>,
     ) => getStyles(dragPosition, resizeSize, elementRef),
     handleClose,
+    isMounted,
+    styles,
   }
 }

@@ -2,7 +2,7 @@ import React from "react"
 
 export type CommandFilter = (value: string, search: string, keywords?: string[]) => number
 
-export interface CommandProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CommandProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /**
    * Optional default item value when it is initially rendered.
    */
@@ -28,7 +28,7 @@ export interface CommandProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Event handler called when the selected item of the menu changes.
    */
-  onValueChange?: (value: string) => void
+  onChange?: (value: string) => void
   /**
    * Optionally set to `false` to turn off the automatic filtering and sorting.
    * If `false`, you must conditionally render valid items based on the search query yourself.
@@ -39,6 +39,7 @@ export interface CommandProps extends React.HTMLAttributes<HTMLDivElement> {
    * Optional controlled state of the selected command menu item.
    */
   value?: string
+  variant?: "default" | "dark"
   /**
    * Set to `false` to disable ctrl+n/j/p/k shortcuts. Defaults to `true`.
    */
@@ -60,6 +61,7 @@ export type Context = {
   size?: "default" | "large"
   store: Store
   value: (id: string, value?: string, keywords?: string[]) => void
+  variant?: "default" | "dark"
 }
 
 export type State = {
