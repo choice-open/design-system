@@ -11,6 +11,7 @@ import { IconButton } from "../icon-button"
 import { ScrollArea } from "../scroll-area"
 import { ContextInput } from "./context-input"
 import type { ContextInputValue, MentionItem } from "./types"
+import { Button } from "../button"
 
 const meta: Meta<typeof ContextInput> = {
   title: "Forms/ContextInput",
@@ -929,6 +930,65 @@ export const MultipleTriggers: Story = {
             <li>• Press Enter or Tab to select</li>
           </ul>
         </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * **Clear Function Test**
+ * - Test the clear function of the context input
+ * - Click the clear button to clear the input
+ * - The input should be cleared and the value should be an empty object
+ */
+export const ClearFunctionTest: Story = {
+  render: function ClearFunctionTest() {
+    const [value, setValue] = useState<ContextInputValue>({ text: "", mentions: [] })
+
+    const handleClear = () => {
+      setValue({ text: "", mentions: [] })
+    }
+
+    return (
+      <div className="w-80 space-y-4">
+        <Button
+          variant="secondary"
+          onClick={handleClear}
+        >
+          Clear
+        </Button>
+
+        <div className="text-secondary-foreground">
+          Input some content and click the clear button to test the clear function
+        </div>
+
+        <ContextInput
+          className="max-h-96 w-80 rounded-lg border border-gray-300"
+          value={value}
+          placeholder="Input some content and click the clear button to test..."
+          triggers={[
+            {
+              char: "@",
+              onSearch: async (query) => {
+                return users.filter((user) =>
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
+              },
+            },
+            {
+              char: "/",
+              onSearch: async (query) => {
+                return channels.filter((channel) =>
+                  channel.label.toLowerCase().includes(query.toLowerCase()),
+                )
+              },
+            },
+          ]}
+          onChange={setValue}
+          onMentionSelect={(mention, trigger) => {
+            console.log("Selected:", mention.label, "via", trigger)
+          }}
+        />
       </div>
     )
   },

@@ -5,8 +5,9 @@ import { Button, type ButtonProps } from "../../button"
 import { Slot } from "../../slot"
 import { MenuTriggerTv } from "../tv"
 
-export interface MenuTriggerProps extends ButtonProps {
+export interface MenuTriggerProps extends Omit<ButtonProps, "children"> {
   asChild?: boolean
+  children?: ReactNode | ((active: boolean) => ReactNode)
   empty?: boolean
   enterForwardedProps?: boolean
   prefixElement?: ReactNode
@@ -63,7 +64,7 @@ export const MenuTrigger = memo(
         ref={ref}
         {...slotProps}
       >
-        {children}
+        {typeof children === "function" ? children(active ?? false) : children}
       </Slot>
     ) : (
       <Button
@@ -78,7 +79,7 @@ export const MenuTrigger = memo(
       >
         {prefixElement && <div className={styles.icon()}>{prefixElement}</div>}
 
-        {children}
+        {typeof children === "function" ? children(active ?? false) : children}
 
         {suffixElement && <div className={styles.icon()}>{suffixElement}</div>}
       </Button>

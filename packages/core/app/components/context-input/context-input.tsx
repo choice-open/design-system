@@ -1,4 +1,5 @@
-import React, { forwardRef, useCallback, useRef } from "react"
+import React, { forwardRef, useCallback, useEffect, useRef } from "react"
+import { Editor, Transforms } from "slate"
 import { ReactEditor } from "slate-react"
 import {
   ContextInputHeader,
@@ -99,6 +100,30 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     value,
     onChange,
   })
+
+  // 监听外部清空请求
+  useEffect(() => {
+    if (value && value.text === "" && value.mentions.length === 0) {
+      // 当外部传入空值时，清空 Slate 编辑器
+      try {
+        Transforms.delete(editor, {
+          at: {
+            anchor: Editor.start(editor, []),
+            focus: Editor.end(editor, []),
+          },
+        })
+        // 确保有一个空的段落节点
+        if (editor.children.length === 0) {
+          Transforms.insertNodes(editor, {
+            type: "paragraph",
+            children: [{ text: "" }],
+          })
+        }
+      } catch (error) {
+        console.warn("Failed to clear editor:", error)
+      }
+    }
+  }, [editor, value])
 
   // 处理 mention 搜索关闭
   const handleSearchClose = useCallback(() => {
