@@ -1,2 +1,4 @@
 packages:
   - packages/*
+  - packages/ai-assistant/client
+  - packages/ai-assistant/server
