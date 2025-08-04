@@ -20,7 +20,7 @@ function typescriptCompletionToEditor(
   const type = convertTsKindtoEditorCompletionType(entry.kind)
 
   return {
-    label: type && ["method", "function"].includes(type) ? entry.name + "()" : entry.name,
+    label: entry.name,
     type: convertTsKindtoEditorCompletionType(entry.kind),
     commitCharacters: entry.commitCharacters ?? completionInfo.defaultCommitCharacters,
     detail: entry.labelDetails?.detail,
