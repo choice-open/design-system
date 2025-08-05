@@ -564,4 +564,19 @@
   --z-index-tooltip: 1000;
   --z-index-notification: 1100;
   --z-index-scroll: 1200;
+
+  /* Code Editor Syntax Highlighting */
+  --code-syntax-keyword: var(--color-vlolet-600);
+  --code-syntax-string: var(--color-green-600);
+  --code-syntax-number: var(--color-orange-600);
+  --code-syntax-boolean: var(--color-orange-600);
+  --code-syntax-function: var(--color-blue-600);
+  --code-syntax-variable: var(--color-default-foreground);
+  --code-syntax-property: var(--color-blue-600);
+  --code-syntax-operator: var(--color-default-foreground);
+  --code-syntax-comment: var(--color-secondary-foreground);
+
+  /* Code Editor Indentation Markers */
+  --color-code-indentation-marker: var(--color-gray-300);
+  --color-code-indentation-marker-active: var(--color-blue-500);
 }
