@@ -1,9 +1,9 @@
-import React, { forwardRef, useCallback, useEffect, useRef } from "react"
-import { Editor, Transforms } from "slate"
+import React, { forwardRef, useCallback, useRef } from "react"
 import { ReactEditor } from "slate-react"
+import { useEventCallback } from "usehooks-ts"
 import {
-  ContextInputHeader,
   ContextInputFooter,
+  ContextInputHeader,
   CopyButton,
   InsertMentionsButton,
   MentionMenu,
@@ -11,9 +11,8 @@ import {
   SlateEditor,
 } from "./components"
 import { ContextInputEditorContext, useContextInput, useMentions, useSlateEditor } from "./hooks"
-import type { ContextInputProps, MentionItem } from "./types"
 import { contextInputTv } from "./tv"
-import { useEventCallback } from "usehooks-ts"
+import type { ContextInputProps, MentionItem } from "./types"
 
 interface ContextInputComponent
   extends React.ForwardRefExoticComponent<ContextInputProps & React.RefAttributes<HTMLDivElement>> {
