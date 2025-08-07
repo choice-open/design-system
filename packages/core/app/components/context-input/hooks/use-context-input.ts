@@ -1,16 +1,18 @@
 import { debounce } from "lodash-es"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Descendant, Editor, Transforms } from "slate"
+import { ReactEditor } from "slate-react"
 import type { ContextInputValue, MentionMatch } from "../types"
 import { extractMentionContext, extractTextWithMentions, parseTextWithMentions } from "../utils"
 
 interface UseContextInputProps {
+  autoFocus?: boolean
   editor?: Editor
   onChange?: (value: ContextInputValue) => void
   value?: ContextInputValue
 }
 
-export const useContextInput = ({ value, onChange, editor }: UseContextInputProps) => {
+export const useContextInput = ({ value, onChange, editor, autoFocus }: UseContextInputProps) => {
   const isUpdatingRef = useRef(false)
 
   // 内部状态
@@ -37,31 +39,28 @@ export const useContextInput = ({ value, onChange, editor }: UseContextInputProp
     if (currentText !== value.text) {
       // 使用官方推荐的重置方法
       Editor.withoutNormalizing(editor, () => {
-        // 保存当前选择位置
-        const selection = editor.selection
-
         // 直接替换 editor.children
         editor.children = newSlateValue as Descendant[]
 
-        // 如果有选择，尝试恢复；否则选择开头
-        if (selection) {
-          try {
-            Transforms.select(editor, selection)
-          } catch {
-            // 如果选择位置无效，选择开头
-            Transforms.select(editor, { path: [0, 0], offset: 0 })
-          }
-        } else {
-          Transforms.select(editor, { path: [0, 0], offset: 0 })
-        }
+        // 受控 value 改变后，始终将光标移动到最后
+        const endPoint = Editor.end(editor, [])
+        Transforms.select(editor, endPoint)
 
         // 触发变化事件以更新视图
         editor.onChange()
       })
 
+      // 如果开启了 autoFocus，在更新后重新聚焦
+      if (autoFocus) {
+        // 使用 setTimeout 确保 DOM 更新后再聚焦
+        setTimeout(() => {
+          ReactEditor.focus(editor)
+        }, 0)
+      }
+
       setSlateValue(newSlateValue as Descendant[])
     }
-  }, [value, editor])
+  }, [value, editor, autoFocus])
 
   // 防抖的 onChange 回调
   const debouncedOnChange = useMemo(

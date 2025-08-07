@@ -999,6 +999,8 @@ export const ClearFunctionTest: Story = {
  * - Demonstrates controlled value state management
  * - External buttons can modify input content and mentions
  * - Shows programmatic content insertion and clearing
+ * - Auto-focuses editor when value changes externally (when autoFocus is enabled)
+ * - Cursor always moves to end position after value changes
  * - Useful for form integration and external state management
  *
  * ```tsx
@@ -1006,6 +1008,7 @@ export const ClearFunctionTest: Story = {
  *
  * <ContextInput
  *   value={value}
+ *   autoFocus
  *   onChange={setValue}
  *   triggers={triggers}
  * />
@@ -1099,26 +1102,6 @@ export const ControlledValue: Story = {
       }))
     }
 
-    const insertMention = () => {
-      const randomUser = users[Math.floor(Math.random() * users.length)]
-      const currentText = value.text
-      const insertText = `@${randomUser.label}`
-      const newText = currentText + (currentText ? " " : "") + insertText
-
-      setValue({
-        text: newText,
-        mentions: [
-          ...value.mentions,
-          {
-            startIndex: currentText.length + (currentText ? 1 : 0),
-            endIndex: newText.length,
-            text: insertText,
-            item: randomUser,
-          },
-        ],
-      })
-    }
-
     return (
       <div className="w-full max-w-md space-y-4">
         <div className="space-y-2">
@@ -1154,18 +1137,88 @@ export const ControlledValue: Story = {
             >
               Add 👍
             </Button>
+
             <Button
               variant="secondary"
               size="default"
-              onClick={insertMention}
+              onClick={() =>
+                setValue({
+                  text: "Hello @john, check this @admin message!",
+                  mentions: [
+                    {
+                      item: { id: "john", type: "user", label: "John Doe", metadata: {} },
+                      startIndex: 6,
+                      endIndex: 11,
+                      text: "@john",
+                      context: {
+                        fullContext: "Hello @john, check this @admin message!",
+                        mentionText: "@john",
+                      },
+                    },
+                    {
+                      item: { id: "admin", type: "user", label: "Admin", metadata: {} },
+                      startIndex: 24,
+                      endIndex: 30,
+                      text: "@admin",
+                      context: {
+                        fullContext: "Hello @john, check this @admin message!",
+                        mentionText: "@admin",
+                      },
+                    },
+                  ],
+                })
+              }
             >
-              Insert Random @
+              Test Multiple @
+            </Button>
+            <Button
+              variant="secondary"
+              size="default"
+              onClick={() => setValue({ text: faker.lorem.sentence(), mentions: [] })}
+            >
+              Random Text
+            </Button>
+            <Button
+              variant="secondary"
+              size="default"
+              onClick={() => setValue({ text: "Hello world!", mentions: [] })}
+            >
+              Simple Text
+            </Button>
+            <Button
+              variant="secondary"
+              size="default"
+              onClick={() => {
+                const text = "Simple text with @user at end"
+                const mentionText = "@user"
+                const startIndex = text.indexOf(mentionText)
+                const endIndex = startIndex + mentionText.length
+
+                setValue({
+                  text: text,
+                  mentions: [
+                    {
+                      item: { id: "test", type: "user", label: "Test User", metadata: {} },
+                      startIndex: startIndex,
+                      endIndex: endIndex,
+                      text: mentionText,
+                      context: {
+                        fullContext: text,
+                        mentionText: mentionText,
+                      },
+                    },
+                  ],
+                })
+              }}
+            >
+              Test End @
             </Button>
           </div>
         </div>
 
         <ContextInput
           value={value}
+          autoFocus
           placeholder="Content is controlled externally..."
           className="max-h-96 w-80"
           triggers={[
@@ -1223,6 +1276,12 @@ export const ControlledValue: Story = {
             <li>• Real-time character and mention counts</li>
             <li>• Preset content examples</li>
             <li>• Full bidirectional data binding</li>
+            <li>
+              • <strong>Auto-focus:</strong> Editor auto-focuses when autoFocus is enabled
+            </li>
+            <li>
+              • <strong>Cursor positioning:</strong> Always moves to end after value changes
+            </li>
           </ul>
         </div>
       </div>

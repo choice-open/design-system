@@ -102,6 +102,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     value,
     onChange,
     editor,
+    autoFocus,
   })
 
   // 处理 mention 搜索关闭
