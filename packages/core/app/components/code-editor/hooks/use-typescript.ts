@@ -15,6 +15,7 @@ import { typescriptCompletionSource } from "../typescript/client/completions"
 import { autocompletion } from "@codemirror/autocomplete"
 import { linter } from "@codemirror/lint"
 import { forceParse } from "../extensions"
+import TsWorker from "../typescript/worker/typescript-worker.ts?worker&inline"
 
 type Props = {
   editorView: EditorView | null
@@ -28,12 +29,7 @@ export function useTypescript(props: Props) {
   const webWorkerRef = useRef<Worker>()
 
   const createWorker = useCallback(async (): Promise<Extension> => {
-    webWorkerRef.current = new Worker(
-      new URL("../typescript/worker/typescript-worker.ts", import.meta.url),
-      {
-        type: "module",
-      },
-    )
+    webWorkerRef.current = new TsWorker()
 
     const { init } = Comlink.wrap<RemoteLanguageServiceWorkerInit>(webWorkerRef.current)
 
