@@ -62,9 +62,6 @@ importers:
       es-toolkit:
         specifier: ^1.13.1
         version: 1.39.8
-      fractional-indexing-jittered:
-        specifier: ^1.0.0
-        version: 1.0.0
       framer-motion:
         specifier: ^12.23.6
         version: 12.23.12(react-dom@18.2.0)(react@18.2.0)
@@ -948,6 +945,9 @@ importers:
       slate:
         specifier: ^0.117.2
         version: 0.117.2
+      slate-dom:
+        specifier: ^0.117.4
+        version: 0.117.4(slate@0.117.2)
       slate-history:
         specifier: ^0.113.1
         version: 0.113.1(slate@0.117.2)
