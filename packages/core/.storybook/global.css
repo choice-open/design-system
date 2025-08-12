@@ -79,8 +79,8 @@ body {
 .css-111a2cx,
 .css-11xgcgt,
 .css-11xgcgt {
-  right: 0.25rem !important;
-  bottom: 0.25rem !important;
+  right: 0 !important;
+  bottom: 0 !important;
   background: transparent !important;
 }
 .css-otxova,
@@ -277,4 +277,17 @@ body {
   color: var(--color-accent-foreground) !important;
   font-size: var(--text-md) !important;
   line-height: var(--leading-md) !important;
+}
+
+.docblock-code-toggle {
+  margin: 0 !important;
+  border-top: 1px solid var(--color-default-boundary) !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: 1px solid var(--color-default-boundary) !important;
+  border-top-left-radius: var(--radius-lg) !important;
+  background: none !important;
+  color: var(--color-default-foreground) !important;
+  font-weight: var(--font-weight-medium) !important;
+  font-size: var(--text-md) !important;
 }
