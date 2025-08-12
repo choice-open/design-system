@@ -278,7 +278,7 @@ body {
   font-size: var(--text-md) !important;
   line-height: var(--leading-md) !important;
 }
-
+.css-nvhx8f,
 .docblock-code-toggle {
   margin: 0 !important;
   border-top: 1px solid var(--color-default-boundary) !important;

@@ -42,11 +42,12 @@ export const progressBarTv = tv({
 
 export const progressCircleTv = tv({
   slots: {
-    root: "relative inline-flex shrink-0 align-middle",
+    root: "relative inline-flex w-fit shrink-0 align-middle",
     svg: "text-accent-background block",
     track: "stroke-secondary-background",
     fill: "stroke-current transition-all duration-500 ease-in-out",
-    value: "leading-md tracking-md text-md fill-current text-center",
+    value:
+      "leading-md tracking-md text-md pointer-events-none absolute inset-0 grid place-items-center text-center",
   },
   variants: {
     variant: {

@@ -21,7 +21,7 @@ type Story = StoryObj<typeof ProgressCircle>
  * - Theme variants: accent, success, warning, danger, inverse
  * - Indeterminate state (spinning)
  * - Size controlled by diameter `size` (in px) and `strokeWidth`
- * - Optional value display inside the circle via `showValue`
+ * - Insert `<ProgressCircle.Value />` as a child to display the percentage value
  * - Advanced color blending with `variant="based-on-value"` + `dynamicColors`
  *
  * Usage Guidelines:
@@ -42,7 +42,11 @@ type Story = StoryObj<typeof ProgressCircle>
  * - `showValue` renders the percentage inside the circle.
  */
 export const Basic: Story = {
-  render: () => <ProgressCircle value={72} />,
+  render: () => (
+    <ProgressCircle value={72}>
+      <ProgressCircle.Value />
+    </ProgressCircle>
+  ),
 }
 
 /**
@@ -59,16 +63,18 @@ export const Sizes: Story = {
           size={48}
           strokeWidth={4}
           value={64}
-          showValue
-        />
+        >
+          <ProgressCircle.Value />
+        </ProgressCircle>
       </div>
       <div className="grid place-items-center gap-2">
         <span>Size 64</span>
         <ProgressCircle
           size={64}
           value={64}
-          showValue
-        />
+        >
+          <ProgressCircle.Value />
+        </ProgressCircle>
       </div>
       <div className="grid place-items-center gap-2">
         <span>Size 96</span>
@@ -76,8 +82,9 @@ export const Sizes: Story = {
           size={96}
           strokeWidth={8}
           value={64}
-          showValue
-        />
+        >
+          <ProgressCircle.Value />
+        </ProgressCircle>
       </div>
     </div>
   ),
@@ -107,8 +114,9 @@ export const Variants: Story = {
               <ProgressCircle
                 variant={variant}
                 value={70}
-                showValue
-              />
+              >
+                <ProgressCircle.Value />
+              </ProgressCircle>
             </div>
           </Fragment>
         ))}
@@ -128,18 +136,19 @@ export const BasedOnValue: Story = {
     const [value, setValue] = useState(35)
 
     return (
-      <div className="grid gap-6">
-        <div className="grid gap-2">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid place-items-center gap-2">
           <span>Evenly spaced colors</span>
           <ProgressCircle
             value={value}
             variant="based-on-value"
             dynamicColors={["#ef4444", "#f59e0b", "#22c55e"]}
-            showValue
-          />
+          >
+            <ProgressCircle.Value />
+          </ProgressCircle>
         </div>
 
-        <div className="grid gap-2">
+        <div className="grid place-items-center gap-2">
           <span>Custom stops (at)</span>
           <ProgressCircle
             value={value}
@@ -149,11 +158,12 @@ export const BasedOnValue: Story = {
               { at: 0.5, color: "#f59e0b" },
               { at: 1, color: "#22c55e" },
             ]}
-            showValue
-          />
+          >
+            <ProgressCircle.Value />
+          </ProgressCircle>
         </div>
 
-        <div className="grid gap-2">
+        <div className="col-span-2 grid w-full">
           <Range
             min={0}
             max={100}

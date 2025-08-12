@@ -1,4 +1,4 @@
-import React, { forwardRef, useId, useMemo } from "react"
+import React, { createContext, forwardRef, useContext, useMemo } from "react"
 import tinycolor from "tinycolor2"
 import { tcx } from "~/utils"
 import { progressCircleTv } from "./tv"
@@ -7,14 +7,30 @@ export interface ProgressCircleProps extends Omit<React.HTMLAttributes<HTMLDivEl
   dynamicColors?: Array<string | { at?: number; color: string }>
   max?: number
   min?: number
-  showValue?: boolean
   size?: number
   strokeWidth?: number
   value?: number
   variant?: "accent" | "default" | "based-on-value" | "reset"
 }
 
-export const ProgressCircle = forwardRef<HTMLDivElement, ProgressCircleProps>(
+interface ProgressCircleContextValue {
+  percent: number
+  size: number
+  strokeColor?: string
+  strokeWidth: number
+  tv: ReturnType<typeof progressCircleTv>
+  variant: NonNullable<ProgressCircleProps["variant"]>
+}
+
+const ProgressCircleContext = createContext<ProgressCircleContextValue | null>(null)
+
+function useProgressCircleContext() {
+  const ctx = useContext(ProgressCircleContext)
+  if (!ctx) throw new Error("ProgressCircle subcomponents must be used within <ProgressCircle>")
+  return ctx
+}
+
+const ProgressCircleBase = forwardRef<HTMLDivElement, ProgressCircleProps>(
   function ProgressCircle(props, ref) {
     const {
       className,
@@ -23,7 +39,6 @@ export const ProgressCircle = forwardRef<HTMLDivElement, ProgressCircleProps>(
       max = 100,
       size = 64,
       strokeWidth = size / 16,
-      showValue,
       variant = "accent",
       "aria-label": ariaLabel,
       ...rest
@@ -36,7 +51,6 @@ export const ProgressCircle = forwardRef<HTMLDivElement, ProgressCircleProps>(
     }, [value, min, max])
 
     const tv = progressCircleTv({ variant })
-    const id = useId()
 
     const center = size / 2
     const radius = center - strokeWidth
@@ -144,67 +158,63 @@ export const ProgressCircle = forwardRef<HTMLDivElement, ProgressCircleProps>(
         className={tcx(tv.root(), className)}
         {...rest}
       >
-        <svg
-          className={tv.svg()}
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
-          fill="none"
+        <ProgressCircleContext.Provider
+          value={{ percent, size, strokeWidth, variant: variant!, tv, strokeColor }}
         >
-          {showValue && (
-            <>
-              <defs>
-                <pattern
-                  id={id}
-                  width={size}
-                  height={size}
-                  patternUnits="userSpaceOnUse"
-                  viewBox={`0 0 ${size} ${size}`}
-                >
-                  <text
-                    className={tv.value()}
-                    dominantBaseline="middle"
-                    textAnchor="middle"
-                    x={center}
-                    y={center}
-                  >
-                    {`${percent}%`}
-                  </text>
-                </pattern>
-              </defs>
-              <rect
-                width="100%"
-                height="100%"
-                x="0"
-                y="0"
-                fill={`url('#${id}')`}
-              />
-            </>
-          )}
-
-          <circle
-            className={tv.track()}
-            cx={center}
-            cy={center}
-            r={radius}
-            strokeWidth={strokeWidth}
-          />
-          <circle
-            className={tv.fill()}
-            cx={center}
-            cy={center}
-            r={radius}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            transform={`rotate(-90 ${center} ${center})`}
-            style={variant === "based-on-value" ? { stroke: strokeColor } : undefined}
-          />
-        </svg>
+          <svg
+            className={tv.svg()}
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+            fill="none"
+          >
+            <circle
+              className={tv.track()}
+              cx={center}
+              cy={center}
+              r={radius}
+              strokeWidth={strokeWidth}
+            />
+            <circle
+              className={tv.fill()}
+              cx={center}
+              cy={center}
+              r={radius}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffset}
+              transform={`rotate(-90 ${center} ${center})`}
+              style={variant === "based-on-value" ? { stroke: strokeColor } : undefined}
+            />
+          </svg>
+          {props.children}
+        </ProgressCircleContext.Provider>
       </div>
     )
   },
 )
 
-ProgressCircle.displayName = "ProgressCircle"
+ProgressCircleBase.displayName = "ProgressCircle"
+
+const Value = (props: React.HTMLAttributes<HTMLSpanElement>) => {
+  const { percent, tv } = useProgressCircleContext()
+  const { className, children, ...rest } = props
+  return (
+    <span
+      className={tcx(tv.value(), className)}
+      {...rest}
+    >
+      {children ?? `${percent}%`}
+    </span>
+  )
+}
+Value.displayName = "ProgressCircle.Value"
+
+type ProgressCircleComponent = typeof ProgressCircleBase & {
+  Value: typeof Value
+}
+
+export const ProgressCircle: ProgressCircleComponent = Object.assign(ProgressCircleBase, {
+  Value,
+})
