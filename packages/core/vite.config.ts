@@ -66,6 +66,21 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
               console.error("Error copying styles directory:", err)
             }
           }
+
+          // 复制 llms.txt 文件
+          const llmsFile = resolve(__dirname, "llms.txt")
+          const destLlmsFile = resolve(__dirname, "dist/llms.txt")
+          
+          try {
+            await fs.copyFile(llmsFile, destLlmsFile)
+            console.log("✓ llms.txt copied successfully")
+          } catch (err) {
+            if (err.code !== "ENOENT") {
+              console.error("Error copying llms.txt:", err)
+            } else {
+              console.warn("⚠ llms.txt not found, skipping...")
+            }
+          }
         },
       },
     ],

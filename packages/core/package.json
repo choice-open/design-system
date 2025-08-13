@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A modern React UI component library - Figma-inspired design system with comprehensive documentation",
   "sideEffects": false,
   "type": "module",
@@ -20,7 +20,8 @@
       "default": "./dist/esm/index.js"
     },
     "./styles/*": "./dist/styles/*",
-    "./tailwind.css": "./dist/tailwind.css"
+    "./tailwind.css": "./dist/tailwind.css",
+    "./llms.txt": "./dist/llms.txt"
   },
   "publishConfig": {
     "access": "public"
