@@ -1,38 +1,33 @@
 # NumericInput
 
-A versatile numeric input component that supports value formatting, expression evaluation, and rich interaction patterns.
+A sophisticated numeric input component that supports mathematical expression evaluation, unit formatting, and rich interaction patterns. Built for precision and flexibility in professional design tools.
+
+## Import
+
+```tsx
+import { NumericInput } from "@choiceform/design-system"
+```
 
 ## Features
 
-- 🔢 **Numeric Value Handling**: Supports different types of numeric values with validation
-- 🧮 **Math Expression Evaluation**: Allows users to input mathematical expressions (e.g., `1+2*3`)
-- 🏷️ **Unit Format Support**: Displays values with units (e.g., `100px`, `50%`)
-- 🎛️ **Custom Constraints**: Min/max boundaries, step increments, decimal precision
-- ⌨️ **Keyboard Navigation**: Arrow keys with modifier support for value adjustments
-- 🖱️ **Drag Interaction**: Click and drag to adjust values
-- 🧩 **Multiple Value Formats**: Support for simple numbers, arrays, and object structures
-- 🎯 **Variable Value Support**: Bind to dynamic values with visual indication
+- **Mathematical Expressions** - Evaluate math expressions like `1+2*3` or `50/2`
+- **Unit Formatting** - Display values with units using expression patterns like `{value}px`
+- **Multi-Value Support** - Handle complex objects and arrays with formatted display
+- **Variable Binding** - Support for dynamic variable values with visual indication
+- **Interactive Controls** - Keyboard navigation and drag-to-adjust functionality
+- **Rich Composition** - Prefix and suffix elements with dropdown menus and actions
+- **Step Controls** - Configurable step increments with modifier key support
+- **Validation** - Built-in min/max constraints and decimal precision
+- **Theme Support** - Dark mode variant for different backgrounds
 
-## Installation
+## Usage
 
-```bash
-# If using npm
-npm install @choiceform/design-system
-
-# If using yarn
-yarn add @choiceform/design-system
-
-# If using pnpm
-pnpm add @choiceform/design-system
-```
-
-## Basic Usage
+### Basic
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
 import { useState } from "react"
 
-function Example() {
+function MyComponent() {
   const [value, setValue] = useState(10)
 
   return (
@@ -44,263 +39,420 @@ function Example() {
 }
 ```
 
-## With Units
+### With Prefix Icon
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
-import { useState } from "react"
+import { HugWidth } from "@choiceform/icons-react"
 
-function Example() {
-  const [value, setValue] = useState(100)
-
-  return (
-    <NumericInput
-      value={value}
-      expression="{value}px"
-      onChange={(newValue) => setValue(newValue as number)}
-    />
-  )
-}
+<NumericInput
+  value={value}
+  onChange={setValue}
+>
+  <NumericInput.Prefix>
+    <HugWidth />
+  </NumericInput.Prefix>
+</NumericInput>
 ```
 
-## Compound Values
+### With Suffix Icon
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
-import { useState } from "react"
+import { Relative } from "@choiceform/icons-react"
 
-function Example() {
-  const [value, setValue] = useState({ width: 100, height: 200 })
-
-  return (
-    <NumericInput
-      value={value}
-      expression="{width}px, {height}px"
-      onChange={(newValue) => setValue(newValue as { width: number; height: number })}
-    />
-  )
-}
+<NumericInput
+  value={value}
+  onChange={setValue}
+>
+  <NumericInput.Suffix>
+    <Relative />
+  </NumericInput.Suffix>
+</NumericInput>
 ```
 
-## Custom Prefix/Suffix
+### Unit Formatting
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
-import { HugWidth, Relative } from "@choiceform/icons-react"
-import { useState } from "react"
+const [value, setValue] = useState(100)
 
-function Example() {
-  const [value, setValue] = useState(100)
-
-  return (
-    <NumericInput
-      value={value}
-      onChange={(newValue) => setValue(newValue as number)}
-    >
-      <NumericInput.Prefix>
-        <HugWidth />
-      </NumericInput.Prefix>
-      <NumericInput.Suffix>
-        <Relative />
-      </NumericInput.Suffix>
-    </NumericInput>
-  )
-}
+<NumericInput
+  value={value}
+  expression="{value}px"
+  onChange={(newValue) => setValue(newValue as number)}
+>
+  <NumericInput.Prefix>
+    <FixedWidth />
+  </NumericInput.Prefix>
+</NumericInput>
 ```
 
-## Variable Values
+### Multi-Value Expression
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
-import { useState } from "react"
+const [dimensions, setDimensions] = useState({
+  width: 100,
+  height: 200
+})
 
-function Example() {
-  const [value, setValue] = useState<number | undefined>(undefined)
-  const [variableValue, setVariableValue] = useState(10)
-
-  return (
-    <NumericInput
-      value={value}
-      onChange={(newValue) => setValue(newValue as number)}
-    >
-      {value === undefined && <NumericInput.Variable value={variableValue} />}
-    </NumericInput>
-  )
-}
+<NumericInput
+  value={dimensions}
+  expression="{width}px, {height}px"
+  onChange={(newValue) => setDimensions(newValue as typeof dimensions)}
+>
+  <NumericInput.Prefix>
+    <FixedWidth />
+  </NumericInput.Prefix>
+</NumericInput>
 ```
 
-## Dropdown Menu Integration
+### With Dropdown Menu
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
 import { Dropdown, IconButton } from "@choiceform/design-system"
-import { ChevronDownSmall } from "@choiceform/icons-react"
-import { useState } from "react"
+import { ChevronDownSmall, FixedHeight, HugHeight } from "@choiceform/icons-react"
 
-function Example() {
-  const [value, setValue] = useState(10)
-  const [menuOpen, setMenuOpen] = useState(false)
+const [value, setValue] = useState(10)
+const [menuOpen, setMenuOpen] = useState(false)
 
-  return (
-    <NumericInput
-      focused={menuOpen}
-      value={value}
-      onChange={(newValue) => setValue(newValue as number)}
+<NumericInput
+  focused={menuOpen}
+  value={value}
+  onChange={setValue}
+>
+  <NumericInput.Suffix type="menu">
+    <Dropdown
+      open={menuOpen}
+      onOpenChange={setMenuOpen}
+      placement="bottom"
     >
-      <NumericInput.Suffix type="menu">
-        <Dropdown
-          open={menuOpen}
-          onOpenChange={setMenuOpen}
-          placement="bottom"
-        >
-          <Dropdown.Trigger asChild>
-            <IconButton className="rounded-l-none">
-              <ChevronDownSmall />
-            </IconButton>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Item>Option 1</Dropdown.Item>
-            <Dropdown.Item>Option 2</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      </NumericInput.Suffix>
-    </NumericInput>
-  )
-}
+      <Dropdown.Trigger asChild>
+        <IconButton className="rounded-l-none">
+          <ChevronDownSmall />
+        </IconButton>
+      </Dropdown.Trigger>
+      <Dropdown.Content>
+        <Dropdown.Item>
+          <FixedHeight />
+          Fixed height
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <HugHeight />
+          Hug contents
+        </Dropdown.Item>
+      </Dropdown.Content>
+    </Dropdown>
+  </NumericInput.Suffix>
+</NumericInput>
 ```
 
-## API Reference
-
-### NumericInput Props
-
-| Prop           | Type                                                                  | Default     | Description                                       |
-| -------------- | --------------------------------------------------------------------- | ----------- | ------------------------------------------------- |
-| `value`        | `number \| string \| Record<string, number> \| number[] \| undefined` | -           | The current value of the input                    |
-| `defaultValue` | `number \| string \| Record<string, number> \| number[] \| undefined` | -           | Default value (for uncontrolled mode)             |
-| `onChange`     | `(value: NumericInputValue, detail: NumberResult) => void`            | -           | Callback when value changes                       |
-| `onEmpty`      | `() => void`                                                          | -           | Callback when input is cleared                    |
-| `expression`   | `string`                                                              | -           | Pattern for formatted values, e.g., `"{value}px"` |
-| `min`          | `number`                                                              | -           | Minimum allowed value                             |
-| `max`          | `number`                                                              | -           | Maximum allowed value                             |
-| `step`         | `number`                                                              | `1`         | Step increment for arrow keys and drag            |
-| `shiftStep`    | `number`                                                              | `10`        | Step increment when Shift key is pressed          |
-| `decimal`      | `number`                                                              | -           | Number of decimal places to display               |
-| `disabled`     | `boolean`                                                             | `false`     | Disables the input                                |
-| `readOnly`     | `boolean`                                                             | `false`     | Makes the input read-only                         |
-| `selected`     | `boolean`                                                             | `false`     | Sets selected visual state                        |
-| `focused`      | `boolean`                                                             | `false`     | Sets focused visual state                         |
-| `variant`      | `"default" \| "dark"`                                                 | `"default"` | Visual variant                                    |
-
-### NumericInput.Prefix
-
-Container for prefix content (typically icons or labels).
-
-### NumericInput.Suffix
-
-Container for suffix content (e.g., units, icons, or menus).
-
-| Prop   | Type                              | Default     | Description    |
-| ------ | --------------------------------- | ----------- | -------------- |
-| `type` | `"default" \| "menu" \| "action"` | `"default"` | Type of suffix |
-
-### NumericInput.Variable
-
-Displays a variable value when the main input is undefined.
-
-| Prop    | Type               | Default | Description                   |
-| ------- | ------------------ | ------- | ----------------------------- |
-| `value` | `number \| string` | -       | The variable value to display |
-
-### NumericInput.ActionPrompt
-
-Displays a prompt for action-related text.
-
-### NumericInput.MenuTrigger
-
-A button that triggers menu dropdowns.
-
-| Prop   | Type                 | Default  | Description          |
-| ------ | -------------------- | -------- | -------------------- |
-| `type` | `"menu" \| "action"` | `"menu"` | Type of menu trigger |
-
-## Using the useNumericInput Hook
-
-For advanced customization, you can use the underlying hook directly:
+### With Action Menu
 
 ```tsx
-import { useNumericInput } from "@choiceform/design-system"
-import { useState } from "react"
+import { Select } from "@choiceform/design-system"
+import { ChevronDownSmall } from "@choiceform/icons-react"
 
-function CustomNumericInput() {
-  const [value, setValue] = useState(50)
+const [value, setValue] = useState(10)
+const [actionType, setActionType] = useState("fixed")
+const [menuOpen, setMenuOpen] = useState(false)
 
-  const { inputProps, handlerProps } = useNumericInput({
-    value,
-    min: 0,
-    max: 100,
-    step: 5,
-    onChange: (newValue) => setValue(newValue as number),
-  })
+<NumericInput
+  focused={menuOpen}
+  value={value}
+  onChange={setValue}
+>
+  {actionType !== "fixed" && (
+    <NumericInput.ActionPrompt>
+      {actionType}
+    </NumericInput.ActionPrompt>
+  )}
 
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        {...inputProps}
-        className="w-24 rounded border px-2 py-1"
-      />
-      <div
-        {...handlerProps}
-        className="cursor-ew-resize px-2 select-none"
-      >
-        ⟷
-      </div>
-    </div>
-  )
-}
+  <NumericInput.Suffix type="action">
+    <Select
+      open={menuOpen}
+      onOpenChange={setMenuOpen}
+      value={actionType}
+      onChange={setActionType}
+      placement="bottom-end"
+    >
+      <Select.Trigger asChild>
+        <IconButton className="rounded-l-none">
+          <ChevronDownSmall />
+        </IconButton>
+      </Select.Trigger>
+      <Select.Content>
+        <Select.Item value="fixed">Fixed height</Select.Item>
+        <Select.Item value="hug">Hug contents</Select.Item>
+      </Select.Content>
+    </Select>
+  </NumericInput.Suffix>
+</NumericInput>
 ```
 
-## Keyboard Shortcuts
+### Variable Values
 
-| Key                             | Action                                      |
-| ------------------------------- | ------------------------------------------- |
-| `↑` / `↓`                       | Increase/decrease by step value             |
-| `Shift + ↑` / `Shift + ↓`       | Increase/decrease by shiftStep value        |
-| `Meta/Alt + ↑` / `Meta/Alt + ↓` | Increase/decrease by 1 (regardless of step) |
-| `Enter`                         | Confirm the value                           |
-| `Escape`                        | Reset to previous value when editing        |
+```tsx
+import { Variable } from "@choiceform/icons-react"
 
-## Expression Format Examples
+const [value, setValue] = useState<number | undefined>(undefined)
+const [variableValue, setVariableValue] = useState(10)
 
-| Expression                     | Example Value               | Display                                      |
-| ------------------------------ | --------------------------- | -------------------------------------------- |
-| `"{value}px"`                  | `100`                       | "100px"                                      |
-| `"{width}x{height}"`           | `{width: 100, height: 200}` | "100x200"                                    |
-| `"{value1},{value2},{value3}"` | `[10, 20, 30]`              | "10,20,30"                                   |
-| `"{value1}{value2,hidden}"`    | `[10, 10]`                  | "10" (second value hidden because identical) |
+<NumericInput
+  value={value}
+  onChange={setValue}
+>
+  <NumericInput.Prefix>
+    <FixedWidth />
+  </NumericInput.Prefix>
 
-## Best Practices
+  {!value && <NumericInput.Variable value={variableValue} />}
 
-1. Use appropriate constraints (`min`, `max`, `step`) for better UX
-2. Provide clear prefix/suffix elements to indicate the value type or unit
-3. For complex formatted values, always use the expression pattern
-4. When using variables, make sure to handle undefined values appropriately
-5. For linked inputs (like RGB color), each input should update a shared state
+  <NumericInput.Suffix type="menu">
+    <Dropdown>
+      <Dropdown.Trigger asChild>
+        <IconButton className="rounded-l-none">
+          <Variable />
+        </IconButton>
+      </Dropdown.Trigger>
+      <Dropdown.Content>
+        <Dropdown.Item
+          onClick={() => {
+            setVariableValue(10)
+            setValue(undefined)
+          }}
+        >
+          Add variable...
+        </Dropdown.Item>
+      </Dropdown.Content>
+    </Dropdown>
+  </NumericInput.Suffix>
+</NumericInput>
+```
 
-## Accessibility
-
-- Supports keyboard navigation and interaction
-- Works with screen readers through proper ARIA attributes
-- Visual feedback for error states, focus, and selection
-- Maintains correct tab order in complex scenarios
-
-## Dark Mode
-
-Use the `variant="dark"` prop for dark backgrounds.
+### Dark Theme
 
 ```tsx
 <NumericInput
   variant="dark"
   value={value}
   onChange={setValue}
+>
+  <NumericInput.Prefix>
+    <ColorTypeSolid />
+  </NumericInput.Prefix>
+</NumericInput>
+```
+
+## Props
+
+```ts
+interface NumericInputProps {
+  /** Current numeric value */
+  value?: NumericInputValue
+  
+  /** Default value for uncontrolled usage */
+  defaultValue?: NumericInputValue
+  
+  /** Callback when value changes */
+  onChange?: (value: NumericInputValue, detail: NumberResult) => void
+  
+  /** Callback when input is cleared */
+  onEmpty?: () => void
+  
+  /** Expression pattern for formatted display (e.g., "{value}px") */
+  expression?: string
+  
+  /** Minimum allowed value */
+  min?: number
+  
+  /** Maximum allowed value */
+  max?: number
+  
+  /** Step increment for arrow keys and drag */
+  step?: number
+  
+  /** Step increment when Shift key is pressed */
+  shiftStep?: number
+  
+  /** Number of decimal places to display */
+  decimal?: number
+  
+  /** Whether the input is disabled */
+  disabled?: boolean
+  
+  /** Whether the input is read-only */
+  readOnly?: boolean
+  
+  /** Whether the input appears selected */
+  selected?: boolean
+  
+  /** Whether the input appears focused */
+  focused?: boolean
+  
+  /** Visual theme variant */
+  variant?: "default" | "dark"
+  
+  /** Tooltip configuration */
+  tooltip?: {
+    content: string
+  }
+  
+  /** Child elements (Prefix, Suffix, Variable, etc.) */
+  children?: React.ReactNode
+}
+
+type NumericInputValue = 
+  | string 
+  | number 
+  | (string | number | undefined)[] 
+  | Record<string, number>
+
+interface NumberResult {
+  array: number[]
+  string: string
+  object: Record<string, number>
+}
+```
+
+- Defaults: `step`: 1, `shiftStep`: 10, `variant`: "default"
+
+## Sub-components
+
+### NumericInput.Prefix
+Container for prefix content like icons or labels.
+
+### NumericInput.Suffix
+Container for suffix content with different types for various use cases.
+
+```ts
+interface SuffixProps {
+  type?: "default" | "menu" | "action"
+  children?: React.ReactNode
+}
+```
+
+### NumericInput.Variable
+Displays a variable value when the main input is undefined.
+
+```ts
+interface VariableProps {
+  value: number | string
+}
+```
+
+### NumericInput.ActionPrompt
+Displays action-related text or labels.
+
+### NumericInput.MenuTrigger
+A specialized button for triggering dropdown menus.
+
+```ts
+interface MenuTriggerProps {
+  type?: "menu" | "action"
+  "aria-label"?: string
+}
+```
+
+## Styling
+
+- Uses Tailwind CSS with `tailwind-variants` for consistent theming
+- Customize using the `className` prop on individual sub-components
+- Dark theme automatically adjusts colors for dark backgrounds
+- Disabled state provides appropriate visual feedback
+
+## Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `↑` / `↓` | Increase/decrease by `step` value |
+| `Shift + ↑` / `Shift + ↓` | Increase/decrease by `shiftStep` value |
+| `Meta/Alt + ↑` / `Meta/Alt + ↓` | Increase/decrease by 1 (fine control) |
+| `Enter` | Confirm the current value |
+| `Escape` | Reset to previous value when editing |
+
+## Expression Patterns
+
+| Pattern | Example Value | Display |
+|---------|---------------|---------|
+| `"{value}px"` | `100` | "100px" |
+| `"{width}x{height}"` | `{width: 100, height: 200}` | "100x200" |
+| `"{value1}, {value2}"` | `[10, 20]` | "10, 20" |
+| `"{value1}{value2,hidden}"` | `[10, 10]` | "10" (second hidden when identical) |
+
+## Best Practices
+
+- Use appropriate constraints (`min`, `max`, `step`) for better user experience
+- Provide clear prefix/suffix elements to indicate value type or units
+- For complex formatted values, always use the expression pattern
+- Handle undefined values appropriately when using variables
+- Use the `focused` prop when integrating with dropdown menus
+- Test mathematical expressions with your expected value ranges
+
+## Examples
+
+### Mathematical Expression Evaluation
+
+```tsx
+// User can input "1+2*3" and get result of 7
+// Component compares calculated result with current value
+const [value, setValue] = useState(2)
+const [changeCount, setChangeCount] = useState(0)
+
+const handleChange = (newValue, detail) => {
+  setValue(newValue as number)
+  setChangeCount(prev => prev + 1)
+  console.log('Input text:', detail.string)
+}
+
+<NumericInput
+  value={value}
+  onChange={handleChange}
 />
 ```
+
+### Color RGB Input
+
+```tsx
+const [color, setColor] = useState({ r: 255, g: 128, b: 64 })
+
+<NumericInput
+  value={color}
+  expression="rgb({r}, {g}, {b})"
+  min={0}
+  max={255}
+  step={1}
+  onChange={(newValue) => setColor(newValue as typeof color)}
+/>
+```
+
+### Dimension Input with Units
+
+```tsx
+const [size, setSize] = useState({ width: 100, height: 50 })
+
+<NumericInput
+  value={size}
+  expression="{width}px × {height}px"
+  min={1}
+  step={1}
+  onChange={(newValue) => setSize(newValue as typeof size)}
+>
+  <NumericInput.Prefix>
+    <FixedWidth />
+  </NumericInput.Prefix>
+</NumericInput>
+```
+
+## Accessibility
+
+- Full keyboard navigation support
+- Screen reader announcements for value changes
+- Proper ARIA labels and descriptions
+- Focus management for complex interactions
+- High contrast support in both light and dark themes
+
+## Notes
+
+- Mathematical expressions are evaluated safely using a custom parser
+- Variable values provide visual indication when active
+- Component automatically formats display based on expression patterns
+- Drag interactions work on both the input field and handler elements
+- Expression parsing supports basic arithmetic operations: +, -, *, /, ()

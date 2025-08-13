@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react"
-import { Direction } from "../components/file-upload/types"
+
+type Direction = "ltr" | "rtl"
 
 /**
  * 文本方向上下文

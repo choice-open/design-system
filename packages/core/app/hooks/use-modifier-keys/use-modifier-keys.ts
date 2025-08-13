@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react"
 export function useModifierKeys(disabled: boolean = false) {
   const [shiftPressed, setShiftPressed] = useState(false)
   const [metaPressed, setMetaPressed] = useState(false)
+  const [ctrlPressed, setCtrlPressed] = useState(false)
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Shift") {
@@ -15,6 +16,9 @@ export function useModifierKeys(disabled: boolean = false) {
     }
     if (e.metaKey || e.altKey) {
       setMetaPressed(true)
+    }
+    if (e.ctrlKey) {
+      setCtrlPressed(true)
     }
   }, [])
 
@@ -24,6 +28,9 @@ export function useModifierKeys(disabled: boolean = false) {
     }
     if (!e.metaKey && !e.altKey) {
       setMetaPressed(false)
+    }
+    if (!e.ctrlKey) {
+      setCtrlPressed(false)
     }
   }, [])
 
@@ -38,5 +45,5 @@ export function useModifierKeys(disabled: boolean = false) {
     }
   }, [disabled, onKeyDown, onKeyUp])
 
-  return { shiftPressed, metaPressed }
+  return { shiftPressed, metaPressed, ctrlPressed }
 }
