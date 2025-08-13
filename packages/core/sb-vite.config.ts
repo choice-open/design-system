@@ -96,6 +96,13 @@ export default defineConfig(({ mode }) => {
           }
           warn(warning)
         },
+        // 优化构建内存使用
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            storybook: ['@storybook/react']
+          }
+        }
       },
     },
     resolve: {
