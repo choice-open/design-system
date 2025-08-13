@@ -7,11 +7,7 @@ import path from "path"
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "")
   process.env = { ...process.env, ...env }
-  
-  const isProd = mode === 'production'
-  
   return {
-    base: isProd ? "./" : "/",
     plugins: [
       tsconfigPaths(),
       tailwindcss(),
@@ -88,36 +84,6 @@ export default defineConfig(({ mode }) => {
             console.log("Copied: _redirects")
           }
           
-          // 修复 Storybook 9 路径问题
-          const fixStorybookPaths = () => {
-            // 修复 index.html
-            const indexPath = path.join(outputDir, 'index.html')
-            if (fs.existsSync(indexPath)) {
-              let indexContent = fs.readFileSync(indexPath, 'utf8')
-              indexContent = indexContent.replace(/src="\/sb-/g, 'src="./sb-')
-              indexContent = indexContent.replace(/href="\/sb-/g, 'href="./sb-')
-              fs.writeFileSync(indexPath, indexContent)
-              console.log('Fixed: index.html paths')
-            }
-            
-            // 修复 iframe.html
-            const iframePath = path.join(outputDir, 'iframe.html')
-            if (fs.existsSync(iframePath)) {
-              let iframeContent = fs.readFileSync(iframePath, 'utf8')
-              // 移除开发模式注入的脚本
-              iframeContent = iframeContent.replace(/<script type="module" src="\/vite-inject-mocker-entry\.js"><\/script>/g, '')
-              // 修复路径
-              iframeContent = iframeContent.replace(/src="\/sb-/g, 'src="./sb-')
-              iframeContent = iframeContent.replace(/href="\/sb-/g, 'href="./sb-')
-              iframeContent = iframeContent.replace(/src="\/assets\//g, 'src="./assets/')
-              iframeContent = iframeContent.replace(/href="\/assets\//g, 'href="./assets/')
-              fs.writeFileSync(iframePath, iframeContent)
-              console.log('Fixed: iframe.html paths')
-            }
-          }
-          
-          // 执行路径修复
-          fixStorybookPaths()
         },
       },
     ],
