@@ -7,7 +7,11 @@ import path from "path"
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "")
   process.env = { ...process.env, ...env }
+  
+  const isProd = mode === 'production'
+  
   return {
+    base: isProd ? "./" : "/",
     plugins: [
       tsconfigPaths(),
       tailwindcss(),
