@@ -79,7 +79,13 @@ export function useMentions({
     const { selection } = editor
 
     if (!selection || !Range.isCollapsed(selection)) {
-      setSearchState((prev) => ({ ...prev, isSearching: false }))
+      setSearchState((prev) => {
+        // 只在状态真正改变时更新
+        if (prev.isSearching) {
+          return { ...prev, isSearching: false }
+        }
+        return prev
+      })
       return
     }
 
@@ -106,7 +112,13 @@ export function useMentions({
     const beforeText = beforeRange ? Editor.string(editor, beforeRange) : ""
 
     if (!beforeText) {
-      setSearchState((prev) => ({ ...prev, isSearching: false }))
+      setSearchState((prev) => {
+        // 只在状态真正改变时更新
+        if (prev.isSearching) {
+          return { ...prev, isSearching: false }
+        }
+        return prev
+      })
       return
     }
 
@@ -167,7 +179,13 @@ export function useMentions({
     }
 
     // 没有找到有效的 mention 搜索
-    setSearchState((prev) => ({ ...prev, isSearching: false }))
+    setSearchState((prev) => {
+      // 只在状态真正改变时更新
+      if (prev.isSearching) {
+        return { ...prev, isSearching: false }
+      }
+      return prev
+    })
   }, [editor, searchMentions, triggerMap])
 
   // 插入 mention
@@ -280,8 +298,13 @@ export function useMentions({
 
   // 监听编辑器内容变化
   useEffect(() => {
+    // 如果没有触发器配置，就不需要检查
+    if (triggers.length === 0) {
+      return
+    }
+    
     checkMentionSearch()
-  }, [checkMentionSearch])
+  }, [checkMentionSearch, triggers.length])
 
   // 关闭 mentions 搜索
   const closeMentionSearch = useCallback(() => {

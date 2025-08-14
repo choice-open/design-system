@@ -117,14 +117,27 @@ const SortablePopover = observer(function SortablePopover({
   triggerRefs,
   open$,
 }: SortablePopoverProps) {
+  // Create a stable ref object that we can update
+  const currentTriggerRef = useRef<HTMLFieldSetElement | null>(null)
+
+  // Update the ref's current value when the open state changes
+  const openId = open$.get()
+  useEffect(() => {
+    if (openId && openId !== "color") {
+      currentTriggerRef.current = triggerRefs.current.get(openId) ?? null
+    } else {
+      currentTriggerRef.current = null
+    }
+  }, [openId, triggerRefs])
+
   return (
     <Popover
-      triggerRef={{ current: triggerRefs.current.get(open$.get() ?? "") ?? null }}
+      triggerRef={currentTriggerRef}
       open={open$.get() !== null && open$.get() !== "color"}
       onOpenChange={(open) => open$.set(open ? open$.get() : null)}
       placement="left"
       draggable={true}
-      autoUpdate={false}
+      autoUpdate={true} // Enable autoUpdate for better positioning
     >
       <Popover.Header title="Popover" />
       <Popover.Content className="max-w-64 p-4">{faker.lorem.paragraph()}</Popover.Content>
@@ -181,7 +194,9 @@ const SortableRowContent = observer(function SortableRowContentInner({
           e.stopPropagation()
           selectedId$.set(null)
           if (open$.get() !== item.id) {
-            open$.set(item.id)
+            React.startTransition(() => {
+              open$.set(item.id)
+            })
           } else {
             open$.set(null)
           }
@@ -433,7 +448,9 @@ export const SingleItem: Story = {
               e.stopPropagation()
               selectedId$.set(null)
               if (open$.get() !== item.id) {
-                open$.set(item.id)
+                React.startTransition(() => {
+                  open$.set(item.id)
+                })
               } else {
                 open$.set(null)
               }
