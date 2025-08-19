@@ -1,4 +1,4 @@
 packages:
   - packages/*
-  - packages/ai-assistant/client
-  - packages/ai-assistant/server
+  - packages/prompt-kit/client
+  - packages/prompt-kit/server
