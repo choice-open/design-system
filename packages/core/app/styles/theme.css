@@ -156,6 +156,11 @@
   --boundary-strong: var(--color-gray-800);
   --boundary-selected-strong: var(--blue-600);
 
+  --icon-default: rgba(26, 26, 26, 1);
+  --icon-secondary: rgba(128, 128, 128, 1);
+  --icon-tertiary: rgba(178, 178, 178, 1);
+  --icon-disabled: rgba(178, 178, 178, 1);
+
   --shadows-border-default: 0px 0px 0px 1px rgba(230, 230, 230, 1);
   --shadows-border-default-inset: inset 0px 0px 0px 1px rgba(230, 230, 230, 1);
   --shadows-focus: 0px 0px 0px 1px rgba(255, 255, 255, 1), 0px 0px 0px 2px rgba(13, 153, 255, 1);
@@ -302,6 +307,11 @@
   --boundary-default: var(--color-gray-600);
   --boundary-strong: rgba(255, 255, 255, 0.9);
   --boundary-selected-strong: var(--blue-400);
+
+  --icon-default: rgba(255, 255, 255, 1);
+  --icon-secondary: rgba(192, 192, 192, 1);
+  --icon-tertiary: rgba(128, 128, 128, 1);
+  --icon-disabled: rgba(128, 128, 128, 1);
 
   --shadows-border-default: 0px 0px 0px 1px rgba(68, 68, 68, 1);
   --shadows-border-default-inset: inset 0px 0px 0px 1px rgba(68, 68, 68, 1);
@@ -507,6 +517,11 @@
   --color-selected-boundary: var(--blue-500);
   --color-selected-strong-boundary: var(--boundary-selected-strong);
   --color-menu-boundary: var(--color-gray-700);
+
+  --color-icon-default: var(--icon-default);
+  --color-icon-secondary: var(--icon-secondary);
+  --color-icon-tertiary: var(--icon-tertiary);
+  --color-icon-disabled: var(--icon-disabled);
 
   --text-sm: 0.5625rem;
   --text-md: 0.6875rem;
