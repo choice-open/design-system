@@ -28,7 +28,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "pnpm run clean && vite build",
+    "build": "pnpm run clean && vite build && tsc --emitDeclarationOnly",
     "build:watch": "vite build --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
