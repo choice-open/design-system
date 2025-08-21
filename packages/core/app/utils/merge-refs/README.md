@@ -14,7 +14,7 @@ import { mergeRefs, assignRef } from "@choiceform/design-system/utils"
 // Basic usage
 const Component = forwardRef((props, ref) => {
   const internalRef = useRef()
-  
+
   return <div ref={mergeRefs(ref, internalRef)} />
 })
 
@@ -23,7 +23,7 @@ function MultiRefComponent() {
   const ref1 = useRef()
   const ref2 = useRef()
   const [ref3, setRef3] = useState(null)
-  
+
   return <input ref={mergeRefs(ref1, ref2, setRef3)} />
 }
 
@@ -65,10 +65,7 @@ function assignRef<T>(ref: ReactRef<T> | undefined, value: T | null): void
 ## Types
 
 ```typescript
-type ReactRef<T> = 
-  | React.RefObject<T> 
-  | React.MutableRefObject<T> 
-  | React.Ref<T>
+type ReactRef<T> = React.RefObject<T> | React.MutableRefObject<T> | React.Ref<T>
 ```
 
 ## Features
@@ -90,17 +87,17 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({ label, ...props }, ref) => {
   const internalRef = useRef<HTMLInputElement>(null)
-  
+
   const focusInput = () => {
     internalRef.current?.focus()
   }
-  
+
   return (
     <div>
       <label onClick={focusInput}>{label}</label>
-      <input 
-        ref={mergeRefs(ref, internalRef)} 
-        {...props} 
+      <input
+        ref={mergeRefs(ref, internalRef)}
+        {...props}
       />
     </div>
   )
@@ -112,25 +109,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ label, ...props }, ref
 ```typescript
 function useClickOutside(handler: () => void) {
   const ref = useRef<HTMLElement>(null)
-  
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         handler()
       }
     }
-    
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handler])
-  
+
   return ref
 }
 
 // Usage with mergeRefs
 function Dropdown({ forwardedRef }) {
   const clickOutsideRef = useClickOutside(() => setOpen(false))
-  
+
   return (
     <div ref={mergeRefs(forwardedRef, clickOutsideRef)}>
       {/* Dropdown content */}
@@ -147,7 +144,7 @@ function ComplexComponent() {
   const objectRef = useRef<HTMLDivElement>(null)
   const [callbackRef, setCallbackRef] = useState<HTMLDivElement | null>(null)
   const forwardedRef = useRef<HTMLDivElement>(null)
-  
+
   // Callback ref for measurements
   const measureRef = useCallback((node: HTMLDivElement | null) => {
     if (node) {
@@ -155,7 +152,7 @@ function ComplexComponent() {
       console.log('Height:', node.offsetHeight)
     }
   }, [])
-  
+
   return (
     <div
       ref={mergeRefs(
@@ -176,12 +173,12 @@ function ComplexComponent() {
 ```typescript
 function ConditionalRefComponent({ shouldTrack, externalRef }) {
   const trackingRef = useRef()
-  
+
   // Only merge trackingRef if shouldTrack is true
-  const refs = shouldTrack 
+  const refs = shouldTrack
     ? mergeRefs(externalRef, trackingRef)
     : externalRef
-  
+
   return <div ref={refs} />
 }
 ```
@@ -193,17 +190,17 @@ function withDimensions(Component) {
   return forwardRef((props, ref) => {
     const dimensionsRef = useRef()
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-    
+
     useEffect(() => {
       if (dimensionsRef.current) {
         const { offsetWidth, offsetHeight } = dimensionsRef.current
         setDimensions({ width: offsetWidth, height: offsetHeight })
       }
     }, [])
-    
+
     return (
-      <Component 
-        {...props} 
+      <Component
+        {...props}
         ref={mergeRefs(ref, dimensionsRef)}
         dimensions={dimensions}
       />
@@ -219,15 +216,15 @@ function withDimensions(Component) {
 function IntegratedComponent({ onReady }) {
   const thirdPartyRef = useThirdPartyLib()
   const userRef = useRef()
-  
+
   useEffect(() => {
     if (userRef.current) {
       onReady(userRef.current)
     }
   }, [onReady])
-  
+
   return (
-    <ThirdPartyComponent 
+    <ThirdPartyComponent
       ref={mergeRefs(thirdPartyRef, userRef)}
     />
   )
@@ -249,7 +246,7 @@ The `assignRef` function will throw an error with a descriptive message if you t
 try {
   assignRef(invalidRef, element)
 } catch (error) {
-  console.error(error.message) 
+  console.error(error.message)
   // "Cannot assign value '[object HTMLDivElement]' to ref '...'"
 }
 ```

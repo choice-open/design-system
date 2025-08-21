@@ -103,11 +103,12 @@ function PopoverEmojiPicker() {
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiData | null>(null)
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover
+      open={open}
+      onOpenChange={setOpen}
+    >
       <Popover.Trigger>
-        <Button active={open}>
-          {selectedEmoji?.emoji || "😀"} Choose Emoji
-        </Button>
+        <Button active={open}>{selectedEmoji?.emoji || "😀"} Choose Emoji</Button>
       </Popover.Trigger>
 
       <Popover.Header title="Choose Emoji" />
@@ -133,34 +134,34 @@ function PopoverEmojiPicker() {
 interface EmojiPickerProps {
   /** Currently selected emoji (controlled) */
   value?: EmojiData | null
-  
+
   /** Callback when emoji selection changes */
   onChange?: (emoji: EmojiData) => void
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Search input placeholder text */
   searchPlaceholder?: string
-  
+
   /** Picker height in pixels */
   height?: number
-  
+
   /** Number of emojis per row */
   columns?: number
-  
+
   /** Show category navigation */
   showCategories?: boolean
-  
+
   /** Show search input */
   showSearch?: boolean
-  
+
   /** Enable frequently used emojis tracking */
   showFrequentlyUsed?: boolean
-  
+
   /** Theme variant */
   variant?: "dark" | "light"
-  
+
   /** Additional child elements */
   children?: React.ReactNode
 }
@@ -181,11 +182,11 @@ Each emoji follows this structure:
 
 ```ts
 interface EmojiData {
-  id: number          // Unique identifier
-  code: string        // Unicode code point
-  emoji: string       // Emoji character
-  name: string        // Human-readable name
-  nameUrl: string     // URL-friendly name
+  id: number // Unique identifier
+  code: string // Unicode code point
+  emoji: string // Emoji character
+  name: string // Human-readable name
+  nameUrl: string // URL-friendly name
 }
 ```
 
@@ -231,7 +232,7 @@ The footer displays emoji information with smart priority:
 ```tsx
 import { EmojiFooter } from "@choiceform/design-system"
 
-<EmojiFooter
+;<EmojiFooter
   hoveredEmoji={hoveredEmoji}
   selectedEmoji={selectedEmoji}
   variant="dark"
@@ -265,7 +266,7 @@ function ChatInput() {
   const [showPicker, setShowPicker] = useState(false)
 
   const handleEmojiSelect = (emoji: EmojiData) => {
-    setMessage(prev => prev + emoji.emoji)
+    setMessage((prev) => prev + emoji.emoji)
     setSelectedEmoji(emoji)
     setShowPicker(false)
   }
@@ -277,9 +278,7 @@ function ChatInput() {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type a message..."
       />
-      <button onClick={() => setShowPicker(!showPicker)}>
-        😀
-      </button>
+      <button onClick={() => setShowPicker(!showPicker)}>😀</button>
 
       {showPicker && (
         <div className="absolute right-0 bottom-full z-10">
@@ -303,7 +302,7 @@ function CommentForm() {
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiData | null>(null)
 
   const handleEmojiSelect = (emoji: EmojiData) => {
-    setComment(prev => prev + emoji.emoji)
+    setComment((prev) => prev + emoji.emoji)
     setSelectedEmoji(emoji)
   }
 

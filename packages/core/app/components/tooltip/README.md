@@ -26,13 +26,17 @@ import { Tooltip, TooltipProvider } from "@choiceform/design-system"
 The simple API uses the `content` prop for quick tooltip implementation:
 
 ```tsx
-{/* Basic tooltip */}
-<Tooltip content="Basic tooltip">
+{
+  /* Basic tooltip */
+}
+;<Tooltip content="Basic tooltip">
   <Button>Basic Tooltip</Button>
 </Tooltip>
 
-{/* With keyboard shortcut */}
-<Tooltip
+{
+  /* With keyboard shortcut */
+}
+;<Tooltip
   content="Save file"
   shortcut={{
     modifier: ["command"],
@@ -42,16 +46,20 @@ The simple API uses the `content` prop for quick tooltip implementation:
   <Button>Save</Button>
 </Tooltip>
 
-{/* Without arrow */}
-<Tooltip
+{
+  /* Without arrow */
+}
+;<Tooltip
   content="Tooltip without arrow"
   withArrow={false}
 >
   <Button>No Arrow</Button>
 </Tooltip>
 
-{/* Disabled tooltip */}
-<Tooltip
+{
+  /* Disabled tooltip */
+}
+;<Tooltip
   content="This tooltip is disabled"
   disabled={true}
 >
@@ -75,16 +83,20 @@ For more control over tooltip structure:
 ### Variants
 
 ```tsx
-{/* Default variant (dark) */}
-<Tooltip
+{
+  /* Default variant (dark) */
+}
+;<Tooltip
   content="Default style"
   variant="default"
 >
   <Button>Default</Button>
 </Tooltip>
 
-{/* Light variant */}
-<Tooltip
+{
+  /* Light variant */
+}
+;<Tooltip
   content="Light style"
   variant="light"
 >
@@ -95,16 +107,20 @@ For more control over tooltip structure:
 ### Custom Offset
 
 ```tsx
-{/* Large offset */}
-<Tooltip
+{
+  /* Large offset */
+}
+;<Tooltip
   content="Large offset"
   offset={20}
 >
   <Button>Large Offset</Button>
 </Tooltip>
 
-{/* Small offset */}
-<Tooltip
+{
+  /* Small offset */
+}
+;<Tooltip
   content="Small offset"
   offset={2}
 >
@@ -198,27 +214,21 @@ Use `TooltipProvider` to create smooth tooltip experiences across multiple eleme
       <TooltipTrigger>
         <Button>First</Button>
       </TooltipTrigger>
-      <TooltipContent>
-        First tooltip - 400ms delay initially
-      </TooltipContent>
+      <TooltipContent>First tooltip - 400ms delay initially</TooltipContent>
     </Tooltip>
-    
+
     <Tooltip>
       <TooltipTrigger>
         <Button>Second</Button>
       </TooltipTrigger>
-      <TooltipContent>
-        Second tooltip - instant when moving from first
-      </TooltipContent>
+      <TooltipContent>Second tooltip - instant when moving from first</TooltipContent>
     </Tooltip>
-    
+
     <Tooltip>
       <TooltipTrigger>
         <Button>Third</Button>
       </TooltipTrigger>
-      <TooltipContent>
-        Third tooltip - instant when moving from others
-      </TooltipContent>
+      <TooltipContent>Third tooltip - instant when moving from others</TooltipContent>
     </Tooltip>
   </div>
 </TooltipProvider>
@@ -229,24 +239,30 @@ Use `TooltipProvider` to create smooth tooltip experiences across multiple eleme
 Display keyboard shortcuts in tooltips:
 
 ```tsx
-{/* Command + K */}
-<Tooltip
+{
+  /* Command + K */
+}
+;<Tooltip
   content="Save file"
   shortcut={{ modifier: ["command"], keys: "K" }}
 >
   <Button>Command + K</Button>
 </Tooltip>
 
-{/* Ctrl + A */}
-<Tooltip
+{
+  /* Ctrl + A */
+}
+;<Tooltip
   content="Select all"
   shortcut={{ modifier: ["ctrl"], keys: "A" }}
 >
   <Button>Ctrl + A</Button>
 </Tooltip>
 
-{/* Shift + A */}
-<Tooltip
+{
+  /* Shift + A */
+}
+;<Tooltip
   content="Shift shortcut"
   shortcut={{ modifier: ["shift"], keys: "A" }}
 >
@@ -274,7 +290,7 @@ Display keyboard shortcuts in tooltips:
             {placement} / {variant}
           </TooltipContent>
         </Tooltip>
-      ))
+      )),
     )}
   </div>
 </TooltipProvider>
@@ -288,40 +304,40 @@ Display keyboard shortcuts in tooltips:
 interface TooltipProps {
   /** Child elements (typically the trigger) */
   children?: React.ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Tooltip content (enables simple API) */
   content?: React.ReactNode
-  
+
   /** Disable the tooltip */
   disabled?: boolean
-  
+
   /** Distance from trigger element */
   offset?: number
-  
+
   /** Open state change callback */
   onOpenChange?: (open: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Tooltip placement */
   placement?: Placement
-  
+
   /** Portal container ID */
   portalId?: string
-  
+
   /** Keyboard shortcut display */
   shortcut?: {
     keys?: ReactNode
     modifier?: KbdKey[]
   }
-  
+
   /** Visual variant */
   variant?: "default" | "light"
-  
+
   /** Show/hide arrow */
   withArrow?: boolean
 }
@@ -392,6 +408,7 @@ The content container for compound component usage.
 ## Best Practices
 
 ### Usage Guidelines
+
 - Use for helpful, non-essential information
 - Keep content concise and scannable
 - Don't use for critical information users must see
@@ -399,12 +416,14 @@ The content container for compound component usage.
 - Include keyboard shortcuts when relevant
 
 ### Content Guidelines
+
 - Write clear, helpful descriptions
 - Use sentence case for consistency
 - Keep text brief (ideally under 10 words)
 - Don't repeat information already visible on screen
 
 ### Accessibility
+
 - Tooltips appear on both hover and focus
 - Proper ARIA attributes for screen readers
 - Keyboard navigation support (ESC to close)
@@ -412,6 +431,7 @@ The content container for compound component usage.
 - Focus remains on trigger element
 
 ### Performance
+
 - Optimized hover behavior prevents flickering
 - Lazy loading of tooltip content
 - Efficient positioning calculations
@@ -459,16 +479,15 @@ The content container for compound component usage.
 ```tsx
 <Tooltip placement="bottom">
   <TooltipTrigger>
-    <div className="p-2 border rounded">
-      Complex trigger element
-    </div>
+    <div className="rounded border p-2">Complex trigger element</div>
   </TooltipTrigger>
-  <TooltipContent variant="light" className="max-w-xs">
+  <TooltipContent
+    variant="light"
+    className="max-w-xs"
+  >
     <div className="space-y-1">
       <div className="font-medium">Complex Content</div>
-      <div className="text-sm">
-        This tooltip contains multiple lines and rich formatting.
-      </div>
+      <div className="text-sm">This tooltip contains multiple lines and rich formatting.</div>
     </div>
   </TooltipContent>
 </Tooltip>
@@ -478,15 +497,21 @@ The content container for compound component usage.
 
 ```tsx
 <TooltipProvider delay={{ open: 500, close: 100 }}>
-  <div className="flex items-center gap-1 p-2 border rounded">
+  <div className="flex items-center gap-1 rounded border p-2">
     <Tooltip content="Bold">
-      <IconButton><BoldIcon /></IconButton>
+      <IconButton>
+        <BoldIcon />
+      </IconButton>
     </Tooltip>
     <Tooltip content="Italic">
-      <IconButton><ItalicIcon /></IconButton>
+      <IconButton>
+        <ItalicIcon />
+      </IconButton>
     </Tooltip>
     <Tooltip content="Underline">
-      <IconButton><UnderlineIcon /></IconButton>
+      <IconButton>
+        <UnderlineIcon />
+      </IconButton>
     </Tooltip>
   </div>
 </TooltipProvider>

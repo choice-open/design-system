@@ -27,16 +27,28 @@ import { Segmented } from "@choiceform/design-system"
 ```tsx
 function Example() {
   const [value, setValue] = useState("sun")
-  
+
   return (
-    <Segmented value={value} onChange={setValue}>
-      <Segmented.Item value="sun" aria-label="Sun">
+    <Segmented
+      value={value}
+      onChange={setValue}
+    >
+      <Segmented.Item
+        value="sun"
+        aria-label="Sun"
+      >
         <SunIcon />
       </Segmented.Item>
-      <Segmented.Item value="moon" aria-label="Moon">
+      <Segmented.Item
+        value="moon"
+        aria-label="Moon"
+      >
         <MoonIcon />
       </Segmented.Item>
-      <Segmented.Item value="system" aria-label="System">
+      <Segmented.Item
+        value="system"
+        aria-label="System"
+      >
         <SystemIcon />
       </Segmented.Item>
     </Segmented>
@@ -49,16 +61,28 @@ function Example() {
 ```tsx
 function TextExample() {
   const [value, setValue] = useState("left")
-  
+
   return (
-    <Segmented value={value} onChange={setValue}>
-      <Segmented.Item value="left" className="px-2">
+    <Segmented
+      value={value}
+      onChange={setValue}
+    >
+      <Segmented.Item
+        value="left"
+        className="px-2"
+      >
         Left
       </Segmented.Item>
-      <Segmented.Item value="center" className="px-2">
+      <Segmented.Item
+        value="center"
+        className="px-2"
+      >
         Center
       </Segmented.Item>
-      <Segmented.Item value="right" className="px-2">
+      <Segmented.Item
+        value="right"
+        className="px-2"
+      >
         Right
       </Segmented.Item>
     </Segmented>
@@ -71,16 +95,30 @@ function TextExample() {
 ```tsx
 function DisabledExample() {
   const [value, setValue] = useState("right")
-  
+
   return (
-    <Segmented value={value} onChange={setValue}>
-      <Segmented.Item value="left" disabled className="px-2">
+    <Segmented
+      value={value}
+      onChange={setValue}
+    >
+      <Segmented.Item
+        value="left"
+        disabled
+        className="px-2"
+      >
         Left
       </Segmented.Item>
-      <Segmented.Item value="center" disabled className="px-2">
+      <Segmented.Item
+        value="center"
+        disabled
+        className="px-2"
+      >
         Center
       </Segmented.Item>
-      <Segmented.Item value="right" className="px-2">
+      <Segmented.Item
+        value="right"
+        className="px-2"
+      >
         Right
       </Segmented.Item>
     </Segmented>
@@ -93,11 +131,14 @@ function DisabledExample() {
 ```tsx
 function MixedContentExample() {
   const [value, setValue] = useState("desktop")
-  
+
   return (
-    <Segmented value={value} onChange={setValue}>
-      <Segmented.Item 
-        value="desktop" 
+    <Segmented
+      value={value}
+      onChange={setValue}
+    >
+      <Segmented.Item
+        value="desktop"
         aria-label="Desktop"
         className="gap-1 px-2"
       >
@@ -106,8 +147,8 @@ function MixedContentExample() {
           Desktop
         </>
       </Segmented.Item>
-      <Segmented.Item 
-        value="tablet" 
+      <Segmented.Item
+        value="tablet"
         aria-label="Tablet"
         className="gap-1 px-2"
       >
@@ -116,8 +157,8 @@ function MixedContentExample() {
           Tablet
         </>
       </Segmented.Item>
-      <Segmented.Item 
-        value="mobile" 
+      <Segmented.Item
+        value="mobile"
         aria-label="Mobile"
         className="gap-1 px-2"
       >
@@ -136,23 +177,26 @@ function MixedContentExample() {
 ```tsx
 function TooltipExample() {
   const [value, setValue] = useState("sun")
-  
+
   return (
-    <Segmented value={value} onChange={setValue}>
-      <Segmented.Item 
-        value="sun" 
+    <Segmented
+      value={value}
+      onChange={setValue}
+    >
+      <Segmented.Item
+        value="sun"
         tooltip={{ content: "Light mode" }}
       >
         <SunIcon />
       </Segmented.Item>
-      <Segmented.Item 
-        value="moon" 
+      <Segmented.Item
+        value="moon"
         tooltip={{ content: "Dark mode" }}
       >
         <MoonIcon />
       </Segmented.Item>
-      <Segmented.Item 
-        value="system" 
+      <Segmented.Item
+        value="system"
         tooltip={{ content: "System preference" }}
       >
         <SystemIcon />
@@ -167,17 +211,30 @@ function TooltipExample() {
 ```tsx
 function DarkExample() {
   const [value, setValue] = useState("sun")
-  
+
   return (
     <div className="bg-gray-800 p-8">
-      <Segmented value={value} onChange={setValue} variant="dark">
-        <Segmented.Item value="sun" className="px-2">
+      <Segmented
+        value={value}
+        onChange={setValue}
+        variant="dark"
+      >
+        <Segmented.Item
+          value="sun"
+          className="px-2"
+        >
           Sun
         </Segmented.Item>
-        <Segmented.Item value="moon" className="px-2">
+        <Segmented.Item
+          value="moon"
+          className="px-2"
+        >
           Moon
         </Segmented.Item>
-        <Segmented.Item value="system" className="px-2">
+        <Segmented.Item
+          value="system"
+          className="px-2"
+        >
           System
         </Segmented.Item>
       </Segmented>
@@ -194,19 +251,19 @@ function DarkExample() {
 interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
   /** Child Segmented.Item components */
   children?: ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Callback fired when selection changes */
   onChange?: (value: string) => void
-  
+
   /** Global tooltip configuration applied to all segments */
   tooltip?: TooltipProps
-  
+
   /** Currently selected value */
   value?: string
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
 }
@@ -218,19 +275,19 @@ interface SegmentedProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
 interface SegmentedItemProps {
   /** Content to display in the segment */
   children?: ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Whether this segment is disabled */
   disabled?: boolean
-  
+
   /** Tooltip configuration for this specific segment */
   tooltip?: TooltipProps
-  
+
   /** The value this segment represents */
   value: string
-  
+
   /** Accessible label for the segment */
   "aria-label"?: string
 }
@@ -253,31 +310,50 @@ interface SegmentedItemProps {
 ## Styling Guidelines
 
 ### Content Spacing
+
 ```tsx
-{/* Text content */}
-<Segmented.Item value="option" className="px-2">
+{
+  /* Text content */
+}
+;<Segmented.Item
+  value="option"
+  className="px-2"
+>
   Text Option
 </Segmented.Item>
 
-{/* Icon + text */}
-<Segmented.Item value="option" className="gap-1 px-2">
+{
+  /* Icon + text */
+}
+;<Segmented.Item
+  value="option"
+  className="gap-1 px-2"
+>
   <>
     <Icon />
     Text
   </>
 </Segmented.Item>
 
-{/* Icon only */}
-<Segmented.Item value="option" aria-label="Description">
+{
+  /* Icon only */
+}
+;<Segmented.Item
+  value="option"
+  aria-label="Description"
+>
   <Icon />
 </Segmented.Item>
 ```
 
 ### Custom Styling
+
 ```tsx
-{/* Custom colors and effects */}
-<Segmented.Item 
-  value="option" 
+{
+  /* Custom colors and effects */
+}
+;<Segmented.Item
+  value="option"
   className="px-3 py-1 text-blue-600 hover:bg-blue-50"
 >
   Custom Option
@@ -299,24 +375,32 @@ The component implements the ARIA radio group pattern with comprehensive accessi
   3. String content if segment children is a string
 
 ### Label Priority System
+
 ```tsx
-{/* Priority 1: Explicit aria-label */}
-<Segmented.Item value="option" aria-label="Custom Label">
+{
+  /* Priority 1: Explicit aria-label */
+}
+;<Segmented.Item
+  value="option"
+  aria-label="Custom Label"
+>
   <Icon />
 </Segmented.Item>
 
-{/* Priority 2: Tooltip content */}
-<Segmented.Item 
-  value="option" 
+{
+  /* Priority 2: Tooltip content */
+}
+;<Segmented.Item
+  value="option"
   tooltip={{ content: "Tooltip Label" }}
 >
   <Icon />
 </Segmented.Item>
 
-{/* Priority 3: String content */}
-<Segmented.Item value="option">
-  String Label
-</Segmented.Item>
+{
+  /* Priority 3: String content */
+}
+;<Segmented.Item value="option">String Label</Segmented.Item>
 ```
 
 ## Keyboard Navigation
@@ -330,18 +414,21 @@ The component implements the ARIA radio group pattern with comprehensive accessi
 ## Best Practices
 
 ### Content Guidelines
+
 - Keep segment labels concise and descriptive
 - Use consistent content types across all segments
 - Provide `aria-label` for icon-only segments
 - Use logical groupings that are mutually exclusive
 
 ### Visual Design
+
 - Maintain consistent padding across segments
 - Use appropriate icon sizes (typically 16px or 20px)
 - Ensure adequate color contrast in all states
 - Test with keyboard navigation and screen readers
 
 ### Usage Patterns
+
 - Use for 2-5 related options (avoid overcrowding)
 - Reserve for mutually exclusive choices
 - Consider radio buttons for more than 5 options
@@ -354,11 +441,14 @@ The component implements the ARIA radio group pattern with comprehensive accessi
 ```tsx
 function ThemeSelector() {
   const [theme, setTheme] = useState("system")
-  
+
   return (
-    <Segmented value={theme} onChange={setTheme}>
-      <Segmented.Item 
-        value="light" 
+    <Segmented
+      value={theme}
+      onChange={setTheme}
+    >
+      <Segmented.Item
+        value="light"
         tooltip={{ content: "Light theme" }}
         className="px-2"
       >
@@ -367,7 +457,7 @@ function ThemeSelector() {
           Light
         </>
       </Segmented.Item>
-      <Segmented.Item 
+      <Segmented.Item
         value="dark"
         tooltip={{ content: "Dark theme" }}
         className="px-2"
@@ -377,7 +467,7 @@ function ThemeSelector() {
           Dark
         </>
       </Segmented.Item>
-      <Segmented.Item 
+      <Segmented.Item
         value="system"
         tooltip={{ content: "Follow system setting" }}
         className="px-2"
@@ -397,19 +487,34 @@ function ThemeSelector() {
 ```tsx
 function TextAlignmentControl() {
   const [alignment, setAlignment] = useState("left")
-  
+
   return (
-    <Segmented value={alignment} onChange={setAlignment}>
-      <Segmented.Item value="left" aria-label="Align left">
+    <Segmented
+      value={alignment}
+      onChange={setAlignment}
+    >
+      <Segmented.Item
+        value="left"
+        aria-label="Align left"
+      >
         <AlignLeftIcon />
       </Segmented.Item>
-      <Segmented.Item value="center" aria-label="Align center">
+      <Segmented.Item
+        value="center"
+        aria-label="Align center"
+      >
         <AlignCenterIcon />
       </Segmented.Item>
-      <Segmented.Item value="right" aria-label="Align right">
+      <Segmented.Item
+        value="right"
+        aria-label="Align right"
+      >
         <AlignRightIcon />
       </Segmented.Item>
-      <Segmented.Item value="justify" aria-label="Justify">
+      <Segmented.Item
+        value="justify"
+        aria-label="Justify"
+      >
         <AlignJustifyIcon />
       </Segmented.Item>
     </Segmented>
@@ -422,28 +527,31 @@ function TextAlignmentControl() {
 ```tsx
 function SettingsPanel() {
   const [view, setView] = useState("grid")
-  
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3>View Mode</h3>
-        <Segmented value={view} onChange={setView}>
-          <Segmented.Item 
-            value="list" 
+        <Segmented
+          value={view}
+          onChange={setView}
+        >
+          <Segmented.Item
+            value="list"
             aria-label="List view"
             className="px-1"
           >
             <ListIcon />
           </Segmented.Item>
-          <Segmented.Item 
-            value="grid" 
+          <Segmented.Item
+            value="grid"
             aria-label="Grid view"
             className="px-1"
           >
             <GridIcon />
           </Segmented.Item>
-          <Segmented.Item 
-            value="card" 
+          <Segmented.Item
+            value="card"
             aria-label="Card view"
             className="px-1"
           >

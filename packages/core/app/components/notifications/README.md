@@ -47,19 +47,19 @@ import { notifications } from "@choiceform/design-system"
 
 // Simple text notification
 notifications({
-  text: "Your changes have been saved successfully."
+  text: "Your changes have been saved successfully.",
 })
 
 // With icon
 notifications({
   icon: <CheckIcon />,
-  text: "Operation completed successfully!"
+  text: "Operation completed successfully!",
 })
 
 // With emoji icon
 notifications({
   icon: "🎉",
-  text: "Welcome to the platform!"
+  text: "Welcome to the platform!",
 })
 ```
 
@@ -67,7 +67,7 @@ notifications({
 
 ```tsx
 notifications({
-  html: "Document <strong>Project Report</strong> has been <em>shared</em> with the team."
+  html: "Document <strong>Project Report</strong> has been <em>shared</em> with the team.",
 })
 ```
 
@@ -87,9 +87,9 @@ notifications({
         // Handle the reply action
         openReplyModal()
         toast.dismiss(id)
-      }
-    }
-  })
+      },
+    },
+  }),
 })
 
 // Action and dismiss buttons
@@ -102,15 +102,15 @@ notifications({
       onClick: () => {
         performDelete()
         toast.dismiss(id)
-      }
+      },
     },
     dismiss: {
       content: "Cancel",
       onClick: () => {
         toast.dismiss(id)
-      }
-    }
-  })
+      },
+    },
+  }),
 })
 ```
 
@@ -130,28 +130,27 @@ function NotificationExample() {
           onClick: () => {
             setDialogOpen(true)
             toast.dismiss(id)
-          }
+          },
         },
         dismiss: {
           content: "Dismiss",
           onClick: () => {
             toast.dismiss(id)
-          }
-        }
-      })
+          },
+        },
+      }),
     })
   }
 
   return (
     <>
-      <Button onClick={handleNotificationAction}>
-        Duplicate Project
-      </Button>
-      
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <Dialog.Content>
-          {/* Dialog content */}
-        </Dialog.Content>
+      <Button onClick={handleNotificationAction}>Duplicate Project</Button>
+
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      >
+        <Dialog.Content>{/* Dialog content */}</Dialog.Content>
       </Dialog>
     </>
   )
@@ -182,17 +181,17 @@ function MonitoringComponent() {
               handleFixIssue()
               setIsMonitoring(false)
               toast.dismiss(toastId)
-            }
+            },
           },
           dismiss: {
             content: "Ignore",
             onClick: () => {
               toast.dismiss(toastId)
-            }
-          }
-        })
+            },
+          },
+        }),
       })
-      
+
       setNotificationId(id)
     }, 1500)
 
@@ -208,11 +207,7 @@ function MonitoringComponent() {
     }
   }, [notificationId])
 
-  return (
-    <Button onClick={() => setIsMonitoring(true)}>
-      Start Monitoring
-    </Button>
-  )
+  return <Button onClick={() => setIsMonitoring(true)}>Start Monitoring</Button>
 }
 ```
 
@@ -230,11 +225,11 @@ function AdvancedNotification() {
         action: {
           content: `Schedule (${actionCount})`,
           onClick: () => {
-            setActionCount(prev => prev + 1)
+            setActionCount((prev) => prev + 1)
             // Handle scheduling logic
             scheduleMaintenence()
             toast.dismiss(id)
-          }
+          },
         },
         dismiss: {
           content: "Later",
@@ -242,17 +237,13 @@ function AdvancedNotification() {
             // Maybe schedule a reminder
             scheduleReminder()
             toast.dismiss(id)
-          }
-        }
-      })
+          },
+        },
+      }),
     })
   }
 
-  return (
-    <Button onClick={showAdvancedNotification}>
-      Check System Status
-    </Button>
-  )
+  return <Button onClick={showAdvancedNotification}>Check System Status</Button>
 }
 ```
 
@@ -262,24 +253,24 @@ The Toaster component accepts various configuration options:
 
 ```tsx
 <Toaster
-  position="bottom-right"    // Position on screen
+  position="bottom-right" // Position on screen
   toastOptions={{
-    duration: 4000,           // Default duration (ms)
+    duration: 4000, // Default duration (ms)
     style: {
-      background: 'white',    // Custom styling
+      background: "white", // Custom styling
     },
   }}
-  closeButton={true}          // Show close button
-  richColors={true}           // Enable rich colors
-  expand={false}              // Expand notifications
-  visibleToasts={5}           // Max visible toasts
+  closeButton={true} // Show close button
+  richColors={true} // Enable rich colors
+  expand={false} // Expand notifications
+  visibleToasts={5} // Max visible toasts
 />
 ```
 
 ### Position Options
 
 - `top-left`
-- `top-center` 
+- `top-center`
 - `top-right`
 - `bottom-left`
 - `bottom-center`
@@ -293,13 +284,13 @@ The Toaster component accepts various configuration options:
 interface NotificationsProps {
   /** Plain text content */
   text?: string
-  
+
   /** HTML content (alternative to text) */
   html?: string
-  
+
   /** Icon component or emoji */
   icon?: React.ReactNode
-  
+
   /** Action buttons configuration */
   actions?: (id: string | number) => {
     action?: {
@@ -307,11 +298,11 @@ interface NotificationsProps {
       onClick: () => void
     }
     dismiss?: {
-      content: React.ReactNode  
+      content: React.ReactNode
       onClick: () => void
     }
   }
-  
+
   /** Custom CSS class */
   className?: string
 }
@@ -336,11 +327,12 @@ The notifications component uses Tailwind Variants for styling. You can customiz
 // Custom styling via className
 notifications({
   className: "border-2 border-blue-500",
-  text: "Custom styled notification"
+  text: "Custom styled notification",
 })
 ```
 
 The component structure includes these styleable elements:
+
 - Root container
 - Content area (icon + text)
 - Icon wrapper
@@ -351,23 +343,27 @@ The component structure includes these styleable elements:
 ## Best Practices
 
 ### Content Guidelines
+
 - Keep messages concise and actionable
 - Use clear, action-oriented button labels
 - Provide context with appropriate icons
 - Consider reading time for timeout duration
 
 ### UX Considerations
+
 - Don't overload users with too many notifications
 - Use appropriate urgency levels (different variants)
 - Always provide a way to dismiss notifications
 - Consider screen reader users with meaningful text
 
 ### Performance
+
 - Actions are cached using useMemo to prevent re-renders
 - Use cleanup in useEffect for programmatic notifications
 - Avoid creating notifications in rapid succession
 
 ### Accessibility
+
 - Notifications announce to screen readers
 - Keyboard accessible action buttons
 - Proper contrast ratios for all variants
@@ -384,7 +380,7 @@ function FormWithNotifications() {
       await submitForm(data)
       notifications({
         icon: <CheckCircleIcon />,
-        text: "Form submitted successfully!"
+        text: "Form submitted successfully!",
       })
     } catch (error) {
       notifications({
@@ -396,9 +392,9 @@ function FormWithNotifications() {
             onClick: () => {
               handleSubmit(data)
               toast.dismiss(id)
-            }
-          }
-        })
+            },
+          },
+        }),
       })
     }
   }
@@ -412,13 +408,13 @@ function FileUpload() {
   const handleUpload = async (file) => {
     const uploadId = notifications({
       icon: <UploadIcon />,
-      text: `Uploading ${file.name}...`
+      text: `Uploading ${file.name}...`,
     })
 
     try {
       await uploadFile(file)
       toast.dismiss(uploadId)
-      
+
       notifications({
         icon: "✅",
         html: `File <strong>${file.name}</strong> uploaded successfully.`,
@@ -428,13 +424,13 @@ function FileUpload() {
             onClick: () => {
               openFileViewer(file)
               toast.dismiss(id)
-            }
-          }
-        })
+            },
+          },
+        }),
       })
     } catch (error) {
       toast.dismiss(uploadId)
-      
+
       notifications({
         icon: <AlertCircleIcon />,
         text: `Failed to upload ${file.name}`,
@@ -443,14 +439,14 @@ function FileUpload() {
             content: "Retry",
             onClick: () => {
               handleUpload(file)
-              toast.dismiss(id)  
-            }
+              toast.dismiss(id)
+            },
           },
           dismiss: {
             content: "Cancel",
-            onClick: () => toast.dismiss(id)
-          }
-        })
+            onClick: () => toast.dismiss(id),
+          },
+        }),
       })
     }
   }
@@ -462,11 +458,11 @@ function FileUpload() {
 ```tsx
 function LiveNotifications() {
   useEffect(() => {
-    const eventSource = new EventSource('/api/events')
-    
+    const eventSource = new EventSource("/api/events")
+
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data)
-      
+
       notifications({
         icon: <BellIcon />,
         text: data.message,
@@ -476,9 +472,9 @@ function LiveNotifications() {
             onClick: () => {
               navigateToDetails(data.id)
               toast.dismiss(id)
-            }
-          }
-        })
+            },
+          },
+        }),
       })
     }
 

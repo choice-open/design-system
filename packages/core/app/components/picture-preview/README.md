@@ -34,7 +34,7 @@ export function ErrorHandlingExample() {
       src="https://example.com/non-existent-image.jpg"
       fileName="broken-image.jpg"
       defaultText={{
-        error: "Failed to load image. Please check the URL and try again."
+        error: "Failed to load image. Please check the URL and try again.",
       }}
     />
   )
@@ -50,11 +50,11 @@ export function GalleryExample() {
   const images = [
     { src: "https://example.com/image1.jpg", fileName: "image1.jpg" },
     { src: "https://example.com/image2.jpg", fileName: "image2.jpg" },
-    { src: "https://example.com/image3.jpg", fileName: "image3.jpg" }
+    { src: "https://example.com/image3.jpg", fileName: "image3.jpg" },
   ]
-  
+
   return (
-    <div className="grid grid-cols-2 gap-4 h-96">
+    <div className="grid h-96 grid-cols-2 gap-4">
       {images.map((image, index) => (
         <PicturePreview
           key={index}
@@ -69,13 +69,13 @@ export function GalleryExample() {
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `src` | `string` | - | **Required.** The image URL to display |
-| `fileName` | `string` | - | Optional filename for accessibility and display |
-| `onClose` | `function` | - | Callback function when close action is triggered |
-| `className` | `string` | - | Additional CSS classes |
-| `defaultText` | `object` | - | Customizable text labels (see below) |
+| Prop          | Type       | Default | Description                                      |
+| ------------- | ---------- | ------- | ------------------------------------------------ |
+| `src`         | `string`   | -       | **Required.** The image URL to display           |
+| `fileName`    | `string`   | -       | Optional filename for accessibility and display  |
+| `onClose`     | `function` | -       | Callback function when close action is triggered |
+| `className`   | `string`   | -       | Additional CSS classes                           |
+| `defaultText` | `object`   | -       | Customizable text labels (see below)             |
 
 ### Default Text Configuration
 
@@ -92,6 +92,7 @@ defaultText?: {
 ```
 
 Default values:
+
 ```tsx
 {
   zoomIn: "Zoom in",
@@ -107,6 +108,7 @@ Default values:
 ## Features
 
 ### Zoom Controls
+
 - **Mouse wheel**: Zoom in/out at cursor position
 - **Zoom buttons**: Increment/decrement zoom level
 - **Zoom dropdown**: Quick access to common zoom levels (50%, 100%, 200%)
@@ -114,24 +116,26 @@ Default values:
 - **Keyboard shortcuts**: `Cmd/Ctrl + Plus/Minus` for zooming
 
 ### Pan and Navigation
+
 - **Drag to pan**: Click and drag to move the image
 - **Smooth panning**: Performance-optimized pan interactions
 - **Reset view**: Return to original position and zoom
 - **Fit to screen**: Automatically fit image to container
 
 ### Loading States
+
 - **Loading indicator**: Animated spinner while image loads
 - **Error handling**: Clear error message with retry capability
 - **Graceful fallbacks**: Alt text and filename fallbacks
 
 ### Keyboard Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Cmd/Ctrl + Plus` | Zoom in |
-| `Cmd/Ctrl + Minus` | Zoom out |
-| `Cmd/Ctrl + 0` | Reset zoom and position |
-| `Cmd/Ctrl + 1` | Fit to screen |
+| Shortcut           | Action                  |
+| ------------------ | ----------------------- |
+| `Cmd/Ctrl + Plus`  | Zoom in                 |
+| `Cmd/Ctrl + Minus` | Zoom out                |
+| `Cmd/Ctrl + 0`     | Reset zoom and position |
+| `Cmd/Ctrl + 1`     | Fit to screen           |
 
 ## Advanced Examples
 
@@ -143,21 +147,19 @@ import { useState } from "react"
 export function CustomErrorExample() {
   const [imageSrc, setImageSrc] = useState("https://example.com/broken-image.jpg")
   const [hasError, setHasError] = useState(false)
-  
+
   const handleRetry = () => {
     setHasError(false)
     // Reload or fetch alternative image
     setImageSrc(`${imageSrc}?retry=${Date.now()}`)
   }
-  
+
   return (
     <PicturePreview
       src={imageSrc}
       fileName="retryable-image.jpg"
       defaultText={{
-        error: hasError 
-          ? "Image failed to load. Click to retry." 
-          : "Loading image..."
+        error: hasError ? "Image failed to load. Click to retry." : "Loading image...",
       }}
     />
   )
@@ -172,12 +174,12 @@ import { useState } from "react"
 export function FullScreenExample() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string>("")
-  
+
   const openPreview = (imageSrc: string) => {
     setSelectedImage(imageSrc)
     setIsOpen(true)
   }
-  
+
   return (
     <>
       {/* Thumbnail grid */}
@@ -191,11 +193,11 @@ export function FullScreenExample() {
           />
         ))}
       </div>
-      
+
       {/* Full-screen modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
-          <div className="w-full h-full max-w-6xl max-h-4xl m-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="max-h-4xl m-4 h-full w-full max-w-6xl">
             <PicturePreview
               src={selectedImage}
               fileName="full-screen-preview.jpg"
@@ -217,37 +219,37 @@ import { useState, useRef } from "react"
 export function ControlledZoomExample() {
   const [currentZoom, setCurrentZoom] = useState(1)
   const previewRef = useRef<HTMLDivElement>(null)
-  
+
   const handleZoomChange = (newZoom: number) => {
     setCurrentZoom(newZoom)
     // Additional logic when zoom changes
     console.log(`Zoom changed to: ${Math.round(newZoom * 100)}%`)
   }
-  
+
   return (
     <div>
       <div className="mb-4 flex items-center gap-2">
         <span>Current Zoom: {Math.round(currentZoom * 100)}%</span>
-        <button 
+        <button
           onClick={() => handleZoomChange(0.5)}
-          className="px-2 py-1 bg-blue-500 text-white rounded"
+          className="rounded bg-blue-500 px-2 py-1 text-white"
         >
           50%
         </button>
-        <button 
+        <button
           onClick={() => handleZoomChange(1)}
-          className="px-2 py-1 bg-blue-500 text-white rounded"
+          className="rounded bg-blue-500 px-2 py-1 text-white"
         >
           100%
         </button>
-        <button 
+        <button
           onClick={() => handleZoomChange(2)}
-          className="px-2 py-1 bg-blue-500 text-white rounded"
+          className="rounded bg-blue-500 px-2 py-1 text-white"
         >
           200%
         </button>
       </div>
-      
+
       <PicturePreview
         ref={previewRef}
         src="https://example.com/detailed-image.jpg"
@@ -265,41 +267,46 @@ import { useState, useCallback, useMemo } from "react"
 
 export function OptimizedGalleryExample() {
   const [selectedIndex, setSelectedIndex] = useState(0)
-  
-  const images = useMemo(() => [
-    { src: "https://example.com/image1.jpg", fileName: "image1.jpg" },
-    { src: "https://example.com/image2.jpg", fileName: "image2.jpg" },
-    { src: "https://example.com/image3.jpg", fileName: "image3.jpg" }
-  ], [])
-  
+
+  const images = useMemo(
+    () => [
+      { src: "https://example.com/image1.jpg", fileName: "image1.jpg" },
+      { src: "https://example.com/image2.jpg", fileName: "image2.jpg" },
+      { src: "https://example.com/image3.jpg", fileName: "image3.jpg" },
+    ],
+    [],
+  )
+
   const handlePrevious = useCallback(() => {
-    setSelectedIndex(prev => prev > 0 ? prev - 1 : images.length - 1)
+    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))
   }, [images.length])
-  
+
   const handleNext = useCallback(() => {
-    setSelectedIndex(prev => prev < images.length - 1 ? prev + 1 : 0)
+    setSelectedIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))
   }, [images.length])
-  
+
   const currentImage = images[selectedIndex]
-  
+
   return (
-    <div className="flex flex-col h-96">
-      <div className="flex items-center justify-between mb-2">
-        <button 
+    <div className="flex h-96 flex-col">
+      <div className="mb-2 flex items-center justify-between">
+        <button
           onClick={handlePrevious}
-          className="px-3 py-1 bg-gray-200 rounded"
+          className="rounded bg-gray-200 px-3 py-1"
         >
           Previous
         </button>
-        <span>{selectedIndex + 1} of {images.length}</span>
-        <button 
+        <span>
+          {selectedIndex + 1} of {images.length}
+        </span>
+        <button
           onClick={handleNext}
-          className="px-3 py-1 bg-gray-200 rounded"
+          className="rounded bg-gray-200 px-3 py-1"
         >
           Next
         </button>
       </div>
-      
+
       <div className="flex-1">
         <PicturePreview
           key={selectedIndex} // Force re-render for new images
@@ -315,17 +322,20 @@ export function OptimizedGalleryExample() {
 ## Accessibility
 
 ### Keyboard Navigation
+
 - All zoom and pan actions are available via keyboard shortcuts
 - Focus management for interactive controls
 - Proper tab order through zoom controls
 
 ### Screen Reader Support
+
 - Descriptive alt text based on filename
 - Loading state announcements
 - Error state communication
 - Zoom level announcements
 
 ### Visual Accessibility
+
 - High contrast loading and error indicators
 - Clear visual feedback for all interactive states
 - Sufficient color contrast for all text elements
@@ -333,12 +343,14 @@ export function OptimizedGalleryExample() {
 ## Performance Considerations
 
 ### Optimization Features
+
 - **Hardware acceleration**: Uses `transform3d` and `will-change` for smooth animations
 - **RAF scheduling**: Optimized animation frame usage for zoom updates
 - **Event throttling**: Efficient handling of wheel and drag events
 - **Memory management**: Proper cleanup of event listeners and animation frames
 
 ### Best Practices
+
 1. **Container sizing**: Always provide explicit container dimensions
 2. **Image optimization**: Use appropriately sized images for your use case
 3. **Lazy loading**: Consider implementing lazy loading for image galleries
@@ -347,6 +359,7 @@ export function OptimizedGalleryExample() {
 ## Styling and Theming
 
 The component uses Tailwind Variants for styling and supports:
+
 - Dark/light theme compatibility
 - Custom styling through className props
 - CSS variables for consistent theming

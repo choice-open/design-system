@@ -12,7 +12,7 @@ import { Dialog } from "@choiceform/design-system"
 
 - Compound component pattern for flexible dialog composition
 - Draggable and resizable dialog windows
-- Multiple positioning modes (center, corners, custom coordinates)  
+- Multiple positioning modes (center, corners, custom coordinates)
 - Focus management with proper accessibility support
 - Keyboard navigation (ESC to close, tab trapping)
 - Outside click and backdrop interaction controls
@@ -29,13 +29,13 @@ import { Dialog } from "@choiceform/design-system"
   <Dialog.Trigger>
     <button>Open Dialog</button>
   </Dialog.Trigger>
-  
+
   <Dialog.Header title="Dialog Title" />
-  
+
   <Dialog.Content>
     <p>This is the dialog content.</p>
   </Dialog.Content>
-  
+
   <Dialog.Footer>
     <button>Cancel</button>
     <button>Save</button>
@@ -58,7 +58,10 @@ const [isOpen, setIsOpen] = useState(false)
 ### Draggable Dialog
 
 ```tsx
-<Dialog draggable rememberPosition>
+<Dialog
+  draggable
+  rememberPosition
+>
   <Dialog.Header title="Draggable Dialog" />
   <Dialog.Content>
     <p>Drag the header to move this dialog</p>
@@ -69,7 +72,7 @@ const [isOpen, setIsOpen] = useState(false)
 ### Resizable Dialog
 
 ```tsx
-<Dialog 
+<Dialog
   resizable={{ width: true, height: true }}
   defaultWidth={600}
   defaultHeight={400}
@@ -85,7 +88,7 @@ const [isOpen, setIsOpen] = useState(false)
 ### Positioned Dialog
 
 ```tsx
-<Dialog 
+<Dialog
   initialPosition="right-top"
   positionPadding={16}
 >
@@ -103,9 +106,9 @@ const [isOpen, setIsOpen] = useState(false)
   <Dialog.Trigger>
     <button>Open Dialog</button>
   </Dialog.Trigger>
-  
+
   <Dialog.Backdrop />
-  
+
   <Dialog.Header title="Dialog with Backdrop" />
   <Dialog.Content>
     <p>Click outside to close</p>
@@ -119,78 +122,84 @@ const [isOpen, setIsOpen] = useState(false)
 interface DialogProps {
   /** Callback after open state changes */
   afterOpenChange?: (isOpen: boolean) => void
-  
+
   /** Dialog content and components */
   children?: React.ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Whether ESC key closes the dialog */
   closeOnEscape?: boolean
-  
+
   /** Default height for resizable dialogs */
   defaultHeight?: number
-  
+
   /** Default width for resizable dialogs */
   defaultWidth?: number
-  
+
   /** Whether the dialog can be dragged by its header */
   draggable?: boolean
-  
+
   /** Focus manager configuration */
   focusManagerProps?: Partial<FloatingFocusManagerProps>
-  
+
   /** Initial position when dialog opens */
   initialPosition?: DialogPosition
-  
+
   /** Maximum height constraint */
   maxHeight?: number
-  
+
   /** Maximum width constraint */
   maxWidth?: number
-  
+
   /** Minimum height constraint */
   minHeight?: number
-  
+
   /** Minimum width constraint */
   minWidth?: number
-  
+
   /** Controlled open state change handler */
   onOpenChange?: (open: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Whether clicking outside closes the dialog */
   outsidePress?: boolean
-  
+
   /** Whether to show overlay/backdrop */
   overlay?: boolean
-  
+
   /** Padding from viewport edges for positioning */
   positionPadding?: number
-  
+
   /** Remember position between sessions */
   rememberPosition?: boolean
-  
+
   /** Remember size between sessions */
   rememberSize?: boolean
-  
+
   /** Resize configuration */
   resizable?: {
     height?: boolean
     width?: boolean
   }
-  
+
   /** Transition animation configuration */
   transitionStylesProps?: UseTransitionStylesProps
 }
 
-type DialogPosition = 
-  | "left-top" | "center-top" | "right-top"
-  | "left-center" | "center" | "right-center"  
-  | "left-bottom" | "center-bottom" | "right-bottom"
+type DialogPosition =
+  | "left-top"
+  | "center-top"
+  | "right-top"
+  | "left-center"
+  | "center"
+  | "right-center"
+  | "left-bottom"
+  | "center-bottom"
+  | "right-bottom"
 ```
 
 - Defaults:
@@ -218,18 +227,23 @@ type DialogPosition =
 ## Compound Components
 
 ### Dialog.Trigger
+
 Renders trigger element that opens the dialog when clicked.
 
-### Dialog.Header  
+### Dialog.Header
+
 Renders dialog header with optional title and close button. Acts as drag handle when `draggable` is enabled.
 
 ### Dialog.Content
+
 Main content area of the dialog with proper scrolling and styling.
 
 ### Dialog.Footer
+
 Optional footer section for action buttons.
 
 ### Dialog.Backdrop
+
 Optional backdrop/overlay element for visual separation and click-outside handling.
 
 ## Styling
@@ -256,8 +270,8 @@ Optional backdrop/overlay element for visual separation and click-outside handli
 ### Settings Dialog
 
 ```tsx
-<Dialog 
-  draggable 
+<Dialog
+  draggable
   resizable={{ width: true, height: true }}
   defaultWidth={800}
   defaultHeight={600}
@@ -267,9 +281,9 @@ Optional backdrop/overlay element for visual separation and click-outside handli
   <Dialog.Trigger>
     <button>Settings</button>
   </Dialog.Trigger>
-  
+
   <Dialog.Header title="Application Settings" />
-  
+
   <Dialog.Content>
     <div className="space-y-6">
       <SettingsSection title="General">
@@ -277,7 +291,7 @@ Optional backdrop/overlay element for visual separation and click-outside handli
       </SettingsSection>
     </div>
   </Dialog.Content>
-  
+
   <Dialog.Footer>
     <button>Cancel</button>
     <button>Apply</button>
@@ -288,15 +302,18 @@ Optional backdrop/overlay element for visual separation and click-outside handli
 ### Confirmation Dialog
 
 ```tsx
-<Dialog initialPosition="center" overlay>
+<Dialog
+  initialPosition="center"
+  overlay
+>
   <Dialog.Backdrop />
-  
+
   <Dialog.Header title="Confirm Action" />
-  
+
   <Dialog.Content>
     <p>Are you sure you want to delete this item?</p>
   </Dialog.Content>
-  
+
   <Dialog.Footer>
     <button variant="secondary">Cancel</button>
     <button variant="destructive">Delete</button>

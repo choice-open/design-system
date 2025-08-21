@@ -191,15 +191,9 @@ function SchemaValidatedForm() {
       .min(2, "Name must be at least 2 characters")
       .refine((value) => value.length > 0, "Name is required"),
     email: z.string().email("Please enter a valid email address"),
-    age: z
-      .number()
-      .min(18, "Must be at least 18 years old")
-      .max(100, "Age must be less than 100"),
+    age: z.number().min(18, "Must be at least 18 years old").max(100, "Age must be less than 100"),
     website: z.string().url("Please enter a valid website").optional().or(z.literal("")),
-    bio: z
-      .string()
-      .max(200, "Bio must be less than 200 characters")
-      .optional(),
+    bio: z.string().max(200, "Bio must be less than 200 characters").optional(),
   })
 
   // Helper function to format error messages
@@ -229,9 +223,9 @@ function SchemaValidatedForm() {
         // Validate with Zod before submitting
         const validatedData = userSchema.parse(value)
         console.log("Validated data:", validatedData)
-        
+
         // Submit to API
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        await new Promise((resolve) => setTimeout(resolve, 1000))
         console.log("Form submitted successfully!")
       } catch (error) {
         console.error("Validation failed:", error)
@@ -379,8 +373,7 @@ function FormWithDescriptions() {
             onBlur={field.handleBlur}
             description={
               <>
-                Email is required{" "}
-                <LinkButton>Learn more</LinkButton>
+                Email is required <LinkButton>Learn more</LinkButton>
               </>
             }
             placeholder="Enter email"
@@ -583,7 +576,7 @@ Support for both manual validators and Zod schema validation:
 // Manual field validation
 interface FieldValidators<T> {
   onChange?: (props: { value: T }) => string | undefined
-  onBlur?: (props: { value: T }) => string | undefined  
+  onBlur?: (props: { value: T }) => string | undefined
   onSubmit?: (props: { value: T }) => string | undefined
 }
 
@@ -610,8 +603,8 @@ const schema = z.object({
 
 const form = useForm({
   validators: {
-    onChange: schema,  // Validate on every change
-    onBlur: schema,    // Validate when field loses focus
+    onChange: schema, // Validate on every change
+    onBlur: schema, // Validate when field loses focus
   },
 })
 ```
@@ -640,7 +633,7 @@ error={formatErrors(field.state.meta.errors).join(", ")}
 The form object includes these pre-built adapter components:
 
 - **form.Input** - Text input adapter (`InputAdapter`)
-- **form.Select** - Select dropdown adapter (`SelectAdapter`)  
+- **form.Select** - Select dropdown adapter (`SelectAdapter`)
 - **form.Textarea** - Multi-line text adapter (`TextareaAdapter`)
 - **form.Checkbox** - Checkbox adapter (`CheckboxAdapter`)
 - **form.RadioGroup** - Radio button group adapter (`RadioGroupAdapter`)
@@ -658,7 +651,10 @@ The form object includes these pre-built adapter components:
 All form fields follow this pattern:
 
 ```tsx
-<form.Field name="fieldName" validators={validationRules}>
+<form.Field
+  name="fieldName"
+  validators={validationRules}
+>
   {(field) => (
     <form.ComponentType
       name={field.name}
@@ -721,32 +717,37 @@ All form fields follow this pattern:
 ## Best Practices
 
 ### Form Handling
+
 - Always use `preventDefault()` and `stopPropagation()` in form submit handlers
 - Handle form submission asynchronously with proper loading states
 - Use `form.state.canSubmit` to control submit button state
 - Access form state through `form.state.values` for cross-field validation
 
 ### Validation Strategy
+
 - **Use Zod schemas** for complex validation rules and type safety
 - **Field-level validation**: Use for simple validation rules and immediate feedback
 - **Form-level validation**: Use Zod schemas in the form's `validators` option for comprehensive validation
-- **Validation timing**: 
+- **Validation timing**:
   - `onChange`: For immediate feedback (can be expensive with complex schemas)
   - `onBlur`: For validation when field loses focus (recommended for most cases)
   - `onSubmit`: For final validation before submission
 
 ### Error Handling
+
 - Create a `formatErrors` helper function when using Zod schemas
 - Join multiple errors with meaningful separators
 - Provide clear, actionable error messages
 - Use field descriptions for additional context and character counts
 
 ### TypeScript Integration
+
 - Define TypeScript interfaces that match your Zod schemas
 - Use `z.infer<typeof schema>` to extract types from Zod schemas
 - Ensure form default values match the schema shape
 
 ### Performance
+
 - Consider validation timing to balance UX and performance
 - Use `onBlur` validation for complex schemas to reduce computation
 - Memoize expensive validation functions
@@ -763,24 +764,28 @@ All form fields follow this pattern:
 ## Notes
 
 ### TanStack React Form Integration
+
 - Built on **@tanstack/react-form** v0.x for robust state management
 - All TanStack Form features and APIs are available through the enhanced form object
 - Access the full TanStack React Form API via `TanstackReactForm` export
 - Compatible with TanStack Form ecosystem and patterns
 
 ### Component Integration
+
 - Adapters automatically handle the integration between form state and design system components
 - All design system component features (variants, sizes, etc.) work seamlessly with form adapters
 - Error display is handled automatically by the adapter components
 - Form styling follows the design system's visual patterns
 
 ### Validation System
+
 - Supports both manual field validation and Zod schema validation
 - Form validation runs at appropriate lifecycle events (onChange, onBlur, onSubmit)
 - Zod integration provides type safety and complex validation rules
 - Error formatting utilities help handle different error types
 
 ### Performance Considerations
+
 - Optimized re-rendering ensures good performance with complex forms
 - Field-level validation reduces unnecessary computations
 - TanStack Form's efficient state management minimizes re-renders

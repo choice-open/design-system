@@ -5,6 +5,7 @@ A versatile component that renders as either a semantic HTML link (`<a>`) or but
 ## Overview
 
 The LinkButton component automatically determines its rendered element type based on props:
+
 - **With `href`**: Renders as an `<a>` element with automatic security enhancements for external links
 - **Without `href`**: Renders as a `<button>` element with standard button behavior
 
@@ -16,11 +17,7 @@ The LinkButton component automatically determines its rendered element type base
 import { LinkButton } from "~/components/link-button"
 
 export function ButtonExample() {
-  return (
-    <LinkButton onClick={() => alert("Button clicked!")}>
-      Click me
-    </LinkButton>
-  )
+  return <LinkButton onClick={() => alert("Button clicked!")}>Click me</LinkButton>
 }
 ```
 
@@ -30,11 +27,7 @@ export function ButtonExample() {
 import { LinkButton } from "~/components/link-button"
 
 export function InternalLinkExample() {
-  return (
-    <LinkButton href="/dashboard">
-      Go to Dashboard
-    </LinkButton>
-  )
+  return <LinkButton href="/dashboard">Go to Dashboard</LinkButton>
 }
 ```
 
@@ -44,47 +37,52 @@ export function InternalLinkExample() {
 import { LinkButton } from "~/components/link-button"
 
 export function ExternalLinkExample() {
-  return (
-    <LinkButton href="https://github.com">
-      Visit GitHub
-    </LinkButton>
-  )
+  return <LinkButton href="https://github.com">Visit GitHub</LinkButton>
 }
 ```
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | The content to display inside the link/button |
-| `href` | `string` | - | URL for link navigation. When present, renders as `<a>` element |
-| `variant` | `"default" \| "subtle"` | `"default"` | Visual style variant |
-| `disabled` | `boolean` | `false` | Whether the component is disabled |
-| `className` | `string` | - | Additional CSS classes |
-| `onClick` | `function` | - | Click handler (button mode only) |
-| `target` | `string` | - | Link target (auto-set to `_blank` for external links) |
-| `rel` | `string` | - | Link relationship (auto-enhanced for external links) |
+| Prop        | Type                    | Default     | Description                                                     |
+| ----------- | ----------------------- | ----------- | --------------------------------------------------------------- |
+| `children`  | `ReactNode`             | -           | The content to display inside the link/button                   |
+| `href`      | `string`                | -           | URL for link navigation. When present, renders as `<a>` element |
+| `variant`   | `"default" \| "subtle"` | `"default"` | Visual style variant                                            |
+| `disabled`  | `boolean`               | `false`     | Whether the component is disabled                               |
+| `className` | `string`                | -           | Additional CSS classes                                          |
+| `onClick`   | `function`              | -           | Click handler (button mode only)                                |
+| `target`    | `string`                | -           | Link target (auto-set to `_blank` for external links)           |
+| `rel`       | `string`                | -           | Link relationship (auto-enhanced for external links)            |
 
 ### Additional Props
+
 - **Button mode**: Accepts all standard `ButtonHTMLAttributes`
 - **Link mode**: Accepts all standard `AnchorHTMLAttributes`
 
 ## Variants
 
 ### Default
+
 Standard accent color styling with hover underline effect.
 
 ```tsx
-<LinkButton href="/example" variant="default">
+<LinkButton
+  href="/example"
+  variant="default"
+>
   Default Style
 </LinkButton>
 ```
 
 ### Subtle
+
 Muted styling with underline and hover color change.
 
 ```tsx
-<LinkButton href="/example" variant="subtle">
+<LinkButton
+  href="/example"
+  variant="subtle"
+>
   Subtle Style
 </LinkButton>
 ```
@@ -94,6 +92,7 @@ Muted styling with underline and hover color change.
 The LinkButton component automatically enhances security for external links:
 
 ### Automatic Security Attributes
+
 - **External links**: Automatically receive `target="_blank"` and `rel="noopener noreferrer"`
 - **Protocol-relative links**: Links starting with `//` also get security attributes
 - **Internal links**: No additional attributes added
@@ -113,11 +112,13 @@ The LinkButton component automatically enhances security for external links:
 ## Accessibility Features
 
 ### Keyboard Navigation
+
 - Both links and buttons are focusable via keyboard
 - Proper focus ring styling with `focus-visible`
 - Focus order follows DOM structure
 
 ### Disabled State Handling
+
 ```tsx
 // Disabled link - removes href and prevents focus
 <LinkButton disabled href="/example">Disabled Link</LinkButton>
@@ -127,6 +128,7 @@ The LinkButton component automatically enhances security for external links:
 ```
 
 ### ARIA Attributes
+
 - Disabled state communicated via `aria-disabled`
 - Proper semantic roles maintained (`<a>` vs `<button>`)
 - Focus management for disabled states
@@ -142,13 +144,26 @@ import { LinkButton } from "~/components/link-button"
 export function IconExample() {
   return (
     <div className="flex flex-col gap-3">
-      <LinkButton href="/home" className="gap-1">
-        <Settings width={16} height={16} />
+      <LinkButton
+        href="/home"
+        className="gap-1"
+      >
+        <Settings
+          width={16}
+          height={16}
+        />
         Home
       </LinkButton>
-      
-      <LinkButton href="/settings" variant="subtle" className="gap-1">
-        <Settings width={16} height={16} />
+
+      <LinkButton
+        href="/settings"
+        variant="subtle"
+        className="gap-1"
+      >
+        <Settings
+          width={16}
+          height={16}
+        />
         Settings
       </LinkButton>
     </div>
@@ -162,13 +177,22 @@ export function IconExample() {
 export function NavigationExample() {
   return (
     <nav className="flex gap-4">
-      <LinkButton href="/dashboard" variant="default">
+      <LinkButton
+        href="/dashboard"
+        variant="default"
+      >
         Dashboard
       </LinkButton>
-      <LinkButton href="/projects" variant="subtle">
+      <LinkButton
+        href="/projects"
+        variant="subtle"
+      >
         Projects
       </LinkButton>
-      <LinkButton href="/settings" variant="subtle">
+      <LinkButton
+        href="/settings"
+        variant="subtle"
+      >
         Settings
       </LinkButton>
     </nav>
@@ -182,10 +206,16 @@ export function NavigationExample() {
 export function DisabledExample() {
   return (
     <div className="flex gap-4">
-      <LinkButton disabled href="/example">
+      <LinkButton
+        disabled
+        href="/example"
+      >
         Disabled Link
       </LinkButton>
-      <LinkButton disabled onClick={() => alert("Won't fire")}>
+      <LinkButton
+        disabled
+        onClick={() => alert("Won't fire")}
+      >
         Disabled Button
       </LinkButton>
     </div>
@@ -196,18 +226,21 @@ export function DisabledExample() {
 ## Best Practices
 
 ### When to Use
+
 - **Navigation**: Use with `href` for page navigation
 - **Actions**: Use without `href` for triggering JavaScript functions
 - **External resources**: Automatic security for external links
 - **Consistent styling**: When you need button-like styling for both links and buttons
 
 ### Styling Guidelines
+
 - **Default variant**: Use for primary navigation or important actions
 - **Subtle variant**: Use for secondary actions or footer links
 - **Icons**: Include relevant icons to improve visual hierarchy
 - **Spacing**: Use consistent gap classes when combining with icons
 
 ### Accessibility Considerations
+
 1. Always provide descriptive text content
 2. Use semantic HTML advantages (crawlable links vs action buttons)
 3. Test keyboard navigation flow
@@ -215,6 +248,7 @@ export function DisabledExample() {
 5. Consider screen reader announcements for external links
 
 ### Performance
+
 - Lightweight component with minimal JavaScript
 - Efficient conditional rendering
 - No unnecessary re-renders

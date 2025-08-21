@@ -21,7 +21,7 @@ export function BasicExample() {
           <Settings />
         </IconButton>
       </Panel.Title>
-      
+
       <Panel.Row type="single">
         <Panel.Label>Input Label</Panel.Label>
         <Input placeholder="Enter value..." />
@@ -38,18 +38,18 @@ import { Panel } from "~/components/panel"
 
 export function LabelToggleExample() {
   const [showLabels, setShowLabels] = useState(false)
-  
+
   return (
     <Panel showLabels={showLabels}>
       <Panel.Title title="Properties">
-        <Switch 
+        <Switch
           size="small"
           label="Show labels"
           value={showLabels}
           onChange={setShowLabels}
         />
       </Panel.Title>
-      
+
       <Panel.Row type="single">
         <Panel.Label>Name</Panel.Label>
         <Input placeholder="Component name" />
@@ -63,14 +63,14 @@ export function LabelToggleExample() {
 
 ### Panel Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | **Required.** Panel content |
-| `showLabels` | `boolean` | `true` | Whether to show row labels |
-| `collapsible` | `boolean` | `false` | Whether the panel can be collapsed |
-| `isCollapsed` | `boolean` | - | Controlled collapse state |
-| `onCollapsedChange` | `function` | - | Callback when collapse state changes |
-| `className` | `string` | - | Additional CSS classes |
+| Prop                | Type        | Default | Description                          |
+| ------------------- | ----------- | ------- | ------------------------------------ |
+| `children`          | `ReactNode` | -       | **Required.** Panel content          |
+| `showLabels`        | `boolean`   | `true`  | Whether to show row labels           |
+| `collapsible`       | `boolean`   | `false` | Whether the panel can be collapsed   |
+| `isCollapsed`       | `boolean`   | -       | Controlled collapse state            |
+| `onCollapsedChange` | `function`  | -       | Callback when collapse state changes |
+| `className`         | `string`    | -       | Additional CSS classes               |
 
 ## Sub-components
 
@@ -79,7 +79,7 @@ export function LabelToggleExample() {
 Panel header with title and optional action buttons.
 
 ```tsx
-<Panel.Title 
+<Panel.Title
   title="Panel Title"
   onClick={function}          // Optional click handler
   classNames={{
@@ -100,9 +100,9 @@ Panel header with title and optional action buttons.
 Flexible row layout system with predefined grid patterns.
 
 ```tsx
-<Panel.Row 
-  type="single" | "two-columns" | "one-input-one-icon" | 
-       "one-input-two-icon" | "two-input-one-icon" | 
+<Panel.Row
+  type="single" | "two-columns" | "one-input-one-icon" |
+       "one-input-two-icon" | "two-input-one-icon" |
        "two-input-two-icon" | "one-icon-one-input-two-icon" |
        "two-input-one-icon-double-row" | "one-label-one-input" |
        "one-icon-one-input"
@@ -116,9 +116,7 @@ Flexible row layout system with predefined grid patterns.
 Label component for form fields.
 
 ```tsx
-<Panel.Label className="[grid-area:label]">
-  Field Label
-</Panel.Label>
+<Panel.Label className="[grid-area:label]">Field Label</Panel.Label>
 ```
 
 ### Panel.Sortable
@@ -171,6 +169,7 @@ Specialized row for multiple icons that show/hide based on editing state.
 ## Row Layout Types
 
 ### Single (`type="single"`)
+
 ```css
 grid-template-areas: "label" "input";
 grid-template-columns: 1fr;
@@ -185,6 +184,7 @@ grid-template-rows: auto minmax(2rem, auto);
 ```
 
 ### Two Columns (`type="two-columns"`)
+
 ```css
 grid-template-areas: "label-1 label-2" "input-1 input-2";
 grid-template-columns: 1fr 1fr;
@@ -201,6 +201,7 @@ grid-template-rows: auto minmax(2rem, auto);
 ```
 
 ### One Input One Icon (`type="one-input-one-icon"`)
+
 ```css
 grid-template-areas: "label label" "input icon";
 grid-template-columns: 1fr 1.5rem;
@@ -218,6 +219,7 @@ grid-template-rows: auto minmax(2rem, auto);
 ```
 
 ### One Input Two Icon (`type="one-input-two-icon"`)
+
 ```css
 grid-template-areas: "input . icon-1 . icon-2";
 grid-template-columns: 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
@@ -225,6 +227,7 @@ grid-template-rows: 2rem;
 ```
 
 ### Two Input One Icon (`type="two-input-one-icon"`)
+
 ```css
 grid-template-areas: "label-1 label-2 label-2" "input-1 input-2 icon";
 grid-template-columns: 1fr 1fr 1.5rem;
@@ -232,31 +235,38 @@ grid-template-rows: auto 2rem;
 ```
 
 ### Two Input Two Icon (`type="two-input-two-icon"`)
+
 ```css
-grid-template-areas: "label-1 label-1 label-2 label-2 . . ." 
-                     "input-1 . input-2 . icon-1 . icon-2";
+grid-template-areas:
+  "label-1 label-1 label-2 label-2 . . ."
+  "input-1 . input-2 . icon-1 . icon-2";
 grid-template-columns: minmax(76px, 1fr) 0.5rem 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
 grid-template-rows: auto minmax(2rem, auto);
 ```
 
 ### One Icon One Input Two Icon (`type="one-icon-one-input-two-icon"`)
+
 ```css
-grid-template-areas: "label label label label label label label" 
-                     "icon-1 . input . icon-2 . icon-3";
+grid-template-areas:
+  "label label label label label label label"
+  "icon-1 . input . icon-2 . icon-3";
 grid-template-columns: 1.5rem 0.5rem 1fr 0.5rem 1.5rem 0.25rem 1.5rem;
 grid-template-rows: auto minmax(2rem, auto);
 ```
 
 ### Two Input One Icon Double Row (`type="two-input-one-icon-double-row"`)
+
 ```css
-grid-template-areas: "label-1 label-2 ." 
-                     "input-1 input-3 icon-1" 
-                     "input-2 input-3 icon-2";
+grid-template-areas:
+  "label-1 label-2 ."
+  "input-1 input-3 icon-1"
+  "input-2 input-3 icon-2";
 grid-template-columns: 1fr 1fr 1.5rem;
 grid-template-rows: auto 2rem 2rem;
 ```
 
 ### One Label One Input (`type="one-label-one-input"`)
+
 ```css
 grid-template-areas: "label input";
 grid-template-columns: 8fr 20fr;
@@ -264,6 +274,7 @@ grid-template-rows: 2rem;
 ```
 
 ### One Icon One Input (`type="one-icon-one-input"`)
+
 ```css
 grid-template-areas: "label label" "icon input";
 grid-template-columns: 1.5rem 1fr;
@@ -279,10 +290,10 @@ import { useState } from "react"
 
 export function CollapsibleExample() {
   const [collapsed, setCollapsed] = useState(false)
-  
+
   return (
-    <Panel 
-      collapsible 
+    <Panel
+      collapsible
       isCollapsed={collapsed}
       onCollapsedChange={setCollapsed}
     >
@@ -291,7 +302,7 @@ export function CollapsibleExample() {
           <Settings />
         </IconButton>
       </Panel.Title>
-      
+
       {!collapsed && (
         <Panel.Row type="single">
           <Panel.Label>Content</Panel.Label>
@@ -312,25 +323,25 @@ import { nanoid } from "nanoid"
 export function SortableExample() {
   const [items, setItems] = useState([
     { id: nanoid(), indexKey: "a0", value: "Item 1" },
-    { id: nanoid(), indexKey: "a1", value: "Item 2" }
+    { id: nanoid(), indexKey: "a1", value: "Item 2" },
   ])
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  
+
   const handleDrop = (position, id, newIndex) => {
     // Handle reordering logic
     const newItems = reorderItems(items, id, newIndex, position)
     setItems(newItems)
   }
-  
+
   const SortableRowContent = () => {
     const item = useSortableRowItem()
-    
+
     return (
-      <Panel.SortableRow 
+      <Panel.SortableRow
         type="one-input-one-icon"
         onClick={() => setSelectedId(item.id)}
       >
-        <Input 
+        <Input
           value={item.value}
           className="[grid-area:input]"
         />
@@ -340,11 +351,11 @@ export function SortableExample() {
       </Panel.SortableRow>
     )
   }
-  
+
   return (
     <Panel>
       <Panel.Title title="Sortable Items" />
-      
+
       <Panel.Sortable
         data={items}
         selectedId={selectedId}
@@ -363,11 +374,11 @@ export function SortableExample() {
 ```tsx
 export function ManyIconExample() {
   const [isEditing, setIsEditing] = useState(false)
-  
+
   return (
     <Panel>
       <Panel.Title title="Multiple Icons" />
-      
+
       <Panel.RowManyIcon
         isEditing={isEditing}
         icons={[
@@ -377,7 +388,7 @@ export function ManyIconExample() {
               <IconButton tooltip={{ content: "Toggle visibility" }}>
                 <Visible />
               </IconButton>
-            )
+            ),
           },
           {
             id: "delete",
@@ -385,7 +396,7 @@ export function ManyIconExample() {
               <IconButton tooltip={{ content: "Delete" }}>
                 <Delete />
               </IconButton>
-            )
+            ),
           },
           {
             id: "info",
@@ -394,8 +405,8 @@ export function ManyIconExample() {
                 <InfoCircle />
               </div>
             ),
-            alwaysShow: true
-          }
+            alwaysShow: true,
+          },
         ]}
       >
         <EditableField
@@ -415,7 +426,7 @@ export function ManyIconExample() {
 ```tsx
 export function PropertyPanelExample() {
   const [showLabels, setShowLabels] = useState(true)
-  
+
   return (
     <Panel showLabels={showLabels}>
       <Panel.Title title="Properties">
@@ -429,25 +440,25 @@ export function PropertyPanelExample() {
           <Reset />
         </IconButton>
       </Panel.Title>
-      
+
       <Panel.Row type="single">
         <Panel.Label>Name</Panel.Label>
         <Input placeholder="Component name" />
       </Panel.Row>
-      
+
       <Panel.Row type="two-columns">
         <Panel.Label className="[grid-area:label-1]">Width</Panel.Label>
         <Panel.Label className="[grid-area:label-2]">Height</Panel.Label>
-        <NumericInput 
+        <NumericInput
           className="[grid-area:input-1]"
           suffix="px"
         />
-        <NumericInput 
-          className="[grid-area:input-2]" 
+        <NumericInput
+          className="[grid-area:input-2]"
           suffix="px"
         />
       </Panel.Row>
-      
+
       <Panel.Row type="one-input-two-icon">
         <Panel.Label>Color</Panel.Label>
         <ColorInput className="[grid-area:input]" />
@@ -474,11 +485,9 @@ export function SettingsPanelExample() {
           <MoreHorizontal />
         </IconButton>
       </Panel.Title>
-      
+
       <Panel.Row type="one-label-one-input">
-        <div className="[grid-area:label] text-secondary-foreground">
-          Theme
-        </div>
+        <div className="text-secondary-foreground [grid-area:label]">Theme</div>
         <Select className="[grid-area:input]">
           <Select.Trigger>
             <span>Dark</span>
@@ -490,7 +499,7 @@ export function SettingsPanelExample() {
           </Select.Content>
         </Select>
       </Panel.Row>
-      
+
       <Panel.Row type="single">
         <Checkbox>
           <Checkbox.Label>Enable notifications</Checkbox.Label>
@@ -504,17 +513,20 @@ export function SettingsPanelExample() {
 ## Accessibility
 
 ### Keyboard Navigation
+
 - **Tab/Shift+Tab**: Navigate between interactive elements
 - **Enter/Space**: Activate buttons and controls
 - **Arrow keys**: Navigate within grouped controls
 - **Escape**: Close dropdowns or cancel editing
 
 ### Focus Management
+
 - Logical focus order follows visual layout
 - Focus indicators for all interactive elements
 - Proper focus trapping in modals and dropdowns
 
 ### Screen Reader Support
+
 - Semantic structure with proper roles and labels
 - Form field associations with labels
 - Status announcements for dynamic changes
@@ -522,24 +534,28 @@ export function SettingsPanelExample() {
 ## Best Practices
 
 ### Layout Design
+
 1. Choose appropriate row types for content relationships
 2. Use consistent spacing and alignment
 3. Group related fields logically
 4. Maintain visual hierarchy with proper labeling
 
 ### Interaction Patterns
+
 1. Provide clear visual feedback for all actions
 2. Use tooltips for icon-only buttons
 3. Handle loading and error states gracefully
 4. Implement proper keyboard navigation
 
 ### Performance
+
 1. Use controlled components efficiently
 2. Minimize unnecessary re-renders
 3. Implement virtualization for long lists
 4. Optimize sortable interactions
 
 ### Responsive Design
+
 1. Test layouts at different screen sizes
 2. Consider mobile interaction patterns
 3. Ensure touch targets are appropriately sized

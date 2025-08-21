@@ -24,7 +24,10 @@ import { SearchInput } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-<SearchInput value={searchQuery} onChange={setSearchQuery} />
+<SearchInput
+  value={searchQuery}
+  onChange={setSearchQuery}
+/>
 ```
 
 ### With custom placeholder
@@ -54,7 +57,7 @@ import { SearchInput } from "@choiceform/design-system"
   placeholder="Search..."
   i18n={{
     clear: "Clear search",
-    placeholder: "Search for anything..."
+    placeholder: "Search for anything...",
   }}
 />
 ```
@@ -141,7 +144,7 @@ The component supports customizing text through the `i18n` prop:
   onChange={setQuery}
   i18n={{
     clear: "Effacer", // French
-    placeholder: "Rechercher..."
+    placeholder: "Rechercher...",
   }}
 />
 ```
@@ -196,7 +199,7 @@ const debouncedSearch = useDebouncedCallback(
   onChange={setSearchQuery}
   placeholder="Search documentation..."
   i18n={{
-    clear: "Clear search query"
+    clear: "Clear search query",
   }}
 />
 ```
@@ -249,9 +252,7 @@ Since SearchInput is built on TextField, you can use it with all TextField featu
   onChange={setQuery}
 >
   <SearchInput.Label>Search Query</SearchInput.Label>
-  <SearchInput.Description>
-    Enter keywords to find relevant content
-  </SearchInput.Description>
+  <SearchInput.Description>Enter keywords to find relevant content</SearchInput.Description>
 </SearchInput>
 ```
 

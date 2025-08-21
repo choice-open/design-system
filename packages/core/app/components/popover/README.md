@@ -29,9 +29,7 @@ import { Popover } from "@choiceform/design-system"
   <Popover.Trigger>
     <Button>Open</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-64 p-3">
-    This is a basic popover with some content.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">This is a basic popover with some content.</Popover.Content>
 </Popover>
 ```
 
@@ -42,9 +40,7 @@ import { Popover } from "@choiceform/design-system"
   <Popover.Trigger>
     <Button>Open</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-64 p-3">
-    This popover starts open by default.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">This popover starts open by default.</Popover.Content>
 </Popover>
 ```
 
@@ -55,41 +51,47 @@ import { Popover } from "@choiceform/design-system"
   <Popover.Trigger>
     <Button>Open</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-64 p-3">
-    Popover with larger spacing from trigger.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">Popover with larger spacing from trigger.</Popover.Content>
 </Popover>
 ```
 
 ### Interaction Modes
 
 ```tsx
-{/* Click (default) */}
-<Popover>
+{
+  /* Click (default) */
+}
+;<Popover>
   <Popover.Trigger>
     <Button>Click to open</Button>
   </Popover.Trigger>
   <Popover.Content className="w-64 p-3">Click interaction</Popover.Content>
 </Popover>
 
-{/* Hover */}
-<Popover interactions="hover">
+{
+  /* Hover */
+}
+;<Popover interactions="hover">
   <Popover.Trigger>
     <Button>Hover to open</Button>
   </Popover.Trigger>
   <Popover.Content className="w-64 p-3">Hover interaction</Popover.Content>
 </Popover>
 
-{/* Focus */}
-<Popover interactions="focus">
+{
+  /* Focus */
+}
+;<Popover interactions="focus">
   <Popover.Trigger>
     <Button>Focus to open</Button>
   </Popover.Trigger>
   <Popover.Content className="w-64 p-3">Focus interaction</Popover.Content>
 </Popover>
 
-{/* Manual control */}
-<Popover
+{
+  /* Manual control */
+}
+;<Popover
   interactions="none"
   open={manualOpen}
   onOpenChange={setManualOpen}
@@ -112,13 +114,9 @@ return (
     onOpenChange={setOpen}
   >
     <Popover.Trigger>
-      <Button active={open}>
-        Click: {open ? "Close" : "Open"}
-      </Button>
+      <Button active={open}>Click: {open ? "Close" : "Open"}</Button>
     </Popover.Trigger>
-    <Popover.Content className="w-64 p-3">
-      Controlled popover content
-    </Popover.Content>
+    <Popover.Content className="w-64 p-3">Controlled popover content</Popover.Content>
   </Popover>
 )
 ```
@@ -144,9 +142,7 @@ return (
       open={open}
       onOpenChange={setOpen}
     >
-      <Popover.Content className="w-64 p-3">
-        External trigger content
-      </Popover.Content>
+      <Popover.Content className="w-64 p-3">External trigger content</Popover.Content>
     </Popover>
   </>
 )
@@ -177,14 +173,16 @@ return (
 ### Draggable Popover
 
 ```tsx
-<Popover draggable open={open} onOpenChange={setOpen}>
+<Popover
+  draggable
+  open={open}
+  onOpenChange={setOpen}
+>
   <Popover.Trigger>
     <Button active={open}>Draggable Popover</Button>
   </Popover.Trigger>
   <Popover.Header title="Drag Me" />
-  <Popover.Content className="w-64 p-3">
-    You can drag this popover by its header.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">You can drag this popover by its header.</Popover.Content>
 </Popover>
 ```
 
@@ -210,8 +208,10 @@ return (
 ### Outside Press Ignore
 
 ```tsx
-{/* Ignore clicks on specific CSS class */}
-<div className="outside-press-ignore">
+{
+  /* Ignore clicks on specific CSS class */
+}
+;<div className="outside-press-ignore">
   <Popover outsidePressIgnore="outside-press-ignore">
     <Popover.Trigger>
       <Button>Open</Button>
@@ -222,46 +222,50 @@ return (
   </Popover>
 </div>
 
-{/* Ignore clicks on multiple CSS classes */}
-<Popover outsidePressIgnore={["class1", "class2"]}>
+{
+  /* Ignore clicks on multiple CSS classes */
+}
+;<Popover outsidePressIgnore={["class1", "class2"]}>
   <Popover.Trigger>
     <Button>Open</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-64 p-3">
-    Multiple ignore zones.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">Multiple ignore zones.</Popover.Content>
 </Popover>
 
-{/* Ignore all outside clicks */}
-<Popover outsidePressIgnore={true}>
+{
+  /* Ignore all outside clicks */
+}
+;<Popover outsidePressIgnore={true}>
   <Popover.Trigger>
     <Button>Open</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-64 p-3">
-    Can only be closed via trigger or ESC.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">Can only be closed via trigger or ESC.</Popover.Content>
 </Popover>
 ```
 
 ### Complex Header
 
 ```tsx
-<Popover open={open} onOpenChange={setOpen}>
+<Popover
+  open={open}
+  onOpenChange={setOpen}
+>
   <Popover.Trigger>
     <Button>Complex Header</Button>
   </Popover.Trigger>
   <Popover.Header>
     <div className="flex h-10 items-center justify-between px-3">
-      <Tabs value={tab} onChange={setTab}>
+      <Tabs
+        value={tab}
+        onChange={setTab}
+      >
         <Tabs.Item value="tab-1">Tab 1</Tabs.Item>
         <Tabs.Item value="tab-2">Tab 2</Tabs.Item>
         <Tabs.Item value="tab-3">Tab 3</Tabs.Item>
       </Tabs>
     </div>
   </Popover.Header>
-  <Popover.Content className="w-64 p-3">
-    Content with tabbed header.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">Content with tabbed header.</Popover.Content>
 </Popover>
 ```
 
@@ -273,7 +277,10 @@ return (
     <Button>Nested Components</Button>
   </Popover.Trigger>
   <Popover.Content className="flex gap-4 p-4">
-    <Select value="option-1" onChange={() => {}}>
+    <Select
+      value="option-1"
+      onChange={() => {}}
+    >
       <Select.Trigger>Select</Select.Trigger>
       <Select.Content>
         <Select.Item value="option-1">Option 1</Select.Item>
@@ -285,9 +292,7 @@ return (
       <Popover.Trigger>
         <Button>Nested Popover</Button>
       </Popover.Trigger>
-      <Popover.Content className="w-64 p-3">
-        Nested popover content
-      </Popover.Content>
+      <Popover.Content className="w-64 p-3">Nested popover content</Popover.Content>
     </Popover>
 
     <Dropdown>
@@ -313,9 +318,7 @@ return (
     <Button>Always Open</Button>
   </Popover.Trigger>
   <Popover.Header title="Always Open" />
-  <Popover.Content className="w-64 p-3">
-    This popover is always visible.
-  </Popover.Content>
+  <Popover.Content className="w-64 p-3">This popover is always visible.</Popover.Content>
 </Popover>
 ```
 
@@ -360,24 +363,24 @@ return (
 ### Close on Escape Control
 
 ```tsx
-{/* ESC key enabled (default) */}
-<Popover closeOnEscape={true}>
+{
+  /* ESC key enabled (default) */
+}
+;<Popover closeOnEscape={true}>
   <Popover.Trigger>
     <Button>ESC Enabled</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-72 p-3">
-    Press ESC to close this popover.
-  </Popover.Content>
+  <Popover.Content className="w-72 p-3">Press ESC to close this popover.</Popover.Content>
 </Popover>
 
-{/* ESC key disabled */}
-<Popover closeOnEscape={false}>
+{
+  /* ESC key disabled */
+}
+;<Popover closeOnEscape={false}>
   <Popover.Trigger>
     <Button>ESC Disabled</Button>
   </Popover.Trigger>
-  <Popover.Content className="w-72 p-3">
-    ESC key won't close this popover.
-  </Popover.Content>
+  <Popover.Content className="w-72 p-3">ESC key won't close this popover.</Popover.Content>
 </Popover>
 ```
 
@@ -395,7 +398,10 @@ return (
     </div>
   </Popover.Content>
   <Popover.Footer>
-    <Button variant="secondary" onClick={() => setOpen(false)}>
+    <Button
+      variant="secondary"
+      onClick={() => setOpen(false)}
+    >
       Close
     </Button>
   </Popover.Footer>
@@ -410,67 +416,67 @@ return (
 interface PopoverProps {
   /** Enable auto-sizing of the popover */
   autoSize?: boolean
-  
+
   /** Enable auto-update positioning */
   autoUpdate?: boolean
-  
+
   /** Child components */
   children?: React.ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Enable ESC key to close */
   closeOnEscape?: boolean
-  
+
   /** Reference to content element */
   contentRef?: React.RefObject<HTMLDivElement>
-  
+
   /** Initial open state for uncontrolled usage */
   defaultOpen?: boolean
-  
+
   /** Hover interaction delays */
   delay?: { close?: number; open?: number }
-  
+
   /** Enable draggable behavior */
   draggable?: boolean
-  
+
   /** Focus manager configuration */
   focusManagerProps?: Partial<FloatingFocusManagerProps>
-  
+
   /** @deprecated Use focusManagerProps.initialFocus */
   initialFocus?: number | React.MutableRefObject<HTMLElement | null>
-  
+
   /** Interaction mode */
   interactions?: "hover" | "click" | "focus" | "none"
-  
+
   /** Match trigger element width */
   matchTriggerWidth?: boolean
-  
+
   /** Maximum width constraint */
   maxWidth?: number
-  
+
   /** Distance from trigger */
   offset?: number
-  
+
   /** Open state change callback */
   onOpenChange?: (isOpen: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Elements to ignore for outside press */
   outsidePressIgnore?: string | string[] | boolean
-  
+
   /** Popover placement */
   placement?: Placement
-  
+
   /** Portal container ID */
   portalId?: string
-  
+
   /** Remember position when reopened */
   rememberPosition?: boolean
-  
+
   /** External trigger element reference */
   triggerRef?: React.RefObject<HTMLElement>
 }
@@ -516,6 +522,7 @@ Optional footer for actions or additional controls.
 ## Best Practices
 
 ### Usage Guidelines
+
 - Use for contextual information, forms, or interactive controls
 - Choose appropriate interaction mode based on content importance
 - Consider placement based on available screen space
@@ -523,17 +530,20 @@ Optional footer for actions or additional controls.
 - Use controlled mode when you need to manage open state externally
 
 ### Interaction Modes
+
 - **Click**: Default, best for most use cases
 - **Hover**: Use for quick previews or non-critical information
 - **Focus**: Good for accessibility-first interfaces
 - **None**: For manual control in complex scenarios
 
 ### Performance
+
 - Hover interaction has been optimized to prevent flickering
 - Auto-sizing and positioning reduce layout thrashing
 - Virtual scrolling supported via ScrollArea integration
 
 ### Accessibility
+
 - Proper focus management with focus trapping
 - Keyboard navigation support (Tab, Shift+Tab, ESC)
 - Appropriate ARIA attributes and roles

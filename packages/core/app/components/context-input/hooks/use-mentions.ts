@@ -302,7 +302,7 @@ export function useMentions({
     if (triggers.length === 0) {
       return
     }
-    
+
     checkMentionSearch()
   }, [checkMentionSearch, triggers.length])
 

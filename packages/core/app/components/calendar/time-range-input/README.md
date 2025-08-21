@@ -48,11 +48,9 @@ const [endTime, setEndTime] = useState(timeStringToDate("17:00"))
 const handleStartChange = (newStart: Date | null) => {
   if (newStart) {
     // Calculate current range length in milliseconds
-    const currentRange = 
-      startTime && endTime 
-        ? endTime.getTime() - startTime.getTime() 
-        : 8 * 60 * 60 * 1000 // Default 8 hours
-    
+    const currentRange =
+      startTime && endTime ? endTime.getTime() - startTime.getTime() : 8 * 60 * 60 * 1000 // Default 8 hours
+
     // Maintain range length
     const newEnd = new Date(newStart.getTime() + currentRange)
     setStartTime(newStart)
@@ -70,7 +68,7 @@ const handleEndChange = (newEnd: Date | null) => {
   setEndTime(newEnd)
 }
 
-<TimeRangeInput
+;<TimeRangeInput
   startValue={startTime}
   endValue={endTime}
   onStartChange={handleStartChange}
@@ -159,46 +157,46 @@ import { zhCN, enUS, ja } from "date-fns/locale"
 interface TimeRangeInputProps {
   /** Start time value */
   startValue?: Date | null
-  
+
   /** End time value */
   endValue?: Date | null
-  
+
   /** Start time change handler */
   onStartChange?: (time: Date | null) => void
-  
+
   /** End time change handler */
   onEndChange?: (time: Date | null) => void
-  
+
   /** Start input focus handler */
   onStartFocus?: () => void
-  
+
   /** End input focus handler */
   onEndFocus?: () => void
-  
+
   /** Enter key press handler */
   onEnterKeyDown?: () => void
-  
+
   /** Start time placeholder text */
   startPlaceholder?: string
-  
+
   /** End time placeholder text */
   endPlaceholder?: string
-  
+
   /** Time format string (date-fns format) */
   format?: TimeFormat
-  
+
   /** Locale for internationalization */
   locale?: Locale | string
-  
+
   /** Component size variant */
   size?: "default" | "large"
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
-  
+
   /** Step interval in minutes */
   step?: number
-  
+
   /** Additional CSS class names */
   className?: string
 }
@@ -222,41 +220,47 @@ interface TimeRangeInputProps {
 ## Range Synchronization Behavior
 
 ### Start Time Changes
+
 When the start time is modified, the component can automatically adjust the end time to maintain the original range length:
+
 - Calculate the current range duration in milliseconds
 - Apply the same duration to the new start time
 - Update both start and end times simultaneously
 
 ### End Time Changes
+
 When the end time is modified with boundary validation:
+
 - If end time ≤ start time, push the start time to the end position
 - This prevents invalid ranges and maintains logical time ordering
 - End time changes normally when greater than start time
 
 ### Cross-Midnight Handling
+
 - Supports time ranges that span across midnight (e.g., 22:00 to 06:00)
 - Properly calculates duration for overnight shifts
 - Handles date boundaries seamlessly
 
 ## Format Examples
 
-| Format | Example Output | Description |
-|--------|----------------|-------------|
-| `HH:mm` | 09:00 to 17:00 | 24-hour format |
-| `H:mm` | 9:00 to 17:00 | 24-hour without leading zero |
-| `h:mm a` | 9:00 AM to 5:00 PM | 12-hour with AM/PM |
-| `hh:mm a` | 09:00 AM to 05:00 PM | 12-hour with leading zero |
-| `HH:mm:ss` | 09:00:00 to 17:00:00 | 24-hour with seconds |
-| `h:mm:ss a` | 9:00:00 AM to 5:00:00 PM | 12-hour with seconds |
+| Format      | Example Output           | Description                  |
+| ----------- | ------------------------ | ---------------------------- |
+| `HH:mm`     | 09:00 to 17:00           | 24-hour format               |
+| `H:mm`      | 9:00 to 17:00            | 24-hour without leading zero |
+| `h:mm a`    | 9:00 AM to 5:00 PM       | 12-hour with AM/PM           |
+| `hh:mm a`   | 09:00 AM to 05:00 PM     | 12-hour with leading zero    |
+| `HH:mm:ss`  | 09:00:00 to 17:00:00     | 24-hour with seconds         |
+| `h:mm:ss a` | 9:00:00 AM to 5:00:00 PM | 12-hour with seconds         |
 
 ## Common Use Cases
 
 ### Work Schedule
+
 ```tsx
 function WorkScheduleForm() {
   const [workStart, setWorkStart] = useState(timeStringToDate("09:00"))
   const [workEnd, setWorkEnd] = useState(timeStringToDate("18:00"))
-  
+
   return (
     <div>
       <label>Work Hours</label>
@@ -275,26 +279,27 @@ function WorkScheduleForm() {
 ```
 
 ### Shift Management
+
 ```tsx
 function ShiftScheduler() {
   const [shifts, setShifts] = useState([
     {
       name: "Morning Shift",
       start: timeStringToDate("06:00"),
-      end: timeStringToDate("14:00")
+      end: timeStringToDate("14:00"),
     },
     {
-      name: "Evening Shift", 
+      name: "Evening Shift",
       start: timeStringToDate("14:00"),
-      end: timeStringToDate("22:00")
+      end: timeStringToDate("22:00"),
     },
     {
       name: "Night Shift",
       start: timeStringToDate("22:00"),
-      end: timeStringToDate("06:00") // Next day
-    }
+      end: timeStringToDate("06:00"), // Next day
+    },
   ])
-  
+
   return (
     <div className="space-y-4">
       {shifts.map((shift, index) => (
@@ -323,6 +328,7 @@ function ShiftScheduler() {
 ```
 
 ### Business Hours
+
 ```tsx
 function BusinessHoursSettings() {
   const [businessHours, setBusinessHours] = useState({
@@ -330,25 +336,28 @@ function BusinessHoursSettings() {
     tuesday: { start: timeStringToDate("09:00"), end: timeStringToDate("17:00") },
     // ... other days
   })
-  
+
   return (
     <div className="space-y-4">
       {Object.entries(businessHours).map(([day, hours]) => (
-        <div key={day} className="flex items-center gap-4">
+        <div
+          key={day}
+          className="flex items-center gap-4"
+        >
           <label className="w-20 capitalize">{day}</label>
           <TimeRangeInput
             startValue={hours.start}
             endValue={hours.end}
-            onStartChange={(start) => 
-              setBusinessHours(prev => ({
+            onStartChange={(start) =>
+              setBusinessHours((prev) => ({
                 ...prev,
-                [day]: { ...prev[day], start }
+                [day]: { ...prev[day], start },
               }))
             }
             onEndChange={(end) =>
-              setBusinessHours(prev => ({
+              setBusinessHours((prev) => ({
                 ...prev,
-                [day]: { ...prev[day], end }
+                [day]: { ...prev[day], end },
               }))
             }
             format="h:mm a"
@@ -362,11 +371,12 @@ function BusinessHoursSettings() {
 ```
 
 ### Event Planning
+
 ```tsx
 function EventTimeSelector() {
   const [eventStart, setEventStart] = useState<Date | null>(null)
   const [eventEnd, setEventEnd] = useState<Date | null>(null)
-  
+
   // Auto-adjust end time to be at least 1 hour after start
   const handleStartChange = (newStart: Date | null) => {
     if (newStart && (!eventEnd || newStart >= eventEnd)) {
@@ -375,7 +385,7 @@ function EventTimeSelector() {
     }
     setEventStart(newStart)
   }
-  
+
   return (
     <div>
       <label>Event Time</label>
@@ -388,10 +398,12 @@ function EventTimeSelector() {
         startPlaceholder="Start Time"
         endPlaceholder="End Time"
       />
-      
+
       {eventStart && eventEnd && (
         <div className="mt-2 text-sm text-gray-600">
-          Duration: {Math.round((eventEnd.getTime() - eventStart.getTime()) / (60 * 60 * 1000) * 10) / 10} hours
+          Duration:{" "}
+          {Math.round(((eventEnd.getTime() - eventStart.getTime()) / (60 * 60 * 1000)) * 10) / 10}{" "}
+          hours
         </div>
       )}
     </div>
@@ -400,22 +412,23 @@ function EventTimeSelector() {
 ```
 
 ### Appointment Booking
+
 ```tsx
 function AppointmentSlots() {
-  const [selectedSlot, setSelectedSlot] = useState<{start: Date, end: Date} | null>(null)
-  
+  const [selectedSlot, setSelectedSlot] = useState<{ start: Date; end: Date } | null>(null)
+
   const availableSlots = [
     { start: timeStringToDate("09:00"), end: timeStringToDate("10:00") },
     { start: timeStringToDate("10:30"), end: timeStringToDate("11:30") },
     { start: timeStringToDate("14:00"), end: timeStringToDate("15:00") },
     { start: timeStringToDate("15:30"), end: timeStringToDate("16:30") },
   ]
-  
+
   return (
     <div className="space-y-4">
       <h3>Available Appointment Slots</h3>
       {availableSlots.map((slot, index) => (
-        <div 
+        <div
           key={index}
           className="cursor-pointer rounded border p-2 hover:bg-gray-50"
           onClick={() => setSelectedSlot(slot)}
@@ -424,7 +437,7 @@ function AppointmentSlots() {
             startValue={slot.start}
             endValue={slot.end}
             onStartChange={() => {}} // Read-only
-            onEndChange={() => {}}   // Read-only
+            onEndChange={() => {}} // Read-only
             format="h:mm a"
             readOnly
           />
@@ -442,17 +455,17 @@ The component can calculate and display duration between start and end times:
 ```tsx
 function calculateDuration(start: Date | null, end: Date | null): string {
   if (!start || !end) return ""
-  
+
   let durationMs = end.getTime() - start.getTime()
-  
+
   // Handle cross-midnight cases
   if (durationMs < 0) {
     durationMs += 24 * 60 * 60 * 1000 // Add 24 hours
   }
-  
+
   const hours = Math.floor(durationMs / (60 * 60 * 1000))
   const minutes = Math.floor((durationMs % (60 * 60 * 1000)) / (60 * 1000))
-  
+
   return `${hours}h ${minutes}m`
 }
 
@@ -463,6 +476,7 @@ const duration = calculateDuration(startTime, endTime)
 ## Cross-Midnight Time Ranges
 
 ### Overnight Shifts
+
 ```tsx
 // Night shift: 10 PM to 6 AM (next day)
 <TimeRangeInput
@@ -474,6 +488,7 @@ const duration = calculateDuration(startTime, endTime)
 ```
 
 ### 24-Hour Operations
+
 ```tsx
 function TwentyFourHourSchedule() {
   const [shifts, setShifts] = useState([
@@ -484,7 +499,7 @@ function TwentyFourHourSchedule() {
     // Night shift: 10 PM - 6 AM (next day)
     { start: timeStringToDate("22:00"), end: timeStringToDate("06:00") },
   ])
-  
+
   return (
     <div className="space-y-4">
       {shifts.map((shift, index) => (
@@ -515,7 +530,7 @@ function TwentyFourHourSchedule() {
 ```tsx
 import { Panel } from "@choiceform/design-system"
 
-<Panel.Row type="two-input-two-icon">
+;<Panel.Row type="two-input-two-icon">
   <TimeRangeInput
     startValue={startTime}
     endValue={endTime}
@@ -530,6 +545,7 @@ import { Panel } from "@choiceform/design-system"
 ## Utility Functions
 
 ### Time String Conversion
+
 ```tsx
 import { timeStringToDate } from "@choiceform/design-system"
 
@@ -539,17 +555,18 @@ const endTime = timeStringToDate("17:30")
 ```
 
 ### Range Validation
+
 ```tsx
 function validateTimeRange(start: Date | null, end: Date | null): boolean {
   if (!start || !end) return false
-  
+
   // Handle cross-midnight ranges
   if (end < start) {
     // Cross-midnight: valid if end + 24 hours > start
     const nextDayEnd = new Date(end.getTime() + 24 * 60 * 60 * 1000)
     return nextDayEnd > start
   }
-  
+
   return end > start
 }
 ```
@@ -575,11 +592,13 @@ function validateTimeRange(start: Date | null, end: Date | null): boolean {
 ## Error Handling
 
 ### Invalid Time Ranges
+
 - End time before start time triggers automatic adjustment
 - Cross-midnight ranges are properly validated and handled
 - Visual feedback indicates when ranges are corrected
 
 ### Boundary Conditions
+
 - Empty time values are handled gracefully
 - Invalid time formats are automatically corrected
 - Range length preservation works with partial inputs
@@ -594,38 +613,43 @@ function validateTimeRange(start: Date | null, end: Date | null): boolean {
 ## Integration Examples
 
 ### With Form Validation
+
 ```tsx
 import { useForm } from "react-hook-form"
 
 function TimeRangeForm() {
-  const { register, watch, setValue, formState: { errors } } = useForm()
-  const startTime = watch('startTime')
-  const endTime = watch('endTime')
-  
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm()
+  const startTime = watch("startTime")
+  const endTime = watch("endTime")
+
   return (
     <form>
       <TimeRangeInput
         startValue={startTime}
         endValue={endTime}
-        onStartChange={(time) => setValue('startTime', time)}
-        onEndChange={(time) => setValue('endTime', time)}
+        onStartChange={(time) => setValue("startTime", time)}
+        onEndChange={(time) => setValue("endTime", time)}
         format="HH:mm"
       />
-      {errors.timeRange && (
-        <p className="text-red-500">Invalid time range</p>
-      )}
+      {errors.timeRange && <p className="text-red-500">Invalid time range</p>}
     </form>
   )
 }
 ```
 
 ### With State Management
+
 ```tsx
 import { useContext } from "react"
 
 function ScheduleManager() {
   const { schedules, updateSchedule } = useScheduleContext()
-  
+
   return (
     <div>
       {schedules.map((schedule) => (
@@ -633,12 +657,8 @@ function ScheduleManager() {
           key={schedule.id}
           startValue={schedule.startTime}
           endValue={schedule.endTime}
-          onStartChange={(start) => 
-            updateSchedule(schedule.id, { startTime: start })
-          }
-          onEndChange={(end) =>
-            updateSchedule(schedule.id, { endTime: end })
-          }
+          onStartChange={(start) => updateSchedule(schedule.id, { startTime: start })}
+          onEndChange={(end) => updateSchedule(schedule.id, { endTime: end })}
         />
       ))}
     </div>

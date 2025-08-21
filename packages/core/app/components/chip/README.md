@@ -46,9 +46,7 @@ import { Chip } from "@choiceform/design-system"
 ### With remove button
 
 ```tsx
-<Chip onRemove={() => console.log("Removed")}>
-  Removable
-</Chip>
+<Chip onRemove={() => console.log("Removed")}>Removable</Chip>
 ```
 
 ### With prefix icon
@@ -56,23 +54,22 @@ import { Chip } from "@choiceform/design-system"
 ```tsx
 import { Star } from "@choiceform/icons-react"
 
-<Chip prefixElement={<Star />}>
-  Featured
-</Chip>
+;<Chip prefixElement={<Star />}>Featured</Chip>
 ```
 
 ### With suffix element
 
 ```tsx
-<Chip suffixElement={<span className="text-xs">12</span>}>
-  Messages
-</Chip>
+<Chip suffixElement={<span className="text-xs">12</span>}>Messages</Chip>
 ```
 
 ### Selected state
 
 ```tsx
-<Chip selected onClick={() => setSelected(!selected)}>
+<Chip
+  selected
+  onClick={() => setSelected(!selected)}
+>
   Filter Active
 </Chip>
 ```
@@ -80,15 +77,16 @@ import { Star } from "@choiceform/icons-react"
 ### Disabled state
 
 ```tsx
-<Chip disabled>
-  Unavailable
-</Chip>
+<Chip disabled>Unavailable</Chip>
 ```
 
 ### Custom element
 
 ```tsx
-<Chip as="button" onClick={handleClick}>
+<Chip
+  as="button"
+  onClick={handleClick}
+>
   Clickable Chip
 </Chip>
 ```
@@ -185,20 +183,18 @@ function FilterExample() {
   ])
 
   const toggleFilter = (id: number) => {
-    setFilters(filters.map(f => 
-      f.id === id ? { ...f, active: !f.active } : f
-    ))
+    setFilters(filters.map((f) => (f.id === id ? { ...f, active: !f.active } : f)))
   }
 
   return (
     <div className="flex gap-2">
-      {filters.map(filter => (
+      {filters.map((filter) => (
         <Chip
           key={filter.id}
           selected={filter.active}
           variant={filter.active ? "accent" : "default"}
           onClick={() => toggleFilter(filter.id)}
-          onRemove={() => setFilters(filters.filter(f => f.id !== filter.id))}
+          onRemove={() => setFilters(filters.filter((f) => f.id !== filter.id))}
         >
           {filter.label}
         </Chip>
@@ -239,16 +235,25 @@ function TagInput() {
 ```tsx
 import { CheckCircle, AlertCircle, Clock } from "@choiceform/icons-react"
 
-<div className="flex gap-2">
-  <Chip variant="success" prefixElement={<CheckCircle />}>
+;<div className="flex gap-2">
+  <Chip
+    variant="success"
+    prefixElement={<CheckCircle />}
+  >
     Completed
   </Chip>
-  
-  <Chip variant="accent" prefixElement={<Clock />}>
+
+  <Chip
+    variant="accent"
+    prefixElement={<Clock />}
+  >
     In Progress
   </Chip>
-  
-  <Chip variant="default" prefixElement={<AlertCircle />}>
+
+  <Chip
+    variant="default"
+    prefixElement={<AlertCircle />}
+  >
     Pending Review
   </Chip>
 </div>
@@ -261,7 +266,7 @@ import { CheckCircle, AlertCircle, Clock } from "@choiceform/icons-react"
   as="button"
   variant="accent"
   onClick={() => console.log("Chip clicked")}
-  className="hover:shadow-sm transition-shadow"
+  className="transition-shadow hover:shadow-sm"
 >
   Click Me
 </Chip>

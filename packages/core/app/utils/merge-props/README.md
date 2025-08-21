@@ -43,9 +43,7 @@ const props = mergeProps(
 ### mergeProps
 
 ```typescript
-function mergeProps<T extends PropsArg[]>(
-  ...args: T
-): UnionToIntersection<TupleTypes<T>>
+function mergeProps<T extends PropsArg[]>(...args: T): UnionToIntersection<TupleTypes<T>>
 ```
 
 #### Parameters
@@ -88,18 +86,11 @@ const props = mergeProps(
 Both `className` and `class` props are merged:
 
 ```typescript
-const props = mergeProps(
-  { className: "btn" },
-  { className: "btn-primary" },
-  { className: "large" }
-)
+const props = mergeProps({ className: "btn" }, { className: "btn-primary" }, { className: "large" })
 // Result: { className: "btn btn-primary large" }
 
 // Also works with 'class' prop
-const props2 = mergeProps(
-  { class: "base" },
-  { class: "modifier" }
-)
+const props2 = mergeProps({ class: "base" }, { class: "modifier" })
 // Result: { class: "base modifier" }
 ```
 
@@ -108,17 +99,11 @@ const props2 = mergeProps(
 Multiple IDs are combined with space separation:
 
 ```typescript
-const props = mergeProps(
-  { id: "user-button" },
-  { id: "submit-button" }
-)
+const props = mergeProps({ id: "user-button" }, { id: "submit-button" })
 // Result: { id: "user-button submit-button" }
 
 // Duplicate IDs are not repeated
-const props2 = mergeProps(
-  { id: "btn" },
-  { id: "btn" }
-)
+const props2 = mergeProps({ id: "btn" }, { id: "btn" })
 // Result: { id: "btn" }
 ```
 
@@ -133,7 +118,7 @@ function BaseButton(props) {
     onClick: () => console.log("Base click"),
     type: "button"
   }
-  
+
   return <button {...mergeProps(baseProps, props)} />
 }
 
@@ -142,13 +127,13 @@ function PrimaryButton(props) {
     className: "btn-primary",
     onClick: () => console.log("Primary click")
   }
-  
+
   return <BaseButton {...mergeProps(primaryProps, props)} />
 }
 
 // Usage
-<PrimaryButton 
-  className="large" 
+<PrimaryButton
+  className="large"
   onClick={() => console.log("User click")}
 />
 // Results in: className="btn btn-primary large"
@@ -168,7 +153,7 @@ function Button({ variant = "primary", ...props }: ButtonProps) {
     type: "button" as const,
     role: "button"
   }
-  
+
   return <button {...mergeProps(defaultProps, props)} />
 }
 ```
@@ -182,7 +167,7 @@ function InteractiveElement({ disabled, ...props }) {
     onKeyDown: handleKeyDown,
     tabIndex: 0
   } : {}
-  
+
   return <div {...mergeProps(
     { className: "interactive-element" },
     interactiveProps,
@@ -201,7 +186,7 @@ function withTooltip(Component) {
       onMouseLeave: hideTooltip,
       "aria-describedby": "tooltip"
     }
-    
+
     return <Component {...mergeProps(tooltipProps, props)} />
   }
 }

@@ -1,16 +1,4 @@
-import {
-  enUS,
-  zhCN,
-  ja,
-  ko,
-  es,
-  fr,
-  de,
-  ptBR,
-  ru,
-  ar,
-  type Locale
-} from "date-fns/locale"
+import { enUS, zhCN, ja, ko, es, fr, de, ptBR, ru, ar, type Locale } from "date-fns/locale"
 import type { LanguageConfig, SupportedLanguage, TranslationConfig } from "./format-date.types"
 
 const translations: Record<SupportedLanguage, TranslationConfig> = {

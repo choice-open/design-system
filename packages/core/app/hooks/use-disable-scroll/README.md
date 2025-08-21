@@ -15,7 +15,7 @@ import { useDisableScroll } from "@choiceform/design-system/hooks"
 function Dropdown() {
   const ref = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref })
-  
+
   return (
     <div ref={ref} {...disableScrollProps}>
       {/* Dropdown content */}
@@ -27,11 +27,11 @@ function Dropdown() {
 function Select({ options }) {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref: dropdownRef })
-  
+
   return (
     <div className="relative">
       <button>Select an option</button>
-      <div 
+      <div
         ref={dropdownRef}
         className="absolute dropdown-menu"
         {...disableScrollProps}
@@ -73,6 +73,7 @@ interface UseDisableScrollReturn {
 #### Returns
 
 An object containing:
+
 - `disableScrollProps` - Event handlers to spread on the target element
 
 ## Features
@@ -99,15 +100,15 @@ function DropdownMenu({ items }) {
   const menuRef = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref: menuRef })
   const [isOpen, setIsOpen] = useState(false)
-  
+
   return (
     <div className="dropdown">
       <button onClick={() => setIsOpen(!isOpen)}>
         Menu
       </button>
-      
+
       {isOpen && (
-        <div 
+        <div
           ref={menuRef}
           className="dropdown-menu"
           {...disableScrollProps}
@@ -132,7 +133,7 @@ function Autocomplete({ suggestions }) {
   const { disableScrollProps } = useDisableScroll({ ref: suggestionsRef })
   const [value, setValue] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
-  
+
   return (
     <div className="autocomplete">
       <input
@@ -141,9 +142,9 @@ function Autocomplete({ suggestions }) {
         onFocus={() => setShowSuggestions(true)}
         onBlur={() => setShowSuggestions(false)}
       />
-      
+
       {showSuggestions && (
-        <div 
+        <div
           ref={suggestionsRef}
           className="suggestions"
           {...disableScrollProps}
@@ -166,13 +167,13 @@ function Autocomplete({ suggestions }) {
 function ScrollableModal({ isOpen, onClose, children }) {
   const contentRef = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref: contentRef })
-  
+
   if (!isOpen) return null
-  
+
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <div 
+        <div
           ref={contentRef}
           className="modal-content"
           {...disableScrollProps}
@@ -193,12 +194,12 @@ function ScrollableModal({ isOpen, onClose, children }) {
 function NestedScrollableSelect() {
   const ref = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref })
-  
+
   return (
     <div className="outer-scroll-container" style={{ height: '400px', overflow: 'auto' }}>
       <div className="content">
         <div className="inner-scroll-container" style={{ height: '200px', overflow: 'auto' }}>
-          <div 
+          <div
             ref={ref}
             className="dropdown-in-scroll"
             {...disableScrollProps}
@@ -224,7 +225,7 @@ function TooltipWithScrollLock({ content, children }) {
   const tooltipRef = useRef<HTMLDivElement>(null)
   const { disableScrollProps } = useDisableScroll({ ref: tooltipRef })
   const [show, setShow] = useState(false)
-  
+
   return (
     <div className="tooltip-wrapper">
       <div
@@ -233,9 +234,9 @@ function TooltipWithScrollLock({ content, children }) {
       >
         {children}
       </div>
-      
+
       {show && (
-        <div 
+        <div
           ref={tooltipRef}
           className="tooltip"
           {...disableScrollProps}
@@ -260,6 +261,7 @@ function TooltipWithScrollLock({ content, children }) {
 ## Technical Details
 
 The hook uses a smart algorithm to find the appropriate scrollable parent:
+
 1. Starts from the ref element
 2. Traverses up the DOM tree comparing parent and grandparent sizes
 3. Finds the first container where content exceeds container height

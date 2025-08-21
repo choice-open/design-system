@@ -29,9 +29,12 @@ import { Select } from "@choiceform/design-system"
 ```tsx
 function BasicExample() {
   const [value, setValue] = useState("option-2")
-  
+
   return (
-    <Select value={value} onChange={setValue}>
+    <Select
+      value={value}
+      onChange={setValue}
+    >
       <Select.Trigger>
         <Select.Value>{value || "Select an option..."}</Select.Value>
       </Select.Trigger>
@@ -54,7 +57,11 @@ function BasicExample() {
 ### Disabled Select
 
 ```tsx
-<Select disabled value={value} onChange={setValue}>
+<Select
+  disabled
+  value={value}
+  onChange={setValue}
+>
   <Select.Trigger>
     <Select.Value>{value || "Select an option..."}</Select.Value>
   </Select.Trigger>
@@ -69,12 +76,18 @@ function BasicExample() {
 ### Disabled Options
 
 ```tsx
-<Select value={value} onChange={setValue}>
+<Select
+  value={value}
+  onChange={setValue}
+>
   <Select.Trigger>
     <Select.Value>{value || "Select an option..."}</Select.Value>
   </Select.Trigger>
   <Select.Content>
-    <Select.Item value="option-1" disabled>
+    <Select.Item
+      value="option-1"
+      disabled
+    >
       <Select.Value>Option 1 (Disabled)</Select.Value>
     </Select.Item>
     <Select.Item value="option-2">
@@ -87,7 +100,10 @@ function BasicExample() {
 ### With Dividers and Labels
 
 ```tsx
-<Select value={value} onChange={setValue}>
+<Select
+  value={value}
+  onChange={setValue}
+>
   <Select.Trigger>
     <Select.Value>{value || "Select a plan..."}</Select.Value>
   </Select.Trigger>
@@ -99,9 +115,9 @@ function BasicExample() {
     <Select.Item value="basic-2">
       <Select.Value>Basic - Professional</Select.Value>
     </Select.Item>
-    
+
     <Select.Divider />
-    
+
     <Select.Label>Premium Plans</Select.Label>
     <Select.Item value="premium-1">
       <Select.Value>Premium - Business</Select.Value>
@@ -116,7 +132,10 @@ function BasicExample() {
 ### With Icons
 
 ```tsx
-<Select value={value} onChange={setValue}>
+<Select
+  value={value}
+  onChange={setValue}
+>
   <Select.Trigger>
     <Select.Value>{value || "Select field type..."}</Select.Value>
   </Select.Trigger>
@@ -140,11 +159,16 @@ function BasicExample() {
 ### Large Size
 
 ```tsx
-<Select size="large" value={value} onChange={setValue}>
-  <Select.Trigger prefixElement={<Settings />} className="w-48">
-    <Select.Value>
-      {value ? "Selected Option" : "Select..."}
-    </Select.Value>
+<Select
+  size="large"
+  value={value}
+  onChange={setValue}
+>
+  <Select.Trigger
+    prefixElement={<Settings />}
+    className="w-48"
+  >
+    <Select.Value>{value ? "Selected Option" : "Select..."}</Select.Value>
   </Select.Trigger>
   <Select.Content>
     <Select.Item value="option-1">
@@ -157,16 +181,21 @@ function BasicExample() {
 ### Match Trigger Width
 
 ```tsx
-<Select value={value} onChange={setValue} matchTriggerWidth>
+<Select
+  value={value}
+  onChange={setValue}
+  matchTriggerWidth
+>
   <Select.Trigger className="w-80">
-    <Select.Value>
-      {value ? "Selected" : "Select..."}
-    </Select.Value>
+    <Select.Value>{value ? "Selected" : "Select..."}</Select.Value>
   </Select.Trigger>
   <Select.Content>
     <Select.Label>Options</Select.Label>
     {options.map((option) => (
-      <Select.Item key={option.value} value={option.value}>
+      <Select.Item
+        key={option.value}
+        value={option.value}
+      >
         <Select.Value>{option.label}</Select.Value>
       </Select.Item>
     ))}
@@ -199,7 +228,10 @@ function BasicExample() {
 ### Custom Actions
 
 ```tsx
-<Select value={value} onChange={setValue}>
+<Select
+  value={value}
+  onChange={setValue}
+>
   <Select.Trigger>
     <Select.Value>{value || "Select..."}</Select.Value>
   </Select.Trigger>
@@ -208,9 +240,9 @@ function BasicExample() {
     <Select.Item value="option-1">
       <Select.Value>Option 1</Select.Value>
     </Select.Item>
-    
+
     <Select.Divider />
-    
+
     <Select.Label>Actions</Select.Label>
     <Select.Item onClick={() => console.log("Custom action!")}>
       <Settings />
@@ -228,37 +260,37 @@ function BasicExample() {
 interface SelectProps {
   /** Child components (Select.Trigger and Select.Content required) */
   children?: React.ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Whether the select is disabled */
   disabled?: boolean
-  
+
   /** Floating focus manager configuration */
   focusManagerProps?: Partial<FloatingFocusManagerProps>
-  
+
   /** Whether dropdown should match trigger width */
   matchTriggerWidth?: boolean
-  
+
   /** Callback fired when selection changes */
   onChange?: (value: string) => void
-  
+
   /** Callback fired when open state changes */
   onOpenChange?: (open: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Dropdown placement relative to trigger */
   placement?: "bottom-start" | "bottom-end"
-  
+
   /** Portal container ID for rendering dropdown */
   portalId?: string
-  
+
   /** Size variant affecting trigger and items */
   size?: "default" | "large"
-  
+
   /** Currently selected value */
   value?: string | null
 }
@@ -288,25 +320,33 @@ interface SelectProps {
 ```tsx
 function LongListExample() {
   const [value, setValue] = useState("item-25")
-  
-  const options = useMemo(() => 
-    Array.from({ length: 100 }, (_, i) => ({
-      value: `item-${i + 1}`,
-      label: `City ${i + 1}`
-    }))
-  , [])
-  
+
+  const options = useMemo(
+    () =>
+      Array.from({ length: 100 }, (_, i) => ({
+        value: `item-${i + 1}`,
+        label: `City ${i + 1}`,
+      })),
+    [],
+  )
+
   return (
-    <Select value={value} onChange={setValue}>
+    <Select
+      value={value}
+      onChange={setValue}
+    >
       <Select.Trigger>
         <Select.Value>
-          {value ? options.find(opt => opt.value === value)?.label : "Select a city..."}
+          {value ? options.find((opt) => opt.value === value)?.label : "Select a city..."}
         </Select.Value>
       </Select.Trigger>
       <Select.Content>
         <Select.Label>Cities ({options.length} total)</Select.Label>
         {options.map((option) => (
-          <Select.Item key={option.value} value={option.value}>
+          <Select.Item
+            key={option.value}
+            value={option.value}
+          >
             <Select.Value>{option.label}</Select.Value>
           </Select.Item>
         ))}
@@ -322,30 +362,38 @@ function LongListExample() {
 function TaskManagement() {
   const [status, setStatus] = useState("active")
   const [priority, setPriority] = useState("medium")
-  
+
   const statusOptions = [
     { value: "active", label: "Active", color: "bg-green-500" },
     { value: "pending", label: "Pending", color: "bg-yellow-500" },
     { value: "completed", label: "Completed", color: "bg-blue-500" },
   ]
-  
+
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
         <label>Status</label>
-        <Select value={status} onChange={setStatus}>
+        <Select
+          value={status}
+          onChange={setStatus}
+        >
           <Select.Trigger className="w-full">
             <div className="flex items-center gap-2">
-              <div className={`h-2 w-2 rounded-full ${statusOptions.find(opt => opt.value === status)?.color}`} />
+              <div
+                className={`h-2 w-2 rounded-full ${statusOptions.find((opt) => opt.value === status)?.color}`}
+              />
               <Select.Value>
-                {statusOptions.find(opt => opt.value === status)?.label}
+                {statusOptions.find((opt) => opt.value === status)?.label}
               </Select.Value>
             </div>
           </Select.Trigger>
           <Select.Content>
             <Select.Label>Task Status</Select.Label>
             {statusOptions.map((option) => (
-              <Select.Item key={option.value} value={option.value}>
+              <Select.Item
+                key={option.value}
+                value={option.value}
+              >
                 <div className={`h-2 w-2 rounded-full ${option.color}`} />
                 <Select.Value>{option.label}</Select.Value>
               </Select.Item>
@@ -353,14 +401,16 @@ function TaskManagement() {
           </Select.Content>
         </Select>
       </div>
-      
+
       <div>
         <label>Priority</label>
-        <Select value={priority} onChange={setPriority}>
+        <Select
+          value={priority}
+          onChange={setPriority}
+        >
           <Select.Trigger className="w-full">
             <Select.Value>
-              {priority === "high" ? "🔥 High" : 
-               priority === "medium" ? "⚡ Medium" : "📋 Low"}
+              {priority === "high" ? "🔥 High" : priority === "medium" ? "⚡ Medium" : "📋 Low"}
             </Select.Value>
           </Select.Trigger>
           <Select.Content>
@@ -422,24 +472,28 @@ The Select component uses advanced positioning logic:
 ## Best Practices
 
 ### Content Organization
+
 - Group related options with labels and dividers
-- Keep option text concise and descriptive  
+- Keep option text concise and descriptive
 - Use icons consistently across similar option types
 - Provide meaningful default values or placeholders
 
 ### Performance
+
 - Use `useMemo` for expensive option computations
 - Avoid recreating option arrays on each render
 - Consider virtualization for very long lists (100+ items)
 - Memoize custom display value functions
 
 ### Accessibility
+
 - Provide clear aria-labels for complex options
 - Ensure sufficient color contrast for all states
 - Test with keyboard navigation and screen readers
 - Use semantic HTML structure within options
 
 ### Visual Design
+
 - Match trigger width for form-like layouts
 - Use appropriate sizes based on context
 - Maintain consistent option heights
@@ -451,20 +505,33 @@ The Select component uses advanced positioning logic:
 
 ```tsx
 <div className="space-y-2">
-  <label htmlFor="country" className="block text-sm font-medium">
+  <label
+    htmlFor="country"
+    className="block text-sm font-medium"
+  >
     Country
   </label>
-  <Select value={country} onChange={setCountry}>
+  <Select
+    value={country}
+    onChange={setCountry}
+  >
     <Select.Trigger className="w-full">
       <Select.Value>
-        {country ? countries.find(c => c.code === country)?.name : "Select country..."}
+        {country ? countries.find((c) => c.code === country)?.name : "Select country..."}
       </Select.Value>
     </Select.Trigger>
     <Select.Content>
       <Select.Label>Countries</Select.Label>
       {countries.map((country) => (
-        <Select.Item key={country.code} value={country.code}>
-          <img src={country.flag} alt="" className="w-4 h-3" />
+        <Select.Item
+          key={country.code}
+          value={country.code}
+        >
+          <img
+            src={country.flag}
+            alt=""
+            className="h-3 w-4"
+          />
           <Select.Value>{country.name}</Select.Value>
         </Select.Item>
       ))}
@@ -476,7 +543,10 @@ The Select component uses advanced positioning logic:
 ### Settings Dropdown
 
 ```tsx
-<Select value={setting} onChange={setSetting}>
+<Select
+  value={setting}
+  onChange={setSetting}
+>
   <Select.Trigger>
     <Settings />
     <Select.Value>Settings</Select.Value>
@@ -490,9 +560,9 @@ The Select component uses advanced positioning logic:
       <Preferences />
       <Select.Value>Preferences</Select.Value>
     </Select.Item>
-    
+
     <Select.Divider />
-    
+
     <Select.Item onClick={handleLogout}>
       <LogOut />
       <Select.Value>Sign Out</Select.Value>
@@ -505,7 +575,7 @@ The Select component uses advanced positioning logic:
 
 - The component uses Floating UI's inner middleware for macOS-style positioning
 - Custom actions on items bypass the selection logic
-- The fallback system ensures functionality even when positioning fails  
+- The fallback system ensures functionality even when positioning fails
 - Touch devices receive optimized interaction patterns
 - Multiple selects can be used simultaneously without conflicts
 - The component supports both controlled and uncontrolled usage patterns

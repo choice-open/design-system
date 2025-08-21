@@ -17,12 +17,8 @@ export function BasicExample() {
   return (
     <div className="h-screen">
       <Splitter defaultSizes={[200, 400]}>
-        <div className="p-4 bg-gray-100">
-          Left Panel
-        </div>
-        <div className="p-4 bg-gray-200">
-          Right Panel
-        </div>
+        <div className="bg-gray-100 p-4">Left Panel</div>
+        <div className="bg-gray-200 p-4">Right Panel</div>
       </Splitter>
     </div>
   )
@@ -35,13 +31,12 @@ export function BasicExample() {
 export function VerticalExample() {
   return (
     <div className="h-screen">
-      <Splitter direction="vertical" defaultSizes={[300, 200]}>
-        <div className="p-4 bg-blue-100">
-          Top Panel
-        </div>
-        <div className="p-4 bg-blue-200">
-          Bottom Panel
-        </div>
+      <Splitter
+        direction="vertical"
+        defaultSizes={[300, 200]}
+      >
+        <div className="bg-blue-100 p-4">Top Panel</div>
+        <div className="bg-blue-200 p-4">Bottom Panel</div>
       </Splitter>
     </div>
   )
@@ -57,22 +52,22 @@ export function AdvancedExample() {
   return (
     <div className="h-screen">
       <Splitter>
-        <Splitter.Pane minSize={200} maxSize={500}>
-          <div className="h-full p-4 bg-green-100">
-            Sidebar (200px - 500px)
-          </div>
+        <Splitter.Pane
+          minSize={200}
+          maxSize={500}
+        >
+          <div className="h-full bg-green-100 p-4">Sidebar (200px - 500px)</div>
         </Splitter.Pane>
-        
+
         <Splitter.Pane>
-          <div className="h-full p-4 bg-green-200">
-            Main Content (flexible)
-          </div>
+          <div className="h-full bg-green-200 p-4">Main Content (flexible)</div>
         </Splitter.Pane>
-        
-        <Splitter.Pane minSize={150} snap>
-          <div className="h-full p-4 bg-green-300">
-            Right Panel (collapsible)
-          </div>
+
+        <Splitter.Pane
+          minSize={150}
+          snap
+        >
+          <div className="h-full bg-green-300 p-4">Right Panel (collapsible)</div>
         </Splitter.Pane>
       </Splitter>
     </div>
@@ -84,31 +79,31 @@ export function AdvancedExample() {
 
 ### Splitter Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | **Required.** Panel content or Splitter.Pane components |
-| `direction` | `"horizontal" \| "vertical"` | `"horizontal"` | Split direction |
-| `defaultSizes` | `number[]` | - | Initial sizes for each pane |
-| `sizes` | `number[]` | - | Controlled sizes for each pane |
-| `onChangeSize` | `function` | - | Callback when sizes change |
-| `minSize` | `number` | `30` | Minimum size for all panes |
-| `maxSize` | `number` | `Infinity` | Maximum size for all panes |
-| `snap` | `boolean` | `false` | Enable snap-to-zero behavior |
-| `split` | `boolean` | `true` | Whether splitting is enabled |
-| `resizerStyle` | `CSSProperties` | - | Custom resizer handle styles |
-| `className` | `string` | - | Additional CSS classes |
+| Prop           | Type                         | Default        | Description                                             |
+| -------------- | ---------------------------- | -------------- | ------------------------------------------------------- |
+| `children`     | `ReactNode`                  | -              | **Required.** Panel content or Splitter.Pane components |
+| `direction`    | `"horizontal" \| "vertical"` | `"horizontal"` | Split direction                                         |
+| `defaultSizes` | `number[]`                   | -              | Initial sizes for each pane                             |
+| `sizes`        | `number[]`                   | -              | Controlled sizes for each pane                          |
+| `onChangeSize` | `function`                   | -              | Callback when sizes change                              |
+| `minSize`      | `number`                     | `30`           | Minimum size for all panes                              |
+| `maxSize`      | `number`                     | `Infinity`     | Maximum size for all panes                              |
+| `snap`         | `boolean`                    | `false`        | Enable snap-to-zero behavior                            |
+| `split`        | `boolean`                    | `true`         | Whether splitting is enabled                            |
+| `resizerStyle` | `CSSProperties`              | -              | Custom resizer handle styles                            |
+| `className`    | `string`                     | -              | Additional CSS classes                                  |
 
 ### Splitter.Pane Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | **Required.** Pane content |
-| `minSize` | `number` | `30` | Minimum size for this pane |
-| `maxSize` | `number` | `Infinity` | Maximum size for this pane |
-| `size` | `number` | - | Fixed size for this pane |
-| `snap` | `boolean` | `false` | Enable snap-to-zero for this pane |
-| `visible` | `boolean` | `true` | Whether this pane is visible |
-| `priority` | `"min" \| "max"` | - | Resize priority |
+| Prop       | Type             | Default    | Description                       |
+| ---------- | ---------------- | ---------- | --------------------------------- |
+| `children` | `ReactNode`      | -          | **Required.** Pane content        |
+| `minSize`  | `number`         | `30`       | Minimum size for this pane        |
+| `maxSize`  | `number`         | `Infinity` | Maximum size for this pane        |
+| `size`     | `number`         | -          | Fixed size for this pane          |
+| `snap`     | `boolean`        | `false`    | Enable snap-to-zero for this pane |
+| `visible`  | `boolean`        | `true`     | Whether this pane is visible      |
+| `priority` | `"min" \| "max"` | -          | Resize priority                   |
 
 ## Features
 
@@ -116,7 +111,10 @@ export function AdvancedExample() {
 
 ```tsx
 <Splitter>
-  <Splitter.Pane minSize={200} maxSize={600}>
+  <Splitter.Pane
+    minSize={200}
+    maxSize={600}
+  >
     <SidebarContent />
   </Splitter.Pane>
   <Splitter.Pane minSize={300}>
@@ -141,14 +139,20 @@ export function AdvancedExample() {
 ### Nested Splitters
 
 ```tsx
-<Splitter direction="vertical" className="h-screen">
+<Splitter
+  direction="vertical"
+  className="h-screen"
+>
   <Splitter.Pane>
     <Header />
   </Splitter.Pane>
-  
+
   <Splitter.Pane>
     <Splitter direction="horizontal">
-      <Splitter.Pane minSize={200} snap>
+      <Splitter.Pane
+        minSize={200}
+        snap
+      >
         <Sidebar />
       </Splitter.Pane>
       <Splitter.Pane>
@@ -170,24 +174,27 @@ import { Splitter, type SplitterHandle } from "~/components/splitter"
 
 export function ProgrammaticExample() {
   const splitterRef = useRef<SplitterHandle>(null)
-  
+
   const resetLayout = () => {
     splitterRef.current?.reset()
   }
-  
+
   const setSizes = () => {
     splitterRef.current?.setSizes([300, 400, 200])
   }
-  
+
   return (
     <div>
-      <div className="p-4 space-x-2">
+      <div className="space-x-2 p-4">
         <button onClick={resetLayout}>Reset Layout</button>
         <button onClick={setSizes}>Set Custom Sizes</button>
       </div>
-      
+
       <div className="h-96">
-        <Splitter ref={splitterRef} defaultSizes={[200, 400, 200]}>
+        <Splitter
+          ref={splitterRef}
+          defaultSizes={[200, 400, 200]}
+        >
           <div>Panel 1</div>
           <div>Panel 2</div>
           <div>Panel 3</div>
@@ -209,32 +216,35 @@ export function DynamicPanelsExample() {
   const [panels, setPanels] = useState([
     { id: 1, title: "Panel 1" },
     { id: 2, title: "Panel 2" },
-    { id: 3, title: "Panel 3" }
+    { id: 3, title: "Panel 3" },
   ])
-  
+
   const addPanel = () => {
-    const newId = Math.max(...panels.map(p => p.id)) + 1
+    const newId = Math.max(...panels.map((p) => p.id)) + 1
     setPanels([...panels, { id: newId, title: `Panel ${newId}` }])
   }
-  
+
   const removePanel = (id: number) => {
-    setPanels(panels.filter(p => p.id !== id))
+    setPanels(panels.filter((p) => p.id !== id))
   }
-  
+
   return (
     <div>
       <div className="p-4">
         <button onClick={addPanel}>Add Panel</button>
       </div>
-      
+
       <div className="h-96">
         <Splitter>
-          {panels.map(panel => (
-            <Splitter.Pane key={panel.id} minSize={150}>
-              <div className="h-full p-4 bg-gray-100">
-                <div className="flex justify-between items-center mb-2">
+          {panels.map((panel) => (
+            <Splitter.Pane
+              key={panel.id}
+              minSize={150}
+            >
+              <div className="h-full bg-gray-100 p-4">
+                <div className="mb-2 flex items-center justify-between">
                   <h3>{panel.title}</h3>
-                  <button 
+                  <button
                     onClick={() => removePanel(panel.id)}
                     className="text-red-500"
                   >
@@ -258,25 +268,21 @@ export function DynamicPanelsExample() {
 export function IDELayoutExample() {
   const [sidebarVisible, setSidebarVisible] = useState(true)
   const [bottomVisible, setBottomVisible] = useState(true)
-  
+
   return (
     <div className="h-screen">
       <Splitter direction="vertical">
         {/* Header */}
         <Splitter.Pane size={60}>
-          <div className="h-full bg-gray-800 text-white p-4 flex items-center justify-between">
+          <div className="flex h-full items-center justify-between bg-gray-800 p-4 text-white">
             <h1>IDE Title</h1>
             <div className="space-x-2">
-              <button onClick={() => setSidebarVisible(!sidebarVisible)}>
-                Toggle Sidebar
-              </button>
-              <button onClick={() => setBottomVisible(!bottomVisible)}>
-                Toggle Bottom
-              </button>
+              <button onClick={() => setSidebarVisible(!sidebarVisible)}>Toggle Sidebar</button>
+              <button onClick={() => setBottomVisible(!bottomVisible)}>Toggle Bottom</button>
             </div>
           </div>
         </Splitter.Pane>
-        
+
         {/* Main Area */}
         <Splitter.Pane>
           <Splitter direction="vertical">
@@ -284,9 +290,9 @@ export function IDELayoutExample() {
             <Splitter.Pane>
               <Splitter direction="horizontal">
                 {/* Sidebar */}
-                <Splitter.Pane 
-                  visible={sidebarVisible} 
-                  minSize={200} 
+                <Splitter.Pane
+                  visible={sidebarVisible}
+                  minSize={200}
                   maxSize={400}
                   snap
                 >
@@ -295,22 +301,22 @@ export function IDELayoutExample() {
                     <div>File tree...</div>
                   </div>
                 </Splitter.Pane>
-                
+
                 {/* Editor */}
                 <Splitter.Pane>
                   <div className="h-full bg-white p-4">
                     <h3>Editor</h3>
-                    <textarea 
-                      className="w-full h-full border-none resize-none"
+                    <textarea
+                      className="h-full w-full resize-none border-none"
                       placeholder="Write code here..."
                     />
                   </div>
                 </Splitter.Pane>
               </Splitter>
             </Splitter.Pane>
-            
+
             {/* Bottom Panel */}
-            <Splitter.Pane 
+            <Splitter.Pane
               visible={bottomVisible}
               minSize={150}
               size={200}
@@ -332,17 +338,20 @@ export function IDELayoutExample() {
 ## Accessibility
 
 ### Keyboard Navigation
+
 - **Arrow keys**: Navigate between splitter handles
 - **Enter/Space**: Activate splitter handle for keyboard resizing
 - **Arrow keys (while active)**: Resize panels incrementally
 - **Escape**: Cancel keyboard resize operation
 
 ### Screen Reader Support
+
 - Proper ARIA labels for splitter handles
 - Size announcements during resize operations
 - Panel content remains accessible during resize
 
 ### Focus Management
+
 - Clear focus indicators on splitter handles
 - Logical tab order through panels
 - Focus restoration after resize operations
@@ -350,12 +359,14 @@ export function IDELayoutExample() {
 ## Performance Considerations
 
 ### Optimization Tips
+
 1. **Container Sizing**: Always provide explicit container dimensions
 2. **Minimize Rerenders**: Use `defaultSizes` instead of controlled `sizes` when possible
 3. **Debounce Updates**: Use debounced callbacks for expensive operations
 4. **Virtualization**: Consider virtual scrolling for panels with large content
 
 ### Best Practices
+
 1. **Minimum Sizes**: Set appropriate `minSize` values to prevent unusable panels
 2. **Snap Behavior**: Use `snap` for panels that can be completely hidden
 3. **Nested Layouts**: Limit nesting depth to maintain performance
@@ -364,6 +375,7 @@ export function IDELayoutExample() {
 ## Styling
 
 The component inherits styles from the Allotment library and can be customized via:
+
 - CSS classes through `className` prop
 - Custom resizer styles via `resizerStyle` prop
 - CSS custom properties for theming

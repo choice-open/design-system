@@ -70,7 +70,7 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
           // 复制 llms.txt 文件
           const llmsFile = resolve(__dirname, "llms.txt")
           const destLlmsFile = resolve(__dirname, "dist/llms.txt")
-          
+
           try {
             await fs.copyFile(llmsFile, destLlmsFile)
             console.log("✓ llms.txt copied successfully")

@@ -28,7 +28,10 @@ import { Textarea } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-<Textarea value={value} onChange={setValue} />
+<Textarea
+  value={value}
+  onChange={setValue}
+/>
 ```
 
 ### Auto-resize with row constraints
@@ -89,7 +92,7 @@ import { Textarea } from "@choiceform/design-system"
   value={value}
   onChange={setValue}
   onIsEditingChange={(isEditing) => {
-    console.log('Textarea editing state:', isEditing)
+    console.log("Textarea editing state:", isEditing)
   }}
 />
 ```
@@ -141,17 +144,20 @@ interface TextareaProps
 ## Resize Modes
 
 ### Auto (`resize="auto"`)
+
 - Automatically adjusts height based on content
 - Respects `minRows` and `maxRows` constraints
 - Shows scrollbar when content exceeds `maxRows`
 
 ### Handle (`resize="handle"`)
+
 - Shows a resize handle in the bottom-right corner
 - Allows manual height adjustment by dragging
 - Respects `minRows` and `maxRows` constraints
 - Provides visual feedback during resizing
 
 ### Fixed (`resize={false}`)
+
 - Fixed height based on `rows` prop
 - No automatic resizing
 - Shows scrollbar when content exceeds height

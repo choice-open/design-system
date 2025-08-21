@@ -29,9 +29,9 @@ function Input({ value, defaultValue, onChange }) {
     defaultValue,
     onChange
   })
-  
+
   return (
-    <input 
+    <input
       value={internalValue}
       onChange={(e) => setInternalValue(e.target.value)}
     />
@@ -44,15 +44,17 @@ function Input({ value, defaultValue, onChange }) {
 ### useMergedValue
 
 ```typescript
-function useMergedValue<T>(options: Options<T>): [T, (value: SetStateAction<T>, forceTrigger?: boolean) => void]
+function useMergedValue<T>(
+  options: Options<T>,
+): [T, (value: SetStateAction<T>, forceTrigger?: boolean) => void]
 
 interface Options<T> {
-  value?: T                           // Controlled value
-  defaultValue?: T                    // Initial value for uncontrolled mode
-  defaultStateValue?: T | (() => T)  // Fallback default value
-  onChange?: (value: T) => void       // Change handler
-  onUnchange?: () => void            // Called when setting same value
-  allowEmpty?: boolean               // Allow undefined values without warning
+  value?: T // Controlled value
+  defaultValue?: T // Initial value for uncontrolled mode
+  defaultStateValue?: T | (() => T) // Fallback default value
+  onChange?: (value: T) => void // Change handler
+  onUnchange?: () => void // Called when setting same value
+  allowEmpty?: boolean // Allow undefined values without warning
 }
 ```
 
@@ -69,6 +71,7 @@ interface Options<T> {
 #### Returns
 
 A tuple containing:
+
 1. Current value (controlled or internal)
 2. Setter function that handles both modes
 
@@ -98,7 +101,7 @@ function TextInput({ value, defaultValue, onChange }: InputProps) {
     defaultValue: defaultValue || '',
     onChange
   })
-  
+
   return (
     <input
       type="text"
@@ -131,7 +134,7 @@ function Toggle({ checked, defaultChecked, onChange }: ToggleProps) {
     defaultStateValue: false,
     onChange
   })
-  
+
   return (
     <button
       role="switch"
@@ -161,7 +164,7 @@ function Select<T>({ value, defaultValue, options, onChange }: SelectProps<T>) {
     defaultValue,
     onChange
   })
-  
+
   return (
     <select
       value={selectedValue}
@@ -187,13 +190,13 @@ function NumberInput({ value, defaultValue, min, max, onChange }) {
     onChange,
     onUnchange: () => console.log('Same value attempted')
   })
-  
+
   const handleChange = (newValue: number) => {
     // Clamp value between min and max
     const clampedValue = Math.min(Math.max(newValue, min), max)
     setInternalValue(clampedValue)
   }
-  
+
   return (
     <div>
       <button onClick={() => handleChange(internalValue - 1)}>-</button>
@@ -217,11 +220,11 @@ function DatePicker({ value, defaultValue, onChange, format = 'YYYY-MM-DD' }) {
     defaultValue: defaultValue || new Date(),
     onChange
   })
-  
+
   const formattedDate = useMemo(() => {
     return formatDate(date, format)
   }, [date, format])
-  
+
   return (
     <div className="date-picker">
       <input
@@ -254,7 +257,7 @@ function ColorPicker({ color, defaultColor, onChange }: ColorPickerProps) {
     defaultStateValue: '#000000',
     onChange
   })
-  
+
   return (
     <div className="color-picker">
       <input
@@ -283,7 +286,7 @@ function Tabs({ activeTab, defaultActiveTab, tabs, onChange }) {
     defaultStateValue: () => tabs[0]?.id,
     onChange
   })
-  
+
   return (
     <div className="tabs">
       <div className="tab-list">
@@ -316,7 +319,7 @@ function ForceUpdateExample() {
     onChange: (v) => console.log('Changed to:', v),
     onUnchange: () => console.log('Attempted to set same value')
   })
-  
+
   return (
     <div>
       <p>Value: {value}</p>
@@ -337,13 +340,13 @@ function ForceUpdateExample() {
 function ModeSwitchingInput() {
   const [isControlled, setIsControlled] = useState(false)
   const [controlledValue, setControlledValue] = useState('')
-  
+
   const [value, setValue] = useMergedValue({
     value: isControlled ? controlledValue : undefined,
     defaultValue: 'uncontrolled default',
     onChange: isControlled ? setControlledValue : undefined
   })
-  
+
   return (
     <div>
       <label>
@@ -381,13 +384,13 @@ function ModeSwitchingInput() {
 // React Hook Form
 function FormInput({ name, control, ...props }) {
   const { field } = useController({ name, control })
-  
+
   const [value, setValue] = useMergedValue({
     value: field.value,
     onChange: field.onChange,
     ...props
   })
-  
+
   return <input {...field} value={value} onChange={(e) => setValue(e.target.value)} />
 }
 ```
@@ -401,7 +404,7 @@ function ReduxConnectedInput({ inputValue, updateValue }) {
     value: inputValue,
     onChange: updateValue
   })
-  
+
   return <input value={value} onChange={(e) => setValue(e.target.value)} />
 }
 ```

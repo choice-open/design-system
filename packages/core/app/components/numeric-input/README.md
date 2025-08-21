@@ -44,7 +44,7 @@ function MyComponent() {
 ```tsx
 import { HugWidth } from "@choiceform/icons-react"
 
-<NumericInput
+;<NumericInput
   value={value}
   onChange={setValue}
 >
@@ -59,7 +59,7 @@ import { HugWidth } from "@choiceform/icons-react"
 ```tsx
 import { Relative } from "@choiceform/icons-react"
 
-<NumericInput
+;<NumericInput
   value={value}
   onChange={setValue}
 >
@@ -247,63 +247,59 @@ const [variableValue, setVariableValue] = useState(10)
 interface NumericInputProps {
   /** Current numeric value */
   value?: NumericInputValue
-  
+
   /** Default value for uncontrolled usage */
   defaultValue?: NumericInputValue
-  
+
   /** Callback when value changes */
   onChange?: (value: NumericInputValue, detail: NumberResult) => void
-  
+
   /** Callback when input is cleared */
   onEmpty?: () => void
-  
+
   /** Expression pattern for formatted display (e.g., "{value}px") */
   expression?: string
-  
+
   /** Minimum allowed value */
   min?: number
-  
+
   /** Maximum allowed value */
   max?: number
-  
+
   /** Step increment for arrow keys and drag */
   step?: number
-  
+
   /** Step increment when Shift key is pressed */
   shiftStep?: number
-  
+
   /** Number of decimal places to display */
   decimal?: number
-  
+
   /** Whether the input is disabled */
   disabled?: boolean
-  
+
   /** Whether the input is read-only */
   readOnly?: boolean
-  
+
   /** Whether the input appears selected */
   selected?: boolean
-  
+
   /** Whether the input appears focused */
   focused?: boolean
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
-  
+
   /** Tooltip configuration */
   tooltip?: {
     content: string
   }
-  
+
   /** Child elements (Prefix, Suffix, Variable, etc.) */
   children?: React.ReactNode
 }
 
-type NumericInputValue = 
-  | string 
-  | number 
-  | (string | number | undefined)[] 
-  | Record<string, number>
+type NumericInputValue = string | number | (string | number | undefined)[] | Record<string, number>
 
 interface NumberResult {
   array: number[]
@@ -317,9 +313,11 @@ interface NumberResult {
 ## Sub-components
 
 ### NumericInput.Prefix
+
 Container for prefix content like icons or labels.
 
 ### NumericInput.Suffix
+
 Container for suffix content with different types for various use cases.
 
 ```ts
@@ -330,6 +328,7 @@ interface SuffixProps {
 ```
 
 ### NumericInput.Variable
+
 Displays a variable value when the main input is undefined.
 
 ```ts
@@ -339,9 +338,11 @@ interface VariableProps {
 ```
 
 ### NumericInput.ActionPrompt
+
 Displays action-related text or labels.
 
 ### NumericInput.MenuTrigger
+
 A specialized button for triggering dropdown menus.
 
 ```ts
@@ -360,22 +361,22 @@ interface MenuTriggerProps {
 
 ## Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `↑` / `↓` | Increase/decrease by `step` value |
-| `Shift + ↑` / `Shift + ↓` | Increase/decrease by `shiftStep` value |
-| `Meta/Alt + ↑` / `Meta/Alt + ↓` | Increase/decrease by 1 (fine control) |
-| `Enter` | Confirm the current value |
-| `Escape` | Reset to previous value when editing |
+| Key                             | Action                                 |
+| ------------------------------- | -------------------------------------- |
+| `↑` / `↓`                       | Increase/decrease by `step` value      |
+| `Shift + ↑` / `Shift + ↓`       | Increase/decrease by `shiftStep` value |
+| `Meta/Alt + ↑` / `Meta/Alt + ↓` | Increase/decrease by 1 (fine control)  |
+| `Enter`                         | Confirm the current value              |
+| `Escape`                        | Reset to previous value when editing   |
 
 ## Expression Patterns
 
-| Pattern | Example Value | Display |
-|---------|---------------|---------|
-| `"{value}px"` | `100` | "100px" |
-| `"{width}x{height}"` | `{width: 100, height: 200}` | "100x200" |
-| `"{value1}, {value2}"` | `[10, 20]` | "10, 20" |
-| `"{value1}{value2,hidden}"` | `[10, 10]` | "10" (second hidden when identical) |
+| Pattern                     | Example Value               | Display                             |
+| --------------------------- | --------------------------- | ----------------------------------- |
+| `"{value}px"`               | `100`                       | "100px"                             |
+| `"{width}x{height}"`        | `{width: 100, height: 200}` | "100x200"                           |
+| `"{value1}, {value2}"`      | `[10, 20]`                  | "10, 20"                            |
+| `"{value1}{value2,hidden}"` | `[10, 10]`                  | "10" (second hidden when identical) |
 
 ## Best Practices
 
@@ -398,11 +399,11 @@ const [changeCount, setChangeCount] = useState(0)
 
 const handleChange = (newValue, detail) => {
   setValue(newValue as number)
-  setChangeCount(prev => prev + 1)
-  console.log('Input text:', detail.string)
+  setChangeCount((prev) => prev + 1)
+  console.log("Input text:", detail.string)
 }
 
-<NumericInput
+;<NumericInput
   value={value}
   onChange={handleChange}
 />
@@ -455,4 +456,4 @@ const [size, setSize] = useState({ width: 100, height: 50 })
 - Variable values provide visual indication when active
 - Component automatically formats display based on expression patterns
 - Drag interactions work on both the input field and handler elements
-- Expression parsing supports basic arithmetic operations: +, -, *, /, ()
+- Expression parsing supports basic arithmetic operations: +, -, \*, /, ()

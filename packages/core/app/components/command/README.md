@@ -98,14 +98,15 @@ const [open, setOpen] = useState(false)
 ```tsx
 <Command>
   <Command.Input />
-  <Command.Tabs value={activeTab} onChange={setActiveTab}>
+  <Command.Tabs
+    value={activeTab}
+    onChange={setActiveTab}
+  >
     <Command.TabItem value="all">All</Command.TabItem>
     <Command.TabItem value="files">Files</Command.TabItem>
     <Command.TabItem value="actions">Actions</Command.TabItem>
   </Command.Tabs>
-  <Command.List>
-    {/* Items filtered by active tab */}
-  </Command.List>
+  <Command.List>{/* Items filtered by active tab */}</Command.List>
 </Command>
 ```
 
@@ -116,9 +117,9 @@ const [value, setValue] = useState("")
 const [search, setSearch] = useState("")
 
 <Command value={value} onChange={setValue}>
-  <Command.Input 
-    value={search} 
-    onChange={setSearch} 
+  <Command.Input
+    value={search}
+    onChange={setSearch}
   />
   <Command.List>
     <Command.Item value="item1">Item 1</Command.Item>
@@ -132,20 +133,15 @@ const [search, setSearch] = useState("")
 <Command>
   <Command.Input />
   <Command.List>
-    {loading && (
-      <Command.Loading>
-        Fetching results...
-      </Command.Loading>
-    )}
-    
-    {error && (
-      <Command.Empty>
-        Error: {error.message}
-      </Command.Empty>
-    )}
-    
-    {data?.map(item => (
-      <Command.Item key={item.id} value={item.id}>
+    {loading && <Command.Loading>Fetching results...</Command.Loading>}
+
+    {error && <Command.Empty>Error: {error.message}</Command.Empty>}
+
+    {data?.map((item) => (
+      <Command.Item
+        key={item.id}
+        value={item.id}
+      >
         {item.name}
       </Command.Item>
     ))}
@@ -162,7 +158,7 @@ const customFilter = (value: string, search: string) => {
   return value.toLowerCase().includes(search.toLowerCase()) ? 0.8 : 0
 }
 
-<Command filter={customFilter}>
+;<Command filter={customFilter}>
   <Command.Input />
   <Command.List>
     <Command.Item>Custom filtered item</Command.Item>
@@ -173,7 +169,7 @@ const customFilter = (value: string, search: string) => {
 ### With Keywords
 
 ```tsx
-<Command.Item 
+<Command.Item
   value="javascript-file"
   keywords={["js", "script", "code", "typescript"]}
 >
@@ -189,37 +185,37 @@ const customFilter = (value: string, search: string) => {
 interface CommandProps {
   /** Controlled selected value */
   value?: string
-  
+
   /** Default selected value (uncontrolled) */
   defaultValue?: string
-  
+
   /** Selection change handler */
   onChange?: (value: string) => void
-  
+
   /** Custom filter function */
   filter?: (value: string, search: string, keywords?: string[]) => number
-  
+
   /** Enable/disable automatic filtering */
   shouldFilter?: boolean
-  
+
   /** Enable wraparound navigation at boundaries */
   loop?: boolean
-  
+
   /** Disable mouse selection (keyboard only) */
   disablePointerSelection?: boolean
-  
+
   /** Enable vim-style navigation (Ctrl+N/J/P/K) */
   vimBindings?: boolean
-  
+
   /** Size variant */
   size?: "default" | "large"
-  
+
   /** Theme variant */
   variant?: "default" | "dark"
-  
+
   /** Screen reader label */
   label?: string
-  
+
   /** Key handler for global shortcuts */
   onKeyDown?: (event: React.KeyboardEvent) => void
 }
@@ -231,28 +227,28 @@ interface CommandProps {
 interface CommandItemProps {
   /** Value for selection and filtering */
   value?: string
-  
+
   /** Additional search keywords */
   keywords?: string[]
-  
+
   /** Leading icon or element */
   prefixElement?: ReactNode
-  
+
   /** Trailing element */
   suffixElement?: ReactNode
-  
+
   /** Keyboard shortcut display */
   shortcut?: {
     keys?: ReactNode
     modifier?: KbdKey | KbdKey[]
   }
-  
+
   /** Disable item selection */
   disabled?: boolean
-  
+
   /** Always render (skip filtering) */
   forceMount?: boolean
-  
+
   /** Selection callback */
   onSelect?: (value: string) => void
 }
@@ -264,10 +260,10 @@ interface CommandItemProps {
 interface CommandGroupProps {
   /** Group heading */
   heading?: ReactNode
-  
+
   /** Group identifier */
   value?: string
-  
+
   /** Always render (skip filtering) */
   forceMount?: boolean
 }
@@ -279,13 +275,13 @@ interface CommandGroupProps {
 interface CommandInputProps extends InputProps {
   /** Controlled search value */
   value?: string
-  
+
   /** Search change handler */
   onChange?: (search: string) => void
-  
+
   /** Leading element */
   prefixElement?: ReactNode
-  
+
   /** Trailing element */
   suffixElement?: ReactNode
 }
@@ -297,7 +293,7 @@ interface CommandInputProps extends InputProps {
 interface CommandTabsProps {
   /** Active tab value */
   value?: string
-  
+
   /** Tab change handler */
   onChange?: (value: string) => void
 }
@@ -306,23 +302,27 @@ interface CommandTabsProps {
 ## Keyboard Navigation
 
 ### Basic Navigation
+
 - `↑` `↓` - Navigate between items
 - `Enter` - Select current item
 - `Home` - Jump to first item
 - `End` - Jump to last item
 
 ### Vim Bindings (optional)
+
 - `Ctrl+J` - Next item (same as ↓)
 - `Ctrl+K` - Previous item (same as ↑)
 - `Ctrl+N` - Next item
 - `Ctrl+P` - Previous item
 
 ### Advanced Navigation
+
 - `Alt+↑` `Alt+↓` - Navigate between groups
 - `Cmd+↑` `Cmd+↓` - Jump to first/last item (Mac)
 - `←` `→` - Switch tabs (when tabs are present)
 
 ### IME Support
+
 - Full support for Chinese, Japanese, Korean input methods
 - Composition events handled correctly
 - No interference with typing flow
@@ -339,6 +339,7 @@ The component uses a sophisticated fuzzy search algorithm that scores matches ba
 6. **Fuzzy Match** (0.1-0.5) - Character sequence matching
 
 ### Scoring Factors
+
 - Case sensitivity bonus
 - Distance between matched characters
 - Match position weighting
@@ -350,7 +351,7 @@ The component uses a sophisticated fuzzy search algorithm that scores matches ba
 
 ```tsx
 const ConditionalItem = ({ children, ...props }) => {
-  const search = useCommandState(state => state.search)
+  const search = useCommandState((state) => state.search)
   if (!search) return null
   return <Command.Item {...props}>{children}</Command.Item>
 }
@@ -372,7 +373,7 @@ const page = pages[pages.length - 1]
       Browse projects...
     </Command.Item>
   )}
-  
+
   {page === 'projects' && (
     <Command.Group heading="Projects">
       <Command.Item>Project A</Command.Item>
@@ -387,9 +388,14 @@ const page = pages[pages.length - 1]
 // For 1000+ items
 <Command>
   <Command.Input />
-  <Command.List className="max-h-64"> {/* Fixed height enables virtualization */}
-    {largeDataset.map(item => (
-      <Command.Item key={item.id} value={`${item.name} ${item.description}`}>
+  <Command.List className="max-h-64">
+    {" "}
+    {/* Fixed height enables virtualization */}
+    {largeDataset.map((item) => (
+      <Command.Item
+        key={item.id}
+        value={`${item.name} ${item.description}`}
+      >
         {item.name}
       </Command.Item>
     ))}
@@ -403,13 +409,13 @@ const page = pages[pages.length - 1]
 
 ```ts
 interface CommandState {
-  search: string           // Current search query
-  value: string           // Selected item value
-  selectedItemId: string  // DOM id of selected item
+  search: string // Current search query
+  value: string // Selected item value
+  selectedItemId: string // DOM id of selected item
   filtered: {
-    count: number         // Number of visible items
-    items: Map<string, number>  // Item scores
-    groups: Set<string>   // Visible groups
+    count: number // Number of visible items
+    items: Map<string, number> // Item scores
+    groups: Set<string> // Visible groups
   }
 }
 ```
@@ -420,9 +426,9 @@ interface CommandState {
 import { useCommandState } from "./hooks"
 
 function MyComponent() {
-  const search = useCommandState(state => state.search)
-  const selectedValue = useCommandState(state => state.value)
-  
+  const search = useCommandState((state) => state.search)
+  const selectedValue = useCommandState((state) => state.value)
+
   // Component logic
 }
 ```
@@ -430,24 +436,28 @@ function MyComponent() {
 ## Best Practices
 
 ### Performance
+
 - Use fixed heights on Command.List for virtual scrolling
 - Implement custom filter functions for complex logic
 - Memoize expensive item content
 - Use `forceMount` sparingly
 
 ### Accessibility
+
 - Provide meaningful `value` props for all items
 - Use semantic group headings
 - Include keyboard shortcuts in UI
 - Test with screen readers
 
 ### UX Guidelines
+
 - Keep search responsive (< 100ms)
 - Show loading states for async operations
 - Provide empty states with helpful messages
 - Use consistent iconography and spacing
 
 ### Search Optimization
+
 - Include relevant keywords for better matching
 - Use descriptive values that users would expect
 - Consider abbreviations and acronyms
@@ -475,22 +485,28 @@ Customize with className overrides or modify the theme configuration.
 ```tsx
 function AppCommandPalette() {
   const [open, setOpen] = useState(false)
-  
+
   useEffect(() => {
     const down = (e) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
         setOpen(true)
       }
     }
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
   }, [])
-  
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={setOpen}
+    >
       <Dialog.Content>
-        <Command loop vimBindings>
+        <Command
+          loop
+          vimBindings
+        >
           <Command.Input placeholder="Type a command..." />
           <Command.List>
             <Command.Group heading="File">
@@ -512,10 +528,10 @@ function AppCommandPalette() {
 ```tsx
 function FileBrowser({ files }) {
   const [search, setSearch] = useState("")
-  
+
   return (
     <Command shouldFilter={false}>
-      <Command.Input 
+      <Command.Input
         value={search}
         onChange={setSearch}
         placeholder="Search files..."
@@ -523,9 +539,12 @@ function FileBrowser({ files }) {
       <Command.List>
         <Command.Group heading="Recent Files">
           {files
-            .filter(file => file.name.includes(search))
-            .map(file => (
-              <Command.Item key={file.id} value={file.id}>
+            .filter((file) => file.name.includes(search))
+            .map((file) => (
+              <Command.Item
+                key={file.id}
+                value={file.id}
+              >
                 <FileIcon type={file.type} />
                 <div>
                   <div>{file.name}</div>

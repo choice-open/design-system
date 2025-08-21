@@ -12,15 +12,15 @@ import { formatBytes } from "@choiceform/design-system/utils"
 
 ```typescript
 // Basic usage
-formatBytes(1024)           // "1 KB"
-formatBytes(1048576)        // "1 MB"
-formatBytes(1073741824)     // "1 GB"
+formatBytes(1024) // "1 KB"
+formatBytes(1048576) // "1 MB"
+formatBytes(1073741824) // "1 GB"
 
 // Edge cases
-formatBytes(0)              // "0 B"
-formatBytes(512)            // "512 B"
-formatBytes(1536)           // "1.5 KB"
-formatBytes(10485760)       // "10.0 MB"
+formatBytes(0) // "0 B"
+formatBytes(512) // "512 B"
+formatBytes(1536) // "1.5 KB"
+formatBytes(10485760) // "10.0 MB"
 ```
 
 ## API
@@ -80,7 +80,7 @@ function DownloadProgress({ downloaded, total }) {
 ```typescript
 function StorageIndicator({ used, total }) {
   const percentage = (used / total) * 100
-  
+
   return (
     <div className="storage">
       <div className="storage-bar" style={{ width: `${percentage}%` }} />
@@ -93,6 +93,7 @@ function StorageIndicator({ used, total }) {
 ## Implementation Details
 
 The function uses a logarithmic calculation to determine the appropriate unit:
+
 - Divides by 1024 for each unit level (B → KB → MB → GB → TB)
 - Uses `toFixed()` for formatting decimal places
 - Returns whole numbers for byte values, one decimal place for larger units
