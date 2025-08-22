@@ -18,7 +18,7 @@ const views = {
   home: () => <HomePage />,
   about: () => <AboutPage />,
   contact: () => <ContactPage />,
-  settings: () => <SettingsPage />
+  settings: () => <SettingsPage />,
 }
 
 export function BasicExample() {
@@ -26,7 +26,7 @@ export function BasicExample() {
     <Stackflow
       initialView="home"
       views={views}
-      className="h-96 border rounded"
+      className="h-96 rounded border"
     />
   )
 }
@@ -37,20 +37,20 @@ export function BasicExample() {
 ```tsx
 function NavigationControls() {
   const { push, back, clearHistory, canGoBack, current } = useStackflowContext()
-  
+
   return (
-    <div className="flex gap-2 p-4 border-b">
+    <div className="flex gap-2 border-b p-4">
       <button onClick={() => push("home")}>Home</button>
       <button onClick={() => push("about")}>About</button>
       <button onClick={() => push("contact")}>Contact</button>
-      <button 
-        onClick={back} 
+      <button
+        onClick={back}
         disabled={!canGoBack}
       >
         Back
       </button>
       <button onClick={clearHistory}>Clear History</button>
-      
+
       <span className="ml-auto">Current: {current}</span>
     </div>
   )
@@ -78,14 +78,14 @@ export function WithNavigationExample() {
         <h1>Contact Page</h1>
         <p>Get in touch</p>
       </div>
-    )
+    ),
   }
-  
+
   return (
     <Stackflow
       initialView="home"
       views={views}
-      className="h-96 border rounded"
+      className="h-96 rounded border"
     />
   )
 }
@@ -95,13 +95,13 @@ export function WithNavigationExample() {
 
 ### Stackflow Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `views` | `Record<string, () => ReactNode>` | - | **Required.** Object mapping view names to components |
-| `initialView` | `string` | - | **Required.** Initial view to display |
-| `onViewChange` | `(view: string) => void` | - | Callback when active view changes |
-| `transition` | `object` | - | Animation transition configuration |
-| `className` | `string` | - | Additional CSS classes |
+| Prop           | Type                              | Default | Description                                           |
+| -------------- | --------------------------------- | ------- | ----------------------------------------------------- |
+| `views`        | `Record<string, () => ReactNode>` | -       | **Required.** Object mapping view names to components |
+| `initialView`  | `string`                          | -       | **Required.** Initial view to display                 |
+| `onViewChange` | `(view: string) => void`          | -       | Callback when active view changes                     |
+| `transition`   | `object`                          | -       | Animation transition configuration                    |
+| `className`    | `string`                          | -       | Additional CSS classes                                |
 
 ## Context API
 
@@ -110,15 +110,15 @@ export function WithNavigationExample() {
 ```tsx
 const {
   // Current state
-  current,        // string: current view name
-  history,        // string[]: navigation history
-  canGoBack,      // boolean: whether back navigation is possible
-  
+  current, // string: current view name
+  history, // string[]: navigation history
+  canGoBack, // boolean: whether back navigation is possible
+
   // Navigation methods
-  push,           // (view: string) => void
-  back,           // () => void
-  replace,        // (view: string) => void
-  clearHistory,   // () => void
+  push, // (view: string) => void
+  back, // () => void
+  replace, // (view: string) => void
+  clearHistory, // () => void
 } = useStackflowContext()
 ```
 
@@ -133,40 +133,44 @@ export function WizardExample() {
   const [formData, setFormData] = useState({
     step1: {},
     step2: {},
-    step3: {}
+    step3: {},
   })
-  
+
   const { push, back, canGoBack } = useStackflowContext()
-  
+
   const views = {
     step1: () => (
       <div className="p-6">
-        <h2 className="text-xl font-bold mb-4">Step 1: Basic Information</h2>
+        <h2 className="mb-4 text-xl font-bold">Step 1: Basic Information</h2>
         <form className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Name</label>
-            <input 
-              type="text" 
-              className="w-full border rounded px-3 py-2"
+            <label className="mb-1 block text-sm font-medium">Name</label>
+            <input
+              type="text"
+              className="w-full rounded border px-3 py-2"
               placeholder="Enter your name"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input 
-              type="email" 
-              className="w-full border rounded px-3 py-2"
+            <label className="mb-1 block text-sm font-medium">Email</label>
+            <input
+              type="email"
+              className="w-full rounded border px-3 py-2"
               placeholder="Enter your email"
             />
           </div>
           <div className="flex justify-between">
-            <button type="button" disabled className="px-4 py-2 bg-gray-300 rounded">
+            <button
+              type="button"
+              disabled
+              className="rounded bg-gray-300 px-4 py-2"
+            >
               Previous
             </button>
-            <button 
+            <button
               type="button"
               onClick={() => push("step2")}
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="rounded bg-blue-500 px-4 py-2 text-white"
             >
               Next
             </button>
@@ -174,14 +178,14 @@ export function WizardExample() {
         </form>
       </div>
     ),
-    
+
     step2: () => (
       <div className="p-6">
-        <h2 className="text-xl font-bold mb-4">Step 2: Preferences</h2>
+        <h2 className="mb-4 text-xl font-bold">Step 2: Preferences</h2>
         <form className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Theme</label>
-            <select className="w-full border rounded px-3 py-2">
+            <label className="mb-1 block text-sm font-medium">Theme</label>
+            <select className="w-full rounded border px-3 py-2">
               <option>Light</option>
               <option>Dark</option>
               <option>Auto</option>
@@ -189,22 +193,25 @@ export function WizardExample() {
           </div>
           <div>
             <label className="flex items-center">
-              <input type="checkbox" className="mr-2" />
+              <input
+                type="checkbox"
+                className="mr-2"
+              />
               Enable notifications
             </label>
           </div>
           <div className="flex justify-between">
-            <button 
+            <button
               type="button"
               onClick={back}
-              className="px-4 py-2 bg-gray-500 text-white rounded"
+              className="rounded bg-gray-500 px-4 py-2 text-white"
             >
               Previous
             </button>
-            <button 
+            <button
               type="button"
               onClick={() => push("step3")}
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="rounded bg-blue-500 px-4 py-2 text-white"
             >
               Next
             </button>
@@ -212,41 +219,41 @@ export function WizardExample() {
         </form>
       </div>
     ),
-    
+
     step3: () => (
       <div className="p-6">
-        <h2 className="text-xl font-bold mb-4">Step 3: Review & Submit</h2>
+        <h2 className="mb-4 text-xl font-bold">Step 3: Review & Submit</h2>
         <div className="space-y-4">
-          <div className="bg-gray-50 p-4 rounded">
+          <div className="rounded bg-gray-50 p-4">
             <h3 className="font-medium">Summary</h3>
             <p>Review your information before submitting...</p>
           </div>
           <div className="flex justify-between">
-            <button 
+            <button
               type="button"
               onClick={back}
-              className="px-4 py-2 bg-gray-500 text-white rounded"
+              className="rounded bg-gray-500 px-4 py-2 text-white"
             >
               Previous
             </button>
-            <button 
+            <button
               type="button"
-              className="px-4 py-2 bg-green-500 text-white rounded"
+              className="rounded bg-green-500 px-4 py-2 text-white"
             >
               Submit
             </button>
           </div>
         </div>
       </div>
-    )
+    ),
   }
-  
+
   return (
-    <div className="max-w-md mx-auto">
+    <div className="mx-auto max-w-md">
       <Stackflow
         initialView="step1"
         views={views}
-        className="border rounded-lg shadow-lg"
+        className="rounded-lg border shadow-lg"
       />
     </div>
   )
@@ -258,99 +265,121 @@ export function WizardExample() {
 ```tsx
 export function ModalFlowExample() {
   const [isOpen, setIsOpen] = useState(false)
-  
+
   const modalViews = {
     main: () => (
       <div className="p-6">
-        <h2 className="text-xl font-bold mb-4">Settings</h2>
+        <h2 className="mb-4 text-xl font-bold">Settings</h2>
         <div className="space-y-2">
-          <button 
+          <button
             onClick={() => push("profile")}
-            className="block w-full text-left p-2 hover:bg-gray-100 rounded"
+            className="block w-full rounded p-2 text-left hover:bg-gray-100"
           >
             Profile Settings
           </button>
-          <button 
+          <button
             onClick={() => push("privacy")}
-            className="block w-full text-left p-2 hover:bg-gray-100 rounded"
+            className="block w-full rounded p-2 text-left hover:bg-gray-100"
           >
             Privacy Settings
           </button>
-          <button 
+          <button
             onClick={() => push("advanced")}
-            className="block w-full text-left p-2 hover:bg-gray-100 rounded"
+            className="block w-full rounded p-2 text-left hover:bg-gray-100"
           >
             Advanced Settings
           </button>
         </div>
       </div>
     ),
-    
+
     profile: () => {
       const { back } = useStackflowContext()
       return (
         <div className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <button onClick={back} className="text-blue-500">← Back</button>
+          <div className="mb-4 flex items-center gap-2">
+            <button
+              onClick={back}
+              className="text-blue-500"
+            >
+              ← Back
+            </button>
             <h2 className="text-xl font-bold">Profile Settings</h2>
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Display Name</label>
-              <input type="text" className="w-full border rounded px-3 py-2" />
+              <label className="mb-1 block text-sm font-medium">Display Name</label>
+              <input
+                type="text"
+                className="w-full rounded border px-3 py-2"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Bio</label>
-              <textarea className="w-full border rounded px-3 py-2" rows={3} />
+              <label className="mb-1 block text-sm font-medium">Bio</label>
+              <textarea
+                className="w-full rounded border px-3 py-2"
+                rows={3}
+              />
             </div>
           </div>
         </div>
       )
     },
-    
+
     privacy: () => {
       const { back } = useStackflowContext()
       return (
         <div className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <button onClick={back} className="text-blue-500">← Back</button>
+          <div className="mb-4 flex items-center gap-2">
+            <button
+              onClick={back}
+              className="text-blue-500"
+            >
+              ← Back
+            </button>
             <h2 className="text-xl font-bold">Privacy Settings</h2>
           </div>
           <div className="space-y-4">
             <label className="flex items-center">
-              <input type="checkbox" className="mr-2" />
+              <input
+                type="checkbox"
+                className="mr-2"
+              />
               Make profile public
             </label>
             <label className="flex items-center">
-              <input type="checkbox" className="mr-2" />
+              <input
+                type="checkbox"
+                className="mr-2"
+              />
               Allow direct messages
             </label>
           </div>
         </div>
       )
-    }
+    },
   }
-  
+
   return (
     <div>
-      <button 
+      <button
         onClick={() => setIsOpen(true)}
-        className="px-4 py-2 bg-blue-500 text-white rounded"
+        className="rounded bg-blue-500 px-4 py-2 text-white"
       >
         Open Settings
       </button>
-      
+
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white rounded-lg w-96 max-h-[500px] overflow-hidden">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+          <div className="max-h-[500px] w-96 overflow-hidden rounded-lg bg-white">
             <Stackflow
               initialView="main"
               views={modalViews}
             />
-            <div className="p-4 border-t">
-              <button 
+            <div className="border-t p-4">
+              <button
                 onClick={() => setIsOpen(false)}
-                className="w-full px-4 py-2 bg-gray-500 text-white rounded"
+                className="w-full rounded bg-gray-500 px-4 py-2 text-white"
               >
                 Close
               </button>
@@ -368,19 +397,17 @@ export function ModalFlowExample() {
 ```tsx
 export function SearchNavigationExample() {
   const [searchQuery, setSearchQuery] = useState("")
-  
+
   const views = {
     search: () => {
       const { push } = useStackflowContext()
-      
+
       const results = [
         { id: 1, title: "React Hooks Guide" },
         { id: 2, title: "TypeScript Best Practices" },
-        { id: 3, title: "CSS Grid Layout" }
-      ].filter(item => 
-        item.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      
+        { id: 3, title: "CSS Grid Layout" },
+      ].filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
       return (
         <div className="p-4">
           <SearchInput
@@ -389,13 +416,13 @@ export function SearchNavigationExample() {
             placeholder="Search articles..."
             className="mb-4"
           />
-          
+
           <div className="space-y-2">
-            {results.map(result => (
+            {results.map((result) => (
               <button
                 key={result.id}
                 onClick={() => push(`article-${result.id}`)}
-                className="block w-full text-left p-3 border rounded hover:bg-gray-50"
+                className="block w-full rounded border p-3 text-left hover:bg-gray-50"
               >
                 {result.title}
               </button>
@@ -404,26 +431,31 @@ export function SearchNavigationExample() {
         </div>
       )
     },
-    
+
     "article-1": () => {
       const { back } = useStackflowContext()
       return (
         <div className="p-4">
-          <button onClick={back} className="text-blue-500 mb-4">← Back to search</button>
-          <h1 className="text-2xl font-bold mb-4">React Hooks Guide</h1>
+          <button
+            onClick={back}
+            className="mb-4 text-blue-500"
+          >
+            ← Back to search
+          </button>
+          <h1 className="mb-4 text-2xl font-bold">React Hooks Guide</h1>
           <p>Complete guide to React Hooks...</p>
         </div>
       )
-    }
-    
+    },
+
     // Add more article views as needed
   }
-  
+
   return (
     <Stackflow
       initialView="search"
       views={views}
-      className="h-96 border rounded"
+      className="h-96 rounded border"
     />
   )
 }
@@ -438,7 +470,7 @@ export function AnimatedStackflowExample() {
   const views = {
     // Your views here
   }
-  
+
   return (
     <Stackflow
       initialView="home"
@@ -446,9 +478,9 @@ export function AnimatedStackflowExample() {
       transition={{
         type: "slide",
         duration: 300,
-        easing: "ease-in-out"
+        easing: "ease-in-out",
       }}
-      className="h-96 border rounded overflow-hidden"
+      className="h-96 overflow-hidden rounded border"
     />
   )
 }
@@ -457,18 +489,21 @@ export function AnimatedStackflowExample() {
 ## Best Practices
 
 ### State Management
+
 1. **Pass data between views**: Use context or props drilling for shared state
 2. **Cleanup on unmount**: Clear any subscriptions or timers in view components
 3. **Handle back navigation**: Always provide clear back navigation options
 4. **Validate navigation**: Ensure required data exists before allowing navigation
 
 ### UX Guidelines
+
 1. **Clear navigation paths**: Users should understand how to go back
 2. **Progress indicators**: Show progress in multi-step flows
 3. **Consistent layout**: Maintain consistent header/footer across views
 4. **Loading states**: Handle async operations gracefully
 
 ### Performance Tips
+
 1. **Lazy load views**: Consider lazy loading for complex views
 2. **Memoize expensive calculations**: Use React.memo for heavy components
 3. **Limit history depth**: Clear history when appropriate to prevent memory leaks
@@ -483,6 +518,7 @@ export function AnimatedStackflowExample() {
 ## Common Patterns
 
 ### Conditional Navigation
+
 ```tsx
 const { push, current, history } = useStackflowContext()
 
@@ -495,11 +531,12 @@ if (!canAccessStep2 && current === "step2") {
 ```
 
 ### Dynamic View Registration
+
 ```tsx
 const [views, setViews] = useState(initialViews)
 
 // Add views dynamically
 const addView = (name: string, component: () => ReactNode) => {
-  setViews(prev => ({ ...prev, [name]: component }))
+  setViews((prev) => ({ ...prev, [name]: component }))
 }
 ```

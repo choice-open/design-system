@@ -26,13 +26,19 @@ import { TextField } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-<TextField value={value} onChange={setValue} />
+<TextField
+  value={value}
+  onChange={setValue}
+/>
 ```
 
 ### With label
 
 ```tsx
-<TextField value={value} onChange={setValue}>
+<TextField
+  value={value}
+  onChange={setValue}
+>
   <TextField.Label>Email Address</TextField.Label>
 </TextField>
 ```
@@ -40,18 +46,22 @@ import { TextField } from "@choiceform/design-system"
 ### Complete field with description
 
 ```tsx
-<TextField value={value} onChange={setValue}>
+<TextField
+  value={value}
+  onChange={setValue}
+>
   <TextField.Label>Username</TextField.Label>
-  <TextField.Description>
-    Choose a unique username between 3-20 characters
-  </TextField.Description>
+  <TextField.Description>Choose a unique username between 3-20 characters</TextField.Description>
 </TextField>
 ```
 
 ### With prefix and suffix
 
 ```tsx
-<TextField value={price} onChange={setPrice}>
+<TextField
+  value={price}
+  onChange={setPrice}
+>
   <TextField.Label>Price</TextField.Label>
   <TextField.Prefix>$</TextField.Prefix>
   <TextField.Suffix>.00</TextField.Suffix>
@@ -63,12 +73,18 @@ import { TextField } from "@choiceform/design-system"
 ```tsx
 import { Search, Settings } from "@choiceform/icons-react"
 
-<TextField value={query} onChange={setQuery}>
+;<TextField
+  value={query}
+  onChange={setQuery}
+>
   <TextField.Prefix>
     <Search />
   </TextField.Prefix>
   <TextField.Suffix>
-    <IconButton variant="ghost" size="sm">
+    <IconButton
+      variant="ghost"
+      size="sm"
+    >
       <Settings />
     </IconButton>
   </TextField.Suffix>
@@ -102,21 +118,25 @@ import { Search, Settings } from "@choiceform/icons-react"
 TextField uses a compound component pattern with the following sub-components:
 
 ### TextField.Label
+
 - Associates with the input via `htmlFor`
 - Inherits variant and disabled state
 - Supports all Label component props
 
 ### TextField.Description
+
 - Provides additional context or help text
 - Positioned below the input field
 - Supports text wrapping and formatting
 
 ### TextField.Prefix
+
 - Positioned at the start of the input
 - Perfectly aligned with input content
 - Can contain text, icons, or interactive elements
 
 ### TextField.Suffix
+
 - Positioned at the end of the input
 - Perfectly aligned with input content
 - Can contain text, icons, or interactive elements
@@ -145,13 +165,16 @@ Inherits all props from `InputProps`:
 ## Sub-component Props
 
 ### TextField.Label
+
 Inherits from Label component with automatic `htmlFor` association.
 
 ### TextField.Description
+
 - `className?: string` - Additional CSS classes
 - `children: ReactNode` - Description content
 
 ### TextField.Prefix / TextField.Suffix
+
 - `className?: string` - Additional CSS classes
 - `children: ReactNode` - Addon content
 
@@ -170,12 +193,13 @@ The component uses CSS Grid for precise layout:
 ```css
 .text-field-root {
   display: grid;
-  grid-template-areas: "prefix input suffix";
   grid-template-columns: auto 1fr auto;
+  grid-template-areas: "prefix input suffix";
 }
 ```
 
 This ensures:
+
 - Perfect vertical alignment of prefix/suffix with input
 - Input takes remaining space
 - Consistent spacing regardless of content
@@ -272,9 +296,7 @@ const [query, setQuery] = useState("")
   onChange={setValue}
 >
   <TextField.Label>API Key</TextField.Label>
-  <TextField.Description>
-    Enter your API key to connect your account
-  </TextField.Description>
+  <TextField.Description>Enter your API key to connect your account</TextField.Description>
 </TextField>
 ```
 
@@ -282,7 +304,10 @@ const [query, setQuery] = useState("")
 
 ```tsx
 // For cases where you need just the input with addons
-<TextField value={value} onChange={setValue}>
+<TextField
+  value={value}
+  onChange={setValue}
+>
   <TextField.Prefix>@</TextField.Prefix>
 </TextField>
 ```
@@ -308,7 +333,10 @@ const CustomPrefix = ({ children, className }) => (
 ### Conditional descriptions
 
 ```tsx
-<TextField value={value} onChange={setValue}>
+<TextField
+  value={value}
+  onChange={setValue}
+>
   <TextField.Label>Password</TextField.Label>
   {showRequirements && (
     <TextField.Description>

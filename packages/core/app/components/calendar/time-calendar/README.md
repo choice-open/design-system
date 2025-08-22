@@ -111,7 +111,7 @@ const defaultTime = createTimeToday(10, 30) // 10:30 AM
   defaultValue={createTimeToday(14, 45)}
   format="h:mm a"
   step={15}
-  onChange={(time) => console.log('Selected:', time)}
+  onChange={(time) => console.log("Selected:", time)}
   className="h-64"
 />
 ```
@@ -122,25 +122,25 @@ const defaultTime = createTimeToday(10, 30) // 10:30 AM
 interface TimeCalendarProps {
   /** Selected time value */
   value?: Date | null
-  
+
   /** Default time value (uncontrolled mode) */
   defaultValue?: Date | null
-  
+
   /** Time selection change handler */
   onChange?: (time: Date | null) => void
-  
+
   /** Time format string (using date-fns format tokens) */
   format?: string
-  
+
   /** Step interval in minutes */
   step?: number
-  
+
   /** Hour step (for advanced use cases) */
   hourStep?: number
-  
+
   /** Minute step (for advanced use cases) */
   minuteStep?: number
-  
+
   /** Additional CSS class names */
   className?: string
 }
@@ -161,6 +161,7 @@ interface TimeCalendarProps {
 ## Time Formats
 
 ### 24-Hour Formats
+
 ```tsx
 // Standard 24-hour
 <TimeCalendar format="HH:mm" />        // 14:30
@@ -171,6 +172,7 @@ interface TimeCalendarProps {
 ```
 
 ### 12-Hour Formats
+
 ```tsx
 // Standard 12-hour with AM/PM
 <TimeCalendar format="h:mm a" />       // 2:30 PM
@@ -186,11 +188,12 @@ interface TimeCalendarProps {
 ## Step Intervals
 
 ### Common Step Values
+
 ```tsx
 // 1-minute precision
 <TimeCalendar step={1} />    // 00:00, 00:01, 00:02, ...
 
-// 5-minute intervals  
+// 5-minute intervals
 <TimeCalendar step={5} />    // 00:00, 00:05, 00:10, ...
 
 // 15-minute intervals (default)
@@ -221,6 +224,7 @@ const customTime = createTimeToday(14, 37) // 14:37 (not in 15-min steps)
 ```
 
 ### Custom Time Features:
+
 - Custom times appear at the top of the list with highlighting
 - Separated from standard times by a visual divider
 - Marked as "selected" when active
@@ -229,16 +233,19 @@ const customTime = createTimeToday(14, 37) // 14:37 (not in 15-min steps)
 ## Scroll Behavior
 
 ### Automatic Scrolling
+
 - Initial scroll centers the selected time
 - External value changes scroll smoothly to new selection
 - Custom times scroll to top of list
 
 ### Manual Scrolling
+
 - Smooth scrolling with mouse wheel
 - Active state temporarily hidden during scrolling
 - Hover states resume after scroll completion
 
 ### Keyboard Navigation
+
 - **Arrow Up/Down**: Navigate between time options
 - **Page Up/Down**: Navigate by larger increments
 - **Home**: Go to first time option
@@ -248,16 +255,18 @@ const customTime = createTimeToday(14, 37) // 14:37 (not in 15-min steps)
 ## Utility Functions
 
 ### Creating Time Values
+
 ```tsx
 import { createTimeToday } from "@choiceform/design-system"
 
 // Create time for today
-const morning = createTimeToday(9, 30)    // 9:30 AM today
+const morning = createTimeToday(9, 30) // 9:30 AM today
 const afternoon = createTimeToday(14, 45) // 2:45 PM today
-const evening = createTimeToday(20, 0)    // 8:00 PM today
+const evening = createTimeToday(20, 0) // 8:00 PM today
 ```
 
 ### Time String Conversion
+
 ```tsx
 import { timeStringToDate, normalizeTimeValue } from "@choiceform/design-system"
 
@@ -271,6 +280,7 @@ const timeString = normalizeTimeValue(new Date())
 ## Common Use Cases
 
 ### Time Picker in Popover
+
 ```tsx
 import { Popover } from "@choiceform/design-system"
 import { TimeInput } from "@choiceform/design-system"
@@ -279,7 +289,7 @@ function TimePicker() {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const triggerRef = useRef<HTMLDivElement>(null)
-  
+
   return (
     <>
       <div ref={triggerRef}>
@@ -289,7 +299,7 @@ function TimePicker() {
           onFocus={() => setIsOpen(true)}
         />
       </div>
-      
+
       <Popover
         triggerRef={triggerRef}
         open={isOpen}
@@ -314,11 +324,12 @@ function TimePicker() {
 ```
 
 ### Appointment Scheduling
+
 ```tsx
 function AppointmentScheduler() {
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [endTime, setEndTime] = useState<Date | null>(null)
-  
+
   return (
     <div className="flex gap-4">
       <div>
@@ -331,7 +342,7 @@ function AppointmentScheduler() {
           className="h-64 w-32"
         />
       </div>
-      
+
       <div>
         <label>End Time</label>
         <TimeCalendar
@@ -348,11 +359,12 @@ function AppointmentScheduler() {
 ```
 
 ### Business Hours Selector
+
 ```tsx
 function BusinessHoursSelector() {
   const [openTime, setOpenTime] = useState(createTimeToday(9, 0))
   const [closeTime, setCloseTime] = useState(createTimeToday(17, 0))
-  
+
   return (
     <div className="space-y-4">
       <div>
@@ -368,7 +380,7 @@ function BusinessHoursSelector() {
               className="h-48 w-28"
             />
           </div>
-          
+
           <div>
             <label>Close</label>
             <TimeCalendar
@@ -387,26 +399,31 @@ function BusinessHoursSelector() {
 ```
 
 ### Multiple Time Zones
+
 ```tsx
 function WorldClockSelector() {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null)
-  const [timeZone, setTimeZone] = useState('America/New_York')
-  
-  const displayTime = selectedTime ? 
-    selectedTime.toLocaleTimeString('en-US', { 
-      timeZone,
-      hour: '2-digit',
-      minute: '2-digit'
-    }) : null
-  
+  const [timeZone, setTimeZone] = useState("America/New_York")
+
+  const displayTime = selectedTime
+    ? selectedTime.toLocaleTimeString("en-US", {
+        timeZone,
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : null
+
   return (
     <div className="space-y-4">
-      <select value={timeZone} onChange={e => setTimeZone(e.target.value)}>
+      <select
+        value={timeZone}
+        onChange={(e) => setTimeZone(e.target.value)}
+      >
         <option value="America/New_York">New York</option>
         <option value="Europe/London">London</option>
         <option value="Asia/Tokyo">Tokyo</option>
       </select>
-      
+
       <TimeCalendar
         value={selectedTime}
         onChange={setSelectedTime}
@@ -414,10 +431,8 @@ function WorldClockSelector() {
         step={15}
         className="h-64 w-32"
       />
-      
-      <div>
-        Local Time: {displayTime}
-      </div>
+
+      <div>Local Time: {displayTime}</div>
     </div>
   )
 }
@@ -426,17 +441,21 @@ function WorldClockSelector() {
 ## Visual States
 
 ### Selection States
+
 - **Selected**: Time has check mark and highlighted background
 - **Active**: Time has hover state when mouse is over it
 - **Custom**: Special highlighting for non-standard times
 
 ### 12-Hour Format Display
+
 In 12-hour format, AM/PM indicators are:
+
 - Right-aligned in a subdued color
 - Separated by visual dividers between AM and PM sections
 - Properly formatted with appropriate spacing
 
 ### Scrolling States
+
 - Active states are hidden during scrolling for better performance
 - Smooth restoration of hover states when scrolling stops
 - Automatic scroll position adjustment for accessibility
@@ -463,12 +482,14 @@ In 12-hour format, AM/PM indicators are:
 ## Styling
 
 The component integrates with the design system's Menu components:
+
 - Uses consistent hover and selection states
 - Supports theme variants through Menu system
 - Maintains proper spacing and typography
 - Includes visual separators for better organization
 
 ### Custom Styling
+
 ```tsx
 <TimeCalendar
   className="h-80 w-40 rounded-lg border shadow-lg"

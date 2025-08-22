@@ -68,7 +68,10 @@ import { Avatar } from "@choiceform/design-system"
 ### With Children
 
 ```tsx
-<Avatar photo="/user.jpg" name="John">
+<Avatar
+  photo="/user.jpg"
+  name="John"
+>
   <span className="status-indicator" />
 </Avatar>
 ```
@@ -79,19 +82,19 @@ import { Avatar } from "@choiceform/design-system"
 interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
   /** Additional content to render inside avatar */
   children?: React.ReactNode
-  
+
   /** Background color for letter avatars (default: "#d3d3d3") */
   color?: string
-  
+
   /** User's name (used for initial letter fallback) */
   name?: string
-  
+
   /** URL to user's photo */
   photo?: string
-  
+
   /** Avatar size variant */
   size?: "small" | "medium" | "large"
-  
+
   /** Visual state variant */
   states?: "default" | "dash" | "design" | "spotlight"
 }
@@ -147,7 +150,7 @@ const users = [
 
 ```tsx
 <div className="flex items-center gap-2">
-  <Avatar 
+  <Avatar
     photo="/team-member.jpg"
     name="Sarah Connor"
     states="design"
@@ -164,10 +167,22 @@ const users = [
 
 ```tsx
 <div className="flex -space-x-2">
-  <Avatar name="User 1" color="#EF4444" />
-  <Avatar name="User 2" color="#3B82F6" />
-  <Avatar name="User 3" color="#10B981" />
-  <Avatar name="User 4" color="#8B5CF6" />
+  <Avatar
+    name="User 1"
+    color="#EF4444"
+  />
+  <Avatar
+    name="User 2"
+    color="#3B82F6"
+  />
+  <Avatar
+    name="User 3"
+    color="#10B981"
+  />
+  <Avatar
+    name="User 4"
+    color="#8B5CF6"
+  />
 </div>
 ```
 

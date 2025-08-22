@@ -11,7 +11,7 @@ import { Switch } from "@choiceform/design-system"
 ## Features
 
 - Multiple visual variants (default, accent, outline)
-- Two sizes (small, medium) 
+- Two sizes (small, medium)
 - Support for disabled and focused states
 - Two label approaches: simple string children or explicit `<Switch.Label>` for complex content
 - Smooth animations with Framer Motion
@@ -50,7 +50,7 @@ return (
     >
       Small size (16px height)
     </Switch>
-    
+
     <Switch
       value={medium}
       onChange={setMedium}
@@ -78,7 +78,7 @@ return (
     >
       Default variant
     </Switch>
-    
+
     <Switch
       value={accentVariant}
       onChange={setAccentVariant}
@@ -86,7 +86,7 @@ return (
     >
       Accent variant
     </Switch>
-    
+
     <Switch
       value={outlineVariant}
       onChange={setOutlineVariant}
@@ -113,7 +113,7 @@ return (
     >
       Disabled unchecked
     </Switch>
-    
+
     <Switch
       value={disabledChecked}
       onChange={setDisabledChecked}
@@ -140,7 +140,7 @@ return (
     >
       Simple text label
     </Switch>
-    
+
     {/* Explicit Switch.Label for complex content */}
     <Switch
       value={explicit}
@@ -199,19 +199,26 @@ const states = ["enabled", "disabled", "focused"] as const
 return (
   <div className="space-y-8">
     {sizes.map((size) => (
-      <div key={size} className="space-y-4">
+      <div
+        key={size}
+        className="space-y-4"
+      >
         <h3 className="font-medium capitalize">{size} Size</h3>
-        
+
         <div className="grid grid-cols-3 gap-8">
           {variants.map((variant) => (
-            <div key={variant} className="space-y-2">
-              <h4 className="text-sm font-medium capitalize text-pink-500">
-                {variant}
-              </h4>
-              
+            <div
+              key={variant}
+              className="space-y-2"
+            >
+              <h4 className="text-sm font-medium text-pink-500 capitalize">{variant}</h4>
+
               <div className="space-y-2">
                 {states.map((state) => (
-                  <div key={state} className="flex gap-2">
+                  <div
+                    key={state}
+                    className="flex gap-2"
+                  >
                     <Switch
                       value={false}
                       onChange={() => {}}
@@ -245,28 +252,29 @@ return (
 ### Switch
 
 ```tsx
-interface SwitchProps extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange" | "children"> {
+interface SwitchProps
+  extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange" | "children"> {
   /** Child content (label text or Switch.Label component) */
   children?: ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Force focused appearance */
   focused?: boolean
-  
+
   /** @deprecated Use children instead */
   label?: string
-  
+
   /** State change handler */
   onChange: (value: boolean) => void
-  
+
   /** Switch size */
   size?: "small" | "medium"
-  
+
   /** Current state */
   value: boolean
-  
+
   /** Visual variant */
   variant?: "default" | "accent" | "outline"
 }
@@ -284,7 +292,7 @@ interface SwitchProps extends Omit<HTMLProps<HTMLInputElement>, "size" | "value"
 interface SwitchLabelProps {
   /** Label content */
   children: ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
 }
@@ -313,6 +321,7 @@ A subcomponent for complex label content with formatting or multiple elements.
 ## Best Practices
 
 ### Usage Guidelines
+
 - Use for immediate toggle actions (unlike checkboxes in forms)
 - Provide clear labels that describe the state being toggled
 - Consider using tooltips for additional context when needed
@@ -321,6 +330,7 @@ A subcomponent for complex label content with formatting or multiple elements.
 - Complex labels: use `<Switch.Label>` component
 
 ### Label Guidelines
+
 - Always provide a visible label (string or `<Switch.Label>`)
 - Make the toggle action and its effect immediately apparent
 - Use simple string children for basic labels
@@ -328,6 +338,7 @@ A subcomponent for complex label content with formatting or multiple elements.
 - Write labels that work for both on and off states
 
 ### Accessibility
+
 - Proper semantic structure with `<label>` and `<input type="checkbox">`
 - Screen reader support with `aria-checked` and appropriate labels
 - Keyboard support (Space to toggle, Tab to focus)
@@ -336,6 +347,7 @@ A subcomponent for complex label content with formatting or multiple elements.
 - Support for `aria-label` and `aria-describedby`
 
 ### Performance
+
 - Memoized components to prevent unnecessary re-renders
 - Efficient animation with Framer Motion
 - Minimal DOM updates during state changes
@@ -354,42 +366,42 @@ const [settings, setSettings] = useState({
 })
 
 const updateSetting = (key: string) => (value: boolean) => {
-  setSettings(prev => ({ ...prev, [key]: value }))
+  setSettings((prev) => ({ ...prev, [key]: value }))
 }
 
 return (
   <div className="space-y-4">
     <Switch
       value={settings.notifications}
-      onChange={updateSetting('notifications')}
+      onChange={updateSetting("notifications")}
     >
       Push notifications
     </Switch>
-    
+
     <Switch
       value={settings.darkMode}
-      onChange={updateSetting('darkMode')}
+      onChange={updateSetting("darkMode")}
       variant="accent"
     >
       Dark mode
     </Switch>
-    
+
     <Switch
       value={settings.autoSave}
-      onChange={updateSetting('autoSave')}
+      onChange={updateSetting("autoSave")}
       size="small"
     >
       Auto-save documents
     </Switch>
-    
+
     <Switch
       value={settings.analytics}
-      onChange={updateSetting('analytics')}
+      onChange={updateSetting("analytics")}
       disabled
     >
       <Switch.Label>
         <span>Share analytics</span>
-        <span className="text-gray-500 ml-1">(Premium only)</span>
+        <span className="ml-1 text-gray-500">(Premium only)</span>
       </Switch.Label>
     </Switch>
   </div>
@@ -402,14 +414,12 @@ return (
 const [feature, setFeature] = useState(false)
 
 return (
-  <div className="flex items-center justify-between p-4 border rounded-lg">
+  <div className="flex items-center justify-between rounded-lg border p-4">
     <div>
       <h3 className="font-medium">Beta Features</h3>
-      <p className="text-sm text-gray-600">
-        Enable experimental features and improvements
-      </p>
+      <p className="text-sm text-gray-600">Enable experimental features and improvements</p>
     </div>
-    
+
     <Switch
       value={feature}
       onChange={setFeature}
@@ -435,37 +445,40 @@ return (
     <div className="space-y-4">
       <Switch
         value={formData.subscribe}
-        onChange={(value) => setFormData(prev => ({ ...prev, subscribe: value }))}
+        onChange={(value) => setFormData((prev) => ({ ...prev, subscribe: value }))}
         size="small"
       >
         Subscribe to newsletter
       </Switch>
-      
+
       <Switch
         value={formData.terms}
-        onChange={(value) => setFormData(prev => ({ ...prev, terms: value }))}
+        onChange={(value) => setFormData((prev) => ({ ...prev, terms: value }))}
         variant="outline"
       >
         <Switch.Label>
           I agree to the{" "}
-          <a href="/terms" className="text-blue-600 underline">
+          <a
+            href="/terms"
+            className="text-blue-600 underline"
+          >
             Terms of Service
           </a>
         </Switch.Label>
       </Switch>
-      
+
       <Switch
         value={formData.marketing}
-        onChange={(value) => setFormData(prev => ({ ...prev, marketing: value }))}
+        onChange={(value) => setFormData((prev) => ({ ...prev, marketing: value }))}
       >
         Receive marketing communications
       </Switch>
     </div>
-    
+
     <button
       type="submit"
       disabled={!formData.terms}
-      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+      className="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
     >
       Submit
     </button>
@@ -486,12 +499,27 @@ return (
     >
       Show advanced options
     </Switch>
-    
+
     {showAdvanced && (
-      <div className="ml-6 p-4 border-l-2 border-gray-200 space-y-2">
-        <Switch value={false} onChange={() => {}}>Debug mode</Switch>
-        <Switch value={false} onChange={() => {}}>Verbose logging</Switch>
-        <Switch value={false} onChange={() => {}}>Developer tools</Switch>
+      <div className="ml-6 space-y-2 border-l-2 border-gray-200 p-4">
+        <Switch
+          value={false}
+          onChange={() => {}}
+        >
+          Debug mode
+        </Switch>
+        <Switch
+          value={false}
+          onChange={() => {}}
+        >
+          Verbose logging
+        </Switch>
+        <Switch
+          value={false}
+          onChange={() => {}}
+        >
+          Developer tools
+        </Switch>
       </div>
     )}
   </div>

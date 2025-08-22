@@ -11,7 +11,7 @@ import { Dropdown } from "@choiceform/design-system"
 ## Features
 
 - Unlimited nested submenu levels with hover and click interactions
-- Keyboard navigation with arrow keys, Enter/Space, and type-ahead search  
+- Keyboard navigation with arrow keys, Enter/Space, and type-ahead search
 - Coordinate positioning mode for context menus and precise placement
 - Touch-friendly with mobile device support
 - Flexible trigger matching width option
@@ -29,7 +29,7 @@ import { Dropdown } from "@choiceform/design-system"
   <Dropdown.Trigger>
     <button>Open Menu</button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Item>Menu Item 1</Dropdown.Item>
     <Dropdown.Item>Menu Item 2</Dropdown.Item>
@@ -48,7 +48,7 @@ const [isOpen, setIsOpen] = useState(false)
   <Dropdown.Trigger>
     <button>Controlled Menu</button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Item onClick={() => setIsOpen(false)}>
       Close Menu
@@ -64,16 +64,16 @@ const [isOpen, setIsOpen] = useState(false)
   <Dropdown.Trigger>
     <button>Searchable Menu</button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Search placeholder="Search items..." />
-    
+
     <Dropdown.Label>Recent Items</Dropdown.Label>
     <Dropdown.Item>Recent Item 1</Dropdown.Item>
     <Dropdown.Item>Recent Item 2</Dropdown.Item>
-    
+
     <Dropdown.Divider />
-    
+
     <Dropdown.Label>All Items</Dropdown.Label>
     <Dropdown.Item>Item A</Dropdown.Item>
     <Dropdown.Item>Item B</Dropdown.Item>
@@ -88,16 +88,16 @@ const [isOpen, setIsOpen] = useState(false)
   <Dropdown.Trigger>
     <button>Menu with Submenus</button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Item>Regular Item</Dropdown.Item>
-    
+
     <Dropdown>
       <Dropdown.SubTrigger>Submenu 1</Dropdown.SubTrigger>
       <Dropdown.Content>
         <Dropdown.Item>Submenu Item 1</Dropdown.Item>
         <Dropdown.Item>Submenu Item 2</Dropdown.Item>
-        
+
         <Dropdown>
           <Dropdown.SubTrigger>Nested Submenu</Dropdown.SubTrigger>
           <Dropdown.Content>
@@ -117,7 +117,7 @@ Coordinate mode allows you to position the dropdown at specific x/y coordinates 
 
 ```tsx
 const [isOpen, setIsOpen] = useState(false)
-const [position, setPosition] = useState<{x: number, y: number} | null>(null)
+const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
 
 const handleClick = (event: React.MouseEvent) => {
   setPosition({
@@ -127,15 +127,17 @@ const handleClick = (event: React.MouseEvent) => {
   setIsOpen(true)
 }
 
-<div 
-  className="h-64 bg-gray-100 rounded-lg border border-dashed p-4"
+;<div
+  className="h-64 rounded-lg border border-dashed bg-gray-100 p-4"
   onMouseDown={handleClick}
 >
   Click anywhere to show dropdown at mouse position
 </div>
 
-{/* Dropdown in coordinate mode - no trigger needed */}
-<Dropdown 
+{
+  /* Dropdown in coordinate mode - no trigger needed */
+}
+;<Dropdown
   position={position}
   open={isOpen}
   onOpenChange={setIsOpen}
@@ -159,7 +161,7 @@ const handleClick = (event: React.MouseEvent) => {
 ```tsx
 const [contextMenu, setContextMenu] = useState<{x: number, y: number} | null>(null)
 
-<div 
+<div
   onContextMenu={(e) => {
     e.preventDefault()
     setContextMenu({ x: e.clientX, y: e.clientY })
@@ -169,7 +171,7 @@ const [contextMenu, setContextMenu] = useState<{x: number, y: number} | null>(nu
   Right-click me for context menu
 </div>
 
-<Dropdown 
+<Dropdown
   position={contextMenu}
   open={contextMenu !== null}
   onOpenChange={(open) => !open && setContextMenu(null)}
@@ -199,7 +201,7 @@ import { createEditor, Descendant } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 
 const [isOpen, setIsOpen] = useState(false)
-const [position, setPosition] = useState<{x: number, y: number} | null>(null)
+const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
 const editor = useMemo(() => withReact(createEditor()), [])
 
 const users = [
@@ -208,13 +210,13 @@ const users = [
 ]
 
 const handleChange = (value: Descendant[]) => {
-  const text = value.map(n => Node.string(n)).join('\n')
-  const lastAtIndex = text.lastIndexOf('@')
-  
+  const text = value.map((n) => Node.string(n)).join("\n")
+  const lastAtIndex = text.lastIndexOf("@")
+
   if (lastAtIndex !== -1) {
     const afterAt = text.substring(lastAtIndex + 1)
-    const hasSpace = afterAt.includes(' ')
-    
+    const hasSpace = afterAt.includes(" ")
+
     if (!hasSpace) {
       // Get caret position
       const selection = window.getSelection()
@@ -240,8 +242,11 @@ const handleSelectUser = (user) => {
   setIsOpen(false)
 }
 
-<>
-  <Slate editor={editor} onChange={handleChange}>
+;<>
+  <Slate
+    editor={editor}
+    onChange={handleChange}
+  >
     <Editable placeholder="Type @ to mention someone..." />
   </Slate>
 
@@ -252,12 +257,15 @@ const handleSelectUser = (user) => {
   >
     <Dropdown.Content>
       <Dropdown.Label>Mention User</Dropdown.Label>
-      {users.map(user => (
-        <Dropdown.Item 
+      {users.map((user) => (
+        <Dropdown.Item
           key={user.id}
           onClick={() => handleSelectUser(user)}
         >
-          <img src={user.avatar} className="w-4 h-4 rounded-full" />
+          <img
+            src={user.avatar}
+            className="h-4 w-4 rounded-full"
+          />
           <Dropdown.Value>{user.name}</Dropdown.Value>
         </Dropdown.Item>
       ))}
@@ -273,7 +281,7 @@ const handleSelectUser = (user) => {
   <Dropdown.Trigger>
     <button className="w-48">Wide Trigger Button</button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Item>Menu matches button width</Dropdown.Item>
     <Dropdown.Item>Useful for selects</Dropdown.Item>
@@ -287,37 +295,37 @@ const handleSelectUser = (user) => {
 interface DropdownProps {
   /** Auto-select first item in coordinate mode */
   autoSelectFirstItem?: boolean
-  
+
   /** Dropdown content and components */
   children?: React.ReactNode
-  
+
   /** Disable nested submenu functionality */
   disabledNested?: boolean
-  
+
   /** Focus manager configuration */
   focusManagerProps?: Partial<FloatingFocusManagerProps>
-  
+
   /** Make dropdown width match trigger width */
   matchTriggerWidth?: boolean
-  
+
   /** Offset distance from trigger */
   offset?: number
-  
+
   /** Open state change callback */
   onOpenChange?: (open: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Placement relative to trigger */
   placement?: Placement
-  
+
   /** Custom portal container ID */
   portalId?: string
-  
+
   /** Coordinate position for context menu mode */
   position?: { x: number; y: number } | null
-  
+
   /** Enable selection mode for items */
   selection?: boolean
 }
@@ -325,7 +333,7 @@ interface DropdownProps {
 
 - Defaults:
   - `autoSelectFirstItem`: `true`
-  - `disabledNested`: `false`  
+  - `disabledNested`: `false`
   - `matchTriggerWidth`: `false`
   - `offset`: `4`
   - `placement`: `"bottom-start"`
@@ -336,7 +344,7 @@ interface DropdownProps {
 
 - Accessibility:
   - Full keyboard navigation with arrow keys
-  - Type-ahead search functionality  
+  - Type-ahead search functionality
   - Proper ARIA roles (`menu`, `menuitem`)
   - Screen reader announcements
   - Focus management and tab trapping
@@ -345,33 +353,43 @@ interface DropdownProps {
 ## Compound Components
 
 ### Dropdown.Trigger
+
 Renders the trigger element that opens the dropdown when clicked or activated.
 
-### Dropdown.Content  
+### Dropdown.Content
+
 Container for all dropdown menu items with scrolling and keyboard navigation.
 
 ### Dropdown.Item
+
 Individual menu item that can be clicked or selected via keyboard.
 
 ### Dropdown.SubTrigger
+
 Trigger for nested submenus, opens submenu on hover or click.
 
 ### Dropdown.Label
+
 Non-interactive label for grouping menu items.
 
 ### Dropdown.Divider
+
 Visual separator between menu sections.
 
 ### Dropdown.Search
+
 Search input field for filtering menu items.
 
 ### Dropdown.Button
+
 Button-style menu item for actions.
 
 ### Dropdown.Input
+
 Input field within dropdown content.
 
-### Dropdown.Value  
+### Dropdown.Value
+
 Display component for showing selected values.
 
 ## Styling
@@ -407,7 +425,7 @@ Display component for showing selected values.
 
 ```tsx
 const FileContextMenu = ({ x, y, onClose }) => (
-  <Dropdown 
+  <Dropdown
     open={true}
     position={{ x, y }}
     onOpenChange={onClose}
@@ -421,9 +439,9 @@ const FileContextMenu = ({ x, y, onClose }) => (
         <EditIcon />
         Rename
       </Dropdown.Item>
-      
+
       <Dropdown.Divider />
-      
+
       <Dropdown>
         <Dropdown.SubTrigger>
           <ShareIcon />
@@ -435,9 +453,9 @@ const FileContextMenu = ({ x, y, onClose }) => (
           <Dropdown.Item>Export</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-      
+
       <Dropdown.Divider />
-      
+
       <Dropdown.Item destructive>
         <DeleteIcon />
         Delete
@@ -457,23 +475,23 @@ const FileContextMenu = ({ x, y, onClose }) => (
       Menu
     </button>
   </Dropdown.Trigger>
-  
+
   <Dropdown.Content>
     <Dropdown.Search placeholder="Search commands..." />
-    
+
     <Dropdown.Label>File</Dropdown.Label>
     <Dropdown.Item>New File</Dropdown.Item>
     <Dropdown.Item>Open File</Dropdown.Item>
     <Dropdown.Item>Save</Dropdown.Item>
-    
+
     <Dropdown.Divider />
-    
+
     <Dropdown.Label>Edit</Dropdown.Label>
     <Dropdown.Item>Undo</Dropdown.Item>
     <Dropdown.Item>Redo</Dropdown.Item>
-    
+
     <Dropdown.Divider />
-    
+
     <Dropdown.Item>Settings</Dropdown.Item>
     <Dropdown.Item>Help</Dropdown.Item>
   </Dropdown.Content>
@@ -487,7 +505,7 @@ const FileContextMenu = ({ x, y, onClose }) => (
 - **Focus Management**: Coordinate mode automatically disables focus manager to prevent conflicts with text editors
 - **Position Updates**: Update the `position` prop to reposition the dropdown dynamically
 - **Placement Behavior**: `placement` prop still applies in coordinate mode for collision detection
-- **Tree Architecture**: Tree-based architecture enables complex nested menu hierarchies  
+- **Tree Architecture**: Tree-based architecture enables complex nested menu hierarchies
 - **FloatingUI Integration**: FloatingUI provides collision detection and smart positioning
 - **Touch Support**: Includes proper event handling for mobile devices
 - **Search Integration**: Search functionality integrates with keyboard navigation

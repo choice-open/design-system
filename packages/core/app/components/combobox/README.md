@@ -40,9 +40,7 @@ const itemsToShow = useMemo(() => {
     return []
   }
   // Input or focus shows filtered items
-  return fruits.filter(fruit => 
-    fruit.toLowerCase().startsWith(value.toLowerCase())
-  )
+  return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
 }, [value, triggerType])
 
 const handleOpenChange = (open: boolean, trigger: "click" | "focus" | "input" = "input") => {
@@ -51,8 +49,8 @@ const handleOpenChange = (open: boolean, trigger: "click" | "focus" | "input" = 
   }
 }
 
-<Combobox 
-  value={value} 
+;<Combobox
+  value={value}
   onChange={setValue}
   onOpenChange={handleOpenChange}
 >
@@ -60,8 +58,11 @@ const handleOpenChange = (open: boolean, trigger: "click" | "focus" | "input" = 
   {itemsToShow.length > 0 && (
     <Combobox.Content>
       <Combobox.Label>Fruits</Combobox.Label>
-      {itemsToShow.map(fruit => (
-        <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+      {itemsToShow.map((fruit) => (
+        <Combobox.Item
+          key={fruit}
+          onClick={() => setValue(fruit)}
+        >
           <Combobox.Value>{fruit}</Combobox.Value>
         </Combobox.Item>
       ))}
@@ -77,7 +78,7 @@ const [value, setValue] = useState("")
 
 const filteredFruits = useMemo(() => {
   if (!value.trim()) return []
-  return fruits.filter(fruit => 
+  return fruits.filter(fruit =>
     fruit.toLowerCase().startsWith(value.toLowerCase())
   )
 }, [value])
@@ -103,14 +104,17 @@ const filteredFruits = useMemo(() => {
 ### Large Size
 
 ```tsx
-<Combobox value={value} onChange={setValue}>
+<Combobox
+  value={value}
+  onChange={setValue}
+>
   <Combobox.Trigger
     placeholder="Search fruits..."
     size="large"
   />
   <Combobox.Content>
     <Combobox.Label>Fruits</Combobox.Label>
-    {filteredFruits.map(fruit => (
+    {filteredFruits.map((fruit) => (
       <Combobox.Item
         key={fruit}
         size="large"
@@ -134,8 +138,11 @@ const filteredFruits = useMemo(() => {
   <Combobox.Trigger placeholder="Fruit..." />
   <Combobox.Content className="w-80">
     <Combobox.Label>Available Fruits (Custom Width)</Combobox.Label>
-    {filteredFruits.map(fruit => (
-      <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+    {filteredFruits.map((fruit) => (
+      <Combobox.Item
+        key={fruit}
+        onClick={() => setValue(fruit)}
+      >
         <Combobox.Value>{fruit}</Combobox.Value>
       </Combobox.Item>
     ))}
@@ -156,7 +163,7 @@ const users = [
 
 const filteredUsers = useMemo(() => {
   if (!value.trim()) return []
-  return users.filter(user => 
+  return users.filter(user =>
     user.name.toLowerCase().includes(value.toLowerCase())
   )
 }, [value])
@@ -171,8 +178,8 @@ const filteredUsers = useMemo(() => {
     <Combobox.Content>
       <Combobox.Label>Users</Combobox.Label>
       {filteredUsers.map(user => (
-        <Combobox.Item 
-          key={user.id} 
+        <Combobox.Item
+          key={user.id}
           onClick={() => setValue(user.name)}
           prefixElement={<img src={user.avatar} className="size-4 rounded-full" />}
           suffixElement={<span className="text-sm text-white/60">{user.role}</span>}
@@ -200,12 +207,15 @@ const filteredUsers = useMemo(() => {
 >
   <Combobox.Content>
     <Combobox.Label>Select User</Combobox.Label>
-    {filteredUsers.map(user => (
+    {filteredUsers.map((user) => (
       <Combobox.Item
         key={user.id}
         onClick={() => selectUser(user)}
       >
-        <img src={user.avatar} className="size-4 rounded-full" />
+        <img
+          src={user.avatar}
+          className="size-4 rounded-full"
+        />
         <Combobox.Value>{user.name}</Combobox.Value>
       </Combobox.Item>
     ))}
@@ -313,22 +323,22 @@ interface ComboboxTriggerProps extends Omit<HTMLProps<HTMLInputElement>, "size" 
 interface ComboboxItemProps {
   /** Item content */
   children?: React.ReactNode
-  
+
   /** Whether the item is disabled */
   disabled?: boolean
-  
+
   /** Click handler */
   onClick?: () => void
-  
+
   /** Element to show before content */
   prefixElement?: React.ReactNode
-  
+
   /** Item size variant */
   size?: "default" | "large"
-  
+
   /** Element to show after content */
   suffixElement?: React.ReactNode
-  
+
   /** Value for the item */
   value?: string
 }
@@ -375,7 +385,7 @@ const handleSearch = async (query: string) => {
     setOptions([])
     return
   }
-  
+
   setLoading(true)
   try {
     const results = await searchAPI(query)
@@ -385,7 +395,10 @@ const handleSearch = async (query: string) => {
   }
 }
 
-<Combobox value={value} onChange={handleSearch}>
+;<Combobox
+  value={value}
+  onChange={handleSearch}
+>
   <Combobox.Trigger placeholder="Search users..." />
   <Combobox.Content>
     {loading ? (
@@ -393,9 +406,9 @@ const handleSearch = async (query: string) => {
     ) : options.length > 0 ? (
       <>
         <Combobox.Label>Search Results</Combobox.Label>
-        {options.map(user => (
-          <Combobox.Item 
-            key={user.id} 
+        {options.map((user) => (
+          <Combobox.Item
+            key={user.id}
             onClick={() => setValue(user.name)}
           >
             <Combobox.Value>{user.name}</Combobox.Value>
@@ -403,9 +416,7 @@ const handleSearch = async (query: string) => {
         ))}
       </>
     ) : value.trim() ? (
-      <div className="p-4 text-center text-white/50">
-        No results found for "{value}"
-      </div>
+      <div className="p-4 text-center text-white/50">No results found for "{value}"</div>
     ) : null}
   </Combobox.Content>
 </Combobox>

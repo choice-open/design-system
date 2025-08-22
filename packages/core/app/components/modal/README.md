@@ -29,9 +29,7 @@ import { Modal } from "@choiceform/design-system"
     onClose={() => setOpen(false)}
   />
   <Modal.Content>
-    <div className="p-4">
-      Your modal content goes here
-    </div>
+    <div className="p-4">Your modal content goes here</div>
   </Modal.Content>
   <Modal.Footer className="justify-end">
     <Button variant="secondary">Cancel</Button>
@@ -43,14 +41,18 @@ import { Modal } from "@choiceform/design-system"
 ### Header Variations
 
 ```tsx
-{/* Basic header with close button */}
-<Modal.Header
+{
+  /* Basic header with close button */
+}
+;<Modal.Header
   title="Modal Title"
   onClose={() => setOpen(false)}
 />
 
-{/* Header with search input */}
-<Modal.Header
+{
+  /* Header with search input */
+}
+;<Modal.Header
   title="Modal Title"
   onClose={() => setOpen(false)}
 >
@@ -59,8 +61,10 @@ import { Modal } from "@choiceform/design-system"
   </div>
 </Modal.Header>
 
-{/* Header with navigation */}
-<Modal.Header
+{
+  /* Header with navigation */
+}
+;<Modal.Header
   title={
     <div className="flex items-center gap-2">
       <IconButton>
@@ -71,10 +75,15 @@ import { Modal } from "@choiceform/design-system"
   }
 />
 
-{/* Header with tabs */}
-<Modal.Header
+{
+  /* Header with tabs */
+}
+;<Modal.Header
   title={
-    <Tabs value={tab} onChange={setTab}>
+    <Tabs
+      value={tab}
+      onChange={setTab}
+    >
       <Tabs.Item value="tab-1">Tab 1</Tabs.Item>
       <Tabs.Item value="tab-2">Tab 2</Tabs.Item>
       <Tabs.Item value="tab-3">Tab 3</Tabs.Item>
@@ -82,13 +91,17 @@ import { Modal } from "@choiceform/design-system"
   }
 />
 
-{/* Header with select */}
-<Modal.Header
+{
+  /* Header with select */
+}
+;<Modal.Header
   title={
-    <Select matchTriggerWidth value={select} onChange={setSelect}>
-      <Select.Trigger prefixElement={<ThemeSunBright />}>
-        {select || "Select"}
-      </Select.Trigger>
+    <Select
+      matchTriggerWidth
+      value={select}
+      onChange={setSelect}
+    >
+      <Select.Trigger prefixElement={<ThemeSunBright />}>{select || "Select"}</Select.Trigger>
       <Select.Content>
         <Select.Item value="option-1">Option 1</Select.Item>
         <Select.Item value="option-2">Option 2</Select.Item>
@@ -97,8 +110,10 @@ import { Modal } from "@choiceform/design-system"
   }
 />
 
-{/* Header with action link */}
-<Modal.Header
+{
+  /* Header with action link */
+}
+;<Modal.Header
   title="Title"
   onClose={() => setOpen(false)}
 >
@@ -152,7 +167,10 @@ import { Modal } from "@choiceform/design-system"
       value={select}
       onChange={setSelect}
     >
-      <Select.Trigger size="large" className="gap-2">
+      <Select.Trigger
+        size="large"
+        className="gap-2"
+      >
         <Avatar
           photo="https://api.dicebear.com/7.x/avataaars/svg?seed=user"
           name="User Name"
@@ -176,7 +194,10 @@ import { Modal } from "@choiceform/design-system"
         onChange={setSearch}
       >
         <TextField.Suffix className="px-1">
-          <Select value={dropdown} onChange={setDropdown}>
+          <Select
+            value={dropdown}
+            onChange={setDropdown}
+          >
             <Select.Trigger>
               <Select.Value>{dropdown}</Select.Value>
             </Select.Trigger>
@@ -187,7 +208,10 @@ import { Modal } from "@choiceform/design-system"
           </Select>
         </TextField.Suffix>
       </TextField>
-      <Button className="rounded-lg px-4 font-medium" size="large">
+      <Button
+        className="rounded-lg px-4 font-medium"
+        size="large"
+      >
         Share
       </Button>
     </div>
@@ -308,6 +332,7 @@ interface ModalSelectProps {
 ## Best Practices
 
 ### Usage Guidelines
+
 - Use for important interactions that require focused attention
 - Structure content with clear headers and organized body content
 - Include appropriate action buttons in the footer
@@ -315,18 +340,21 @@ interface ModalSelectProps {
 - Limit the number of interactive elements to maintain focus
 
 ### Header Design
+
 - Use simple titles for basic modals
 - Integrate tabs for content organization
 - Include navigation elements when needed
 - Add action buttons or links in the header area when appropriate
 
 ### Form Integration
+
 - Use Modal.Input, Modal.Textarea, and Modal.MultiLineInput for consistent styling
 - Provide clear labels and helpful descriptions
 - Group related form elements logically
 - Include proper validation feedback
 
 ### Accessibility
+
 - Manages focus properly when opened and closed
 - Traps focus within the modal when open
 - Supports keyboard navigation and dismissal
@@ -349,10 +377,16 @@ interface ModalSelectProps {
     </div>
   </Modal.Content>
   <Modal.Footer className="justify-end">
-    <Button variant="secondary" onClick={() => setOpen(false)}>
+    <Button
+      variant="secondary"
+      onClick={() => setOpen(false)}
+    >
       Cancel
     </Button>
-    <Button variant="destructive" onClick={handleDelete}>
+    <Button
+      variant="destructive"
+      onClick={handleDelete}
+    >
       Delete
     </Button>
   </Modal.Footer>
@@ -365,7 +399,10 @@ interface ModalSelectProps {
 <Modal className="w-lg">
   <Modal.Header
     title={
-      <Tabs value={activeTab} onChange={setActiveTab}>
+      <Tabs
+        value={activeTab}
+        onChange={setActiveTab}
+      >
         <Tabs.Item value="general">General</Tabs.Item>
         <Tabs.Item value="privacy">Privacy</Tabs.Item>
         <Tabs.Item value="security">Security</Tabs.Item>
@@ -373,9 +410,7 @@ interface ModalSelectProps {
     }
   />
   <Modal.Content>
-    <div className="p-4">
-      {/* Tab content based on activeTab */}
-    </div>
+    <div className="p-4">{/* Tab content based on activeTab */}</div>
   </Modal.Content>
 </Modal>
 ```

@@ -144,40 +144,40 @@ const preselectedQuarter = {
 interface QuarterCalendarProps {
   /** Selected quarter value */
   value?: Quarter | null
-  
+
   /** Default selected quarter */
   defaultValue?: Quarter | null
-  
+
   /** Quarter selection change handler */
   onChange?: (quarter: Quarter | null) => void
-  
+
   /** Current year to display */
   currentYear?: number
-  
+
   /** Starting year for display (controlled mode) */
   startYear?: number
-  
+
   /** Minimum selectable year */
   minYear?: number
-  
+
   /** Maximum selectable year */
   maxYear?: number
-  
+
   /** Array of disabled quarters */
   disabledQuarters?: Array<{ quarter: number; year: number }>
-  
+
   /** Disable entire component */
   disabled?: boolean
-  
+
   /** Locale for internationalization */
   locale?: string | Locale
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
-  
+
   /** Year navigation handler */
   onNavigate?: (direction: "prev" | "next", year: number) => void
-  
+
   /** Additional CSS class names */
   className?: string
 }
@@ -186,13 +186,13 @@ interface QuarterCalendarProps {
 interface Quarter {
   /** Quarter number (1-4) */
   quarter: number
-  
+
   /** Year */
   year: number
-  
+
   /** Localized quarter label */
   label: string
-  
+
   /** Array of month names in the quarter */
   months: string[]
 }
@@ -214,6 +214,7 @@ interface Quarter {
 ## Quarter Data Structure
 
 The `Quarter` object contains:
+
 - **quarter**: Number from 1-4 representing Q1, Q2, Q3, Q4
 - **year**: The year of the quarter
 - **label**: Localized quarter label (e.g., "Q1 2025", "第一季度")
@@ -227,7 +228,7 @@ const q1English = {
   quarter: 1,
   year: 2025,
   label: "Q1 2025",
-  months: ["January", "February", "March"]
+  months: ["January", "February", "March"],
 }
 
 // Chinese locale
@@ -235,18 +236,20 @@ const q1Chinese = {
   quarter: 1,
   year: 2025,
   label: "第一季度",
-  months: ["一月", "二月", "三月"]
+  months: ["一月", "二月", "三月"],
 }
 ```
 
 ## Year Navigation
 
 ### Automatic Navigation
+
 - Click previous/next buttons in header to navigate years
 - Navigation respects `minYear` and `maxYear` boundaries
 - Disabled state prevents navigation
 
 ### Controlled Navigation
+
 ```tsx
 const [currentYear, setCurrentYear] = useState(2025)
 
@@ -259,6 +262,7 @@ const [currentYear, setCurrentYear] = useState(2025)
 ```
 
 ### Today Button
+
 - "Today" button navigates to current year and selects current quarter
 - Automatically determines current quarter based on current date
 - Respects locale settings for quarter formatting
@@ -290,6 +294,7 @@ const [currentYear, setCurrentYear] = useState(2025)
 ### Locale-Specific Formatting
 
 Each locale provides:
+
 - Quarter labels (Q1/Q2/Q3/Q4 vs 第一季度/第二季度/第三季度/第四季度)
 - Month names within quarters
 - Navigation button text
@@ -298,6 +303,7 @@ Each locale provides:
 ## Disabling Quarters
 
 ### Specific Quarters
+
 Disable individual quarters by specifying quarter number and year:
 
 ```tsx
@@ -314,6 +320,7 @@ const disabledQuarters = [
 ```
 
 ### Entire Component
+
 Disable all interaction with the component:
 
 ```tsx
@@ -323,11 +330,12 @@ Disable all interaction with the component:
 ## Common Use Cases
 
 ### Financial Reporting
+
 ```tsx
 function QuarterlyReportSelector() {
   const [selectedQuarter, setSelectedQuarter] = useState<Quarter | null>(null)
   const currentYear = new Date().getFullYear()
-  
+
   return (
     <div>
       <label>Select Reporting Quarter:</label>
@@ -339,10 +347,10 @@ function QuarterlyReportSelector() {
         maxYear={currentYear}
         className="w-48 rounded-xl border"
       />
-      
+
       {selectedQuarter && (
         <p>
-          Selected: {selectedQuarter.label} ({selectedQuarter.months.join(', ')})
+          Selected: {selectedQuarter.label} ({selectedQuarter.months.join(", ")})
         </p>
       )}
     </div>
@@ -351,18 +359,19 @@ function QuarterlyReportSelector() {
 ```
 
 ### Seasonal Planning
+
 ```tsx
 function SeasonalPlanner() {
   const [planningQuarter, setPlanningQuarter] = useState<Quarter | null>(null)
   const currentYear = new Date().getFullYear()
-  
+
   // Disable past quarters for planning
   const currentQuarter = Math.ceil((new Date().getMonth() + 1) / 3)
   const disabledQuarters = []
   for (let q = 1; q < currentQuarter; q++) {
     disabledQuarters.push({ quarter: q, year: currentYear })
   }
-  
+
   return (
     <QuarterCalendar
       value={planningQuarter}
@@ -377,11 +386,12 @@ function SeasonalPlanner() {
 ```
 
 ### Business Quarter Filter
+
 ```tsx
 function BusinessQuarterFilter() {
   const [filterQuarter, setFilterQuarter] = useState<Quarter | null>(null)
   const [filterYear, setFilterYear] = useState(new Date().getFullYear())
-  
+
   return (
     <div className="space-y-4">
       <QuarterCalendar
@@ -394,12 +404,12 @@ function BusinessQuarterFilter() {
         locale="zh-CN"
         className="w-48 rounded-xl border"
       />
-      
+
       {filterQuarter && (
         <div>
           <h3>Filter Applied:</h3>
           <p>{filterQuarter.label}</p>
-          <p>Months: {filterQuarter.months.join(', ')}</p>
+          <p>Months: {filterQuarter.months.join(", ")}</p>
         </div>
       )}
     </div>
@@ -408,31 +418,35 @@ function BusinessQuarterFilter() {
 ```
 
 ### Multi-Language Quarter Selector
+
 ```tsx
 function MultiLanguageQuarterSelector() {
-  const [locale, setLocale] = useState('en-US')
+  const [locale, setLocale] = useState("en-US")
   const [selectedQuarter, setSelectedQuarter] = useState<Quarter | null>(null)
-  
+
   const localeOptions = [
-    { code: 'zh-CN', name: '中文' },
-    { code: 'en-US', name: 'English' },
-    { code: 'ja-JP', name: '日本語' },
-    { code: 'ko-KR', name: '한국어' },
+    { code: "zh-CN", name: "中文" },
+    { code: "en-US", name: "English" },
+    { code: "ja-JP", name: "日本語" },
+    { code: "ko-KR", name: "한국어" },
   ]
-  
+
   return (
     <div className="space-y-4">
-      <select 
-        value={locale} 
+      <select
+        value={locale}
         onChange={(e) => setLocale(e.target.value)}
       >
-        {localeOptions.map(option => (
-          <option key={option.code} value={option.code}>
+        {localeOptions.map((option) => (
+          <option
+            key={option.code}
+            value={option.code}
+          >
             {option.name}
           </option>
         ))}
       </select>
-      
+
       <QuarterCalendar
         locale={locale}
         value={selectedQuarter}
@@ -474,6 +488,7 @@ const isSelected = isQuarterEqual(selectedQuarter, currentQuarter)
 ## Styling
 
 The component uses Tailwind CSS variants for different states:
+
 - **Selected**: Highlighted background and border
 - **Current**: Special indication for current quarter
 - **Disabled**: Reduced opacity and no interaction
@@ -481,6 +496,7 @@ The component uses Tailwind CSS variants for different states:
 - **Focus**: Clear focus indicators for accessibility
 
 ### Custom Styling
+
 ```tsx
 <QuarterCalendar
   className="w-64 rounded-2xl border-2 border-blue-200 shadow-lg"
@@ -501,34 +517,34 @@ The component uses Tailwind CSS variants for different states:
 ## Integration Examples
 
 ### With Form Validation
+
 ```tsx
 import { useForm } from "react-hook-form"
 
 function QuarterForm() {
   const { register, watch, setValue } = useForm()
-  const selectedQuarter = watch('quarter')
-  
+  const selectedQuarter = watch("quarter")
+
   return (
     <form>
       <QuarterCalendar
         value={selectedQuarter}
-        onChange={(quarter) => setValue('quarter', quarter)}
+        onChange={(quarter) => setValue("quarter", quarter)}
         className="w-48 rounded-xl border"
       />
-      {!selectedQuarter && (
-        <p className="text-red-500">Please select a quarter</p>
-      )}
+      {!selectedQuarter && <p className="text-red-500">Please select a quarter</p>}
     </form>
   )
 }
 ```
 
 ### With Data Filtering
+
 ```tsx
 function DataDashboard() {
   const [selectedQuarter, setSelectedQuarter] = useState<Quarter | null>(null)
   const [data, setData] = useState([])
-  
+
   useEffect(() => {
     if (selectedQuarter) {
       // Filter data by selected quarter
@@ -536,7 +552,7 @@ function DataDashboard() {
       setData(filteredData)
     }
   }, [selectedQuarter])
-  
+
   return (
     <div>
       <QuarterCalendar

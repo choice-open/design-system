@@ -18,9 +18,9 @@ function Button({ onPress }) {
     onPressStart: (e) => console.log('Press started'),
     onPressEnd: (e) => console.log('Press ended')
   })
-  
+
   return (
-    <button 
+    <button
       {...pressProps}
       className={isPressed ? 'pressed' : ''}
     >
@@ -35,9 +35,9 @@ function Slider({ onChange }) {
     onPressMoveLeft: (delta) => onChange(-delta),
     onPressMoveRight: (delta) => onChange(delta)
   })
-  
+
   return (
-    <div 
+    <div
       {...pressMoveProps}
       className={`slider ${isPressed ? 'dragging' : ''}`}
     />
@@ -97,13 +97,15 @@ interface PressMoveResult {
 ## Features
 
 ### usePress
+
 - **Unified events**: Handles mouse, touch, and keyboard (Space/Enter) consistently
 - **Press states**: Tracks press start, end, and current state
 - **Event delegation**: Proper event handling with pointer events
 - **Accessibility**: Full keyboard support for Space and Enter keys
 - **Performance**: Optimized event handling with minimal re-renders
 
-### usePressMove  
+### usePressMove
+
 - **Directional movement**: Separate callbacks for left, right, up, down movement
 - **Virtual cursor**: Shows cursor position during pointer lock
 - **Movement tracking**: Delta-based movement calculations
@@ -122,7 +124,7 @@ function CustomButton({ children, onPress, disabled }) {
     onPressStart: () => console.log('Button press started'),
     onPressEnd: () => console.log('Button press ended')
   })
-  
+
   return (
     <button
       {...pressProps}
@@ -140,7 +142,7 @@ function CustomButton({ children, onPress, disabled }) {
 ```typescript
 function ToggleButton({ checked, onChange }) {
   const [isChecked, setIsChecked] = useState(checked)
-  
+
   const { isPressed, pressProps } = usePress({
     onPress: () => {
       const newValue = !isChecked
@@ -148,7 +150,7 @@ function ToggleButton({ checked, onChange }) {
       onChange?.(newValue)
     }
   })
-  
+
   return (
     <button
       {...pressProps}
@@ -170,7 +172,7 @@ function ClickableCard({ children, onSelect }) {
     onPress: onSelect,
     onPressStart: () => console.log('Card selection started')
   })
-  
+
   return (
     <div
       {...pressProps}
@@ -189,7 +191,7 @@ function ClickableCard({ children, onSelect }) {
 ```typescript
 function HorizontalSlider({ value, onChange, min = 0, max = 100 }) {
   const [sliderValue, setSliderValue] = useState(value)
-  
+
   const { isPressed, pressMoveProps } = usePressMove({
     onPressMoveLeft: (delta) => {
       const newValue = Math.max(min, sliderValue - delta)
@@ -202,14 +204,14 @@ function HorizontalSlider({ value, onChange, min = 0, max = 100 }) {
       onChange?.(newValue)
     }
   })
-  
+
   return (
     <div className="slider-container">
-      <div 
+      <div
         {...pressMoveProps}
         className={`slider-track ${isPressed ? 'dragging' : ''}`}
       >
-        <div 
+        <div
           className="slider-thumb"
           style={{ left: `${(sliderValue / max) * 100}%` }}
         />
@@ -234,15 +236,15 @@ function VolumeControl({ volume, onVolumeChange }) {
       onVolumeChange(newVolume)
     }
   })
-  
+
   return (
     <div className="volume-control">
       <VolumeIcon />
-      <div 
+      <div
         {...pressMoveProps}
         className={`volume-slider ${isPressed ? 'adjusting' : ''}`}
       >
-        <div 
+        <div
           className="volume-fill"
           style={{ width: `${volume}%` }}
         />
@@ -263,18 +265,18 @@ function PositionController({ x, y, onChange }) {
     onPressMoveTop: (delta) => onChange(x, Math.max(0, y - delta)),
     onPressMoveBottom: (delta) => onChange(x, Math.min(100, y + delta))
   })
-  
+
   return (
     <div className="position-controller">
-      <div 
+      <div
         {...pressMoveProps}
         className={`control-area ${isPressed ? 'controlling' : ''}`}
       >
-        <div 
+        <div
           className="position-indicator"
-          style={{ 
-            left: `${x}%`, 
-            top: `${y}%` 
+          style={{
+            left: `${x}%`,
+            top: `${y}%`
           }}
         />
       </div>
@@ -308,18 +310,18 @@ function SaturationPicker({ hue, saturation, lightness, onChange }) {
       onChange(hue, saturation, newLightness)
     }
   })
-  
+
   return (
-    <div 
+    <div
       {...pressMoveProps}
       className={`saturation-picker ${isPressed ? 'picking' : ''}`}
       style={{ backgroundColor: `hsl(${hue}, 100%, 50%)` }}
     >
-      <div 
+      <div
         className="picker-cursor"
-        style={{ 
-          left: `${saturation}%`, 
-          top: `${100 - lightness}%` 
+        style={{
+          left: `${saturation}%`,
+          top: `${100 - lightness}%`
         }}
       />
     </div>
@@ -333,7 +335,7 @@ function SaturationPicker({ hue, saturation, lightness, onChange }) {
 function ImageViewer({ src }) {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
-  
+
   const { isPressed, pressMoveProps } = usePressMove({
     onPressMoveLeft: (delta) => {
       setPosition(prev => ({ ...prev, x: prev.x - delta }))
@@ -348,14 +350,14 @@ function ImageViewer({ src }) {
       setPosition(prev => ({ ...prev, y: prev.y + delta }))
     }
   })
-  
+
   return (
     <div className="image-viewer">
-      <div 
+      <div
         {...pressMoveProps}
         className={`image-container ${isPressed ? 'panning' : ''}`}
       >
-        <img 
+        <img
           src={src}
           style={{
             transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
@@ -371,6 +373,7 @@ function ImageViewer({ src }) {
 ## Use Cases
 
 ### usePress
+
 1. **Custom buttons**: Enhanced button components with press states
 2. **Interactive cards**: Clickable cards and tiles
 3. **Menu items**: Context menu and dropdown items
@@ -378,6 +381,7 @@ function ImageViewer({ src }) {
 5. **Action triggers**: Any clickable/tappable interface element
 
 ### usePressMove
+
 1. **Sliders**: Value adjustment with drag gestures
 2. **Color pickers**: Saturation and hue adjustment
 3. **Image manipulation**: Pan, zoom, rotate operations

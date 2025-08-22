@@ -54,7 +54,7 @@ import { Badge } from "@choiceform/design-system"
 ```tsx
 import { CheckSmall } from "@choiceform/icons-react"
 
-<Badge variant="success">
+;<Badge variant="success">
   <CheckSmall className="mr-0.5" />
   Completed
 </Badge>
@@ -66,7 +66,7 @@ import { CheckSmall } from "@choiceform/icons-react"
 interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
   /** Visual variant of the badge */
   variant?: "default" | "brand" | "inverted" | "component" | "success" | "warning" | "error"
-  
+
   /** Use strong styling (filled background) instead of subtle */
   strong?: boolean
 }
@@ -109,7 +109,12 @@ interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
 
 ```tsx
 <div className="flex gap-2">
-  <Badge variant="success" strong>Active</Badge>
+  <Badge
+    variant="success"
+    strong
+  >
+    Active
+  </Badge>
   <Badge variant="warning">Pending</Badge>
   <Badge variant="error">Failed</Badge>
   <Badge>Draft</Badge>
@@ -145,8 +150,14 @@ interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
 
 ```tsx
 <p>
-  This feature is <Badge variant="brand" strong>New</Badge> and requires
-  {" "}<Badge variant="warning">Beta Access</Badge> to use.
+  This feature is{" "}
+  <Badge
+    variant="brand"
+    strong
+  >
+    New
+  </Badge>{" "}
+  and requires <Badge variant="warning">Beta Access</Badge> to use.
 </p>
 ```
 

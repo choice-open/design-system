@@ -137,37 +137,37 @@ const startFrom2020 = new Date(2020, 0, 1)
 interface YearCalendarProps {
   /** Selected year value */
   value?: Date | null
-  
+
   /** Default selected year */
   defaultValue?: Date | null
-  
+
   /** Year selection change handler */
   onChange?: (year: Date | null) => void
-  
+
   /** Current year for reference (highlights current year) */
   currentYear?: Date
-  
+
   /** Starting year for the grid display */
   startYear?: Date
-  
+
   /** Number of years to display in grid */
   yearCount?: number
-  
+
   /** Minimum selectable year */
   minYear?: Date | null
-  
+
   /** Maximum selectable year */
   maxYear?: Date | null
-  
+
   /** Array of disabled years */
   disabledYears?: Date[]
-  
+
   /** Disable entire component */
   disabled?: boolean
-  
+
   /** Visual theme variant */
   variant?: "light" | "dark"
-  
+
   /** Additional CSS class names */
   className?: string
 }
@@ -189,6 +189,7 @@ interface YearCalendarProps {
 ## Year Grid Layout
 
 ### Default Layout (12 years)
+
 ```
 2020  2021  2022  2023
 2024  2025  2026  2027
@@ -196,6 +197,7 @@ interface YearCalendarProps {
 ```
 
 ### 9 Years Layout (3x3)
+
 ```
 2020  2021  2022
 2023  2024  2025
@@ -203,6 +205,7 @@ interface YearCalendarProps {
 ```
 
 ### 15 Years Layout (3x5)
+
 ```
 2020  2021  2022  2023  2024
 2025  2026  2027  2028  2029
@@ -212,6 +215,7 @@ interface YearCalendarProps {
 ## Year Range Configuration
 
 ### Relative Ranges
+
 ```tsx
 const currentYear = new Date()
 
@@ -238,6 +242,7 @@ const currentYear = new Date()
 ```
 
 ### Fixed Ranges
+
 ```tsx
 // Birth year selector (1950-2010)
 <YearCalendar
@@ -259,6 +264,7 @@ const currentYear = new Date()
 ## Disabling Years
 
 ### Specific Years
+
 ```tsx
 const unavailableYears = [
   new Date(2020, 0, 1), // 2020
@@ -274,10 +280,11 @@ const unavailableYears = [
 ```
 
 ### Range-based Disabling
+
 ```tsx
 // Disable future years
 const futureYears = Array.from(
-  { length: 10 }, 
+  { length: 10 },
   (_, i) => new Date(new Date().getFullYear() + i + 1, 0, 1)
 )
 
@@ -301,11 +308,12 @@ const twentyTwenties = Array.from(
 ## Common Use Cases
 
 ### Birth Year Selector
+
 ```tsx
 function BirthYearSelector() {
   const [birthYear, setBirthYear] = useState<Date | null>(null)
   const currentYear = new Date().getFullYear()
-  
+
   return (
     <div>
       <label>Birth Year</label>
@@ -324,6 +332,7 @@ function BirthYearSelector() {
 ```
 
 ### Document Year Filter
+
 ```tsx
 function DocumentYearFilter() {
   const [filterYear, setFilterYear] = useState<Date | null>(null)
@@ -334,16 +343,11 @@ function DocumentYearFilter() {
     new Date(2024, 0, 1),
     // 2023 is missing (no documents)
   ])
-  
-  const disabledYears = Array.from(
-    { length: 10 },
-    (_, i) => new Date(2020 + i, 0, 1)
-  ).filter(year => 
-    !availableYears.some(available => 
-      available.getFullYear() === year.getFullYear()
-    )
+
+  const disabledYears = Array.from({ length: 10 }, (_, i) => new Date(2020 + i, 0, 1)).filter(
+    (year) => !availableYears.some((available) => available.getFullYear() === year.getFullYear()),
   )
-  
+
   return (
     <YearCalendar
       value={filterYear}
@@ -358,11 +362,12 @@ function DocumentYearFilter() {
 ```
 
 ### Financial Year Selector
+
 ```tsx
 function FinancialYearSelector() {
   const [fiscalYear, setFiscalYear] = useState<Date | null>(null)
   const currentYear = new Date().getFullYear()
-  
+
   return (
     <div>
       <label>Fiscal Year</label>
@@ -375,7 +380,7 @@ function FinancialYearSelector() {
         maxYear={new Date(currentYear + 2, 0, 1)}
         className="w-48 rounded-xl border"
       />
-      
+
       {fiscalYear && (
         <p className="mt-2 text-sm text-gray-600">
           FY {fiscalYear.getFullYear()}-{fiscalYear.getFullYear() + 1}
@@ -387,15 +392,16 @@ function FinancialYearSelector() {
 ```
 
 ### Academic Year Selector
+
 ```tsx
 function AcademicYearSelector() {
   const [academicYear, setAcademicYear] = useState<Date | null>(null)
   const currentYear = new Date().getFullYear()
-  
+
   // Only show past and current academic years
   const maxYear = new Date()
   const minYear = new Date(currentYear - 20, 0, 1)
-  
+
   return (
     <div>
       <label>Academic Year</label>
@@ -408,7 +414,7 @@ function AcademicYearSelector() {
         maxYear={maxYear}
         className="w-60 rounded-xl border"
       />
-      
+
       {academicYear && (
         <div className="mt-2 text-sm text-gray-600">
           Academic Year: {academicYear.getFullYear()}-{academicYear.getFullYear() + 1}
@@ -420,11 +426,12 @@ function AcademicYearSelector() {
 ```
 
 ### Multi-Year Data Range
+
 ```tsx
 function DataRangeSelector() {
   const [startYear, setStartYear] = useState<Date | null>(null)
   const [endYear, setEndYear] = useState<Date | null>(null)
-  
+
   return (
     <div className="space-y-4">
       <div>
@@ -437,7 +444,7 @@ function DataRangeSelector() {
           className="w-48 rounded-xl border"
         />
       </div>
-      
+
       <div>
         <label>End Year</label>
         <YearCalendar
@@ -448,11 +455,11 @@ function DataRangeSelector() {
           className="w-48 rounded-xl border"
         />
       </div>
-      
+
       {startYear && endYear && (
         <div className="text-sm text-gray-600">
-          Range: {startYear.getFullYear()} - {endYear.getFullYear()}
-          ({endYear.getFullYear() - startYear.getFullYear() + 1} years)
+          Range: {startYear.getFullYear()} - {endYear.getFullYear()}(
+          {endYear.getFullYear() - startYear.getFullYear() + 1} years)
         </div>
       )}
     </div>
@@ -463,14 +470,15 @@ function DataRangeSelector() {
 ## Year Navigation
 
 ### Programmatic Navigation
+
 ```tsx
 function YearNavigator() {
   const [selectedYear, setSelectedYear] = useState<Date | null>(new Date())
-  
+
   const navigateToYear = (year: number) => {
     setSelectedYear(new Date(year, 0, 1))
   }
-  
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -478,7 +486,7 @@ function YearNavigator() {
         <button onClick={() => navigateToYear(2025)}>2025</button>
         <button onClick={() => navigateToYear(2030)}>2030</button>
       </div>
-      
+
       <YearCalendar
         value={selectedYear}
         onChange={setSelectedYear}
@@ -491,15 +499,16 @@ function YearNavigator() {
 ```
 
 ### Dynamic Range Updates
+
 ```tsx
 function DynamicYearRange() {
   const [selectedYear, setSelectedYear] = useState<Date | null>(new Date())
   const [decade, setDecade] = useState(2020)
-  
+
   return (
     <div className="space-y-4">
-      <select 
-        value={decade} 
+      <select
+        value={decade}
         onChange={(e) => setDecade(Number(e.target.value))}
       >
         <option value={2000}>2000s</option>
@@ -507,7 +516,7 @@ function DynamicYearRange() {
         <option value={2020}>2020s</option>
         <option value={2030}>2030s</option>
       </select>
-      
+
       <YearCalendar
         value={selectedYear}
         onChange={setSelectedYear}
@@ -533,12 +542,14 @@ function DynamicYearRange() {
 ## Visual States
 
 ### Year States
+
 - **Selected**: Year has highlighted background and border
 - **Current**: Current year has special indication
 - **Disabled**: Disabled years have reduced opacity and no interaction
 - **Hover**: Years have subtle highlight on hover
 
 ### Grid Layout
+
 - Years are arranged in a responsive grid
 - Grid adapts to the specified `yearCount`
 - Maintains consistent spacing and alignment
@@ -557,12 +568,14 @@ function DynamicYearRange() {
 ## Styling
 
 The component uses a grid-based layout with:
+
 - Responsive year cells that adapt to container size
 - Consistent hover and selection states
 - Proper disabled state styling
 - Theme variant support for light and dark modes
 
 ### Custom Styling
+
 ```tsx
 <YearCalendar
   className="w-64 rounded-2xl border-2 border-blue-200 shadow-lg"
@@ -573,6 +586,7 @@ The component uses a grid-based layout with:
 ## Integration Examples
 
 ### With Date Picker
+
 ```tsx
 import { DateInput } from "@choiceform/design-system"
 import { Popover } from "@choiceform/design-system"
@@ -580,7 +594,7 @@ import { Popover } from "@choiceform/design-system"
 function YearDatePicker() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [showYearPicker, setShowYearPicker] = useState(false)
-  
+
   return (
     <>
       <DateInput
@@ -588,7 +602,7 @@ function YearDatePicker() {
         onChange={setSelectedDate}
         onYearClick={() => setShowYearPicker(true)}
       />
-      
+
       {showYearPicker && (
         <Popover>
           <YearCalendar
@@ -611,25 +625,29 @@ function YearDatePicker() {
 ```
 
 ### With Form Validation
+
 ```tsx
 import { useForm } from "react-hook-form"
 
 function YearSelectionForm() {
-  const { register, watch, setValue, formState: { errors } } = useForm()
-  const selectedYear = watch('year')
-  
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm()
+  const selectedYear = watch("year")
+
   return (
     <form>
       <YearCalendar
         value={selectedYear}
-        onChange={(year) => setValue('year', year)}
+        onChange={(year) => setValue("year", year)}
         minYear={new Date(1900, 0, 1)}
         maxYear={new Date()}
         yearCount={16}
       />
-      {errors.year && (
-        <p className="text-red-500">Please select a valid year</p>
-      )}
+      {errors.year && <p className="text-red-500">Please select a valid year</p>}
     </form>
   )
 }

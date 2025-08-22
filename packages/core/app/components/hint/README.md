@@ -54,7 +54,7 @@ export function PlacementExample() {
         />
         <span>Left placement</span>
       </div>
-      
+
       <div className="flex items-center gap-2">
         <span>Right placement</span>
         <Hint
@@ -69,42 +69,47 @@ export function PlacementExample() {
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `content` | `ReactNode` | - | **Required.** The content to display in the tooltip |
-| `placement` | `"left-start" \| "right-start"` | `"right-start"` | Position of the tooltip relative to the trigger |
-| `icon` | `ReactNode` | `<InfoCircle />` | The icon to display in the trigger button |
-| `disabled` | `boolean` | `false` | Whether the tooltip is disabled |
-| `open` | `boolean` | - | Controlled open state of the tooltip |
-| `onOpenChange` | `(open: boolean) => void` | - | Callback when the open state changes |
-| `variant` | `"default" \| "dark"` | `"default"` | Visual variant of the tooltip |
-| `className` | `string` | - | Additional CSS classes for the trigger |
-| `children` | `ReactNode` | - | Custom trigger content (overrides default icon) |
-| `portalId` | `string` | `"floating-tooltip-root"` | ID of the portal container |
+| Prop           | Type                            | Default                   | Description                                         |
+| -------------- | ------------------------------- | ------------------------- | --------------------------------------------------- |
+| `content`      | `ReactNode`                     | -                         | **Required.** The content to display in the tooltip |
+| `placement`    | `"left-start" \| "right-start"` | `"right-start"`           | Position of the tooltip relative to the trigger     |
+| `icon`         | `ReactNode`                     | `<InfoCircle />`          | The icon to display in the trigger button           |
+| `disabled`     | `boolean`                       | `false`                   | Whether the tooltip is disabled                     |
+| `open`         | `boolean`                       | -                         | Controlled open state of the tooltip                |
+| `onOpenChange` | `(open: boolean) => void`       | -                         | Callback when the open state changes                |
+| `variant`      | `"default" \| "dark"`           | `"default"`               | Visual variant of the tooltip                       |
+| `className`    | `string`                        | -                         | Additional CSS classes for the trigger              |
+| `children`     | `ReactNode`                     | -                         | Custom trigger content (overrides default icon)     |
+| `portalId`     | `string`                        | `"floating-tooltip-root"` | ID of the portal container                          |
 
 ## Features
 
 ### Placement Options
+
 - **left-start**: Tooltip appears to the left, aligned to the start
 - **right-start**: Tooltip appears to the right, aligned to the start (default)
 
 ### Content Handling
+
 - Supports both text and JSX content
 - Automatically wraps long content for optimal readability
 - Maintains consistent spacing and typography
 
 ### Accessibility
+
 - Keyboard navigation support
 - Proper ARIA attributes
 - Focus management
 - Screen reader compatible
 
 ### Interaction States
+
 - **Default**: Normal interactive state with hover/focus triggers
 - **Disabled**: Prevents interaction and tooltip display
 - **Controlled**: Can be controlled externally via `open` prop
 
 ### Visual Variants
+
 - **Default**: Light background with dark text
 - **Dark**: Dark background with light text
 
@@ -145,7 +150,7 @@ import { Hint } from "~/components/hint"
 
 export function ControlledExample() {
   const [open, setOpen] = useState(false)
-  
+
   return (
     <Hint
       content="Controlled tooltip"
@@ -167,6 +172,7 @@ The Hint component uses a compound component pattern with the following structur
 ## Styling
 
 The component uses Tailwind CSS for styling with support for:
+
 - Responsive design
 - Dark mode compatibility
 - Custom theming through CSS variables

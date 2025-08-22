@@ -25,7 +25,7 @@ import { Slot } from "~/components/slot"
 export function BasicExample() {
   return (
     <Slot className="rounded bg-blue-100 p-4">
-      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
         Click me (merged classes)
       </button>
     </Slot>
@@ -43,15 +43,18 @@ export function EventMergingExample() {
   }
 
   const handleChildClick = () => {
-    console.log("Child click handler") 
+    console.log("Child click handler")
     alert("Child clicked!")
   }
 
   return (
-    <Slot onClick={handleParentClick} className="inline-block">
+    <Slot
+      onClick={handleParentClick}
+      className="inline-block"
+    >
       <button
         onClick={handleChildClick}
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
       >
         Click me (merged events)
       </button>
@@ -77,13 +80,13 @@ const CustomButton = forwardRef<HTMLButtonElement, CustomButtonProps>(
     return (
       <Component
         ref={ref}
-        className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+        className="rounded bg-purple-500 px-4 py-2 text-white hover:bg-purple-600"
         {...props}
       >
         {children}
       </Component>
     )
-  }
+  },
 )
 
 // Usage
@@ -92,10 +95,13 @@ export function AsChildExample() {
     <div>
       {/* Renders as button */}
       <CustomButton>Regular Button</CustomButton>
-      
+
       {/* Renders as anchor tag */}
       <CustomButton asChild>
-        <a href="#" className="text-decoration-none">
+        <a
+          href="#"
+          className="text-decoration-none"
+        >
           Link Button
         </a>
       </CustomButton>
@@ -108,13 +114,13 @@ export function AsChildExample() {
 
 ### Slot Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | The child element to merge props with |
-| `className` | `string` | - | CSS classes to merge with child's classes |
-| `style` | `CSSProperties` | - | Inline styles to merge with child's styles |
-| Event handlers | `function` | - | Any event handler (onClick, onFocus, etc.) |
-| HTML attributes | `any` | - | Any valid HTML attributes |
+| Prop            | Type            | Default | Description                                |
+| --------------- | --------------- | ------- | ------------------------------------------ |
+| `children`      | `ReactNode`     | -       | The child element to merge props with      |
+| `className`     | `string`        | -       | CSS classes to merge with child's classes  |
+| `style`         | `CSSProperties` | -       | Inline styles to merge with child's styles |
+| Event handlers  | `function`      | -       | Any event handler (onClick, onFocus, etc.) |
+| HTML attributes | `any`           | -       | Any valid HTML attributes                  |
 
 ## API Reference
 
@@ -138,7 +144,7 @@ For advanced use cases where you need deep cloning:
 ```tsx
 import { SlotClone } from "~/components/slot"
 
-<SlotClone {...props}>
+;<SlotClone {...props}>
   <NestedComponent />
 </SlotClone>
 ```
@@ -170,7 +176,7 @@ import { useAsChild } from "~/components/slot"
 
 function FlexibleComponent({ asChild, ...props }) {
   const Component = useAsChild(asChild, "div")
-  
+
   return <Component {...props} />
 }
 ```
@@ -185,13 +191,13 @@ export function ComplexMergingExample() {
 
   return (
     <Slot
-      onClick={() => setCount(c => c + 1)}
-      className="border-2 border-dashed border-gray-300 p-2 rounded"
+      onClick={() => setCount((c) => c + 1)}
+      className="rounded border-2 border-dashed border-gray-300 p-2"
       style={{ backgroundColor: "rgba(255, 0, 0, 0.1)" }}
       data-testid="slot-wrapper"
     >
       <div
-        className="cursor-pointer bg-red-500 text-white p-4 rounded hover:bg-red-600"
+        className="cursor-pointer rounded bg-red-500 p-4 text-white hover:bg-red-600"
         onClick={() => console.log("Child clicked")}
         style={{ fontSize: "16px" }}
       >
@@ -233,17 +239,21 @@ export function PolymorphicExample() {
   return (
     <div>
       {/* Renders as div */}
-      <PolymorphicComponent className="p-4 bg-blue-100">
-        Default div
-      </PolymorphicComponent>
-      
+      <PolymorphicComponent className="bg-blue-100 p-4">Default div</PolymorphicComponent>
+
       {/* Renders as span */}
-      <PolymorphicComponent as="span" className="text-red-500">
+      <PolymorphicComponent
+        as="span"
+        className="text-red-500"
+      >
         Span element
       </PolymorphicComponent>
-      
+
       {/* Renders as child element */}
-      <PolymorphicComponent asChild className="font-bold">
+      <PolymorphicComponent
+        asChild
+        className="font-bold"
+      >
         <h2>Custom heading</h2>
       </PolymorphicComponent>
     </div>
@@ -268,14 +278,12 @@ export function PerformantListExample() {
 
   return (
     <div className="space-y-1">
-      {items.map(item => (
+      {items.map((item) => (
         <OptimizedSlotItem
           key={item.id}
-          className="block p-2 hover:bg-gray-100 rounded"
+          className="block rounded p-2 hover:bg-gray-100"
         >
-          <button className="w-full text-left">
-            {item.label}
-          </button>
+          <button className="w-full text-left">{item.label}</button>
         </OptimizedSlotItem>
       ))}
     </div>
@@ -286,7 +294,9 @@ export function PerformantListExample() {
 ## How Props Are Merged
 
 ### Event Handlers
+
 When both parent and child have the same event handler, they are merged so that:
+
 1. Child handler executes first
 2. Parent handler executes second
 
@@ -298,6 +308,7 @@ When both parent and child have the same event handler, they are merged so that:
 ```
 
 ### Class Names
+
 Class names are concatenated with a space:
 
 ```tsx
@@ -308,18 +319,20 @@ Class names are concatenated with a space:
 ```
 
 ### Styles
+
 Style objects are merged with child styles taking precedence:
 
 ```tsx
 // Child styles override parent styles
-<Slot style={{ color: 'red', fontSize: '16px' }}>
-  <div style={{ color: 'blue', fontWeight: 'bold' }}>
+<Slot style={{ color: "red", fontSize: "16px" }}>
+  <div style={{ color: "blue", fontWeight: "bold" }}>
     {/* Final style: { color: 'blue', fontSize: '16px', fontWeight: 'bold' } */}
   </div>
 </Slot>
 ```
 
 ### Other Props
+
 All other props from the parent override child props with the same name.
 
 ## Performance Optimizations
@@ -395,8 +408,13 @@ import type { SlotProps } from "~/components/slot"
 // Full type inference
 const CustomSlot = forwardRef<HTMLElement, SlotProps & { custom?: boolean }>(
   ({ custom, ...props }, ref) => {
-    return <Slot ref={ref} {...props} />
-  }
+    return (
+      <Slot
+        ref={ref}
+        {...props}
+      />
+    )
+  },
 )
 
 // Type-safe asChild usage
@@ -408,8 +426,14 @@ interface TypedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 const TypedButton = forwardRef<HTMLButtonElement, TypedButtonProps>(
   ({ asChild, variant = "primary", ...props }, ref) => {
     const Component = useAsChild(asChild, "button")
-    return <Component ref={ref} data-variant={variant} {...props} />
-  }
+    return (
+      <Component
+        ref={ref}
+        data-variant={variant}
+        {...props}
+      />
+    )
+  },
 )
 ```
 
@@ -426,12 +450,10 @@ const TypedButton = forwardRef<HTMLButtonElement, TypedButtonProps>(
 
 ```tsx
 // Add debug props to see what's being merged
-<Slot 
+<Slot
   data-debug="slot-wrapper"
   onClick={() => console.log("Slot clicked")}
 >
-  <button onClick={() => console.log("Button clicked")}>
-    Debug button
-  </button>
+  <button onClick={() => console.log("Button clicked")}>Debug button</button>
 </Slot>
 ```

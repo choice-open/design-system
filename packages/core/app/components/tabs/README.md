@@ -66,13 +66,22 @@ return (
     value={selectedTab}
     onChange={(value) => setSelectedTab(value)}
   >
-    <Tabs.Item value="overview" disabled>
+    <Tabs.Item
+      value="overview"
+      disabled
+    >
       Overview
     </Tabs.Item>
-    <Tabs.Item value="settings" disabled>
+    <Tabs.Item
+      value="settings"
+      disabled
+    >
       Settings
     </Tabs.Item>
-    <Tabs.Item value="analytics" disabled>
+    <Tabs.Item
+      value="analytics"
+      disabled
+    >
       Analytics
     </Tabs.Item>
   </Tabs>
@@ -91,13 +100,22 @@ return (
     value={selectedTab}
     onChange={(value) => setSelectedTab(value)}
   >
-    <Tabs.Item value="sun" aria-label="Sun">
+    <Tabs.Item
+      value="sun"
+      aria-label="Sun"
+    >
       <ThemeSunBright />
     </Tabs.Item>
-    <Tabs.Item value="moon" aria-label="Moon">
+    <Tabs.Item
+      value="moon"
+      aria-label="Moon"
+    >
       <ThemeMoonDark />
     </Tabs.Item>
-    <Tabs.Item value="system" aria-label="System">
+    <Tabs.Item
+      value="system"
+      aria-label="System"
+    >
       <ThemeSystem />
     </Tabs.Item>
   </Tabs>
@@ -114,19 +132,28 @@ return (
     value={selectedTab}
     onChange={(value) => setSelectedTab(value)}
   >
-    <Tabs.Item value="sun" aria-label="Sun">
+    <Tabs.Item
+      value="sun"
+      aria-label="Sun"
+    >
       <div className="flex items-center gap-1">
         <ThemeSunBright />
         <span>Sun</span>
       </div>
     </Tabs.Item>
-    <Tabs.Item value="moon" aria-label="Moon">
+    <Tabs.Item
+      value="moon"
+      aria-label="Moon"
+    >
       <div className="flex items-center gap-1">
         <ThemeMoonDark />
         <span>Moon</span>
       </div>
     </Tabs.Item>
-    <Tabs.Item value="system" aria-label="System">
+    <Tabs.Item
+      value="system"
+      aria-label="System"
+    >
       <div className="flex items-center gap-1">
         <ThemeSystem />
         <span>System</span>
@@ -164,16 +191,16 @@ return (
 interface TabsProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
   /** Child Tabs.Item components */
   children?: ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Tab selection change handler */
   onChange?: (value: string) => void
-  
+
   /** Currently selected tab value */
   value: string
-  
+
   /** Visual variant */
   variant?: "default" | "dark"
 }
@@ -189,13 +216,13 @@ interface TabsProps extends Omit<HTMLProps<HTMLDivElement>, "onChange"> {
 interface TabItemProps extends Omit<HTMLProps<HTMLButtonElement>, "value"> {
   /** Child content (text, icons, or mixed) */
   children?: ReactNode
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Disable this tab */
   disabled?: boolean
-  
+
   /** Unique identifier for this tab */
   value: string
 }
@@ -217,7 +244,7 @@ Individual tab item that can contain text, icons, or complex content.
 
 ## Styling
 
-- Uses Tailwind CSS via `tailwind-variants` 
+- Uses Tailwind CSS via `tailwind-variants`
 - Two visual variants: `default` and `dark`
 - Customizable with `className` prop
 - Smooth hover and focus transitions
@@ -227,6 +254,7 @@ Individual tab item that can contain text, icons, or complex content.
 ## Best Practices
 
 ### Usage Guidelines
+
 - Always use as a controlled component with `value` and `onChange`
 - Provide meaningful tab labels that describe their content
 - Use `aria-label` for icon-only tabs to ensure accessibility
@@ -234,12 +262,14 @@ Individual tab item that can contain text, icons, or complex content.
 - Consider the dark variant for dark backgrounds or themes
 
 ### Content Guidelines
+
 - Use clear, concise tab labels
 - Maintain consistent content types across tabs
 - For icon tabs, ensure icons are universally understood
 - Mixed content should balance text and visual elements
 
 ### Accessibility
+
 - Provides proper ARIA roles (`tablist`, `tab`)
 - Supports keyboard navigation:
   - Arrow keys to move between tabs
@@ -250,6 +280,7 @@ Individual tab item that can contain text, icons, or complex content.
 - Announces tab changes to screen readers
 
 ### Performance
+
 - Minimal re-renders through controlled state management
 - Efficient event handling with proper callback patterns
 - No unnecessary DOM updates for inactive tabs
@@ -263,13 +294,16 @@ const [activeTab, setActiveTab] = useState("general")
 
 return (
   <div className="space-y-4">
-    <Tabs value={activeTab} onChange={setActiveTab}>
+    <Tabs
+      value={activeTab}
+      onChange={setActiveTab}
+    >
       <Tabs.Item value="general">General</Tabs.Item>
       <Tabs.Item value="privacy">Privacy</Tabs.Item>
       <Tabs.Item value="security">Security</Tabs.Item>
       <Tabs.Item value="notifications">Notifications</Tabs.Item>
     </Tabs>
-    
+
     <div className="mt-6">
       {activeTab === "general" && <GeneralSettings />}
       {activeTab === "privacy" && <PrivacySettings />}
@@ -286,20 +320,32 @@ return (
 const [theme, setTheme] = useState("system")
 
 return (
-  <Tabs value={theme} onChange={setTheme}>
-    <Tabs.Item value="light" aria-label="Light theme">
+  <Tabs
+    value={theme}
+    onChange={setTheme}
+  >
+    <Tabs.Item
+      value="light"
+      aria-label="Light theme"
+    >
       <div className="flex items-center gap-2">
         <ThemeSunBright />
         <span>Light</span>
       </div>
     </Tabs.Item>
-    <Tabs.Item value="dark" aria-label="Dark theme">
+    <Tabs.Item
+      value="dark"
+      aria-label="Dark theme"
+    >
       <div className="flex items-center gap-2">
         <ThemeMoonDark />
         <span>Dark</span>
       </div>
     </Tabs.Item>
-    <Tabs.Item value="system" aria-label="System theme">
+    <Tabs.Item
+      value="system"
+      aria-label="System theme"
+    >
       <div className="flex items-center gap-2">
         <ThemeSystem />
         <span>System</span>
@@ -316,15 +362,21 @@ const [section, setSection] = useState("overview")
 
 return (
   <div className="space-y-6">
-    <Tabs value={section} onChange={setSection}>
+    <Tabs
+      value={section}
+      onChange={setSection}
+    >
       <Tabs.Item value="overview">Overview</Tabs.Item>
       <Tabs.Item value="analytics">Analytics</Tabs.Item>
       <Tabs.Item value="reports">Reports</Tabs.Item>
-      <Tabs.Item value="settings" disabled>
+      <Tabs.Item
+        value="settings"
+        disabled
+      >
         Settings
       </Tabs.Item>
     </Tabs>
-    
+
     <main>
       {section === "overview" && <DashboardOverview />}
       {section === "analytics" && <AnalyticsView />}
@@ -340,17 +392,32 @@ return (
 const [tool, setTool] = useState("select")
 
 return (
-  <Tabs value={tool} onChange={setTool}>
-    <Tabs.Item value="select" aria-label="Select tool">
+  <Tabs
+    value={tool}
+    onChange={setTool}
+  >
+    <Tabs.Item
+      value="select"
+      aria-label="Select tool"
+    >
       <SelectIcon />
     </Tabs.Item>
-    <Tabs.Item value="move" aria-label="Move tool">
+    <Tabs.Item
+      value="move"
+      aria-label="Move tool"
+    >
       <MoveIcon />
     </Tabs.Item>
-    <Tabs.Item value="draw" aria-label="Draw tool">
+    <Tabs.Item
+      value="draw"
+      aria-label="Draw tool"
+    >
       <DrawIcon />
     </Tabs.Item>
-    <Tabs.Item value="erase" aria-label="Erase tool">
+    <Tabs.Item
+      value="erase"
+      aria-label="Erase tool"
+    >
       <EraseIcon />
     </Tabs.Item>
   </Tabs>

@@ -73,9 +73,26 @@ const [selections, setSelections] = useState({
 
 ```tsx
 <>
-  <Radio value={false} onChange={() => {}}>Rest</Radio>
-  <Radio value={false} onChange={() => {}} focused>Focused</Radio>
-  <Radio value={false} onChange={() => {}} disabled>Disabled</Radio>
+  <Radio
+    value={false}
+    onChange={() => {}}
+  >
+    Rest
+  </Radio>
+  <Radio
+    value={false}
+    onChange={() => {}}
+    focused
+  >
+    Focused
+  </Radio>
+  <Radio
+    value={false}
+    onChange={() => {}}
+    disabled
+  >
+    Disabled
+  </Radio>
 </>
 ```
 
@@ -328,7 +345,7 @@ const [paymentMethod, setPaymentMethod] = useState("card")
 
 <fieldset className="space-y-3">
   <legend className="text-lg font-semibold">Payment Method</legend>
-  
+
   <RadioGroup
     variant="outline"
     value={paymentMethod}
@@ -347,7 +364,7 @@ const [paymentMethod, setPaymentMethod] = useState("card")
         </div>
       </Radio.Label>
     </RadioGroup.Item>
-    
+
     <RadioGroup.Item value="paypal">
       <Radio.Label>
         <div className="flex items-center gap-2">
@@ -361,7 +378,7 @@ const [paymentMethod, setPaymentMethod] = useState("card")
         </div>
       </Radio.Label>
     </RadioGroup.Item>
-    
+
     <RadioGroup.Item value="bank" disabled>
       <Radio.Label>
         <div className="flex items-center gap-2">
@@ -386,7 +403,7 @@ const [answer, setAnswer] = useState<string>("")
 
 <div className="space-y-4">
   <h3 className="font-medium">What is the capital of France?</h3>
-  
+
   <RadioGroup
     value={answer}
     onChange={setAnswer}
@@ -397,7 +414,7 @@ const [answer, setAnswer] = useState<string>("")
       { value: "madrid", label: "Madrid" },
     ]}
   />
-  
+
   {answer && (
     <p className="text-sm text-secondary-foreground">
       Selected: {answer}

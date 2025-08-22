@@ -20,7 +20,7 @@ tcx(
   "btn",
   isPrimary && "btn-primary",
   isLarge && "text-lg",
-  disabled && "opacity-50 cursor-not-allowed"
+  disabled && "cursor-not-allowed opacity-50",
 )
 
 // Overriding Tailwind classes
@@ -30,21 +30,14 @@ tcx("px-4", "px-8") // Result: "px-8" (tailwind-merge handles conflicts)
 tcx({
   "bg-blue-500": isPrimary,
   "bg-gray-500": !isPrimary,
-  "text-white": true
+  "text-white": true,
 })
 
 // Array syntax
 tcx(["btn", "btn-primary"], ["text-lg", "font-bold"])
 
 // Mixed syntax
-tcx(
-  "base-class",
-  ["array", "of", "classes"],
-  { conditional: isActive },
-  undefined,
-  null,
-  false
-)
+tcx("base-class", ["array", "of", "classes"], { conditional: isActive }, undefined, null, false)
 ```
 
 ## API
@@ -79,10 +72,12 @@ A string of merged class names with Tailwind CSS conflict resolution.
 ## How It Works
 
 `tcx` combines two powerful libraries:
+
 1. **classnames**: Handles conditional class logic and multiple syntax styles
 2. **tailwind-merge**: Intelligently merges Tailwind CSS classes to avoid conflicts
 
 This combination ensures that:
+
 - Conditional logic is easy to write
 - Tailwind utility conflicts are automatically resolved
 - The final class string is optimized and clean
@@ -105,21 +100,21 @@ function Button({ variant = "primary", size = "md", className, ...props }: Butto
         // Base styles
         "inline-flex items-center justify-center rounded-md font-medium",
         "transition-colors focus:outline-none focus:ring-2",
-        
+
         // Variant styles
         {
           "bg-blue-500 text-white hover:bg-blue-600": variant === "primary",
           "bg-gray-200 text-gray-900 hover:bg-gray-300": variant === "secondary",
           "hover:bg-gray-100": variant === "ghost"
         },
-        
+
         // Size styles
         {
           "px-3 py-1 text-sm": size === "sm",
           "px-4 py-2": size === "md",
           "px-6 py-3 text-lg": size === "lg"
         },
-        
+
         // User provided classes (can override above)
         className
       )}
@@ -194,12 +189,12 @@ function AnimatedPanel({ isOpen, className, children }) {
 ### Complex Conditional Logic
 
 ```typescript
-function DataTable({ 
-  striped, 
-  hoverable, 
-  bordered, 
+function DataTable({
+  striped,
+  hoverable,
+  bordered,
   compact,
-  className 
+  className
 }) {
   return (
     <table
@@ -254,6 +249,7 @@ function Box({ m, p, bg, text, className, ...props }: BoxProps) {
 ## Why Use tcx?
 
 ### Without tcx (Problems):
+
 ```typescript
 // Conflicting Tailwind classes
 className="px-4 px-8" // Both are applied, causing issues
@@ -266,6 +262,7 @@ className={isPrimary ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 hover:bg-g
 ```
 
 ### With tcx (Solutions):
+
 ```typescript
 // Automatic conflict resolution
 tcx("px-4", "px-8") // Only px-8 is applied

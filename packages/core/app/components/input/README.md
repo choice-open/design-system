@@ -25,7 +25,10 @@ import { Input } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-<Input value={value} onChange={setValue} />
+<Input
+  value={value}
+  onChange={setValue}
+/>
 ```
 
 ### Sizes
@@ -58,7 +61,7 @@ import { Input } from "@choiceform/design-system"
   value={value}
   onChange={setValue}
   onIsEditingChange={(isEditing) => {
-    console.log('Input editing state:', isEditing)
+    console.log("Input editing state:", isEditing)
   }}
 />
 ```

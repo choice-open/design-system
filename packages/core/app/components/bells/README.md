@@ -57,7 +57,11 @@ bells({
 bells({
   text: "New message received",
   action: (id) => (
-    <Button size="small" variant="ghost" onClick={() => console.log("View", id)}>
+    <Button
+      size="small"
+      variant="ghost"
+      onClick={() => console.log("View", id)}
+    >
       View
     </Button>
   ),

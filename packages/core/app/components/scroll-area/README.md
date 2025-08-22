@@ -26,11 +26,12 @@ import { ScrollArea } from "@choiceform/design-system"
 ### Basic Usage
 
 ```tsx
-<ScrollArea className="h-64 w-64 border" orientation="vertical">
+<ScrollArea
+  className="h-64 w-64 border"
+  orientation="vertical"
+>
   <ScrollArea.Viewport className="h-full">
-    <ScrollArea.Content>
-      {/* Your scrollable content */}
-    </ScrollArea.Content>
+    <ScrollArea.Content>{/* Your scrollable content */}</ScrollArea.Content>
   </ScrollArea.Viewport>
 </ScrollArea>
 ```
@@ -40,15 +41,25 @@ import { ScrollArea } from "@choiceform/design-system"
 The new auto-scrollbars feature automatically adds scrollbars based on orientation:
 
 ```tsx
-{/* Vertical scrolling - automatically adds vertical scrollbar */}
-<ScrollArea orientation="vertical" className="h-40 w-48 border">
+{
+  /* Vertical scrolling - automatically adds vertical scrollbar */
+}
+;<ScrollArea
+  orientation="vertical"
+  className="h-40 w-48 border"
+>
   <ScrollArea.Viewport>
     <ScrollArea.Content>{longContent}</ScrollArea.Content>
   </ScrollArea.Viewport>
 </ScrollArea>
 
-{/* Both directions - automatically adds both scrollbars + corner */}
-<ScrollArea orientation="both" className="h-40 w-48 border">
+{
+  /* Both directions - automatically adds both scrollbars + corner */
+}
+;<ScrollArea
+  orientation="both"
+  className="h-40 w-48 border"
+>
   <ScrollArea.Viewport>
     <ScrollArea.Content>{gridContent}</ScrollArea.Content>
   </ScrollArea.Viewport>
@@ -60,7 +71,10 @@ The new auto-scrollbars feature automatically adds scrollbars based on orientati
 For advanced customization, manually configure scrollbars:
 
 ```tsx
-<ScrollArea className="h-64 w-64 border" scrollbarMode="large-y">
+<ScrollArea
+  className="h-64 w-64 border"
+  scrollbarMode="large-y"
+>
   <ScrollArea.Viewport className="h-full">
     <ScrollArea.Content>{content}</ScrollArea.Content>
   </ScrollArea.Viewport>
@@ -101,7 +115,7 @@ Optimized for large datasets using @tanstack/react-virtual:
 ```tsx
 function VirtualScrollArea({ items }) {
   const [scrollElement, setScrollElement] = useState(null)
-  
+
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollElement,
@@ -110,7 +124,10 @@ function VirtualScrollArea({ items }) {
   })
 
   return (
-    <ScrollArea className="h-96 w-80 border" scrollbarMode="large-y">
+    <ScrollArea
+      className="h-96 w-80 border"
+      scrollbarMode="large-y"
+    >
       <ScrollArea.Viewport ref={setScrollElement}>
         <ScrollArea.Content>
           <div style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
@@ -145,7 +162,7 @@ import { useScrollPerformanceMonitor } from "@choiceform/design-system"
 
 function MonitoredScrollArea() {
   const [viewport, setViewport] = useState(null)
-  
+
   const metrics = useScrollPerformanceMonitor(viewport, {
     enabled: true,
     logInterval: 3000, // Report every 3 seconds
@@ -168,19 +185,26 @@ function MonitoredScrollArea() {
 ## Scrollbar Visibility Types
 
 ### auto (Default)
+
 Scrollbars visible when content overflows - standard web behavior.
 
 ### always
+
 Scrollbars always visible regardless of content overflow.
 
 ### scroll
+
 Scrollbars visible only when user is actively scrolling.
 
 ### hover
+
 Scrollbars visible when scrolling or hovering (macOS-like behavior).
 
 ```tsx
-<ScrollArea type="hover" className="h-64 w-64 border">
+<ScrollArea
+  type="hover"
+  className="h-64 w-64 border"
+>
   <ScrollArea.Viewport>
     <ScrollArea.Content>{content}</ScrollArea.Content>
   </ScrollArea.Viewport>
@@ -200,28 +224,26 @@ Different scrollbar appearance modes for various contexts:
 - `large-r`: Right-aligned large scrollbar
 
 ```tsx
-<ScrollArea scrollbarMode="large-y">
-  {/* Content */}
-</ScrollArea>
+<ScrollArea scrollbarMode="large-y">{/* Content */}</ScrollArea>
 ```
 
 ## Theme Variants
 
 ```tsx
-{/* Light theme */}
-<ScrollArea variant="light">
-  {/* Content */}
-</ScrollArea>
+{
+  /* Light theme */
+}
+;<ScrollArea variant="light">{/* Content */}</ScrollArea>
 
-{/* Dark theme */}
-<ScrollArea variant="dark">
-  {/* Content */}
-</ScrollArea>
+{
+  /* Dark theme */
+}
+;<ScrollArea variant="dark">{/* Content */}</ScrollArea>
 
-{/* Auto theme (follows system) */}
-<ScrollArea variant="auto">
-  {/* Content */}
-</ScrollArea>
+{
+  /* Auto theme (follows system) */
+}
+;<ScrollArea variant="auto">{/* Content */}</ScrollArea>
 ```
 
 ## Props
@@ -232,16 +254,16 @@ Different scrollbar appearance modes for various contexts:
 interface ScrollAreaProps {
   /** Accessibility label */
   "aria-label"?: string
-  
+
   /** ID of element providing label */
   "aria-labelledby"?: string
-  
+
   /** Content or render prop function */
   children?: React.ReactNode | ((position: ScrollPosition) => React.ReactNode)
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Custom class names for different parts */
   classNames?: {
     root?: string
@@ -251,16 +273,16 @@ interface ScrollAreaProps {
     thumb?: string
     corner?: string
   }
-  
+
   /** Scroll orientation */
   orientation?: "vertical" | "horizontal" | "both"
-  
+
   /** Scrollbar appearance mode */
   scrollbarMode?: "default" | "large-y" | "large-x" | "large-b" | "large-t" | "large-l" | "large-r"
-  
+
   /** Scrollbar visibility behavior */
   type?: "auto" | "always" | "scroll" | "hover"
-  
+
   /** Theme variant */
   variant?: "auto" | "light" | "dark"
 }
@@ -272,7 +294,7 @@ interface ScrollAreaProps {
 interface ScrollbarProps {
   /** Scrollbar orientation */
   orientation?: "vertical" | "horizontal"
-  
+
   /** Additional CSS classes */
   className?: string
 }
@@ -284,7 +306,7 @@ interface ScrollbarProps {
 interface ThumbProps {
   /** Thumb orientation */
   orientation?: "vertical" | "horizontal"
-  
+
   /** Additional CSS classes */
   className?: string
 }
@@ -303,16 +325,19 @@ The ScrollArea component is composed of several sub-components:
 ## Performance Considerations
 
 ### For Large Lists
+
 - Use virtual scrolling with @tanstack/react-virtual
 - Enable performance monitoring during development
 - Consider `overscan` values for smooth scrolling
 
 ### Dynamic Content
+
 - ScrollArea automatically handles content size changes
 - Uses MutationObserver and ResizeObserver for updates
 - Scrollbar length updates dynamically
 
 ### Memory Management
+
 - Clean up performance monitors on unmount
 - Cache expensive calculations with useMemo
 - Avoid unnecessary re-renders of scroll content
@@ -334,7 +359,10 @@ The ScrollArea component is composed of several sub-components:
 ```tsx
 <Modal>
   <Modal.Content className="h-64 w-64">
-    <ScrollArea className="h-full" scrollbarMode="large-y">
+    <ScrollArea
+      className="h-full"
+      scrollbarMode="large-y"
+    >
       <ScrollArea.Viewport className="h-full p-4">
         <ScrollArea.Content>{modalContent}</ScrollArea.Content>
       </ScrollArea.Viewport>
@@ -349,11 +377,20 @@ The ScrollArea component is composed of several sub-components:
 ### Nested Scrolling
 
 ```tsx
-<ScrollArea orientation="both" className="h-80 w-full border">
+<ScrollArea
+  orientation="both"
+  className="h-80 w-full border"
+>
   <ScrollArea.Viewport>
-    <ScrollArea.Content className="grid grid-cols-5 gap-4 p-4" style={{ minWidth: "800px" }}>
-      {items.map(item => (
-        <ScrollArea key={item.id} className="h-40 rounded-lg border">
+    <ScrollArea.Content
+      className="grid grid-cols-5 gap-4 p-4"
+      style={{ minWidth: "800px" }}
+    >
+      {items.map((item) => (
+        <ScrollArea
+          key={item.id}
+          className="h-40 rounded-lg border"
+        >
           <ScrollArea.Viewport>
             <ScrollArea.Content className="space-y-2 p-2">
               {/* Nested scrollable content */}

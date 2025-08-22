@@ -89,7 +89,7 @@ function CustomEditor() {
 
   const extensions = [
     javascript(), // JavaScript syntax highlighting
-    oneDark,      // Dark theme
+    oneDark, // Dark theme
   ]
 
   return (
@@ -112,7 +112,7 @@ function AdvancedEditor() {
 
   const handleEditorUpdate = (update) => {
     console.log("Editor updated:", update)
-    
+
     // Example: Track cursor position
     const cursor = update.state.selection.main.head
     console.log("Cursor position:", cursor)
@@ -132,11 +132,9 @@ function AdvancedEditor() {
         onFormat={handleFormat}
         className="h-64 rounded-md border"
       />
-      
+
       {diagnostics.length > 0 && (
-        <div className="mt-2 text-sm text-red-600">
-          Issues found: {diagnostics.length}
-        </div>
+        <div className="mt-2 text-sm text-red-600">Issues found: {diagnostics.length}</div>
       )}
     </div>
   )
@@ -159,10 +157,7 @@ hello_world()`)
     <CodeEditor
       value={pythonCode}
       onChange={setPythonCode}
-      customExtensions={[
-        python(),
-        syntaxHighlighting(defaultHighlightStyle)
-      ]}
+      customExtensions={[python(), syntaxHighlighting(defaultHighlightStyle)]}
       placeholder="Write your Python code here..."
       className="h-64 rounded-md border font-mono"
     />
@@ -178,13 +173,13 @@ function MultiFileEditor() {
   const [files, setFiles] = useState({
     "index.js": "// Main application file\nconsole.log('Hello World');",
     "utils.js": "// Utility functions\nexport const add = (a, b) => a + b;",
-    "styles.css": "/* Styles */\nbody { margin: 0; }"
+    "styles.css": "/* Styles */\nbody { margin: 0; }",
   })
 
   const getLanguageExtension = (filename) => {
-    if (filename.endsWith('.js')) return javascript()
-    if (filename.endsWith('.py')) return python()
-    if (filename.endsWith('.css')) return css()
+    if (filename.endsWith(".js")) return javascript()
+    if (filename.endsWith(".py")) return python()
+    if (filename.endsWith(".css")) return css()
     return []
   }
 
@@ -192,13 +187,13 @@ function MultiFileEditor() {
     <div>
       {/* File tabs */}
       <div className="border-b border-gray-200 bg-gray-50">
-        {Object.keys(files).map(filename => (
+        {Object.keys(files).map((filename) => (
           <button
             key={filename}
             onClick={() => setActiveFile(filename)}
             className={`px-4 py-2 text-sm ${
-              activeFile === filename 
-                ? "bg-white border-b-2 border-blue-500" 
+              activeFile === filename
+                ? "border-b-2 border-blue-500 bg-white"
                 : "text-gray-600 hover:text-gray-800"
             }`}
           >
@@ -212,9 +207,9 @@ function MultiFileEditor() {
         key={activeFile} // Force re-render when file changes
         value={files[activeFile]}
         onChange={(newCode) => {
-          setFiles(prev => ({
+          setFiles((prev) => ({
             ...prev,
-            [activeFile]: newCode
+            [activeFile]: newCode,
           }))
         }}
         customExtensions={getLanguageExtension(activeFile)}
@@ -239,7 +234,7 @@ function EditorWithToolbar() {
       const cursor = editor.state.selection.main.head
       editor.dispatch({
         changes: { from: cursor, insert: snippet },
-        selection: { anchor: cursor + snippet.length }
+        selection: { anchor: cursor + snippet.length },
       })
     }
   }
@@ -248,15 +243,15 @@ function EditorWithToolbar() {
     <div>
       {/* Toolbar */}
       <div className="border-b border-gray-200 bg-gray-50 p-2">
-        <button 
+        <button
           onClick={() => insertSnippet("console.log('')")}
-          className="px-3 py-1 text-sm bg-blue-500 text-white rounded mr-2"
+          className="mr-2 rounded bg-blue-500 px-3 py-1 text-sm text-white"
         >
           Console.log
         </button>
-        <button 
+        <button
           onClick={() => insertSnippet("function name() {\n  \n}")}
-          className="px-3 py-1 text-sm bg-green-500 text-white rounded"
+          className="rounded bg-green-500 px-3 py-1 text-sm text-white"
         >
           Function
         </button>
@@ -279,28 +274,28 @@ function EditorWithToolbar() {
 interface CodeEditorProps {
   /** Whether to auto-focus the editor on mount */
   autoFocus?: boolean
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Custom CodeMirror extensions */
   customExtensions?: Extension[]
-  
+
   /** Value change handler */
   onChange?: (value: string, viewUpdate: ViewUpdate) => void
-  
+
   /** Editor update handler (for all editor changes) */
   onEditorUpdate?: (update: ViewUpdate) => void
-  
+
   /** Code format handler */
   onFormat?: (formattedCode: string) => void
-  
+
   /** Placeholder text when editor is empty */
   placeholder?: string | HTMLElement
-  
+
   /** Whether the editor is read-only */
   readonly?: boolean
-  
+
   /** Current code value */
   value?: string
 }
@@ -332,16 +327,16 @@ import { EditorView } from "@codemirror/view"
 const customTheme = EditorView.theme({
   "&": {
     color: "#333",
-    backgroundColor: "#f8f9fa"
+    backgroundColor: "#f8f9fa",
   },
   ".cm-content": {
     padding: "16px",
     fontSize: "14px",
-    fontFamily: "'JetBrains Mono', monospace"
+    fontFamily: "'JetBrains Mono', monospace",
   },
   ".cm-focused": {
-    outline: "2px solid #007acc"
-  }
+    outline: "2px solid #007acc",
+  },
 })
 
 function ThemedEditor() {
@@ -361,10 +356,10 @@ function ThemedEditor() {
 import { linter, lintGutter } from "@codemirror/lint"
 
 function LintedEditor() {
-  const jsLinter = linter(view => {
+  const jsLinter = linter((view) => {
     const diagnostics = []
     const text = view.state.doc.toString()
-    
+
     // Simple linting example
     if (text.includes("var ")) {
       const pos = text.indexOf("var ")
@@ -372,10 +367,10 @@ function LintedEditor() {
         from: pos,
         to: pos + 3,
         severity: "warning",
-        message: "Consider using 'let' or 'const' instead of 'var'"
+        message: "Consider using 'let' or 'const' instead of 'var'",
       })
     }
-    
+
     return diagnostics
   })
 
@@ -396,12 +391,12 @@ import { collab, getSyncedVersion, sendableUpdates, receiveUpdates } from "@code
 
 function CollaborativeEditor() {
   const [version, setVersion] = useState(0)
-  
+
   const collabExtension = collab({
     version,
     getSyncedVersion: () => getSyncedVersion(editorState),
     sendableUpdates: (state) => sendableUpdates(state),
-    receiveUpdates: (updates) => receiveUpdates(editorView, updates)
+    receiveUpdates: (updates) => receiveUpdates(editorView, updates),
   })
 
   return (
@@ -431,7 +426,7 @@ The CodeEditor can be styled using CSS classes:
 
 .code-editor .cm-editor {
   /* Editor-specific styling */
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
 }
 
 .code-editor .cm-scroller {
@@ -458,7 +453,7 @@ import { sql } from "@codemirror/lang-sql"
 
 - **Keyboard Navigation**: Full keyboard support for code editing
 - **Screen Reader**: Proper ARIA labels and announcements
-- **High Contrast**: Support for high contrast modes  
+- **High Contrast**: Support for high contrast modes
 - **Focus Management**: Clear focus indicators and management
 
 ## Performance Considerations
@@ -471,16 +466,19 @@ import { sql } from "@codemirror/lang-sql"
 ## Best Practices
 
 ### State Management
+
 - Use controlled components with `value` and `onChange`
 - Debounce onChange for performance if needed
 - Consider using `useMemo` for expensive extensions
 
 ### Extensions
+
 - Load language extensions dynamically for better performance
 - Cache extension instances to avoid recreation
 - Use extension precedence for proper ordering
 
 ### Error Handling
+
 - Implement proper error boundaries around the editor
 - Handle extension loading failures gracefully
 - Validate custom extensions before applying
@@ -502,18 +500,23 @@ When upgrading from other editors:
 ## Common Issues
 
 ### Performance with Large Files
+
 ```tsx
 // Use memo for large files
-const editor = useMemo(() => (
-  <CodeEditor
-    value={largeCode}
-    onChange={setLargeCode}
-    customExtensions={extensions}
-  />
-), [largeCode, extensions])
+const editor = useMemo(
+  () => (
+    <CodeEditor
+      value={largeCode}
+      onChange={setLargeCode}
+      customExtensions={extensions}
+    />
+  ),
+  [largeCode, extensions],
+)
 ```
 
 ### Extension Conflicts
+
 ```tsx
 // Order extensions properly
 const extensions = [
@@ -522,6 +525,6 @@ const extensions = [
   // Theme extensions
   oneDark,
   // Feature extensions last
-  lintGutter()
+  lintGutter(),
 ]
 ```

@@ -29,19 +29,21 @@ import { MultiSelect } from "@choiceform/design-system"
 ```tsx
 function BasicExample() {
   const [values, setValues] = useState(["option-2", "option-4"])
-  
+
   const options = [
     { value: "option-1", label: "Option 1" },
     { value: "option-2", label: "Option 2" },
     { value: "option-3", label: "Option 3" },
     { value: "option-4", label: "Option 4" },
   ]
-  
-  const getDisplayValue = (value) => 
-    options.find(opt => opt.value === value)?.label || value
-  
+
+  const getDisplayValue = (value) => options.find((opt) => opt.value === value)?.label || value
+
   return (
-    <MultiSelect values={values} onChange={setValues}>
+    <MultiSelect
+      values={values}
+      onChange={setValues}
+    >
       <MultiSelect.Trigger
         placeholder="Select options..."
         getDisplayValue={getDisplayValue}
@@ -50,7 +52,10 @@ function BasicExample() {
       <MultiSelect.Content>
         <MultiSelect.Label>Available Options</MultiSelect.Label>
         {options.map((option) => (
-          <MultiSelect.Item key={option.value} value={option.value}>
+          <MultiSelect.Item
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </MultiSelect.Item>
         ))}
@@ -65,7 +70,7 @@ function BasicExample() {
 ```tsx
 function LimitsExample() {
   const [values, setValues] = useState(["option-2"])
-  
+
   return (
     <MultiSelect
       values={values}
@@ -80,7 +85,10 @@ function LimitsExample() {
       />
       <MultiSelect.Content>
         {options.map((option) => (
-          <MultiSelect.Item key={option.value} value={option.value}>
+          <MultiSelect.Item
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </MultiSelect.Item>
         ))}
@@ -95,14 +103,14 @@ function LimitsExample() {
 ```tsx
 function IconExample() {
   const [values, setValues] = useState(["attachment", "count"])
-  
+
   const options = [
     { value: "attachment", label: "Attachment Field", icon: <FieldTypeAttachment /> },
     { value: "checkbox", label: "Checkbox Field", icon: <FieldTypeCheckbox /> },
     { value: "count", label: "Count Field", icon: <FieldTypeCount /> },
     { value: "settings", label: "Settings Field", icon: <Settings /> },
   ]
-  
+
   return (
     <MultiSelect
       values={values}
@@ -117,7 +125,10 @@ function IconExample() {
       <MultiSelect.Content>
         <MultiSelect.Label>Field Types</MultiSelect.Label>
         {options.map((option) => (
-          <MultiSelect.Item key={option.value} value={option.value}>
+          <MultiSelect.Item
+            key={option.value}
+            value={option.value}
+          >
             {option.icon}
             {option.label}
           </MultiSelect.Item>
@@ -133,9 +144,12 @@ function IconExample() {
 ```tsx
 function OrganizedExample() {
   const [values, setValues] = useState(["basic-1", "premium-1"])
-  
+
   return (
-    <MultiSelect values={values} onChange={setValues}>
+    <MultiSelect
+      values={values}
+      onChange={setValues}
+    >
       <MultiSelect.Trigger
         placeholder="Select plans..."
         getDisplayValue={getDisplayValue}
@@ -145,15 +159,15 @@ function OrganizedExample() {
         <MultiSelect.Label>Basic Plans</MultiSelect.Label>
         <MultiSelect.Item value="basic-1">Basic - Starter</MultiSelect.Item>
         <MultiSelect.Item value="basic-2">Basic - Professional</MultiSelect.Item>
-        
+
         <MultiSelect.Divider />
-        
+
         <MultiSelect.Label>Premium Plans</MultiSelect.Label>
         <MultiSelect.Item value="premium-1">Premium - Business</MultiSelect.Item>
         <MultiSelect.Item value="premium-2">Premium - Enterprise</MultiSelect.Item>
-        
+
         <MultiSelect.Divider />
-        
+
         <MultiSelect.Label>Custom Solutions</MultiSelect.Label>
         <MultiSelect.Item value="custom-1">Custom - Tailored</MultiSelect.Item>
       </MultiSelect.Content>
@@ -165,8 +179,13 @@ function OrganizedExample() {
 ### Disabled States
 
 ```tsx
-{/* Disabled component */}
-<MultiSelect values={values} disabled>
+{
+  /* Disabled component */
+}
+;<MultiSelect
+  values={values}
+  disabled
+>
   <MultiSelect.Trigger
     placeholder="Select options..."
     getDisplayValue={getDisplayValue}
@@ -174,15 +193,23 @@ function OrganizedExample() {
   />
   <MultiSelect.Content>
     {options.map((option) => (
-      <MultiSelect.Item key={option.value} value={option.value}>
+      <MultiSelect.Item
+        key={option.value}
+        value={option.value}
+      >
         {option.label}
       </MultiSelect.Item>
     ))}
   </MultiSelect.Content>
 </MultiSelect>
 
-{/* Individual disabled items */}
-<MultiSelect values={values} onChange={setValues}>
+{
+  /* Individual disabled items */
+}
+;<MultiSelect
+  values={values}
+  onChange={setValues}
+>
   <MultiSelect.Trigger
     placeholder="Select options..."
     getDisplayValue={getDisplayValue}
@@ -190,7 +217,12 @@ function OrganizedExample() {
   />
   <MultiSelect.Content>
     <MultiSelect.Item value="option-1">Option 1</MultiSelect.Item>
-    <MultiSelect.Item value="option-2" disabled>Option 2 (Disabled)</MultiSelect.Item>
+    <MultiSelect.Item
+      value="option-2"
+      disabled
+    >
+      Option 2 (Disabled)
+    </MultiSelect.Item>
     <MultiSelect.Item value="option-3">Option 3</MultiSelect.Item>
   </MultiSelect.Content>
 </MultiSelect>
@@ -212,7 +244,10 @@ function OrganizedExample() {
   <MultiSelect.Content>
     <MultiSelect.Label>Available Options</MultiSelect.Label>
     {options.map((option) => (
-      <MultiSelect.Item key={option.value} value={option.value}>
+      <MultiSelect.Item
+        key={option.value}
+        value={option.value}
+      >
         {option.label}
       </MultiSelect.Item>
     ))}
@@ -229,9 +264,12 @@ Configure mutually exclusive option groups:
 ```tsx
 function ExclusiveExample() {
   const [values, setValues] = useState([])
-  
+
   return (
-    <MultiSelect values={values} onChange={setValues}>
+    <MultiSelect
+      values={values}
+      onChange={setValues}
+    >
       <MultiSelect.Trigger
         placeholder="Select options..."
         getDisplayValue={getDisplayValue}
@@ -239,32 +277,45 @@ function ExclusiveExample() {
       />
       <MultiSelect.Content>
         <MultiSelect.Label>Group 1</MultiSelect.Label>
-        <MultiSelect.Item value="a" exclusiveIndex={1}>
+        <MultiSelect.Item
+          value="a"
+          exclusiveIndex={1}
+        >
           Option A (Group 1)
         </MultiSelect.Item>
-        <MultiSelect.Item value="b" exclusiveIndex={1}>
+        <MultiSelect.Item
+          value="b"
+          exclusiveIndex={1}
+        >
           Option B (Group 1)
         </MultiSelect.Item>
-        
+
         <MultiSelect.Divider />
-        
+
         <MultiSelect.Label>Group 2</MultiSelect.Label>
-        <MultiSelect.Item value="d" exclusiveIndex={2}>
+        <MultiSelect.Item
+          value="d"
+          exclusiveIndex={2}
+        >
           Option D (Group 2)
         </MultiSelect.Item>
-        <MultiSelect.Item value="e" exclusiveIndex={2}>
+        <MultiSelect.Item
+          value="e"
+          exclusiveIndex={2}
+        >
           Option E (Group 2)
         </MultiSelect.Item>
-        
+
         <MultiSelect.Divider />
-        
-        <MultiSelect.Item value="g" exclusiveIndex={-1}>
+
+        <MultiSelect.Item
+          value="g"
+          exclusiveIndex={-1}
+        >
           Global Exclusive Option
         </MultiSelect.Item>
-        
-        <MultiSelect.Item value="h">
-          No Constraint Option
-        </MultiSelect.Item>
+
+        <MultiSelect.Item value="h">No Constraint Option</MultiSelect.Item>
       </MultiSelect.Content>
     </MultiSelect>
   )
@@ -272,6 +323,7 @@ function ExclusiveExample() {
 ```
 
 **Exclusive Options Rules:**
+
 - `exclusiveIndex > 0`: Group exclusive (multiple within group allowed, groups mutually exclusive)
 - `exclusiveIndex = -1`: Global exclusive (clears all other options when selected)
 - `exclusiveIndex = undefined`: No constraints (but cleared when selecting constrained options)
@@ -279,8 +331,10 @@ function ExclusiveExample() {
 ### Close on Select Behavior
 
 ```tsx
-{/* Menu stays open after selection (default) */}
-<MultiSelect
+{
+  /* Menu stays open after selection (default) */
+}
+;<MultiSelect
   values={values}
   onChange={setValues}
   closeOnSelect={false}
@@ -288,8 +342,10 @@ function ExclusiveExample() {
   {/* Content */}
 </MultiSelect>
 
-{/* Menu closes after each selection */}
-<MultiSelect
+{
+  /* Menu closes after each selection */
+}
+;<MultiSelect
   values={values}
   onChange={setValues}
   closeOnSelect={true}
@@ -303,7 +359,7 @@ function ExclusiveExample() {
 ```tsx
 function ValidationExample() {
   const [values, setValues] = useState([])
-  
+
   return (
     <MultiSelect
       values={values}
@@ -319,7 +375,10 @@ function ValidationExample() {
       <MultiSelect.Trigger getDisplayValue={getDisplayValue} />
       <MultiSelect.Content>
         {options.map((option) => (
-          <MultiSelect.Item key={option.value} value={option.value}>
+          <MultiSelect.Item
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </MultiSelect.Item>
         ))}
@@ -343,7 +402,10 @@ Limit the number of chips shown in the trigger:
   <MultiSelect.Trigger className="w-80" />
   <MultiSelect.Content>
     {options.map((option) => (
-      <MultiSelect.Item key={option.value} value={option.value}>
+      <MultiSelect.Item
+        key={option.value}
+        value={option.value}
+      >
         {option.label}
       </MultiSelect.Item>
     ))}
@@ -362,7 +424,10 @@ Limit the number of chips shown in the trigger:
   <MultiSelect.Trigger className="w-80" />
   <MultiSelect.Content>
     {options.map((option) => (
-      <MultiSelect.Item key={option.value} value={option.value}>
+      <MultiSelect.Item
+        key={option.value}
+        value={option.value}
+      >
         {option.label}
       </MultiSelect.Item>
     ))}
@@ -375,22 +440,18 @@ Limit the number of chips shown in the trigger:
 ```tsx
 function CustomChipExample() {
   const [values, setValues] = useState(["apple", "banana"])
-  
-  const renderCustomChip = useCallback(({
-    value,
-    index,
-    displayValue,
-    onRemove,
-    disabled,
-  }) => {
+
+  const renderCustomChip = useCallback(({ value, index, displayValue, onRemove, disabled }) => {
     const colors = [
       "bg-red-100 text-red-800 border-red-500",
       "bg-blue-100 text-blue-800 border-blue-500",
       "bg-green-100 text-green-800 border-green-500",
     ]
-    
+
     return (
-      <div className={`inline-flex h-4 items-center gap-1 rounded-md border pl-1 ${colors[index % colors.length]}`}>
+      <div
+        className={`inline-flex h-4 items-center gap-1 rounded-md border pl-1 ${colors[index % colors.length]}`}
+      >
         <span>🍎</span>
         <span>{displayValue}</span>
         {onRemove && !disabled && (
@@ -406,7 +467,7 @@ function CustomChipExample() {
       </div>
     )
   }, [])
-  
+
   return (
     <MultiSelect
       values={values}
@@ -433,58 +494,58 @@ function CustomChipExample() {
 interface MultiSelectProps {
   /** Child components (MultiSelect.Trigger and MultiSelect.Content required) */
   children?: React.ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Whether menu closes after selecting an option */
   closeOnSelect?: boolean
-  
+
   /** Whether the multiselect is disabled */
   disabled?: boolean
-  
+
   /** Floating focus manager configuration */
   focusManagerProps?: FloatingFocusManagerProps
-  
+
   /** Function to get display text for selected values */
   getDisplayValue?: (value: string) => string
-  
+
   /** Custom validation messages */
   i18n?: {
     maxSelectionMessage?: (maxSelection: number) => string
     minSelectionMessage?: (minSelection: number) => string
   }
-  
+
   /** Whether dropdown should match trigger width */
   matchTriggerWidth?: boolean
-  
+
   /** Maximum number of chips to display in trigger */
   maxChips?: number
-  
+
   /** Maximum number of options that can be selected */
   maxSelection?: number
-  
+
   /** Minimum number of options that must be selected */
   minSelection?: number
-  
+
   /** Callback fired when selection changes */
   onChange?: (values: string[]) => void
-  
+
   /** Callback fired when open state changes */
   onOpenChange?: (open: boolean) => void
-  
+
   /** Controlled open state */
   open?: boolean
-  
+
   /** Placeholder text when no options are selected */
   placeholder?: string
-  
+
   /** Dropdown placement relative to trigger */
   placement?: Placement
-  
+
   /** Portal container ID for rendering dropdown */
   portalId?: string
-  
+
   /** Custom chip rendering function */
   renderChip?: (props: {
     value: string
@@ -493,16 +554,16 @@ interface MultiSelectProps {
     onRemove?: (e: React.MouseEvent<HTMLButtonElement>) => void
     disabled?: boolean
   }) => React.ReactNode
-  
+
   /** Whether to show validation messages */
   showValidationMessage?: boolean
-  
+
   /** Size variant affecting trigger and items */
   size?: "default" | "large"
-  
+
   /** Currently selected values */
   values?: string[]
-  
+
   /** Chip variant for styling */
   variant?: ChipProps["variant"]
 }
@@ -556,21 +617,25 @@ interface MultiSelectProps {
 ## Best Practices
 
 ### Selection Strategy
+
 - Use selection limits to prevent overwhelming users
 - Provide clear feedback about selection constraints
 - Consider the cognitive load of too many selections
 
 ### Content Organization
+
 - Group related options with labels and dividers
 - Use icons consistently for visual recognition
 - Keep option text concise and descriptive
 
 ### Validation
+
 - Show helpful validation messages for constraint violations
 - Use custom i18n messages for better user experience
 - Consider the timing of validation feedback
 
 ### Performance
+
 - Use `useMemo` for expensive display value computations
 - Avoid recreating option arrays on each render
 - Consider virtualization for very long lists (100+ items)
@@ -582,13 +647,13 @@ interface MultiSelectProps {
 ```tsx
 function TagSelector() {
   const [selectedTags, setSelectedTags] = useState([])
-  
+
   const tagCategories = {
     technology: ["react", "typescript", "nodejs", "python"],
     design: ["ui", "ux", "figma", "sketch"],
-    business: ["marketing", "sales", "strategy", "analytics"]
+    business: ["marketing", "sales", "strategy", "analytics"],
   }
-  
+
   return (
     <MultiSelect
       values={selectedTags}
@@ -601,9 +666,14 @@ function TagSelector() {
       <MultiSelect.Content>
         {Object.entries(tagCategories).map(([category, tags]) => (
           <React.Fragment key={category}>
-            <MultiSelect.Label>{category.charAt(0).toUpperCase() + category.slice(1)}</MultiSelect.Label>
-            {tags.map(tag => (
-              <MultiSelect.Item key={tag} value={tag}>
+            <MultiSelect.Label>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </MultiSelect.Label>
+            {tags.map((tag) => (
+              <MultiSelect.Item
+                key={tag}
+                value={tag}
+              >
                 #{tag}
               </MultiSelect.Item>
             ))}
@@ -621,7 +691,7 @@ function TagSelector() {
 ```tsx
 function TeamAssignment() {
   const [assignedMembers, setAssignedMembers] = useState([])
-  
+
   return (
     <MultiSelect
       values={assignedMembers}
@@ -630,18 +700,24 @@ function TeamAssignment() {
       minSelection={1}
       i18n={{
         maxSelectionMessage: (max) => `Maximum ${max} team members can be assigned`,
-        minSelectionMessage: (min) => `At least ${min} team member must be assigned`
+        minSelectionMessage: (min) => `At least ${min} team member must be assigned`,
       }}
     >
-      <MultiSelect.Trigger 
+      <MultiSelect.Trigger
         placeholder="Assign team members..."
         className="w-full"
       />
       <MultiSelect.Content>
         <MultiSelect.Label>Available Team Members</MultiSelect.Label>
-        {teamMembers.map(member => (
-          <MultiSelect.Item key={member.id} value={member.id}>
-            <img src={member.avatar} className="w-6 h-6 rounded-full" />
+        {teamMembers.map((member) => (
+          <MultiSelect.Item
+            key={member.id}
+            value={member.id}
+          >
+            <img
+              src={member.avatar}
+              className="h-6 w-6 rounded-full"
+            />
             <div className="flex flex-col">
               <span>{member.name}</span>
               <span className="text-xs text-gray-500">{member.role}</span>

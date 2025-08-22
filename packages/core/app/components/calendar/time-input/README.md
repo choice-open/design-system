@@ -62,11 +62,11 @@ const [selectedTime, setSelectedTime] = useState<Date | null>(null)
 ```tsx
 import { createTimeToday } from "@choiceform/design-system"
 
-<TimeInput
+;<TimeInput
   value={workTime}
   onChange={setWorkTime}
-  minTime={createTimeToday(9, 0)}    // 09:00
-  maxTime={createTimeToday(18, 0)}   // 18:00
+  minTime={createTimeToday(9, 0)} // 09:00
+  maxTime={createTimeToday(18, 0)} // 18:00
   placeholder="Work hours only"
 />
 ```
@@ -75,9 +75,9 @@ import { createTimeToday } from "@choiceform/design-system"
 
 ```tsx
 <TimeInput
-  step={5}          // 5-minute increments for arrow keys
-  shiftStep={30}    // 30-minute increments for Shift+arrow keys
-  altStep={60}      // 60-minute increments for Alt+arrow keys
+  step={5} // 5-minute increments for arrow keys
+  shiftStep={30} // 30-minute increments for Shift+arrow keys
+  altStep={60} // 60-minute increments for Alt+arrow keys
   value={selectedTime}
   onChange={setSelectedTime}
 />
@@ -126,64 +126,64 @@ import { ActionWaitForSomeTime } from "@choiceform/icons-react"
 interface TimeInputProps {
   /** Current time value */
   value?: Date | null
-  
+
   /** Default time value (uncontrolled mode) */
   defaultValue?: Date | null
-  
+
   /** Change handler for time selection */
   onChange?: (time: Date | null) => void
-  
+
   /** Time format string (date-fns format) */
   format?: TimeFormat
-  
+
   /** Locale for internationalization */
   locale?: Locale | string
-  
+
   /** Placeholder text */
   placeholder?: string
-  
+
   /** Input size variant */
   size?: "default" | "large"
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
-  
+
   /** Disabled state */
   disabled?: boolean
-  
+
   /** Read-only state */
   readOnly?: boolean
-  
+
   /** Minimum selectable time */
   minTime?: Date | null
-  
+
   /** Maximum selectable time */
   maxTime?: Date | null
-  
+
   /** Step interval in minutes for arrow keys */
   step?: number
-  
+
   /** Step interval for Shift+arrow keys */
   shiftStep?: number
-  
+
   /** Step interval for Alt+arrow keys */
   altStep?: number
-  
+
   /** Custom prefix icon element */
   prefixElement?: React.ReactNode | null
-  
+
   /** Focus event handler */
   onFocus?: () => void
-  
+
   /** Blur event handler */
   onBlur?: () => void
-  
+
   /** Enter key press handler */
   onEnterKeyDown?: () => void
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Children components (typically TextField.Label) */
   children?: React.ReactNode
 }
@@ -224,22 +224,26 @@ interface TimeInputProps {
 The component intelligently parses various time input formats:
 
 ### Numeric Patterns
+
 - `9` → `09:00`
 - `930` → `09:30`
 - `1430` → `14:30`
 - `2359` → `23:59`
 
 ### 12-Hour Format with AM/PM
+
 - `2pm` → `14:00`
 - `9am` → `09:00`
 - `11:30 pm` → `23:30`
 - `12 am` → `00:00`
 
 ### Natural Language (with locale support)
+
 - `下午2点` → `14:00` (Chinese)
 - `午後2時` → `14:00` (Japanese)
 
 ### Flexible Separators
+
 - `14:30` → `14:30`
 - `14.30` → `14:30`
 - `14 30` → `14:30`
@@ -247,6 +251,7 @@ The component intelligently parses various time input formats:
 ## Time Range Validation
 
 ### Setting Time Ranges
+
 ```tsx
 import { createTimeToday } from "@choiceform/design-system"
 
@@ -268,24 +273,26 @@ import { createTimeToday } from "@choiceform/design-system"
 ```
 
 ### Validation Behavior
+
 - Times outside the range are automatically adjusted to the nearest valid time
 - Visual feedback indicates when input is adjusted
 - Keyboard navigation respects the time range boundaries
 
 ## Format Examples
 
-| Format | Example Output | Description |
-|--------|----------------|-------------|
-| `HH:mm` | 14:30 | 24-hour format |
-| `H:mm` | 14:30 | 24-hour without leading zero |
-| `h:mm a` | 2:30 PM | 12-hour with AM/PM |
-| `hh:mm a` | 02:30 PM | 12-hour with leading zero |
-| `HH:mm:ss` | 14:30:45 | 24-hour with seconds |
-| `h:mm:ss a` | 2:30:45 PM | 12-hour with seconds |
+| Format      | Example Output | Description                  |
+| ----------- | -------------- | ---------------------------- |
+| `HH:mm`     | 14:30          | 24-hour format               |
+| `H:mm`      | 14:30          | 24-hour without leading zero |
+| `h:mm a`    | 2:30 PM        | 12-hour with AM/PM           |
+| `hh:mm a`   | 02:30 PM       | 12-hour with leading zero    |
+| `HH:mm:ss`  | 14:30:45       | 24-hour with seconds         |
+| `h:mm:ss a` | 2:30:45 PM     | 12-hour with seconds         |
 
 ## Custom Step Configuration
 
 ### Basic Steps
+
 ```tsx
 // Fine-grained control (1-minute steps)
 <TimeInput
@@ -303,6 +310,7 @@ import { createTimeToday } from "@choiceform/design-system"
 ```
 
 ### Use Case Examples
+
 ```tsx
 // Appointment scheduling (15-minute increments)
 <TimeInput
@@ -330,7 +338,7 @@ function TimePicker() {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const triggerRef = useRef<HTMLDivElement>(null)
-  
+
   return (
     <>
       <div ref={triggerRef}>
@@ -341,7 +349,7 @@ function TimePicker() {
           placeholder="Select time"
         />
       </div>
-      
+
       <Popover
         triggerRef={triggerRef}
         open={isOpen}
@@ -368,11 +376,12 @@ function TimePicker() {
 ## Common Use Cases
 
 ### Business Hours Form
+
 ```tsx
 function BusinessHoursForm() {
   const [openTime, setOpenTime] = useState(createTimeToday(9, 0))
   const [closeTime, setCloseTime] = useState(createTimeToday(17, 0))
-  
+
   return (
     <form className="space-y-4">
       <div>
@@ -385,7 +394,7 @@ function BusinessHoursForm() {
           maxTime={closeTime} // Can't open after closing time
         />
       </div>
-      
+
       <div>
         <label>Closing Time</label>
         <TimeInput
@@ -402,10 +411,11 @@ function BusinessHoursForm() {
 ```
 
 ### Appointment Scheduler
+
 ```tsx
 function AppointmentScheduler() {
   const [appointmentTime, setAppointmentTime] = useState<Date | null>(null)
-  
+
   return (
     <div>
       <label>Appointment Time</label>
@@ -414,7 +424,7 @@ function AppointmentScheduler() {
         onChange={setAppointmentTime}
         format="h:mm a"
         step={15} // 15-minute slots
-        minTime={createTimeToday(8, 0)}  // 8 AM earliest
+        minTime={createTimeToday(8, 0)} // 8 AM earliest
         maxTime={createTimeToday(18, 0)} // 6 PM latest
         placeholder="Select appointment time"
       />
@@ -424,11 +434,12 @@ function AppointmentScheduler() {
 ```
 
 ### Time Range Selector
+
 ```tsx
 function MeetingTimeSelector() {
   const [startTime, setStartTime] = useState(createTimeToday(10, 0))
   const [endTime, setEndTime] = useState(createTimeToday(11, 0))
-  
+
   const handleStartTimeChange = (newStart: Date | null) => {
     if (newStart && endTime && newStart >= endTime) {
       // Auto-adjust end time to be 1 hour after start
@@ -437,7 +448,7 @@ function MeetingTimeSelector() {
     }
     setStartTime(newStart)
   }
-  
+
   return (
     <div className="flex gap-4">
       <div>
@@ -450,7 +461,7 @@ function MeetingTimeSelector() {
           maxTime={endTime}
         />
       </div>
-      
+
       <div>
         <label>End Time</label>
         <TimeInput
@@ -467,29 +478,36 @@ function MeetingTimeSelector() {
 ```
 
 ### Multi-Language Time Input
+
 ```tsx
 function MultiLanguageTimeInput() {
-  const [locale, setLocale] = useState('en-US')
+  const [locale, setLocale] = useState("en-US")
   const [time, setTime] = useState<Date | null>(null)
-  
+
   const localeOptions = [
-    { code: 'en-US', name: 'English', format: 'h:mm a' },
-    { code: 'zh-CN', name: '中文', format: 'HH:mm' },
-    { code: 'ja-JP', name: '日本語', format: 'HH:mm' },
+    { code: "en-US", name: "English", format: "h:mm a" },
+    { code: "zh-CN", name: "中文", format: "HH:mm" },
+    { code: "ja-JP", name: "日本語", format: "HH:mm" },
   ]
-  
-  const currentLocale = localeOptions.find(opt => opt.code === locale)
-  
+
+  const currentLocale = localeOptions.find((opt) => opt.code === locale)
+
   return (
     <div className="space-y-4">
-      <select value={locale} onChange={e => setLocale(e.target.value)}>
-        {localeOptions.map(option => (
-          <option key={option.code} value={option.code}>
+      <select
+        value={locale}
+        onChange={(e) => setLocale(e.target.value)}
+      >
+        {localeOptions.map((option) => (
+          <option
+            key={option.code}
+            value={option.code}
+          >
             {option.name}
           </option>
         ))}
       </select>
-      
+
       <TimeInput
         value={time}
         onChange={setTime}
@@ -505,23 +523,25 @@ function MultiLanguageTimeInput() {
 ## Utility Functions
 
 ### Creating Time Values
+
 ```tsx
 import { createTimeToday } from "@choiceform/design-system"
 
 // Create specific times for today
-const morning = createTimeToday(9, 30)    // 9:30 AM today
+const morning = createTimeToday(9, 30) // 9:30 AM today
 const afternoon = createTimeToday(14, 45) // 2:45 PM today
-const evening = createTimeToday(20, 0)    // 8:00 PM today
+const evening = createTimeToday(20, 0) // 8:00 PM today
 ```
 
 ### Time Validation
+
 ```tsx
 import { isTimeInRange } from "@choiceform/design-system"
 
 const isValidWorkTime = isTimeInRange(
   selectedTime,
-  createTimeToday(9, 0),  // min
-  createTimeToday(17, 0)  // max
+  createTimeToday(9, 0), // min
+  createTimeToday(17, 0), // max
 )
 ```
 
@@ -539,11 +559,13 @@ const isValidWorkTime = isTimeInRange(
 ## Error Handling
 
 ### Invalid Time Input
+
 - Automatically corrects invalid times (e.g., 25:70 → 23:59)
 - Provides visual feedback for corrections
 - Maintains cursor position when possible
 
 ### Range Violations
+
 - Adjusts times that exceed min/max boundaries
 - Shows validation feedback
 - Prevents submission of invalid ranges
@@ -558,19 +580,20 @@ const isValidWorkTime = isTimeInRange(
 ## Integration Examples
 
 ### With Form Libraries
+
 ```tsx
 import { useForm } from "react-hook-form"
 
 function TimeForm() {
   const { register, watch, setValue } = useForm()
-  const selectedTime = watch('meetingTime')
-  
+  const selectedTime = watch("meetingTime")
+
   return (
     <form>
       <TimeInput
-        {...register('meetingTime')}
+        {...register("meetingTime")}
         value={selectedTime}
-        onChange={(time) => setValue('meetingTime', time)}
+        onChange={(time) => setValue("meetingTime", time)}
         format="h:mm a"
         step={15}
       />
@@ -580,16 +603,18 @@ function TimeForm() {
 ```
 
 ### With Validation Libraries
+
 ```tsx
 import { z } from "zod"
 
-const timeSchema = z.object({
-  startTime: z.date().nullable(),
-  endTime: z.date().nullable(),
-}).refine(
-  (data) => !data.startTime || !data.endTime || data.startTime < data.endTime,
-  { message: "End time must be after start time" }
-)
+const timeSchema = z
+  .object({
+    startTime: z.date().nullable(),
+    endTime: z.date().nullable(),
+  })
+  .refine((data) => !data.startTime || !data.endTime || data.startTime < data.endTime, {
+    message: "End time must be after start time",
+  })
 ```
 
 ## Notes

@@ -66,13 +66,16 @@ function CurveWithPreview() {
   const [curve, setCurve] = useState([0.4, 0, 1, 0.6])
   const [duration, setDuration] = useState(2)
 
-  const previewStyle = useMemo(() => ({
-    animationName: "bezier-preview-loop",
-    animationIterationCount: "infinite", 
-    animationDirection: "alternate",
-    animationDuration: `${duration}s`,
-    animationTimingFunction: `cubic-bezier(${curve})`,
-  }), [curve, duration])
+  const previewStyle = useMemo(
+    () => ({
+      animationName: "bezier-preview-loop",
+      animationIterationCount: "infinite",
+      animationDirection: "alternate",
+      animationDuration: `${duration}s`,
+      animationTimingFunction: `cubic-bezier(${curve})`,
+    }),
+    [curve, duration],
+  )
 
   return (
     <div>
@@ -82,17 +85,17 @@ function CurveWithPreview() {
           to { transform: translateX(160px); }
         }
       `}</style>
-      
+
       <BezierCurveEditor
         value={curve}
         onChange={setCurve}
         duration={duration}
       />
-      
+
       {/* Preview animation */}
-      <div className="bg-gray-200 h-8 w-40 rounded relative">
-        <div 
-          className="absolute top-1 left-1 w-6 h-6 bg-white rounded shadow"
+      <div className="relative h-8 w-40 rounded bg-gray-200">
+        <div
+          className="absolute top-1 left-1 h-6 w-6 rounded bg-white shadow"
           style={previewStyle}
         />
       </div>
@@ -111,43 +114,44 @@ function CurveWithSpeedGradient() {
   const generateSpeedGradient = (value) => {
     const [x1, y1, x2, y2] = value
     const colors = []
-    
+
     for (let i = 0; i <= 20; i++) {
       const t = i / 20
-      const dx = 3 * (1 - t) * (1 - t) * x1 + 
-                 6 * (1 - t) * t * (x2 - x1) + 
-                 3 * t * t * (1 - x2)
+      const dx = 3 * (1 - t) * (1 - t) * x1 + 6 * (1 - t) * t * (x2 - x1) + 3 * t * t * (1 - x2)
       const speed = Math.abs(dx)
       const normalizedSpeed = Math.min(Math.max(speed, 0), 2) / 2
-      
+
       // Map speed to color (blue = slow, green = medium, red = fast)
       let color
       if (normalizedSpeed < 0.33) {
         color = `rgb(59, 130, 246)` // Blue
       } else if (normalizedSpeed < 0.66) {
-        color = `rgb(34, 197, 94)`  // Green
+        color = `rgb(34, 197, 94)` // Green
       } else {
-        color = `rgb(239, 68, 68)`  // Red
+        color = `rgb(239, 68, 68)` // Red
       }
-      
-      colors.push(`${color} ${(t * 100)}%`)
+
+      colors.push(`${color} ${t * 100}%`)
     }
-    
+
     return `linear-gradient(to right, ${colors.join(", ")})`
   }
 
   return (
     <div>
-      <BezierCurveEditor value={curve} onChange={setCurve} />
-      
+      <BezierCurveEditor
+        value={curve}
+        onChange={setCurve}
+      />
+
       {/* Speed visualization */}
       <div className="mt-4">
-        <div className="text-xs text-gray-600 mb-1">Animation Speed:</div>
-        <div 
+        <div className="mb-1 text-xs text-gray-600">Animation Speed:</div>
+        <div
           className="h-2 w-full rounded"
           style={{ backgroundImage: generateSpeedGradient(curve) }}
         />
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="mt-1 flex justify-between text-xs text-gray-500">
           <span>🐌 Slow</span>
           <span>🏃 Medium</span>
           <span>🚀 Fast</span>
@@ -182,8 +186,8 @@ function PresetGallery() {
           value={selectedCurve.value}
           onChange={(value) => {
             setSelectedCurve({
-              name: `cubic-bezier(${value.map(v => v.toFixed(2)).join(", ")})`,
-              value
+              name: `cubic-bezier(${value.map((v) => v.toFixed(2)).join(", ")})`,
+              value,
             })
           }}
         />
@@ -246,21 +250,21 @@ function CurveInputForm() {
         onChange={setCurve}
         size={96}
       />
-      
+
       <div className="flex items-center gap-2">
         <label>CSS Value:</label>
         <input
-          value={`cubic-bezier(${curve.map(v => v.toFixed(2)).join(", ")})`}
+          value={`cubic-bezier(${curve.map((v) => v.toFixed(2)).join(", ")})`}
           onChange={(e) => {
             const match = e.target.value.match(/cubic-bezier\((.*)\)/)
             if (match) {
-              const values = match[1].split(",").map(v => parseFloat(v.trim()))
-              if (values.length === 4 && values.every(v => !isNaN(v))) {
+              const values = match[1].split(",").map((v) => parseFloat(v.trim()))
+              if (values.length === 4 && values.every((v) => !isNaN(v))) {
                 setCurve(values)
               }
             }
           }}
-          className="border rounded px-2 py-1 font-mono text-sm"
+          className="rounded border px-2 py-1 font-mono text-sm"
         />
       </div>
     </div>
@@ -276,40 +280,40 @@ function CurveInputForm() {
 interface BezierCurveEditorProps {
   /** Whether endpoints can be edited (enables 8-value mode) */
   allowNodeEditing?: boolean
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   /** Animation delay for preview (seconds) */
   delay?: number
-  
+
   /** Which control points are disabled [start, end] */
   disabledPoints?: [boolean, boolean]
-  
-  /** Animation duration for preview (seconds) */ 
+
+  /** Animation duration for preview (seconds) */
   duration?: number
-  
+
   /** Whether to show preview animation */
   enablePreview?: boolean
-  
+
   /** Size of draggable handles (pixels) */
   handleSize?: number
-  
+
   /** Value change handler */
   onChange?: (value: BezierCurveValueType | BezierCurveExpandedValueType) => void
-  
+
   /** Extended area outside main grid */
   outerAreaSize?: number
-  
+
   /** Whether to show the grid plane */
   showPlane?: boolean
-  
+
   /** Main editor size (pixels) */
   size?: number
-  
+
   /** Stroke width for curve line */
   strokeWidth?: number
-  
+
   /** Current curve value */
   value?: BezierCurveValueType | BezierCurveExpandedValueType
 }
@@ -342,12 +346,14 @@ type BezierCurveExpandedValueType = [number, number, number, number, number, num
 ## Operating Modes
 
 ### Basic Mode (`allowNodeEditing: false`)
+
 - Uses standard 4-value CSS cubic-bezier format
 - Start point fixed at (0,0), end point fixed at (1,1)
 - Only control handles are draggable
 - Perfect for CSS animations and transitions
 
 ### Advanced Mode (`allowNodeEditing: true`)
+
 - Uses 8-value format with editable endpoints
 - All points can be moved and customized
 - Useful for complex animations or non-standard curves
@@ -370,12 +376,14 @@ type BezierCurveExpandedValueType = [number, number, number, number, number, num
 ## Performance Considerations
 
 ### Optimization Features
+
 - **Memoized Calculations**: Expensive coordinate calculations cached
 - **Event Callback Optimization**: useEventCallback prevents unnecessary re-renders
 - **Efficient Rendering**: Only affected components re-render on changes
 - **Touch Optimization**: Optimized for touch devices and mobile
 
 ### Best Practices
+
 - Use `useMemo` for expensive calculations in parent components
 - Debounce onChange handlers for performance-critical applications
 - Consider limiting the number of simultaneous editors on screen
@@ -386,7 +394,7 @@ type BezierCurveExpandedValueType = [number, number, number, number, number, num
 The component uses Tailwind Variants for consistent styling:
 
 - **Grid Background**: Subtle grid for visual reference
-- **Curve Styling**: Smooth anti-aliased curve rendering  
+- **Curve Styling**: Smooth anti-aliased curve rendering
 - **Handle Appearance**: Interactive control points with hover states
 - **Focus States**: Clear keyboard focus indicators
 - **Theme Support**: Adapts to light/dark themes
@@ -401,10 +409,11 @@ The component uses Tailwind Variants for consistent styling:
 ## Common Use Cases
 
 ### CSS Animation Timing
+
 ```tsx
 // For CSS transitions and animations
-<BezierCurveEditor 
-  value={[0.4, 0, 0.2, 1]} 
+<BezierCurveEditor
+  value={[0.4, 0, 0.2, 1]}
   onChange={(curve) => {
     element.style.transitionTimingFunction = `cubic-bezier(${curve})`
   }}
@@ -412,6 +421,7 @@ The component uses Tailwind Variants for consistent styling:
 ```
 
 ### Game Animation Easing
+
 ```tsx
 // For game or complex animations
 <BezierCurveEditor
@@ -422,6 +432,7 @@ The component uses Tailwind Variants for consistent styling:
 ```
 
 ### Design Tool Integration
+
 ```tsx
 // For design tools and editors
 <BezierCurveEditor

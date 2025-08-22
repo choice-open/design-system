@@ -25,7 +25,10 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
 ### Basic Progress Bar
 
 ```tsx
-<ProgressBar value={45} showValue>
+<ProgressBar
+  value={45}
+  showValue
+>
   <ProgressBar.Track>
     <ProgressBar.Connects />
   </ProgressBar.Track>
@@ -35,7 +38,10 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
 ### With Label
 
 ```tsx
-<ProgressBar value={60} showValue>
+<ProgressBar
+  value={60}
+  showValue
+>
   <ProgressBar.Label>Processing</ProgressBar.Label>
   <ProgressBar.Track>
     <ProgressBar.Connects />
@@ -89,16 +95,23 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
 ### Striped and Indeterminate
 
 ```tsx
-{/* Striped progress */}
-<ProgressBar value={65} striped>
+{
+  /* Striped progress */
+}
+;<ProgressBar
+  value={65}
+  striped
+>
   <ProgressBar.Label>Transferring</ProgressBar.Label>
   <ProgressBar.Track>
     <ProgressBar.Connects />
   </ProgressBar.Track>
 </ProgressBar>
 
-{/* Indeterminate state */}
-<ProgressBar indeterminate>
+{
+  /* Indeterminate state */
+}
+;<ProgressBar indeterminate>
   <ProgressBar.Label>Loading</ProgressBar.Label>
   <ProgressBar.Track>
     <ProgressBar.Connects />
@@ -109,8 +122,10 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
 ### Dynamic Color Based on Value
 
 ```tsx
-{/* Evenly spaced colors */}
-<ProgressBar
+{
+  /* Evenly spaced colors */
+}
+;<ProgressBar
   value={value}
   variant="based-on-value"
   dynamicColors={["#ef4444", "#f59e0b", "#22c55e"]}
@@ -121,8 +136,10 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
   </ProgressBar.Track>
 </ProgressBar>
 
-{/* Custom color stops */}
-<ProgressBar
+{
+  /* Custom color stops */
+}
+;<ProgressBar
   value={value}
   variant="based-on-value"
   dynamicColors={[
@@ -194,28 +211,28 @@ import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
 interface ProgressBarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "role"> {
   /** Array of colors or color stops for dynamic color blending */
   dynamicColors?: Array<string | { at?: number; color: string }>
-  
+
   /** Whether the progress is in indeterminate state */
   indeterminate?: boolean
-  
+
   /** Maximum progress value */
   max?: number
-  
+
   /** Minimum progress value */
   min?: number
-  
+
   /** Whether to show the progress value as text */
   showValue?: boolean
-  
+
   /** Progress bar size variant */
   size?: "small" | "large" | "default"
-  
+
   /** Whether to show striped animation */
   striped?: boolean
-  
+
   /** Current progress value */
   value?: number
-  
+
   /** Visual style variant */
   variant?: "accent" | "default" | "based-on-value"
 }
@@ -227,22 +244,22 @@ interface ProgressBarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "r
 interface ProgressCircleProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "role"> {
   /** Array of colors or color stops for dynamic color blending */
   dynamicColors?: Array<string | { at?: number; color: string }>
-  
+
   /** Maximum progress value */
   max?: number
-  
+
   /** Minimum progress value */
   min?: number
-  
+
   /** Circle diameter in pixels */
   size?: number
-  
+
   /** Stroke width in pixels (defaults to size / 16) */
   strokeWidth?: number
-  
+
   /** Current progress value */
   value?: number
-  
+
   /** Visual style variant */
   variant?: "accent" | "default" | "based-on-value"
 }
@@ -284,18 +301,21 @@ interface ProgressCircleProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
 ## Usage Guidelines
 
 ### When to Use ProgressBar
+
 - File uploads and downloads
 - Form completion progress
 - Multi-step processes
 - When horizontal space is available
 
 ### When to Use ProgressCircle
+
 - Dashboard widgets and cards
 - Compact progress indicators
 - Circular layouts and designs
 - When space is constrained
 
 ### Dynamic Color System
+
 - Use evenly spaced colors for simple gradients
 - Use custom stops with `at` values for precise control
 - Colors are smoothly interpolated using tinycolor2
@@ -313,8 +333,8 @@ interface ProgressCircleProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
 ### File Upload Progress
 
 ```tsx
-<ProgressBar 
-  value={uploadProgress} 
+<ProgressBar
+  value={uploadProgress}
   showValue
   striped={isUploading}
 >
@@ -332,9 +352,9 @@ interface ProgressCircleProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
   value={healthScore}
   variant="based-on-value"
   dynamicColors={[
-    { at: 0, color: "#dc2626" },    // Red for low
-    { at: 0.5, color: "#f59e0b" },  // Orange for medium
-    { at: 1, color: "#16a34a" },    // Green for high
+    { at: 0, color: "#dc2626" }, // Red for low
+    { at: 0.5, color: "#f59e0b" }, // Orange for medium
+    { at: 1, color: "#16a34a" }, // Green for high
   ]}
 >
   <ProgressCircle.Value />

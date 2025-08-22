@@ -23,8 +23,8 @@ const serviceRef = useLazyRef(() => {
 })
 
 // Access the value
-mapRef.current.set('key', 'value')
-const value = mapRef.current.get('key')
+mapRef.current.set("key", "value")
+const value = mapRef.current.get("key")
 ```
 
 ## API
@@ -58,19 +58,19 @@ A mutable ref object containing the initialized value. The value is guaranteed t
 ```typescript
 function DataComponent() {
   const cacheRef = useLazyRef(() => new Map<string, any>())
-  
+
   const fetchData = async (id: string) => {
     // Check cache first
     if (cacheRef.current.has(id)) {
       return cacheRef.current.get(id)
     }
-    
+
     // Fetch and cache
     const data = await api.getData(id)
     cacheRef.current.set(id, data)
     return data
   }
-  
+
   return (
     <div>
       <button onClick={() => fetchData('123')}>
@@ -87,20 +87,20 @@ function DataComponent() {
 ```typescript
 function EventComponent() {
   const emitterRef = useLazyRef(() => new EventEmitter())
-  
+
   useEffect(() => {
     const handler = (data) => console.log('Event:', data)
     emitterRef.current.on('update', handler)
-    
+
     return () => {
       emitterRef.current.off('update', handler)
     }
   }, [])
-  
+
   const triggerEvent = () => {
     emitterRef.current.emit('update', { timestamp: Date.now() })
   }
-  
+
   return <button onClick={triggerEvent}>Trigger Event</button>
 }
 ```
@@ -115,7 +115,7 @@ function WebSocketComponent({ url }) {
     ws.onerror = (error) => console.error('WebSocket error:', error)
     return ws
   })
-  
+
   useEffect(() => {
     return () => {
       if (wsRef.current.readyState === WebSocket.OPEN) {
@@ -123,13 +123,13 @@ function WebSocketComponent({ url }) {
       }
     }
   }, [])
-  
+
   const sendMessage = (message: string) => {
     if (wsRef.current.readyState === WebSocket.OPEN) {
       wsRef.current.send(message)
     }
   }
-  
+
   return (
     <button onClick={() => sendMessage('Hello')}>
       Send Message
@@ -148,16 +148,16 @@ function PerformanceMonitor() {
     startTime: Date.now(),
     events: new Map<string, number>()
   }))
-  
+
   // Track renders
   metricsRef.current.renderCount++
-  
+
   const trackClick = (eventName: string) => {
     metricsRef.current.clickCount++
     const count = metricsRef.current.events.get(eventName) || 0
     metricsRef.current.events.set(eventName, count + 1)
   }
-  
+
   const getReport = () => {
     const uptime = Date.now() - metricsRef.current.startTime
     return {
@@ -166,7 +166,7 @@ function PerformanceMonitor() {
       events: Array.from(metricsRef.current.events.entries())
     }
   }
-  
+
   return (
     <div>
       <button onClick={() => trackClick('button1')}>Button 1</button>
@@ -186,33 +186,33 @@ function TodoManager() {
   const storeRef = useLazyRef(() => ({
     todos: new Map<string, Todo>(),
     subscribers: new Set<() => void>(),
-    
+
     addTodo(todo: Todo) {
       this.todos.set(todo.id, todo)
       this.notify()
     },
-    
+
     removeTodo(id: string) {
       this.todos.delete(id)
       this.notify()
     },
-    
+
     subscribe(callback: () => void) {
       this.subscribers.add(callback)
       return () => this.subscribers.delete(callback)
     },
-    
+
     notify() {
       this.subscribers.forEach(cb => cb())
     }
   }))
-  
+
   const [, forceUpdate] = useReducer(x => x + 1, 0)
-  
+
   useEffect(() => {
     return storeRef.current.subscribe(forceUpdate)
   }, [])
-  
+
   return (
     <div>
       <button onClick={() => storeRef.current.addTodo({
@@ -242,17 +242,17 @@ function WorkerComponent() {
     }
     return worker
   })
-  
+
   useEffect(() => {
     return () => {
       workerRef.current.terminate()
     }
   }, [])
-  
+
   const processData = (data: any) => {
     workerRef.current.postMessage({ type: 'process', data })
   }
-  
+
   return (
     <button onClick={() => processData([1, 2, 3, 4, 5])}>
       Process in Worker
@@ -269,23 +269,23 @@ function CanvasComponent() {
   const ctxRef = useLazyRef(() => {
     const ctx = canvasRef.current?.getContext('2d')
     if (!ctx) throw new Error('Canvas context not available')
-    
+
     // Configure context once
     ctx.strokeStyle = '#000'
     ctx.lineWidth = 2
     ctx.lineCap = 'round'
-    
+
     return ctx
   })
-  
+
   const draw = (x: number, y: number) => {
     ctxRef.current.beginPath()
     ctxRef.current.arc(x, y, 5, 0, Math.PI * 2)
     ctxRef.current.stroke()
   }
-  
+
   return (
-    <canvas 
+    <canvas
       ref={canvasRef}
       width={400}
       height={300}
@@ -310,6 +310,7 @@ function CanvasComponent() {
 ## Comparison with Other Approaches
 
 ### vs useState with lazy init
+
 ```typescript
 // useState - triggers re-render on updates
 const [map] = useState(() => new Map())
@@ -319,6 +320,7 @@ const mapRef = useLazyRef(() => new Map())
 ```
 
 ### vs useRef with manual init
+
 ```typescript
 // Manual check needed
 const ref = useRef<Map<string, any> | null>(null)

@@ -175,52 +175,54 @@ const highlightDates = [
 interface MonthCalendarProps {
   /** Current selected value (varies by selection mode) */
   value?: CalendarValue
-  
+
   /** Selection change handler */
   onChange?: (value: CalendarValue) => void
-  
+
   /** Selection mode */
   selectionMode?: "single" | "multiple" | "range"
-  
+
   /** Locale for internationalization */
   locale?: string
-  
+
   /** Visual theme variant */
   variant?: "light" | "dark"
-  
+
   /** Week start day (0 = Sunday, 1 = Monday, ..., 6 = Saturday) */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
-  
+
   /** Show week numbers column */
   showWeekNumbers?: boolean
-  
+
   /** Custom weekday names array */
   weekdayNames?: string[]
-  
+
   /** Highlight today's date */
   highlightToday?: boolean
-  
+
   /** Show outside days (previous/next month) */
   showOutsideDays?: boolean
-  
+
   /** Use fixed 6-row grid */
   fixedGrid?: boolean
-  
+
   /** Dates to disable */
   disabledDates?: Date[]
-  
+
   /** Dates to highlight */
   highlightDates?: Date[]
-  
+
   /** Additional CSS class names */
   className?: string
 }
 
 // CalendarValue type varies by selection mode:
-type CalendarValue = 
-  | Date | null                           // single mode
-  | Date[]                                // multiple mode
-  | {start: Date, end: Date} | null       // range mode
+type CalendarValue =
+  | Date
+  | null // single mode
+  | Date[] // multiple mode
+  | { start: Date; end: Date }
+  | null // range mode
 ```
 
 - Defaults:
@@ -243,17 +245,20 @@ type CalendarValue =
 ## Selection Modes
 
 ### Single Selection
+
 - Select one date at a time
 - Value type: `Date | null`
 - Previous selection is replaced when selecting a new date
 
-### Multiple Selection  
+### Multiple Selection
+
 - Select multiple individual dates
 - Value type: `Date[]`
 - Click to toggle selection on individual dates
 - Selected dates are tracked in an array
 
 ### Range Selection
+
 - Select a continuous date range
 - Value type: `{start: Date, end: Date} | null`
 - First click sets start date, second click sets end date
@@ -291,6 +296,7 @@ Override automatic locale-generated weekday names:
 ## Week Configuration
 
 ### Week Start Days
+
 Different cultures prefer different week start days:
 
 ```tsx
@@ -305,6 +311,7 @@ Different cultures prefer different week start days:
 ```
 
 ### Week Numbers
+
 Display ISO standard week numbers:
 
 ```tsx
@@ -317,6 +324,7 @@ Display ISO standard week numbers:
 ## Layout Options
 
 ### Fixed Grid
+
 Always shows 6 rows for consistent height:
 
 ```tsx
@@ -327,6 +335,7 @@ Always shows 6 rows for consistent height:
 ```
 
 ### Dynamic Rows
+
 Variable height based on month structure:
 
 ```tsx
@@ -339,6 +348,7 @@ Variable height based on month structure:
 ## Date Management
 
 ### Disabled Dates
+
 Prevent selection of specific dates:
 
 ```tsx
@@ -352,6 +362,7 @@ const disabledDates = [
 ```
 
 ### Highlighted Dates
+
 Draw attention to specific dates:
 
 ```tsx
@@ -367,15 +378,12 @@ const highlightDates = [
 ## Common Use Cases
 
 ### Event Calendar
+
 ```tsx
 function EventCalendar() {
   const [selectedDates, setSelectedDates] = useState<Date[]>([])
-  const eventDates = [
-    new Date('2025-01-15'),
-    new Date('2025-01-22'),
-    new Date('2025-01-29'),
-  ]
-  
+  const eventDates = [new Date("2025-01-15"), new Date("2025-01-22"), new Date("2025-01-29")]
+
   return (
     <MonthCalendar
       value={selectedDates}
@@ -389,15 +397,12 @@ function EventCalendar() {
 ```
 
 ### Booking System
+
 ```tsx
 function BookingCalendar() {
   const [dateRange, setDateRange] = useState(null)
-  const unavailableDates = [
-    new Date('2025-01-10'),
-    new Date('2025-01-11'),
-    new Date('2025-01-12'),
-  ]
-  
+  const unavailableDates = [new Date("2025-01-10"), new Date("2025-01-11"), new Date("2025-01-12")]
+
   return (
     <MonthCalendar
       value={dateRange}
@@ -411,20 +416,24 @@ function BookingCalendar() {
 ```
 
 ### Multi-Language Support
+
 ```tsx
 function MultiLanguageCalendar() {
-  const [locale, setLocale] = useState('en-US')
+  const [locale, setLocale] = useState("en-US")
   const [selectedDate, setSelectedDate] = useState(null)
-  
+
   return (
     <div>
-      <select value={locale} onChange={e => setLocale(e.target.value)}>
+      <select
+        value={locale}
+        onChange={(e) => setLocale(e.target.value)}
+      >
         <option value="zh-CN">中文</option>
         <option value="en-US">English</option>
         <option value="ja-JP">日本語</option>
         <option value="ko-KR">한국어</option>
       </select>
-      
+
       <MonthCalendar
         locale={locale}
         value={selectedDate}
@@ -469,7 +478,7 @@ import { Popover } from "@choiceform/design-system"
 function DatePicker() {
   const [date, setDate] = useState<Date | null>(null)
   const [isOpen, setIsOpen] = useState(false)
-  
+
   return (
     <>
       <DateInput
@@ -477,8 +486,11 @@ function DatePicker() {
         onChange={setDate}
         onFocus={() => setIsOpen(true)}
       />
-      
-      <Popover open={isOpen} onOpenChange={setIsOpen}>
+
+      <Popover
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
         <Popover.Content>
           <MonthCalendar
             value={date}
@@ -505,7 +517,7 @@ function DateRangePicker() {
   const [range, setRange] = useState(null)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
-  
+
   return (
     <>
       <DateRangeInput
@@ -514,7 +526,7 @@ function DateRangePicker() {
         onStartChange={setStartDate}
         onEndChange={setEndDate}
       />
-      
+
       <MonthCalendar
         value={range}
         onChange={setRange}

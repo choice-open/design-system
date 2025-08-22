@@ -26,7 +26,7 @@ import { IconButton } from "@choiceform/design-system"
 ```tsx
 import { FieldTypeButton } from "@choiceform/icons-react"
 
-<IconButton>
+;<IconButton>
   <FieldTypeButton />
 </IconButton>
 ```
@@ -93,7 +93,7 @@ import { FieldTypeRating } from "@choiceform/icons-react"
 ```tsx
 import { FieldTypeDate } from "@choiceform/icons-react"
 
-<IconButton tooltip={{ content: "Select date" }}>
+;<IconButton tooltip={{ content: "Select date" }}>
   <FieldTypeDate />
 </IconButton>
 ```
@@ -104,7 +104,7 @@ import { FieldTypeDate } from "@choiceform/icons-react"
 import { IconButtonGroup } from "@choiceform/design-system"
 import { FieldTypeButton, FieldTypeCount, FieldTypeCheckbox } from "@choiceform/icons-react"
 
-<IconButtonGroup variant="solid">
+;<IconButtonGroup variant="solid">
   <IconButton>
     <FieldTypeButton />
   </IconButton>
@@ -122,7 +122,7 @@ import { FieldTypeButton, FieldTypeCount, FieldTypeCheckbox } from "@choiceform/
 ```tsx
 import { FieldTypeAttachment } from "@choiceform/icons-react"
 
-<IconButton asChild>
+;<IconButton asChild>
   <a href="/download">
     <FieldTypeAttachment />
   </a>
@@ -200,7 +200,7 @@ interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
 import { IconButtonGroup } from "@choiceform/design-system"
 import { Copy, Paste, Delete } from "@choiceform/icons-react"
 
-<IconButtonGroup variant="secondary">
+;<IconButtonGroup variant="secondary">
   <IconButton tooltip={{ content: "Copy" }}>
     <Copy />
   </IconButton>
@@ -218,7 +218,10 @@ import { Copy, Paste, Delete } from "@choiceform/icons-react"
 ```tsx
 import { Save } from "@choiceform/icons-react"
 
-<IconButton loading tooltip={{ content: "Saving..." }}>
+;<IconButton
+  loading
+  tooltip={{ content: "Saving..." }}
+>
   <Save />
 </IconButton>
 ```
@@ -228,8 +231,11 @@ import { Save } from "@choiceform/icons-react"
 ```tsx
 import { Settings } from "@choiceform/icons-react"
 
-<div className="bg-gray-800 p-4">
-  <IconButton variant="dark" tooltip={{ content: "Settings" }}>
+;<div className="bg-gray-800 p-4">
+  <IconButton
+    variant="dark"
+    tooltip={{ content: "Settings" }}
+  >
     <Settings />
   </IconButton>
 </div>

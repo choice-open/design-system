@@ -12,25 +12,25 @@ import type { FormatRelativeTimeOptions } from "./format-date.types"
 
 /**
  * Formats a date into a human-readable relative time string with internationalization support
- * 
+ *
  * @param date - The date to format
  * @param options - Configuration options for formatting
  * @returns A formatted date string
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage
  * formatRelativeTime(new Date()) // "a few seconds ago"
- * 
+ *
  * // With Chinese locale
  * formatRelativeTime(new Date(), { language: "cn" }) // "几秒前"
- * 
+ *
  * // Show specific time for recent dates
- * formatRelativeTime(new Date(), { 
+ * formatRelativeTime(new Date(), {
  *   showSpecificTime: true,
- *   language: "en" 
+ *   language: "en"
  * }) // "Today at 2:30 PM"
- * 
+ *
  * // Custom thresholds
  * formatRelativeTime(oldDate, {
  *   daysThreshold: 30,
@@ -38,10 +38,7 @@ import type { FormatRelativeTimeOptions } from "./format-date.types"
  * })
  * ```
  */
-export const formatRelativeTime = (
-  date: Date,
-  options: FormatRelativeTimeOptions = {},
-): string => {
+export const formatRelativeTime = (date: Date, options: FormatRelativeTimeOptions = {}): string => {
   // Parameter validation
   if (!date || isNaN(date.getTime())) {
     console.warn("formatRelativeTime: Invalid date provided")
@@ -51,18 +48,18 @@ export const formatRelativeTime = (
   try {
     // Timezone handling
     const referenceTime = options.timezone?.referenceTime || new Date()
-    const now = options.timezone?.useUTC ? 
-      new Date(referenceTime.getTime() + referenceTime.getTimezoneOffset() * 60000) : 
-      referenceTime
-    
-    const targetDate = options.timezone?.useUTC ? 
-      new Date(date.getTime() + date.getTimezoneOffset() * 60000) : 
-      date
-    
+    const now = options.timezone?.useUTC
+      ? new Date(referenceTime.getTime() + referenceTime.getTimezoneOffset() * 60000)
+      : referenceTime
+
+    const targetDate = options.timezone?.useUTC
+      ? new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+      : date
+
     const daysThreshold = options.daysThreshold ?? 7
     const yearThreshold = options.yearThreshold ?? 1
     const daysDiff = Math.abs(differenceInDays(now, targetDate))
-    
+
     // Get language configuration (cached for performance)
     const { language, locale, t } = getLanguageConfig(options.language)
 
@@ -106,11 +103,11 @@ export const formatRelativeTime = (
         if (customMonthDayFormat) {
           return format(targetDate, customMonthDayFormat, { locale })
         }
-        
+
         if (options.forceNumericFormat) {
           return format(targetDate, "MM/dd", { locale })
         }
-        
+
         if (language === "cn") {
           return format(targetDate, "M月d日", { locale })
         } else {
@@ -132,10 +129,10 @@ export const formatRelativeTime = (
 
 /**
  * Creates a date formatter with default configuration
- * 
+ *
  * @param defaultOptions - Default options to use for all formatting operations
  * @returns A configured formatter function
- * 
+ *
  * @example
  * ```typescript
  * const formatter = createDateFormatter({
@@ -143,7 +140,7 @@ export const formatRelativeTime = (
  *   daysThreshold: 14,
  *   showSpecificTime: true
  * })
- * 
+ *
  * formatter(new Date()) // Uses configured defaults
  * formatter(new Date(), { language: "en" }) // Overrides language
  * ```
@@ -156,11 +153,11 @@ export const createDateFormatter = (defaultOptions: FormatRelativeTimeOptions = 
 
 /**
  * Formats a date to a simple readable format
- * 
+ *
  * @param date - The date to format
  * @param options - Formatting options
  * @returns A simple formatted date string
- * 
+ *
  * @example
  * ```typescript
  * formatSimpleDate(new Date()) // "Jan 15, 2024"
@@ -176,7 +173,7 @@ export const formatSimpleDate = (
   }
 
   const { language, locale } = getLanguageConfig(options.language)
-  
+
   if (options.customFormat?.fullDate) {
     return format(date, options.customFormat.fullDate, { locale })
   }
@@ -190,11 +187,11 @@ export const formatSimpleDate = (
 
 /**
  * Formats time only from a date
- * 
+ *
  * @param date - The date to extract time from
  * @param options - Formatting options
  * @returns A formatted time string
- * 
+ *
  * @example
  * ```typescript
  * formatTime(new Date()) // "2:30 PM"
@@ -210,7 +207,7 @@ export const formatTime = (
   }
 
   const { language, locale } = getLanguageConfig(options.language)
-  
+
   if (options.customFormat?.time) {
     return format(date, options.customFormat.time, { locale })
   }

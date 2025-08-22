@@ -75,30 +75,30 @@ import { Kbd } from "@choiceform/design-system"
 
 The component supports the following keys with their corresponding symbols:
 
-| Key | Symbol | Description |
-|-----|--------|-------------|
-| `command` | ⌘ | Command key (macOS) |
-| `windows` | ⊞ | Windows key |
-| `shift` | ⇧ | Shift key |
-| `ctrl` | ⌃ | Control key |
-| `option` | ⌥ | Option key (macOS) |
-| `alt` | ⌥ | Alt key (same as option) |
-| `enter` | ↵ | Enter/Return key |
-| `delete` | ⌫ | Delete key |
-| `backspace` | ⌫ | Backspace key (same as delete) |
-| `escape` | ⎋ | Escape key |
-| `tab` | ⇥ | Tab key |
-| `capslock` | ⇪ | Caps Lock key |
-| `up` | ↑ | Up arrow |
-| `right` | → | Right arrow |
-| `down` | ↓ | Down arrow |
-| `left` | ← | Left arrow |
-| `pageup` | ⇞ | Page Up key |
-| `pagedown` | ⇟ | Page Down key |
-| `home` | ↖ | Home key |
-| `end` | ↘ | End key |
-| `help` | ? | Help key |
-| `space` | ␣ | Space bar |
+| Key         | Symbol | Description                    |
+| ----------- | ------ | ------------------------------ |
+| `command`   | ⌘      | Command key (macOS)            |
+| `windows`   | ⊞      | Windows key                    |
+| `shift`     | ⇧      | Shift key                      |
+| `ctrl`      | ⌃      | Control key                    |
+| `option`    | ⌥      | Option key (macOS)             |
+| `alt`       | ⌥      | Alt key (same as option)       |
+| `enter`     | ↵      | Enter/Return key               |
+| `delete`    | ⌫      | Delete key                     |
+| `backspace` | ⌫      | Backspace key (same as delete) |
+| `escape`    | ⎋      | Escape key                     |
+| `tab`       | ⇥      | Tab key                        |
+| `capslock`  | ⇪      | Caps Lock key                  |
+| `up`        | ↑      | Up arrow                       |
+| `right`     | →      | Right arrow                    |
+| `down`      | ↓      | Down arrow                     |
+| `left`      | ←      | Left arrow                     |
+| `pageup`    | ⇞      | Page Up key                    |
+| `pagedown`  | ⇟      | Page Down key                  |
+| `home`      | ↖     | Home key                       |
+| `end`       | ↘     | End key                        |
+| `help`      | ?      | Help key                       |
+| `space`     | ␣      | Space bar                      |
 
 ## Props
 
@@ -114,11 +114,29 @@ interface KbdProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEl
   keys?: KbdKey | KbdKey[]
 }
 
-type KbdKey = 
-  | "command" | "windows" | "shift" | "ctrl" | "option" | "alt"
-  | "enter" | "delete" | "backspace" | "escape" | "tab" | "capslock"
-  | "up" | "right" | "down" | "left"
-  | "pageup" | "pagedown" | "home" | "end" | "help" | "space"
+type KbdKey =
+  | "command"
+  | "windows"
+  | "shift"
+  | "ctrl"
+  | "option"
+  | "alt"
+  | "enter"
+  | "delete"
+  | "backspace"
+  | "escape"
+  | "tab"
+  | "capslock"
+  | "up"
+  | "right"
+  | "down"
+  | "left"
+  | "pageup"
+  | "pagedown"
+  | "home"
+  | "end"
+  | "help"
+  | "space"
 ```
 
 - Defaults:
@@ -203,7 +221,9 @@ type KbdKey =
     <Kbd keys="left" />
     <Kbd keys="right" />
   </div>
-  <p>Press <Kbd keys="enter">Enter</Kbd> to select or <Kbd keys="escape">Escape</Kbd> to cancel</p>
+  <p>
+    Press <Kbd keys="enter">Enter</Kbd> to select or <Kbd keys="escape">Escape</Kbd> to cancel
+  </p>
 </div>
 ```
 

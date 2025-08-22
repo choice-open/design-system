@@ -28,11 +28,7 @@ Wrap your app with the provider:
 import { AlertDialogProvider } from "@choiceform/design-system"
 
 function App() {
-  return (
-    <AlertDialogProvider>
-      {/* Your app content */}
-    </AlertDialogProvider>
-  )
+  return <AlertDialogProvider>{/* Your app content */}</AlertDialogProvider>
 }
 ```
 
@@ -49,7 +45,7 @@ await alert("Operation completed successfully")
 // With title and description
 await alert({
   title: "Success",
-  description: "Your changes have been saved"
+  description: "Your changes have been saved",
 })
 ```
 
@@ -63,7 +59,7 @@ const isConfirmed = await confirm({
   description: "Are you sure you want to delete this item? This action cannot be undone.",
   variant: "danger",
   confirmText: "Delete",
-  cancelText: "Cancel"
+  cancelText: "Cancel",
 })
 
 if (isConfirmed) {
@@ -81,8 +77,8 @@ const result = await show({
   content: <div>You have unsaved changes. What would you like to do?</div>,
   buttons: [
     { text: "Don't Save", value: "cancel", variant: "secondary" },
-    { text: "Save", value: "save", variant: "primary", autoFocus: true }
-  ]
+    { text: "Save", value: "save", variant: "primary", autoFocus: true },
+  ],
 })
 
 switch (result) {
@@ -109,7 +105,7 @@ await alert({
         <li>Feature 3</li>
       </ul>
     </div>
-  )
+  ),
 })
 ```
 
@@ -135,16 +131,16 @@ await alert({ title: "Warning", variant: "warning" })
 interface AlertDialogProviderProps {
   /** Component tree to wrap */
   children: ReactNode
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Allow closing by clicking outside (default: true) */
   outsidePress?: boolean
-  
+
   /** Show overlay backdrop (default: true) */
   overlay?: boolean
-  
+
   /** Custom portal root element ID */
   portalId?: string
 }
@@ -156,35 +152,35 @@ interface AlertDialogProviderProps {
 interface AlertDialogConfig {
   /** Dialog title */
   title?: string
-  
+
   /** Dialog content (string or ReactNode) */
   content?: ReactNode
   description?: ReactNode // alias for content
-  
+
   /** Visual variant */
   variant?: "default" | "danger" | "success" | "warning"
-  
+
   /** Dialog size */
   size?: "small" | "default" | "large"
-  
+
   /** Allow ESC key to close (default: true) */
   closeOnEscape?: boolean
-  
+
   /** Allow clicking overlay to close (default: true) */
   closeOnOverlayClick?: boolean
-  
+
   /** Show close button in header (default: false) */
   showCloseButton?: boolean
-  
+
   /** Additional CSS classes */
   className?: string
-  
+
   // For confirm dialogs
   confirmText?: string
   cancelText?: string
   confirmVariant?: ButtonVariant
   cancelVariant?: ButtonVariant
-  
+
   // For custom dialogs
   buttons?: Array<{
     text: string
@@ -218,14 +214,14 @@ async function handleDelete(id: string) {
     variant: "danger",
     confirmText: "Delete",
     confirmVariant: "destructive",
-    cancelText: "Keep Item"
+    cancelText: "Keep Item",
   })
-  
+
   if (confirmed) {
     await deleteItem(id)
     await alert({
       title: "Item Deleted",
-      variant: "success"
+      variant: "success",
     })
   }
 }
@@ -242,10 +238,10 @@ async function handleNavigation() {
       buttons: [
         { text: "Cancel", value: "cancel", variant: "ghost" },
         { text: "Discard", value: "discard", variant: "secondary" },
-        { text: "Save", value: "save", variant: "primary", autoFocus: true }
-      ]
+        { text: "Save", value: "save", variant: "primary", autoFocus: true },
+      ],
     })
-    
+
     switch (action) {
       case "save":
         await saveChanges()

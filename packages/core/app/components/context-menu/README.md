@@ -165,7 +165,7 @@ const [theme, setTheme] = useState("light")
 ```tsx
 import { Copy, Paste, Delete } from "@choiceform/icons-react"
 
-<ContextMenu>
+;<ContextMenu>
   <ContextMenu.Target>
     <div>Right click for actions</div>
   </ContextMenu.Target>
@@ -288,7 +288,7 @@ interface ContextMenuProps {
     <ContextMenu.Item onMouseUp={() => renameFile()}>
       <ContextMenu.Value>Rename</ContextMenu.Value>
     </ContextMenu.Item>
-    <ContextMenu.Item 
+    <ContextMenu.Item
       variant="danger"
       onMouseUp={() => deleteFile()}
     >
@@ -306,19 +306,19 @@ interface ContextMenuProps {
     <TextEditor content={content} />
   </ContextMenu.Target>
   <ContextMenu.Content>
-    <ContextMenu.Item 
+    <ContextMenu.Item
       disabled={!hasSelection}
       onMouseUp={() => document.execCommand("cut")}
     >
       <ContextMenu.Value>Cut</ContextMenu.Value>
     </ContextMenu.Item>
-    <ContextMenu.Item 
+    <ContextMenu.Item
       disabled={!hasSelection}
       onMouseUp={() => document.execCommand("copy")}
     >
       <ContextMenu.Value>Copy</ContextMenu.Value>
     </ContextMenu.Item>
-    <ContextMenu.Item 
+    <ContextMenu.Item
       disabled={!canPaste}
       onMouseUp={() => document.execCommand("paste")}
     >

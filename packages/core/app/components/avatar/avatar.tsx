@@ -5,7 +5,7 @@ import { tcx } from "~/utils"
 import { InitialLetter } from "./letter"
 import { avatarTv } from "./tv"
 
-interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
+export interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
   children?: React.ReactNode
   color?: string
   name?: string
@@ -66,8 +66,7 @@ export const Avatar = memo(
         style={{ backgroundColor: color, color: textColor }}
         {...rest}
       >
-        {fallback}
-        {children}
+        {children ?? fallback}
       </div>
     )
   }),

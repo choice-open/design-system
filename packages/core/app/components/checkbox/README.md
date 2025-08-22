@@ -25,7 +25,10 @@ import { Checkbox } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-<Checkbox value={checked} onChange={setChecked}>
+<Checkbox
+  value={checked}
+  onChange={setChecked}
+>
   Accept terms and conditions
 </Checkbox>
 ```
@@ -33,7 +36,10 @@ import { Checkbox } from "@choiceform/design-system"
 ### With separate label
 
 ```tsx
-<Checkbox value={checked} onChange={setChecked}>
+<Checkbox
+  value={checked}
+  onChange={setChecked}
+>
   <Checkbox.Label>Enable notifications</Checkbox.Label>
 </Checkbox>
 ```
@@ -57,8 +63,8 @@ import { Checkbox } from "@choiceform/design-system"
 ### Mixed/Indeterminate state
 
 ```tsx
-<Checkbox 
-  value={isPartiallySelected} 
+<Checkbox
+  value={isPartiallySelected}
   mixed={true}
   onChange={handleSelectAll}
 >
@@ -69,7 +75,11 @@ import { Checkbox } from "@choiceform/design-system"
 ### Disabled state
 
 ```tsx
-<Checkbox disabled value={checked} onChange={setChecked}>
+<Checkbox
+  disabled
+  value={checked}
+  onChange={setChecked}
+>
   This option is disabled
 </Checkbox>
 ```
@@ -77,18 +87,19 @@ import { Checkbox } from "@choiceform/design-system"
 ### With custom label styling
 
 ```tsx
-<Checkbox value={checked} onChange={setChecked}>
-  <Checkbox.Label className="text-sm font-medium">
-    Custom styled label
-  </Checkbox.Label>
+<Checkbox
+  value={checked}
+  onChange={setChecked}
+>
+  <Checkbox.Label className="text-sm font-medium">Custom styled label</Checkbox.Label>
 </Checkbox>
 ```
 
 ### Controlled with focus
 
 ```tsx
-<Checkbox 
-  value={checked} 
+<Checkbox
+  value={checked}
   onChange={setChecked}
   focused={isFocused}
 >
@@ -128,7 +139,8 @@ interface CheckboxProps extends Omit<HTMLProps<HTMLInputElement>, "value" | "onC
 ### Checkbox.Label
 
 ```ts
-interface CheckboxLabelProps extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
+interface CheckboxLabelProps
+  extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
   /** Label content */
   children: ReactNode
 }
@@ -175,12 +187,12 @@ function SelectAllExample() {
     { id: 3, checked: false },
   ])
 
-  const checkedCount = items.filter(item => item.checked).length
+  const checkedCount = items.filter((item) => item.checked).length
   const allChecked = checkedCount === items.length
   const someChecked = checkedCount > 0 && checkedCount < items.length
 
   const handleSelectAll = (checked: boolean) => {
-    setItems(items.map(item => ({ ...item, checked })))
+    setItems(items.map((item) => ({ ...item, checked })))
   }
 
   return (
@@ -206,12 +218,18 @@ function SelectAllExample() {
     required
   >
     I agree to the{" "}
-    <a href="/terms" className="underline">
+    <a
+      href="/terms"
+      className="underline"
+    >
       terms and conditions
     </a>
   </Checkbox>
-  
-  <Button type="submit" disabled={!agreedToTerms}>
+
+  <Button
+    type="submit"
+    disabled={!agreedToTerms}
+  >
     Continue
   </Button>
 </form>
@@ -221,17 +239,18 @@ function SelectAllExample() {
 
 ```tsx
 <div className="space-y-2">
-  <Checkbox value={emailNotifications} onChange={setEmailNotifications}>
+  <Checkbox
+    value={emailNotifications}
+    onChange={setEmailNotifications}
+  >
     <Checkbox.Label>
       <div>Email notifications</div>
-      <div className="text-sm text-secondary-foreground">
-        Receive updates about your account
-      </div>
+      <div className="text-secondary-foreground text-sm">Receive updates about your account</div>
     </Checkbox.Label>
   </Checkbox>
 
-  <Checkbox 
-    value={marketingEmails} 
+  <Checkbox
+    value={marketingEmails}
     onChange={setMarketingEmails}
     disabled={!emailNotifications}
   >

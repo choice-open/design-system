@@ -46,11 +46,9 @@ const [endValue, setEndValue] = useState<Date | null>(addDays(new Date(), 7))
 const handleStartChange = (newStart: Date | null) => {
   if (newStart) {
     // Calculate current range length in milliseconds
-    const currentRange = 
-      startValue && endValue 
-        ? endValue.getTime() - startValue.getTime() 
-        : 7 * 24 * 60 * 60 * 1000 // Default 7 days
-    
+    const currentRange =
+      startValue && endValue ? endValue.getTime() - startValue.getTime() : 7 * 24 * 60 * 60 * 1000 // Default 7 days
+
     // Maintain range length
     const newEnd = new Date(newStart.getTime() + currentRange)
     setStartValue(newStart)
@@ -68,7 +66,7 @@ const handleEndChange = (newEnd: Date | null) => {
   setEndValue(newEnd)
 }
 
-<DateRangeInput
+;<DateRangeInput
   startValue={startValue}
   endValue={endValue}
   onStartChange={handleStartChange}
@@ -158,49 +156,49 @@ import { zhCN, enUS, ja, ko } from "date-fns/locale"
 interface DateRangeInputProps {
   /** Start date value */
   startValue?: Date | null
-  
+
   /** End date value */
   endValue?: Date | null
-  
+
   /** Start date change handler */
   onStartChange?: (date: Date | null) => void
-  
+
   /** End date change handler */
   onEndChange?: (date: Date | null) => void
-  
+
   /** Start input focus handler */
   onStartFocus?: () => void
-  
+
   /** End input focus handler */
   onEndFocus?: () => void
-  
+
   /** Enter key press handler */
   onEnterKeyDown?: () => void
-  
+
   /** Start date placeholder text */
   startPlaceholder?: string
-  
+
   /** End date placeholder text */
   endPlaceholder?: string
-  
+
   /** Date format string (date-fns format) */
   format?: DateFormat
-  
+
   /** Locale for internationalization */
   locale?: Locale | string
-  
+
   /** Component size variant */
   size?: "default" | "large"
-  
+
   /** Visual theme variant */
   variant?: "default" | "dark"
-  
+
   /** Disable start date input */
   startDisabled?: boolean
-  
+
   /** Disable end date input */
   endDisabled?: boolean
-  
+
   /** Additional CSS class names */
   className?: string
 }
@@ -224,36 +222,42 @@ interface DateRangeInputProps {
 ## Range Synchronization Behavior
 
 ### Start Date Changes
+
 When the start date is modified, the component automatically adjusts the end date to maintain the original range length:
+
 - Calculate the current range length in milliseconds
 - Apply the same range to the new start date
 - Update both start and end dates simultaneously
 
 ### End Date Changes
+
 When the end date is modified with boundary validation:
+
 - If end date ≤ start date, push the start date to the end position
 - This prevents invalid ranges and maintains logical date ordering
 - End date changes normally when greater than start date
 
 ### Range Preservation
+
 - First set your desired range by adjusting the end date
 - Subsequent start date changes will maintain this range length
 - Provides consistent user experience for date range selection
 
 ## Format Examples
 
-| Format | Example Output | Description |
-|--------|----------------|-------------|
-| `yyyy-MM-dd` | 2025-01-15 to 2025-01-22 | ISO format |
-| `MM/dd/yyyy` | 01/15/2025 to 01/22/2025 | US format |
-| `dd.MM.yyyy` | 15.01.2025 to 22.01.2025 | European format |
-| `yyyy年MM月dd日` | 2025年01月15日 to 2025年01月22日 | Chinese format |
-| `yyyy/MM/dd` | 2025/01/15 to 2025/01/22 | Japanese format |
-| `yyyy.MM.dd` | 2025.01.15 to 2025.01.22 | Korean format |
+| Format           | Example Output                   | Description     |
+| ---------------- | -------------------------------- | --------------- |
+| `yyyy-MM-dd`     | 2025-01-15 to 2025-01-22         | ISO format      |
+| `MM/dd/yyyy`     | 01/15/2025 to 01/22/2025         | US format       |
+| `dd.MM.yyyy`     | 15.01.2025 to 22.01.2025         | European format |
+| `yyyy年MM月dd日` | 2025年01月15日 to 2025年01月22日 | Chinese format  |
+| `yyyy/MM/dd`     | 2025/01/15 to 2025/01/22         | Japanese format |
+| `yyyy.MM.dd`     | 2025.01.15 to 2025.01.22         | Korean format   |
 
 ## Common Use Cases
 
 ### Holiday Planning
+
 ```tsx
 <DateRangeInput
   startValue={addDays(new Date(), 30)}
@@ -266,6 +270,7 @@ When the end date is modified with boundary validation:
 ```
 
 ### Data Analysis Period
+
 ```tsx
 <DateRangeInput
   startValue={subDays(new Date(), 30)}
@@ -278,6 +283,7 @@ When the end date is modified with boundary validation:
 ```
 
 ### Event Scheduling
+
 ```tsx
 <DateRangeInput
   startValue={addDays(new Date(), 15)}
@@ -292,7 +298,9 @@ When the end date is modified with boundary validation:
 ## Edge Cases
 
 ### Same Date Range
+
 When both dates are the same, the component displays as "1 day":
+
 ```tsx
 <DateRangeInput
   startValue={new Date()}
@@ -301,7 +309,9 @@ When both dates are the same, the component displays as "1 day":
 ```
 
 ### Reverse Date Range
+
 When end date is before start date, the component shows the absolute difference:
+
 ```tsx
 <DateRangeInput
   startValue={addDays(new Date(), 5)}
@@ -310,7 +320,9 @@ When end date is before start date, the component shows the absolute difference:
 ```
 
 ### Cross-Year Range
+
 Properly calculates ranges spanning multiple years:
+
 ```tsx
 <DateRangeInput
   startValue={new Date("2024-12-25")}
@@ -324,7 +336,7 @@ Properly calculates ranges spanning multiple years:
 ```tsx
 import { Panel } from "@choiceform/design-system"
 
-<Panel.Row type="two-input-two-icon">
+;<Panel.Row type="two-input-two-icon">
   <DateRangeInput
     startValue={startValue}
     endValue={endValue}
@@ -339,7 +351,7 @@ import { Panel } from "@choiceform/design-system"
 ## Best Practices
 
 - **Range Synchronization**: Use intelligent range synchronization for better user experience
-- **Clear Placeholders**: Provide descriptive placeholder text for start and end dates  
+- **Clear Placeholders**: Provide descriptive placeholder text for start and end dates
 - **Consistent Formats**: Use the same date format across your application
 - **Locale Support**: Test with various locales for international compatibility
 - **Boundary Validation**: Let the component handle invalid range scenarios automatically
@@ -361,7 +373,7 @@ import { useState } from "react"
 function DateRangeSelector() {
   const [startValue, setStartValue] = useState<Date | null>(new Date())
   const [endValue, setEndValue] = useState<Date | null>(addDays(new Date(), 7))
-  
+
   const handleStartChange = (newStart: Date | null) => {
     if (newStart && startValue && endValue) {
       // Maintain range length
@@ -373,14 +385,14 @@ function DateRangeSelector() {
       setStartValue(newStart)
     }
   }
-  
+
   const handleEndChange = (newEnd: Date | null) => {
     if (newEnd && startValue && newEnd <= startValue) {
       setStartValue(newEnd)
     }
     setEndValue(newEnd)
   }
-  
+
   return (
     <Panel.Row type="two-input-two-icon">
       <DateRangeInput

@@ -42,6 +42,7 @@ type Direction = "ltr" | "rtl"
 #### Returns
 
 The resolved text direction following this priority:
+
 1. Prop value (if provided)
 2. Context value (if available)
 3. Default value ("ltr")
@@ -69,9 +70,9 @@ A React context for providing direction values to child components.
 ```typescript
 function Button({ dir, children, ...props }) {
   const direction = useDirection(dir)
-  
+
   return (
-    <button 
+    <button
       dir={direction}
       className={direction === 'rtl' ? 'text-right' : 'text-left'}
       {...props}
@@ -88,7 +89,7 @@ function Button({ dir, children, ...props }) {
 function App({ locale }) {
   // Determine direction based on locale
   const appDirection = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
-  
+
   return (
     <DirectionContext.Provider value={appDirection}>
       <html dir={appDirection}>
@@ -106,12 +107,12 @@ function App({ locale }) {
 ```typescript
 function NavigationMenu({ items }) {
   const direction = useDirection()
-  
+
   return (
     <nav className={`flex ${direction === 'rtl' ? 'flex-row-reverse' : 'flex-row'}`}>
       {items.map(item => (
-        <NavItem 
-          key={item.id} 
+        <NavItem
+          key={item.id}
           {...item}
           iconPosition={direction === 'rtl' ? 'right' : 'left'}
         />
@@ -126,16 +127,16 @@ function NavigationMenu({ items }) {
 ```typescript
 function Article({ content, quotes }) {
   const mainDirection = useDirection()
-  
+
   return (
     <article dir={mainDirection}>
       <p>{content}</p>
-      
+
       {/* English quote in Arabic article */}
       <blockquote dir="ltr" lang="en">
         {quotes.english}
       </blockquote>
-      
+
       {/* Arabic quote in English article */}
       <blockquote dir="rtl" lang="ar">
         {quotes.arabic}
@@ -150,7 +151,7 @@ function Article({ content, quotes }) {
 ```typescript
 function Card({ dir, children }) {
   const direction = useDirection(dir)
-  
+
   const styles = {
     ltr: {
       paddingLeft: '20px',
@@ -159,11 +160,11 @@ function Card({ dir, children }) {
     },
     rtl: {
       paddingRight: '20px',
-      borderRight: '4px solid blue', 
+      borderRight: '4px solid blue',
       textAlign: 'right'
     }
   }
-  
+
   return (
     <div dir={direction} style={styles[direction]}>
       {children}
@@ -177,17 +178,17 @@ function Card({ dir, children }) {
 ```typescript
 function Form({ onSubmit }) {
   const direction = useDirection()
-  
+
   return (
     <form onSubmit={onSubmit} dir={direction}>
       <label>
         {direction === 'rtl' ? 'الاسم:' : 'Name:'}
-        <input 
-          type="text" 
+        <input
+          type="text"
           style={{ textAlign: direction === 'rtl' ? 'right' : 'left' }}
         />
       </label>
-      
+
       <button type="submit">
         {direction === 'rtl' ? 'إرسال' : 'Submit'}
       </button>
@@ -203,11 +204,11 @@ function Page() {
   return (
     <DirectionContext.Provider value="rtl">
       <Header />  {/* RTL */}
-      
+
       <DirectionContext.Provider value="ltr">
         <CodeBlock />  {/* LTR for code */}
       </DirectionContext.Provider>
-      
+
       <Footer />  {/* RTL */}
     </DirectionContext.Provider>
   )
@@ -229,7 +230,7 @@ function Page() {
 ```typescript
 function Component() {
   const direction = useDirection()
-  
+
   return (
     <div className={tcx(
       "flex items-center gap-2",
@@ -247,14 +248,14 @@ function Component() {
 ```typescript
 const useStyles = () => {
   const direction = useDirection()
-  
+
   return {
     container: {
-      display: 'flex',
-      flexDirection: direction === 'rtl' ? 'row-reverse' : 'row',
-      paddingInlineStart: '1rem',
-      paddingInlineEnd: '1rem'
-    }
+      display: "flex",
+      flexDirection: direction === "rtl" ? "row-reverse" : "row",
+      paddingInlineStart: "1rem",
+      paddingInlineEnd: "1rem",
+    },
   }
 }
 ```

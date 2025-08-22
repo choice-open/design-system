@@ -66,9 +66,10 @@ import { SpinnerBounce, SpinnerSpin } from "@choiceform/design-system"
 ### Custom Opacity
 
 ```tsx
-<SpinnerSpin 
+<SpinnerSpin
   classNames={{
-    shape: "opacity-100 [&:nth-of-type(1)]:opacity-100 [&:nth-of-type(2)]:opacity-10 [&:nth-of-type(3)]:opacity-10 [&:nth-of-type(4)]:opacity-100"
+    shape:
+      "opacity-100 [&:nth-of-type(1)]:opacity-100 [&:nth-of-type(2)]:opacity-10 [&:nth-of-type(3)]:opacity-10 [&:nth-of-type(4)]:opacity-100",
   }}
 />
 ```
@@ -83,9 +84,10 @@ import { SpinnerBounce, SpinnerSpin } from "@choiceform/design-system"
 ### Custom Colors
 
 ```tsx
-<SpinnerSpin 
+<SpinnerSpin
   classNames={{
-    shape: "!opacity-100 [&:nth-of-type(1)]:bg-warning-background [&:nth-of-type(2)]:bg-success-background [&:nth-of-type(3)]:bg-accent-background [&:nth-of-type(4)]:bg-danger-background"
+    shape:
+      "[&:nth-of-type(1)]:bg-warning-background [&:nth-of-type(2)]:bg-success-background [&:nth-of-type(3)]:bg-accent-background [&:nth-of-type(4)]:bg-danger-background !opacity-100",
   }}
 />
 ```
@@ -102,7 +104,7 @@ import { SpinnerBounce, SpinnerSpin } from "@choiceform/design-system"
 interface SpinnerBounceProps {
   /** Loading text to display below the spinner */
   label?: string
-  
+
   /** Custom styling for different parts of the spinner */
   classNames?: {
     base?: string
@@ -110,13 +112,13 @@ interface SpinnerBounceProps {
     shape?: string
     label?: string
   }
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Spinner size variant */
   size?: "small" | "medium" | "large"
-  
+
   /** Visual style variant */
   variant?: "default" | "primary"
 }
@@ -128,7 +130,7 @@ interface SpinnerBounceProps {
 interface SpinnerSpinProps {
   /** Loading text to display below the spinner */
   label?: string
-  
+
   /** Custom styling for different parts of the spinner */
   classNames?: {
     base?: string
@@ -136,13 +138,13 @@ interface SpinnerSpinProps {
     shape?: string
     label?: string
   }
-  
+
   /** Additional CSS class names */
   className?: string
-  
+
   /** Spinner size variant */
   size?: "small" | "medium" | "large"
-  
+
   /** Visual style variant */
   variant?: "default" | "primary"
 }
@@ -171,9 +173,10 @@ interface SpinnerSpinProps {
 The `classNames.shape` property allows you to style each of the 4 animated shapes individually using nth-child selectors:
 
 ```tsx
-<SpinnerSpin 
+<SpinnerSpin
   classNames={{
-    shape: "[&:nth-of-type(1)]:bg-red-500 [&:nth-of-type(2)]:bg-blue-500 [&:nth-of-type(3)]:bg-green-500 [&:nth-of-type(4)]:bg-yellow-500"
+    shape:
+      "[&:nth-of-type(1)]:bg-red-500 [&:nth-of-type(2)]:bg-blue-500 [&:nth-of-type(3)]:bg-green-500 [&:nth-of-type(4)]:bg-yellow-500",
   }}
 />
 ```
@@ -181,10 +184,10 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ### Custom Container Sizing
 
 ```tsx
-<SpinnerBounce 
+<SpinnerBounce
   classNames={{
-    container: "w-8 h-8",
-    shape: "w-2 h-2"
+    container: "h-8 w-8",
+    shape: "h-2 w-2",
   }}
 />
 ```
@@ -192,11 +195,13 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ## Size Specifications
 
 ### SpinnerBounce
+
 - **Small**: 4px shapes, 16px container
-- **Medium**: 6px shapes, 24px container  
+- **Medium**: 6px shapes, 24px container
 - **Large**: 8px shapes, 32px container
 
 ### SpinnerSpin
+
 - **Small**: 16px container, ~5.33px shapes
 - **Medium**: 24px container, 8px shapes
 - **Large**: 32px container, ~10.67px shapes
@@ -213,18 +218,21 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ## Usage Guidelines
 
 ### When to Use SpinnerBounce
+
 - Simple loading states
 - Minimal design requirements
 - Quick operations (< 3 seconds)
 - When visual simplicity is preferred
 
 ### When to Use SpinnerSpin
+
 - More prominent loading states
 - When custom colors are needed
 - Longer operations that benefit from more visual interest
 - Dashboard and data-heavy interfaces
 
 ### Loading Text Guidelines
+
 - Keep labels concise and actionable
 - Use present participle verbs: "Loading...", "Saving...", "Processing..."
 - Avoid generic "Please wait" in favor of specific actions
@@ -242,17 +250,15 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ### Button Loading State
 
 ```tsx
-<button disabled={isLoading}>
-  {isLoading ? <SpinnerBounce size="small" /> : "Save Changes"}
-</button>
+<button disabled={isLoading}>{isLoading ? <SpinnerBounce size="small" /> : "Save Changes"}</button>
 ```
 
 ### Full Page Loading
 
 ```tsx
-<div className="flex items-center justify-center min-h-screen">
-  <SpinnerSpin 
-    size="large" 
+<div className="flex min-h-screen items-center justify-center">
+  <SpinnerSpin
+    size="large"
     label="Loading your dashboard..."
     variant="primary"
   />
@@ -271,11 +277,12 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ### Custom Themed Spinner
 
 ```tsx
-<SpinnerSpin 
+<SpinnerSpin
   size="medium"
   classNames={{
     container: "drop-shadow-lg",
-    shape: "!opacity-100 [&:nth-of-type(1)]:bg-gradient-to-r [&:nth-of-type(1)]:from-purple-500 [&:nth-of-type(1)]:to-pink-500"
+    shape:
+      "!opacity-100 [&:nth-of-type(1)]:bg-gradient-to-r [&:nth-of-type(1)]:from-purple-500 [&:nth-of-type(1)]:to-pink-500",
   }}
   label="Processing..."
 />
@@ -284,11 +291,13 @@ The `classNames.shape` property allows you to style each of the 4 animated shape
 ## Animation Details
 
 ### SpinnerBounce
+
 - Two shapes that bounce up and down in alternating sequence
 - Uses CSS transforms for smooth animation
 - Continuous loop with easing functions
 
-### SpinnerSpin  
+### SpinnerSpin
+
 - Four shapes arranged in a circular pattern
 - Rotates continuously around the center
 - Individual shapes can have different opacities and colors

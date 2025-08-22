@@ -26,7 +26,7 @@ import { Label } from "@choiceform/design-system"
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label htmlFor="name">Name</Label>
   <Input id="name" />
 </div>
@@ -37,14 +37,17 @@ import { Input } from "@choiceform/design-system"
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label
     htmlFor="email"
     description="Please enter your full email address"
   >
     Email Address
   </Label>
-  <Input id="email" type="email" />
+  <Input
+    id="email"
+    type="email"
+  />
 </div>
 ```
 
@@ -53,7 +56,7 @@ import { Input } from "@choiceform/design-system"
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label
     htmlFor="required"
     required
@@ -69,7 +72,7 @@ import { Input } from "@choiceform/design-system"
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label
     htmlFor="disabled"
     disabled
@@ -89,7 +92,7 @@ import { Input } from "@choiceform/design-system"
 import { Input, IconButton } from "@choiceform/design-system"
 import { QuestionCircle } from "@choiceform/icons-react"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label
     htmlFor="help"
     description="This field needs additional explanation"
@@ -112,9 +115,7 @@ import { QuestionCircle } from "@choiceform/icons-react"
 
 ```tsx
 <fieldset>
-  <Label as="legend">
-    Personal Information
-  </Label>
+  <Label as="legend">Personal Information</Label>
   {/* Radio buttons or other grouped form controls */}
 </fieldset>
 ```
@@ -124,7 +125,7 @@ import { QuestionCircle } from "@choiceform/icons-react"
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="bg-gray-800 p-4">
+;<div className="bg-gray-800 p-4">
   <div className="flex flex-col gap-2">
     <Label
       htmlFor="dark"
@@ -202,7 +203,7 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement | HTMLLe
 ```tsx
 import { Input } from "@choiceform/design-system"
 
-<div className="space-y-4">
+;<div className="space-y-4">
   <div className="flex flex-col gap-2">
     <Label
       htmlFor="username"
@@ -224,8 +225,11 @@ import { Input } from "@choiceform/design-system"
 ```tsx
 import { RadioGroup } from "@choiceform/design-system"
 
-<fieldset className="border rounded p-4">
-  <Label as="legend" description="Select your preferred contact method">
+;<fieldset className="rounded border p-4">
+  <Label
+    as="legend"
+    description="Select your preferred contact method"
+  >
     Contact Preference
   </Label>
   <RadioGroup
@@ -244,13 +248,16 @@ import { RadioGroup } from "@choiceform/design-system"
 import { Input, Tooltip, IconButton } from "@choiceform/design-system"
 import { QuestionCircle } from "@choiceform/icons-react"
 
-<div className="flex flex-col gap-2">
+;<div className="flex flex-col gap-2">
   <Label
     htmlFor="api-key"
     description="Found in your account settings"
     action={
       <Tooltip content="Your API key is used to authenticate requests">
-        <IconButton variant="ghost" className="size-4">
+        <IconButton
+          variant="ghost"
+          className="size-4"
+        >
           <QuestionCircle />
         </IconButton>
       </Tooltip>
