@@ -5,8 +5,8 @@
  */
 export function parsePattern(pattern: string): {
   keys: string[]
-  regexPattern: string
   regex: RegExp
+  regexPattern: string
 } {
   const keys: string[] = []
 
@@ -21,15 +21,6 @@ export function parsePattern(pattern: string): {
   const regex = new RegExp(`^${regexPattern}$`)
 
   return { keys, regexPattern, regex }
-}
-
-/**
- * 检查值是否为空或未定义
- * @param value 要检查的值
- * @returns 如果为空或未定义返回true
- */
-export function isEmpty(value: any): boolean {
-  return value === undefined || value === null || value === ""
 }
 
 /**

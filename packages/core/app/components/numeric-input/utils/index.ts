@@ -9,7 +9,7 @@ export { dealWithNumericInputValue, dealWithNumericValueCatch } from "./numeric-
 export { evaluate, memoizedEvaluate, applyOperation, memoize } from "./expression-evaluator"
 
 // 模式解析相关
-export { parsePattern, isEmpty, formatResult } from "./pattern-parser"
+export { parsePattern, formatResult } from "./pattern-parser"
 
 // 输入解析相关
 export { parseInputValue, extractValuesFromString } from "./input-parser"
@@ -25,3 +25,11 @@ export {
   InvalidInputTypeError,
   safeExecute,
 } from "./error-handler"
+
+// 值比较相关
+export {
+  compareNumericArrays,
+  compareNumericObjects,
+  compareNumberResults,
+  isExpressionInput,
+} from "./value-comparator"

@@ -1,7 +1,7 @@
 import React, { RefObject, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { NumberResult, NumericInputValue } from "../types"
-import { dealWithNumericInputValue } from "../utils"
+import { dealWithNumericInputValue, compareNumberResults, isExpressionInput } from "../utils"
 
 interface UseInputInteractionsProps<T extends NumericInputValue> {
   decimal?: number
@@ -74,49 +74,9 @@ export function useInputInteractions<T extends NumericInputValue>({
         decimal,
       })
 
-      // 比较逻辑：检查计算后的值是否等于当前值
-      // 1. 检查字符串完全相同
-      // 2. 检查数值部分相同（考虑带单位的情况，如 "24px" 与 "24px" 或 "12+12" 与 "24px"）
-      const isExpressionInput = displayValue !== valuePre.string
-
-      // 修改比较逻辑，比较所有值而不仅是第一个元素
-      const isSameNumericValue = (() => {
-        // 如果没有值则不是相同的
-        if (!innerValue?.array.length || !valuePre.array.length) return false
-
-        // 比较数组长度
-        if (innerValue.array.length !== valuePre.array.length) return false
-
-        // 比较每一个元素
-        return innerValue.array.every(
-          (value, index) =>
-            value !== undefined &&
-            valuePre.array[index] !== undefined &&
-            value === valuePre.array[index],
-        )
-      })()
-
-      // 对象比较
-      const isSameObjectValue = (() => {
-        if (!innerValue?.object || !valuePre.object) return false
-
-        const innerKeys = Object.keys(innerValue.object)
-        const valueKeys = Object.keys(valuePre.object)
-
-        // 比较键的数量
-        if (innerKeys.length !== valueKeys.length) return false
-
-        // 比较每个键值对
-        return innerKeys.every((key) => innerValue.object[key] === valuePre.object[key])
-      })()
-
-      const isSameValue =
-        // 字符串完全相同
-        valuePre.string === innerValue?.string ||
-        // 或者数值部分相同（无论是直接输入还是表达式）
-        isSameNumericValue ||
-        // 或者对象值相同
-        isSameObjectValue
+      // 使用抽离的比较逻辑
+      const isExpressionInputValue = isExpressionInput(displayValue, valuePre)
+      const isSameValue = compareNumberResults(innerValue, valuePre)
 
       if (isSameValue) {
         // 无论是否触发 onChange，都应该更新输入框显示值为计算结果
