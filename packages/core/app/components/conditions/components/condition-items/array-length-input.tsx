@@ -35,7 +35,7 @@ export function ArrayLengthInput({ condition, disabled, onChange }: BaseFieldInp
         step={1}
         className="min-w-0 flex-1"
       />
-      <span className="text-sm whitespace-nowrap text-gray-500">items</span>
+      <span className="text-body-small whitespace-nowrap text-gray-500">items</span>
     </div>
   )
 }

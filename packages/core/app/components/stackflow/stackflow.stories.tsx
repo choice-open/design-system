@@ -20,7 +20,7 @@ const NavigationControls = () => {
   return (
     <div className="flex flex-col gap-4 border-b p-4">
       <div className="flex items-center gap-2">
-        <span className="font-medium">Navigate to:</span>
+        <span className="font-strong">Navigate to:</span>
         <Button
           variant="secondary"
           onClick={() => push("home")}
@@ -83,7 +83,7 @@ const PageContent = ({
 
   return (
     <div className="p-8">
-      <h2 className={`text-2xl font-bold text-${color}-800 mb-4`}>{title}</h2>
+      <h2 className={`text-heading-display text-${color}-800 mb-4`}>{title}</h2>
       <p className={`text-${color}-600 mb-6`}>{description}</p>
 
       <div className="flex flex-wrap gap-2">
@@ -343,10 +343,10 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
   if (categories.length === 0 && nodes.length === 0) {
     return (
       <div className="p-6">
-        <h2 className="mb-6 text-xl font-bold text-gray-800">搜索结果</h2>
+        <h2 className="text-heading-large mb-6 text-gray-800">搜索结果</h2>
         <div className="py-8 text-center text-gray-500">
           <p>未找到匹配 &ldquo;{searchQuery}&rdquo; 的结果</p>
-          <p className="mt-2 text-sm">请尝试其他关键词</p>
+          <p className="text-body-small mt-2">请尝试其他关键词</p>
         </div>
       </div>
     )
@@ -354,7 +354,7 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
 
   return (
     <div className="p-6">
-      <h2 className="mb-6 text-xl font-bold text-gray-800">
+      <h2 className="text-heading-large mb-6 text-gray-800">
         {searchQuery ? `搜索结果 (${categories.length + nodes.length})` : "节点分类"}
       </h2>
 
@@ -362,7 +362,9 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
       {categories.length > 0 && (
         <div className="mb-6 space-y-3">
           {searchQuery && (
-            <h3 className="mb-3 text-sm font-medium text-gray-600">分类 ({categories.length})</h3>
+            <h3 className="text-body-small-strong mb-3 text-gray-600">
+              分类 ({categories.length})
+            </h3>
           )}
           {categories.map((item) => (
             <div
@@ -372,8 +374,10 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className={`font-semibold text-${item.color}-800`}>{item.label}</h3>
-                  <p className={`text-sm text-${item.color}-600 mt-1`}>{item.description}</p>
+                  <h3 className={`font-strong text-${item.color}-800`}>{item.label}</h3>
+                  <p className={`text-body-small text-${item.color}-600 mt-1`}>
+                    {item.description}
+                  </p>
                   {!searchQuery && <span className={`text-xs text-${item.color}-500`}>分类</span>}
                 </div>
                 <div className={`text-${item.color}-400`}>→</div>
@@ -386,7 +390,7 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
       {/* 节点结果 */}
       {nodes.length > 0 && (
         <div className="space-y-3">
-          <h3 className="mb-3 text-sm font-medium text-gray-600">节点 ({nodes.length})</h3>
+          <h3 className="text-body-small-strong mb-3 text-gray-600">节点 ({nodes.length})</h3>
           {nodes.map((item) => (
             <div
               key={item.id}
@@ -398,7 +402,7 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className={`font-semibold text-${item.color}-800`}>{item.label}</h3>
+                  <h3 className={`font-strong text-${item.color}-800`}>{item.label}</h3>
                 </div>
               </div>
             </div>
@@ -432,8 +436,8 @@ const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
           ← 返回
         </button>
         <div>
-          <h2 className={`text-xl font-bold text-${category.color}-800`}>{category.label}</h2>
-          <p className={`text-sm text-${category.color}-600`}>{category.description}</p>
+          <h2 className={`text-heading-large text-${category.color}-800`}>{category.label}</h2>
+          <p className={`text-body-small text-${category.color}-600`}>{category.description}</p>
         </div>
       </div>
 
@@ -454,12 +458,12 @@ const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
           >
             <div className="flex items-center justify-between">
               <div>
-                <span className={`font-medium text-${category.color}-800`}>{item.label}</span>
+                <span className={`font-strong text-${category.color}-800`}>{item.label}</span>
                 {item.type === "category" && (
                   <span className={`ml-2 text-xs text-${category.color}-500`}>分类</span>
                 )}
               </div>
-              <span className={`text-${category.color}-400 text-sm`}>
+              <span className={`text-${category.color}-400 text-body-small`}>
                 {item.type === "category" ? "→" : "选择"}
               </span>
             </div>

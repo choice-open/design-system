@@ -464,8 +464,8 @@ export const CoordinateMode: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">📍 Coordinate Mode Combobox</h3>
-          <p className="text-secondary-foreground text-sm">
+          <h3 className="font-strong mb-2">📍 Coordinate Mode Combobox</h3>
+          <p className="text-secondary-foreground text-body-small">
             Click anywhere in the area below to trigger a Combobox at that position. Perfect for
             mentions, autocomplete, etc.
           </p>
@@ -730,8 +730,8 @@ export const MentionsWithSlate: Story = {
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">🔍 Combobox Mentions with Slate.js</h3>
-          <p className="text-secondary-foreground text-sm">
+          <h3 className="font-strong mb-2">🔍 Combobox Mentions with Slate.js</h3>
+          <p className="text-secondary-foreground text-body-small">
             Type @ and continue typing to filter users. Combobox maintains focus on the editor.
           </p>
         </div>
@@ -790,7 +790,7 @@ export const MentionsWithSlate: Story = {
                       className="size-4 rounded-full"
                     />
                   }
-                  suffixElement={<span className="text-sm text-white/60">{user.role}</span>}
+                  suffixElement={<span className="text-body-small text-white/60">{user.role}</span>}
                 >
                   <Combobox.Value>{user.name}</Combobox.Value>
                 </Combobox.Item>
@@ -823,7 +823,7 @@ export const MentionsWithSlate: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <h4 className="mb-2 font-medium">Test Cases:</h4>
+            <h4 className="font-strong mb-2">Test Cases:</h4>
             <ul className="text-secondary-foreground space-y-1">
               <li>• Type @ - Shows all 5 users</li>
               <li>• Type @john - Filters to John Doe, Alice Johnson</li>

@@ -275,7 +275,7 @@ export const FileManagerExample: Story = {
 
     return (
       <div className="space-y-8 p-8">
-        <h2 className="text-lg font-semibold">File Manager Example</h2>
+        <h2 className="text-body-large-strong">File Manager Example</h2>
 
         <div className="flex gap-4">
           <div>
@@ -675,7 +675,7 @@ export const WithDisabled: Story = {
         <div className="flex gap-8">
           {/* Using ContextMenu.Trigger */}
           <div>
-            <p className="mb-2 text-sm font-medium">Using ContextMenu.Trigger</p>
+            <p className="text-body-small-strong mb-2">Using ContextMenu.Trigger</p>
             <ContextMenu disabled={isDisabled}>
               <ContextMenu.Trigger>
                 <div className="bg-secondary-background rounded-xl border border-dashed p-8">
@@ -702,7 +702,7 @@ export const WithDisabled: Story = {
 
           {/* Using triggerRef */}
           <div>
-            <p className="mb-2 text-sm font-medium">Using triggerRef</p>
+            <p className="text-body-small-strong mb-2">Using triggerRef</p>
             <DisabledWithTriggerRef disabled={isDisabled} />
           </div>
         </div>

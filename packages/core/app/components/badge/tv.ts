@@ -1,11 +1,11 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const BadgeTV = tv({
+export const BadgeTV = tcv({
   slots: {
     root: [
       "h-4 rounded-md",
       "inline-flex items-center",
-      "leading-md tracking-md text-md",
+      "text-body-medium",
       "border border-solid border-transparent",
       "cursor-default select-none",
     ],

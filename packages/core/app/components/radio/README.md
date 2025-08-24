@@ -309,7 +309,7 @@ const [notifications, setNotifications] = useState("email")
 
 <div className="space-y-6">
   <fieldset>
-    <legend className="mb-3 font-medium">Theme Preference</legend>
+    <legend className="mb-3 font-strong">Theme Preference</legend>
     <RadioGroup
       variant="accent"
       value={theme}
@@ -322,7 +322,7 @@ const [notifications, setNotifications] = useState("email")
   </fieldset>
 
   <fieldset>
-    <legend className="mb-3 font-medium">Notifications</legend>
+    <legend className="mb-3 font-strong">Notifications</legend>
     <RadioGroup
       value={notifications}
       onChange={setNotifications}
@@ -344,7 +344,7 @@ const [notifications, setNotifications] = useState("email")
 const [paymentMethod, setPaymentMethod] = useState("card")
 
 <fieldset className="space-y-3">
-  <legend className="text-lg font-semibold">Payment Method</legend>
+  <legend className="text-body-large-strong">Payment Method</legend>
 
   <RadioGroup
     variant="outline"
@@ -356,8 +356,8 @@ const [paymentMethod, setPaymentMethod] = useState("card")
         <div className="flex items-center gap-2">
           <span>💳</span>
           <div>
-            <div className="font-medium">Credit Card</div>
-            <div className="text-sm text-secondary-foreground">
+            <div className="font-strong">Credit Card</div>
+            <div className="text-body-small text-secondary-foreground">
               Visa, Mastercard, American Express
             </div>
           </div>
@@ -370,8 +370,8 @@ const [paymentMethod, setPaymentMethod] = useState("card")
         <div className="flex items-center gap-2">
           <span>🅿️</span>
           <div>
-            <div className="font-medium">PayPal</div>
-            <div className="text-sm text-secondary-foreground">
+            <div className="font-strong">PayPal</div>
+            <div className="text-body-small text-secondary-foreground">
               Pay with your PayPal account
             </div>
           </div>
@@ -384,8 +384,8 @@ const [paymentMethod, setPaymentMethod] = useState("card")
         <div className="flex items-center gap-2">
           <span>🏦</span>
           <div>
-            <div className="font-medium">Bank Transfer</div>
-            <div className="text-sm text-secondary-foreground">
+            <div className="font-strong">Bank Transfer</div>
+            <div className="text-body-small text-secondary-foreground">
               Currently unavailable
             </div>
           </div>
@@ -402,7 +402,7 @@ const [paymentMethod, setPaymentMethod] = useState("card")
 const [answer, setAnswer] = useState<string>("")
 
 <div className="space-y-4">
-  <h3 className="font-medium">What is the capital of France?</h3>
+  <h3 className="font-strong">What is the capital of France?</h3>
 
   <RadioGroup
     value={answer}
@@ -416,7 +416,7 @@ const [answer, setAnswer] = useState<string>("")
   />
 
   {answer && (
-    <p className="text-sm text-secondary-foreground">
+    <p className="text-body-small text-secondary-foreground">
       Selected: {answer}
     </p>
   )}

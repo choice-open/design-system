@@ -80,7 +80,7 @@ export const Basic: Story = {
             <div className="grid grid-cols-4 gap-2">
               {Object.values(State).map((state) => (
                 <Fragment key={state}>
-                  <span className="text-pink-500 capitalize">{state}</span>
+                  <span className="capitalize text-pink-500">{state}</span>
 
                   {Object.values(Interaction).map((interaction) => (
                     <Fragment key={interaction}>
@@ -214,7 +214,7 @@ export const LabelUsage: Story = {
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
           <Checkbox
             value={simple}
             onChange={setSimple}
@@ -224,7 +224,7 @@ export const LabelUsage: Story = {
         </div>
 
         <div>
-          <h4 className="mb-2 font-medium">Explicit Checkbox.Label (for complex content):</h4>
+          <h4 className="font-strong mb-2">Explicit Checkbox.Label (for complex content):</h4>
           <Checkbox
             value={explicit}
             onChange={setExplicit}

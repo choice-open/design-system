@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const dragDialogTv = tv({
+export const dragDialogTv = tcv({
   slots: {
     overlay: "z-modals overflow-hidden",
     dialog: "",

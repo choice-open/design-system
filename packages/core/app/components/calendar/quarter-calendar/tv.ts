@@ -1,12 +1,12 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const QuarterCalendarTv = tv({
+export const QuarterCalendarTv = tcv({
   slots: {
     // 容器
     container: "select-none",
     // 头部
     header: "flex items-center pt-2 pr-1 pl-3",
-    title: "flex-1 truncate font-medium",
+    title: "flex-1 truncate font-strong",
     navigation: "flex h-6 items-center",
     // 季度网格
     quartersGrid: "grid grid-cols-4 gap-0 px-2 pb-2",
@@ -20,7 +20,7 @@ export const QuarterCalendarTv = tv({
       "after:absolute after:z-1 after:content-['']",
     ],
     // 季度标题
-    quarterTitle: "relative z-2 font-medium",
+    quarterTitle: "relative z-2 font-strong",
     // 月份列表
     monthsList: "relative z-2 mt-2",
     monthItem: "",

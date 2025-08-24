@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const chipsInputTv = tv({
+export const chipsInputTv = tcv({
   slots: {
     root: [
       "flex max-w-full min-w-0 flex-wrap",
@@ -9,7 +9,7 @@ export const chipsInputTv = tv({
     ],
     input: [
       "max-w-full flex-1",
-      "leading-md tracking-md",
+      "text-body-medium",
       "cursor-default appearance-none",
       "placeholder:text-secondary-foreground",
     ],
@@ -52,7 +52,7 @@ export const chipsInputTv = tv({
   },
 })
 
-export const chipTv = tv({
+export const chipTv = tcv({
   slots: {
     root: "max-w-full pr-0",
     closeButton: "",

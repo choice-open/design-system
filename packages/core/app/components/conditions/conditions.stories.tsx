@@ -94,7 +94,7 @@ export const Basic: Story = {
         />
 
         <div className="mt-6 rounded-xl bg-gray-50 p-4">
-          <h3 className="mb-2 text-sm font-medium text-gray-700">Current Conditions:</h3>
+          <h3 className="text-body-small-strong mb-2 text-gray-700">Current Conditions:</h3>
           <pre className="max-h-96 overflow-auto text-xs text-gray-600">
             {JSON.stringify(conditions, null, 2)}
           </pre>
@@ -137,7 +137,7 @@ export const PreConfigured: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3">
-          <p className="text-sm text-blue-800">
+          <p className="text-body-small text-blue-800">
             <strong>Pre-configured example:</strong> High priority AND not completed
           </p>
         </div>
@@ -197,7 +197,7 @@ export const FieldTypes: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-green-200 bg-green-50 p-3">
-          <p className="text-sm text-green-800">
+          <p className="text-body-small text-green-800">
             <strong>Field Types Demo:</strong> Each field type shows different available operators
           </p>
         </div>
@@ -245,7 +245,7 @@ export const Disabled: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3">
-          <p className="text-sm text-gray-600">
+          <p className="text-body-small text-gray-600">
             <strong>Disabled State:</strong> All controls are disabled but conditions remain visible
           </p>
         </div>
@@ -337,7 +337,7 @@ export const TaskManagement: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-indigo-200 bg-indigo-50 p-3">
-          <p className="text-sm text-indigo-800">
+          <p className="text-body-small text-indigo-800">
             <strong>Task Management:</strong> Filter tasks by priority, due date, and blocking
             status
           </p>
@@ -350,7 +350,7 @@ export const TaskManagement: Story = {
         />
 
         <div className="mt-6 rounded-xl bg-gray-50 p-4">
-          <h4 className="mb-2 text-sm font-medium text-gray-700">Filter Summary:</h4>
+          <h4 className="text-body-small-strong mb-2 text-gray-700">Filter Summary:</h4>
           <div className="text-xs text-gray-600">
             {conditions.groups.length === 0 ? (
               <p>No filters applied</p>
@@ -403,7 +403,7 @@ export const AdvancedOperators: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-purple-200 bg-purple-50 p-3">
-          <p className="text-sm text-purple-800">
+          <p className="text-body-small text-purple-800">
             <strong>Advanced Operators:</strong> Filter by field existence, emptiness, and presence
           </p>
         </div>
@@ -478,7 +478,7 @@ export const RegexPatterns: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-orange-200 bg-orange-50 p-3">
-          <p className="text-sm text-orange-800">
+          <p className="text-body-small text-orange-800">
             <strong>Regex Patterns:</strong> Use regular expressions for advanced text matching
           </p>
           <div className="mt-2 text-xs text-orange-700">
@@ -562,7 +562,7 @@ export const ArrayLengthFilters: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-teal-200 bg-teal-50 p-3">
-          <p className="text-sm text-teal-800">
+          <p className="text-body-small text-teal-800">
             <strong>Length Filters:</strong> Filter by text length or array item count
           </p>
           <div className="mt-2 text-xs text-teal-700">
@@ -658,7 +658,7 @@ export const BooleanLogic: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3">
-          <p className="text-sm text-blue-800">
+          <p className="text-body-small text-blue-800">
             <strong>Boolean Logic:</strong> Simplified true/false operators for cleaner boolean
             filtering
           </p>
@@ -731,7 +731,7 @@ export const DragAndDropTest: Story = {
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3">
-          <p className="text-sm text-red-800">
+          <p className="text-body-small text-red-800">
             <strong>Drag & Drop Test:</strong> Test dragging conditions between groups, within
             groups, and in/out of nested groups. Open browser console to see debug logs.
           </p>
@@ -749,7 +749,7 @@ export const DragAndDropTest: Story = {
         />
 
         <div className="mt-6 rounded-xl bg-gray-50 p-4">
-          <h4 className="mb-2 text-sm font-medium text-gray-700">
+          <h4 className="text-body-small-strong mb-2 text-gray-700">
             Current Structure (for debugging):
           </h4>
           <pre className="max-h-96 overflow-auto text-xs text-gray-600">

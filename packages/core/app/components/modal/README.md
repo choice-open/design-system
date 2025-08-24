@@ -131,7 +131,7 @@ import { Modal } from "@choiceform/design-system"
 ```tsx
 <Modal>
   <Modal.Header title="Form Modal" />
-  <Modal.Content className="flex w-md flex-col gap-4 p-4">
+  <Modal.Content className="w-md flex flex-col gap-4 p-4">
     {/* Modal Input */}
     <Modal.Input
       size="large"
@@ -209,7 +209,7 @@ import { Modal } from "@choiceform/design-system"
         </TextField.Suffix>
       </TextField>
       <Button
-        className="rounded-lg px-4 font-medium"
+        className="font-strong rounded-lg px-4"
         size="large"
       >
         Share

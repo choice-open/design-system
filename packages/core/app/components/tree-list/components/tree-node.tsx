@@ -363,7 +363,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
                 className="flex w-full flex-shrink-1 items-center justify-between truncate px-2 text-left whitespace-pre"
               >
                 <div
-                  className="text-md invisible absolute pr-2"
+                  className="text-body-medium invisible absolute pr-2"
                   title={name}
                 >
                   {name}
@@ -371,7 +371,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
                 <div
                   ref={contentRef}
                   className={tcx(
-                    "text-md max-w-fit flex-1 group-hover/tree-node:truncate",
+                    "text-body-medium max-w-fit flex-1 group-hover/tree-node:truncate",
                     isSelected && "text-default-foreground",
                   )}
                   title={name}

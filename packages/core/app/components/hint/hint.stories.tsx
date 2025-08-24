@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>
 export const ScreenshotMatch: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <span className="font-medium">Reason</span>
+      <span className="font-strong">Reason</span>
       <Hint
         content="Optional reason"
         placement="right-start"
@@ -59,7 +59,7 @@ export const ScreenshotMatch: Story = {
 export const CustomIcon: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <span className="font-medium">Reason</span>
+      <span className="font-strong">Reason</span>
       <Hint
         icon={<CircleInfoLargeSolid />}
         content="Optional reason"
@@ -84,7 +84,7 @@ export const CustomIcon: Story = {
 export const Default: Story = {
   render: () => (
     <div className="flex items-center gap-2 rounded-xl p-4">
-      <span className="font-medium">Reason</span>
+      <span className="font-strong">Reason</span>
       <Hint content="Optional reason" />
     </div>
   ),

@@ -1,12 +1,7 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const InputTv = tv({
-  base: [
-    "min-w-0 rounded-md px-2",
-    "leading-md tracking-md text-md",
-    "cursor-default",
-    "appearance-none",
-  ],
+export const InputTv = tcv({
+  base: ["min-w-0 rounded-md px-2", "cursor-default", "appearance-none"],
 
   variants: {
     variant: {

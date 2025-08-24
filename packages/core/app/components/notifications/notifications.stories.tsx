@@ -284,7 +284,7 @@ export const UseEffect: Story = {
           </Button>
         </div>
 
-        <div className="text-secondary-foreground text-sm">
+        <div className="text-secondary-foreground text-body-small">
           <p>Monitoring: {isMonitoring ? "Active" : "Inactive"}</p>
           <p>Notification: {hasNotification ? "Visible" : "Hidden"}</p>
           <p>Action count: {actionCount}</p>

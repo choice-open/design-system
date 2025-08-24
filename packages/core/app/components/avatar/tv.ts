@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const avatarTv = tv({
+export const avatarTv = tcv({
   slots: {
     root: ["rounded-full", "relative flex shrink-0 items-center justify-center align-middle"],
     image: [

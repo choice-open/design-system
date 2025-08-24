@@ -270,7 +270,7 @@ export function Conditions({
               {/* 在多个组之间显示 OR 连接符 */}
               {index > 0 && (
                 <div className="flex justify-center py-2">
-                  <span className="bg-secondary-background text-secondary-foreground rounded-full px-2 py-1 font-medium">
+                  <span className="bg-secondary-background text-secondary-foreground font-strong rounded-full px-2 py-1">
                     OR
                   </span>
                 </div>
@@ -319,14 +319,14 @@ export function Conditions({
 
     return (
       <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3">
-        <h4 className="mb-2 text-sm font-medium text-red-800">Validation Errors:</h4>
-        <ul className="space-y-1 text-sm text-red-700">
+        <h4 className="text-body-small-strong mb-2 text-red-800">Validation Errors:</h4>
+        <ul className="text-body-small space-y-1 text-red-700">
           {validationResult.errors.map((error, index) => (
             <li
               key={index}
               className="flex items-start"
             >
-              <span className="mt-2 mr-2 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-red-500" />
+              <span className="mr-2 mt-2 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-red-500" />
               {error.message}
             </li>
           ))}

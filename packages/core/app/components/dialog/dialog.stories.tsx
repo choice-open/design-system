@@ -198,7 +198,7 @@ export const InitialPosition: Story = {
             <p className="mb-2">
               This dialog starts at the <strong>{position}</strong> position.
             </p>
-            <p className="text-secondary-foreground text-sm break-words">
+            <p className="text-secondary-foreground text-body-small break-words">
               You can drag this dialog around. Change the position in the dropdown and reopen to see
               different starting positions.
             </p>
@@ -272,7 +272,6 @@ export const CustomBackdrop: Story = {
           open={open}
           onOpenChange={setOpen}
         >
-          <Dialog.Backdrop />
           <Dialog.Header title="Custom Backdrop Dialog Title" />
           <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
@@ -561,12 +560,12 @@ export const CloseOnEscape: Story = {
       <div className="flex gap-4">
         <div className="flex flex-col gap-2">
           <Button onClick={() => setEscEnabledOpen(true)}>Dialog with ESC (Default)</Button>
-          <p className="text-secondary-foreground text-sm">Press ESC to close</p>
+          <p className="text-secondary-foreground text-body-small">Press ESC to close</p>
         </div>
 
         <div className="flex flex-col gap-2">
           <Button onClick={() => setEscDisabledOpen(true)}>Dialog without ESC</Button>
-          <p className="text-secondary-foreground text-sm">ESC key disabled</p>
+          <p className="text-secondary-foreground text-body-small">ESC key disabled</p>
         </div>
 
         {/* Dialog with ESC enabled (default behavior) */}
@@ -578,7 +577,7 @@ export const CloseOnEscape: Story = {
           <Dialog.Header title="ESC Key Enabled" />
           <Dialog.Content className="w-96 p-3">
             <p>This dialog can be closed by pressing the ESC key.</p>
-            <p className="text-secondary-foreground mt-2 text-sm">
+            <p className="text-secondary-foreground text-body-small mt-2">
               Try pressing ESC to close this dialog.
             </p>
           </Dialog.Content>
@@ -593,7 +592,7 @@ export const CloseOnEscape: Story = {
           <Dialog.Header title="ESC Key Disabled" />
           <Dialog.Content className="w-96 p-3">
             <p>This dialog cannot be closed by pressing the ESC key.</p>
-            <p className="text-secondary-foreground mt-2 text-sm">
+            <p className="text-secondary-foreground text-body-small mt-2">
               You must use the close button or click outside (if enabled) to close this dialog.
             </p>
           </Dialog.Content>

@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const NotificationsTv = tv({
+export const NotificationsTv = tcv({
   slots: {
     root: ["grid", "bg-menu-background h-14 w-72 overflow-hidden rounded-md text-white shadow-lg"],
     content: "grid items-center gap-1 px-2 py-3",

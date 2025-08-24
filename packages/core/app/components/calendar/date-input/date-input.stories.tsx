@@ -169,7 +169,7 @@ export const KeyboardNavigation: Story = {
           onChange={setValue}
         />
         <div className="text-secondary-foreground space-y-2 rounded-md border p-2">
-          <div className="font-medium">⌨️ Keyboard Navigation</div>
+          <div className="font-strong">⌨️ Keyboard Navigation</div>
           <div>
             • <code>↑</code> / <code>↓</code> - Adjust 1 day
           </div>
@@ -205,7 +205,7 @@ export const DragInteraction: Story = {
           onChange={setValue}
         />
         <div className="text-secondary-foreground space-y-2 rounded-md border p-2">
-          <div className="font-medium">🖱️ Drag Interaction</div>
+          <div className="font-strong">🖱️ Drag Interaction</div>
           <div>• Click and drag the calendar icon to adjust date</div>
           <div>• Hold Shift key to drag 1 week</div>
           <div>• Hold Ctrl/Cmd key to drag 1 month</div>
@@ -329,7 +329,7 @@ export const VariableLengthFormats: Story = {
 
     return (
       <div className="space-y-8">
-        <div className="text-lg font-medium">📏 Variable Length Formats</div>
+        <div className="text-body-large-strong">📏 Variable Length Formats</div>
         <div className="text-secondary-foreground">
           DateInput now supports any date-fns format string, including different length years,
           months, etc.
@@ -415,10 +415,10 @@ export const VariableLengthFormats: Story = {
         </div>
 
         <div className="space-y-4 rounded-md border p-4">
-          <div className="text-secondary-foreground font-medium">📖 Format Description</div>
+          <div className="text-secondary-foreground font-strong">📖 Format Description</div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-blue-50">
-              <div className="mb-2 font-medium text-blue-800">Year Format</div>
+              <div className="font-strong mb-2 text-blue-800">Year Format</div>
               <div className="space-y-1 text-blue-700">
                 <div>
                   <code>yyyy</code> → 2025 (4-digit year)
@@ -430,7 +430,7 @@ export const VariableLengthFormats: Story = {
             </div>
 
             <div className="bg-green-50">
-              <div className="mb-2 font-medium text-green-800">Month Format</div>
+              <div className="font-strong mb-2 text-green-800">Month Format</div>
               <div className="space-y-1 text-green-700">
                 <div>
                   <code>MMMM</code> → December (full month name)
@@ -448,7 +448,7 @@ export const VariableLengthFormats: Story = {
             </div>
 
             <div className="bg-purple-50">
-              <div className="mb-2 font-medium text-purple-800">Day Format</div>
+              <div className="font-strong mb-2 text-purple-800">Day Format</div>
               <div className="space-y-1 text-purple-700">
                 <div>
                   <code>dd</code> → 31 (2-digit day)
@@ -460,7 +460,7 @@ export const VariableLengthFormats: Story = {
             </div>
 
             <div className="bg-orange-50">
-              <div className="mb-2 font-medium text-orange-800">Separator Format</div>
+              <div className="font-strong mb-2 text-orange-800">Separator Format</div>
               <div className="space-y-1 text-orange-700">
                 <div>
                   <code>-</code> → 2025-12-31
@@ -480,7 +480,7 @@ export const VariableLengthFormats: Story = {
         </div>
 
         <div className="rounded-md border p-4">
-          <div className="mb-2 font-medium">💡 Usage Tips</div>
+          <div className="font-strong mb-2">💡 Usage Tips</div>
           <div className="text-secondary-foreground">
             Now you can use any date-fns format string directly, no longer limited by predefined
             formats. View full format options:
@@ -519,7 +519,7 @@ export const Prediction: Story = {
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-3">
-            <div className="font-medium text-blue-600">🎨 Real-time Highlight</div>
+            <div className="font-strong text-blue-600">🎨 Real-time Highlight</div>
             <div className="text-secondary-foreground space-y-2">
               <div>• Number automatically highlights</div>
               <div>• Shortcut key color change prompt</div>
@@ -528,7 +528,7 @@ export const Prediction: Story = {
           </div>
 
           <div className="space-y-3">
-            <div className="font-medium text-purple-600">💡 Intelligent Prediction</div>
+            <div className="font-strong text-purple-600">💡 Intelligent Prediction</div>
             <div className="text-secondary-foreground space-y-2">
               <div>• Real-time prediction prompt box ✅</div>
               <div>• Number format recognition ✅</div>
@@ -537,7 +537,7 @@ export const Prediction: Story = {
           </div>
 
           <div className="space-y-3">
-            <div className="font-medium text-green-600">⌨️ Keyboard Interaction</div>
+            <div className="font-strong text-green-600">⌨️ Keyboard Interaction</div>
             <div className="text-secondary-foreground space-y-2">
               <div>
                 • <kbd className="rounded bg-gray-100 px-1">Enter</kbd> Confirm input
@@ -550,7 +550,7 @@ export const Prediction: Story = {
           </div>
 
           <div className="space-y-3">
-            <div className="font-medium text-orange-600">🔄 Formatting</div>
+            <div className="font-strong text-orange-600">🔄 Formatting</div>
             <div className="text-secondary-foreground space-y-2">
               <div>• Automatic formatting output</div>
               <div>• Intelligent error correction</div>
@@ -580,34 +580,34 @@ export const ShortcutKeys: Story = {
       <DateInput {...args} />
 
       <div className="space-y-4">
-        <div className="font-medium">⚡ Shortcut Key Highlight Demo</div>
+        <div className="font-strong">⚡ Shortcut Key Highlight Demo</div>
         <div className="space-y-2 rounded-md border p-2">
           <div>
-            <div className="font-medium">Today</div>
+            <div className="font-strong">Today</div>
             <div className="text-secondary-foreground">
               Input: <code>t</code> or <code>Today</code> or <code>今天</code>
             </div>
           </div>
           <div>
-            <div className="font-medium">Yesterday</div>
+            <div className="font-strong">Yesterday</div>
             <div className="text-secondary-foreground">
               Input: <code>y</code> or <code>Yesterday</code> or <code>昨天</code>
             </div>
           </div>
           <div>
-            <div className="font-medium">Tomorrow</div>
+            <div className="font-strong">Tomorrow</div>
             <div className="text-secondary-foreground">
               Input: <code>tm</code> or <code>Tomorrow</code> or <code>明天</code>
             </div>
           </div>
           <div>
-            <div className="font-medium">This Week</div>
+            <div className="font-strong">This Week</div>
             <div className="text-secondary-foreground">
               Input: <code>w</code> or <code>This Week</code> or <code>本周</code>
             </div>
           </div>
           <div>
-            <div className="font-medium">This Month</div>
+            <div className="font-strong">This Month</div>
             <div className="text-secondary-foreground">
               Input: <code>m</code> or <code>This Month</code> or <code>本月</code>
             </div>
@@ -635,10 +635,10 @@ export const EnglishMonthSupport: Story = {
       <DateInput {...args} />
 
       <div className="space-y-4">
-        <div className="text-lg font-medium">🌍 English Month Recognition</div>
+        <div className="text-body-large-strong">🌍 English Month Recognition</div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium">📝 支持格式</div>
+          <div className="font-strong">📝 支持格式</div>
           <div className="text-secondary-foreground space-y-2">
             <div>
               • <code>may</code> → May 1st
@@ -662,7 +662,7 @@ export const EnglishMonthSupport: Story = {
         </div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium">📚 Month Abbreviations</div>
+          <div className="font-strong">📚 Month Abbreviations</div>
           <div className="text-secondary-foreground space-y-2">
             <div>
               • <code>jan</code> → January
@@ -692,28 +692,28 @@ export const EnglishMonthSupport: Story = {
         </div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium">🎯 Intelligent Recognition</div>
+          <div className="font-strong">🎯 Intelligent Recognition</div>
 
           <div>
-            <div className="font-medium">Full Name</div>
+            <div className="font-strong">Full Name</div>
             <div className="text-secondary-foreground">january, february...</div>
           </div>
           <div>
-            <div className="font-medium">Abbreviations</div>
+            <div className="font-strong">Abbreviations</div>
             <div className="text-secondary-foreground">jan, feb, mar...</div>
           </div>
           <div>
-            <div className="font-medium">With Dots</div>
+            <div className="font-strong">With Dots</div>
             <div className="text-secondary-foreground">jan., feb., mar.</div>
           </div>
           <div>
-            <div className="font-medium">Variants</div>
+            <div className="font-strong">Variants</div>
             <div className="text-secondary-foreground">sept, sept.</div>
           </div>
         </div>
 
         <div className="w-96 rounded-md border p-4">
-          <div className="mb-2 font-medium">💡 Tips</div>
+          <div className="font-strong mb-2">💡 Tips</div>
           <div className="text-secondary-foreground">
             Support mixed input of English and Chinese, automatically recognize the best match. When
             inputting, it will display the segmented effect and prediction prompt in real time.
@@ -741,14 +741,14 @@ export const SmartDateCorrection: Story = {
       <DateInput {...args} />
 
       <div className="w-sm space-y-4">
-        <div className="text-lg font-medium">🔧 Smart Date Correction</div>
+        <div className="text-body-large-strong">🔧 Smart Date Correction</div>
         <div className="text-secondary-foreground mb-4">
           When an invalid date is entered, the system will automatically correct it to the last day
           of the month, ensuring that the date is always valid. ✨ Now fixed!
         </div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium text-red-600">❌ Invalid Date Input</div>
+          <div className="font-strong text-red-600">❌ Invalid Date Input</div>
           <div className="text-secondary-foreground space-y-2">
             <div>
               • <code>2025-04-31</code> → 2025-04-30 (April has 30 days)
@@ -769,7 +769,7 @@ export const SmartDateCorrection: Story = {
         </div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium">✅ Smart Correction Rules</div>
+          <div className="font-strong">✅ Smart Correction Rules</div>
           <div className="text-secondary-foreground space-y-2">
             <div>
               • Date exceeds the number of days in the month → Corrected to the last day of the
@@ -783,56 +783,56 @@ export const SmartDateCorrection: Story = {
         </div>
 
         <div className="space-y-3 rounded-md border p-4">
-          <div className="font-medium">�� Test Examples</div>
+          <div className="font-strong">�� Test Examples</div>
 
           <div className="grid grid-cols-[repeat(auto-fill,minmax(128px,1fr))]">
             <div className="space-y-2">
-              <div className="font-medium">April 31st</div>
+              <div className="font-strong">April 31st</div>
               <div className="text-secondary-foreground">
                 Input: <code>20250431</code>
               </div>
-              <div className="font-medium text-green-700">→ 2025-04-30</div>
+              <div className="font-strong text-green-700">→ 2025-04-30</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium">February 30th</div>
+              <div className="font-strong">February 30th</div>
               <div className="text-secondary-foreground">
                 Input: <code>20250230</code>
               </div>
-              <div className="font-medium text-green-700">→ 2025-02-28</div>
+              <div className="font-strong text-green-700">→ 2025-02-28</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium">13th month 15th</div>
+              <div className="font-strong">13th month 15th</div>
               <div className="text-secondary-foreground">
                 Input: <code>20251315</code>
               </div>
-              <div className="font-medium text-green-700">→ 2025-12-15</div>
+              <div className="font-strong text-green-700">→ 2025-12-15</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium">June 0th</div>
+              <div className="font-strong">June 0th</div>
               <div className="text-secondary-foreground">
                 Input: <code>20250600</code>
               </div>
-              <div className="font-medium text-green-700">→ 2025-06-01</div>
+              <div className="font-strong text-green-700">→ 2025-06-01</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium">Leap year February 29th</div>
+              <div className="font-strong">Leap year February 29th</div>
               <div className="text-secondary-foreground">
                 Input: <code>20240230</code>
               </div>
-              <div className="font-medium text-green-700">→ 2024-02-29</div>
+              <div className="font-strong text-green-700">→ 2024-02-29</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium">September 31st</div>
+              <div className="font-strong">September 31st</div>
               <div className="text-secondary-foreground">
                 Input: <code>20250931</code>
               </div>
-              <div className="font-medium text-green-700">→ 2025-09-30</div>
+              <div className="font-strong text-green-700">→ 2025-09-30</div>
             </div>
           </div>
         </div>
 
         <div className="rounded-md border p-4">
-          <div className="mb-2 font-medium">✨ Intelligent Features</div>
+          <div className="font-strong mb-2">✨ Intelligent Features</div>
           <div className="text-secondary-foreground">
             No matter what invalid date is entered, the system will automatically correct it to the
             nearest valid date, ensuring a smooth user experience without error prompts. 🚀 Fixed
@@ -853,7 +853,7 @@ const InternationalizationDemo = () => {
 
   return (
     <div className="space-y-8">
-      <div className="text-lg font-medium">🌍 Internationalization Support</div>
+      <div className="text-body-large-strong">🌍 Internationalization Support</div>
       <div className="text-secondary-foreground">
         The DateInput component now supports multiple language regions, correctly parsing and
         formatting natural language input in different languages.
@@ -872,7 +872,7 @@ const InternationalizationDemo = () => {
             <TextField.Label className="text-blue-600">🇨🇳 中文 (zhCN)</TextField.Label>
           </DateInput>
           <div className="text-secondary-foreground space-y-2">
-            <div className="font-medium">支持的中文输入：</div>
+            <div className="font-strong">支持的中文输入：</div>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div>• 今天、明天、昨天</div>
               <div>• 本周、下周、上周</div>
@@ -897,7 +897,7 @@ const InternationalizationDemo = () => {
             <TextField.Label className="text-blue-600">🇺🇸 English (enUS)</TextField.Label>
           </DateInput>
           <div className="text-secondary-foreground space-y-2">
-            <div className="font-medium">Supported English input:</div>
+            <div className="font-strong">Supported English input:</div>
             <div className="grid grid-cols-2 gap-1 text-xs">
               <div>• today, tomorrow, yesterday</div>
               <div>• this week, next week</div>
@@ -922,7 +922,7 @@ const InternationalizationDemo = () => {
             <TextField.Label className="text-blue-600">🇩🇪 Deutsch (de)</TextField.Label>
           </DateInput>
           <div className="text-secondary-foreground space-y-2">
-            <div className="font-medium">Deutsche Formate:</div>
+            <div className="font-strong">Deutsche Formate:</div>
             <div className="text-xs">
               • 25.12.2024 (Standard)
               <br />
@@ -947,7 +947,7 @@ const InternationalizationDemo = () => {
             <TextField.Label className="text-blue-600">🇫🇷 Français (fr)</TextField.Label>
           </DateInput>
           <div className="text-secondary-foreground space-y-2">
-            <div className="font-medium">Formats français:</div>
+            <div className="font-strong">Formats français:</div>
             <div className="text-xs">
               • 25/12/2024 (Standard)
               <br />
@@ -962,7 +962,7 @@ const InternationalizationDemo = () => {
       </div>
 
       <div>
-        <div className="mb-2 font-medium text-green-800">🚀 Usage</div>
+        <div className="font-strong mb-2 text-green-800">🚀 Usage</div>
         <div className="text-green-700">
           Simply pass the <code className="rounded bg-green-100 px-1">locale</code> property to
           enable support for the corresponding language:

@@ -1,11 +1,11 @@
-import { tv, type VariantProps } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const progressBarTv = tv({
+export const progressBarTv = tcv({
   slots: {
     root: ["flex w-full max-w-full flex-col", "min-w-0 gap-2"],
     labelWrapper: "flex w-full items-center justify-between gap-1",
     label: "flex w-full items-center justify-between",
-    value: "leading-md tracking-md text-md tabular-nums",
+    value: "text-body-medium tabular-nums",
     track: "bg-secondary-background w-full overflow-hidden rounded-full",
     connects: [
       "h-full w-full rounded-[inherit] transition-transform duration-500 will-change-transform",
@@ -40,14 +40,14 @@ export const progressBarTv = tv({
   },
 })
 
-export const progressCircleTv = tv({
+export const progressCircleTv = tcv({
   slots: {
     root: "relative inline-flex w-fit shrink-0 align-middle",
     svg: "text-accent-background block",
     track: "stroke-secondary-background",
     fill: "stroke-current transition-all duration-500 ease-in-out",
     value:
-      "leading-md tracking-md text-md pointer-events-none absolute inset-0 grid place-items-center text-center",
+      "text-body-medium pointer-events-none absolute inset-0 grid place-items-center text-center",
   },
   variants: {
     variant: {
@@ -61,6 +61,3 @@ export const progressCircleTv = tv({
     variant: "accent",
   },
 })
-
-export type ProgressBarVariantProps = VariantProps<typeof progressBarTv>
-export type ProgressCircleVariantProps = VariantProps<typeof progressCircleTv>

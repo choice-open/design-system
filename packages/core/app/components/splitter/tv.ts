@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const SplitterTv = tv({
+export const SplitterTv = tcv({
   slots: { root: "" },
   variants: {},
   compoundVariants: [],

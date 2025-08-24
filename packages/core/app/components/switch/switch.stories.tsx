@@ -210,7 +210,7 @@ export const LabelUsage: Story = {
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
           <Switch
             value={simple}
             onChange={setSimple}
@@ -220,7 +220,7 @@ export const LabelUsage: Story = {
         </div>
 
         <div>
-          <h4 className="mb-2 font-medium">Explicit Switch.Label (for complex content):</h4>
+          <h4 className="font-strong mb-2">Explicit Switch.Label (for complex content):</h4>
           <Switch
             value={explicit}
             onChange={setExplicit}

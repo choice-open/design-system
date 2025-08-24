@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const ScrollTv = tv({
+export const ScrollTv = tcv({
   slots: {
     root: "relative h-full min-h-0 overflow-hidden",
     scrollbar: [

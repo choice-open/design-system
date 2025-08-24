@@ -118,7 +118,7 @@ const RangeSyncDemo = () => {
       </Panel.Row>
 
       <div className="space-y-4">
-        <div className="font-medium">🎯 Time Range Synchronization Logic</div>
+        <div className="font-strong">🎯 Time Range Synchronization Logic</div>
         <div className="text-secondary-foreground space-y-2">
           <div>
             • <strong>Start Time Change</strong>：Automatically adjust the end time to maintain the
@@ -136,7 +136,7 @@ const RangeSyncDemo = () => {
         </div>
 
         <div className="rounded-md border p-4">
-          <div className="font-medium">🧪 Test Steps</div>
+          <div className="font-strong">🧪 Test Steps</div>
           <div className="mt-2 space-y-1">
             <div>1. Adjust the end time to 19:00 → the range becomes 10 hours</div>
             <div>
@@ -261,7 +261,7 @@ export const DifferentFormats: Story = {
   render: () => (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="mb-4 font-medium">24-hour format (HH:mm)</h3>
+        <h3 className="font-strong mb-4">24-hour format (HH:mm)</h3>
         <TimeRangeDemo
           format="HH:mm"
           startPlaceholder="09:00"
@@ -272,7 +272,7 @@ export const DifferentFormats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">12-hour format (h:mm a)</h3>
+        <h3 className="font-strong mb-4">12-hour format (h:mm a)</h3>
         <TimeRangeDemo
           format="h:mm a"
           locale={enUS}
@@ -284,7 +284,7 @@ export const DifferentFormats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">With seconds format (HH:mm:ss)</h3>
+        <h3 className="font-strong mb-4">With seconds format (HH:mm:ss)</h3>
         <TimeRangeDemo
           format="HH:mm:ss"
           startPlaceholder="09:00:00"
@@ -307,7 +307,7 @@ export const Internationalization: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">中文 (zh-CN)</h3>
+        <h3 className="font-strong mb-4">中文 (zh-CN)</h3>
         <TimeRangeDemo
           locale={zhCN}
           startPlaceholder="开始时间"
@@ -315,11 +315,11 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="mt-2 text-sm text-gray-500">Duration display: 8h 30m</div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">English (en-US)</h3>
+        <h3 className="font-strong mb-4">English (en-US)</h3>
         <TimeRangeDemo
           locale={enUS}
           format="h:mm a"
@@ -328,11 +328,11 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="mt-2 text-sm text-gray-500">Duration display: 8h 30m</div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">日本語 (ja)</h3>
+        <h3 className="font-strong mb-4">日本語 (ja)</h3>
         <TimeRangeDemo
           locale={ja}
           startPlaceholder="開始時間"
@@ -340,7 +340,7 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="mt-2 text-sm text-gray-500">Duration display: 8h 30m</div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
     </div>
   ),
@@ -356,7 +356,7 @@ export const CommonScenarios: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">🏢 Work Time</h3>
+        <h3 className="font-strong mb-4">🏢 Work Time</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("18:00")}
@@ -366,7 +366,7 @@ export const CommonScenarios: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">🍽️ Lunch Time</h3>
+        <h3 className="font-strong mb-4">🍽️ Lunch Time</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("12:00")}
           endValue={timeStringToDate("13:00")}
@@ -376,7 +376,7 @@ export const CommonScenarios: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">🏃‍♂️ Exercise Time</h3>
+        <h3 className="font-strong mb-4">🏃‍♂️ Exercise Time</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("06:30")}
           endValue={timeStringToDate("07:30")}
@@ -386,14 +386,14 @@ export const CommonScenarios: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">🌙 Night Shift Time</h3>
+        <h3 className="font-strong mb-4">🌙 Night Shift Time</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("22:00")}
           endValue={timeStringToDate("06:00")}
           startPlaceholder="Start Time"
           endPlaceholder="End Time"
         />
-        <div className="mt-2 text-sm text-gray-500">💡 Cross-day work, 8 hours</div>
+        <div className="text-body-small mt-2 text-gray-500">💡 Cross-day work, 8 hours</div>
       </div>
     </div>
   ),
@@ -409,7 +409,7 @@ export const DurationOnly: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-4 font-medium">Short Time Range</h3>
+        <h3 className="font-strong mb-4">Short Time Range</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("14:00")}
           endValue={timeStringToDate("14:45")}
@@ -419,7 +419,7 @@ export const DurationOnly: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">Full Hour Time Range</h3>
+        <h3 className="font-strong mb-4">Full Hour Time Range</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("10:00")}
           endValue={timeStringToDate("12:00")}
@@ -429,7 +429,7 @@ export const DurationOnly: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">Long Time Range</h3>
+        <h3 className="font-strong mb-4">Long Time Range</h3>
         <TimeRangeDemo
           startValue={timeStringToDate("08:00")}
           endValue={timeStringToDate("20:00")}

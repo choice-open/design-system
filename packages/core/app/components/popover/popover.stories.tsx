@@ -263,7 +263,7 @@ export const ControlledFixed: Story = {
     return (
       <div className="w-md space-y-6">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Controlled</h3>
+          <h3 className="font-strong mb-2">Controlled</h3>
           <p>
             Based on the correct implementation in the Floating UI official documentation, it solves
             the problem of not being able to display again after closing once
@@ -272,7 +272,7 @@ export const ControlledFixed: Story = {
 
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
           <div className="mb-4 space-y-2">
-            <div className="font-medium">
+            <div className="font-strong">
               Current state:
               <span className={tcx(open ? "text-success-foreground" : "text-danger-foreground")}>
                 {open ? " OPEN" : " CLOSED"}
@@ -318,7 +318,7 @@ export const ControlledFixed: Story = {
           </Popover.Trigger>
           <Popover.Content className="w-80 p-4">
             <div className="space-y-3">
-              <h4 className="font-medium">Controlled</h4>
+              <h4 className="font-strong">Controlled</h4>
               <p className="text-secondary-foreground">
                 This Popover uses controlled mode, based on the correct implementation in the
                 Floating UI official documentation.
@@ -927,7 +927,7 @@ export const MultiplePopovers: Story = {
     return (
       <div className="w-md space-y-6">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Test</h3>
+          <h3 className="font-strong mb-2">Test</h3>
           <p>
             Test scenario: There are multiple Popovers on a canvas, when the first Popover is
             opened, click the second Popover button
@@ -943,8 +943,10 @@ export const MultiplePopovers: Story = {
 
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-4">
-            <h4 className="font-medium">Popover 1</h4>
-            <div className="text-sm text-gray-600">Status: {popover1Open ? "Open" : "Close"}</div>
+            <h4 className="font-strong">Popover 1</h4>
+            <div className="text-body-small text-gray-600">
+              Status: {popover1Open ? "Open" : "Close"}
+            </div>
             <Popover
               open={popover1Open}
               onOpenChange={setPopover1Open}
@@ -954,8 +956,8 @@ export const MultiplePopovers: Story = {
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
-                  <h5 className="font-medium">Popover 1 content</h5>
-                  <p className="text-sm text-gray-600">
+                  <h5 className="font-strong">Popover 1 content</h5>
+                  <p className="text-body-small text-gray-600">
                     This is the content of the first Popover. Now keep it open, then click the
                     Popover 2 button to test.
                   </p>
@@ -971,8 +973,10 @@ export const MultiplePopovers: Story = {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-medium">Popover 2</h4>
-            <div className="text-sm text-gray-600">Status: {popover2Open ? "Open" : "Close"}</div>
+            <h4 className="font-strong">Popover 2</h4>
+            <div className="text-body-small text-gray-600">
+              Status: {popover2Open ? "Open" : "Close"}
+            </div>
             <Popover
               open={popover2Open}
               onOpenChange={setPopover2Open}
@@ -982,8 +986,8 @@ export const MultiplePopovers: Story = {
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
-                  <h5 className="font-medium">Popover 2 content</h5>
-                  <p className="text-sm text-gray-600">
+                  <h5 className="font-strong">Popover 2 content</h5>
+                  <p className="text-body-small text-gray-600">
                     This is the content of the second Popover. If it opens with one click, the
                     problem has been fixed.
                   </p>
@@ -999,8 +1003,10 @@ export const MultiplePopovers: Story = {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-medium">Popover 3</h4>
-            <div className="text-sm text-gray-600">Status: {popover3Open ? "Open" : "Close"}</div>
+            <h4 className="font-strong">Popover 3</h4>
+            <div className="text-body-small text-gray-600">
+              Status: {popover3Open ? "Open" : "Close"}
+            </div>
             <Popover
               open={popover3Open}
               onOpenChange={setPopover3Open}
@@ -1010,8 +1016,10 @@ export const MultiplePopovers: Story = {
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
-                  <h5 className="font-medium">Popover 3 content</h5>
-                  <p className="text-sm text-gray-600">This is the content of the third Popover.</p>
+                  <h5 className="font-strong">Popover 3 content</h5>
+                  <p className="text-body-small text-gray-600">
+                    This is the content of the third Popover.
+                  </p>
                   <Button
                     variant="secondary"
                     onClick={() => setPopover3Open(false)}
@@ -1025,8 +1033,8 @@ export const MultiplePopovers: Story = {
         </div>
 
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-          <h4 className="mb-2 font-medium">Test steps:</h4>
-          <ol className="list-inside list-decimal space-y-1 text-sm text-gray-700">
+          <h4 className="font-strong mb-2">Test steps:</h4>
+          <ol className="text-body-small list-inside list-decimal space-y-1 text-gray-700">
             <li>Click the &quot;Popover 1&quot; button to open the first Popover</li>
             <li>Keep the Popover 1 open, click the &quot;Popover 2&quot; button</li>
             <li>Observe if you need to click twice to open Popover 2</li>
@@ -1101,7 +1109,7 @@ export const CloseOnEscape: Story = {
           <Button onClick={() => setEscEnabledOpen(!escEnabledOpen)}>
             Popover with ESC (Default)
           </Button>
-          <p className="text-secondary-foreground text-sm">Press ESC to close</p>
+          <p className="text-secondary-foreground text-body-small">Press ESC to close</p>
 
           <Popover
             open={escEnabledOpen}
@@ -1113,7 +1121,7 @@ export const CloseOnEscape: Story = {
             </Popover.Trigger>
             <Popover.Content className="w-72 p-3">
               <p>This popover can be closed by pressing the ESC key.</p>
-              <p className="text-secondary-foreground mt-2 text-sm">
+              <p className="text-secondary-foreground text-body-small mt-2">
                 Try pressing ESC to close this popover.
               </p>
             </Popover.Content>
@@ -1122,7 +1130,7 @@ export const CloseOnEscape: Story = {
 
         <div className="flex flex-col gap-2">
           <Button onClick={() => setEscDisabledOpen(!escDisabledOpen)}>Popover without ESC</Button>
-          <p className="text-secondary-foreground text-sm">ESC key disabled</p>
+          <p className="text-secondary-foreground text-body-small">ESC key disabled</p>
 
           <Popover
             open={escDisabledOpen}
@@ -1134,7 +1142,7 @@ export const CloseOnEscape: Story = {
             </Popover.Trigger>
             <Popover.Content className="w-72 p-3">
               <p>This popover cannot be closed by pressing the ESC key.</p>
-              <p className="text-secondary-foreground mt-2 text-sm">
+              <p className="text-secondary-foreground text-body-small mt-2">
                 You must click outside or use the button to close this popover.
               </p>
             </Popover.Content>
@@ -1196,8 +1204,8 @@ export const PopoverFooter: Story = {
         </Popover.Trigger>
         <Popover.Content className="w-64 p-3">
           <div className="space-y-2">
-            <h5 className="font-medium">Popover content</h5>
-            <p className="text-sm text-gray-600">This is the content of the Popover.</p>
+            <h5 className="font-strong">Popover content</h5>
+            <p className="text-body-small text-gray-600">This is the content of the Popover.</p>
           </div>
         </Popover.Content>
         <Popover.Footer>

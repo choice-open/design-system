@@ -141,10 +141,10 @@ export function WizardExample() {
   const views = {
     step1: () => (
       <div className="p-6">
-        <h2 className="mb-4 text-xl font-bold">Step 1: Basic Information</h2>
+        <h2 className="text-heading-large mb-4">Step 1: Basic Information</h2>
         <form className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium">Name</label>
+            <label className="text-body-small-strong mb-1 block">Name</label>
             <input
               type="text"
               className="w-full rounded border px-3 py-2"
@@ -152,7 +152,7 @@ export function WizardExample() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium">Email</label>
+            <label className="text-body-small-strong mb-1 block">Email</label>
             <input
               type="email"
               className="w-full rounded border px-3 py-2"
@@ -181,10 +181,10 @@ export function WizardExample() {
 
     step2: () => (
       <div className="p-6">
-        <h2 className="mb-4 text-xl font-bold">Step 2: Preferences</h2>
+        <h2 className="text-heading-large mb-4">Step 2: Preferences</h2>
         <form className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium">Theme</label>
+            <label className="text-body-small-strong mb-1 block">Theme</label>
             <select className="w-full rounded border px-3 py-2">
               <option>Light</option>
               <option>Dark</option>
@@ -222,10 +222,10 @@ export function WizardExample() {
 
     step3: () => (
       <div className="p-6">
-        <h2 className="mb-4 text-xl font-bold">Step 3: Review & Submit</h2>
+        <h2 className="text-heading-large mb-4">Step 3: Review & Submit</h2>
         <div className="space-y-4">
           <div className="rounded bg-gray-50 p-4">
-            <h3 className="font-medium">Summary</h3>
+            <h3 className="font-strong">Summary</h3>
             <p>Review your information before submitting...</p>
           </div>
           <div className="flex justify-between">
@@ -269,7 +269,7 @@ export function ModalFlowExample() {
   const modalViews = {
     main: () => (
       <div className="p-6">
-        <h2 className="mb-4 text-xl font-bold">Settings</h2>
+        <h2 className="text-heading-large mb-4">Settings</h2>
         <div className="space-y-2">
           <button
             onClick={() => push("profile")}
@@ -304,18 +304,18 @@ export function ModalFlowExample() {
             >
               ← Back
             </button>
-            <h2 className="text-xl font-bold">Profile Settings</h2>
+            <h2 className="text-heading-large">Profile Settings</h2>
           </div>
           <div className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium">Display Name</label>
+              <label className="text-body-small-strong mb-1 block">Display Name</label>
               <input
                 type="text"
                 className="w-full rounded border px-3 py-2"
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">Bio</label>
+              <label className="text-body-small-strong mb-1 block">Bio</label>
               <textarea
                 className="w-full rounded border px-3 py-2"
                 rows={3}
@@ -337,7 +337,7 @@ export function ModalFlowExample() {
             >
               ← Back
             </button>
-            <h2 className="text-xl font-bold">Privacy Settings</h2>
+            <h2 className="text-heading-large">Privacy Settings</h2>
           </div>
           <div className="space-y-4">
             <label className="flex items-center">
@@ -442,7 +442,7 @@ export function SearchNavigationExample() {
           >
             ← Back to search
           </button>
-          <h1 className="mb-4 text-2xl font-bold">React Hooks Guide</h1>
+          <h1 className="text-heading-display mb-4">React Hooks Guide</h1>
           <p>Complete guide to React Hooks...</p>
         </div>
       )

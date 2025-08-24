@@ -1,5 +1,5 @@
 import { forwardRef } from "react"
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 import { tcx } from "~/utils"
 
 // 基础 props 接口
@@ -22,7 +22,7 @@ type LinkButtonProps = BaseLinkButtonProps &
   )
 
 // 样式变体定义
-const linkButtonTv = tv({
+const linkButtonTv = tcv({
   base: [
     "cursor-default",
     "inline-flex items-center justify-center gap-1",

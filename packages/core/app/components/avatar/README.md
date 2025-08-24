@@ -157,8 +157,8 @@ const users = [
     size="large"
   />
   <div>
-    <div className="font-medium">Sarah Connor</div>
-    <div className="text-sm text-gray-500">Designer</div>
+    <div className="font-strong">Sarah Connor</div>
+    <div className="text-body-small text-gray-500">Designer</div>
   </div>
 </div>
 ```

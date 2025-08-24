@@ -21,7 +21,7 @@ export const Basic: Story = {
   render: function BasicStory() {
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Basic Slot Usage</h3>
+        <h3 className="text-body-large-strong">Basic Slot Usage</h3>
         <Slot className="rounded bg-blue-100 p-4">
           <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
             Click me (merged classes)
@@ -52,8 +52,8 @@ export const EventMerging: Story = {
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Event Handler Merging</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="text-body-large-strong">Event Handler Merging</h3>
+        <p className="text-body-small text-gray-600">
           Click the button to see both child and parent handlers execute
         </p>
         <Slot
@@ -102,15 +102,15 @@ export const AsChildPattern: Story = {
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">AsChild Pattern</h3>
+        <h3 className="text-body-large-strong">AsChild Pattern</h3>
 
         <div className="space-y-2">
-          <p className="text-sm text-gray-600">Regular button:</p>
+          <p className="text-body-small text-gray-600">Regular button:</p>
           <CustomButton>Regular Button</CustomButton>
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm text-gray-600">AsChild - renders as anchor tag:</p>
+          <p className="text-body-small text-gray-600">AsChild - renders as anchor tag:</p>
           <CustomButton asChild>
             <a
               href="#"
@@ -137,8 +137,8 @@ export const ComplexComposition: Story = {
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Complex Component Composition</h3>
-        <p className="text-sm text-gray-600">Count: {count}</p>
+        <h3 className="text-body-large-strong">Complex Component Composition</h3>
+        <p className="text-body-small text-gray-600">Count: {count}</p>
 
         <Slot
           onClick={() => setCount((c) => c + 1)}
@@ -176,7 +176,7 @@ export const UseSlotHook: Story = {
 
       return (
         <div className="space-y-2">
-          <p className="text-sm text-gray-600">Enhanced with useSlot hook:</p>
+          <p className="text-body-small text-gray-600">Enhanced with useSlot hook:</p>
           {slottedChild}
         </div>
       )
@@ -186,7 +186,7 @@ export const UseSlotHook: Story = {
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">useSlot Hook Usage</h3>
+        <h3 className="text-body-large-strong">useSlot Hook Usage</h3>
 
         <CustomSlotComponent>
           <button className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600">
@@ -214,8 +214,8 @@ export const PerformanceComparison: Story = {
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Performance Optimization</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="text-body-large-strong">Performance Optimization</h3>
+        <p className="text-body-small text-gray-600">
           Update count: {updateCount} (components optimized with useMemo)
         </p>
         <p className="text-xs text-gray-500">
@@ -231,7 +231,7 @@ export const PerformanceComparison: Story = {
         </button>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium">Optimized Slot Components:</p>
+          <p className="text-body-small-strong">Optimized Slot Components:</p>
           <div className="flex gap-2">
             <Slot className="inline-block">
               <button className="rounded bg-indigo-500 px-3 py-2 text-white hover:bg-indigo-600">

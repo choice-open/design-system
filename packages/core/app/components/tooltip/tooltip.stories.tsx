@@ -243,8 +243,8 @@ export const DelayGroup: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">With DelayGroup</h3>
-        <p className="mb-4 text-sm text-gray-600">
+        <h3 className="font-strong mb-4">With DelayGroup</h3>
+        <p className="text-body-small mb-4 text-gray-600">
           Hover over the first button and wait 200ms for tooltip to appear.
           <br />
           Then quickly move to other buttons - they should appear instantly!

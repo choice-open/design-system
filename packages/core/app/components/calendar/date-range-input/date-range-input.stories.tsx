@@ -128,7 +128,7 @@ const RangeSyncDemo = () => {
       </Panel.Row>
 
       <div className="space-y-4">
-        <div className="font-medium">🎯 Range Synchronization</div>
+        <div className="font-strong">🎯 Range Synchronization</div>
         <div className="text-secondary-foreground space-y-2">
           <div>
             • <strong>Start Date Change</strong>：Automatically adjust the end date to maintain the
@@ -145,7 +145,7 @@ const RangeSyncDemo = () => {
         </div>
 
         <div className="rounded-md border p-4">
-          <div className="font-medium">🧪 Test Steps</div>
+          <div className="font-strong">🧪 Test Steps</div>
           <div className="mt-2 space-y-1">
             <div>1. Adjust the end date to 5 days later → the range becomes 5 days</div>
             <div>
@@ -247,7 +247,7 @@ export const Internationalization: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">中文 (zh-CN)</h3>
+        <h3 className="font-strong mb-4">中文 (zh-CN)</h3>
         <DateRangeDemo
           locale={zhCN}
           startValue={new Date()}
@@ -256,11 +256,11 @@ export const Internationalization: Story = {
           endPlaceholder="结束日期"
           format="yyyy年MM月dd日"
         />
-        <div className="mt-2 text-sm text-gray-500">范围显示：7 天</div>
+        <div className="text-body-small mt-2 text-gray-500">范围显示：7 天</div>
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">English (en-US)</h3>
+        <h3 className="font-strong mb-4">English (en-US)</h3>
         <DateRangeDemo
           locale={enUS}
           startValue={new Date()}
@@ -269,11 +269,11 @@ export const Internationalization: Story = {
           endPlaceholder="End Date"
           format="MM/dd/yyyy"
         />
-        <div className="mt-2 text-sm text-gray-500">Range display: 7 days</div>
+        <div className="text-body-small mt-2 text-gray-500">Range display: 7 days</div>
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">日本語 (ja)</h3>
+        <h3 className="font-strong mb-4">日本語 (ja)</h3>
         <DateRangeDemo
           locale={ja}
           startValue={new Date()}
@@ -282,11 +282,11 @@ export const Internationalization: Story = {
           endPlaceholder="終了日"
           format="yyyy/MM/dd"
         />
-        <div className="mt-2 text-sm text-gray-500">範囲表示：7日</div>
+        <div className="text-body-small mt-2 text-gray-500">範囲表示：7日</div>
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">한국어 (ko)</h3>
+        <h3 className="font-strong mb-4">한국어 (ko)</h3>
         <DateRangeDemo
           locale={ko}
           startValue={new Date()}
@@ -295,7 +295,7 @@ export const Internationalization: Story = {
           endPlaceholder="종료일"
           format="yyyy.MM.dd"
         />
-        <div className="mt-2 text-sm text-gray-500">범위 표시：7일</div>
+        <div className="text-body-small mt-2 text-gray-500">범위 표시：7일</div>
       </div>
     </div>
   ),
@@ -311,7 +311,7 @@ export const DifferentFormats: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">ISO Format (yyyy-MM-dd)</h3>
+        <h3 className="font-strong mb-4">ISO Format (yyyy-MM-dd)</h3>
         <DateRangeDemo
           format="yyyy-MM-dd"
           startValue={new Date()}
@@ -321,7 +321,7 @@ export const DifferentFormats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">American Format (MM/dd/yyyy)</h3>
+        <h3 className="font-strong mb-4">American Format (MM/dd/yyyy)</h3>
         <DateRangeDemo
           format="MM/dd/yyyy"
           startValue={new Date()}
@@ -331,7 +331,7 @@ export const DifferentFormats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">Chinese Format (yyyy年MM月dd日)</h3>
+        <h3 className="font-strong mb-4">Chinese Format (yyyy年MM月dd日)</h3>
         <DateRangeDemo
           format="yyyy年MM月dd日"
           startValue={new Date()}
@@ -341,7 +341,7 @@ export const DifferentFormats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">European Format (dd.MM.yyyy)</h3>
+        <h3 className="font-strong mb-4">European Format (dd.MM.yyyy)</h3>
         <DateRangeDemo
           format="dd.MM.yyyy"
           startValue={new Date()}
@@ -363,7 +363,7 @@ export const CommonScenarios: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">🏖️ Holiday Planning</h3>
+        <h3 className="font-strong mb-4">🏖️ Holiday Planning</h3>
         <DateRangeDemo
           startValue={addDays(new Date(), 30)}
           endValue={addDays(new Date(), 37)}
@@ -378,7 +378,7 @@ export const CommonScenarios: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">📊 Data Analysis Period</h3>
+        <h3 className="font-strong mb-4">📊 Data Analysis Period</h3>
         <DateRangeDemo
           startValue={subDays(new Date(), 30)}
           endValue={new Date()}
@@ -393,7 +393,7 @@ export const CommonScenarios: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">🎫 Event Time</h3>
+        <h3 className="font-strong mb-4">🎫 Event Time</h3>
         <DateRangeDemo
           startValue={addDays(new Date(), 15)}
           endValue={addDays(new Date(), 17)}
@@ -420,7 +420,7 @@ export const EdgeCases: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">Same Time Point</h3>
+        <h3 className="font-strong mb-4">Same Time Point</h3>
         <DateRangeDemo
           startValue={new Date()}
           endValue={new Date()}
@@ -432,7 +432,7 @@ export const EdgeCases: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">Reverse Time Range</h3>
+        <h3 className="font-strong mb-4">Reverse Time Range</h3>
         <DateRangeDemo
           startValue={addDays(new Date(), 5)}
           endValue={new Date()}
@@ -444,7 +444,7 @@ export const EdgeCases: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">Cross-year Range</h3>
+        <h3 className="font-strong mb-4">Cross-year Range</h3>
         <DateRangeDemo
           startValue={new Date("2024-12-25")}
           endValue={new Date("2025-01-05")}
@@ -469,7 +469,7 @@ export const DisabledStates: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 font-medium">Start Date Disabled</h3>
+        <h3 className="font-strong mb-4">Start Date Disabled</h3>
         <DateRangeDemo
           startValue={new Date()}
           endValue={addDays(new Date(), 7)}
@@ -479,7 +479,7 @@ export const DisabledStates: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">End Date Disabled</h3>
+        <h3 className="font-strong mb-4">End Date Disabled</h3>
         <DateRangeDemo
           startValue={new Date()}
           endValue={addDays(new Date(), 7)}
@@ -489,7 +489,7 @@ export const DisabledStates: Story = {
       </div>
 
       <div>
-        <h3 className="mb-4 font-medium">All Disabled</h3>
+        <h3 className="font-strong mb-4">All Disabled</h3>
         <DateRangeDemo
           startValue={new Date()}
           endValue={addDays(new Date(), 7)}

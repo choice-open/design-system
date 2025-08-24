@@ -850,10 +850,10 @@ export const KeyboardNavigation: Story = {
 
         {/* Keyboard Shortcuts Reference */}
         <div className="rounded-xl border p-4">
-          <h3 className="mb-3 font-medium">⌨️ Complete Keyboard Shortcuts Reference</h3>
+          <h3 className="font-strong mb-3">⌨️ Complete Keyboard Shortcuts Reference</h3>
           <div className="flex flex-col gap-4">
             <div>
-              <h4 className="mb-2 font-medium">Basic Navigation</h4>
+              <h4 className="font-strong mb-2">Basic Navigation</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <div className="flex gap-1">
@@ -878,7 +878,7 @@ export const KeyboardNavigation: Story = {
             </div>
 
             <div>
-              <h4 className="text-secondary-foreground mb-2 font-medium">Vim Bindings</h4>
+              <h4 className="text-secondary-foreground font-strong mb-2">Vim Bindings</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <Kbd keys={["ctrl"]}>J</Kbd>
@@ -901,7 +901,7 @@ export const KeyboardNavigation: Story = {
             </div>
 
             <div>
-              <h4 className="mb-2 font-medium text-purple-600">Advanced</h4>
+              <h4 className="font-strong mb-2 text-purple-600">Advanced</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <div className="flex gap-1">
@@ -1063,7 +1063,7 @@ export const KeyboardNavigation: Story = {
 
         {/* Usage Tips */}
         <div className="rounded-lg border bg-blue-50 p-4">
-          <h4 className="mb-2 font-medium text-blue-800">💡 Pro Tips:</h4>
+          <h4 className="font-strong mb-2 text-blue-800">💡 Pro Tips:</h4>
           <ul className="space-y-1 text-blue-700">
             <li>
               • <strong>Focus the input first</strong> - Click in the search box to activate
@@ -1483,7 +1483,7 @@ export const CoreMechanismStore: Story = {
     return (
       <div className="w-96 space-y-6">
         <div className="rounded-lg border p-4">
-          <h3 className="mb-3 font-medium">🏗️ Internal State Monitor</h3>
+          <h3 className="font-strong mb-3">🏗️ Internal State Monitor</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <strong>Search Query:</strong> &quot;{debugInfo.search}&quot;
@@ -1599,7 +1599,7 @@ export const CoreMechanismValueRegistration: Story = {
     return (
       <div className="w-96 space-y-6">
         <div className="rounded-lg border p-4">
-          <h3 className="mb-3 font-medium">📝 Value Registration Log</h3>
+          <h3 className="font-strong mb-3">📝 Value Registration Log</h3>
           <div className="max-h-32 overflow-y-auto">
             {registrationLog.length === 0 ? (
               <div className="text-secondary-foreground">Start typing to see registrations...</div>
@@ -1750,7 +1750,7 @@ export const CoreMechanismAsyncScheduling: Story = {
     return (
       <div className="w-96 space-y-6">
         <div className="rounded-lg border p-4">
-          <h3 className="mb-3 font-medium">⚡ Async Operation Scheduler</h3>
+          <h3 className="font-strong mb-3">⚡ Async Operation Scheduler</h3>
           <div className="max-h-40 overflow-y-auto">
             {operationLog.length === 0 ? (
               <div className="text-secondary-foreground">Operations will appear here...</div>
@@ -1941,10 +1941,10 @@ export const CoreMechanismFuzzySearch: Story = {
     return (
       <div className="w-96 space-y-6">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-3 font-medium">🔍 Search Score Visualization</h3>
+          <h3 className="font-strong mb-3">🔍 Search Score Visualization</h3>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="font-medium">Search Query:</span>
+              <span className="font-strong">Search Query:</span>
               <code className="bg-background rounded px-2 py-1">{search || "(empty)"}</code>
             </div>
             <div className="max-h-48 overflow-y-auto">
@@ -1978,7 +1978,7 @@ export const CoreMechanismFuzzySearch: Story = {
 
         <div className="grid grid-cols-2 gap-4 rounded-xl border p-4">
           <div>
-            <h4 className="mb-2 font-medium">🎯 Score Legend</h4>
+            <h4 className="font-strong mb-2">🎯 Score Legend</h4>
             <div className="space-y-1">
               <div>1.0 - Exact match</div>
               <div>0.9 - Prefix match</div>
@@ -1990,7 +1990,7 @@ export const CoreMechanismFuzzySearch: Story = {
             </div>
           </div>
           <div>
-            <h4 className="mb-2 font-medium">💡 Try These Searches</h4>
+            <h4 className="font-strong mb-2">💡 Try These Searches</h4>
             <div className="flex flex-wrap gap-1">
               {["file", "js", "user", "set", "css", "new", "search"].map((term) => (
                 <Chip
@@ -2072,7 +2072,7 @@ export const NestedItems: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Navigation Guide:</div>
+          <div className="font-strong mb-2">Navigation Guide:</div>
           <ul className="space-y-1">
             <li>• Select items to navigate deeper into subcategories</li>
             <li>
@@ -2232,7 +2232,7 @@ export const ConditionalSubItems: Story = {
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Search Behavior:</div>
+          <div className="font-strong mb-2">Search Behavior:</div>
           <ul className="space-y-1">
             <li>
               • <strong>Normal view:</strong> Shows only main items
@@ -2421,7 +2421,7 @@ export const AsyncResults: Story = {
       <div className="w-96 space-y-4">
         <div className="flex items-center justify-between rounded-xl border p-4">
           <div className="">
-            <div className="font-medium">Async Data Loading</div>
+            <div className="font-strong">Async Data Loading</div>
             <div className="text-secondary-foreground">
               Status: {loading ? "Loading..." : error ? "Error" : `${items.length} items loaded`}
             </div>
@@ -2589,7 +2589,7 @@ export const WithTabs: Story = {
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Tabbed Filtering:</div>
+          <div className="font-strong mb-2">Tabbed Filtering:</div>
           <ul className="space-y-1">
             <li>• Use tabs to quickly filter items by category</li>
             <li>• &quot;All&quot; tab shows all items across categories</li>

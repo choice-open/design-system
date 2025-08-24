@@ -437,7 +437,7 @@ export const WithSchemaValidation: Story = {
 
     return (
       <div className="w-80">
-        <h3 className="text-lg font-medium">Schema Validation</h3>
+        <h3 className="text-body-large-strong">Schema Validation</h3>
         <p className="text-secondary-foreground mt-2">
           Use Zod Schema to validate the form, support complex validation rules
         </p>
@@ -547,7 +547,7 @@ export const WithSchemaValidation: Story = {
         )}
 
         <div className="bg-secondary-background mt-4 grid grid-cols-[auto_1fr] place-items-start gap-2 rounded-xl p-4">
-          <div className="col-span-2 font-medium">Form state:</div>
+          <div className="font-strong col-span-2">Form state:</div>
           <span>Can submit:</span> <Badge>{form.state.canSubmit ? "Yes" : "No"}</Badge>
           <span>Is dirty:</span> <Badge>{form.state.isDirty ? "Yes" : "No"}</Badge>
           <span>Validating:</span> <Badge>{form.state.isValidating ? "Yes" : "No"}</Badge>
@@ -702,7 +702,7 @@ export const QueryIntegration: Story = {
     if (isLoading) {
       return (
         <div className="flex items-center justify-center p-8">
-          <div className="text-default-foreground text-lg">Loading user data...</div>
+          <div className="text-default-foreground text-body-large">Loading user data...</div>
         </div>
       )
     }
@@ -710,7 +710,7 @@ export const QueryIntegration: Story = {
     return (
       <div className="w-80 space-y-4">
         <div>
-          <h3 className="text-lg font-medium">TanStack Query Integration Example</h3>
+          <h3 className="text-body-large-strong">TanStack Query Integration Example</h3>
           <p className="text-secondary-foreground">
             Demonstrate the integration of the form with TanStack Query, supporting data
             acquisition, update, and re-validation
@@ -844,7 +844,7 @@ export const QueryIntegration: Story = {
         </form>
 
         <div className="bg-secondary-background space-y-2 rounded-xl p-4">
-          <div className="font-medium">Status Information:</div>
+          <div className="font-strong">Status Information:</div>
           <div className="grid grid-cols-2 gap-2">
             <div>Form can submit: {form.state.canSubmit ? "Yes" : "No"}</div>
             <div>Form submitting: {form.state.isSubmitting ? "Yes" : "No"}</div>
@@ -854,7 +854,7 @@ export const QueryIntegration: Story = {
         </div>
 
         <div className="bg-info-background rounded-xl p-4">
-          <div className="font-medium">Current Data:</div>
+          <div className="font-strong">Current Data:</div>
           <pre className="mt-2">{JSON.stringify(userData, null, 2)}</pre>
         </div>
       </div>
@@ -1018,7 +1018,7 @@ export const WithAsyncInitialValues: Story = {
     return (
       <div className="w-full max-w-md space-y-4">
         <div className="w-80">
-          <h3 className="font-medium">Async Initial Values Example</h3>
+          <h3 className="font-strong">Async Initial Values Example</h3>
           <p className="text-secondary-foreground">
             Demonstrate how to asynchronously load the initial values of the form, commonly used in
             editing existing data scenarios
@@ -1042,7 +1042,7 @@ export const WithAsyncInitialValues: Story = {
         {isInitialLoading && (
           <div className="flex items-center justify-center p-8">
             <div className="text-center">
-              <div className="text-lg">Loading user data...</div>
+              <div className="text-body-large">Loading user data...</div>
               <div className="text-secondary-foreground mt-2">Please wait</div>
             </div>
           </div>
@@ -1052,7 +1052,7 @@ export const WithAsyncInitialValues: Story = {
         {loadError && (
           <div className="p-4">
             <div className="text-danger-foreground">
-              <div className="font-medium">Load failed</div>
+              <div className="font-strong">Load failed</div>
               <div className="mt-1">{loadError}</div>
             </div>
             <Button
@@ -1215,7 +1215,7 @@ export const WithAsyncInitialValues: Story = {
         {/* 表单状态信息 */}
         {!isInitialLoading && !loadError && (
           <div className="bg-secondary-background w-80 space-y-2 rounded p-4">
-            <div className="font-medium">Form state:</div>
+            <div className="font-strong">Form state:</div>
             <div className="grid grid-cols-2 gap-2">
               <div>Can submit: {form.state.canSubmit ? "Yes" : "No"}</div>
               <div>Is dirty: {form.state.isDirty ? "Yes" : "No"}</div>
@@ -1293,7 +1293,7 @@ export const WithArrayFields: Story = {
     return (
       <div className="w-80 space-y-6">
         <div className="flex w-80 flex-col gap-2">
-          <h3 className="font-medium">Array Form Example</h3>
+          <h3 className="font-strong">Array Form Example</h3>
           <p className="text-secondary-foreground">
             Demonstrate how to handle array-type form fields, including simple arrays and object
             arrays
@@ -1653,7 +1653,7 @@ export const WithArrayFields: Story = {
         {/* 表单状态和数据预览 */}
         <div className="space-y-4">
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Form status:</div>
+            <div className="font-strong mb-2">Form status:</div>
             <div className="grid grid-cols-2 gap-2">
               <div>Can submit: {form.state.canSubmit ? "Yes" : "No"}</div>
               <div>Is dirty: {form.state.isDirty ? "Yes" : "No"}</div>
@@ -1663,7 +1663,7 @@ export const WithArrayFields: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Current form data:</div>
+            <div className="font-strong mb-2">Current form data:</div>
             <pre className="overflow-auto">{JSON.stringify(form.state.values, null, 2)}</pre>
           </div>
         </div>
@@ -1719,7 +1719,7 @@ export const WithLinkedFields: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
-          <h3 className="font-medium">Linked fields example</h3>
+          <h3 className="font-strong">Linked fields example</h3>
           <p className="text-secondary-foreground">
             Demonstrates how to link two fields, when one field value changes, the validation of the
             other field will be re-run
@@ -1787,7 +1787,7 @@ export const WithLinkedFields: Story = {
           </form.Field>
 
           <div className="rounded-xl border p-4">
-            <h4 className="text-warning-foreground mb-2 font-medium">
+            <h4 className="text-warning-foreground font-strong mb-2">
               Password validation example
             </h4>
             <p className="text-warning-foreground mb-3">
@@ -1866,7 +1866,7 @@ export const WithLinkedFields: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <h4 className="text-accent-foreground mb-2 font-medium">Email validation example</h4>
+            <h4 className="text-accent-foreground font-strong mb-2">Email validation example</h4>
             <p className="text-accent-foreground mb-3">
               Demonstrates a more complex linking scenario: the new email cannot be the same as the
               current email, and the confirm new email must match
@@ -1984,7 +1984,7 @@ export const WithLinkedFields: Story = {
         {/* 表单状态和字段状态 */}
         <div className="space-y-4">
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Form status:</div>
+            <div className="font-strong mb-2">Form status:</div>
             <div className="grid grid-cols-2 gap-2">
               <div>Can submit: {form.state.canSubmit ? "Yes" : "No"}</div>
               <div>Is dirty: {form.state.isDirty ? "Yes" : "No"}</div>
@@ -1994,7 +1994,7 @@ export const WithLinkedFields: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Field linking status:</div>
+            <div className="font-strong mb-2">Field linking status:</div>
             <div className="space-y-1">
               <div>• Confirm password listen: password field</div>
               <div>• New email listen: email field</div>
@@ -2003,7 +2003,7 @@ export const WithLinkedFields: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Current form data:</div>
+            <div className="font-strong mb-2">Current form data:</div>
             <pre className="overflow-auto">{JSON.stringify(form.state.values, null, 2)}</pre>
           </div>
         </div>
@@ -2080,7 +2080,7 @@ export const WithReactivity: Story = {
     return (
       <div className="w-80 space-y-4">
         <div>
-          <h3 className="font-medium">Reactive subscription example</h3>
+          <h3 className="font-strong">Reactive subscription example</h3>
           <p className="text-secondary-foreground">
             Demonstrates how to use useStore and form.Subscribe to access reactive form values
           </p>
@@ -2088,18 +2088,18 @@ export const WithReactivity: Story = {
 
         {/* 使用 useStore 的响应式状态显示 */}
         <div className="rounded-xl border p-4">
-          <h4 className="text-success-foreground mb-2 font-medium">
+          <h4 className="text-success-foreground font-strong mb-2">
             useStore subscription example
           </h4>
           <div className="space-y-1">
             <div>
               • Current user type:{" "}
-              <span className="font-medium">
+              <span className="font-strong">
                 {userType === "personal" ? "Personal user" : "Business user"}
               </span>
             </div>
             <div>
-              • Calculate price: <span className="font-medium">${calculatePrice()}/month</span>
+              • Calculate price: <span className="font-strong">${calculatePrice()}/month</span>
             </div>
             <div>
               • Form status:
@@ -2188,7 +2188,7 @@ export const WithReactivity: Story = {
           {/* 条件渲染 - 企业用户额外字段 */}
           {userType === "business" && (
             <div className="space-y-4 rounded-xl border p-4">
-              <h4 className="text-accent-foreground font-medium">Business information</h4>
+              <h4 className="text-accent-foreground font-strong">Business information</h4>
 
               <form.Field
                 name="company"
@@ -2253,19 +2253,19 @@ export const WithReactivity: Story = {
           <form.Subscribe selector={(state) => [state.values.plan, state.values.userType]}>
             {([plan, userType]) => (
               <div className="rounded-xl border p-4">
-                <h4 className="text-accent-foreground mb-2 font-medium">
+                <h4 className="text-accent-foreground font-strong mb-2">
                   form.Subscribe subscription example
                 </h4>
                 <div className="text-secondary-foreground">
                   <div>
-                    • Selected plan: <span className="font-medium">{String(plan)}</span>
+                    • Selected plan: <span className="font-strong">{String(plan)}</span>
                   </div>
                   <div>
-                    • User type: <span className="font-medium">{String(userType)}</span>
+                    • User type: <span className="font-strong">{String(userType)}</span>
                   </div>
                   <div>
                     • Actual price:{" "}
-                    <span className="text-lg font-medium">
+                    <span className="text-body-large-strong">
                       $
                       {({ basic: 10, pro: 50, enterprise: 200 }[plan as keyof typeof plan] || 0) *
                         (userType === "business" ? 2 : 1)}
@@ -2298,7 +2298,7 @@ export const WithReactivity: Story = {
 
           {/* 通知设置 */}
           <div className="space-y-4">
-            <h4 className="font-medium">Notification settings</h4>
+            <h4 className="font-strong">Notification settings</h4>
 
             <form.Field name="newsletter">
               {(field) => (
@@ -2397,7 +2397,7 @@ export const WithReactivity: Story = {
           >
             {([canSubmit, isDirty, isValid, isSubmitting, errorMap]) => (
               <div className="rounded-xl border p-4">
-                <div className="mb-2 font-medium">Real-time form status (form.Subscribe):</div>
+                <div className="font-strong mb-2">Real-time form status (form.Subscribe):</div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className={canSubmit ? "text-green-600" : "text-red-600"}>
                     Can submit: {canSubmit ? "Yes" : "No"}
@@ -2424,7 +2424,7 @@ export const WithReactivity: Story = {
           <form.Subscribe selector={(state) => state.values}>
             {(values) => (
               <div className="rounded-xl border p-4">
-                <div className="mb-2 font-medium">Real-time form data (form.Subscribe):</div>
+                <div className="font-strong mb-2">Real-time form data (form.Subscribe):</div>
                 <pre className="max-h-40 overflow-auto">{JSON.stringify(values, null, 2)}</pre>
               </div>
             )}
@@ -2432,7 +2432,7 @@ export const WithReactivity: Story = {
 
           {/* 性能对比说明 */}
           <div className="rounded-xl border p-4">
-            <div className="mb-2 font-medium">Performance optimization:</div>
+            <div className="font-strong mb-2">Performance optimization:</div>
             <div>
               • <strong>form.Subscribe</strong>: Suitable for responsive rendering, only
               re-rendering when the subscribed value changes
@@ -2553,7 +2553,7 @@ export const WithListeners: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
-          <h3 className="font-medium">Listeners API example</h3>
+          <h3 className="font-strong">Listeners API example</h3>
           <p className="text-secondary-foreground">
             Demonstrates how to use Listeners API to handle side effects and cascading logic between
             fields
@@ -2562,7 +2562,7 @@ export const WithListeners: Story = {
 
         {/* 活动日志 */}
         <div className="rounded-xl border p-4">
-          <h4 className="mb-2 font-medium">Activity log</h4>
+          <h4 className="font-strong mb-2">Activity log</h4>
           <div className="max-h-32 space-y-1 overflow-y-auto">
             {activityLog.length === 0 ? (
               <div className="text-secondary-foreground">No activity</div>
@@ -2588,7 +2588,7 @@ export const WithListeners: Story = {
         >
           {/* 级联选择示例 - 国家-省份 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Cascading select example</h4>
+            <h4 className="font-strong">Cascading select example</h4>
             <p className="text-secondary-foreground">
               Demonstrates classic country-province cascading select, resetting province when
               country changes
@@ -2721,7 +2721,7 @@ export const WithListeners: Story = {
 
           {/* 用户类型切换示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">User type switch example</h4>
+            <h4 className="font-strong">User type switch example</h4>
             <p className="text-secondary-foreground">
               Demonstrates when user type changes, reset related information fields
             </p>
@@ -2769,7 +2769,7 @@ export const WithListeners: Story = {
             {/* 条件渲染不同类型的信息字段 */}
             {form.getFieldValue("userType") === "individual" && (
               <div className="space-y-4">
-                <h5 className="font-medium">Personal information</h5>
+                <h5 className="font-strong">Personal information</h5>
                 <div className="grid grid-cols-2 gap-4">
                   <form.Field
                     name="personalInfo.firstName"
@@ -2834,7 +2834,7 @@ export const WithListeners: Story = {
 
             {form.getFieldValue("userType") === "company" && (
               <div className="space-y-4">
-                <h5 className="font-medium">Company information</h5>
+                <h5 className="font-strong">Company information</h5>
                 <div className="grid grid-cols-2 gap-4">
                   <form.Field
                     name="companyInfo.companyName"
@@ -2895,7 +2895,7 @@ export const WithListeners: Story = {
 
             {form.getFieldValue("userType") === "organization" && (
               <div className="space-y-4">
-                <h5 className="font-medium">Organization information</h5>
+                <h5 className="font-strong">Organization information</h5>
                 <div className="grid grid-cols-2 gap-4">
                   <form.Field name="organizationInfo.orgName">
                     {(field) => (
@@ -2947,7 +2947,7 @@ export const WithListeners: Story = {
 
           {/* 通知设置示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Notification settings example</h4>
+            <h4 className="font-strong">Notification settings example</h4>
             <p className="text-secondary-foreground">
               Demonstrates the logic of linking checkboxes
             </p>
@@ -3023,7 +3023,7 @@ export const WithListeners: Story = {
 
           {/* 基本联系信息 */}
           <div className="space-y-4">
-            <h4 className="font-medium">Contact information</h4>
+            <h4 className="font-strong">Contact information</h4>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <form.Field
@@ -3128,7 +3128,7 @@ export const WithListeners: Story = {
 
         {/* 表单状态监控 */}
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Current form data preview:</div>
+          <div className="font-strong mb-2">Current form data preview:</div>
           <pre className="max-h-60 overflow-auto rounded bg-white p-2">
             {JSON.stringify(form.state.values, null, 2)}
           </pre>
@@ -3136,7 +3136,7 @@ export const WithListeners: Story = {
 
         {/* 监听器说明 */}
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Listener events description:</div>
+          <div className="font-strong mb-2">Listener events description:</div>
           <div className="text-secondary-foreground space-y-1">
             <div>
               • <strong>onChange</strong>: Triggered when the field value changes (most commonly
@@ -3231,7 +3231,7 @@ export const WithCustomErrors: Story = {
                 key={index}
                 className="space-y-2"
               >
-                <div className="text-danger-foreground font-medium">{pwdError.message}</div>
+                <div className="text-danger-foreground font-strong">{pwdError.message}</div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-1">
                     <span className="text-secondary-foreground">Strength score:</span>
@@ -3302,7 +3302,7 @@ export const WithCustomErrors: Story = {
                 key={index}
                 className="space-y-2"
               >
-                <div className="text-danger-foreground font-medium">{fileError.message}</div>
+                <div className="text-danger-foreground font-strong">{fileError.message}</div>
                 <div className="space-y-1">
                   <div className="text-secondary-foreground">File: {fileError.file}</div>
                   <div className="space-y-1">
@@ -3615,7 +3615,7 @@ export const WithCustomErrors: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
-          <h3 className="font-medium">Custom error handling example</h3>
+          <h3 className="font-strong">Custom error handling example</h3>
           <p className="text-secondary-foreground">
             Demonstrates how to use TanStack Form&apos;s flexible error handling mechanism,
             supporting multiple error types and custom error display
@@ -3631,7 +3631,7 @@ export const WithCustomErrors: Story = {
         >
           {/* 复合验证示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Composite validation example</h4>
+            <h4 className="font-strong">Composite validation example</h4>
             <p className="text-secondary-foreground">
               Demonstrates returning multiple error types: objects, arrays, and different severity
               levels
@@ -3743,7 +3743,7 @@ export const WithCustomErrors: Story = {
 
           {/* 密码强度验证示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Password strength validation example</h4>
+            <h4 className="font-strong">Password strength validation example</h4>
             <p className="text-secondary-foreground">
               Demonstrates complex password strength validation, returning detailed error objects
             </p>
@@ -3835,7 +3835,7 @@ export const WithCustomErrors: Story = {
 
           {/* 文件验证示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">File validation example</h4>
+            <h4 className="font-strong">File validation example</h4>
             <p className="text-secondary-foreground">
               Demonstrates complex file validation logic, including multiple validation rules
             </p>
@@ -3871,7 +3871,7 @@ export const WithCustomErrors: Story = {
 
           {/* 数组错误示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Array error example</h4>
+            <h4 className="font-strong">Array error example</h4>
             <p className="text-secondary-foreground">
               Demonstrates returning error arrays, including validation logic
             </p>
@@ -3938,7 +3938,7 @@ export const WithCustomErrors: Story = {
 
           {/* 数值验证示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-medium">Number validation example</h4>
+            <h4 className="font-strong">Number validation example</h4>
             <p className="text-secondary-foreground">
               Demonstrates returning numeric or boolean values as errors
             </p>
@@ -4094,7 +4094,7 @@ export const WithCustomErrors: Story = {
 
         {/* 错误类型说明 */}
         <div className="rounded-xl border p-4">
-          <div className="mb-2 font-medium">Supported error types:</div>
+          <div className="font-strong mb-2">Supported error types:</div>
           <div className="text-secondary-foreground space-y-1">
             <div>
               • <strong>String</strong>: The most common error type

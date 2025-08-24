@@ -1,13 +1,13 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const YearCalendarTv = tv({
+export const YearCalendarTv = tcv({
   slots: {
     // 容器
     container: "select-none",
 
     // 头部
     header: "flex items-center pt-2 pr-1 pl-3",
-    title: "flex-1 truncate font-medium",
+    title: "flex-1 truncate font-strong",
     navigation: "flex h-6 items-center",
 
     // 年份网格

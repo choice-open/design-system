@@ -1,12 +1,12 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const segmentedControlTv = tv({
+export const segmentedControlTv = tcv({
   slots: {
     root: [
       // Layout
       "grid overflow-hidden",
       // Shape
-      "leading-md tracking-md rounded-md",
+      "text-body-medium rounded-md",
     ],
     option: [
       // Layout
@@ -16,7 +16,7 @@ export const segmentedControlTv = tv({
       // Border
       "border border-solid",
       // Typography
-      "tracking-md leading-md",
+      "text-body-medium",
       // Focus
       "peer-focus-visible:border-selected-boundary",
     ],

@@ -50,8 +50,8 @@ export function BasicExample() {
               alt={item.title}
               className="mb-2 h-32 w-full rounded object-cover"
             />
-            <h3 className="truncate font-medium">{item.title}</h3>
-            <p className="text-sm text-gray-600">#{index + 1}</p>
+            <h3 className="font-strong truncate">{item.title}</h3>
+            <p className="text-body-small text-gray-600">#{index + 1}</p>
           </div>
         )}
       />
@@ -87,7 +87,7 @@ export function PhotoGalleryExample() {
               className="h-40 w-full object-cover"
             />
             <div className="p-3">
-              <h3 className="mb-1 text-sm font-medium">{item.title}</h3>
+              <h3 className="text-body-small-strong mb-1">{item.title}</h3>
               <p className="text-xs text-gray-600">by {item.author}</p>
             </div>
           </div>
@@ -135,7 +135,7 @@ export function ProductCatalogExample() {
               )}
             </div>
             <div className="p-3">
-              <h3 className="mb-2 line-clamp-2 text-sm font-medium">{item.name}</h3>
+              <h3 className="text-body-small-strong mb-2 line-clamp-2">{item.name}</h3>
               <p className="mb-2 text-xs text-gray-600">{item.category}</p>
               <div className="flex items-center justify-between">
                 <span className="font-bold text-green-600">${item.price.toFixed(2)}</span>
@@ -228,7 +228,7 @@ export function VariableHeightExample() {
             style={{ height: getItemHeight(item) - 12 }} // Account for gap
           >
             <h3 className="mb-2 font-bold">{item.title}</h3>
-            <p className="overflow-hidden text-sm text-gray-700">{item.description}</p>
+            <p className="text-body-small overflow-hidden text-gray-700">{item.description}</p>
           </div>
         )}
       />
@@ -274,7 +274,7 @@ export function SearchableGridExample() {
           placeholder="Search products..."
           className="max-w-md"
         />
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="text-body-small mt-2 text-gray-600">
           Showing {filteredItems.length} of {allItems.length} items
         </p>
       </div>
@@ -288,7 +288,7 @@ export function SearchableGridExample() {
           gap={12}
           renderItem={({ item }) => (
             <div className="rounded border bg-white p-3">
-              <h3 className="mb-1 text-sm font-medium">{item.name}</h3>
+              <h3 className="text-body-small-strong mb-1">{item.name}</h3>
               <p className="mb-2 text-xs text-gray-600">{item.category}</p>
               <p className="mb-2 line-clamp-2 text-xs text-gray-800">{item.description}</p>
               <div className="font-bold text-green-600">${item.price}</div>
@@ -329,7 +329,7 @@ export function ListModeExample() {
               className="h-10 w-10 rounded-full"
             />
             <div className="min-w-0 flex-1">
-              <h3 className="truncate text-sm font-medium">{item.name}</h3>
+              <h3 className="text-body-small-strong truncate">{item.name}</h3>
               <p className="truncate text-xs text-gray-600">{item.email}</p>
             </div>
             <div className="text-right">
@@ -396,8 +396,8 @@ export function InfiniteScrollExample() {
         renderItem={({ item, index }) => (
           <div className="rounded border bg-white p-4">
             <div className="mb-2 h-32 w-full rounded bg-gray-200" />
-            <h3 className="font-medium">{item.title}</h3>
-            <p className="text-sm text-gray-600">Item {index + 1}</p>
+            <h3 className="font-strong">{item.title}</h3>
+            <p className="text-body-small text-gray-600">Item {index + 1}</p>
           </div>
         )}
       />

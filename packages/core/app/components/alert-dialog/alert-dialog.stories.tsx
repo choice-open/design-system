@@ -66,7 +66,7 @@ export const BasicConfirm: Story = {
             Show Confirm Dialog
           </Button>
           {result !== null && (
-            <p className="text-secondary-foreground text-sm">
+            <p className="text-secondary-foreground text-body-small">
               Result: {result ? "Confirmed" : "Cancelled"}
             </p>
           )}
@@ -193,7 +193,7 @@ export const CustomConfirm: Story = {
           </Button>
 
           {result !== null && (
-            <p className="text-secondary-foreground text-sm">
+            <p className="text-secondary-foreground text-body-small">
               Result: {result ? "Account deleted" : "Cancelled"}
             </p>
           )}
@@ -227,7 +227,9 @@ export const BasicAlert: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Save Changes</Button>
-          {shown && <p className="text-secondary-foreground text-sm">Alert was acknowledged</p>}
+          {shown && (
+            <p className="text-secondary-foreground text-body-small">Alert was acknowledged</p>
+          )}
         </div>
       )
     }
@@ -264,7 +266,9 @@ export const CustomAlert: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Update Profile</Button>
-          {shown && <p className="text-secondary-foreground text-sm">Alert was acknowledged</p>}
+          {shown && (
+            <p className="text-secondary-foreground text-body-small">Alert was acknowledged</p>
+          )}
         </div>
       )
     }
@@ -309,7 +313,9 @@ export const CustomDialog: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Close Document</Button>
-          {result && <p className="text-secondary-foreground text-sm">User choice: {result}</p>}
+          {result && (
+            <p className="text-secondary-foreground text-body-small">User choice: {result}</p>
+          )}
         </div>
       )
     }
@@ -351,7 +357,7 @@ export const QueueSystem: Story = {
         <div className="flex flex-col gap-4">
           <Button onClick={handleMultipleDialogs}>Show Multiple Dialogs</Button>
           {results.length > 0 && (
-            <div className="text-secondary-foreground text-sm">
+            <div className="text-secondary-foreground text-body-small">
               <p>Results:</p>
               <ul className="list-inside list-disc">
                 {results.map((result, i) => (
@@ -389,14 +395,16 @@ export const WithContent: Story = {
             <div className="space-y-3">
               <p>You&apos;ve reached the limit of your current plan.</p>
               <div className="bg-secondary-background rounded p-3">
-                <h4 className="font-medium">Pro Plan Benefits:</h4>
-                <ul className="mt-1 space-y-1 text-sm">
+                <h4 className="font-strong">Pro Plan Benefits:</h4>
+                <ul className="text-body-small mt-1 space-y-1">
                   <li>• Unlimited projects</li>
                   <li>• Advanced analytics</li>
                   <li>• Priority support</li>
                 </ul>
               </div>
-              <p className="text-secondary-foreground text-sm">Only $9.99/month, cancel anytime.</p>
+              <p className="text-secondary-foreground text-body-small">
+                Only $9.99/month, cancel anytime.
+              </p>
             </div>
           ),
           buttons: [
@@ -410,7 +418,9 @@ export const WithContent: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Check Limits</Button>
-          {result && <p className="text-secondary-foreground text-sm">User choice: {result}</p>}
+          {result && (
+            <p className="text-secondary-foreground text-body-small">User choice: {result}</p>
+          )}
         </div>
       )
     }
@@ -505,7 +515,7 @@ export const Variants: Story = {
           </div>
 
           {Object.keys(results).length > 0 && (
-            <div className="text-secondary-foreground text-sm">
+            <div className="text-secondary-foreground text-body-small">
               <p>Results:</p>
               <ul className="list-inside list-disc">
                 {Object.entries(results).map(([variant, result]) => (
@@ -557,7 +567,7 @@ export const WithOverlay: Story = {
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Show Dialog with Overlay</Button>
           {result !== null && (
-            <p className="text-secondary-foreground text-sm">
+            <p className="text-secondary-foreground text-body-small">
               Result: {result ? "Confirmed" : "Cancelled"}
             </p>
           )}
@@ -597,11 +607,11 @@ export const OutsidePressEnabled: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Show Dialog with Outside Press Enabled</Button>
-          <p className="text-secondary-foreground text-sm">
+          <p className="text-secondary-foreground text-body-small">
             💡 Tip: Click outside the dialog to close it
           </p>
           {result !== null && (
-            <p className="text-secondary-foreground text-sm">
+            <p className="text-secondary-foreground text-body-small">
               Result: {result ? "Confirmed" : "Cancelled"}
             </p>
           )}
@@ -641,11 +651,11 @@ export const OutsidePressDisabled: Story = {
       return (
         <div className="flex flex-col gap-4">
           <Button onClick={handleClick}>Show Dialog with Outside Press Disabled</Button>
-          <p className="text-secondary-foreground text-sm">
+          <p className="text-secondary-foreground text-body-small">
             💡 Tip: Clicking outside will NOT close the dialog
           </p>
           {result !== null && (
-            <p className="text-secondary-foreground text-sm">
+            <p className="text-secondary-foreground text-body-small">
               Result: {result ? "Confirmed" : "Cancelled"}
             </p>
           )}
@@ -711,7 +721,7 @@ export const FullFeatured: Story = {
             </Button>
           </div>
 
-          <div className="text-secondary-foreground space-y-1 text-sm">
+          <div className="text-secondary-foreground text-body-small space-y-1">
             <p>💡 Features enabled:</p>
             <ul className="ml-4 list-inside list-disc">
               <li>Dark background overlay</li>
@@ -722,7 +732,7 @@ export const FullFeatured: Story = {
           </div>
 
           {Object.keys(results).length > 0 && (
-            <div className="text-secondary-foreground text-sm">
+            <div className="text-secondary-foreground text-body-small">
               <p>Results:</p>
               <ul className="list-inside list-disc">
                 {Object.entries(results).map(([variant, result]) => (

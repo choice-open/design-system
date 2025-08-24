@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const searchInputTv = tv({
+export const searchInputTv = tcv({
   slots: {
     icon: "",
     action: "",

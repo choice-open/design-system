@@ -38,7 +38,7 @@ const AllotmentContainer = ({
         <ScrollArea>
           <ScrollArea.Viewport className="bg-default-background pb-16">
             <ScrollArea.Content>
-              <div className="min-w-0 border-b p-4 font-medium">{header}</div>
+              <div className="font-strong min-w-0 border-b p-4">{header}</div>
 
               {children}
             </ScrollArea.Content>

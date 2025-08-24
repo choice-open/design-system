@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const NumericInputTv = tv({
+export const NumericInputTv = tcv({
   slots: {
     container: ["group/input grid h-6 before:border-transparent", "input__number"],
     input: ["peer", "h-6 w-full", "cursor-default appearance-none truncate"],
@@ -126,7 +126,7 @@ export const NumericInputTv = tv({
   },
 })
 
-export const NumericInputMenuTriggerTv = tv({
+export const NumericInputMenuTriggerTv = tcv({
   base: "flex-none rounded-l-none rounded-r-md [grid-area:action]",
   variants: {
     disabled: {
@@ -167,7 +167,7 @@ export const NumericInputMenuTriggerTv = tv({
   },
 })
 
-export const NumericInputVariableTv = tv({
+export const NumericInputVariableTv = tcv({
   slots: {
     root: "flex flex-1 items-center pr-1 [grid-area:variable]",
     chip: "z-2 select-none",
@@ -245,7 +245,7 @@ export const NumericInputVariableTv = tv({
   },
 })
 
-export const NumericInputElementTv = tv({
+export const NumericInputElementTv = tcv({
   base: ["select-none", "z-2 h-6 w-6", "flex flex-none items-center justify-center"],
   variants: {
     type: {
@@ -305,7 +305,7 @@ export const NumericInputElementTv = tv({
   },
 })
 
-export const NumericInputMenuActionPromptTv = tv({
+export const NumericInputMenuActionPromptTv = tcv({
   base: [
     "[grid-area:action]",
     "w-6 pr-2",

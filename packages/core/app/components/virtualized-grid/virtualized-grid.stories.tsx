@@ -104,11 +104,11 @@ export const Basic: Story = {
               className="h-32 w-full object-contain"
             />
             <div className="p-4">
-              <h3 className="mb-2 line-clamp-2 font-medium">{item.title}</h3>
+              <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
               <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
               <div className="flex items-center justify-between">
                 <Badge>{item.category}</Badge>
-                <span className="text-success-foreground font-medium">${item.price}</span>
+                <span className="text-success-foreground font-strong">${item.price}</span>
               </div>
             </div>
           </div>
@@ -161,8 +161,8 @@ export const ListMode: Story = {
               />
               <div className="min-w-0 flex-grow">
                 <div className="mb-1 flex items-center justify-between">
-                  <h3 className="truncate font-medium">{item.title}</h3>
-                  <span className="text-success-foreground font-medium">${item.price}</span>
+                  <h3 className="font-strong truncate">{item.title}</h3>
+                  <span className="text-success-foreground font-strong">${item.price}</span>
                 </div>
                 <p className="text-secondary-foreground mb-2 line-clamp-2">{item.description}</p>
                 <div className="flex items-center gap-2">
@@ -232,10 +232,10 @@ export const PerformanceOptimized: Story = {
             <div className="bg-default-background rounded-lg border p-3 transition-shadow hover:shadow-md">
               <div className="mb-3 h-20 w-full rounded bg-gradient-to-br from-blue-400 to-purple-500" />
               <div className="space-y-2">
-                <h3 className="line-clamp-1 font-medium">{item.title}</h3>
+                <h3 className="font-strong line-clamp-1">{item.title}</h3>
                 <div className="flex items-center justify-between">
                   <Badge>#{(index ?? 0) + 1}</Badge>
-                  <span className="text-success-foreground font-medium">${item.price}</span>
+                  <span className="text-success-foreground font-strong">${item.price}</span>
                 </div>
               </div>
             </div>
@@ -312,7 +312,7 @@ export const ContainerScroll: Story = {
                       className="mb-3 h-16 w-full rounded"
                       style={{ backgroundColor: item.color }}
                     />
-                    <h3 className="mb-2 line-clamp-2 font-medium">{item.title}</h3>
+                    <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
                     <div className="flex items-center justify-between">
                       <span className="text-secondary-foreground">Item {(index ?? 0) + 1}</span>
                       <Badge>{item.category}</Badge>
@@ -408,7 +408,7 @@ export const ErrorHandling: Story = {
           renderItem={(item, index) => (
             <div className="bg-default-background rounded-lg border p-4">
               <div className="mb-3 h-24 w-full rounded bg-gray-200" />
-              <h3 className="mb-2 font-medium">{item.title?.toUpperCase()}</h3>
+              <h3 className="font-strong mb-2">{item.title?.toUpperCase()}</h3>
               <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
               <Badge>#{(index ?? 0) + 1}</Badge>
             </div>
@@ -416,9 +416,9 @@ export const ErrorHandling: Story = {
           errorFallback={({ error, retry }) => (
             <div className="flex h-full flex-col items-center justify-center p-8 text-center">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
-                <span className="text-2xl">⚠️</span>
+                <span className="text-heading-display">⚠️</span>
               </div>
-              <h3 className="mb-2 text-lg font-medium">Something went wrong</h3>
+              <h3 className="text-body-large-strong mb-2">Something went wrong</h3>
               <p className="text-secondary-foreground mb-4 max-w-md">
                 The virtualized grid encountered an error while rendering items. This could be due
                 to invalid data or rendering issues.
@@ -487,7 +487,7 @@ export const Playground: Story = {
       <div className="space-y-6">
         <div className="grid grid-cols-2 gap-4 rounded-lg bg-gray-50 p-4 md:grid-cols-4">
           <div>
-            <label className="mb-1 block font-medium">Item Count</label>
+            <label className="font-strong mb-1 block">Item Count</label>
             <Input
               type="number"
               value={itemCount.toString()}
@@ -498,7 +498,7 @@ export const Playground: Story = {
             />
           </div>
           <div>
-            <label className="mb-1 block font-medium">Overscan</label>
+            <label className="font-strong mb-1 block">Overscan</label>
             <Input
               type="number"
               value={overscan.toString()}
@@ -508,7 +508,7 @@ export const Playground: Story = {
             />
           </div>
           <div>
-            <label className="mb-1 block font-medium">Min Height</label>
+            <label className="font-strong mb-1 block">Min Height</label>
             <Input
               type="number"
               value={minHeight.toString()}
@@ -519,7 +519,7 @@ export const Playground: Story = {
             />
           </div>
           <div>
-            <label className="mb-1 block font-medium">Max Height</label>
+            <label className="font-strong mb-1 block">Max Height</label>
             <Input
               type="number"
               value={maxHeight.toString()}
@@ -575,7 +575,7 @@ export const Playground: Story = {
                     className="mb-3 h-16 w-full rounded"
                     style={{ backgroundColor: item.color }}
                   />
-                  <h3 className="mb-2 line-clamp-2 font-medium">{item.title}</h3>
+                  <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
                   <p className="text-secondary-foreground line-clamp-3">{item.description}</p>
                 </div>
                 <div className="mt-auto flex items-center justify-between pt-2">

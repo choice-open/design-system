@@ -265,7 +265,7 @@ function FilterTags() {
         return (
           <Chip
             {...props}
-            prefixElement={<span className="text-sm opacity-60">{category}</span>}
+            prefixElement={<span className="text-body-small opacity-60">{category}</span>}
           >
             {value}
           </Chip>
@@ -293,7 +293,7 @@ function SkillInput() {
       />
 
       <div className="flex gap-2">
-        <span className="text-secondary-foreground text-sm">Suggestions:</span>
+        <span className="text-secondary-foreground text-body-small">Suggestions:</span>
         {suggestedSkills
           .filter((skill) => !skills.includes(skill))
           .map((skill) => (
@@ -335,7 +335,7 @@ function LimitedTags() {
         onChange={handleChange}
         placeholder={`Add up to ${maxTags} tags...`}
       />
-      <p className="text-secondary-foreground mt-2 text-sm">
+      <p className="text-secondary-foreground text-body-small mt-2">
         {tags.length}/{maxTags} tags
       </p>
     </>

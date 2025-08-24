@@ -1,10 +1,8 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const contextInputTv = tv({
+export const contextInputTv = tcv({
   slots: {
-    container: [
-      "group/context-input leading-md tracking-md text-md flex min-w-0 flex-col overflow-hidden",
-    ],
+    container: ["group/context-input text-body-medium flex min-w-0 flex-col overflow-hidden"],
     scrollArea: ["flex min-h-0 flex-col"],
     viewport: ["flex flex-1 flex-col"],
     scrollContainer: ["flex w-full min-w-0 flex-1 flex-col"],

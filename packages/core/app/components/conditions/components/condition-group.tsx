@@ -459,7 +459,7 @@ export function ConditionGroup({
               />
             ) : (
               <div
-                className="hover:bg-secondary-background flex h-6 items-center truncate rounded-md border border-transparent px-1 font-medium"
+                className="hover:bg-secondary-background font-strong flex h-6 items-center truncate rounded-md border border-transparent px-1"
                 onClick={() => setGroupNameEditing(true)}
               >
                 {group.name || "Unnamed Group"}

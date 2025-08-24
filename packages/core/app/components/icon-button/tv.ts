@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const iconButtonTv = tv({
+export const iconButtonTv = tcv({
   slots: {
     button: [
       "text-default-foreground",
@@ -48,19 +48,19 @@ export const iconButtonTv = tv({
       variant: ["default", "highlight"],
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-hover-background" },
+      class: { button: "hover:bg-secondary-background active:bg-tertiary-background" },
     },
     {
       variant: "default",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-hover-background" },
+      class: { button: "bg-tertiary-background" },
     },
     {
       variant: "secondary",
       active: false,
       disabled: false,
-      class: { button: "hover:bg-secondary-background active:bg-secondary-hover-background" },
+      class: { button: "hover:bg-secondary-background active:bg-tertiary-background" },
     },
     {
       variant: "secondary",
@@ -73,14 +73,14 @@ export const iconButtonTv = tv({
       active: false,
       disabled: false,
       class: {
-        button: "hover:bg-secondary-hover-background active:bg-secondary-hover-background",
+        button: "hover:bg-tertiary-background active:bg-tertiary-background",
       },
     },
     {
       variant: "solid",
       active: true,
       disabled: false,
-      class: { button: "bg-secondary-hover-background" },
+      class: { button: "bg-tertiary-background" },
     },
     {
       variant: "highlight",
@@ -147,7 +147,7 @@ export const iconButtonTv = tv({
   },
 })
 
-export const iconButtonGroupTv = tv({
+export const iconButtonGroupTv = tcv({
   slots: {
     container: "grid grid-cols-(--columns) gap-x-px",
     button: ["flex-1", "rounded-none first:rounded-l-md last:rounded-r-md", "w-full min-w-6"],

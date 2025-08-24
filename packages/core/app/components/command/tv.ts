@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const commandTv = tv({
+export const commandTv = tcv({
   slots: {
     root: "flex h-full w-full flex-col overflow-hidden",
     divider: "my-2 h-px",
@@ -19,7 +19,7 @@ export const commandTv = tv({
   },
 })
 
-export const commandInputTv = tv({
+export const commandInputTv = tcv({
   slots: {
     root: "m-2 flex items-center",
     input: "w-full rounded-lg",
@@ -27,10 +27,10 @@ export const commandInputTv = tv({
   variants: {
     size: {
       default: {
-        input: "leading-md tracking-md text-md h-8 px-2",
+        input: "text-body-medium h-8 px-2",
       },
       large: {
-        input: "leading-lg tracking-lg h-10 px-4 text-lg",
+        input: "leading-lg tracking-lg h-10 px-4 text-body-large",
       },
     },
   },
@@ -39,17 +39,17 @@ export const commandInputTv = tv({
   },
 })
 
-export const commandListTv = tv({
+export const commandListTv = tcv({
   slots: {
     root: "px-2 pb-2",
     content: "flex flex-col",
   },
 })
 
-export const commandGroupTv = tv({
+export const commandGroupTv = tcv({
   slots: {
     root: "flex flex-col gap-1 not-first:mt-4",
-    heading: "leading-md tracking-md px-2",
+    heading: "text-body-medium px-2",
   },
   variants: {
     variant: {
@@ -63,7 +63,7 @@ export const commandGroupTv = tv({
   },
 })
 
-export const commandItemTv = tv({
+export const commandItemTv = tcv({
   slots: {
     root: ["group/item relative flex items-center rounded-lg select-none", "focus:outline-none"],
     icon: "flex flex-shrink-0 items-center justify-center rounded-md",
@@ -79,11 +79,11 @@ export const commandItemTv = tv({
     },
     size: {
       default: {
-        root: "text-md leading-md tracking-md min-h-8 p-1",
+        root: "text-body-medium min-h-8 p-1",
         icon: "h-6 min-w-6",
       },
       large: {
-        root: "leading-lg tracking-lg min-h-10 p-2 text-lg",
+        root: "leading-lg tracking-lg min-h-10 p-2 text-body-large",
         icon: "h-6 min-w-6",
       },
     },
@@ -200,7 +200,7 @@ export const commandItemTv = tv({
   },
 })
 
-export const commandFooterTv = tv({
+export const commandFooterTv = tcv({
   slots: {
     root: "flex h-10 items-center justify-between border-t px-2",
   },
@@ -219,13 +219,13 @@ export const commandFooterTv = tv({
   },
 })
 
-export const commandTabsTv = tv({
+export const commandTabsTv = tcv({
   slots: {
     tabs: "mx-2 mb-2",
   },
 })
 
-export const commandEmptyTv = tv({
+export const commandEmptyTv = tcv({
   slots: {
     root: "py-6 text-center",
   },
@@ -241,7 +241,7 @@ export const commandEmptyTv = tv({
   },
 })
 
-export const commandLoadingTv = tv({
+export const commandLoadingTv = tcv({
   slots: {
     root: "flex items-center justify-center py-6 text-center",
   },

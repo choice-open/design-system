@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 import { tcx } from "~/utils"
 
 interface SpringVisualizerProps extends React.ComponentPropsWithoutRef<"svg"> {
@@ -31,7 +31,7 @@ export const SpringVisualizer = ({
 }: SpringVisualizerProps) => {
   const [path, setPath] = useState("")
 
-  const SpringVisualizerVariants = tv({
+  const SpringVisualizerVariants = tcv({
     slots: {
       base: "overflow-visible",
       curve: "stroke-[url(#springGradient)]",

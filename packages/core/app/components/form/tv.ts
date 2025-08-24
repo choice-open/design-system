@@ -1,16 +1,16 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const FormTv = tv({
+export const FormTv = tcv({
   slots: {
     field: ["flex min-w-0 flex-col gap-2"],
     error: [
-      "leading-md tracking-md",
+      "text-body-medium",
       "px-0.5",
       "break-words whitespace-pre-wrap",
       "text-danger-foreground",
     ],
     description: [
-      "leading-md tracking-md",
+      "text-body-medium",
       "px-0.5",
       "break-words whitespace-pre-wrap",
       "text-secondary-foreground",

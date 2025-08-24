@@ -1,9 +1,9 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const labelTv = tv({
+export const labelTv = tcv({
   slots: {
-    root: "leading-md tracking-md cursor-default self-start px-0.5",
-    content: "font-medium",
+    root: "text-body-medium cursor-default self-start px-0.5",
+    content: "font-strong",
     required: "",
     description: "ml-1",
     action: "relative ml-1 inline-flex align-middle",

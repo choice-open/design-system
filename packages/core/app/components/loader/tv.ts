@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const loaderVariants = tv({
+export const loaderVariants = tcv({
   slots: {
     root: "relative inline-flex items-center justify-center",
     track: "relative h-20 w-48 overflow-hidden",
@@ -11,7 +11,7 @@ export const loaderVariants = tv({
     ],
     iconContainer: "relative flex h-10 w-10 items-center justify-center",
     icon: "absolute inset-0 flex items-center justify-center text-gray-500",
-    label: "text-default-foreground font-medium transition-opacity duration-300",
+    label: "text-default-foreground font-strong transition-opacity duration-300",
   },
   variants: {
     active: {

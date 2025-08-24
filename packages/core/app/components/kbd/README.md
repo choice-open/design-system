@@ -213,7 +213,7 @@ type KbdKey =
 ### Navigation help
 
 ```tsx
-<div className="space-y-1 text-sm">
+<div className="text-body-small space-y-1">
   <p>Use arrow keys to navigate:</p>
   <div className="flex gap-2">
     <Kbd keys="up" />

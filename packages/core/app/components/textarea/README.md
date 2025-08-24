@@ -253,7 +253,7 @@ const [isEditing, setIsEditing] = useState(false)
     placeholder="Start typing..."
   />
   {isEditing && (
-    <div className="text-sm text-white/60">
+    <div className="text-body-small text-white/60">
       Currently editing...
     </div>
   )}

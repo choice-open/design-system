@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const BezierCurveEditorTv = tv({
+export const BezierCurveEditorTv = tcv({
   slots: {
     base: "isolate flex flex-col p-2",
     wrappr: "relative",

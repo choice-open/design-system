@@ -445,8 +445,8 @@ export const CompoundComponent: Story = {
         </Select>
 
         <div className="rounded-xl bg-stone-50 p-4">
-          <div className="mb-2 text-sm font-medium text-stone-700">Current Selection:</div>
-          <div className="font-mono text-sm text-stone-600">{value || "None"}</div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Selection:</div>
+          <div className="text-body-small font-mono text-stone-600">{value || "None"}</div>
         </div>
       </div>
     )
@@ -512,11 +512,11 @@ export const Multiple: Story = {
 
     return (
       <div className="flex flex-col gap-8 p-8">
-        <div className="text-lg font-medium">Multiple Select Components Test</div>
+        <div className="text-body-large-strong">Multiple Select Components Test</div>
 
         <div className="flex flex-wrap gap-6">
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-stone-600">First Select</label>
+            <label className="text-body-small text-stone-600">First Select</label>
             <Select
               value={value1}
               onChange={setValue1}
@@ -543,7 +543,7 @@ export const Multiple: Story = {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-stone-600">Second Select</label>
+            <label className="text-body-small text-stone-600">Second Select</label>
             <Select
               value={value2}
               onChange={setValue2}
@@ -571,7 +571,7 @@ export const Multiple: Story = {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-stone-600">Third Select</label>
+            <label className="text-body-small text-stone-600">Third Select</label>
             <Select
               value={value3}
               onChange={setValue3}
@@ -609,14 +609,14 @@ export const Multiple: Story = {
         </div>
 
         <div className="flex flex-col gap-2 rounded-xl bg-stone-50 p-4">
-          <div className="text-sm font-medium text-stone-700">Current Values:</div>
-          <div className="text-sm text-stone-600">
+          <div className="text-body-small-strong text-stone-700">Current Values:</div>
+          <div className="text-body-small text-stone-600">
             First: <span className="font-mono">{value1}</span>
           </div>
-          <div className="text-sm text-stone-600">
+          <div className="text-body-small text-stone-600">
             Second: <span className="font-mono">{value2}</span>
           </div>
-          <div className="text-sm text-stone-600">
+          <div className="text-body-small text-stone-600">
             Third: <span className="font-mono">{value3}</span>
           </div>
         </div>
@@ -696,19 +696,19 @@ export const ItemActive: Story = {
         >
           <Popover.Content className="w-80 p-4">
             <div className="space-y-4">
-              <h3 className="font-medium">Music Settings</h3>
-              <p className="text-sm text-stone-600">
+              <h3 className="font-strong">Music Settings</h3>
+              <p className="text-body-small text-stone-600">
                 Configure your music playback preferences and library settings.
               </p>
               <div className="flex gap-2">
                 <button
-                  className="rounded bg-blue-500 px-3 py-1 text-sm text-white"
+                  className="text-body-small rounded bg-blue-500 px-3 py-1 text-white"
                   onClick={() => setOpen(false)}
                 >
                   Save
                 </button>
                 <button
-                  className="rounded border px-3 py-1 text-sm"
+                  className="text-body-small rounded border px-3 py-1"
                   onClick={() => setOpen(false)}
                 >
                   Cancel
@@ -757,11 +757,11 @@ export const Advanced: Story = {
 
     return (
       <div className="space-y-6 p-6">
-        <h2 className="text-xl font-semibold">Task Management</h2>
+        <h2 className="text-body-large-strong">Task Management</h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-stone-700">Status</label>
+            <label className="text-body-small-strong text-stone-700">Status</label>
             <Select
               value={status}
               onChange={setStatus}
@@ -792,7 +792,7 @@ export const Advanced: Story = {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-stone-700">Priority</label>
+            <label className="text-body-small-strong text-stone-700">Priority</label>
             <Select
               value={priority}
               onChange={setPriority}
@@ -819,7 +819,7 @@ export const Advanced: Story = {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-stone-700">Assignee</label>
+            <label className="text-body-small-strong text-stone-700">Assignee</label>
             <Select
               value={assignee}
               onChange={setAssignee}
@@ -852,8 +852,8 @@ export const Advanced: Story = {
         </div>
 
         <div className="rounded-xl border bg-stone-50 p-4">
-          <h3 className="mb-2 font-medium">Current Configuration</h3>
-          <div className="space-y-1 text-sm">
+          <h3 className="font-strong mb-2">Current Configuration</h3>
+          <div className="text-body-small space-y-1">
             <div>
               Status: <span className="font-mono">{status}</span>
             </div>

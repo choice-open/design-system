@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const PicturePreviewTv = tv({
+export const PicturePreviewTv = tcv({
   slots: {
     root: ["relative flex flex-col overflow-hidden", "h-full w-full", "touch-none select-none"],
     loading: [

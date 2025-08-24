@@ -486,8 +486,10 @@ The content container for compound component usage.
     className="max-w-xs"
   >
     <div className="space-y-1">
-      <div className="font-medium">Complex Content</div>
-      <div className="text-sm">This tooltip contains multiple lines and rich formatting.</div>
+      <div className="font-strong">Complex Content</div>
+      <div className="text-body-small">
+        This tooltip contains multiple lines and rich formatting.
+      </div>
     </div>
   </TooltipContent>
 </Tooltip>

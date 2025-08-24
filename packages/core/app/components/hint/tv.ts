@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const hintVariants = tv({
+export const hintVariants = tcv({
   slots: {
     content: ["rounded-md", "flex", "leading-md shadow-md", "max-w-xs"],
     text: "my-1",

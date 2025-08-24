@@ -107,7 +107,7 @@ export function MultipleMentionTypesExample() {
         }}
       />
 
-      <div className="text-sm text-gray-600">
+      <div className="text-body-small text-gray-600">
         <p>Use @ for users, # for channels</p>
         <p>Current mentions: {value.mentions.length}</p>
       </div>
@@ -186,17 +186,17 @@ export function ChatInterfaceExample() {
             key={message.id}
             className="flex gap-3"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm text-white">
+            <div className="text-body-small flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white">
               {message.author[0]}
             </div>
             <div className="flex-1">
               <div className="mb-1 flex items-center gap-2">
-                <span className="text-sm font-medium">{message.author}</span>
+                <span className="text-body-small-strong">{message.author}</span>
                 <span className="text-xs text-gray-500">
                   {message.timestamp.toLocaleTimeString()}
                 </span>
               </div>
-              <p className="text-sm">{message.text}</p>
+              <p className="text-body-small">{message.text}</p>
               {message.mentions.length > 0 && (
                 <div className="mt-1 text-xs text-blue-600">
                   Mentioned: {message.mentions.map((m) => m.label).join(", ")}
@@ -320,7 +320,7 @@ export function CustomMentionTypesExample() {
         }}
         renderMention={(mention) => (
           <span
-            className={`inline-flex items-center gap-1 rounded px-2 py-1 text-sm ${mention.type === "task" ? "bg-orange-100 text-orange-800" : ""} ${mention.type === "document" ? "bg-purple-100 text-purple-800" : ""} `}
+            className={`text-body-small inline-flex items-center gap-1 rounded px-2 py-1 ${mention.type === "task" ? "bg-orange-100 text-orange-800" : ""} ${mention.type === "document" ? "bg-purple-100 text-purple-800" : ""} `}
           >
             {mention.type === "task" && "📋"}
             {mention.type === "document" && "📄"}
@@ -329,8 +329,8 @@ export function CustomMentionTypesExample() {
         )}
       />
 
-      <div className="mt-4 text-sm">
-        <h4 className="font-medium">Usage:</h4>
+      <div className="text-body-small mt-4">
+        <h4 className="font-strong">Usage:</h4>
         <ul className="list-inside list-disc text-gray-600">
           <li>Type ! to mention tasks</li>
           <li>Type & to mention documents</li>
@@ -363,10 +363,10 @@ export function RichTextExample() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <span className="text-sm font-medium">Rich Text Input:</span>
+        <span className="text-body-small-strong">Rich Text Input:</span>
         <button
           onClick={() => setShowPreview(!showPreview)}
-          className="text-sm text-blue-600 hover:text-blue-800"
+          className="text-body-small text-blue-600 hover:text-blue-800"
         >
           {showPreview ? "Hide" : "Show"} Preview
         </button>
@@ -382,7 +382,7 @@ export function RichTextExample() {
 
       {showPreview && (
         <div className="rounded border bg-gray-50 p-3">
-          <div className="mb-2 text-sm font-medium">Preview:</div>
+          <div className="text-body-small-strong mb-2">Preview:</div>
           <div
             className="prose prose-sm"
             dangerouslySetInnerHTML={{
@@ -446,7 +446,7 @@ export function ValidationExample() {
         className={errors.length > 0 ? "border-red-500" : ""}
       />
 
-      <div className="flex items-center justify-between text-sm">
+      <div className="text-body-small flex items-center justify-between">
         <div>
           {errors.length > 0 && (
             <div className="text-red-600">
@@ -520,7 +520,7 @@ export function AsyncMentionExample() {
         loadingMentions={loading}
       />
 
-      {loading && <div className="mt-2 text-sm text-gray-500">Searching users...</div>}
+      {loading && <div className="text-body-small mt-2 text-gray-500">Searching users...</div>}
     </div>
   )
 }

@@ -171,7 +171,7 @@ const [isEditing, setIsEditing] = useState(false)
     onIsEditingChange={setIsEditing}
     placeholder="Enter password"
   />
-  {isEditing && <div className="text-sm text-secondary">Editing...</div>}
+  {isEditing && <div className="text-body-small text-secondary">Editing...</div>}
 </div>
 ```
 

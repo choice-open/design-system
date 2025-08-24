@@ -56,7 +56,7 @@ const Result = ({
     >
       <ScrollArea.Viewport className="p-4">
         <ScrollArea.Content className="w-fit">
-          <p className="text-sm font-medium">Current value:</p>
+          <p className="text-body-small-strong">Current value:</p>
           <SyntaxHighlighter
             language="json"
             style={style}
@@ -419,7 +419,7 @@ export const WithHeader: Story = {
           }}
         >
           <ContextInput.Header>
-            <h3 className="font-medium">Header</h3>
+            <h3 className="font-strong">Header</h3>
             <IconButton
               tooltip={{
                 content: "Expand",
@@ -838,7 +838,7 @@ export const WithPasteButton: Story = {
         >
           <ContextInput.Header>
             <div className="flex items-center justify-between">
-              <h3 className="font-medium">Input content</h3>
+              <h3 className="font-strong">Input content</h3>
               <ContextInput.CopyButton
                 onClick={async (copiedText) => {
                   const confirmed = await confirm({
@@ -918,7 +918,7 @@ export const MultipleTriggers: Story = {
         />
 
         <div className="bg-secondary-background mt-4 rounded-xl p-4">
-          <p className="font-medium">Instructions:</p>
+          <p className="font-strong">Instructions:</p>
           <ul className="text-secondary-foreground mt-2 space-y-1">
             <li>
               • Type <code>@</code> to mention users
@@ -1105,7 +1105,7 @@ export const ControlledValue: Story = {
     return (
       <div className="w-full max-w-md space-y-4">
         <div className="space-y-2">
-          <h4 className="font-medium">Value Control Buttons</h4>
+          <h4 className="font-strong">Value Control Buttons</h4>
           <div className="flex flex-wrap gap-2">
             {presetValues.map((preset) => (
               <Button
@@ -1121,7 +1121,7 @@ export const ControlledValue: Story = {
         </div>
 
         <div className="space-y-2">
-          <h4 className="font-medium">Dynamic Actions</h4>
+          <h4 className="font-strong">Dynamic Actions</h4>
           <div className="flex flex-wrap gap-2">
             <Button
               variant="secondary"
@@ -1246,10 +1246,10 @@ export const ControlledValue: Story = {
         >
           <ContextInput.Footer>
             <div className="flex items-center gap-2">
-              <span className="text-secondary-foreground text-sm">
+              <span className="text-secondary-foreground text-body-small">
                 Characters: {value.text.length}
               </span>
-              <span className="text-secondary-foreground text-sm">
+              <span className="text-secondary-foreground text-body-small">
                 Mentions: {value.mentions.length}
               </span>
             </div>
@@ -1269,8 +1269,8 @@ export const ControlledValue: Story = {
         />
 
         <div className="bg-secondary-background rounded-xl p-4">
-          <p className="mb-2 font-medium">Controlled Value Features:</p>
-          <ul className="text-secondary-foreground space-y-1 text-sm">
+          <p className="font-strong mb-2">Controlled Value Features:</p>
+          <ul className="text-secondary-foreground text-body-small space-y-1">
             <li>• External buttons control input content</li>
             <li>• Programmatic mention insertion</li>
             <li>• Real-time character and mention counts</li>

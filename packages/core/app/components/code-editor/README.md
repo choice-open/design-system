@@ -134,7 +134,7 @@ function AdvancedEditor() {
       />
 
       {diagnostics.length > 0 && (
-        <div className="mt-2 text-sm text-red-600">Issues found: {diagnostics.length}</div>
+        <div className="text-body-small mt-2 text-red-600">Issues found: {diagnostics.length}</div>
       )}
     </div>
   )
@@ -191,7 +191,7 @@ function MultiFileEditor() {
           <button
             key={filename}
             onClick={() => setActiveFile(filename)}
-            className={`px-4 py-2 text-sm ${
+            className={`text-body-small px-4 py-2 ${
               activeFile === filename
                 ? "border-b-2 border-blue-500 bg-white"
                 : "text-gray-600 hover:text-gray-800"
@@ -245,13 +245,13 @@ function EditorWithToolbar() {
       <div className="border-b border-gray-200 bg-gray-50 p-2">
         <button
           onClick={() => insertSnippet("console.log('')")}
-          className="mr-2 rounded bg-blue-500 px-3 py-1 text-sm text-white"
+          className="text-body-small mr-2 rounded bg-blue-500 px-3 py-1 text-white"
         >
           Console.log
         </button>
         <button
           onClick={() => insertSnippet("function name() {\n  \n}")}
-          className="rounded bg-green-500 px-3 py-1 text-sm text-white"
+          className="text-body-small rounded bg-green-500 px-3 py-1 text-white"
         >
           Function
         </button>

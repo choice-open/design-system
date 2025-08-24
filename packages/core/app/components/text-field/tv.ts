@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const TextFieldTv = tv({
+export const TextFieldTv = tcv({
   slots: {
     container: ["flex min-w-0 flex-col items-start gap-2"],
     root: [
@@ -14,7 +14,7 @@ export const TextFieldTv = tv({
     prefix: ["[grid-area:prefix]"],
     suffix: ["[grid-area:suffix]"],
     description: [
-      "leading-md tracking-md mt-1",
+      "text-body-medium mt-1",
       "px-0.5",
       "break-words whitespace-pre-wrap",
       "text-secondary-foreground",

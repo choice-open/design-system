@@ -1,9 +1,9 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const TextareaTv = tv({
+export const TextareaTv = tcv({
   base: [
     "h-auto w-full min-w-0 rounded-md",
-    "leading-md tracking-md text-md",
+    "text-body-medium",
     "px-2 py-1",
     "cursor-default appearance-none",
   ],

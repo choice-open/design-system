@@ -507,7 +507,7 @@ The Select component uses advanced positioning logic:
 <div className="space-y-2">
   <label
     htmlFor="country"
-    className="block text-sm font-medium"
+    className="text-body-small-strong block"
   >
     Country
   </label>

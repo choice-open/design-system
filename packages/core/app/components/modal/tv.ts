@@ -1,16 +1,15 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const ModalTv = tv({
+export const ModalTv = tcv({
   slots: {
     root: "bg-default-background z-modals pointer-events-auto relative flex max-w-fit flex-col rounded-xl shadow-xl",
   },
 })
 
-export const ModalHeaderTv = tv({
+export const ModalHeaderTv = tcv({
   slots: {
     root: "modal__header border-default-boundary w-full flex-none items-center border-b",
-    title:
-      "leading-md tracking-md flex min-w-0 items-center gap-2 p-2 font-medium [grid-area:title]",
+    title: "text-body-medium flex min-w-0 items-center gap-2 p-2 font-strong [grid-area:title]",
     close: "p-2 [grid-area:close]",
   },
   variants: {
@@ -35,18 +34,18 @@ export const ModalHeaderTv = tv({
   },
 })
 
-export const ModalContentTv = tv({
+export const ModalContentTv = tcv({
   slots: {
     root: "flex-1",
   },
 })
 
-export const ModalFooterTv = tv({
+export const ModalFooterTv = tcv({
   slots: {
     root: "border-default-boundary flex h-10 flex-none items-center justify-between gap-2 border-t p-2",
   },
 })
 
-export const ModalBackdropTv = tv({
+export const ModalBackdropTv = tcv({
   base: "z-modals fixed inset-0 grid place-items-center bg-black/20",
 })

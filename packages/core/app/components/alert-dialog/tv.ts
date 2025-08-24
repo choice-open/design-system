@@ -1,7 +1,7 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
 // Alert Dialog 主容器样式
-export const alertDialogTv = tv({
+export const alertDialogTv = tcv({
   slots: {
     overlay: ["z-alert fixed inset-0 grid place-items-center"],
     container: "max-w-none",

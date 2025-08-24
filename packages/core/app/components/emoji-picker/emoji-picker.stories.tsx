@@ -36,7 +36,7 @@ export const Basic: Story = {
       <div className="flex flex-col gap-4">
         <div className="text-center">
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               选中的 emoji: {selectedEmoji.emoji} ({selectedEmoji.name})
             </div>
           ) : (
@@ -66,7 +66,7 @@ export const LightTheme: Story = {
       <div className="flex flex-col gap-4">
         <div className="text-center">
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               选中的 emoji: {selectedEmoji.emoji} ({selectedEmoji.name})
             </div>
           ) : (
@@ -101,9 +101,9 @@ export const WithoutFrequentlyUsed: Story = {
     return (
       <div className="flex flex-col gap-4">
         <div className="text-center">
-          <h3 className="mb-2 text-lg font-medium">禁用常用 Emoji 功能</h3>
+          <h3 className="text-body-large-strong mb-2">禁用常用 Emoji 功能</h3>
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               选中的 emoji: {selectedEmoji.emoji} ({selectedEmoji.name})
             </div>
           ) : (
@@ -119,7 +119,7 @@ export const WithoutFrequentlyUsed: Story = {
           showFrequentlyUsed={false}
         />
 
-        <div className="max-w-md text-center text-sm text-gray-500">
+        <div className="text-body-small max-w-md text-center text-gray-500">
           <p>这个示例展示了禁用常用功能：</p>
           <ul className="mt-2 space-y-1 text-left">
             <li>• 不显示 &ldquo;Frequently used&rdquo; 分类</li>
@@ -156,7 +156,7 @@ export const ControlledWithPopover: Story = {
       <div className="flex flex-col items-center gap-4">
         <div className="text-center">
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               当前选中: {selectedEmoji.emoji} {selectedEmoji.name}
             </div>
           ) : (
@@ -204,7 +204,7 @@ export const MultipleControlled: Story = {
     return (
       <div className="flex flex-col items-center gap-6">
         <div className="text-center">
-          <h3 className="mb-2 text-lg font-medium">多个 Emoji 选择器</h3>
+          <h3 className="text-body-large-strong mb-2">多个 Emoji 选择器</h3>
           <p className="text-gray-500">
             选择器 1: {emoji1?.emoji || "未选择"} | 选择器 2: {emoji2?.emoji || "未选择"}
           </p>
@@ -282,7 +282,7 @@ export const DraggablePopover: Story = {
         <div className="text-center">
           <p className="mb-2 text-gray-500">可拖拽的 Emoji 选择器</p>
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               {selectedEmoji.emoji} {selectedEmoji.name}
             </div>
           ) : (
@@ -356,9 +356,9 @@ export const ExternalValueControl: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="text-center">
-          <h3 className="mb-2 text-lg font-medium">外部值控制</h3>
+          <h3 className="text-body-large-strong mb-2">外部值控制</h3>
           {selectedEmoji ? (
-            <div className="text-lg">
+            <div className="text-body-large">
               当前选中: {selectedEmoji.emoji} {selectedEmoji.name}
             </div>
           ) : (
@@ -369,7 +369,7 @@ export const ExternalValueControl: Story = {
         {/* 最近使用的 emoji 快速选择 */}
         {recentEmojis.length > 0 && (
           <div className="text-center">
-            <p className="mb-2 text-sm text-gray-500">最近使用：</p>
+            <p className="text-body-small mb-2 text-gray-500">最近使用：</p>
             <div className="flex justify-center gap-2">
               {recentEmojis.map((emoji) => (
                 <Button
@@ -397,7 +397,7 @@ export const ExternalValueControl: Story = {
 
         {/* 预设的一些常用 emoji 用于快速切换 */}
         <div className="text-center">
-          <p className="mb-2 text-sm text-gray-500">快速选择：</p>
+          <p className="text-body-small mb-2 text-gray-500">快速选择：</p>
           <div className="flex justify-center gap-2">
             {[
               "😀", // Grinning Face
@@ -447,7 +447,7 @@ export const ExternalValueControl: Story = {
         </Popover>
 
         {/* 说明文字 */}
-        <div className="max-w-md text-center text-sm text-gray-500">
+        <div className="text-body-small max-w-md text-center text-gray-500">
           <p>这个示例展示了外部值控制：</p>
           <ul className="mt-2 space-y-1 text-left">
             <li>• 默认选择了一个 emoji (😀)</li>

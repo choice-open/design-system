@@ -91,7 +91,7 @@ import { Checkbox } from "@choiceform/design-system"
   value={checked}
   onChange={setChecked}
 >
-  <Checkbox.Label className="text-sm font-medium">Custom styled label</Checkbox.Label>
+  <Checkbox.Label className="text-body-small-strong">Custom styled label</Checkbox.Label>
 </Checkbox>
 ```
 
@@ -245,7 +245,9 @@ function SelectAllExample() {
   >
     <Checkbox.Label>
       <div>Email notifications</div>
-      <div className="text-secondary-foreground text-sm">Receive updates about your account</div>
+      <div className="text-secondary-foreground text-body-small">
+        Receive updates about your account
+      </div>
     </Checkbox.Label>
   </Checkbox>
 

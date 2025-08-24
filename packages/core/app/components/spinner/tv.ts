@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const SpinnerSpinVariant = tv({
+export const SpinnerSpinVariant = tcv({
   slots: {
     base: "relative inline-flex flex-col items-center justify-center gap-2",
     container: "relative h-(--container) w-(--container) animate-spin",
@@ -31,7 +31,7 @@ export const SpinnerSpinVariant = tv({
   },
 })
 
-export const SpinnerBounceVariant = tv({
+export const SpinnerBounceVariant = tcv({
   slots: {
     base: "relative inline-flex flex-col items-center justify-center gap-2",
     container: [

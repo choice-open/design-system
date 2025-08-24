@@ -1,12 +1,11 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const TextareaTv = tv({
+export const TextareaTv = tcv({
   slots: {
     container: "relative rounded-md border border-transparent",
     textarea: [
       "w-full min-w-0",
       "px-2 py-1",
-      "leading-md tracking-md text-md",
       "cursor-text",
       "bg-transparent",
       "placeholder:text-secondary-foreground",

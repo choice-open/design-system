@@ -47,7 +47,7 @@ export const Basic: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -83,7 +83,7 @@ export const Expression: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -119,7 +119,7 @@ export const MultipleValues: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -162,14 +162,14 @@ export const Constraints: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
         </div>
         <div>
           Value: {value}
-          <div className="text-secondary-foreground text-sm">
+          <div className="text-secondary-foreground text-body-small">
             Min: 0, Max: 100, Step: 5 (Shift: 20)
           </div>
         </div>
@@ -202,7 +202,7 @@ export const ArrayValues: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -242,7 +242,7 @@ export const States: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -302,7 +302,7 @@ export const MathExpressions: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -310,7 +310,9 @@ export const MathExpressions: StoryObj = {
         <div>
           <div>Expression: {value}</div>
           {result !== null && <div className="font-bold">Result: {result}</div>}
-          <div className="text-secondary-foreground text-sm">Try: "5+10", "(20-5)*2", "100/4"</div>
+          <div className="text-secondary-foreground text-body-small">
+            Try: "5+10", "(20-5)*2", "100/4"
+          </div>
         </div>
       </div>
     )
@@ -346,7 +348,7 @@ export const EmptyValue: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -354,7 +356,7 @@ export const EmptyValue: StoryObj = {
         <div className="flex items-center gap-2">
           <div>Current value: {value === undefined ? "empty" : value}</div>
           <button
-            className="rounded bg-gray-200 px-2 py-0.5 text-sm"
+            className="text-body-small rounded bg-gray-200 px-2 py-0.5"
             onClick={() => setValue(undefined)}
           >
             Clear
@@ -405,14 +407,16 @@ export const KeyboardNavigation: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
         </div>
         <div>
           <div>Current value: {value}</div>
-          {lastKey && <div className="text-secondary-foreground text-sm">Last key: {lastKey}</div>}
+          {lastKey && (
+            <div className="text-secondary-foreground text-body-small">Last key: {lastKey}</div>
+          )}
           <div className="text-secondary-foreground mt-2">
             <p>↑/↓: ±5, Shift+↑/↓: ±20, Meta/Alt+↑/↓: ±1</p>
           </div>
@@ -468,14 +472,14 @@ export const FocusState: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
         </div>
         <div>
           <div>Current value: {value}</div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="text-body-small flex items-center gap-2">
             <span>State:</span>
             <span
               className={`rounded px-2 py-0.5 ${isEditing ? "bg-blue-100 text-blue-800" : "bg-gray-100"}`}
@@ -555,15 +559,17 @@ export const ErrorHandling: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
         </div>
         <div>
           <div>Current value: {value}</div>
-          {errorState.hasError && <div className="text-sm text-red-500">{errorState.message}</div>}
-          <div className="text-secondary-foreground text-sm">
+          {errorState.hasError && (
+            <div className="text-body-small text-red-500">{errorState.message}</div>
+          )}
+          <div className="text-secondary-foreground text-body-small">
             Try valid (50, 1+2) or invalid (abc, 50px) inputs
           </div>
         </div>
@@ -619,7 +625,7 @@ export const LinkedInputs: StoryObj = {
       <div className="flex flex-col gap-4">
         <div className="grid max-w-md grid-cols-3 gap-4">
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-red-600">Red</label>
+            <label className="text-body-small-strong text-red-600">Red</label>
             <div className="flex items-center gap-2">
               <input
                 {...redInput.inputProps}
@@ -636,7 +642,7 @@ export const LinkedInputs: StoryObj = {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-green-600">Green</label>
+            <label className="text-body-small-strong text-green-600">Green</label>
             <div className="flex items-center gap-2">
               <input
                 {...greenInput.inputProps}
@@ -653,7 +659,7 @@ export const LinkedInputs: StoryObj = {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-blue-600">Blue</label>
+            <label className="text-body-small-strong text-blue-600">Blue</label>
             <div className="flex items-center gap-2">
               <input
                 {...blueInput.inputProps}
@@ -680,8 +686,8 @@ export const LinkedInputs: StoryObj = {
             }}
           />
           <div className="flex flex-col">
-            <div className="font-mono text-lg">{hexColor}</div>
-            <div className="text-secondary-foreground text-sm">
+            <div className="text-body-large font-mono">{hexColor}</div>
+            <div className="text-secondary-foreground text-body-small">
               rgb({color.r}, {color.g}, {color.b})
             </div>
           </div>
@@ -731,7 +737,7 @@ export const ControlledVsUncontrolled: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize px-4 select-none"
+            className="cursor-ew-resize select-none px-4"
           >
             ⟷
           </div>
@@ -750,7 +756,7 @@ export const ControlledVsUncontrolled: StoryObj = {
 
             <button
               onClick={() => isControlled && setControlledValue(Math.floor(Math.random() * 100))}
-              className={`rounded px-3 py-1 text-sm ${
+              className={`text-body-small rounded px-3 py-1 ${
                 isControlled
                   ? "bg-blue-500 text-white"
                   : "text-secondary-foreground cursor-not-allowed bg-gray-200"
@@ -760,7 +766,7 @@ export const ControlledVsUncontrolled: StoryObj = {
             </button>
           </div>
 
-          <div className="mt-3 text-sm">
+          <div className="text-body-small mt-3">
             <div>
               <strong>Mode:</strong> {isControlled ? "Controlled" : "Uncontrolled"}
             </div>

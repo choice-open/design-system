@@ -1,31 +1,31 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const CommentItemTv = tv({
+export const CommentItemTv = tcv({
   slots: {
-    root: "comment__item group/comment-item items-center px-4 py-1 text-lg",
+    root: "comment__item group/comment-item items-center px-4 py-1 text-body-large",
     avatar: "mr-3 flex-shrink-0 [grid-area:avatar]",
-    meta: "flex cursor-default gap-1 leading-5 [grid-area:meta] select-none",
-    name: "tracking-lg font-medium",
+    meta: "flex cursor-default gap-1 leading-5 select-none [grid-area:meta]",
+    name: "text-body-large-strong",
     date: "text-secondary-foreground",
     actionMenu: "[grid-area:action]",
     content: "flex flex-col [grid-area:content]",
   },
 })
 
-export const CommentItemReactionsTv = tv({
+export const CommentItemReactionsTv = tcv({
   slots: {
     reactionMenu: "[grid-area:reaction]",
     reactions: "mt-2 flex flex-wrap items-center gap-2 text-xl [grid-area:reactions]",
     reactionTooltip: "flex flex-col items-center gap-2 py-1",
     reactionEmoji: "flex size-6 items-center justify-center rounded-md bg-white text-xl",
     reactionUsers: "flex flex-col text-center",
-    reactionUser: "text-md whitespace-nowrap",
+    reactionUser: "text-body-medium whitespace-nowrap",
     reactionButton: [
       "flex h-8 items-center justify-center gap-1 rounded-md px-2",
       "border-selected-boundary border",
       "hover:bg-selected hover:text-on-accent-foreground",
     ],
-    reactionCount: "text-md",
+    reactionCount: "text-body-medium",
   },
   variants: {
     position: {

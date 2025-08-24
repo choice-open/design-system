@@ -542,7 +542,7 @@ export const ExpressionCalculation: Story = {
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-medium">Mathematical Expression Test</h3>
+          <h3 className="text-body-large-strong">Mathematical Expression Test</h3>
           <p className="text-secondary-foreground">
             Try entering different values and expressions to observe onChange event behavior:
           </p>
@@ -565,14 +565,14 @@ export const ExpressionCalculation: Story = {
           />
 
           <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>Current value:</b> {value}
             </p>
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>onChange trigger count:</b> {changeCount}
             </p>
             {lastInputText && (
-              <p className="text-sm">
+              <p className="text-body-small">
                 <b>Last input text:</b> {lastInputText}
               </p>
             )}
@@ -614,7 +614,7 @@ export const UnitExpressionCalculation: Story = {
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-medium">Unit Expression Test</h3>
+          <h3 className="text-body-large-strong">Unit Expression Test</h3>
           <p className="text-secondary-foreground">
             Try entering values and expressions with a pixel unit pattern:
           </p>
@@ -638,14 +638,14 @@ export const UnitExpressionCalculation: Story = {
           />
 
           <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>Current value:</b> {value}px
             </p>
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>onChange trigger count:</b> {changeCount}
             </p>
             {lastInputText && (
-              <p className="text-sm">
+              <p className="text-body-small">
                 <b>Last input text:</b> {lastInputText}
               </p>
             )}
@@ -692,7 +692,7 @@ export const MultiValueExpressionUpdate: Story = {
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-medium">多值表达式更新测试</h3>
+          <h3 className="text-body-large-strong">多值表达式更新测试</h3>
           <p className="text-secondary-foreground">这个示例测试修复后的多值表达式更新行为：</p>
           <ul className="text-secondary-foreground list-disc pl-5">
             <li>修改首个值（width）</li>
@@ -710,14 +710,14 @@ export const MultiValueExpressionUpdate: Story = {
           />
 
           <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>当前值:</b> {value.width}, {value.height}
             </p>
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>更新次数:</b> {updateCount}
             </p>
             {lastUpdatedProperty && (
-              <p className="text-sm">
+              <p className="text-body-small">
                 <b>最近更新的属性:</b> {lastUpdatedProperty}
               </p>
             )}
@@ -747,7 +747,7 @@ export const StepAndShiftStep: Story = {
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-medium">Step and Shift Step</h3>
+          <h3 className="text-body-large-strong">Step and Shift Step</h3>
           <p className="text-secondary-foreground">
             Focus the input and use arrow keys with modifier keys to see different step values:
           </p>
@@ -771,7 +771,7 @@ export const StepAndShiftStep: Story = {
           </NumericInput>
 
           <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-sm">
+            <p className="text-body-small">
               <b>Current value:</b> {value}
             </p>
             <p className="text-secondary-foreground mt-2">

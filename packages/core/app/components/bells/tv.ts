@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const BellsTv = tv({
+export const BellsTv = tcv({
   slots: {
     root: ["relative flex", "h-10 max-w-80 overflow-hidden rounded-xl shadow-lg"],
     content: "relative flex min-w-0 items-center gap-1 px-2",

@@ -393,8 +393,8 @@ return (
   </Popover.Trigger>
   <Popover.Content className="w-64 p-3">
     <div className="space-y-2">
-      <h5 className="font-medium">Popover content</h5>
-      <p className="text-sm text-gray-600">This popover has a footer.</p>
+      <h5 className="font-strong">Popover content</h5>
+      <p className="text-body-small text-gray-600">This popover has a footer.</p>
     </div>
   </Popover.Content>
   <Popover.Footer>
@@ -565,7 +565,7 @@ Optional footer for actions or additional controls.
       <InfoIcon />
     </Button>
   </Popover.Trigger>
-  <Popover.Content className="max-w-xs p-2 text-sm">
+  <Popover.Content className="text-body-small max-w-xs p-2">
     Additional context or help information.
   </Popover.Content>
 </Popover>

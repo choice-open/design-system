@@ -573,7 +573,7 @@ export const MultipleDropdowns: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">🔄 Multiple Dropdown Switching Test</h3>
+          <h3 className="font-strong mb-2">🔄 Multiple Dropdown Switching Test</h3>
           <p className="text-secondary-foreground">
             Test scenario: When one dropdown is open, clicking another should close the first and
             open the second in one click.
@@ -582,7 +582,7 @@ export const MultipleDropdowns: Story = {
 
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <h4 className="font-medium">Dropdown 1</h4>
+            <h4 className="font-strong">Dropdown 1</h4>
             <div className="text-secondary-foreground">
               Status: {dropdown1Open ? "Open" : "Closed"}
             </div>
@@ -607,7 +607,7 @@ export const MultipleDropdowns: Story = {
           </div>
 
           <div>
-            <h4 className="font-medium">Dropdown 2</h4>
+            <h4 className="font-strong">Dropdown 2</h4>
             <div className="text-secondary-foreground">
               Status: {dropdown2Open ? "Open" : "Closed"}
             </div>
@@ -632,7 +632,7 @@ export const MultipleDropdowns: Story = {
           </div>
 
           <div>
-            <h4 className="font-medium">Dropdown 3</h4>
+            <h4 className="font-strong">Dropdown 3</h4>
             <div className="text-secondary-foreground">
               Status: {dropdown3Open ? "Open" : "Closed"}
             </div>
@@ -658,7 +658,7 @@ export const MultipleDropdowns: Story = {
         </div>
 
         <div className="rounded-xl border p-4">
-          <h4 className="mb-2 font-medium">Test Instructions:</h4>
+          <h4 className="font-strong mb-2">Test Instructions:</h4>
           <ol className="text-secondary-foreground list-inside list-decimal space-y-1">
             <li>Click &quot;Menu 1&quot; to open the first dropdown</li>
             <li>While keeping Menu 1 open, click &quot;Menu 2&quot;</li>
@@ -850,7 +850,7 @@ export const CoordinateMode: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">📍 Coordinate Positioning Mode</h3>
+          <h3 className="font-strong mb-2">📍 Coordinate Positioning Mode</h3>
           <p className="text-secondary-foreground">
             This demonstrates the Dropdown component in coordinate mode - no trigger element,
             positioned at specific x/y coordinates. Perfect for context menus, mentions, etc.
@@ -1044,7 +1044,7 @@ export const MentionsWithCoordinateMode: Story = {
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">@ Mentions with Slate.js</h3>
+          <h3 className="font-strong mb-2">@ Mentions with Slate.js</h3>
           <p className="text-secondary-foreground">
             Type @ to trigger the mentions menu. This uses a simple Slate.js editor with Dropdown in
             coordinate mode.
@@ -1152,11 +1152,11 @@ export const NestedMenuClickTest: Story = {
 
     return (
       <div className="space-y-4 p-8">
-        <h1 className="text-2xl font-bold">Dropdown Nested Menu Click Test</h1>
+        <h1 className="text-heading-display">Dropdown Nested Menu Click Test</h1>
 
         <div className="rounded-lg bg-gray-100 p-4 dark:bg-gray-800">
-          <h2 className="mb-2 text-lg font-semibold">Test Instructions:</h2>
-          <ol className="list-inside list-decimal space-y-1 text-sm">
+          <h2 className="text-body-large-strong mb-2">Test Instructions:</h2>
+          <ol className="text-body-small list-inside list-decimal space-y-1">
             <li>Click the main dropdown trigger to open the menu</li>
             <li>Hover over &quot;File&quot; to open the first submenu</li>
             <li>Hover over &quot;Recent Files&quot; to open the nested submenu</li>
@@ -1167,8 +1167,8 @@ export const NestedMenuClickTest: Story = {
 
         <div className="flex gap-4">
           <div className="flex-1">
-            <h3 className="mb-2 text-sm font-medium">Menu State:</h3>
-            <div className="space-y-1 text-sm">
+            <h3 className="text-body-small-strong mb-2">Menu State:</h3>
+            <div className="text-body-small space-y-1">
               <div>
                 Main Menu:{" "}
                 <span className={mainOpen ? "text-green-600" : "text-red-600"}>
@@ -1275,7 +1275,7 @@ export const NestedMenuClickTest: Story = {
 
         <div className="mt-6">
           <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-sm font-medium">Event Log:</h3>
+            <h3 className="text-body-small-strong">Event Log:</h3>
             <button
               onClick={clearLog}
               className="rounded bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
@@ -1300,10 +1300,10 @@ export const NestedMenuClickTest: Story = {
         </div>
 
         <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-900/20">
-          <h3 className="mb-2 font-semibold text-yellow-800 dark:text-yellow-200">
+          <h3 className="font-strong mb-2 text-yellow-800 dark:text-yellow-200">
             Expected Behavior:
           </h3>
-          <p className="text-sm text-yellow-700 dark:text-yellow-300">
+          <p className="text-body-small text-yellow-700 dark:text-yellow-300">
             When clicking on any item in a nested menu, the ENTIRE menu hierarchy should close. This
             is consistent with how the ContextMenu component behaves and provides a better user
             experience.
@@ -1311,10 +1311,8 @@ export const NestedMenuClickTest: Story = {
         </div>
 
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-          <h3 className="mb-2 font-semibold text-blue-800 dark:text-blue-200">
-            Technical Details:
-          </h3>
-          <div className="space-y-1 text-sm text-blue-700 dark:text-blue-300">
+          <h3 className="font-strong mb-2 text-blue-800 dark:text-blue-200">Technical Details:</h3>
+          <div className="text-body-small space-y-1 text-blue-700 dark:text-blue-300">
             <p>• The Dropdown uses FloatingTree from @floating-ui/react</p>
             <p>
               • Menu items emit a <code>click</code> event via <code>tree.events.emit(click)</code>

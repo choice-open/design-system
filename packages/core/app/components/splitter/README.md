@@ -324,7 +324,7 @@ export function IDELayoutExample() {
             >
               <div className="h-full bg-gray-100 p-4">
                 <h3>Terminal</h3>
-                <div className="font-mono text-sm">$ npm run dev</div>
+                <div className="text-body-small font-mono">$ npm run dev</div>
               </div>
             </Splitter.Pane>
           </Splitter>

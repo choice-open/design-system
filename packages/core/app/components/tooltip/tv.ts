@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const tooltipContentVariants = tv({
+export const tooltipContentVariants = tcv({
   slots: {
     root: "rounded-md px-2 py-1",
     arrow: "translate-none",

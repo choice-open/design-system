@@ -272,7 +272,7 @@ export const UseEffect: Story = {
           </Button>
         </div>
 
-        <div className="text-secondary-foreground text-sm">
+        <div className="text-secondary-foreground text-body-small">
           <p>Status: {isVisible ? "Detecting" : "Not detecting"}</p>
           <p>Notification: {showNotification ? "Yes" : "No"}</p>
           <p>Action count: {actionCount}</p>

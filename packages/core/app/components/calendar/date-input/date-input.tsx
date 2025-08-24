@@ -171,7 +171,7 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>((props, re
     const confidenceColor =
       confidence >= 0.9 ? "text-green-600" : confidence >= 0.7 ? "text-blue-600" : "text-gray-600"
 
-    return <span className={`text-sm ${confidenceColor}`}>{description}</span>
+    return <span className={`text-body-small ${confidenceColor}`}>{description}</span>
   }
 
   return (

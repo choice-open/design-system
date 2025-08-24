@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const MonthCalendarTv = tv({
+export const MonthCalendarTv = tcv({
   slots: {
     // 容器
     container: "select-none",
@@ -8,11 +8,11 @@ export const MonthCalendarTv = tv({
     // 头部
     header: "grid items-center pt-2 pr-1 pl-3",
     headerWrapper: "flex h-6 items-center",
-    title: "flex-1 truncate font-medium",
+    title: "flex-1 truncate font-strong",
 
     // 星期标题区域
     weekdaysContainer: "grid gap-0 px-2 text-center",
-    weekday: "flex h-8 items-center justify-center text-sm",
+    weekday: "flex h-8 items-center justify-center text-body-small",
 
     // 日期网格
     daysGrid: "grid gap-0 px-2 pb-2",
@@ -29,7 +29,7 @@ export const MonthCalendarTv = tv({
 
     // 日期数字
     dayNumber: "relative z-2",
-    weekNumber: "flex aspect-square items-center justify-center text-sm",
+    weekNumber: "flex aspect-square items-center justify-center text-body-small",
     emptyDay: "",
   },
 

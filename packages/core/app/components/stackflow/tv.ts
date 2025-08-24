@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const stackflowTv = tv({
+export const stackflowTv = tcv({
   slots: {
     root: [
       // Layout

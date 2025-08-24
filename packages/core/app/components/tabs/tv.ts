@@ -1,33 +1,16 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const tabsTv = tv({
+export const tabsTv = tcv({
   slots: {
-    root: [
-      // Layout
-      "flex gap-1",
-      // Typography
-      "select-none",
-    ],
+    root: ["flex gap-1 select-none"],
     tab: [
-      // Layout
       "relative grid h-6 items-center gap-1",
-      // Shape
-      "tracking-md leading-md rounded-md",
-      // Spacing
+      "rounded-md",
       "border border-solid border-transparent px-2",
-      // Typography
       "cursor-default",
-      // Focus
       "focus-visible:border-selected-boundary",
     ],
-    label: [
-      // Layout
-      "col-start-1 row-start-1",
-      // Typography
-      "tracking-md",
-      // Visibility
-      "aria-hidden:invisible aria-hidden:font-medium",
-    ],
+    label: ["col-start-1 row-start-1", "aria-hidden:font-heavy aria-hidden:invisible"],
   },
   variants: {
     variant: {
@@ -36,10 +19,10 @@ export const tabsTv = tv({
     },
     active: {
       true: {
-        tab: "",
+        tab: "text-body-medium-strong",
       },
       false: {
-        tab: "",
+        tab: "text-body-medium",
       },
     },
     disabled: {
@@ -59,7 +42,7 @@ export const tabsTv = tv({
       variant: "default",
       active: true,
       class: {
-        tab: "bg-secondary-background text-default-foreground font-medium",
+        tab: "bg-secondary-background text-default-foreground",
       },
     },
     {
@@ -87,7 +70,7 @@ export const tabsTv = tv({
       variant: "dark",
       active: true,
       class: {
-        tab: "bg-gray-700 font-medium text-white",
+        tab: "bg-gray-700 font-strong text-white",
       },
     },
     {

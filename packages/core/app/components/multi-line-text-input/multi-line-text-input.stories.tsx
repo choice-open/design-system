@@ -233,7 +233,7 @@ export const Controlled: Story = {
           value={value}
           onChange={(value) => setValue(value)}
         />
-        <div className="text-secondary-foreground text-sm">Value: {value}</div>
+        <div className="text-secondary-foreground text-body-small">Value: {value}</div>
       </div>
     )
   },
@@ -283,7 +283,7 @@ export const InPopover: Story = {
           </Popover.Trigger>
           <Popover.Content className="w-80 p-4">
             <div className="flex flex-col gap-3">
-              <div className="text-sm font-medium">Multi-line text input</div>
+              <div className="text-body-small-strong">Multi-line text input</div>
               <MultiLineTextInput
                 value={value}
                 onChange={setValue}

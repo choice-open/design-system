@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const CommentInputElementTv = tv({
+export const CommentInputElementTv = tcv({
   slots: {
     attachmentsRoot: "my-2",
     attachmentsWrapper: "",
@@ -16,7 +16,7 @@ export const CommentInputElementTv = tv({
       "bg-default-foreground text-default-background shadow-range-thumb",
       "opacity-0 delay-100 group-hover/image:opacity-100",
     ],
-    mentionRoot: "text-accent-foreground mr-0.5 font-medium",
+    mentionRoot: "text-accent-foreground mr-0.5 font-strong",
     mentionTooltip: "grid grid-cols-[auto_1fr] items-center gap-2 py-1",
     mentionTooltipAvatar: "flex items-center justify-center",
     mentionTooltipContent: "flex flex-col",

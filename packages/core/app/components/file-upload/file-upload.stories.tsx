@@ -59,7 +59,7 @@ export const Basic: Story = {
               strokeWidth={(2 * 16) / 32}
             />
 
-            <p className="font-medium">Drag & drop files here</p>
+            <p className="font-strong">Drag & drop files here</p>
             <p className="text-secondary-foreground">
               Or click to browse (max 2 files, up to 5MB each)
             </p>
@@ -127,7 +127,7 @@ export const BackwardCompatible: Story = {
               strokeWidth={(2 * 16) / 32}
             />
 
-            <p className="font-medium">Drag & drop files here</p>
+            <p className="font-strong">Drag & drop files here</p>
             <p className="text-secondary-foreground">Legacy usage style (still works)</p>
           </div>
           <FileUploadTrigger asChild>
@@ -209,7 +209,7 @@ export const WithProgress: Story = {
               height={32}
               strokeWidth={(2 * 16) / 32}
             />
-            <p className="font-medium">Drop files to upload</p>
+            <p className="font-strong">Drop files to upload</p>
             <p className="text-secondary-foreground">Upload will start automatically</p>
           </div>
           <FileUpload.Trigger asChild>

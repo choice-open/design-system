@@ -68,7 +68,7 @@ export class VirtualizedGridErrorBoundary extends React.Component<
           {process.env.NODE_ENV === "development" && this.state.error && (
             <details className="mt-2 text-left">
               <summary>Error Details</summary>
-              <pre className="overflow-auto text-sm">{this.state.error.stack}</pre>
+              <pre className="text-body-small overflow-auto">{this.state.error.stack}</pre>
             </details>
           )}
         </div>

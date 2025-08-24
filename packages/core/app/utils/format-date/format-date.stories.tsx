@@ -48,17 +48,17 @@ const DateFormattingDemo = ({
       <div className="space-y-2">
         <div className="bg-secondary-background rounded p-2">
           <strong>Relative Time:</strong>
-          <div className="text-lg font-medium">{relativeResult}</div>
+          <div className="text-body-large-strong">{relativeResult}</div>
         </div>
 
         <div className="bg-secondary-background rounded p-2">
           <strong>Simple Date:</strong>
-          <div className="text-lg font-medium">{simpleResult}</div>
+          <div className="text-body-large-strong">{simpleResult}</div>
         </div>
 
         <div className="bg-secondary-background rounded p-2">
           <strong>Time Only:</strong>
-          <div className="text-lg font-medium">{timeResult}</div>
+          <div className="text-body-large-strong">{timeResult}</div>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@ const LanguageComparison = ({ date }: { date: Date }) => {
           key={language}
           className="bg-secondary-background rounded-lg border p-4"
         >
-          <div className="text-secondary-foreground mb-2 font-medium">{language.toUpperCase()}</div>
+          <div className="text-secondary-foreground font-strong mb-2">{language.toUpperCase()}</div>
           <div className="space-y-1">
             <div>{formatRelativeTime(date, { language })}</div>
             <div className="text-secondary-foreground">{formatSimpleDate(date, { language })}</div>
@@ -126,7 +126,7 @@ const FormattingModes = ({ date }: { date: Date }) => {
           key={mode.name}
           className="rounded-lg border p-4"
         >
-          <div className="text-secondary-foreground mb-2 font-medium">{mode.name}</div>
+          <div className="text-secondary-foreground font-strong mb-2">{mode.name}</div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div>
               <div className="text-secondary-foreground">English</div>
@@ -177,7 +177,7 @@ const CustomFormatterDemo = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-4 text-lg font-medium">
+        <h3 className="text-body-large-strong mb-4">
           Chinese Formatter (14 day threshold, specific time)
         </h3>
         <div className="space-y-2">
@@ -187,14 +187,14 @@ const CustomFormatterDemo = () => {
               className="bg-secondary-background rounded p-2"
             >
               <div className="text-secondary-foreground">{date.toLocaleString()}</div>
-              <div className="font-medium">{chineseFormatter(date)}</div>
+              <div className="font-strong">{chineseFormatter(date)}</div>
             </div>
           ))}
         </div>
       </div>
 
       <div>
-        <h3 className="mb-4 text-lg font-medium">English Formatter (custom formats)</h3>
+        <h3 className="text-body-large-strong mb-4">English Formatter (custom formats)</h3>
         <div className="space-y-2">
           {dates.map((date, index) => (
             <div
@@ -202,7 +202,7 @@ const CustomFormatterDemo = () => {
               className="bg-secondary-background rounded p-2"
             >
               <div className="text-secondary-foreground">{date.toLocaleString()}</div>
-              <div className="font-medium">{englishFormatter(date)}</div>
+              <div className="font-strong">{englishFormatter(date)}</div>
             </div>
           ))}
         </div>

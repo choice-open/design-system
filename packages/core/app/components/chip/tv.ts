@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const chipTv = tv({
+export const chipTv = tcv({
   slots: {
     root: [
       "inline-flex min-w-0 items-center rounded-md",

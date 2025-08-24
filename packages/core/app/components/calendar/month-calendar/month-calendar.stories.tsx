@@ -424,7 +424,7 @@ export const MultiLanguage: Story = {
     return (
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <h3 className="mb-2 font-medium">中文 (zh-CN)</h3>
+          <h3 className="font-strong mb-2">中文 (zh-CN)</h3>
           <MonthCalendar
             {...args}
             locale="zh-CN"
@@ -432,7 +432,7 @@ export const MultiLanguage: Story = {
           />
         </div>
         <div>
-          <h3 className="mb-2 font-medium">English (en-US)</h3>
+          <h3 className="font-strong mb-2">English (en-US)</h3>
           <MonthCalendar
             {...args}
             locale="en-US"
@@ -440,7 +440,7 @@ export const MultiLanguage: Story = {
           />
         </div>
         <div>
-          <h3 className="mb-2 font-medium">日本語 (ja-JP)</h3>
+          <h3 className="font-strong mb-2">日本語 (ja-JP)</h3>
           <MonthCalendar
             {...args}
             locale="ja-JP"
@@ -448,7 +448,7 @@ export const MultiLanguage: Story = {
           />
         </div>
         <div>
-          <h3 className="mb-2 font-medium">한국어 (ko-KR)</h3>
+          <h3 className="font-strong mb-2">한국어 (ko-KR)</h3>
           <MonthCalendar
             {...args}
             locale="ko-KR"
@@ -477,7 +477,7 @@ export const WeekStartOptions: Story = {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h3 className="mb-2 font-medium">Starts on Sunday (0) + Week Numbers</h3>
+            <h3 className="font-strong mb-2">Starts on Sunday (0) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={0}
@@ -485,7 +485,7 @@ export const WeekStartOptions: Story = {
             />
           </div>
           <div>
-            <h3 className="mb-2 font-medium">Starts on Monday (1) + Week Numbers</h3>
+            <h3 className="font-strong mb-2">Starts on Monday (1) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={1}
@@ -493,7 +493,7 @@ export const WeekStartOptions: Story = {
             />
           </div>
           <div>
-            <h3 className="mb-2 font-medium">Starts on Saturday (6) + Week Numbers</h3>
+            <h3 className="font-strong mb-2">Starts on Saturday (6) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={6}
@@ -552,7 +552,7 @@ const UnifiedInterfaceExample = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <h3 className="mb-4 text-lg font-semibold">Single Select</h3>
+        <h3 className="text-body-large-strong mb-4">Single Select</h3>
         <MonthCalendar
           value={singleValue}
           onChange={setSingleValue}
@@ -565,7 +565,7 @@ const UnifiedInterfaceExample = () => {
       </div>
 
       <div>
-        <h3 className="mb-4 text-lg font-semibold">Multi Select</h3>
+        <h3 className="text-body-large-strong mb-4">Multi Select</h3>
         <MonthCalendar
           value={multiValue}
           onChange={setMultiValue}
@@ -578,7 +578,7 @@ const UnifiedInterfaceExample = () => {
       </div>
 
       <div>
-        <h3 className="mb-4 text-lg font-semibold">Range Select</h3>
+        <h3 className="text-body-large-strong mb-4">Range Select</h3>
         <MonthCalendar
           value={rangeValue}
           onChange={setRangeValue}

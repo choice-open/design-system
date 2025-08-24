@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const emojiTv = tv({
+export const emojiTv = tcv({
   slots: {
     container: "flex flex-col overflow-hidden",
     header: "flex flex-col gap-2 border-b p-2",
@@ -8,7 +8,7 @@ export const emojiTv = tv({
     scroll: "h-(--emoji-height) flex-none",
     content: "relative flex min-h-full w-full flex-col",
     row: "absolute top-0 left-0 box-border grid grid-cols-[repeat(var(--emoji-columns),1fr)] items-center px-(--emoji-padding)",
-    categoryHeader: "absolute top-0 left-0 flex w-full items-center px-3 font-medium",
+    categoryHeader: "absolute top-0 left-0 flex w-full items-center px-3 font-strong",
   },
   variants: {
     variant: {
@@ -37,7 +37,7 @@ export const emojiTv = tv({
   },
 })
 
-export const emojiItemTv = tv({
+export const emojiItemTv = tcv({
   base: "flex size-8 items-center justify-center rounded-md border border-transparent text-xl",
   variants: {
     variant: {
@@ -77,14 +77,14 @@ export const emojiItemTv = tv({
   },
 })
 
-export const emojiFooterTv = tv({
+export const emojiFooterTv = tcv({
   slots: {
     footer: "flex flex-shrink-0 items-center gap-2 border-t px-3 py-2",
     emojiPreview: "flex size-8 items-center justify-center text-2xl",
     emojiPreviewEmpty: "flex size-6 rounded-full border border-dashed",
     emojiInfo: "flex flex-col gap-0",
-    emojiName: "leading-tight font-medium",
-    emojiCode: "text-sm leading-tight opacity-60",
+    emojiName: "leading-tight font-strong",
+    emojiCode: "text-body-small leading-tight opacity-60",
   },
   variants: {
     variant: {
@@ -107,10 +107,10 @@ export const emojiFooterTv = tv({
   },
 })
 
-export const emojiEmptyTv = tv({
+export const emojiEmptyTv = tcv({
   slots: {
     container: "flex h-32 flex-col items-center justify-center p-4 text-center",
-    title: "text-2xl font-medium",
+    title: "text-heading-display",
     description: "mt-2 w-32",
   },
   variants: {

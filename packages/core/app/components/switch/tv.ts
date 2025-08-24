@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const switchTv = tv({
+export const switchTv = tcv({
   slots: {
     root: ["relative flex items-center gap-2", "select-none"],
     track: [
@@ -57,7 +57,7 @@ export const switchTv = tv({
       disabled: false,
       variant: ["default", "accent"],
       class: {
-        track: "bg-secondary-hover-background",
+        track: "bg-tertiary-background",
         thumb: "shadow-small bg-white",
       },
     },
@@ -97,7 +97,7 @@ export const switchTv = tv({
       checked: false,
       disabled: false,
       class: {
-        track: "hover:bg-secondary-hover-background",
+        track: "hover:bg-tertiary-background",
       },
     },
     // hover 状态 - outline

@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const ListTv = tv({
+export const ListTv = tcv({
   base: [
     "relative flex flex-col",
     "p-2",
@@ -9,12 +9,12 @@ export const ListTv = tv({
   ],
 })
 
-export const ListItemTv = tv({
+export const ListItemTv = tcv({
   slots: {
     root: [
       "group/list-item relative",
       "flex w-full flex-none items-center rounded-md",
-      "leading-md tracking-md text-md text-left",
+      "text-body-medium text-left",
       "cursor-default",
     ],
     shortcut: "",
@@ -196,7 +196,7 @@ export const ListItemTv = tv({
   },
 })
 
-export const ListLabelTv = tv({
+export const ListLabelTv = tcv({
   base: "flex h-6 w-full flex-none items-center gap-2 opacity-50",
   variants: {
     selection: {
@@ -209,7 +209,7 @@ export const ListLabelTv = tv({
   },
 })
 
-export const ListDividerTv = tv({
+export const ListDividerTv = tcv({
   slots: {
     root: "flex h-4 w-full flex-none items-center",
     divider: "bg-default-boundary h-px flex-1",
@@ -217,7 +217,7 @@ export const ListDividerTv = tv({
   defaultVariants: {},
 })
 
-export const ListContentTv = tv({
+export const ListContentTv = tcv({
   base: "group/list flex flex-col gap-1",
   variants: {
     showReferenceLine: {

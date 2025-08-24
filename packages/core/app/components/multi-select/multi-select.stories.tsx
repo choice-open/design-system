@@ -54,7 +54,7 @@ export const Basic: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Basic Multi-Select</label>
+          <label className="font-strong">Basic Multi-Select</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -79,7 +79,7 @@ export const Basic: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Values</h3>
+          <h3 className="font-strong mb-2">Selected Values</h3>
           <div className="space-y-1">
             <div>
               Count: <span className="font-mono">{values.length}</span>
@@ -120,7 +120,7 @@ export const WithLimits: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Multi-Select with Limits (Max 3, Min 1)</label>
+          <label className="font-strong">Multi-Select with Limits (Max 3, Min 1)</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -147,7 +147,7 @@ export const WithLimits: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selection Status</h3>
+          <h3 className="font-strong mb-2">Selection Status</h3>
           <div className="space-y-1">
             <div>
               Count: <span className="font-mono">{values.length}</span>
@@ -192,7 +192,7 @@ export const WithIcons: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Field Types Selection</label>
+          <label className="font-strong">Field Types Selection</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -219,14 +219,14 @@ export const WithIcons: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Field Types</h3>
+          <h3 className="font-strong mb-2">Selected Field Types</h3>
           <div className="space-y-2">
             {values.map((value) => {
               const option = options.find((opt) => opt.value === value)
               return (
                 <div
                   key={value}
-                  className="flex items-center gap-2 text-sm"
+                  className="text-body-small flex items-center gap-2"
                 >
                   {option?.icon}
                   <span>{option?.label}</span>
@@ -265,7 +265,7 @@ export const WithDividers: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Plan Selection</label>
+          <label className="font-strong">Plan Selection</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -295,7 +295,7 @@ export const WithDividers: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Plans</h3>
+          <h3 className="font-strong mb-2">Selected Plans</h3>
           <div className="space-y-1">
             {values.map((value) => (
               <div key={value}>
@@ -340,7 +340,7 @@ export const LongList: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">City Selection ({options.length} cities)</label>
+          <label className="font-strong">City Selection ({options.length} cities)</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -366,7 +366,7 @@ export const LongList: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Cities</h3>
+          <h3 className="font-strong mb-2">Selected Cities</h3>
           <div className="space-y-1">
             <div>
               Count: <span className="font-mono">{values.length}</span>
@@ -416,7 +416,7 @@ export const Disabled: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Disabled Multi-Select</label>
+          <label className="font-strong">Disabled Multi-Select</label>
           <MultiSelect
             values={values}
             disabled
@@ -441,7 +441,7 @@ export const Disabled: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Component State</h3>
+          <h3 className="font-strong mb-2">Component State</h3>
           <div className="space-y-1">
             <div>
               Status: <span className="font-mono text-red-600">Disabled</span>
@@ -483,7 +483,7 @@ export const DisabledItems: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Disabled Items</label>
+          <label className="font-strong">Disabled Items</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -537,7 +537,7 @@ export const Large: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-medium">Large Multi-Select</label>
+          <label className="font-strong">Large Multi-Select</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -563,7 +563,7 @@ export const Large: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Values</h3>
+          <h3 className="font-strong mb-2">Selected Values</h3>
           <div className="space-y-1">
             <div>
               Size: <span className="font-mono">Large</span>
@@ -619,7 +619,7 @@ export const ExclusiveOptions: Story = {
       <div className="space-y-4">
         <div className="text-secondary-foreground">
           <p>Exclusive Options Rules:</p>
-          <ul className="mt-2 ml-4 space-y-1">
+          <ul className="ml-4 mt-2 space-y-1">
             <li>• Group 1 (A, B, C): Can select multiple within group</li>
             <li>• Group 2 (D, E, F): Can select multiple within group</li>
             <li>• Groups are mutually exclusive (selecting Group 2 clears Group 1)</li>
@@ -727,7 +727,7 @@ export const CloseOnSelect: Story = {
       <div className="space-y-4">
         <div className="space-y-4">
           <div className="space-y-2">
-            <h3 className="text-sm font-medium">closeOnSelect=false (Default)</h3>
+            <h3 className="text-body-small-strong">closeOnSelect=false (Default)</h3>
             <p className="text-secondary-foreground">Menu stays open after selecting options</p>
           </div>
 
@@ -759,7 +759,7 @@ export const CloseOnSelect: Story = {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <h3 className="font-medium">closeOnSelect=true</h3>
+            <h3 className="font-strong">closeOnSelect=true</h3>
             <p className="text-secondary-foreground">Menu closes after each selection</p>
           </div>
 
@@ -826,7 +826,7 @@ export const ValidationMessages: Story = {
       <div className="space-y-4">
         <div className="space-y-4">
           <div>
-            <h3 className="mb-2 font-medium">With Custom Messages</h3>
+            <h3 className="font-strong mb-2">With Custom Messages</h3>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -855,7 +855,7 @@ export const ValidationMessages: Story = {
           </div>
 
           <div>
-            <h3 className="mb-2 font-medium">Default Messages</h3>
+            <h3 className="font-strong mb-2">Default Messages</h3>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -878,7 +878,7 @@ export const ValidationMessages: Story = {
           </div>
 
           <div>
-            <h3 className="mb-2 font-medium">Messages Disabled</h3>
+            <h3 className="font-strong mb-2">Messages Disabled</h3>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -901,7 +901,7 @@ export const ValidationMessages: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Instructions</h3>
+          <h3 className="font-strong mb-2">Instructions</h3>
           <div className="text-secondary-foreground space-y-1">
             <p>• Try selecting more than the maximum allowed items</p>
             <p>• Try removing items below the minimum required</p>
@@ -911,7 +911,7 @@ export const ValidationMessages: Story = {
         </div>
 
         <div className="w-80 rounded-xl border p-4">
-          <h3 className="mb-2 font-medium">Selected Values</h3>
+          <h3 className="font-strong mb-2">Selected Values</h3>
           <div className="space-y-1">
             <div>
               Count: <span className="font-mono">{values.length}</span>
@@ -1085,7 +1085,7 @@ export const CustomChip: Story = {
           </MultiSelect.Content>
         </MultiSelect>
 
-        <div className="text-sm text-gray-600">Selected: {values.length} items</div>
+        <div className="text-body-small text-gray-600">Selected: {values.length} items</div>
       </div>
     )
   },

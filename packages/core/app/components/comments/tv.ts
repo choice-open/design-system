@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const CommentsTv = tv({
+export const CommentsTv = tcv({
   slots: {
     root: "",
     inputRoot: "grid gap-2",

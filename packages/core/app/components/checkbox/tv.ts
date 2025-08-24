@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const checkboxTv = tv({
+export const checkboxTv = tcv({
   slots: {
     root: "flex items-center select-none",
     box: ["relative flex size-4 items-center justify-center", "border border-solid"],

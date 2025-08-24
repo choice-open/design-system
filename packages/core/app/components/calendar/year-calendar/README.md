@@ -382,7 +382,7 @@ function FinancialYearSelector() {
       />
 
       {fiscalYear && (
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="text-body-small mt-2 text-gray-600">
           FY {fiscalYear.getFullYear()}-{fiscalYear.getFullYear() + 1}
         </p>
       )}
@@ -416,7 +416,7 @@ function AcademicYearSelector() {
       />
 
       {academicYear && (
-        <div className="mt-2 text-sm text-gray-600">
+        <div className="text-body-small mt-2 text-gray-600">
           Academic Year: {academicYear.getFullYear()}-{academicYear.getFullYear() + 1}
         </div>
       )}
@@ -457,7 +457,7 @@ function DataRangeSelector() {
       </div>
 
       {startYear && endYear && (
-        <div className="text-sm text-gray-600">
+        <div className="text-body-small text-gray-600">
           Range: {startYear.getFullYear()} - {endYear.getFullYear()}(
           {endYear.getFullYear() - startYear.getFullYear() + 1} years)
         </div>

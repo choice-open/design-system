@@ -15,7 +15,7 @@ export function TagInput({ condition, field, disabled, onChange }: BaseFieldInpu
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
       placeholder={tagField.placeholder || "Enter tags..."}
-      className="min-w-0 flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+      className="text-body-small min-w-0 flex-1 rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
     />
   )
 }

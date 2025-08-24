@@ -1,11 +1,11 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const mentionElementTv = tv({
+export const mentionElementTv = tcv({
   base: [
     "inline-block",
     "align-baseline",
     "rounded-md",
-    "leading-md tracking-md",
+    "text-body-medium",
     "mx-px px-1 py-0.25",
     "border",
   ],
@@ -38,7 +38,7 @@ export const mentionElementTv = tv({
   },
 })
 
-export const contextInputHeaderTv = tv({
+export const contextInputHeaderTv = tcv({
   base: ["flex h-10 flex-shrink-0 items-center justify-between"],
   variants: {
     size: {
@@ -51,7 +51,7 @@ export const contextInputHeaderTv = tv({
   },
 })
 
-export const contextInputFooterTv = tv({
+export const contextInputFooterTv = tcv({
   base: ["flex h-10 flex-shrink-0 items-center justify-between"],
   variants: {
     size: {

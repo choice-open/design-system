@@ -400,7 +400,7 @@ function EventTimeSelector() {
       />
 
       {eventStart && eventEnd && (
-        <div className="mt-2 text-sm text-gray-600">
+        <div className="text-body-small mt-2 text-gray-600">
           Duration:{" "}
           {Math.round(((eventEnd.getTime() - eventStart.getTime()) / (60 * 60 * 1000)) * 10) / 10}{" "}
           hours
@@ -529,7 +529,6 @@ function TwentyFourHourSchedule() {
 
 ```tsx
 import { Panel } from "@choiceform/design-system"
-
 ;<Panel.Row type="two-input-two-icon">
   <TimeRangeInput
     startValue={startTime}

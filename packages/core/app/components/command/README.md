@@ -548,7 +548,7 @@ function FileBrowser({ files }) {
                 <FileIcon type={file.type} />
                 <div>
                   <div>{file.name}</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-body-small text-gray-500">
                     {file.size} • {file.modified}
                   </div>
                 </div>

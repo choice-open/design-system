@@ -151,13 +151,13 @@ export const SecurityFeatures: Story = {
   render: () => (
     <div className="space-y-4">
       <div>
-        <h3 className="mb-2 text-sm font-medium">Internal Link (safe)</h3>
+        <h3 className="text-body-small-strong mb-2">Internal Link (safe)</h3>
         <LinkButton href="/internal-page">Internal Navigation</LinkButton>
         <p className="mt-1 text-xs text-gray-600">No additional attributes needed</p>
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-medium">External Link (auto-secured)</h3>
+        <h3 className="text-body-small-strong mb-2">External Link (auto-secured)</h3>
         <LinkButton href="https://external-site.com">External Site</LinkButton>
         <p className="mt-1 text-xs text-gray-600">
           Automatically gets target=&quot;_blank&quot; and rel=&quot;noopener noreferrer&quot;
@@ -165,7 +165,7 @@ export const SecurityFeatures: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-medium">Protocol-relative Link (auto-secured)</h3>
+        <h3 className="text-body-small-strong mb-2">Protocol-relative Link (auto-secured)</h3>
         <LinkButton href="//cdn.example.com">CDN Resource</LinkButton>
         <p className="mt-1 text-xs text-gray-600">Also gets security attributes</p>
       </div>
@@ -181,7 +181,7 @@ export const AccessibilityFeatures: Story = {
   render: () => (
     <div className="space-y-4">
       <div>
-        <h3 className="mb-2 text-sm font-medium">Normal States</h3>
+        <h3 className="text-body-small-strong mb-2">Normal States</h3>
         <div className="flex gap-2">
           <LinkButton href="/example">Focusable Link</LinkButton>
           <LinkButton onClick={() => {}}>Focusable Button</LinkButton>
@@ -190,7 +190,7 @@ export const AccessibilityFeatures: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 text-sm font-medium">Disabled States</h3>
+        <h3 className="text-body-small-strong mb-2">Disabled States</h3>
         <div className="flex gap-2">
           <LinkButton
             disabled
@@ -220,7 +220,7 @@ export const RealWorldExamples: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-3 text-sm font-medium">Navigation Menu</h3>
+        <h3 className="text-body-small-strong mb-3">Navigation Menu</h3>
         <nav className="flex gap-4">
           <LinkButton
             href="/dashboard"
@@ -244,7 +244,7 @@ export const RealWorldExamples: Story = {
       </div>
 
       <div>
-        <h3 className="mb-3 text-sm font-medium">Call-to-Action</h3>
+        <h3 className="text-body-small-strong mb-3">Call-to-Action</h3>
         <div className="flex gap-3">
           <LinkButton
             href="/learn-more"
@@ -256,8 +256,8 @@ export const RealWorldExamples: Story = {
       </div>
 
       <div>
-        <h3 className="mb-3 text-sm font-medium">Footer Links</h3>
-        <footer className="flex flex-wrap gap-4 text-sm">
+        <h3 className="text-body-small-strong mb-3">Footer Links</h3>
+        <footer className="text-body-small flex flex-wrap gap-4">
           <LinkButton
             href="/privacy"
             variant="subtle"

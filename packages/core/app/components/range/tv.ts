@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const rangeTv = tv({
+export const rangeTv = tcv({
   slots: {
     container: [
       "h-(--height) w-(--width)",

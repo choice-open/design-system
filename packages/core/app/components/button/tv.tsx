@@ -1,10 +1,10 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const buttonTv = tv({
+export const buttonTv = tcv({
   slots: {
     button: [
       "flex items-center justify-center gap-1",
-      "leading-md tracking-md text-md",
+      "text-body-medium",
       "min-w-0 rounded-md px-2",
       "border border-solid border-transparent",
       "cursor-default select-none",
@@ -145,7 +145,7 @@ export const buttonTv = tv({
     {
       active: true,
       variant: "solid",
-      class: { button: "bg-secondary-hover-background" },
+      class: { button: "bg-tertiary-background" },
     },
     {
       active: true,
@@ -194,7 +194,7 @@ export const buttonTv = tv({
       disabled: false,
       loading: false,
       variant: "solid",
-      class: { button: "active:bg-secondary-hover-background" },
+      class: { button: "active:bg-tertiary-background" },
     },
     {
       disabled: false,

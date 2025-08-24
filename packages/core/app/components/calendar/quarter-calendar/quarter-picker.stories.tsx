@@ -46,7 +46,7 @@ const ComparisonDemo = (args: QuarterCalendarProps) => {
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-4 text-lg font-medium">Chinese</h3>
+        <h3 className="text-body-large-strong mb-4">Chinese</h3>
         <div className="space-y-2">
           <QuarterCalendar
             {...args}
@@ -61,7 +61,7 @@ const ComparisonDemo = (args: QuarterCalendarProps) => {
       </div>
 
       <div>
-        <h3 className="mb-4 text-lg font-medium">English</h3>
+        <h3 className="text-body-large-strong mb-4">English</h3>
         <div className="space-y-2">
           <QuarterCalendar
             {...args}
@@ -89,7 +89,7 @@ const LocaleQuarterCalendar: React.FC<{
 
   return (
     <div>
-      <h3 className="mb-4 text-lg font-medium">{locale.name}</h3>
+      <h3 className="text-body-large-strong mb-4">{locale.name}</h3>
       <div className="space-y-2">
         <QuarterCalendar
           {...args}

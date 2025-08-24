@@ -95,7 +95,7 @@ function CurveWithPreview() {
       {/* Preview animation */}
       <div className="relative h-8 w-40 rounded bg-gray-200">
         <div
-          className="absolute top-1 left-1 h-6 w-6 rounded bg-white shadow"
+          className="absolute left-1 top-1 h-6 w-6 rounded bg-white shadow"
           style={previewStyle}
         />
       </div>
@@ -264,7 +264,7 @@ function CurveInputForm() {
               }
             }
           }}
-          className="rounded border px-2 py-1 font-mono text-sm"
+          className="text-body-small rounded border px-2 py-1 font-mono"
         />
       </div>
     </div>

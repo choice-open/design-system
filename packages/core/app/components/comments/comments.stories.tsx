@@ -180,9 +180,9 @@ export const Basic = {
     // 已加载评论的调试视图
     const loadedCommentsDebug = (
       <div className="text-secondary-foreground p-2">
-        <h3 className="mb-2 text-xs font-medium">已加载评论 ({loadedComments.length})</h3>
+        <h3 className="font-strong mb-2 text-xs">已加载评论 ({loadedComments.length})</h3>
         {loadedComments.length === 0 ? (
-          <p className="text-xs text-gray-500 italic">无评论</p>
+          <p className="text-xs italic text-gray-500">无评论</p>
         ) : (
           <div className="space-y-4">
             {loadedComments.map((item, i) => (
@@ -205,7 +205,7 @@ export const Basic = {
     // 实时状态监视器
     const stateMonitor = (
       <div className="bg-gray-900 p-2 text-white">
-        <h3 className="mb-2 text-xs font-medium">状态监控</h3>
+        <h3 className="font-strong mb-2 text-xs">状态监控</h3>
         <div className="space-y-2">
           <div>
             <p className="text-xs text-gray-400">加载的评论数: {loadedComments.length}</p>

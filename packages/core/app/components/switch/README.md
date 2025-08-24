@@ -203,7 +203,7 @@ return (
         key={size}
         className="space-y-4"
       >
-        <h3 className="font-medium capitalize">{size} Size</h3>
+        <h3 className="font-strong capitalize">{size} Size</h3>
 
         <div className="grid grid-cols-3 gap-8">
           {variants.map((variant) => (
@@ -211,7 +211,7 @@ return (
               key={variant}
               className="space-y-2"
             >
-              <h4 className="text-sm font-medium text-pink-500 capitalize">{variant}</h4>
+              <h4 className="text-body-small-strong capitalize text-pink-500">{variant}</h4>
 
               <div className="space-y-2">
                 {states.map((state) => (
@@ -416,8 +416,8 @@ const [feature, setFeature] = useState(false)
 return (
   <div className="flex items-center justify-between rounded-lg border p-4">
     <div>
-      <h3 className="font-medium">Beta Features</h3>
-      <p className="text-sm text-gray-600">Enable experimental features and improvements</p>
+      <h3 className="font-strong">Beta Features</h3>
+      <p className="text-body-small text-gray-600">Enable experimental features and improvements</p>
     </div>
 
     <Switch

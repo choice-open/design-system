@@ -433,7 +433,7 @@ export function DisabledExample() {
       >
         <Settings />
       </ToggleButton>
-      <p className="text-sm text-gray-600">This toggle is disabled and cannot be changed</p>
+      <p className="text-body-small text-gray-600">This toggle is disabled and cannot be changed</p>
     </div>
   )
 }

@@ -312,7 +312,7 @@ const [volume, setVolume] = useState(50)
     trackSize={{ width: 120, height: 6 }}
     thumbSize={12}
   />
-  <span className="w-8 text-right text-sm">{volume}</span>
+  <span className="w-8 text-right text-body-small">{volume}</span>
 </div>
 ```
 

@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const fileUploadStyles = tv({
+export const fileUploadStyles = tcv({
   slots: {
     root: "relative flex flex-col gap-2",
     dropzone: [
@@ -27,7 +27,7 @@ export const fileUploadStyles = tv({
     itemPreviewImage: "object-cover",
     itemPreviewIcon: "bg-secondary-background",
     itemMetadata: "flex min-w-0 flex-1 flex-col",
-    itemName: "truncate font-medium",
+    itemName: "truncate font-strong",
     itemSize: "text-secondary-foreground",
     itemError: "text-danger-foreground",
     itemProgress: "bg-secondary-background relative h-1 w-full overflow-hidden rounded-full",

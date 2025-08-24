@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const MenusTv = tv({
+export const MenusTv = tcv({
   base: [
     "relative flex flex-col",
     "z-menu rounded-xl",
@@ -20,7 +20,7 @@ export const MenusTv = tv({
   },
 })
 
-export const MenuTriggerTv = tv({
+export const MenuTriggerTv = tcv({
   slots: {
     root: "justify-start text-left",
     icon: "flex size-6 flex-none items-center justify-center",
@@ -74,11 +74,11 @@ export const MenuTriggerTv = tv({
   },
 })
 
-export const MenuItemTv = tv({
+export const MenuItemTv = tcv({
   slots: {
     root: [
       "group/menu-item flex w-full flex-none items-center rounded-md",
-      "leading-md tracking-md text-md text-left",
+      "text-body-medium text-left",
       "cursor-default",
     ],
     shortcut: "",
@@ -166,21 +166,21 @@ export const MenuItemTv = tv({
   },
 })
 
-export const MenuDividerTv = tv({
+export const MenuDividerTv = tcv({
   slots: {
     root: "flex h-4 w-full flex-none items-center",
     divider: "bg-menu-boundary h-px flex-1",
   },
 })
 
-export const MenuSearchEmptyTv = tv({
+export const MenuSearchEmptyTv = tcv({
   slots: {
     root: "flex flex-col items-center justify-center gap-2 p-4 text-center",
     text: "text-white/50",
   },
 })
 
-export const MenuLabelTv = tv({
+export const MenuLabelTv = tcv({
   base: "flex h-6 w-full flex-none items-center gap-2 opacity-50",
   variants: {
     selection: {
@@ -193,14 +193,14 @@ export const MenuLabelTv = tv({
   },
 })
 
-export const MenuButtonTv = tv({
+export const MenuButtonTv = tcv({
   base: [
     "flex-none border-gray-700 bg-transparent text-white",
     "hover:bg-gray-700 active:bg-gray-800",
   ],
 })
 
-export const MenuScrollArrowTv = tv({
+export const MenuScrollArrowTv = tcv({
   base: [
     "absolute flex h-6 w-full items-center justify-center overflow-hidden",
     "z-menu pointer-events-auto border-white/10 bg-gray-900 text-white hover:bg-gray-800",
@@ -221,7 +221,7 @@ export const MenuScrollArrowTv = tv({
   },
 })
 
-export const MenuCheckboxTv = tv({
+export const MenuCheckboxTv = tcv({
   slots: {
     root: "flex size-4 flex-none items-center justify-center",
     checkbox: "flex size-4 flex-none items-center justify-center rounded-md border",

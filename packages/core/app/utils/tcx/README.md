@@ -19,7 +19,7 @@ tcx("px-4 py-2", "bg-blue-500")
 tcx(
   "btn",
   isPrimary && "btn-primary",
-  isLarge && "text-lg",
+  isLarge && "text-body-large",
   disabled && "cursor-not-allowed opacity-50",
 )
 
@@ -34,7 +34,7 @@ tcx({
 })
 
 // Array syntax
-tcx(["btn", "btn-primary"], ["text-lg", "font-bold"])
+tcx(["btn", "btn-primary"], ["text-body-large-strong"])
 
 // Mixed syntax
 tcx("base-class", ["array", "of", "classes"], { conditional: isActive }, undefined, null, false)
@@ -98,7 +98,7 @@ function Button({ variant = "primary", size = "md", className, ...props }: Butto
     <button
       className={tcx(
         // Base styles
-        "inline-flex items-center justify-center rounded-md font-medium",
+        "inline-flex items-center justify-center rounded-md font-strong",
         "transition-colors focus:outline-none focus:ring-2",
 
         // Variant styles
@@ -110,9 +110,9 @@ function Button({ variant = "primary", size = "md", className, ...props }: Butto
 
         // Size styles
         {
-          "px-3 py-1 text-sm": size === "sm",
+          "px-3 py-1 text-body-small": size === "sm",
           "px-4 py-2": size === "md",
-          "px-6 py-3 text-lg": size === "lg"
+          "px-6 py-3 text-body-large": size === "lg"
         },
 
         // User provided classes (can override above)
@@ -134,7 +134,7 @@ function StatusBadge({ status, className }) {
   return (
     <span
       className={tcx(
-        "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+        "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-strong",
         {
           "bg-green-100 text-green-800": status === "active",
           "bg-red-100 text-red-800": status === "error",
@@ -203,7 +203,7 @@ function DataTable({
         striped && "even:bg-gray-50",
         hoverable && "hover:bg-gray-100",
         bordered && "border border-gray-200",
-        compact ? "text-sm" : "text-base",
+        compact ? "text-body-small" : "text-base",
         className
       )}
     >
@@ -255,7 +255,7 @@ function Box({ m, p, bg, text, className, ...props }: BoxProps) {
 className="px-4 px-8" // Both are applied, causing issues
 
 // Verbose conditional logic
-className={`btn ${isPrimary ? 'btn-primary' : ''} ${isLarge ? 'text-lg' : ''}`}
+className={`btn ${isPrimary ? 'btn-primary' : ''} ${isLarge ? 'text-body-large' : ''}`}
 
 // Manual conflict resolution
 className={isPrimary ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 hover:bg-gray-600"}
@@ -268,7 +268,7 @@ className={isPrimary ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 hover:bg-g
 tcx("px-4", "px-8") // Only px-8 is applied
 
 // Clean conditional syntax
-tcx("btn", isPrimary && "btn-primary", isLarge && "text-lg")
+tcx("btn", isPrimary && "btn-primary", isLarge && "text-body-large")
 
 // Smart merging
 tcx("bg-gray-500 hover:bg-gray-600", isPrimary && "bg-blue-500 hover:bg-blue-600")

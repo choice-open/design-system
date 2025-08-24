@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const toggleButtonTv = tv({
+export const toggleButtonTv = tcv({
   slots: {
     root: ["relative"],
     input: ["absolute inset-0 h-full w-full", "peer pointer-events-auto appearance-none opacity-0"],
@@ -60,7 +60,7 @@ export const toggleButtonTv = tv({
       event: "click",
       disabled: false,
       class: {
-        label: "active:bg-secondary-hover-background",
+        label: "active:bg-tertiary-background",
       },
     },
     {
@@ -70,7 +70,7 @@ export const toggleButtonTv = tv({
       disabled: false,
       event: "click",
       class: {
-        label: "active:bg-secondary-hover-background",
+        label: "active:bg-tertiary-background",
       },
     },
     {
@@ -88,7 +88,7 @@ export const toggleButtonTv = tv({
       active: true,
       disabled: false,
       class: {
-        label: "bg-secondary-hover-background",
+        label: "bg-tertiary-background",
       },
     },
     {
@@ -132,7 +132,7 @@ export const toggleButtonTv = tv({
       checked: true,
       disabled: true,
       class: {
-        label: "bg-secondary-hover-background",
+        label: "bg-tertiary-background",
       },
     },
   ],

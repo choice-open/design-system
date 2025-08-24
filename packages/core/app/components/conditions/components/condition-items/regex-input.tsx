@@ -111,7 +111,7 @@ export function RegexInput({ condition, disabled, onChange }: BaseFieldInputProp
       </div>
 
       {/* 正则表达式标志 */}
-      <div className="flex flex-wrap gap-3 text-sm">
+      <div className="text-body-small flex flex-wrap gap-3">
         <Checkbox
           value={currentValue.flags?.includes("i") || false}
           onChange={(checked) => handleFlagChange("i", checked)}

@@ -34,12 +34,12 @@ export const States: Story = {
   render: () => (
     <div className="space-y-4">
       <div>
-        <label className="mb-1 block font-medium">Normal</label>
+        <label className="font-strong mb-1 block">Normal</label>
         <TimeInput placeholder="Enter time..." />
       </div>
 
       <div>
-        <label className="mb-1 block font-medium">Disabled</label>
+        <label className="font-strong mb-1 block">Disabled</label>
         <TimeInput
           disabled
           value={createTimeToday(14, 30)}
@@ -48,7 +48,7 @@ export const States: Story = {
       </div>
 
       <div>
-        <label className="mb-1 block font-medium">Readonly</label>
+        <label className="font-strong mb-1 block">Readonly</label>
         <TimeInput
           readOnly
           value={createTimeToday(14, 30)}
@@ -57,7 +57,7 @@ export const States: Story = {
       </div>
 
       <div>
-        <label className="mb-1 block font-medium">No prefix icon</label>
+        <label className="font-strong mb-1 block">No prefix icon</label>
         <TimeInput
           prefixElement={null}
           placeholder="No icon"
@@ -65,7 +65,7 @@ export const States: Story = {
       </div>
 
       <div>
-        <label className="mb-1 block font-medium">Custom prefix</label>
+        <label className="font-strong mb-1 block">Custom prefix</label>
         <TimeInput
           prefixElement={<ActionWaitForSomeTime className="text-accent-foreground" />}
           placeholder="Custom prefix"
@@ -117,7 +117,7 @@ export const KeyboardNavigation: Story = {
           onChange={setValue}
         />
         <div className="text-secondary-foreground space-y-2 rounded-md border p-2">
-          <div className="font-medium">⌨️ Keyboard Navigation</div>
+          <div className="font-strong">⌨️ Keyboard Navigation</div>
           <div>
             • <code>↑</code> / <code>↓</code> - Adjust 1 minute
           </div>
@@ -148,7 +148,7 @@ export const DragInteraction: Story = {
           onChange={setValue}
         />
         <div className="text-secondary-foreground space-y-2 rounded-md border p-2">
-          <div className="font-medium">🖱️ Drag Interaction</div>
+          <div className="font-strong">🖱️ Drag Interaction</div>
           <div>• Click and drag the clock icon to adjust time</div>
           <div>• Hold Shift key to drag 15 minutes</div>
           <div>• Hold Ctrl/Cmd key to drag 1 hour</div>
@@ -163,7 +163,7 @@ export const Formats: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-2 font-medium">24-hour format (HH:mm)</h3>
+        <h3 className="font-strong mb-2">24-hour format (HH:mm)</h3>
         <TimeInput
           format="HH:mm"
           placeholder="14:30"
@@ -171,7 +171,7 @@ export const Formats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium">12-hour format (h:mm a)</h3>
+        <h3 className="font-strong mb-2">12-hour format (h:mm a)</h3>
         <TimeInput
           format="h:mm a"
           placeholder="2:30 PM"
@@ -180,7 +180,7 @@ export const Formats: Story = {
       </div>
 
       <div>
-        <h3 className="mb-2 font-medium">With seconds (HH:mm:ss)</h3>
+        <h3 className="font-strong mb-2">With seconds (HH:mm:ss)</h3>
         <TimeInput
           format="HH:mm:ss"
           placeholder="14:30:45"
@@ -200,7 +200,7 @@ export const SmartCompletion: Story = {
     <div className="space-y-4">
       <TimeInput {...args} />
       <div className="text-secondary-foreground space-y-2 rounded-md border p-2">
-        <div className="font-medium">💡 Smart Completion</div>
+        <div className="font-strong">💡 Smart Completion</div>
         <div>
           • <code>9</code> → 09:00
         </div>
@@ -232,7 +232,7 @@ export const TimeRange: Story = {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="mb-2 font-medium">Work time (09:00 - 18:00)</h3>
+          <h3 className="font-strong mb-2">Work time (09:00 - 18:00)</h3>
           <TimeInput
             placeholder="Only select work time"
             minTime={createTimeToday(9, 0)}
@@ -243,7 +243,7 @@ export const TimeRange: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium">Afternoon time (12:00 - 23:59)</h3>
+          <h3 className="font-strong mb-2">Afternoon time (12:00 - 23:59)</h3>
           <TimeInput
             placeholder="Only select afternoon time"
             minTime={createTimeToday(12, 0)}
@@ -265,7 +265,7 @@ export const CustomSteps: Story = {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="mb-2 font-medium">5-minute step</h3>
+          <h3 className="font-strong mb-2">5-minute step</h3>
           <TimeInput
             placeholder="Adjust 5 minutes"
             step={5}
@@ -279,7 +279,7 @@ export const CustomSteps: Story = {
         </div>
 
         <div>
-          <h3 className="mb-2 font-medium">15-minute step</h3>
+          <h3 className="font-strong mb-2">15-minute step</h3>
           <TimeInput
             placeholder="Adjust 15 minutes"
             step={15}

@@ -373,7 +373,7 @@ export const Interactive: Story = {
           placeholder="Type something..."
           className="w-80"
         />
-        <div className="text-secondary-foreground text-sm">
+        <div className="text-secondary-foreground text-body-small">
           <p>Character count: {value.length}</p>
           <p>Is editing: {isEditing ? "Yes" : "No"}</p>
         </div>

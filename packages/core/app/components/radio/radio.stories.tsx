@@ -79,7 +79,7 @@ export const Basic: Story = {
             <div className="grid grid-cols-3 gap-2">
               {Object.values(State).map((state) => (
                 <Fragment key={state}>
-                  <span className="text-pink-500 capitalize">{state}</span>
+                  <span className="capitalize text-pink-500">{state}</span>
 
                   {Object.values(Interaction).map((interaction) => (
                     <Fragment key={interaction}>
@@ -202,7 +202,7 @@ export const LabelUsage: Story = {
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="mb-2 font-medium">Simple string label (auto-wrapped):</h4>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
           <Radio
             value={simple}
             onChange={setSimple}
@@ -212,7 +212,7 @@ export const LabelUsage: Story = {
         </div>
 
         <div>
-          <h4 className="mb-2 font-medium">Explicit Radio.Label (for complex content):</h4>
+          <h4 className="font-strong mb-2">Explicit Radio.Label (for complex content):</h4>
           <Radio
             value={explicit}
             onChange={setExplicit}
@@ -369,7 +369,7 @@ export const GroupWithDisabledOptions: Story = {
     return (
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h4 className="font-medium">Using options prop with disabled property:</h4>
+          <h4 className="font-strong">Using options prop with disabled property:</h4>
           <RadioGroup
             options={optionsWithDisabled}
             value={selectedValue1}
@@ -378,7 +378,7 @@ export const GroupWithDisabledOptions: Story = {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h4 className="font-medium">Using RadioGroup.Item with individual disabled control:</h4>
+          <h4 className="font-strong">Using RadioGroup.Item with individual disabled control:</h4>
           <RadioGroup
             value={selectedValue2}
             onChange={setSelectedValue2}

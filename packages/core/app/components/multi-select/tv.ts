@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const multiSelectTriggerTv = tv({
+export const multiSelectTriggerTv = tcv({
   slots: {
     root: ["bg-secondary-background relative flex w-full justify-between gap-1 rounded-lg border"],
     content: ["flex min-w-0 flex-1 items-center"],

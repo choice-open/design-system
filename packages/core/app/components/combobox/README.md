@@ -182,7 +182,7 @@ const filteredUsers = useMemo(() => {
           key={user.id}
           onClick={() => setValue(user.name)}
           prefixElement={<img src={user.avatar} className="size-4 rounded-full" />}
-          suffixElement={<span className="text-sm text-white/60">{user.role}</span>}
+          suffixElement={<span className="text-body-small text-white/60">{user.role}</span>}
         >
           <Combobox.Value>{user.name}</Combobox.Value>
         </Combobox.Item>

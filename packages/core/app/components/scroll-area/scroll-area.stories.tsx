@@ -77,26 +77,28 @@ export const AutoScrollbars: Story = {
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="mb-2 text-lg font-semibold">✨ New Simplified Usage</h3>
-          <p className="mb-4 text-sm text-gray-600">
+          <h3 className="text-body-large-strong mb-2">✨ New Simplified Usage</h3>
+          <p className="text-body-small mb-4 text-gray-600">
             No need to manually add ScrollArea.Scrollbar, ScrollArea.Thumb, or ScrollArea.Corner!
           </p>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="mb-2 text-sm font-medium">Vertical Scrolling:</p>
+              <p className="text-body-small-strong mb-2">Vertical Scrolling:</p>
               <ScrollArea
                 className="relative h-40 w-48 overflow-hidden rounded border"
                 orientation="vertical"
               >
                 <ScrollArea.Viewport className="h-full">
-                  <ScrollArea.Content className="p-3 text-sm">{contents}</ScrollArea.Content>
+                  <ScrollArea.Content className="text-body-small p-3">
+                    {contents}
+                  </ScrollArea.Content>
                 </ScrollArea.Viewport>
               </ScrollArea>
             </div>
 
             <div>
-              <p className="mb-2 text-sm font-medium">Horizontal Scrolling:</p>
+              <p className="text-body-small-strong mb-2">Horizontal Scrolling:</p>
               <ScrollArea
                 className="relative h-40 w-48 overflow-hidden rounded border"
                 orientation="horizontal"
@@ -106,7 +108,7 @@ export const AutoScrollbars: Story = {
                     {Array.from({ length: 20 }, (_, i) => (
                       <div
                         key={i}
-                        className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded bg-blue-100 text-sm"
+                        className="text-body-small flex h-20 w-20 flex-shrink-0 items-center justify-center rounded bg-blue-100"
                       >
                         {i + 1}
                       </div>
@@ -118,7 +120,7 @@ export const AutoScrollbars: Story = {
           </div>
 
           <div className="mt-4">
-            <p className="mb-2 text-sm font-medium">Both Directions (with auto Corner):</p>
+            <p className="text-body-small-strong mb-2">Both Directions (with auto Corner):</p>
             <ScrollArea
               className="relative h-40 w-64 overflow-hidden rounded border"
               orientation="both"
@@ -605,7 +607,7 @@ export const RenderProp: Story = {
           <>
             <ScrollArea.Viewport className="h-full">
               <ScrollArea.Content>
-                <div className="sticky top-0 z-10 bg-white/90 p-2 text-sm backdrop-blur">
+                <div className="text-body-small sticky top-0 z-10 bg-white/90 p-2 backdrop-blur">
                   Scroll Progress: {Math.round(top * 100)}%
                 </div>
                 {contents}
@@ -655,7 +657,7 @@ export const VirtualList: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-gray-600">
+        <div className="text-body-small text-gray-600">
           Virtual list with 10,000 items - only visible items are rendered
         </div>
         <VirtualScrollArea items={items} />
@@ -693,10 +695,10 @@ export const DynamicContent: Story = {
     return (
       <div className="space-y-6">
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <h3 className="mb-2 text-lg font-semibold text-blue-900">
+          <h3 className="text-body-large-strong mb-2 text-blue-900">
             🔧 Test Dynamic Content Changes
           </h3>
-          <p className="text-sm text-blue-800">
+          <p className="text-body-small text-blue-800">
             This test case validates the correct behavior of scrollbars when content changes
             dynamically, including length updates and display/hide logic.
           </p>
@@ -705,7 +707,7 @@ export const DynamicContent: Story = {
         <div className="flex gap-4">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="text-body-small-strong block text-gray-700">
                 Item Count: {itemCount}
               </label>
               <input
@@ -718,7 +720,7 @@ export const DynamicContent: Story = {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="text-body-small-strong block text-gray-700">
                 Item Height: {itemHeight}px
               </label>
               <input
@@ -760,8 +762,10 @@ export const DynamicContent: Story = {
                       className="rounded-md border p-2"
                       style={{ height: itemHeight }}
                     >
-                      <div className="font-medium">{item.title}</div>
-                      <div className="text-secondary-foreground text-sm">{item.content}</div>
+                      <div className="font-strong">{item.title}</div>
+                      <div className="text-secondary-foreground text-body-small">
+                        {item.content}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -816,10 +820,10 @@ export const PerformanceMonitoring: Story = {
     return (
       <div className="space-y-6">
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <h3 className="mb-2 text-lg font-semibold text-purple-900">
+          <h3 className="text-body-large-strong mb-2 text-purple-900">
             🔍 Performance Monitoring Test
           </h3>
-          <p className="text-sm text-purple-800">
+          <p className="text-body-small text-purple-800">
             Enable performance monitoring to track scroll performance metrics. Check the browser
             console for detailed performance reports.
           </p>
@@ -836,18 +840,18 @@ export const PerformanceMonitoring: Story = {
             />
             <label
               htmlFor="monitoring"
-              className="text-sm font-medium"
+              className="text-body-small-strong"
             >
               Enable Performance Monitoring 📊
             </label>
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium">Item Count:</label>
+            <label className="text-body-small-strong">Item Count:</label>
             <select
               value={itemCount}
               onChange={(e) => setItemCount(Number(e.target.value))}
-              className="rounded border border-gray-300 px-2 py-1 text-sm"
+              className="text-body-small rounded border border-gray-300 px-2 py-1"
             >
               <option value={100}>100 items (light)</option>
               <option value={500}>500 items (medium)</option>
@@ -858,7 +862,7 @@ export const PerformanceMonitoring: Story = {
 
           {monitoringEnabled && performanceMetrics && (
             <div className="rounded bg-gray-100 px-3 py-2 text-xs">
-              <span className="font-medium">Real-time Metrics:</span>
+              <span className="font-strong">Real-time Metrics:</span>
               <span className="ml-2">
                 FPS:{" "}
                 {performanceMetrics.averageFrameTime > 0
@@ -872,7 +876,7 @@ export const PerformanceMonitoring: Story = {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h4 className="mb-2 text-sm font-medium">Basic Scroll Test</h4>
+            <h4 className="text-body-small-strong mb-2">Basic Scroll Test</h4>
             <ScrollArea
               className="relative h-80 w-full overflow-hidden rounded-xl border border-gray-200"
               orientation="vertical"
@@ -889,8 +893,8 @@ export const PerformanceMonitoring: Story = {
                         key={item.id}
                         className="rounded border border-gray-200 bg-white p-3 shadow-sm"
                       >
-                        <div className="font-medium text-gray-900">{item.title}</div>
-                        <div className="text-sm text-gray-500">{item.content}</div>
+                        <div className="font-strong text-gray-900">{item.title}</div>
+                        <div className="text-body-small text-gray-500">{item.content}</div>
                         <div className="mt-1 text-xs text-blue-600">Value: {item.value}</div>
                       </div>
                     ))}
@@ -901,7 +905,7 @@ export const PerformanceMonitoring: Story = {
           </div>
 
           <div>
-            <h4 className="mb-2 text-sm font-medium">Complex Layout Test</h4>
+            <h4 className="text-body-small-strong mb-2">Complex Layout Test</h4>
             <ScrollArea
               className="relative h-80 w-full overflow-hidden rounded-xl border border-gray-200"
               orientation="both"
@@ -919,7 +923,7 @@ export const PerformanceMonitoring: Story = {
                         className="rounded border border-gray-200 bg-gradient-to-br from-blue-50 to-purple-50 p-2 shadow-sm"
                         style={{ minHeight: "120px" }}
                       >
-                        <div className="text-xs font-medium text-gray-900">{item.title}</div>
+                        <div className="font-strong text-xs text-gray-900">{item.title}</div>
                         <div className="mt-1 text-xs text-gray-600">
                           {item.content.slice(0, 50)}...
                         </div>
@@ -936,10 +940,10 @@ export const PerformanceMonitoring: Story = {
         </div>
 
         <div className="rounded-xl border border-green-200 bg-green-50 p-4">
-          <h3 className="mb-2 text-lg font-semibold text-green-900">
+          <h3 className="text-body-large-strong mb-2 text-green-900">
             📈 Performance Monitoring Instructions
           </h3>
-          <div className="space-y-2 text-sm text-green-800">
+          <div className="text-body-small space-y-2 text-green-800">
             <div>
               <strong>Average Frame Time</strong>: Should be &lt; 16.67ms (60fps)
             </div>
@@ -998,7 +1002,7 @@ function VirtualScrollArea({
               return (
                 <div
                   key={virtualItem.key}
-                  className="absolute top-0 left-0 w-full border-b border-gray-100 p-3 transition-colors hover:bg-gray-50"
+                  className="absolute left-0 top-0 w-full border-b border-gray-100 p-3 transition-colors hover:bg-gray-50"
                   style={{
                     height: virtualItem.size,
                     transform: `translateY(${virtualItem.start}px)`,
@@ -1006,10 +1010,10 @@ function VirtualScrollArea({
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium text-gray-900">{item.name}</div>
-                      <div className="text-sm text-gray-500">{item.description}</div>
+                      <div className="font-strong text-gray-900">{item.name}</div>
+                      <div className="text-body-small text-gray-500">{item.description}</div>
                     </div>
-                    <div className="rounded bg-gray-100 px-2 py-1 font-mono text-sm text-gray-600">
+                    <div className="text-body-small rounded bg-gray-100 px-2 py-1 font-mono text-gray-600">
                       {item.value}
                     </div>
                   </div>
@@ -1070,7 +1074,7 @@ export const NestedScrollArea: Story = {
                             key={index}
                             className="bg-secondary-background rounded-md p-2"
                           >
-                            <div className="font-medium">{item.title}</div>
+                            <div className="font-strong">{item.title}</div>
                           </div>
                         ))}
                       </div>

@@ -3,16 +3,16 @@ import { useHover } from "usehooks-ts"
 import { mergeRefs, tcx } from "~/utils"
 
 export type PanelRowManyIconItem = {
-  id: string
-  element: ReactNode
   alwaysShow?: boolean
+  element: ReactNode
+  id: string
 }
 
 export interface PanelRowManyIconProps
   extends Omit<HTMLProps<HTMLDivElement>, "title" | "children"> {
   children?: React.ReactNode
-  isEditing?: boolean
   icons: Array<PanelRowManyIconItem>
+  isEditing?: boolean
 }
 
 export const PanelRowManyIcon = forwardRef<HTMLDivElement, PanelRowManyIconProps>(
@@ -25,7 +25,7 @@ export const PanelRowManyIcon = forwardRef<HTMLDivElement, PanelRowManyIconProps
       <div
         ref={mergeRefs(ref, innerRef)}
         className={tcx(
-          "group flex h-8 min-w-0 items-center justify-between gap-x-2 pr-2 pl-4 select-none",
+          "group text-body-medium flex h-8 min-w-0 items-center justify-between gap-x-2 pr-2 pl-4 select-none",
           className,
         )}
         {...rest}

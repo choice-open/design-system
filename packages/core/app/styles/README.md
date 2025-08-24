@@ -287,13 +287,12 @@ The color system replicates Figma's sophisticated approach:
 ```tsx
 // Using semantic colors in components
 const Button = ({ variant = "primary", children }) => {
-  const variants = tv({
-    base: "rounded-md px-4 py-2 font-medium transition-colors",
+  const variants = tcv({
+    base: "rounded-md px-4 py-2 font-strong transition-colors",
     variants: {
       variant: {
         primary: "bg-accent-background hover:bg-accent-hover-background text-white",
-        secondary:
-          "bg-secondary-background text-default-foreground hover:bg-secondary-hover-background",
+        secondary: "bg-secondary-background text-default-foreground hover:bg-tertiary-background",
         danger: "bg-danger-background hover:bg-danger-hover-background text-white",
       },
     },

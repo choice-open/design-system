@@ -1,6 +1,6 @@
-import { tv } from "tailwind-variants"
+import { tcv } from "~/utils"
 
-export const VirtualizedGridTv = tv({
+export const VirtualizedGridTv = tcv({
   slots: {
     base: "box-border",
     grid: "grid",
