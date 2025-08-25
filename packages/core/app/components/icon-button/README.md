@@ -25,7 +25,6 @@ import { IconButton } from "@choiceform/design-system"
 
 ```tsx
 import { FieldTypeButton } from "@choiceform/icons-react"
-
 ;<IconButton>
   <FieldTypeButton />
 </IconButton>
@@ -92,7 +91,6 @@ import { FieldTypeRating } from "@choiceform/icons-react"
 
 ```tsx
 import { FieldTypeDate } from "@choiceform/icons-react"
-
 ;<IconButton tooltip={{ content: "Select date" }}>
   <FieldTypeDate />
 </IconButton>
@@ -103,7 +101,6 @@ import { FieldTypeDate } from "@choiceform/icons-react"
 ```tsx
 import { IconButtonGroup } from "@choiceform/design-system"
 import { FieldTypeButton, FieldTypeCount, FieldTypeCheckbox } from "@choiceform/icons-react"
-
 ;<IconButtonGroup variant="solid">
   <IconButton>
     <FieldTypeButton />
@@ -121,7 +118,6 @@ import { FieldTypeButton, FieldTypeCount, FieldTypeCheckbox } from "@choiceform/
 
 ```tsx
 import { FieldTypeAttachment } from "@choiceform/icons-react"
-
 ;<IconButton asChild>
   <a href="/download">
     <FieldTypeAttachment />
@@ -199,7 +195,6 @@ interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
 ```tsx
 import { IconButtonGroup } from "@choiceform/design-system"
 import { Copy, Paste, Delete } from "@choiceform/icons-react"
-
 ;<IconButtonGroup variant="secondary">
   <IconButton tooltip={{ content: "Copy" }}>
     <Copy />
@@ -217,7 +212,6 @@ import { Copy, Paste, Delete } from "@choiceform/icons-react"
 
 ```tsx
 import { Save } from "@choiceform/icons-react"
-
 ;<IconButton
   loading
   tooltip={{ content: "Saving..." }}
@@ -230,7 +224,6 @@ import { Save } from "@choiceform/icons-react"
 
 ```tsx
 import { Settings } from "@choiceform/icons-react"
-
 ;<div className="bg-gray-800 p-4">
   <IconButton
     variant="dark"

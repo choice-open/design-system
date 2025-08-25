@@ -143,7 +143,6 @@ For advanced use cases where you need deep cloning:
 
 ```tsx
 import { SlotClone } from "~/components/slot"
-
 ;<SlotClone {...props}>
   <NestedComponent />
 </SlotClone>

@@ -72,7 +72,6 @@ import { TextField } from "@choiceform/design-system"
 
 ```tsx
 import { Search, Settings } from "@choiceform/icons-react"
-
 ;<TextField
   value={query}
   onChange={setQuery}

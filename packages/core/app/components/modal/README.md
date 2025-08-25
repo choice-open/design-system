@@ -131,7 +131,7 @@ import { Modal } from "@choiceform/design-system"
 ```tsx
 <Modal>
   <Modal.Header title="Form Modal" />
-  <Modal.Content className="w-md flex flex-col gap-4 p-4">
+  <Modal.Content className="flex w-md flex-col gap-4 p-4">
     {/* Modal Input */}
     <Modal.Input
       size="large"

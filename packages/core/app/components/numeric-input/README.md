@@ -43,7 +43,6 @@ function MyComponent() {
 
 ```tsx
 import { HugWidth } from "@choiceform/icons-react"
-
 ;<NumericInput
   value={value}
   onChange={setValue}
@@ -58,7 +57,6 @@ import { HugWidth } from "@choiceform/icons-react"
 
 ```tsx
 import { Relative } from "@choiceform/icons-react"
-
 ;<NumericInput
   value={value}
   onChange={setValue}

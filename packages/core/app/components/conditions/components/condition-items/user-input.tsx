@@ -15,7 +15,7 @@ export function UserInput({ condition, field, disabled, onChange }: BaseFieldInp
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
       placeholder={userField.placeholder || "Enter user..."}
-      className="text-body-small min-w-0 flex-1 rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+      className="text-body-small min-w-0 flex-1 rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
     />
   )
 }

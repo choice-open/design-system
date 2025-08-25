@@ -182,7 +182,7 @@ export const Basic = {
       <div className="text-secondary-foreground p-2">
         <h3 className="font-strong mb-2 text-xs">已加载评论 ({loadedComments.length})</h3>
         {loadedComments.length === 0 ? (
-          <p className="text-xs italic text-gray-500">无评论</p>
+          <p className="text-xs text-gray-500 italic">无评论</p>
         ) : (
           <div className="space-y-4">
             {loadedComments.map((item, i) => (

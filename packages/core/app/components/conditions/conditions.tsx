@@ -326,7 +326,7 @@ export function Conditions({
               key={index}
               className="flex items-start"
             >
-              <span className="mr-2 mt-2 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-red-500" />
+              <span className="mt-2 mr-2 inline-block h-1 w-1 flex-shrink-0 rounded-full bg-red-500" />
               {error.message}
             </li>
           ))}

@@ -176,7 +176,7 @@ export const ModalContent: Story = {
     return (
       <Modal>
         <Modal.Header title="Modal" />
-        <Modal.Content className="w-md flex flex-col gap-4 p-4">
+        <Modal.Content className="flex w-md flex-col gap-4 p-4">
           <div className="flex w-full items-center gap-2">
             <TextField
               className="flex-1 rounded-lg"

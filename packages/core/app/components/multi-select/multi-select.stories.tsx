@@ -619,7 +619,7 @@ export const ExclusiveOptions: Story = {
       <div className="space-y-4">
         <div className="text-secondary-foreground">
           <p>Exclusive Options Rules:</p>
-          <ul className="ml-4 mt-2 space-y-1">
+          <ul className="mt-2 ml-4 space-y-1">
             <li>• Group 1 (A, B, C): Can select multiple within group</li>
             <li>• Group 2 (D, E, F): Can select multiple within group</li>
             <li>• Groups are mutually exclusive (selecting Group 2 clears Group 1)</li>

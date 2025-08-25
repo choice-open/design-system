@@ -53,7 +53,6 @@ import { Chip } from "@choiceform/design-system"
 
 ```tsx
 import { Star } from "@choiceform/icons-react"
-
 ;<Chip prefixElement={<Star />}>Featured</Chip>
 ```
 
@@ -234,7 +233,6 @@ function TagInput() {
 
 ```tsx
 import { CheckCircle, AlertCircle, Clock } from "@choiceform/icons-react"
-
 ;<div className="flex gap-2">
   <Chip
     variant="success"

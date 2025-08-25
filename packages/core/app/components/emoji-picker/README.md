@@ -231,7 +231,6 @@ The footer displays emoji information with smart priority:
 
 ```tsx
 import { EmojiFooter } from "@choiceform/design-system"
-
 ;<EmojiFooter
   hoveredEmoji={hoveredEmoji}
   selectedEmoji={selectedEmoji}

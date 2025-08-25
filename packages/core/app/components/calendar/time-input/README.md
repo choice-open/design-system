@@ -61,7 +61,6 @@ const [selectedTime, setSelectedTime] = useState<Date | null>(null)
 
 ```tsx
 import { createTimeToday } from "@choiceform/design-system"
-
 ;<TimeInput
   value={workTime}
   onChange={setWorkTime}

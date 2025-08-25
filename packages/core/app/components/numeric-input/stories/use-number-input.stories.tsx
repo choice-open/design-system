@@ -47,7 +47,7 @@ export const Basic: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -83,7 +83,7 @@ export const Expression: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -119,7 +119,7 @@ export const MultipleValues: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -162,7 +162,7 @@ export const Constraints: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -202,7 +202,7 @@ export const ArrayValues: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -242,7 +242,7 @@ export const States: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -302,7 +302,7 @@ export const MathExpressions: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -348,7 +348,7 @@ export const EmptyValue: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -407,7 +407,7 @@ export const KeyboardNavigation: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -472,7 +472,7 @@ export const FocusState: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -559,7 +559,7 @@ export const ErrorHandling: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>
@@ -737,7 +737,7 @@ export const ControlledVsUncontrolled: StoryObj = {
           />
           <div
             {...handlerProps}
-            className="cursor-ew-resize select-none px-4"
+            className="cursor-ew-resize px-4 select-none"
           >
             ⟷
           </div>

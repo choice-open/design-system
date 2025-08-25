@@ -53,7 +53,6 @@ import { Badge } from "@choiceform/design-system"
 
 ```tsx
 import { CheckSmall } from "@choiceform/icons-react"
-
 ;<Badge variant="success">
   <CheckSmall className="mr-0.5" />
   Completed

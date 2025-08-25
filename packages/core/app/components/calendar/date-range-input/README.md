@@ -335,7 +335,6 @@ Properly calculates ranges spanning multiple years:
 
 ```tsx
 import { Panel } from "@choiceform/design-system"
-
 ;<Panel.Row type="two-input-two-icon">
   <DateRangeInput
     startValue={startValue}

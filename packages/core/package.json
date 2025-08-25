@@ -43,7 +43,8 @@
     "test:coverage": "jest --coverage",
     "test:generate-output": "jest --json --outputFile=.jest-test-results.json || true",
     "test:generate-watch": "jest --json --outputFile=.jest-test-results.json --watch",
-    "prestorybook": "pnpm run test:generate-output"
+    "prestorybook": "pnpm run test:generate-output",
+    "publish": "npm publish"
   },
   "dependencies": {
     "@choiceform/icons-react": "^1.2.2",

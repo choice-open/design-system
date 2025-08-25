@@ -164,7 +164,6 @@ const [theme, setTheme] = useState("light")
 
 ```tsx
 import { Copy, Paste, Delete } from "@choiceform/icons-react"
-
 ;<ContextMenu>
   <ContextMenu.Target>
     <div>Right click for actions</div>

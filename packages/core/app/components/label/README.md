@@ -25,7 +25,6 @@ import { Label } from "@choiceform/design-system"
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="flex flex-col gap-2">
   <Label htmlFor="name">Name</Label>
   <Input id="name" />
@@ -36,7 +35,6 @@ import { Input } from "@choiceform/design-system"
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="email"
@@ -55,7 +53,6 @@ import { Input } from "@choiceform/design-system"
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="required"
@@ -71,7 +68,6 @@ import { Input } from "@choiceform/design-system"
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="disabled"
@@ -91,7 +87,6 @@ import { Input } from "@choiceform/design-system"
 ```tsx
 import { Input, IconButton } from "@choiceform/design-system"
 import { QuestionCircle } from "@choiceform/icons-react"
-
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="help"
@@ -124,7 +119,6 @@ import { QuestionCircle } from "@choiceform/icons-react"
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="bg-gray-800 p-4">
   <div className="flex flex-col gap-2">
     <Label
@@ -202,7 +196,6 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement | HTMLLe
 
 ```tsx
 import { Input } from "@choiceform/design-system"
-
 ;<div className="space-y-4">
   <div className="flex flex-col gap-2">
     <Label
@@ -224,7 +217,6 @@ import { Input } from "@choiceform/design-system"
 
 ```tsx
 import { RadioGroup } from "@choiceform/design-system"
-
 ;<fieldset className="rounded border p-4">
   <Label
     as="legend"
@@ -247,7 +239,6 @@ import { RadioGroup } from "@choiceform/design-system"
 ```tsx
 import { Input, Tooltip, IconButton } from "@choiceform/design-system"
 import { QuestionCircle } from "@choiceform/icons-react"
-
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="api-key"
