@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useMemo } from "react"
-import { tcx } from "../../../utils"
+import { tcx } from "~/utils"
 import { useScrollAreaContext } from "./scroll-area-root"
 
 export const ScrollAreaViewport = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(

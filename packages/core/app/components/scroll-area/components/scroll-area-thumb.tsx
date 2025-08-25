@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback, useMemo } from "react"
-import { tcx } from "../../../utils"
+import { tcx } from "~/utils"
 import { useThumbDrag, useThumbStyle } from "../hooks"
 import { ScrollTv } from "../tv"
 import type { ThumbProps } from "../types"

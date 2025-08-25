@@ -1,10 +1,9 @@
 import { AlertDialogProvider, TooltipProvider } from "@choiceform/design-system"
-import { Preview } from "@storybook/react-vite"
+import "@choiceform/storybook-config/global.css"
 import { sharedParameters } from "@choiceform/storybook-config/preview"
+import { Preview } from "@storybook/react-vite"
 import React from "react"
 import "../app/tailwind.css"
-import "@choiceform/storybook-config/global.css"
-import { Toaster } from "sonner"
 
 const preview: Preview = {
   decorators: [
@@ -17,7 +16,6 @@ const preview: Preview = {
       >
         <AlertDialogProvider>
           <Story />
-          <Toaster position="bottom-right" />
         </AlertDialogProvider>
       </TooltipProvider>
     ),

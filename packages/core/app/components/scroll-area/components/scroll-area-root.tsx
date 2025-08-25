@@ -1,12 +1,6 @@
-import React, { createContext, forwardRef, useCallback, useContext, useMemo, useState } from "react"
-import { tcx } from "../../../utils"
-import {
-  useHasOverflow,
-  useScrollbarShouldShow,
-  useScrollStateAndVisibility,
-  useThumbDrag,
-  useThumbStyle,
-} from "../hooks"
+import { createContext, forwardRef, useContext, useMemo, useState } from "react"
+import { tcx } from "~/utils"
+import { useScrollStateAndVisibility } from "../hooks"
 import { ScrollTv } from "../tv"
 import type {
   ScrollAreaContextType,
@@ -14,9 +8,9 @@ import type {
   ScrollAreaRenderProp,
   ScrollPosition,
 } from "../types"
+import { ScrollAreaCorner } from "./scroll-area-corner"
 import { ScrollAreaScrollbar } from "./scroll-area-scrollbar"
 import { ScrollAreaThumb } from "./scroll-area-thumb"
-import { ScrollAreaCorner } from "./scroll-area-corner"
 
 const ScrollAreaContext = createContext<ScrollAreaContextType | null>(null)
 
@@ -37,10 +31,10 @@ export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
   (
     {
       className,
-      classNames,
       children,
       orientation = "vertical",
       scrollbarMode = "default",
+      hoverBoundary = "hover",
       variant = "auto",
       type = "hover",
       id,
@@ -71,10 +65,11 @@ export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
       () => ({
         orientation,
         scrollbarMode,
+        hoverBoundary,
         variant,
         type,
       }),
-      [orientation, scrollbarMode, variant, type],
+      [orientation, scrollbarMode, hoverBoundary, variant, type],
     )
 
     // 缓存Context值，只在相关状态变化时才更新
@@ -84,6 +79,7 @@ export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
         orientation: staticConfig.orientation,
         scrollState,
         scrollbarMode: staticConfig.scrollbarMode,
+        hoverBoundary: staticConfig.hoverBoundary,
         scrollbarX,
         scrollbarY,
         setContent,
@@ -130,8 +126,9 @@ export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
           variant,
           scrollbarMode,
           orientation: orientation === "both" ? "vertical" : orientation,
+          hoverBoundary,
         }),
-      [variant, scrollbarMode, orientation],
+      [variant, scrollbarMode, orientation, hoverBoundary],
     )
 
     // 缓存render prop的位置计算，只在scrollState变化时重新计算
@@ -200,7 +197,7 @@ export const ScrollAreaRoot = forwardRef<HTMLDivElement, ScrollAreaProps>(
         <div
           ref={ref}
           id={rootId}
-          className={tcx(tvConfig.root(), classNames?.root, className)}
+          className={tcx(tvConfig.root(), className)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           // WAI-ARIA 属性

@@ -38,7 +38,7 @@ export const emojiTv = tcv({
 })
 
 export const emojiItemTv = tcv({
-  base: "flex size-8 items-center justify-center rounded-md border border-transparent text-xl",
+  base: "flex size-8 items-center justify-center rounded-md border border-transparent text-[1.25rem]",
   variants: {
     variant: {
       dark: {},
@@ -80,7 +80,7 @@ export const emojiItemTv = tcv({
 export const emojiFooterTv = tcv({
   slots: {
     footer: "flex flex-shrink-0 items-center gap-2 border-t px-3 py-2",
-    emojiPreview: "flex size-8 items-center justify-center text-2xl",
+    emojiPreview: "flex size-8 items-center justify-center text-xl",
     emojiPreviewEmpty: "flex size-6 rounded-full border border-dashed",
     emojiInfo: "flex flex-col gap-0",
     emojiName: "leading-tight font-strong",

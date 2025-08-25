@@ -2,7 +2,7 @@ import { tcv } from "~/utils"
 
 export const comboboxTriggerTv = tcv({
   slots: {
-    root: "text-body-medium flex min-w-0 items-center rounded-md",
+    root: "flex min-w-0 items-center rounded-md",
     input: "flex-1 cursor-default appearance-none bg-transparent px-2 outline-none",
     icon: "flex flex-none items-center justify-center rounded-sm",
     action: "",

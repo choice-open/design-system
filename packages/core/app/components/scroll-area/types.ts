@@ -9,6 +9,7 @@ export type ScrollbarMode =
   | "large-r"
 export type ScrollAreaVariant = "auto" | "light" | "dark"
 export type ScrollOrientation = "vertical" | "horizontal" | "both"
+export type HoverBoundary = "none" | "hover"
 
 export interface ScrollState {
   clientHeight: number
@@ -36,6 +37,7 @@ export type ScrollAreaRenderProp = (position: ScrollPosition) => React.ReactNode
 
 export interface ScrollAreaContextType {
   content: HTMLDivElement | null
+  hoverBoundary: HoverBoundary
   isHovering: boolean
   isScrolling: boolean
   orientation: ScrollOrientation
@@ -68,14 +70,7 @@ export interface ScrollAreaProps extends Omit<React.ComponentPropsWithoutRef<"di
   "aria-labelledby"?: string
   /** 标准children或render prop函数 */
   children?: React.ReactNode | ScrollAreaRenderProp
-  classNames?: {
-    content?: string
-    corner?: string
-    root?: string
-    scrollbar?: string
-    thumb?: string
-    viewport?: string
-  }
+  hoverBoundary?: HoverBoundary
   orientation?: ScrollOrientation
   scrollbarMode?: ScrollbarMode
   type?: ScrollbarVisibilityType

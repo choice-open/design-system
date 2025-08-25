@@ -9,7 +9,6 @@ export const chipsInputTv = tcv({
     ],
     input: [
       "max-w-full flex-1",
-      "text-body-medium",
       "cursor-default appearance-none",
       "placeholder:text-secondary-foreground",
     ],

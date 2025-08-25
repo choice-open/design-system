@@ -3,13 +3,9 @@ import { tcv } from "~/utils"
 export const ScrollTv = tcv({
   slots: {
     root: "relative h-full min-h-0 overflow-hidden",
-    scrollbar: [
-      "z-scroll",
-      "flex touch-none select-none",
-      "transition-colors duration-[100ms] ease-out",
-    ],
+    scrollbar: ["flex touch-none select-none", "transition-colors duration-[100ms] ease-out"],
     thumb: [
-      "relative rounded",
+      "relative rounded-md",
       "z-5 before:absolute before:top-1/2 before:left-1/2 before:h-full before:min-h-5 before:w-full before:min-w-5",
       "before:-translate-x-1/2 before:-translate-y-1/2",
       "backdrop-blur-xs",
@@ -52,10 +48,16 @@ export const ScrollTv = tcv({
       "large-l": {},
       "large-r": {},
     },
+    hoverBoundary: {
+      none: {},
+      hover: {},
+    },
   },
   compoundVariants: [
+    // hoverBoundary: "hover"
     {
       orientation: "vertical",
+      hoverBoundary: "hover",
       variant: "auto",
       class: {
         scrollbar: "hover:border-l-default-boundary",
@@ -63,6 +65,7 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "horizontal",
+      hoverBoundary: "hover",
       variant: "auto",
       class: {
         scrollbar: "hover:border-t-default-boundary",
@@ -70,6 +73,7 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "vertical",
+      hoverBoundary: "hover",
       variant: "light",
       class: {
         scrollbar: "hover:border-l-gray-200",
@@ -77,6 +81,7 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "horizontal",
+      hoverBoundary: "hover",
       variant: "light",
       class: {
         scrollbar: "hover:border-t-gray-200",
@@ -84,6 +89,7 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "vertical",
+      hoverBoundary: "hover",
       variant: "dark",
       class: {
         scrollbar: "hover:border-l-gray-600",
@@ -91,6 +97,7 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "horizontal",
+      hoverBoundary: "hover",
       variant: "dark",
       class: {
         scrollbar: "hover:border-t-gray-600",
@@ -140,6 +147,7 @@ export const ScrollTv = tcv({
     },
   ],
   defaultVariants: {
+    hoverBoundary: "hover",
     orientation: "vertical",
     variant: "auto",
     scrollbarMode: "default",

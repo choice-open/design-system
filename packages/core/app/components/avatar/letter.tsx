@@ -8,6 +8,7 @@ export const InitialLetter = memo(function InitialCharacter({ letter }: { letter
       width={"100%"}
       height={"100%"}
       viewBox="0 0 128 128"
+      className="relative"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -17,7 +18,7 @@ export const InitialLetter = memo(function InitialCharacter({ letter }: { letter
           height="100%"
         >
           <text
-            className="fill-current text-6xl uppercase"
+            className="fill-current text-[4rem] uppercase"
             x="50%"
             y="50%"
             dominantBaseline="middle"

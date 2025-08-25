@@ -12,6 +12,7 @@ export const ScrollAreaScrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
       viewport,
       scrollState,
       scrollbarMode,
+      hoverBoundary,
       variant,
       type,
       isHovering,
@@ -56,8 +57,9 @@ export const ScrollAreaScrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
           variant,
           scrollbarMode,
           orientation,
+          hoverBoundary,
         }),
-      [variant, scrollbarMode, orientation],
+      [variant, scrollbarMode, orientation, hoverBoundary],
     )
 
     // 优化ref设置

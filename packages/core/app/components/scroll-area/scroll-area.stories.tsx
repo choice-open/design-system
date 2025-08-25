@@ -7,6 +7,8 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { faker } from "@faker-js/faker"
 import { Button } from "../button"
 import { useScrollPerformanceMonitor } from "./hooks"
+import { Popover } from "../popover"
+import { Tooltip } from "../tooltip"
 
 const meta: Meta<typeof ScrollArea> = {
   title: "Layouts/ScrollArea",
@@ -1002,7 +1004,7 @@ function VirtualScrollArea({
               return (
                 <div
                   key={virtualItem.key}
-                  className="absolute left-0 top-0 w-full border-b border-gray-100 p-3 transition-colors hover:bg-gray-50"
+                  className="absolute top-0 left-0 w-full border-b border-gray-100 p-3 transition-colors hover:bg-gray-50"
                   style={{
                     height: virtualItem.size,
                     transform: `translateY(${virtualItem.start}px)`,
@@ -1086,6 +1088,213 @@ export const NestedScrollArea: Story = {
           </ScrollArea.Content>
         </ScrollArea.Viewport>
       </ScrollArea>
+    )
+  },
+}
+
+/**
+ * WithPopoverAndTooltip: Tests ScrollArea with Popover and Tooltip components inside.
+ *
+ * Features:
+ * - Tests interaction between ScrollArea and floating UI components
+ * - Demonstrates proper z-index handling with overlays and scrollbars
+ * - Shows how Popover and Tooltip work within scrollable content
+ * - Tests positioning and overflow behavior
+ * - Tooltips positioned on the right to test overlap with scrollbars
+ *
+ * This story validates that:
+ * - Popovers correctly position relative to their trigger within scrollable content
+ * - Tooltips appear correctly when hovering over elements inside ScrollArea
+ * - Tooltips have proper z-index when overlapping with scrollbars
+ * - Scrolling doesn't break the floating UI positioning
+ * - Z-index stacking is properly maintained
+ */
+export const WithPopoverAndTooltip: Story = {
+  render: function WithPopoverAndTooltipStory() {
+    const items = useMemo(() => {
+      return Array.from({ length: 50 }, (_, i) => ({
+        id: i,
+        title: `Item ${i + 1}`,
+        description: faker.lorem.sentence(),
+        hasPopover: i % 5 === 0,
+        hasTooltip: i % 3 === 0,
+      }))
+    }, [])
+
+    return (
+      <div className="w-96 space-y-4">
+        <div className="rounded-xl border p-4">
+          <h3 className="text-body-large-strong mb-2">
+            🎯 ScrollArea with Popover and Tooltip (Testing z-index with Scrollbar)
+          </h3>
+          <p className="text-body-small">
+            Tooltips are positioned on the right side to test z-index behavior when overlapping with
+            scrollbars. Every 5th item has a Popover, and every 3rd item has a Tooltip.
+          </p>
+        </div>
+
+        <ScrollArea
+          className="relative h-96 w-96 overflow-hidden rounded-xl border"
+          orientation="vertical"
+          type="always"
+        >
+          <ScrollArea.Viewport className="h-full">
+            <ScrollArea.Content className="p-4 pr-8">
+              <div className="space-y-3">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-lg p-4 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-strong">{item.title}</h4>
+                        <p className="text-body-small text-secondary-foreground mt-1">
+                          {item.description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {item.hasPopover && (
+                          <Popover>
+                            <Popover.Trigger>
+                              <Button variant="ghost">More Info</Button>
+                            </Popover.Trigger>
+                            <Popover.Content className="w-80 p-4">
+                              <div className="space-y-2">
+                                <h4 className="font-strong">
+                                  Detailed Information for {item.title}
+                                </h4>
+                                <p className="text-body-small text-secondary-foreground">
+                                  This is a popover content that appears when you click the button.
+                                  It demonstrates how floating UI components work within a
+                                  ScrollArea.
+                                </p>
+                                <div className="mt-3 flex gap-2">
+                                  <Button>Action 1</Button>
+                                  <Button variant="ghost">Action 2</Button>
+                                </div>
+                              </div>
+                            </Popover.Content>
+                          </Popover>
+                        )}
+
+                        {item.hasTooltip && (
+                          <Tooltip
+                            content={`Tooltip for ${item.title} - This tooltip should appear above the scrollbar`}
+                          >
+                            <span className="inline-flex h-8 w-8 cursor-help items-center justify-center rounded-full bg-blue-100 text-sm text-blue-600 hover:bg-blue-200">
+                              ?
+                            </span>
+                          </Tooltip>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
+
+        <div className="w-96 rounded-xl border p-4">
+          <h3 className="text-body-large-strong mb-2">💡 Testing Instructions</h3>
+          <div className="text-body-small space-y-2">
+            <div>• Hover over the blue question marks on the RIGHT side to see tooltips</div>
+            <div>
+              • Notice that tooltips are positioned near the scrollbar to test z-index stacking
+            </div>
+            <div>• Click &quot;More Info&quot; buttons to open popovers</div>
+            <div>• Verify that tooltips appear ABOVE the scrollbar (proper z-index)</div>
+            <div>• Test that popovers and tooltips remain properly positioned while scrolling</div>
+            <div>
+              • Check that scrolling with an open popover doesn&apos;t cause positioning issues
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * HoverBoundaryTest: Tests the hoverBoundary prop for controlling scrollbar hover behavior.
+ *
+ * Features:
+ * - Tests different hoverBoundary values: "none", "hover", "always"
+ * - Demonstrates how hover boundary affects scrollbar visibility
+ * - Shows the difference in UX between different boundary settings
+ *
+ * This story validates:
+ * - "none": No hover effect, scrollbar visibility controlled only by type prop
+ * - "hover": Scrollbar shows on hover (default behavior)
+ * - "always": Scrollbar always visible regardless of hover state
+ */
+export const HoverBoundaryTest: Story = {
+  render: function HoverBoundaryTestStory() {
+    const [selectedBoundary, setSelectedBoundary] = useState<"none" | "hover">("hover")
+
+    const items = useMemo(() => {
+      return Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        title: `Item ${i + 1}`,
+        description: faker.lorem.sentence(),
+      }))
+    }, [])
+
+    return (
+      <div className="w-96 space-y-4">
+        <div className="rounded-xl border p-4">
+          <h3 className="text-body-large-strong mb-2">🎯 ScrollArea Hover Boundary Testing</h3>
+          <p className="text-body-small">
+            Test how different hoverBoundary settings affect scrollbar visibility on hover. The
+            scrollbar will appear based on where you hover.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4 rounded-lg border p-4">
+          <span className="text-body-small-strong">Select Hover Boundary:</span>
+          <div className="flex gap-2">
+            <Button
+              variant={selectedBoundary === "none" ? "primary" : "ghost"}
+              onClick={() => setSelectedBoundary("none")}
+            >
+              none
+            </Button>
+            <Button
+              variant={selectedBoundary === "hover" ? "primary" : "ghost"}
+              onClick={() => setSelectedBoundary("hover")}
+            >
+              hover
+            </Button>
+          </div>
+        </div>
+
+        <ScrollArea
+          className="relative h-80 w-full overflow-hidden rounded-lg border"
+          orientation="vertical"
+          type="hover"
+          hoverBoundary={selectedBoundary}
+        >
+          <ScrollArea.Viewport className="h-full">
+            <ScrollArea.Content className="p-4">
+              <div className="space-y-2">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-lg border p-4"
+                  >
+                    <h5 className="font-strong">{item.title}</h5>
+                    <p className="text-body-small text-secondary-foreground mt-1">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
+      </div>
     )
   },
 }
