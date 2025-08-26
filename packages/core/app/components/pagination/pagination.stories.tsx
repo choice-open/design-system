@@ -147,3 +147,91 @@ export const ResponsiveExample: Story = {
     layout: "padded",
   },
 }
+
+export const LoadingState: Story = {
+  render: function Render() {
+    const [isLoading, setIsLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(20)
+
+    const handlePageChange = (page: number) => {
+      setIsLoading(true)
+      setCurrentPage(page)
+      
+      // Simulate API delay
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
+    }
+
+    const handleItemsPerPageChange = (newItemsPerPage: number) => {
+      setIsLoading(true)
+      setItemsPerPage(newItemsPerPage)
+      setCurrentPage(1) // Reset to first page
+      
+      // Simulate API delay
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
+    }
+
+    return (
+      <div className="w-full space-y-4">
+        <div className="rounded-lg border p-4">
+          <div className="mb-4 flex items-center gap-4">
+            <h3 className="text-lg font-semibold">Loading State Example</h3>
+            <button
+              type="button"
+              onClick={() => setIsLoading(!isLoading)}
+              className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
+            >
+              Toggle Loading
+            </button>
+          </div>
+          
+          <div className="mb-4 space-y-2">
+            {isLoading ? (
+              <div className="space-y-2">
+                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+              </div>
+            ) : (
+              Array.from({ length: itemsPerPage }, (_, i) => (
+                <div
+                  key={`${currentPage}-${i}`}
+                  className="rounded bg-gray-50 px-3 py-2 dark:bg-gray-800"
+                >
+                  Page {currentPage} - Item {i + 1}
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+        
+        <Pagination
+          currentPage={currentPage}
+          totalItems={250}
+          itemsPerPage={itemsPerPage}
+          onPageChange={handlePageChange}
+          onItemsPerPageChange={handleItemsPerPageChange}
+          loading={isLoading}
+          pageSizeOptions={[10, 20, 50, 100]}
+        >
+          <Pagination.Spinner />
+          <Pagination.Navigation />
+          <Pagination.ItemsPerPage />
+        </Pagination>
+      </div>
+    )
+  },
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story:
+          "Demonstrates pagination in loading state. Click pagination controls to see loading behavior, or use the 'Toggle Loading' button to manually control the loading state.",
+      },
+    },
+  },
+}

@@ -39,7 +39,7 @@ export const PaginationNavigation = forwardRef<HTMLDivElement, PaginationNavigat
               key={pageNumber}
               variant={variant(isActive)}
               disabled={disabled}
-              loading={loading}
+              loading={currentPage === pageNumber && loading}
               onClick={() => handlePageChange(pageNumber)}
               aria-label={`${labels.page} ${pageNumber}`}
               aria-current={isActive ? "page" : undefined}
