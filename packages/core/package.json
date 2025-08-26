@@ -47,7 +47,7 @@
     "publish": "npm publish"
   },
   "dependencies": {
-    "@choiceform/icons-react": "^1.2.5",
+    "@choiceform/icons-react": "^1.2.6",
     "@choiceform/design-tokens": "^0.2.10",
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lang-javascript": "^6.2.4",

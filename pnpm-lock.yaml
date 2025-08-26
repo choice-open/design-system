@@ -134,8 +134,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(hono@4.9.4)(tailwindcss@4.0.4)
       '@choiceform/icons-react':
-        specifier: ^1.2.4
-        version: 1.2.4(react@18.2.0)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.2.0)
       '@choiceform/storybook-config':
         specifier: workspace:*
         version: link:../storybook-config
@@ -375,8 +375,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(hono@4.9.4)(tailwindcss@4.0.4)
       '@choiceform/icons-react':
-        specifier: ^1.2.4
-        version: 1.2.4(react@18.2.0)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.2.0)
       '@choiceform/storybook-config':
         specifier: workspace:*
         version: link:../storybook-config
@@ -543,8 +543,8 @@ importers:
         specifier: ^0.2.10
         version: 0.2.10(hono@4.9.4)(tailwindcss@4.1.11)
       '@choiceform/icons-react':
-        specifier: ^1.2.5
-        version: 1.2.5(react@18.3.1)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.3.1)
       '@codemirror/commands':
         specifier: ^6.8.1
         version: 6.8.1
@@ -853,8 +853,8 @@ importers:
         specifier: workspace:*
         version: link:../core
       '@choiceform/icons-react':
-        specifier: ^1.0.3
-        version: 1.2.4(react@18.3.1)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.3.1)
       '@mdx-js/react':
         specifier: ^3.1.0
         version: 3.1.0(@types/react@18.3.24)(react@18.3.1)
@@ -1065,11 +1065,11 @@ importers:
         specifier: workspace:*
         version: link:../../core
       '@choiceform/design-tokens':
-        specifier: ^0.2.8
-        version: 0.2.8(hono@4.9.4)(tailwindcss@4.1.11)
+        specifier: ^0.2.10
+        version: 0.2.10(hono@4.9.4)(tailwindcss@4.1.11)
       '@choiceform/icons-react':
-        specifier: ^1.2.4
-        version: 1.2.4(react@18.2.0)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.2.0)
       '@choiceform/storybook-config':
         specifier: workspace:*
         version: link:../../storybook-config
@@ -1355,8 +1355,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(hono@4.9.4)(tailwindcss@4.1.11)
       '@choiceform/icons-react':
-        specifier: ^1.2.4
-        version: 1.2.4(react@18.3.1)
+        specifier: ^1.2.6
+        version: 1.2.6(react@18.3.1)
       '@floating-ui/react':
         specifier: 0.27.13
         version: 0.27.13(react-dom@18.3.1)(react@18.3.1)
@@ -3150,7 +3150,6 @@ packages:
     transitivePeerDependencies:
       - hono
       - tailwindcss
-    dev: false
 
   /@choiceform/design-tokens@0.2.8(hono@4.9.4)(tailwindcss@4.0.4):
     resolution: {integrity: sha512-CYPe4KYN0mvyTE6eG2Agq7S8FPlgcMSRuRtl4j4+BhXd+u+2+TYMSkNds9tmtfldfeBQd7iWQxKw6bB+wdvKTA==}
@@ -3180,25 +3179,18 @@ packages:
     transitivePeerDependencies:
       - hono
       - tailwindcss
+    dev: false
 
-  /@choiceform/icons-react@1.2.4(react@18.2.0):
-    resolution: {integrity: sha512-fK0O+S7PVvoD54olUOx6F726q2iaLcUHHf4+STlv9YXE74Co9bmdNgri4YRBRbzNH2nSCp9SXQIKpSqjOE4UKQ==}
+  /@choiceform/icons-react@1.2.6(react@18.2.0):
+    resolution: {integrity: sha512-rMgdRZ1ozj8tZIomTWEESF0QfF8YDNuN4B7PHKc08RlhYY2+jXXlzBAi4NBgDtIk8oF6LKwV+0cdf4FB1JfWPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
     dev: true
 
-  /@choiceform/icons-react@1.2.4(react@18.3.1):
-    resolution: {integrity: sha512-fK0O+S7PVvoD54olUOx6F726q2iaLcUHHf4+STlv9YXE74Co9bmdNgri4YRBRbzNH2nSCp9SXQIKpSqjOE4UKQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.3.1
-    dev: false
-
-  /@choiceform/icons-react@1.2.5(react@18.3.1):
-    resolution: {integrity: sha512-CIIKHoKVeL3N4YHLUDIU3imWkx+KRomWbD2MxQyRPU9ADlYhfyLBIE+bTeJ6GOXoeHpNaKNx4XnYR9JkA2LEPg==}
+  /@choiceform/icons-react@1.2.6(react@18.3.1):
+    resolution: {integrity: sha512-rMgdRZ1ozj8tZIomTWEESF0QfF8YDNuN4B7PHKc08RlhYY2+jXXlzBAi4NBgDtIk8oF6LKwV+0cdf4FB1JfWPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
