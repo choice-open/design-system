@@ -38,8 +38,8 @@ export const NumericInputMenuTrigger = forwardRef<HTMLButtonElement, NumericInpu
 NumericInputMenuTrigger.displayName = "NumericInputMenuTrigger"
 
 interface NumericInputMenuActionPromptProps extends HTMLProps<HTMLDivElement> {
+  children?: React.ReactNode,
   className?: string
-  children?: React.ReactNode
 }
 
 export const NumericInputMenuActionPrompt = forwardRef<

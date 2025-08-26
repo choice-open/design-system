@@ -4,9 +4,9 @@ import { DropPosition } from "../types"
 interface DropIndicatorProps {
   dropPosition: DropPosition | null | undefined
   isDropTarget: boolean
-  level: number
+  isExpanded: boolean,
   isFolderWithChildren: boolean
-  isExpanded: boolean
+  level: number
 }
 
 export const DropIndicator: React.FC<DropIndicatorProps> = ({

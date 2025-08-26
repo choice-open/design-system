@@ -14,16 +14,17 @@ import { PanelContext, usePanelContext } from "./context"
 import { propertiesPanelTv } from "./tv"
 
 interface PanelProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
-  className?: string
-  triggerRef?: React.RefObject<HTMLDivElement>
-  children?: React.ReactNode
-  isEmpty?: boolean
-  onEmptyChange?: (isEmpty: boolean) => void
-  isCollapsed?: boolean
+  alwaysShowCollapsible?: boolean,
+  children?: React.ReactNode,
+  className?: string,
+  collapsible?: boolean,
+  isCollapsed?: boolean,
+  isEmpty?: boolean,
   onCollapsedChange?: (isCollapsed: boolean) => void
-  collapsible?: boolean
-  alwaysShowCollapsible?: boolean // 始终显示折叠按钮
-  showLabels?: boolean
+  onEmptyChange?: (isEmpty: boolean) => void,
+  // 始终显示折叠按钮
+  showLabels?: boolean, 
+  triggerRef?: React.RefObject<HTMLDivElement>
 }
 
 const PanelContent = function PanelContent({
@@ -34,8 +35,8 @@ const PanelContent = function PanelContent({
 }: {
   children: React.ReactNode
   collapsible?: boolean
+  otherChildren: React.ReactNode[],
   title: React.ReactNode
-  otherChildren: React.ReactNode[]
 }) {
   const { isCollapsed } = usePanelContext()
 
@@ -52,14 +53,14 @@ const PanelContent = function PanelContent({
 interface PanelComponentProps
   extends React.ForwardRefExoticComponent<PanelProps & React.RefAttributes<HTMLDivElement>> {
   Content: typeof PanelContent
+  Label: typeof PanelLabel,
+  Previewer: typeof PanelPreviewer,
+  Row: typeof PanelRow,
+  RowLabel: typeof PanelRowLabel,
+  RowManyIcon: typeof PanelRowManyIcon,
+  Sortable: typeof PanelSortable,
+  SortableRow: typeof PanelSortableRow,
   Title: typeof PanelTitle
-  Label: typeof PanelLabel
-  Sortable: typeof PanelSortable
-  SortableRow: typeof PanelSortableRow
-  Row: typeof PanelRow
-  RowLabel: typeof PanelRowLabel
-  RowManyIcon: typeof PanelRowManyIcon
-  Previewer: typeof PanelPreviewer
 }
 
 export const PanelBase = forwardRef<HTMLDivElement, PanelProps>(function Panel(props, ref) {

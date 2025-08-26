@@ -6,10 +6,10 @@ import { NumericInputElementTv } from "../tv"
 export type ElementType = "action" | "handler" | "menu"
 
 export interface NumericInputElementProps {
+  children?: ReactNode,
+  className?: string,
+  position?: "prefix" | "suffix",
   type?: ElementType
-  position?: "prefix" | "suffix"
-  children?: ReactNode
-  className?: string
 }
 
 export const NumericInputElement = memo(

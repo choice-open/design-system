@@ -543,8 +543,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(hono@4.9.4)(tailwindcss@4.1.11)
       '@choiceform/icons-react':
-        specifier: ^1.2.2
-        version: 1.2.4(react@18.3.1)
+        specifier: ^1.2.5
+        version: 1.2.5(react@18.3.1)
       '@codemirror/commands':
         specifier: ^6.8.1
         version: 6.8.1
@@ -3176,6 +3176,14 @@ packages:
 
   /@choiceform/icons-react@1.2.4(react@18.3.1):
     resolution: {integrity: sha512-fK0O+S7PVvoD54olUOx6F726q2iaLcUHHf4+STlv9YXE74Co9bmdNgri4YRBRbzNH2nSCp9SXQIKpSqjOE4UKQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.3.1
+    dev: false
+
+  /@choiceform/icons-react@1.2.5(react@18.3.1):
+    resolution: {integrity: sha512-CIIKHoKVeL3N4YHLUDIU3imWkx+KRomWbD2MxQyRPU9ADlYhfyLBIE+bTeJ6GOXoeHpNaKNx4XnYR9JkA2LEPg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

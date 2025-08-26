@@ -43,8 +43,8 @@ export const Variants: Story = {
   render: function VariantsStory() {
     enum Variant {
       Default = "default",
-      Secondary = "secondary",
       Highlight = "highlight",
+      Secondary = "secondary"
     }
 
     enum Size {
@@ -53,10 +53,10 @@ export const Variants: Story = {
     }
 
     enum State {
-      Rest = "rest",
       Active = "active",
-      Focused = "focused",
       Disabled = "disabled",
+      Focused = "focused",
+      Rest = "rest"
     }
 
     enum Event {

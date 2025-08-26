@@ -8,14 +8,14 @@ import {
 
 interface ListProviderProps {
   children: ReactNode
-  shouldShowReferenceLine?: boolean
-  selection?: boolean
+  selection?: boolean,
+  shouldShowReferenceLine?: boolean,
+  size?: "default" | "large",
   variant?: "default" | "primary"
-  size?: "default" | "large"
 }
 
 // 使用reducer管理复杂状态，减少重渲染
-type ExpandAction = { type: "TOGGLE_SUBLIST"; id: string }
+type ExpandAction = { id: string, type: "TOGGLE_SUBLIST"; }
 
 function expandReducer(state: Set<string>, action: ExpandAction): Set<string> {
   switch (action.type) {
@@ -34,8 +34,8 @@ function expandReducer(state: Set<string>, action: ExpandAction): Set<string> {
 }
 
 type SelectionAction =
-  | { type: "TOGGLE_SELECTION"; id: string }
-  | { type: "SET_SELECTION"; ids: Set<string> }
+  | { id: string, type: "TOGGLE_SELECTION"; }
+  | { ids: Set<string>, type: "SET_SELECTION"; }
 
 function selectionReducer(state: Set<string>, action: SelectionAction): Set<string> {
   switch (action.type) {
@@ -56,8 +56,8 @@ function selectionReducer(state: Set<string>, action: SelectionAction): Set<stri
 }
 
 type StructureAction =
-  | { type: "REGISTER_ITEM"; id: string; parentId?: string }
-  | { type: "UNREGISTER_ITEM"; id: string }
+  | { id: string; parentId?: string, type: "REGISTER_ITEM"; }
+  | { id: string, type: "UNREGISTER_ITEM"; }
 
 function structureReducer(
   state: Map<string, { parentId?: string }>,

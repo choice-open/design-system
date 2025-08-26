@@ -5,9 +5,9 @@ import { Chip } from "~/components/chip"
 import { NumericInputVariableTv } from "../tv"
 
 interface NumericInputVariableProps {
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
-  className?: string
-  hasPrefixElement?: boolean
+  className?: string,
+  hasPrefixElement?: boolean,
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void,
   value?: number | null
 }
 

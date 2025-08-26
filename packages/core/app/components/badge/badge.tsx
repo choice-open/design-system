@@ -3,8 +3,8 @@ import { tcx } from "~/utils"
 import { BadgeTV } from "./tv"
 
 export interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
+  strong?: boolean,
   variant?: "default" | "brand" | "inverted" | "component" | "success" | "warning" | "error"
-  strong?: boolean
 }
 
 export const Badge = memo(

@@ -6,16 +6,16 @@ import { tcx } from "~/utils"
 import { ChevronDownSmall, ChevronRightSmall } from "@choiceform/icons-react"
 
 interface PanelTitleProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
-  title: string
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  classNames?: {
+    actionWrapper?: string,
+    container?: string,
+    title?: string
+    titleWrapper?: string
+  },
   onHeaderClick?: () => void
   onTitleClick?: () => void
-  classNames?: {
-    container?: string
-    titleWrapper?: string
-    title?: string
-    actionWrapper?: string
-  }
+  title: string
 }
 
 // Extract TitleContent as a memoized component
@@ -26,11 +26,11 @@ const TitleContent = memo(function TitleContent({
   styles,
   classNames,
 }: {
-  title: string
-  onClick?: () => void
-  collapsible?: boolean
+  classNames?: PanelTitleProps["classNames"],
+  collapsible?: boolean,
+  onClick?: () => void,
   styles: ReturnType<typeof propertiesPaneTitleTv>
-  classNames?: PanelTitleProps["classNames"]
+  title: string
 }) {
   return collapsible || onClick ? (
     <button

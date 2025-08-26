@@ -3,14 +3,14 @@ import { tcx } from "~/utils"
 import { SpinnerBounceVariant } from "./tv"
 
 interface SpinnerBounceProps {
-  label?: string
+  className?: string,
   classNames?: {
     base?: string
     container?: string
+    label?: string,
     shape?: string
-    label?: string
   }
-  className?: string
+  label?: string,
   size?: "small" | "medium" | "large"
   variant?: "default" | "primary"
 }

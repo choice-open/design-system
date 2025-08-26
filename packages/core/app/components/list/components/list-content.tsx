@@ -4,8 +4,8 @@ import { useExpandContext, useStructureContext, LevelContext } from "../context"
 import { ListContentTv } from "../tv"
 
 interface ListContentProps extends React.HTMLProps<HTMLDivElement> {
+  children: React.ReactNode,
   parentId?: string
-  children: React.ReactNode
 }
 
 export const ListContent = forwardRef<HTMLDivElement, ListContentProps>((props, ref) => {
@@ -20,7 +20,7 @@ export const ListContent = forwardRef<HTMLDivElement, ListContentProps>((props, 
     // 使用迭代而非递归计算层级，避免潜在的调用栈溢出
     let currentLevel = 1
     let currentParentId = parentId
-    let visitedIds = new Set<string>() // 避免循环引用导致的无限循环
+    const visitedIds = new Set<string>() // 避免循环引用导致的无限循环
 
     while (currentParentId && !visitedIds.has(currentParentId)) {
       visitedIds.add(currentParentId)
