@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "1.2.31",
+  "version": "1.2.32",
   "description": "A modern React UI component library - Figma-inspired design system with comprehensive documentation",
   "sideEffects": false,
   "type": "module",
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@choiceform/icons-react": "^1.2.5",
-    "@choiceform/design-tokens": "^0.2.8",
+    "@choiceform/design-tokens": "^0.2.10",
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/search": "^6.5.11",

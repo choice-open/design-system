@@ -57,6 +57,7 @@ The library provides a comprehensive set of components with rich interactivity a
 
 ### Layout & Navigation
 
+- [Pagination](https://ui.choiceform.app/components/pagination/README.md): Advanced pagination with compound components for flexible layouts
 - [Panel](https://ui.choiceform.app/components/panel/README.md): A flexible container component for content organization
 - [Tabs](https://ui.choiceform.app/components/tabs/README.md): Tabbed interface for organizing content into sections
 - [ScrollArea](https://ui.choiceform.app/components/scroll-area/README.md): Custom scrollbar component with smooth scrolling

@@ -540,8 +540,8 @@ importers:
   packages/core:
     dependencies:
       '@choiceform/design-tokens':
-        specifier: ^0.2.8
-        version: 0.2.8(hono@4.9.4)(tailwindcss@4.1.11)
+        specifier: ^0.2.10
+        version: 0.2.10(hono@4.9.4)(tailwindcss@4.1.11)
       '@choiceform/icons-react':
         specifier: ^1.2.5
         version: 1.2.5(react@18.3.1)
@@ -3135,6 +3135,21 @@ packages:
 
   /@chevrotain/utils@11.0.3:
     resolution: {integrity: sha512-YslZMgtJUyuMbZ+aKvfF3x1f5liK4mWNxghFRv7jqRR9C3R3fAOGTTKvxXDa2Y1s9zSbcpuO0cAxDYsc9SrXoQ==}
+    dev: false
+
+  /@choiceform/design-tokens@0.2.10(hono@4.9.4)(tailwindcss@4.1.11):
+    resolution: {integrity: sha512-ZsGy0avO8SZ9aLcrSHFxeiTSdDM+pAMKp2UjB8ABc921JuFiiJItPw08sRWWJ+pvkBFH3rIZjouoi2tSStEDqA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@terrazzo/cli': 0.10.2(hono@4.9.4)
+      '@terrazzo/plugin-css': 0.10.2(@terrazzo/cli@0.10.2)
+      '@terrazzo/plugin-js': 0.10.1(@terrazzo/cli@0.10.2)
+      '@terrazzo/plugin-sass': 0.10.1(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)
+      '@terrazzo/plugin-tailwind': 0.3.2(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)(tailwindcss@4.1.11)
+      '@terrazzo/plugin-vanilla-extract': 0.2.1(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)
+    transitivePeerDependencies:
+      - hono
+      - tailwindcss
     dev: false
 
   /@choiceform/design-tokens@0.2.8(hono@4.9.4)(tailwindcss@4.0.4):
