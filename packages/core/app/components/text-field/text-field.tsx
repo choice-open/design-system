@@ -95,7 +95,8 @@ const TextFieldBase = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) 
     selected,
   })
 
-  const uuid = useId()
+  const generatedId = useId()
+  const uuid = props.id ?? generatedId
 
   return labelNode || descriptionNode ? (
     <div className={tcx(styles.container(), className)}>
