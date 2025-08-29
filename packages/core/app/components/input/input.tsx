@@ -44,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
       "data-1p-ignore": true,
       ref,
       spellCheck: false,
-      autoComplete: "false",
+      autoComplete: rest.autoComplete || "off",
       type: rest.type || "text",
       value,
       disabled,
