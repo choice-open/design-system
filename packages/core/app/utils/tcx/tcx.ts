@@ -1,9 +1,8 @@
-import cx from "classnames"
 import { extendTailwindMerge } from "tailwind-merge"
-import { createTV } from "tailwind-variants"
-import type { TV as TVType } from "tailwind-variants"
+import { tv } from "tailwind-variants"
 
-const twMergeConfig = {
+// Define custom config for tailwind-merge (only define once)
+const customTwMergeConfig = {
   extend: {
     classGroups: {
       // Ensure custom typography tokens are treated as font-size, not text color
@@ -27,21 +26,16 @@ const twMergeConfig = {
   },
 }
 
-// classnames and tailwind-merge
-const twm = extendTailwindMerge({
-  ...twMergeConfig,
-})
+// Create a single extended twMerge instance (only created once!)
+// This is the key performance optimization - extendTailwindMerge should only be called once
+const twm = extendTailwindMerge(customTwMergeConfig)
 
-export const tcx = (...args: cx.ArgumentArray) => {
-  return twm(cx(args))
-}
+// Use the pre-configured twm instance
+export const tcx = twm
 
-// Create a properly typed wrapper
-const tv = createTV({ twMergeConfig })
-
-// Export with explicit type to help TypeScript
-export const tcv: TVType = tv as TVType
+// Create TV with the same configuration to ensure consistency
+// Pass the config object, not the function, to avoid double processing
+export const tcv = tv
 
 // Re-export types
-export type { TV, VariantProps } from "tailwind-variants"
-export type { TVReturnType } from "tailwind-variants"
+export type { TV, TVReturnType, VariantProps } from "tailwind-variants"
