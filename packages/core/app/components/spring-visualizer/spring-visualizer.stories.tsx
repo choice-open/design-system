@@ -96,3 +96,72 @@ export const Basic: Story = {
     )
   },
 }
+
+export const TimeMode: Story = {
+  name: "Time-based",
+  render: function Render() {
+    const [duration, setDuration] = useState(0.8)
+    const [bounce, setBounce] = useState(0.3)
+    const [delay, setDelay] = useState(0)
+    const [key, setKey] = useState(0)
+
+    const handleClick = () => {
+      setKey((prevKey) => prevKey + 1)
+    }
+
+    return (
+      <div className="grid grid-cols-[1fr_2fr] gap-8">
+        <div className="grid gap-4">
+          <Label>Duration (s)</Label>
+          <Range
+            value={duration}
+            min={0}
+            max={5}
+            step={0.1}
+            onChange={(value) => setDuration(value)}
+          />
+
+          <Label>Bounce</Label>
+          <Range
+            value={bounce}
+            min={0}
+            max={1}
+            step={0.05}
+            onChange={(value) => setBounce(value)}
+          />
+
+          <Label>Delay</Label>
+          <Range
+            value={delay}
+            min={0}
+            max={10}
+            step={0.1}
+            onChange={(value) => setDelay(value)}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <SpringVisualizer
+            mode="time"
+            duration={duration}
+            bounce={bounce}
+            delay={delay}
+          />
+          <span>Click the track to trigger the animation</span>
+          <div
+            className="bg-secondary-background relative h-10 w-64 rounded-lg"
+            onClick={handleClick}
+          >
+            <motion.div
+              key={`${duration}-${bounce}-${delay}-${key}`}
+              initial={{ x: 0 }}
+              animate={{ x: 256 - 32 - 8 }}
+              transition={{ type: "spring", duration: duration, bounce: bounce, delay: delay }}
+              className="absolute top-1 left-1 size-8 rounded-md bg-white shadow-xs"
+            />
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
