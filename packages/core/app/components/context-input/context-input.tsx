@@ -34,6 +34,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     triggers = [],
     maxSuggestions = 10,
     variant = "default",
+    mentionPrefix = "@",
     onChange,
     onFocus,
     onBlur,
@@ -115,6 +116,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     editor,
     triggers,
     maxSuggestions,
+    mentionPrefix,
     onMentionSelect,
     onSearchClose: handleSearchClose,
   })
@@ -162,6 +164,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
           maxLength={maxLength}
           autoFocus={autoFocus}
           variant={variant}
+          mentionPrefix={mentionPrefix}
           renderMention={renderMention}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

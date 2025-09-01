@@ -20,6 +20,7 @@ interface SlateEditorProps
     | "autoFocus"
     | "variant"
     | "renderMention"
+    | "mentionPrefix"
     | "onFocus"
     | "onBlur"
     | "className"
@@ -48,6 +49,7 @@ export const SlateEditor = React.forwardRef<HTMLDivElement, SlateEditorProps>(fu
     autoFocus = false,
     variant = "default",
     renderMention,
+    mentionPrefix,
     className,
     maxLength,
     minHeight = 80,
@@ -77,6 +79,7 @@ export const SlateEditor = React.forwardRef<HTMLDivElement, SlateEditorProps>(fu
           <MentionElement
             {...props}
             renderMention={renderMention}
+            mentionPrefix={mentionPrefix}
             variant={variant}
           />
         )
@@ -84,7 +87,7 @@ export const SlateEditor = React.forwardRef<HTMLDivElement, SlateEditorProps>(fu
 
       return <div {...attributes}>{children}</div>
     },
-    [renderMention, variant],
+    [renderMention, mentionPrefix, variant],
   )
 
   // 渲染叶子节点

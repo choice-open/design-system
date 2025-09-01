@@ -12,6 +12,7 @@ import { ScrollArea } from "../scroll-area"
 import { ContextInput } from "./context-input"
 import type { ContextInputValue, MentionItem } from "./types"
 import { Button } from "../button"
+import { Avatar } from "../avatar"
 
 const meta: Meta<typeof ContextInput> = {
   title: "Forms/ContextInput",
@@ -30,7 +31,13 @@ const users: MentionItem[] = Array.from({ length: 12 }, (_, i) => ({
   id: i.toString(),
   type: "user",
   label: faker.person.fullName(),
-  avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${faker.string.uuid()}`,
+  prefix: (
+    <Avatar
+      photo={`https://api.dicebear.com/7.x/avataaars/svg?seed=${faker.string.uuid()}`}
+      name={faker.person.fullName()}
+      size="small"
+    />
+  ),
   description: faker.lorem.sentence(),
 }))
 
@@ -930,6 +937,65 @@ export const MultipleTriggers: Story = {
             <li>• Press Enter or Tab to select</li>
           </ul>
         </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * CustomMentionPrefix: Demonstrates customizable mention prefix.
+ * - Use # instead of @ for mentions
+ * - Configurable via mentionPrefix prop
+ * - Supports any string as prefix (e.g., "+", "~", "#", etc.)
+ * - Useful for different contexts like hashtags or custom notations
+ *
+ * ```tsx
+ * <ContextInput
+ *   mentionPrefix="#"
+ *   placeholder="Type @ to mention with # prefix..."
+ *   triggers={[
+ *     {
+ *       char: "@",
+ *       onSearch: async (query) => searchUsers(query)
+ *     }
+ *   ]}
+ * />
+ * ```
+ */
+export const CustomMentionPrefix: Story = {
+  render: function CustomMentionPrefix() {
+    const [value, setValue] = useState<ContextInputValue>({ text: "", mentions: [] })
+    const isDarkMode = useDarkMode()
+    const style = isDarkMode ? oneDark : oneLight
+
+    return (
+      <div className="w-full max-w-md space-y-4">
+        <ContextInput
+          value={value}
+          mentionPrefix="#"
+          placeholder="Type @ to mention someone with # prefix..."
+          className="max-h-96 w-80"
+          triggers={[
+            {
+              char: "@",
+              onSearch: async (query) => {
+                return users.filter((user) =>
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
+              },
+            },
+          ]}
+          onChange={setValue}
+        />
+        
+        <div className="bg-secondary-background rounded-xl p-4">
+          <p className="font-strong">Custom Prefix: #</p>
+          <p className="text-secondary-foreground mt-2">
+            Mentions will appear as <code>#JohnDoe</code> instead of <code>@JohnDoe</code>
+          </p>
+        </div>
+
+        <Result value={value} style={style} />
       </div>
     )
   },

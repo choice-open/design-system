@@ -4,6 +4,7 @@ import type { ContextInputProps, ContextMentionElement, MentionMatch } from "../
 import { mentionElementTv } from "./tv"
 
 interface MentionElementProps extends RenderElementProps {
+  mentionPrefix?: string
   renderMention?: ContextInputProps["renderMention"]
   variant?: ContextInputProps["variant"]
 }
@@ -13,6 +14,7 @@ export const MentionElement: React.FC<MentionElementProps> = ({
   children,
   element,
   renderMention,
+  mentionPrefix = "@",
   variant,
 }) => {
   const selected = useSelected()
@@ -50,7 +52,9 @@ export const MentionElement: React.FC<MentionElementProps> = ({
       contentEditable={false}
       className={tv}
     >
-      {children}@{mentionElement.mentionLabel}
+      {children}
+      {mentionElement.mentionPrefix || mentionPrefix}
+      {mentionElement.mentionLabel}
     </span>
   )
 }

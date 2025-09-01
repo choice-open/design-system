@@ -17,6 +17,7 @@ export interface MentionSearchState {
 export interface UseMentionsProps {
   editor: Editor
   maxSuggestions?: number
+  mentionPrefix?: string
   onMentionSelect?: (mention: MentionItem, trigger: string) => void
   onSearchClose?: () => void
   triggers: MentionTrigger[]
@@ -26,6 +27,7 @@ export function useMentions({
   editor,
   triggers,
   maxSuggestions = 10,
+  mentionPrefix = "@",
   onMentionSelect,
   onSearchClose,
 }: UseMentionsProps) {
@@ -208,6 +210,7 @@ export function useMentions({
           mentionType: mention.type,
           mentionId: mention.id,
           mentionLabel: mention.label,
+          mentionPrefix: mentionPrefix,
           mentionData: mention.metadata,
           children: [{ text: "" }],
         }

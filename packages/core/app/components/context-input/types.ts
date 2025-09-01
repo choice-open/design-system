@@ -1,9 +1,9 @@
 export interface MentionItem {
-  avatar?: string
   description?: string
   id: string
   label: string
   metadata?: Record<string, unknown>
+  prefix?: React.ReactNode
   type: "user" | "channel" | "tag" | "custom"
 }
 
@@ -39,6 +39,7 @@ export interface ContextInputProps {
   maxLength?: number
   maxSuggestions?: number
   mentionClassName?: string
+  mentionPrefix?: string
   minHeight?: number
 
   // 事件回调
@@ -69,6 +70,7 @@ export interface ContextMentionElement {
   mentionData?: MentionItem["metadata"]
   mentionId: string
   mentionLabel: string
+  mentionPrefix?: string
   mentionType: MentionItem["type"]
   type: "mention"
 }

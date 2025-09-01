@@ -94,15 +94,7 @@ export const MentionMenu = memo(
               <Combobox.Item
                 key={item.id}
                 onClick={() => onSelect(item, index)}
-                prefixElement={
-                  item.avatar ? (
-                    <Avatar
-                      photo={item.avatar}
-                      name={item.label}
-                      size="small"
-                    />
-                  ) : null
-                }
+                prefixElement={item.prefix}
               >
                 {renderSuggestion ? (
                   renderSuggestion(item, false)
