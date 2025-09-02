@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import React, { useCallback, useMemo, useState } from "react"
 import { tcx } from "../../utils"
-import { Input } from "../input"
+import { NumericInput } from "../numeric-input"
 import { BezierCurveEditor } from "./bezier-curve-editor"
 import { LinearGradient } from "./components/linear-gradient"
 import { BEZIER_CURVE_EDITOR_DEFAULTS, PRESET_EASINGS, PREVIEW_KEYFRAMES } from "./constants"
@@ -120,10 +120,12 @@ export const Basic: Story = {
         </div>
         <div className="flex w-full items-center gap-2">
           <p className="flex-1">Bezier</p>
-          <Input
-            value={value.map((v) => v.toFixed(2)).join(",")}
-            onChange={(value) => {
-              setValue(value.split(",").map((v) => parseFloat(v)) as BezierCurveValueType)
+          <NumericInput
+            className="w-full"
+            value={value}
+            expression="{v1},{v2},{v3},{v4}"
+            onChange={(_val, detail) => {
+              setValue(detail.array.slice(0, 4) as BezierCurveValueType)
             }}
           />
         </div>
@@ -182,11 +184,12 @@ export const AdvancedBothAxes: Story = {
         </div>
         <div className="flex w-full items-center gap-2">
           <p className="flex-1">Bezier</p>
-          <Input
+          <NumericInput
             className="w-full"
-            value={value.map((v) => v.toFixed(2)).join(",")}
-            onChange={(value) => {
-              setValue(value.split(",").map((v) => parseFloat(v)) as BezierCurveExpandedValueType)
+            value={value}
+            expression="{v1},{v2},{v3},{v4},{v5},{v6},{v7},{v8}"
+            onChange={(_val, detail) => {
+              setValue(detail.array.slice(0, 8) as BezierCurveExpandedValueType)
             }}
           />
         </div>
