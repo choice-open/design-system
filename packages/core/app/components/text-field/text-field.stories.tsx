@@ -1,8 +1,9 @@
-import { Search } from "@choiceform/icons-react"
+import { Search, ArrowRight, ChevronDownSmall } from "@choiceform/icons-react"
 import { faker } from "@faker-js/faker"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useState } from "react"
 import { Badge } from "../badge"
+import { Select } from "../select"
 import { TextField } from "./text-field"
 
 const meta = {
@@ -159,6 +160,47 @@ export const Controlled: Story = {
         />
         <p className="text-secondary-foreground h-6">{value}</p>
       </div>
+    )
+  },
+}
+
+/**
+ * TextField with arrow icon prefix and dropdown menu suffix
+ * Demonstrates a URL or page input with navigation and dropdown functionality
+ */
+export const WithArrowAndDropdown: Story = {
+  render: function WithArrowAndDropdownStory() {
+    const [dropdownValue, setDropdownValue] = useState<string>("recent")
+
+    return (
+      <TextField placeholder="Page or URL">
+        <TextField.Prefix className="text-secondary-foreground group-hover/text-field:text-default-foreground group-focus-within/text-field:text-default-foreground">
+          <ArrowRight />
+        </TextField.Prefix>
+        <TextField.Suffix className="">
+          <Select
+            value={dropdownValue}
+            onChange={setDropdownValue}
+          >
+            <Select.Trigger className="h-6 w-6 border-0 bg-transparent p-0 hover:bg-transparent"></Select.Trigger>
+            <Select.Content>
+              <Select.Item value="recent">
+                <Select.Value>Recent</Select.Value>
+              </Select.Item>
+              <Select.Item value="bookmarks">
+                <Select.Value>Bookmarks</Select.Value>
+              </Select.Item>
+              <Select.Item value="history">
+                <Select.Value>History</Select.Value>
+              </Select.Item>
+              <Select.Divider />
+              <Select.Item value="settings">
+                <Select.Value>Settings</Select.Value>
+              </Select.Item>
+            </Select.Content>
+          </Select>
+        </TextField.Suffix>
+      </TextField>
     )
   },
 }
