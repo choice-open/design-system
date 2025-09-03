@@ -10,6 +10,7 @@ export interface MenuTriggerProps extends Omit<ButtonProps, "children"> {
   children?: ReactNode | ((active: boolean) => ReactNode)
   empty?: boolean
   enterForwardedProps?: boolean
+  prefixClassName?: string
   prefixElement?: ReactNode
   suffixElement?: ReactNode
 }
@@ -22,6 +23,7 @@ export const MenuTrigger = memo(
       className,
       size = "default",
       prefixElement,
+      prefixClassName,
       suffixElement = <ChevronDownSmall />,
       empty,
       enterForwardedProps = true,
@@ -77,7 +79,9 @@ export const MenuTrigger = memo(
         size={size}
         {...rest}
       >
-        {prefixElement && <div className={styles.icon()}>{prefixElement}</div>}
+        {prefixElement && (
+          <div className={tcx(styles.icon(), prefixClassName)}>{prefixElement}</div>
+        )}
 
         {typeof children === "function" ? children(active ?? false) : children}
 
