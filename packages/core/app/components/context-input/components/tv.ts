@@ -52,7 +52,7 @@ export const contextInputHeaderTv = tcv({
 })
 
 export const contextInputFooterTv = tcv({
-  base: ["flex h-10 flex-shrink-0 items-center justify-between"],
+  base: ["flex min-h-10 flex-shrink-0 items-center justify-between"],
   variants: {
     size: {
       default: "px-2",
