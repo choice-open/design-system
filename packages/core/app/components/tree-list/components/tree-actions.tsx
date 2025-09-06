@@ -3,9 +3,9 @@ import { useMemo } from "react"
 import { tcx } from "~/utils"
 
 interface TreeActionsProps {
-  handleMouseEnter: () => void,
-  handleMouseLeave: () => void,
-  isHovering: boolean,
+  handleMouseEnter: () => void
+  handleMouseLeave: () => void
+  isHovering: boolean
   isRenaming: boolean
 }
 

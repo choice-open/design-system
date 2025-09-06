@@ -3,14 +3,14 @@ import { tcx } from "~/utils"
 import { SpinnerSpinVariant } from "./tv"
 
 export interface SpinnerSpinProps {
-  className?: string,
+  className?: string
   classNames?: {
     base?: string
     container?: string
-    label?: string,
+    label?: string
     shape?: string
   }
-  label?: string,
+  label?: string
   size?: "small" | "medium" | "large"
   variant?: "default" | "primary"
 }

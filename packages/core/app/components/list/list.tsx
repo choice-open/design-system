@@ -12,18 +12,18 @@ import { MenuValue } from "../menus"
 
 interface ListProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
   children: React.ReactNode
-  selection?: boolean,
-  shouldShowReferenceLine?: boolean,
-  size?: "default" | "large",
+  selection?: boolean
+  shouldShowReferenceLine?: boolean
+  size?: "default" | "large"
   variant?: "default" | "primary"
 }
 
 interface ListComponentProps
   extends React.ForwardRefExoticComponent<ListProps & React.RefAttributes<HTMLDivElement>> {
   Content: typeof ListContent
-  Divider: typeof ListDivider,
-  Item: typeof ListItem,
-  Label: typeof ListLabel,
+  Divider: typeof ListDivider
+  Item: typeof ListItem
+  Label: typeof ListLabel
   SubTrigger: typeof ListSubTrigger
   Value: typeof MenuValue
 }

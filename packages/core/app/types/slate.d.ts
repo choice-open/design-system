@@ -1,8 +1,10 @@
-import { BaseElement } from "slate"
+import { BaseElement, BaseText } from "slate"
+import type { CustomElement, CustomText, CustomEditor } from "../components/rich-input/types"
 
-export type ParagraphElement = { children: any[]; type: "paragraph" }
 declare module "slate" {
   interface CustomTypes {
-    Element: ParagraphElement
+    Element: CustomElement
+    Text: CustomText
+    Editor: CustomEditor
   }
 }

@@ -228,8 +228,8 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
     <div
       className={tcx(
         "relative",
-        "after:absolute after:right-2 after:left-3 after:-z-1",
-        "before:absolute before:inset-y-0 before:right-2 before:left-3 before:-z-1",
+        "after:-z-1 after:absolute after:left-3 after:right-2",
+        "before:-z-1 before:absolute before:inset-y-0 before:left-3 before:right-2",
         getSelectionStyle,
         isParentSelected && !isSelected && "before:bg-blue-50 hover:after:bg-blue-200",
         isLastItemInFolder && "before:rounded-b-sm",
@@ -275,7 +275,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
         }}
         className={tcx(
           "pl-[var(--indent-size)]",
-          "flex h-8 cursor-default items-center select-none",
+          "flex h-8 cursor-default select-none items-center",
           className,
         )}
         style={
@@ -360,7 +360,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
             <>
               <span
                 onDoubleClick={() => setIsRenaming(true)}
-                className="flex w-full flex-shrink-1 items-center justify-between truncate px-2 text-left whitespace-pre"
+                className="flex-shrink-1 flex w-full items-center justify-between truncate whitespace-pre px-2 text-left"
               >
                 <div
                   className="text-body-medium invisible absolute pr-2"

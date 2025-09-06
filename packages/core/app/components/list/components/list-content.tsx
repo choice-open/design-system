@@ -4,7 +4,7 @@ import { useExpandContext, useStructureContext, LevelContext } from "../context"
 import { ListContentTv } from "../tv"
 
 interface ListContentProps extends React.HTMLProps<HTMLDivElement> {
-  children: React.ReactNode,
+  children: React.ReactNode
   parentId?: string
 }
 

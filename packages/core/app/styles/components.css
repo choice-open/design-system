@@ -243,7 +243,7 @@
   }
 
   .rows {
-    @apply grid min-w-0 items-center pr-2 pl-4;
+    @apply grid min-w-0 items-center pl-4 pr-2;
   }
   .rows--label {
     @apply text-secondary-foreground mt-1 select-none;
@@ -328,7 +328,7 @@
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "prefix input suffix";
     &::before {
-      @apply pointer-events-none z-2 h-full border transform-3d;
+      @apply z-2 transform-3d pointer-events-none h-full border;
       grid-row: 1 / 2;
       grid-column: 1 / 4;
       border-radius: inherit;
@@ -341,7 +341,7 @@
     grid-template-columns: auto auto 1fr auto auto;
     grid-template-areas: "prefix-handler variable input action suffix-handler";
     &::before {
-      @apply pointer-events-none z-3 h-6 rounded-md border;
+      @apply z-3 pointer-events-none h-6 rounded-md border;
       grid-row: 1 / 2;
       grid-column: 1 / 6;
       content: "";
@@ -353,7 +353,7 @@
     grid-template-columns: 1.5rem 1fr auto;
     grid-template-areas: "icon input action";
     &::before {
-      @apply pointer-events-none z-2 h-full rounded-md border border-transparent;
+      @apply z-2 pointer-events-none h-full rounded-md border border-transparent;
       grid-row: 1 / 2;
       grid-column: 1 / 4;
     }
@@ -517,6 +517,30 @@
       transform: translateX(100%) scaleX(1);
     }
   }
+
+  @keyframes skeleton-pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes skeleton-wave {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
 }
 
 @theme {
@@ -547,4 +571,6 @@
   --animate-spinner-bounce-right: spinner-bounce-right 0.5s infinite alternate ease;
   --animate-indeterminate-bar: indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395)
     infinite normal none running;
+  --animate-skeleton-pulse: skeleton-pulse 2s ease-in-out 0.5s infinite;
+  --animate-skeleton-wave: skeleton-wave 2s linear 0.5s infinite;
 }

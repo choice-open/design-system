@@ -1,7 +1,7 @@
 import cx from "classnames"
 import { extendTailwindMerge } from "tailwind-merge"
-import { createTV } from "tailwind-variants"
 import type { TV as TVType } from "tailwind-variants"
+import { createTV } from "tailwind-variants"
 
 const twMergeConfig = {
   extend: {
@@ -45,5 +45,4 @@ const tv = createTV({
 export const tcv: TVType = tv as TVType
 
 // Re-export types
-export type { TV, VariantProps } from "tailwind-variants"
-export type { TVReturnType } from "tailwind-variants"
+export type { TV, TVReturnType, VariantProps } from "tailwind-variants"

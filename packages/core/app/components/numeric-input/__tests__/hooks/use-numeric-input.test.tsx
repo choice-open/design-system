@@ -19,16 +19,16 @@ function TestComponent({
   onChange = jest.fn(),
   onEmpty = jest.fn(),
 }: {
-  decimal?: number,
-  disabled?: boolean,
-  expression?: string,
-  initialValue?: any,
-  max?: number,
-  min?: number,
-  onChange?: jest.Mock,
-  onEmpty?: jest.Mock,
-  readOnly?: boolean,
-  shiftStep?: number,
+  decimal?: number
+  disabled?: boolean
+  expression?: string
+  initialValue?: any
+  max?: number
+  min?: number
+  onChange?: jest.Mock
+  onEmpty?: jest.Mock
+  readOnly?: boolean
+  shiftStep?: number
   step?: number
 }) {
   const { inputProps, handlerProps, handlerPressed } = useNumericInput({

@@ -157,7 +157,7 @@ export const LoadingState: Story = {
     const handlePageChange = (page: number) => {
       setIsLoading(true)
       setCurrentPage(page)
-      
+
       // Simulate API delay
       setTimeout(() => {
         setIsLoading(false)
@@ -168,7 +168,7 @@ export const LoadingState: Story = {
       setIsLoading(true)
       setItemsPerPage(newItemsPerPage)
       setCurrentPage(1) // Reset to first page
-      
+
       // Simulate API delay
       setTimeout(() => {
         setIsLoading(false)
@@ -188,7 +188,7 @@ export const LoadingState: Story = {
               Toggle Loading
             </button>
           </div>
-          
+
           <div className="mb-4 space-y-2">
             {isLoading ? (
               <div className="space-y-2">
@@ -208,7 +208,7 @@ export const LoadingState: Story = {
             )}
           </div>
         </div>
-        
+
         <Pagination
           currentPage={currentPage}
           totalItems={250}

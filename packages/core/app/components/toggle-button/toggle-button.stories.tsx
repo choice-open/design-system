@@ -44,7 +44,7 @@ export const Variants: Story = {
     enum Variant {
       Default = "default",
       Highlight = "highlight",
-      Secondary = "secondary"
+      Secondary = "secondary",
     }
 
     enum Size {
@@ -56,7 +56,7 @@ export const Variants: Story = {
       Active = "active",
       Disabled = "disabled",
       Focused = "focused",
-      Rest = "rest"
+      Rest = "rest",
     }
 
     enum Event {
@@ -124,7 +124,7 @@ export const Variants: Story = {
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">
           {Object.values(State).map((state) => (
             <Fragment key={state}>
-              <span className="text-fuchsia-500 capitalize">{state}</span>
+              <span className="capitalize text-fuchsia-500">{state}</span>
               <ToggleButton
                 variant={variant}
                 value={controlled}

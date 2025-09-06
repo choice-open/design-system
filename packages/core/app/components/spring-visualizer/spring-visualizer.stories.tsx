@@ -88,7 +88,7 @@ export const Basic: Story = {
                 mass: mass,
                 delay: delay,
               }}
-              className="absolute top-1 left-1 size-8 rounded-md bg-white shadow-xs"
+              className="shadow-xs absolute left-1 top-1 size-8 rounded-md bg-white"
             />
           </div>
         </div>
@@ -157,7 +157,7 @@ export const TimeMode: Story = {
               initial={{ x: 0 }}
               animate={{ x: 256 - 32 - 8 }}
               transition={{ type: "spring", duration: duration, bounce: bounce, delay: delay }}
-              className="absolute top-1 left-1 size-8 rounded-md bg-white shadow-xs"
+              className="shadow-xs absolute left-1 top-1 size-8 rounded-md bg-white"
             />
           </div>
         </div>

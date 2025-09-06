@@ -11,18 +11,18 @@ import { ListItemTv } from "../tv"
 import { useEventCallback } from "usehooks-ts"
 
 export interface ListSubTriggerProps extends React.HTMLAttributes<HTMLButtonElement> {
-  active?: boolean,
+  active?: boolean
   children?: ReactNode
   classNames?: {
-    chevron?: string,
+    chevron?: string
     icon?: string
     root?: string
-  },
-  defaultOpen?: boolean,
-  disableCollapse?: boolean,
-  disabled?: boolean,
-  id?: string,
-  parentId?: string,
+  }
+  defaultOpen?: boolean
+  disableCollapse?: boolean
+  disabled?: boolean
+  id?: string
+  parentId?: string
   prefixElement?: ReactNode | ((isOpen: boolean) => ReactNode)
   suffixElement?: ReactNode | ((isOpen: boolean) => ReactNode)
 }

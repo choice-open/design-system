@@ -1,8 +1,8 @@
-import { 
-  PaginationItemsPerPage, 
-  PaginationNavigation, 
-  PaginationRoot, 
-  PaginationSpinner 
+import {
+  PaginationItemsPerPage,
+  PaginationNavigation,
+  PaginationRoot,
+  PaginationSpinner,
 } from "./components"
 
 // Create compound component

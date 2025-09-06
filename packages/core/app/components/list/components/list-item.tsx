@@ -10,22 +10,22 @@ import {
 import { ListItemTv } from "../tv"
 
 export interface ListItemProps extends React.HTMLAttributes<HTMLButtonElement> {
-  active?: boolean,
-  children?: ReactNode,
+  active?: boolean
+  children?: ReactNode
   classNames?: {
-    icon?: string,
-    root?: string,
+    icon?: string
+    root?: string
     shortcut?: string
-  },
-  disabled?: boolean,
+  }
+  disabled?: boolean
   id?: string
   parentId?: string
-  prefixElement?: ReactNode,
-  selected?: boolean,
+  prefixElement?: ReactNode
+  selected?: boolean
   shortcut?: {
-    keys?: ReactNode,
+    keys?: ReactNode
     modifier?: KbdKey | KbdKey[] | undefined
-  },
+  }
   suffixElement?: ReactNode
 }
 

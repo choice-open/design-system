@@ -169,7 +169,7 @@ export const TextareaAutosize = forwardRef<HTMLTextAreaElement, TextareaAutosize
     useFormResetListener(libRef, formResetCallback)
     useWindowResizeListener(resizeTextarea)
     useFontsLoadedListener(resizeTextarea)
-    
+
     // When style changes, trigger resize to recalculate with new line height / padding
     React.useEffect(() => {
       resizeTextarea()

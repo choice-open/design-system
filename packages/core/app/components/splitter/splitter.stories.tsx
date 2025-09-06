@@ -153,7 +153,7 @@ export const Close = {
                 <div className="grid h-full place-content-center">Pane {index + 1}</div>
                 <div className="absolute top-0 h-full w-full">
                   <IconButton
-                    className="absolute top-2 right-2"
+                    className="absolute right-2 top-2"
                     onClick={() =>
                       setPanes((panes) => {
                         const newPanes = [...panes]

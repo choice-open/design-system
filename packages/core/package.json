@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/design-system",
-  "version": "1.2.49",
+  "version": "1.2.50",
   "description": "A modern React UI component library - Figma-inspired design system with comprehensive documentation",
   "sideEffects": false,
   "type": "module",
@@ -47,8 +47,8 @@
     "publish": "npm publish"
   },
   "dependencies": {
-    "@choiceform/icons-react": "^1.2.6",
-    "@choiceform/design-tokens": "^0.2.10",
+    "@choiceform/icons-react": "^1.2.9",
+    "@choiceform/design-tokens": "^0.2.11",
     "@codemirror/commands": "^6.8.1",
     "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/search": "^6.5.11",
@@ -74,18 +74,18 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "nanoid": "^5.0.7",
-    "slate": "^0.117.2",
-    "slate-dom": "^0.117.4",
+    "slate": "^0.118.1",
+    "slate-dom": "^0.118.1",
     "slate-history": "^0.113.1",
     "slate-hyperscript": "^0.100.0",
     "slate-react": "^0.117.4",
-    "sonner": "^2.0.3",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "tinycolor2": "1.6.0",
     "usehooks-ts": "^3.1.0",
     "xss": "^1.0.15",
     "zod": "^4.0.5",
-    "tailwind-variants": "^2.1.0"
+    "tailwind-variants": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
@@ -100,7 +100,7 @@
     "@storybook/addon-onboarding": "^9.1.3",
     "@storybook/react-vite": "^9.1.3",
     "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.11",
+    "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-query": "^5.83.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -144,7 +144,7 @@
     "storybook": "^9.1.3",
     "storybook-addon-tag-badges": "^2.0.2",
     "@choiceform/storybook-config": "workspace:*",
-    "tailwindcss": "4.1.11",
+    "tailwindcss": "4.1.13",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
     "vite-plugin-dts": "^4.5.3",
@@ -154,7 +154,6 @@
   },
   "peerDependencies": {
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwind-variants": ">=2.1.0 <3"
+    "react-dom": "18.2.0"
   }
 }

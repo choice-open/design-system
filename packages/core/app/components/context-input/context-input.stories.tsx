@@ -987,7 +987,7 @@ export const CustomMentionPrefix: Story = {
           ]}
           onChange={setValue}
         />
-        
+
         <div className="bg-secondary-background rounded-xl p-4">
           <p className="font-strong">Custom Prefix: #</p>
           <p className="text-secondary-foreground mt-2">
@@ -995,7 +995,10 @@ export const CustomMentionPrefix: Story = {
           </p>
         </div>
 
-        <Result value={value} style={style} />
+        <Result
+          value={value}
+          style={style}
+        />
       </div>
     )
   },

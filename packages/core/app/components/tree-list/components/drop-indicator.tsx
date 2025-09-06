@@ -4,7 +4,7 @@ import { DropPosition } from "../types"
 interface DropIndicatorProps {
   dropPosition: DropPosition | null | undefined
   isDropTarget: boolean
-  isExpanded: boolean,
+  isExpanded: boolean
   isFolderWithChildren: boolean
   level: number
 }
@@ -39,7 +39,7 @@ export const DropIndicator: React.FC<DropIndicatorProps> = ({
   if (dropPosition === "before") {
     return (
       <div
-        className="pointer-events-none absolute -top-px right-0 left-0 z-2 flex items-center"
+        className="z-2 pointer-events-none absolute -top-px left-0 right-0 flex items-center"
         style={{ paddingLeft: `${indicatorPadding}px` }}
       >
         <div className="bg-default-foreground h-0.5 w-full" />
@@ -48,7 +48,7 @@ export const DropIndicator: React.FC<DropIndicatorProps> = ({
   } else if (dropPosition === "after") {
     return (
       <div
-        className="pointer-events-none absolute right-0 -bottom-px left-0 z-2 flex items-center"
+        className="z-2 pointer-events-none absolute -bottom-px left-0 right-0 flex items-center"
         style={{ paddingLeft: `${indicatorPadding}px` }}
       >
         <div className="bg-default-foreground h-0.5 w-full" />
@@ -56,7 +56,7 @@ export const DropIndicator: React.FC<DropIndicatorProps> = ({
     )
   } else if (dropPosition === "inside" && isFolderWithChildren) {
     return (
-      <div className="border-selected-boundary pointer-events-none absolute inset-0 z-2 border-y" />
+      <div className="border-selected-boundary z-2 pointer-events-none absolute inset-0 border-y" />
     )
   }
 

@@ -1,8 +1,8 @@
 import { forwardRef, HTMLProps, memo, ReactNode } from "react"
 
 interface FieldAddonProps extends HTMLProps<HTMLDivElement> {
-  children?: ReactNode,
-  className?: string,
+  children?: ReactNode
+  className?: string
   placement?: "prefix" | "suffix"
 }
 

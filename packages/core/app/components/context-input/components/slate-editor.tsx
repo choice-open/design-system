@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Descendant, Editor, Node } from "slate"
+import { Descendant, Editor } from "slate"
 import {
   Editable,
   RenderElementProps,

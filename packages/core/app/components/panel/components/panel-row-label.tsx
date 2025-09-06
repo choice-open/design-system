@@ -10,7 +10,7 @@ export const PanelRowLabel = (props: Props) => {
   return (
     <div
       className={tcx(
-        "text-secondary-foreground cursor-default truncate select-none [grid-area:label]",
+        "text-secondary-foreground cursor-default truncate [grid-area:label] select-none",
         className,
       )}
       {...rest}

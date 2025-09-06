@@ -633,7 +633,7 @@ export const NoNewlineMode: Story = {
             allowNewline=false - Enter key is disabled
           </p>
         </div>
-        
+
         <div>
           <h3 className="text-body-small mb-2">Normal Mode (for comparison)</h3>
           <Textarea
