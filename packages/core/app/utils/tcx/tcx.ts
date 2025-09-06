@@ -38,7 +38,7 @@ export const tcx = (...args: cx.ArgumentArray) => {
 
 // Create a properly typed wrapper
 const tv = createTV({
-  twMerge: false,
+  twMergeConfig,
 })
 
 // Export with explicit type to help TypeScript
