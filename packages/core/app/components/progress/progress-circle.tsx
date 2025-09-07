@@ -40,6 +40,7 @@ const ProgressCircleBase = forwardRef<HTMLDivElement, ProgressCircleProps>(
       size = 64,
       strokeWidth = size / 16,
       variant = "accent",
+      dynamicColors,
       "aria-label": ariaLabel,
       ...rest
     } = props
@@ -62,11 +63,11 @@ const ProgressCircleBase = forwardRef<HTMLDivElement, ProgressCircleProps>(
       if (variant !== "based-on-value") return undefined
       const total = max - min
       const t = total <= 0 ? 0 : (value - min) / total
-      const dynamicColors = (props.dynamicColors ?? ["#ef4444", "#f59e0b", "#22c55e"]).map((s) =>
+      const colors = (dynamicColors ?? ["#ef4444", "#f59e0b", "#22c55e"]).map((s) =>
         typeof s === "string" ? { at: undefined as number | undefined, color: s } : s,
       )
 
-      let stops = dynamicColors
+      let stops = colors
       const anyHasAt = stops.some((s) => typeof s.at === "number")
       if (!anyHasAt) {
         const n = Math.max(stops.length - 1, 1)
@@ -144,7 +145,7 @@ const ProgressCircleBase = forwardRef<HTMLDivElement, ProgressCircleProps>(
       const span = (right.at as number) - (left.at as number)
       const localT = span <= 0 ? 0 : (tt - (left.at as number)) / span
       return tinycolor.mix(left.color, right.color, localT * 100).toHexString()
-    }, [variant, props.dynamicColors, value, min, max])
+    }, [variant, dynamicColors, value, min, max])
 
     return (
       <div
