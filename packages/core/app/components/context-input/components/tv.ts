@@ -16,6 +16,7 @@ export const mentionElementTv = tcv({
     },
     variant: {
       default: "",
+      light: "",
       dark: "",
       reset: "",
     },
@@ -25,6 +26,11 @@ export const mentionElementTv = tcv({
       variant: "default",
       selected: false,
       class: "bg-default-background",
+    },
+    {
+      variant: "light",
+      selected: false,
+      class: "border-gray-200 bg-white",
     },
     {
       variant: "dark",
