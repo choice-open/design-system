@@ -755,6 +755,74 @@ function DisabledWithTriggerRef({ disabled }: { disabled: boolean }) {
 }
 
 /**
+ * SimpleDropdownNested: A simple example with a div trigger containing a dropdown menu.
+ *
+ * Features:
+ * - Simple div as ContextMenu trigger
+ * - Contains a Dropdown Menu inside the trigger area
+ * - Left-click opens Dropdown, right-click opens ContextMenu
+ * - Clean and minimal implementation
+ *
+ * Usage:
+ * - Left-click on the trigger to open dropdown menu
+ * - Right-click on the trigger to open context menu
+ * - Both menus work independently without conflicts
+ */
+export const SimpleDropdownNested: Story = {
+  render: function SimpleDropdownNestedStory() {
+    const triggerRef = useRef<HTMLDivElement>(null)
+
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div
+          ref={triggerRef}
+          className="bg-secondary-background rounded-xl border border-dashed p-8"
+        >
+          <Dropdown>
+            <Dropdown.Trigger>
+              <Dropdown.Value>Click for Dropdown or Right-click for Context Menu</Dropdown.Value>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item>
+                <Dropdown.Value>New Document</Dropdown.Value>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Dropdown.Value>Open File</Dropdown.Value>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Dropdown.Value>Save</Dropdown.Value>
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>
+                <Dropdown.Value>Settings</Dropdown.Value>
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+
+        <ContextMenu triggerRef={triggerRef}>
+          <ContextMenu.Content>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Copy</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Cut</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Item>
+              <ContextMenu.Value>Paste</ContextMenu.Value>
+            </ContextMenu.Item>
+            <ContextMenu.Divider />
+            <ContextMenu.Item variant="danger">
+              <ContextMenu.Value>Delete</ContextMenu.Value>
+            </ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu>
+      </div>
+    )
+  },
+}
+
+/**
  * Nested context menu in popover
  *
  **/
