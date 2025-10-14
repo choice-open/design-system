@@ -95,7 +95,7 @@ export const MultiSelectTrigger = memo(
       return (
         <div className={style.chips()}>
           {displayValues.map((value, index) => {
-            const chipDisabled = valueDisabledMap[value] ?? disabled
+            const chipDisabled = !!valueDisabledMap[value] || disabled
             const handleRemove =
               !chipDisabled && onRemove
                 ? (e: React.MouseEvent<HTMLButtonElement>) => {
