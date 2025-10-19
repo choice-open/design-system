@@ -45,15 +45,19 @@ export const AlertDialog = memo(function AlertDialog(props: AlertDialogProps) {
 
   // 处理键盘事件
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isOpen || !config) return
+    // 只有在对话框打开且有配置时才监听
+    if (!isOpen || !config) {
+      return
+    }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
       // ESC 键关闭对话框
       if (event.key === "Escape") {
-        event.stopImmediatePropagation()
-        event.preventDefault()
         const shouldClose = config.closeOnEscape !== false
         if (shouldClose) {
+          // 只有在确实要处理时才阻止传播
+          event.stopImmediatePropagation()
+          event.preventDefault()
           _handleAction({ type: "HIDE", payload: { value: false } })
         }
       }

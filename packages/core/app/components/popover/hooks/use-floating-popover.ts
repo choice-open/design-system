@@ -232,20 +232,23 @@ export function useFloatingPopover({
   }, [innerOpen, context])
 
   useEffect(() => {
+    // 只有在 popover 打开且允许 Escape 关闭时才监听
+    if (!innerOpen || !closeOnEscape) {
+      return
+    }
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        // 只有在确实要处理这个事件时才阻止传播
         e.stopPropagation()
         e.preventDefault()
-
-        if (closeOnEscape) {
-          handleClose()
-        }
+        handleClose()
       }
     }
 
     window.addEventListener("keydown", handleEscape, { capture: true })
     return () => window.removeEventListener("keydown", handleEscape, { capture: true })
-  }, [closeOnEscape, handleClose])
+  }, [innerOpen, closeOnEscape, handleClose])
 
   const handleTriggerRef = useCallback(
     (triggerRef: React.RefObject<HTMLElement>) => {
