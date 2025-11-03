@@ -666,3 +666,108 @@ export const NestedListWithSelection: Story = {
     )
   },
 }
+
+/**
+ * A list demonstrating the `as` prop functionality on ListItem.
+ *
+ * The `as` prop allows you to render ListItem as different HTML elements or React components.
+ * This is useful for semantic HTML, accessibility, or integrating with routing libraries.
+ * All ListItem features (prefixElement, suffixElement, shortcut, active, selected, disabled)
+ * work regardless of the `as` prop value.
+ */
+export const WithAsProp: Story = {
+  render: (args) => (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <p className="text-body-small text-gray-600">As button (default):</p>
+        <List {...args}>
+          <List.Content>
+            <List.Item>
+              <List.Value>Button Item</List.Value>
+            </List.Item>
+          </List.Content>
+        </List>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-body-small text-gray-600">As div:</p>
+        <List {...args}>
+          <List.Content>
+            <List.Item as="div">
+              <List.Value>Div Item</List.Value>
+            </List.Item>
+          </List.Content>
+        </List>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-body-small text-gray-600">As anchor:</p>
+        <List {...args}>
+          <List.Content>
+            <List.Item
+              as="a"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                console.log("Link clicked")
+              }}
+            >
+              <List.Value>Link Item</List.Value>
+            </List.Item>
+          </List.Content>
+        </List>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-body-small text-gray-600">As anchor with all features:</p>
+        <List {...args}>
+          <List.Content>
+            <List.Item
+              as="a"
+              href="#"
+              active
+              prefixElement={<FieldTypeLongText />}
+              suffixElement={<FieldTypeSingleSelect />}
+              shortcut={{ keys: "L" }}
+              onClick={(e) => {
+                e.preventDefault()
+                console.log("Link with features clicked")
+              }}
+            >
+              <List.Value>Link with features</List.Value>
+            </List.Item>
+          </List.Content>
+        </List>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-body-small text-gray-600">Mixed element types in one list:</p>
+        <List {...args}>
+          <List.Content>
+            <List.Item>
+              <List.Value>Default Button Item</List.Value>
+            </List.Item>
+            <List.Item
+              as="a"
+              href="#home"
+              prefixElement={<FieldTypeCheckbox />}
+            >
+              <List.Value>Link Item</List.Value>
+            </List.Item>
+            <List.Item as="div">
+              <List.Value>Div Item</List.Value>
+            </List.Item>
+            <List.Item
+              as="a"
+              href="#settings"
+              prefixElement={<FieldTypeAttachment />}
+              shortcut={{ modifier: "command", keys: "S" }}
+            >
+              <List.Value>Link with Icon and Shortcut</List.Value>
+            </List.Item>
+          </List.Content>
+        </List>
+      </div>
+    </div>
+  ),
+}

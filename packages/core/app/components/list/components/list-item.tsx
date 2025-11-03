@@ -9,8 +9,9 @@ import {
 } from "../context"
 import { ListItemTv } from "../tv"
 
-export interface ListItemProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ListItemProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean
+  as?: React.ElementType
   children?: ReactNode
   classNames?: {
     icon?: string
@@ -30,8 +31,9 @@ export interface ListItemProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const ListItem = memo(
-  forwardRef<HTMLButtonElement, ListItemProps>((props, ref) => {
+  forwardRef<HTMLElement, ListItemProps>((props, ref) => {
     const {
+      as: As = "button",
       children,
       className,
       active,
@@ -60,7 +62,7 @@ export const ListItem = memo(
     useEffect(() => {
       registerItem(id, parentId)
       return () => unregisterItem(id)
-    }, [id, parentId])
+    }, [id, parentId, registerItem, unregisterItem])
 
     const safeLevel = level > 5 ? 5 : ((level < 0 ? 0 : level) as 0 | 1 | 2 | 3 | 4 | 5)
 
@@ -77,21 +79,21 @@ export const ListItem = memo(
 
     const hasValidShortcut = shortcut && (shortcut.modifier || shortcut.keys)
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
       if (!disabled) {
         setActiveItem(id)
         onMouseEnter?.(e)
       }
     }
 
-    const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
       if (!disabled) {
         setActiveItem(null)
         onMouseLeave?.(e)
       }
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
       if (!disabled) {
         if (selection) {
           toggleSelection(id)
@@ -100,12 +102,15 @@ export const ListItem = memo(
       }
     }
 
+    // 只在 button 元素上设置 type 属性
+    const buttonProps = As === "button" ? { type: "button" as const } : {}
+
     return (
-      <button
+      <As
         {...rest}
+        {...buttonProps}
         ref={ref}
         id={id}
-        type="button"
         role="listitem"
         className={tcx(styles.root(), className)}
         tabIndex={activeItem === id ? 0 : -1}
@@ -128,14 +133,14 @@ export const ListItem = memo(
         {hasValidShortcut && (
           <Kbd
             className={styles.shortcut()}
-            keys={shortcut!.modifier}
+            keys={shortcut.modifier}
           >
-            {shortcut!.keys}
+            {shortcut.keys}
           </Kbd>
         )}
 
         {suffixElement && <div className={styles.icon()}>{suffixElement}</div>}
-      </button>
+      </As>
     )
   }),
 )
