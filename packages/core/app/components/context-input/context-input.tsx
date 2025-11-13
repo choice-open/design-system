@@ -50,8 +50,8 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     children,
     size = "default",
     minHeight = 80,
-    afterChildren,
-    beforeChildren,
+    afterElement,
+    beforeElement,
     ...props
   },
   ref,
@@ -151,7 +151,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
 
   return (
     <ContextInputEditorContext.Provider value={editor}>
-      {beforeChildren}
+      {beforeElement}
       <div className={tv.container({ className })}>
         {header}
         <SlateEditor
@@ -182,7 +182,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
         </SlateEditor>
         {footer}
       </div>
-      {afterChildren}
+      {afterElement}
       <MentionMenu
         ref={mentionMenuRef}
         isOpen={mentions.searchState.isSearching && !!suggestionPosition}
