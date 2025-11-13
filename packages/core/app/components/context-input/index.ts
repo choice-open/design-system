@@ -1,5 +1,5 @@
 export { ContextInput } from "./context-input"
-export { CopyButton } from "./components"
+export { CopyButton, Mention, type MentionProps } from "./components"
 export type {
   ContextInputProps,
   ContextInputValue,

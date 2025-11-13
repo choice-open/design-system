@@ -137,7 +137,7 @@ export const contextInputTv = tcv({
     },
     // Placeholder
     {
-      variant: "default",
+      variant: ["default", "reset"],
       disabled: false,
       class: {
         placeholder: "text-secondary-foreground",

@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useRef } from "react"
+import React, { forwardRef, useMemo, useRef } from "react"
 import { ReactEditor } from "slate-react"
 import { useEventCallback } from "usehooks-ts"
 import {
@@ -6,6 +6,7 @@ import {
   ContextInputHeader,
   CopyButton,
   InsertMentionsButton,
+  Mention,
   MentionMenu,
   type MentionMenuRef,
   SlateEditor,
@@ -20,6 +21,7 @@ interface ContextInputComponent
   Footer: typeof ContextInputFooter
   Header: typeof ContextInputHeader
   InsertMentionsButton: typeof InsertMentionsButton
+  Mention: typeof Mention
 }
 
 // 主要的 ContextInput 组件
@@ -31,6 +33,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     maxLength,
     autoFocus = false,
     className,
+    customMentionComponent,
     triggers = [],
     maxSuggestions = 10,
     variant = "default",
@@ -61,8 +64,8 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
     ReactEditor.focus(editor)
   })
 
-  // 分离 header 和 footer children
-  const separateChildren = useCallback(() => {
+  // 分离 header 和 footer children - 使用 useMemo 优化性能
+  const { header, footer, otherChildren } = useMemo(() => {
     let header: React.ReactNode = null
     let footer: React.ReactNode = null
     const otherChildren: React.ReactNode[] = []
@@ -92,8 +95,6 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
 
     return { header, footer, otherChildren }
   }, [children, size, handleFocusClick])
-
-  const { header, footer, otherChildren } = separateChildren()
   const hasHeader = !!header
   const hasFooter = !!footer
 
@@ -106,10 +107,10 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
   })
 
   // 处理 mention 搜索关闭
-  const handleSearchClose = useCallback(() => {
+  const handleSearchClose = useEventCallback(() => {
     // 关闭时重新 focus 编辑器
     ReactEditor.focus(editor)
-  }, [editor])
+  })
 
   // Mentions hook
   const mentions = useMentions({
@@ -122,31 +123,29 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
   })
 
   // 键盘事件处理
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      // 先尝试让 MentionMenu 处理键盘事件
-      if (mentionMenuRef.current?.handleKeyDown(event)) {
-        return
-      }
+  const handleKeyDown = useEventCallback((event: React.KeyboardEvent) => {
+    // 先尝试让 MentionMenu 处理键盘事件
+    if (mentionMenuRef.current?.handleKeyDown(event)) {
+      return
+    }
 
-      // 处理其他键盘事件
-      onKeyDown?.(event)
-    },
-    [onKeyDown],
-  )
+    // 处理其他键盘事件
+    onKeyDown?.(event)
+  })
 
   // 处理建议选择
-  const handleSuggestionSelect = useCallback(
-    (mention: MentionItem, index: number) => {
-      mentions.selectMention(index)
-    },
-    [mentions],
+  const handleSuggestionSelect = useEventCallback((mention: MentionItem, index: number) => {
+    mentions.selectMention(index)
+  })
+
+  // 获取建议位置 - 缓存计算结果以优化性能
+  const suggestionPosition = useMemo(() => mentions.getSuggestionPosition(), [mentions])
+
+  // 样式对象缓存
+  const tv = useMemo(
+    () => contextInputTv({ hasHeader, hasFooter, size, disabled, variant }),
+    [hasHeader, hasFooter, size, disabled, variant],
   )
-
-  // 获取建议位置
-  const suggestionPosition = mentions.getSuggestionPosition()
-
-  const tv = contextInputTv({ hasHeader, hasFooter, size, disabled, variant })
 
   return (
     <ContextInputEditorContext.Provider value={editor}>
@@ -165,6 +164,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
           autoFocus={autoFocus}
           variant={variant}
           mentionPrefix={mentionPrefix}
+          customMentionComponent={customMentionComponent}
           renderMention={renderMention}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
@@ -198,5 +198,6 @@ ContextInput.Header = ContextInputHeader
 ContextInput.Footer = ContextInputFooter
 ContextInput.CopyButton = CopyButton
 ContextInput.InsertMentionsButton = InsertMentionsButton
+ContextInput.Mention = Mention
 
 export { ContextInput }
