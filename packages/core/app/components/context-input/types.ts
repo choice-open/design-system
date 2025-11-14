@@ -1,3 +1,6 @@
+import { ComponentType } from "react"
+import { MentionProps } from "./components"
+
 export interface MentionItem {
   description?: string
   id: string
@@ -32,9 +35,13 @@ export interface MentionTrigger {
 }
 
 export interface ContextInputProps {
+  afterElement?: React.ReactNode
   autoFocus?: boolean
+  beforeElement?: React.ReactNode
   children?: React.ReactNode
   className?: string
+  // 自定义 Mention 组件
+  customMentionComponent?: ComponentType<MentionProps>
   disabled?: boolean
   maxLength?: number
   maxSuggestions?: number

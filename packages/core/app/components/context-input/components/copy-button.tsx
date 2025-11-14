@@ -1,5 +1,5 @@
 import { Check, CopySmall } from "@choiceform/icons-react"
-import { useContext, useState } from "react"
+import React, { useContext, useState } from "react"
 import { IconButton, type IconButtonProps } from "../../icon-button"
 import { ContextInputEditorContext } from "../hooks"
 import { convertSlateToText } from "../utils"
@@ -9,7 +9,7 @@ export interface CopyButtonProps extends Omit<IconButtonProps, "onClick"> {
   successDuration?: number
 }
 
-export function CopyButton({
+const CopyButtonComponent = function CopyButton({
   disabled = false,
   successDuration = 2000,
   onClick,
@@ -54,3 +54,6 @@ export function CopyButton({
     </IconButton>
   )
 }
+
+// 使用 React.memo 优化渲染性能
+export const CopyButton = React.memo(CopyButtonComponent)

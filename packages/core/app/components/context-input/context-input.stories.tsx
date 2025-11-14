@@ -10,7 +10,7 @@ import { AlertDialogProvider, useAlertDialog } from "../alert-dialog"
 import { IconButton } from "../icon-button"
 import { ScrollArea } from "../scroll-area"
 import { ContextInput } from "./context-input"
-import type { ContextInputValue, MentionItem } from "./types"
+import type { ContextInputValue, ContextMentionElement, MentionItem } from "./types"
 import { Button } from "../button"
 import { Avatar } from "../avatar"
 import { Checkbox } from "../checkbox/checkbox"
@@ -1403,6 +1403,84 @@ export const ControlledValue: Story = {
             <li>
               • <strong>Cursor positioning:</strong> Always moves to end after value changes
             </li>
+          </ul>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * Custom Mention Component example showing how to use ContextInput.Mention for customization
+ */
+export const CustomMentionComponent: Story = {
+  render: function CustomMentionComponent() {
+    const [value, setValue] = useState<ContextInputValue>({ text: "", mentions: [] })
+
+    // Create a custom Mention component with different styling
+    const CustomMention: React.FC<React.ComponentProps<typeof ContextInput.Mention>> = (props) => {
+      const { attributes, children, element, mentionPrefix = "@", variant } = props
+      const mentionElement = element as unknown as ContextMentionElement
+
+      return (
+        <span
+          {...attributes}
+          contentEditable={false}
+          className={tcx(
+            "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
+            "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
+            "border border-white/20 shadow-sm",
+          )}
+        >
+          {children}
+          <span className="text-white/80">{mentionElement.mentionPrefix || mentionPrefix}</span>
+          <span className="font-semibold">{mentionElement.mentionLabel}</span>
+          <span className="ml-1 text-white/60">✨</span>
+        </span>
+      )
+    }
+
+    return (
+      <div className="w-96 space-y-4">
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium">Custom Mention Styling</h3>
+          <p className="text-xs text-gray-600">
+            This example shows how to create a custom Mention component with gradient background and
+            emoji.
+          </p>
+        </div>
+
+        <ContextInput
+          value={value}
+          onChange={setValue}
+          placeholder="Try typing @john to see custom mention styling..."
+          customMentionComponent={CustomMention}
+          triggers={[
+            {
+              char: "@",
+              onSearch: async (query: string) => {
+                return users.filter((user) =>
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
+              },
+            },
+          ]}
+        >
+          <ContextInput.Header>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Custom Mention Demo</span>
+            </div>
+          </ContextInput.Header>
+        </ContextInput>
+
+        <div className="rounded-md bg-gray-50 p-3 text-xs">
+          <p className="mb-1 font-medium">How it works:</p>
+          <ul className="space-y-1 text-gray-600">
+            <li>• Custom Mention component has gradient styling and emoji</li>
+            <li>
+              • Passed via <code>customMentionComponent</code> prop
+            </li>
+            <li>• Receives same props as default Mention component</li>
           </ul>
         </div>
       </div>
