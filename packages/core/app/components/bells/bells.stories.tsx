@@ -63,7 +63,7 @@ export const Basic: Story = {
   render: function BasicStory() {
     return (
       <div className="flex gap-2 capitalize">
-        <Toaster position="bottom-center" />
+        <Toaster />
         <Button
           variant="secondary"
           onClick={() => {
@@ -242,7 +242,7 @@ export const UseEffect: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <Toaster position="bottom-center" />
+        <Toaster />
 
         <div className="flex gap-2">
           <Button
@@ -322,7 +322,7 @@ export const Color: Story = {
 
     return (
       <div className="flex gap-2 capitalize">
-        <Toaster position="bottom-center" />
+        <Toaster />
         {colors.map((color) => (
           <Button
             key={color.color}

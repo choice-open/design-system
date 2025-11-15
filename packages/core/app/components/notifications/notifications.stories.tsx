@@ -77,7 +77,7 @@ export const Basic: Story = {
     const [open, setOpen] = useState(false)
     return (
       <div className="flex gap-4">
-        <Toaster position="bottom-right" />
+        <Toaster />
 
         <Dialog
           open={open}
@@ -254,7 +254,7 @@ export const UseEffect: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <Toaster position="bottom-right" />
+        <Toaster />
 
         <div className="flex gap-2">
           <Button
