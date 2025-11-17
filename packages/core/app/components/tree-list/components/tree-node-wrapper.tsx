@@ -91,7 +91,21 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
   // 处理拖拽开始事件
   const handleDragStart = useCallback(
     (_node: TreeNodeType, event: React.DragEvent) => {
+      // 如果节点不可编辑，阻止拖拽
+      if (node.isEditable === false) {
+        event.preventDefault()
+        return
+      }
+
       const nodesToDrag = selectedNodes.length > 0 && node.state.isSelected ? selectedNodes : [node]
+
+      // 检查所有要拖拽的节点是否都可编辑
+      const hasNonEditableNode = nodesToDrag.some((n) => n.isEditable === false)
+      if (hasNonEditableNode) {
+        event.preventDefault()
+        return
+      }
+
       onDragStart(nodesToDrag, event)
     },
     [node, selectedNodes, onDragStart],
@@ -106,6 +120,23 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
         event.preventDefault()
         return
       }
+
+      // 如果目标节点不可编辑，阻止拖拽到它前面
+      if (node.isEditable === false) {
+        // 计算放置位置，如果是 "before" 则阻止
+        const targetElement = event.currentTarget as HTMLElement
+        const rect = targetElement.getBoundingClientRect()
+        const relY = event.clientY - rect.top
+        const height = rect.height
+
+        // 如果鼠标在上方 1/4 区域，说明是 "before" 位置，需要阻止
+        if (relY < height * 0.25) {
+          event.stopPropagation()
+          event.preventDefault()
+          return
+        }
+      }
+
       onDragOver(node, event)
     },
     [isInvalidTarget, onDragOver],
@@ -172,6 +203,13 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
         } else {
           position = "after"
         }
+      }
+
+      // 如果目标节点不可编辑，且位置是 "before"，阻止放置
+      if (node.isEditable === false && position === "before") {
+        event.stopPropagation()
+        event.preventDefault()
+        return
       }
 
       onDrop(node, position)

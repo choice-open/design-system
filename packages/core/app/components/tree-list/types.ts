@@ -6,6 +6,7 @@ export interface TreeNodeData {
   // 父节点ID，用于判断节点的父子关系
   children?: TreeNodeData[]
   id: string
+  isEditable?: boolean // 是否可编辑（可拖拽、可重命名等），默认为 true
   isFolder?: boolean
   name: string
   parentId?: string // 允许额外属性，但使用更明确的类型

@@ -15,6 +15,11 @@ export interface TreeNodeRenameInputProps {
   contentRef: RefObject<HTMLDivElement>
 
   /**
+   * 是否可编辑（可重命名），默认为 true
+   */
+  isEditable?: boolean
+
+  /**
    * 是否处于重命名状态
    */
   isRenaming: boolean
@@ -62,6 +67,7 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     renameValue,
     isSelected,
     contentRef,
+    isEditable = true, // 默认为可编辑
     onRenamingChange,
     onRenameValueChange,
     onRename,
@@ -96,10 +102,12 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
   }, [isRenaming])
 
   const handleStartRenaming = useCallback(() => {
+    // 如果节点不可编辑，阻止重命名
+    if (!isEditable) return
     if (isRenaming) return
     onRenameValueChange(name)
     onRenamingChange(true)
-  }, [isRenaming, name, onRenamingChange, onRenameValueChange])
+  }, [isEditable, isRenaming, name, onRenamingChange, onRenameValueChange])
 
   const finalizeRename = useCallback(() => {
     if (!isRenaming || hasCommittedRef.current) return

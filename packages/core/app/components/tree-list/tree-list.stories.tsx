@@ -12,6 +12,13 @@ import { DropPosition, TreeNodeData, TreeNodeType } from "./types"
 const generateDemoTreeData = (): TreeNodeData[] => {
   return [
     {
+      id: "home",
+      name: "Home",
+      isFolder: true,
+      isEditable: false, // Home 节点不可编辑，不允许拖拽，始终在最前面
+      children: [],
+    },
+    {
       id: "1",
       name: "Folder 1",
       isFolder: true,
@@ -190,6 +197,11 @@ const findNodePath = (
 const ComprehensiveTreeList = observer(() => {
   // 处理节点重命名
   const handleNodeRename = (node: TreeNodeType, newName: string) => {
+    // 如果节点不可编辑，阻止重命名
+    if (node.isEditable === false) {
+      return
+    }
+
     const trimmedName = newName.trim()
     const currentData = treeState.data.get()
     const path = findNodePath(currentData, node.id)

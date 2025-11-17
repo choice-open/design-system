@@ -149,6 +149,13 @@ export function useDragDrop({ allowDrag, allowDrop, nodeHeight, onNodeDrop }: Us
     (nodes: TreeNodeType[], event: React.DragEvent) => {
       if (!allowDrag) return
 
+      // 检查是否有不可编辑的节点，如果有则阻止拖拽
+      const hasNonEditableNode = nodes.some((n) => n.isEditable === false)
+      if (hasNonEditableNode) {
+        event.preventDefault()
+        return
+      }
+
       // 设置拖拽数据，用于跨组件拖拽识别
       event.dataTransfer.setData("application/json", JSON.stringify(nodes.map((n) => n.id)))
 
@@ -263,6 +270,11 @@ export function useDragDrop({ allowDrag, allowDrop, nodeHeight, onNodeDrop }: Us
       // 判断放置位置
       const dropPosition = calculateDropPosition(event, targetElement, node)
 
+      // 如果目标节点不可编辑，且位置是 "before"，阻止显示拖拽提示
+      if (node.isEditable === false && dropPosition === "before") {
+        return
+      }
+
       // 如果是拖拽到inside，并且是未展开的文件夹，添加自动展开逻辑
       if (dropPosition === "inside") {
         const isFolderWithChildren =
@@ -331,6 +343,11 @@ export function useDragDrop({ allowDrag, allowDrop, nodeHeight, onNodeDrop }: Us
 
       // 清理所有展开计时器
       clearDragExpandTimeouts()
+
+      // 如果目标节点不可编辑，且位置是 "before"，阻止放置
+      if (targetNode.isEditable === false && position === "before") {
+        return
+      }
 
       // 检查是否试图将文件夹拖拽到其子孙节点中（再次验证）
       if (position === "inside") {

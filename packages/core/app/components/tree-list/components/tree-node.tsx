@@ -46,6 +46,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
     name,
     children,
     isFolder,
+    isEditable = true,
     state: {
       isExpanded,
       isSelected,
@@ -116,6 +117,12 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
   // 拖拽开始
   const handleDragStart = (e: React.DragEvent) => {
     e.stopPropagation()
+
+    // 如果节点不可编辑，阻止拖拽
+    if (!isEditable) {
+      e.preventDefault()
+      return
+    }
 
     // 标记当前节点为拖拽中
     if (nodeRef.current) {
@@ -283,7 +290,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
         data-is-last-in-folder={isLastItemInFolder}
         data-drag-id={id}
         data-drag-type="node"
-        draggable
+        draggable={isEditable}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
@@ -327,6 +334,7 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
           isRenaming={isRenaming}
           renameValue={renameValue}
           isSelected={isSelected}
+          isEditable={isEditable}
           contentRef={contentRef}
           onRenamingChange={setIsRenaming}
           onRenameValueChange={setRenameValue}
