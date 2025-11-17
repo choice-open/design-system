@@ -334,7 +334,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
   }, [isCoordinateMode, isControlledOpen, autoSelection, activeIndex, elementsRef.current.length])
 
   // 使用共享的滚动逻辑
-  const { handleArrowScroll, handleArrowHide, getScrollProps } = useMenuScroll({
+  const { handleArrowScroll, handleArrowHide, scrollProps } = useMenuScroll({
     scrollRef,
     selectTimeoutRef,
     scrollTop,
@@ -486,7 +486,6 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
                   style={floatingStyles}
                   ref={refs.setFloating}
                   {...getFloatingProps({
-                    ...getScrollProps(),
                     onContextMenu(e: React.MouseEvent) {
                       e.preventDefault()
                     },
@@ -502,6 +501,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
                       cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth,
+                        ...scrollProps,
                       })}
                   </MenuContext.Provider>
 

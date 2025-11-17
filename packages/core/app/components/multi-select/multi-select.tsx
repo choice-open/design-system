@@ -215,13 +215,9 @@ const MultiSelectComponent = memo(
       onOpenChange?.(newOpen)
     })
 
-    // Floating UI 配置 - 使用 Dropdown 的定位策略
-    const { refs, floatingStyles, context, isPositioned } = useFloating({
-      nodeId,
-      open: isControlledOpen,
-      onOpenChange: handleOpenChange,
-      placement,
-      middleware: [
+    // Floating UI 配置 - 使用 useMemo 缓存 middleware 数组，避免每次渲染都创建新数组
+    const middleware = useMemo(
+      () => [
         offset(8),
         flip(),
         shift(),
@@ -229,15 +225,35 @@ const MultiSelectComponent = memo(
           padding: 4,
           apply(args) {
             const { elements, availableHeight, rects } = args
+            const maxHeight = Math.min(elements.floating.clientHeight, availableHeight)
             Object.assign(elements.floating.style, {
-              height: `${Math.min(elements.floating.clientHeight, availableHeight)}px`,
+              maxHeight: `${maxHeight}px`,
+              height: `${maxHeight}px`,
+              display: "flex",
+              flexDirection: "column",
             })
+
+            // 确保 MenusBase (通过 scrollRef) 能够正确继承高度并滚动
+            if (scrollRef.current) {
+              scrollRef.current.style.height = "100%"
+              scrollRef.current.style.maxHeight = "100%"
+            }
+
             if (matchTriggerWidth) {
               elements.floating.style.width = `${rects.reference.width}px`
             }
           },
         }),
       ],
+      [matchTriggerWidth],
+    )
+
+    const { refs, floatingStyles, context, isPositioned } = useFloating({
+      nodeId,
+      open: isControlledOpen,
+      onOpenChange: handleOpenChange,
+      placement,
+      middleware,
       whileElementsMounted: autoUpdate,
     })
 
@@ -292,7 +308,7 @@ const MultiSelectComponent = memo(
     }, [isControlledOpen])
 
     // 使用共享的滚动逻辑
-    const { handleArrowScroll, handleArrowHide, getScrollProps } = useMenuScroll({
+    const { handleArrowScroll, handleArrowHide, scrollProps } = useMenuScroll({
       scrollRef,
       selectTimeoutRef,
       scrollTop,
@@ -346,7 +362,7 @@ const MultiSelectComponent = memo(
         tree.events.off("click", handleTreeClick)
         tree.events.off("menuopen", handleSubMenuOpen)
       }
-    }, [tree, nodeId, parentId, handleOpenChange])
+    }, [tree, nodeId, parentId, handleOpenChange, closeOnSelect])
 
     // 发送菜单打开事件
     useEffect(() => {
@@ -354,6 +370,26 @@ const MultiSelectComponent = memo(
         tree.events.emit("menuopen", { parentId, nodeId })
       }
     }, [tree, isControlledOpen, nodeId, parentId])
+
+    // 确保滚动容器正确设置高度
+    // 这个 useEffect 作为 size middleware 的补充，确保在 DOM 完全更新后样式正确应用
+    useEffect(() => {
+      if (!isControlledOpen || !isPositioned) return
+
+      // 使用 requestAnimationFrame 确保 DOM 已更新，避免与 size middleware 的时序冲突
+      const rafId = requestAnimationFrame(() => {
+        if (scrollRef.current) {
+          const parent = scrollRef.current.parentElement
+          // 只在父元素已设置高度时才应用样式，避免不必要的 DOM 操作
+          if (parent?.style.height) {
+            scrollRef.current.style.height = "100%"
+            scrollRef.current.style.maxHeight = "100%"
+          }
+        }
+      })
+
+      return () => cancelAnimationFrame(rafId)
+    }, [isControlledOpen, isPositioned])
 
     // 处理焦点状态
     const [hasFocusInside, setHasFocusInside] = useState(false)
@@ -530,17 +566,17 @@ const MultiSelectComponent = memo(
                     ref={refs.setFloating}
                     style={floatingStyles}
                     className={className}
+                    {...getFloatingProps({
+                      onContextMenu(e: React.MouseEvent) {
+                        e.preventDefault()
+                      },
+                    })}
                   >
                     <MenuContext.Provider value={menuContextValue}>
                       {cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth,
-                        ...getFloatingProps({
-                          ...getScrollProps(),
-                          onContextMenu(e: React.MouseEvent) {
-                            e.preventDefault()
-                          },
-                        }),
+                        ...scrollProps,
                         children: (
                           <FloatingList
                             elementsRef={listRef}

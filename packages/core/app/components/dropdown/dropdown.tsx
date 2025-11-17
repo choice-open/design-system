@@ -194,23 +194,28 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
   // 使用 ref 避免重复设置虚拟位置
   const lastPositionRef = useRef<{ x: number; y: number } | null>(null)
 
-  // Floating UI 配置  的定位策略
-  const { refs, floatingStyles, context, isPositioned } = useFloating({
-    nodeId,
-    open: isControlledOpen,
-    onOpenChange: handleOpenChange,
-    placement: isNested ? "right-start" : placement,
-    middleware: [
+  // Floating UI 配置 - 使用 useMemo 缓存 middleware 数组，避免每次渲染都创建新数组
+  const middleware = useMemo(
+    () => [
       offset({ mainAxis: isNested ? 10 : offsetDistance, alignmentAxis: isNested ? -4 : 0 }),
       flip(),
       shift(),
       size({
         padding: 4,
         apply({ elements, availableHeight, rects }) {
-          // 只在需要时设置最大高度，避免超出窗口边界
+          const maxHeight = Math.min(elements.floating.clientHeight, availableHeight)
           Object.assign(elements.floating.style, {
-            maxHeight: `${availableHeight}px`,
+            maxHeight: `${maxHeight}px`,
+            height: `${maxHeight}px`,
+            display: "flex",
+            flexDirection: "column",
           })
+
+          // 确保 MenusBase (通过 scrollRef) 能够正确继承高度并滚动
+          if (scrollRef.current) {
+            scrollRef.current.style.height = "100%"
+            scrollRef.current.style.maxHeight = "100%"
+          }
 
           // 如果需要匹配触发器宽度
           if (matchTriggerWidth) {
@@ -219,6 +224,15 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
         },
       }),
     ],
+    [isNested, offsetDistance, matchTriggerWidth],
+  )
+
+  const { refs, floatingStyles, context, isPositioned } = useFloating({
+    nodeId,
+    open: isControlledOpen,
+    onOpenChange: handleOpenChange,
+    placement: isNested ? "right-start" : placement,
+    middleware,
     whileElementsMounted: autoUpdate,
   })
 
@@ -325,8 +339,28 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     }
   }, [tree, isControlledOpen, nodeId, parentId])
 
+  // 确保滚动容器正确设置高度（对所有菜单，特别是嵌套菜单）
+  // 这个 useEffect 作为 size middleware 的补充，确保在 DOM 完全更新后样式正确应用
+  useEffect(() => {
+    if (!isControlledOpen || !isPositioned) return
+
+    // 使用 requestAnimationFrame 确保 DOM 已更新，避免与 size middleware 的时序冲突
+    const rafId = requestAnimationFrame(() => {
+      if (scrollRef.current) {
+        const parent = scrollRef.current.parentElement
+        // 只在父元素已设置高度时才应用样式，避免不必要的 DOM 操作
+        if (parent?.style.height) {
+          scrollRef.current.style.height = "100%"
+          scrollRef.current.style.maxHeight = "100%"
+        }
+      }
+    })
+
+    return () => cancelAnimationFrame(rafId)
+  }, [isControlledOpen, isPositioned])
+
   // 使用共享的滚动逻辑
-  const { handleArrowScroll, handleArrowHide, getScrollProps } = useMenuScroll({
+  const { handleArrowScroll, handleArrowHide, scrollProps } = useMenuScroll({
     scrollRef,
     selectTimeoutRef,
     scrollTop,
@@ -487,7 +521,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
                       cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth: matchTriggerWidth,
-                        ...getScrollProps(),
+                        ...scrollProps,
                       })}
                   </MenuContext.Provider>
 
