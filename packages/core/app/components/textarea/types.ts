@@ -8,6 +8,7 @@ export interface TextareaProps
   allowNewline?: boolean
   children?: ReactNode
   className?: string
+  contentRef?: React.RefObject<HTMLDivElement>
   focusSelection?: "all" | "end" | "none"
   /** Line height in pixels for calculating textarea height. Default is 16 */
   lineHeight?: number

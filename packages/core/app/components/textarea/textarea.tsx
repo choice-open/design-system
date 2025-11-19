@@ -71,6 +71,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       children,
       focusSelection = "all",
       scrollRef,
+      contentRef,
       ...rest
     } = props
 
@@ -319,6 +320,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
             style={viewportStyle}
           >
             <ScrollArea.Content
+              ref={contentRef}
               className={tx.content()}
               style={contentStyle}
             >
