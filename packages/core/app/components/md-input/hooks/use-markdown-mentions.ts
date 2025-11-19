@@ -4,7 +4,7 @@ import type { MentionItemProps, UseMentionsOptions } from "../types"
 
 const EMPTY_ITEMS: MentionItemProps[] = []
 
-export function useMentions({
+export function useMarkdownMentions({
   items = EMPTY_ITEMS,
   onSelect,
   onChange,

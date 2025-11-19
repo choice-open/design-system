@@ -1,5 +1,5 @@
 import { forwardRef, memo } from "react"
-import { Tabs, type TabsProps } from "../../tabs"
+import { Tabs } from "../../tabs"
 import { useMdInputContext } from "../context"
 
 export interface MdInputTabsProps {

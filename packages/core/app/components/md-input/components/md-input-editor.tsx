@@ -4,7 +4,7 @@ import { mergeRefs, tcx } from "~/utils"
 import type { TextareaProps } from "../../textarea"
 import { Textarea } from "../../textarea"
 import { useMdInputContext } from "../context"
-import { useMarkdownShortcuts, useMentions } from "../hooks"
+import { useMarkdownShortcuts, useMarkdownMentions } from "../hooks"
 import { mdInputTv } from "../tv"
 import type { MentionState } from "../context"
 
@@ -30,7 +30,7 @@ export const MdInputEditor = memo(
       setMentionState,
     } = useMdInputContext()
 
-    const mentionHook = useMentions({
+    const mentionHook = useMarkdownMentions({
       items: mentionItems,
       onSelect: mentionOnSelect,
       onChange,

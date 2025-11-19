@@ -91,6 +91,7 @@ The library provides a comprehensive set of components with rich interactivity a
 - [BezierCurveEditor](https://ui.choiceform.app/components/bezier-curve-editor/README.md): Interactive bezier curve editor for animations
 - [CodeEditor](https://ui.choiceform.app/components/code-editor/README.md): Syntax-highlighted code editor with language support
 - [ContextInput](https://ui.choiceform.app/components/context-input/README.md): Context-aware input with suggestions
+- [MdInput](https://ui.choiceform.app/components/md-input/README.md): Production-ready markdown editor with GFM support, syntax highlighting, @mention autocomplete, and compound component pattern
 - [Form](https://ui.choiceform.app/components/form/README.md): Advanced form management with validation
 - [List](https://ui.choiceform.app/components/list/README.md): Flexible list component with selection and keyboard navigation
 - [Menus](https://ui.choiceform.app/components/menus/README.md): Menu system with submenus and keyboard navigation
