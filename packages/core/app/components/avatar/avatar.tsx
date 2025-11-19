@@ -1,11 +1,12 @@
 import { Use } from "@choiceform/icons-react"
-import { forwardRef, memo, useMemo, useState, type HTMLProps } from "react"
+import { ElementType, forwardRef, memo, useMemo, useState, type HTMLProps } from "react"
 import tinycolor from "tinycolor2"
 import { tcx } from "~/utils"
 import { InitialLetter } from "./letter"
 import { avatarTv } from "./tv"
 
-export interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
+export interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "as"> {
+  as?: ElementType
   children?: React.ReactNode
   color?: string
   name?: string
@@ -17,6 +18,7 @@ export interface AvatarProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
 export const Avatar = memo(
   forwardRef<HTMLDivElement, AvatarProps>(function Avatar(props, ref) {
     const {
+      as,
       children,
       className,
       color = "#d3d3d3",
@@ -58,8 +60,10 @@ export const Avatar = memo(
       return tinycolor(color).isDark() ? "white" : "black"
     }, [color])
 
+    const Component = as ?? "div"
+
     return (
-      <div
+      <Component
         ref={ref}
         tabIndex={-1}
         className={tcx(styles.root(), className)}
@@ -67,7 +71,7 @@ export const Avatar = memo(
         {...rest}
       >
         {children ?? fallback}
-      </div>
+      </Component>
     )
   }),
 )

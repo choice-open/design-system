@@ -846,6 +846,14 @@
     @apply flex items-start;
   }
 
+  /* Mentions */
+  .md-mention {
+    @apply text-accent-foreground font-strong;
+  }
+  .md-mention-link {
+    @apply text-accent-foreground font-strong cursor-pointer underline;
+  }
+
   /* Context-aware spacing - Default mode */
   .md-p + .md-p {
     @apply mt-3;

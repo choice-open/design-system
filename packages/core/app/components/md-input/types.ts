@@ -1,17 +1,34 @@
-import { type TextareaProps } from "../textarea"
+import type { HTMLAttributes } from "react"
 
-export interface MdInputProps extends Omit<TextareaProps, "onChange"> {
+export interface MentionItemProps {
+  [key: string]: unknown
+  id: string
+  label: string
+}
+
+export interface UseMentionsOptions {
   disabled?: boolean
-  i18n?: {
-    preview: string
-    write: string
-  }
+  items?: MentionItemProps[]
   onChange?: (value: string) => void
-  placeholder?: string
+  onSelect?: (item: MentionItemProps, query: string) => string
   readOnly?: boolean
-  showPreview?: boolean
-  showToolbar?: boolean
+}
+
+export interface MentionRenderProps {
+  mention: string
+  mentionItems?: MentionItemProps[]
+}
+
+export interface MdInputProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+  allowedPrefixes?: string[]
+  children: React.ReactNode
+  disabled?: boolean
+  mentionItems?: MentionItemProps[]
+  mentionOnSelect?: (item: MentionItemProps, query: string) => string
+  mentionRenderComponent?: React.ComponentType<MentionRenderProps>
+  onChange?: (value: string) => void
+  readOnly?: boolean
   theme?: "light" | "dark"
-  toolbarActions?: string[]
   value?: string
 }

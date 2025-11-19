@@ -1,15 +1,16 @@
-import { forwardRef, HTMLProps, isValidElement, memo } from "react"
+import { ElementType, forwardRef, HTMLProps, isValidElement, memo } from "react"
 import { tcx } from "~/utils"
 import { BadgeTV } from "./tv"
 
-export interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
+export interface BadgeProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "as"> {
+  as?: ElementType
   strong?: boolean
   variant?: "default" | "brand" | "inverted" | "component" | "success" | "warning" | "error"
 }
 
 export const Badge = memo(
   forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
-    const { className, variant = "default", strong, children, ...rest } = props
+    const { className, variant = "default", strong, children, as, ...rest } = props
 
     const isMultiElement =
       (isValidElement(children) &&
@@ -18,14 +19,16 @@ export const Badge = memo(
 
     const style = BadgeTV({ variant, strong, multiElement: isMultiElement })
 
+    const Component = as ?? "div"
+
     return (
-      <div
+      <Component
         ref={ref}
         {...rest}
         className={tcx(style.root(), className)}
       >
         {children}
-      </div>
+      </Component>
     )
   }),
 )

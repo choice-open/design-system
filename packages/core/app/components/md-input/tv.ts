@@ -7,7 +7,7 @@ export const mdInputTv = tcv({
       "flex items-center justify-between gap-4 px-2 py-2 border-b border-default-border bg-default-background",
     content: "flex-1 relative",
     textarea: "",
-    preview: "p-2 max-w-none",
+    render: "",
   },
   variants: {
     visible: {
@@ -28,6 +28,14 @@ export const mdInputTv = tcv({
       true: {
         root: "bg-default-background-subtle",
         textarea: "cursor-default",
+      },
+    },
+    hasTabs: {
+      true: {
+        render: "absolute inset-0",
+      },
+      false: {
+        render: "",
       },
     },
   },

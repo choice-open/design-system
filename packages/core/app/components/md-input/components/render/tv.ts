@@ -1,25 +1,8 @@
 import { tcv } from "~/utils"
 
-export const toolbarTv = tcv({
-  slots: {
-    root: "flex items-center gap-1",
-    divider: "w-px h-4 bg-default-boundary mx-1",
-  },
-  variants: {
-    visible: {
-      true: {
-        root: "visible",
-      },
-      false: {
-        root: "invisible pointer-events-none",
-      },
-    },
-  },
-})
-
 export const mdTv = tcv({
   slots: {
-    root: "md",
+    root: "md max-w-none p-2",
     paragraph: "md-p",
     h1: "md-h1",
     h2: "md-h2",
@@ -65,5 +48,13 @@ export const mdTv = tcv({
   defaultVariants: {
     mode: "default",
     hasCheckbox: false,
+  },
+})
+
+export const CodeBlockTv = tcv({
+  slots: {
+    root: "bg-default-background group relative overflow-hidden rounded-lg border",
+    content: "flex w-fit flex-col overflow-clip",
+    code: "text-message-code w-fit min-w-full bg-transparent font-mono [&>pre]:!bg-transparent [&>pre]:px-4 [&>pre]:py-4",
   },
 })

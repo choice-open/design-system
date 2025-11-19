@@ -343,6 +343,20 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
     }
   }, [isCoordinateMode, isControlledOpen, autoSelection, activeIndex, elementsRef])
 
+  // 坐标模式下，菜单打开时将焦点转移到第一个 item
+  useEffect(() => {
+    if (isCoordinateMode && isControlledOpen && elementsRef.current.length > 0) {
+      const timer = setTimeout(() => {
+        const firstItem = elementsRef.current[0]
+        if (firstItem) {
+          firstItem.focus()
+        }
+      }, 0)
+
+      return () => clearTimeout(timer)
+    }
+  }, [isCoordinateMode, isControlledOpen, elementsRef])
+
   // 确保滚动容器正确设置高度
   useMenuScrollHeight({
     isControlledOpen,
@@ -494,7 +508,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
             >
               <FloatingFocusManager
                 context={context}
-                initialFocus={-1}
+                initialFocus={isCoordinateMode && elementsRef.current.length > 0 ? 0 : -1}
                 visuallyHiddenDismiss
                 {...focusManagerProps}
               >
