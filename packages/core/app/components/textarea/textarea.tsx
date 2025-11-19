@@ -9,7 +9,7 @@ import {
   useState,
 } from "react"
 import { useEventCallback, useUnmount } from "usehooks-ts"
-import { tcx } from "~/utils"
+import { mergeRefs, tcx } from "~/utils"
 import { ScrollArea } from "../scroll-area"
 import { ResizeHandle, TextareaAutosize } from "./components"
 import { TextareaTv } from "./tv"
@@ -70,6 +70,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       onIsEditingChange,
       children,
       focusSelection = "all",
+      scrollRef,
       ...rest
     } = props
 
@@ -313,7 +314,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className={tcx(containerClasses, "relative")}>
         <ScrollArea type="scroll">
           <ScrollArea.Viewport
-            ref={viewportRef}
+            ref={mergeRefs(viewportRef, scrollRef)}
             className={tx.viewport()}
             style={viewportStyle}
           >

@@ -86,7 +86,7 @@ export const Toolbar = memo(
             {group.map((action) => (
               <ToolbarButton
                 key={action.id}
-                label={action.label || i18n[action.id as keyof typeof i18n] || action.id}
+                label={i18n[action.id as keyof typeof i18n]}
                 icon={action.icon}
                 onClick={() => handleAction(action.id)}
                 disabled={disabled}

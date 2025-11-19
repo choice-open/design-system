@@ -6,7 +6,7 @@ export const mdInputTv = tcv({
     header:
       "flex items-center justify-between gap-4 px-2 py-2 border-b border-default-border bg-default-background",
     content: "flex-1 relative",
-    textarea: "",
+    textarea: "border-none rounded-none",
     render: "",
   },
   variants: {

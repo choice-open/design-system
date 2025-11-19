@@ -16,6 +16,7 @@ export interface TextareaProps
   /** Padding in pixels (top/bottom) for calculating textarea height. Default is 4 (py-1) */
   padding?: number
   resize?: "auto" | "handle" | false
+  scrollRef?: React.RefObject<HTMLDivElement>
   selected?: boolean
   value?: string
   variant?: "default" | "light" | "dark" | "reset"
