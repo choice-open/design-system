@@ -1,10 +1,18 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { ScrollArea } from "~/components"
 import { tcx } from "~/utils"
 import { TreeNodeWrapper } from "./components"
 import { useDragDrop, useExpansion, useModifierKeys, useRenaming, useSelection } from "./hooks"
-import { TreeListContext, TreeListProps, TreeNodeType } from "./types"
+import { TreeListContext, TreeListHandle, TreeListProps, TreeNodeType } from "./types"
 import { flattenTree, findNodePathById } from "./utils/tree"
 
 // 创建上下文
@@ -22,10 +30,11 @@ export const useTreeContext = () => {
 // 默认节点高度
 const DEFAULT_NODE_HEIGHT = 32
 
-export const TreeList = (props: TreeListProps) => {
+export const TreeList = React.forwardRef<TreeListHandle, TreeListProps>((props, ref) => {
   const {
     data,
     selectedNodeIds,
+    initialExpandedNodeIds,
     className,
     style,
     containerWidth,
@@ -39,7 +48,7 @@ export const TreeList = (props: TreeListProps) => {
     renderActions,
     renderLabel,
     onNodeSelect,
-    onNodeExpand,
+    onExpandedNodesChange,
     onNodeRename,
     onNodeContextMenu,
     onNodeDrop,
@@ -55,9 +64,55 @@ export const TreeList = (props: TreeListProps) => {
   const nodeMeasurerRef = useRef<Map<string, number>>(new Map())
 
   // 使用提取的钩子
-  const { expandedNodeIds, expandNode, setExpandedNodeIds } = useExpansion({
-    onNodeExpand,
-  })
+  // initialExpandedNodeIds 只作为初始值使用
+  const [internalExpandedNodeIds, setInternalExpandedNodeIds] = useState<Set<string>>(
+    initialExpandedNodeIds ?? new Set(),
+  )
+
+  const expandNode = useCallback(
+    (node: TreeNodeType, forceExpanded?: boolean) => {
+      const isCurrentlyExpanded = internalExpandedNodeIds.has(node.id)
+      const newExpanded = forceExpanded !== undefined ? forceExpanded : !isCurrentlyExpanded
+
+      setInternalExpandedNodeIds((prev) => {
+        const newSet = new Set(prev)
+        if (newExpanded) {
+          newSet.add(node.id)
+        } else {
+          newSet.delete(node.id)
+        }
+        return newSet
+      })
+    },
+    [internalExpandedNodeIds],
+  )
+
+  const expandedNodeIds = internalExpandedNodeIds
+
+  // 每次展开状态变化时，通知外部
+  useEffect(() => {
+    onExpandedNodesChange?.(expandedNodeIds)
+  }, [expandedNodeIds, onExpandedNodesChange])
+
+  // 暴露方法给外部
+  useImperativeHandle(
+    ref,
+    () => ({
+      collapseAll: () => {
+        setInternalExpandedNodeIds(new Set())
+      },
+      expandNodes: (nodeIds: string[]) => {
+        setInternalExpandedNodeIds((prev) => {
+          const newSet = new Set(prev)
+          nodeIds.forEach((id) => {
+            newSet.add(id)
+          })
+          return newSet
+        })
+      },
+    }),
+    [],
+  )
 
   // 创建初始的节点列表（没有选择状态）
   const initialFlattenedNodes = useMemo(() => {
@@ -176,12 +231,30 @@ export const TreeList = (props: TreeListProps) => {
     })
   }, [flattenedNodes, dragState, selectedNodeIds])
 
+  // Track previous selectedNodeIds to only auto-expand when selection changes
+  const prevSelectedNodeIdsRef = useRef<Set<string>>(new Set())
+
   useEffect(() => {
     if (selectedNodeIds.size === 0) {
+      prevSelectedNodeIdsRef.current = new Set(selectedNodeIds)
       return
     }
 
-    setExpandedNodeIds((prev) => {
+    // Only auto-expand ancestors when selection actually changes, not when expandedNodeIds changes
+    const selectionChanged =
+      prevSelectedNodeIdsRef.current.size !== selectedNodeIds.size ||
+      Array.from(selectedNodeIds).some((id) => !prevSelectedNodeIdsRef.current.has(id)) ||
+      Array.from(prevSelectedNodeIdsRef.current).some((id) => !selectedNodeIds.has(id))
+
+    if (!selectionChanged) {
+      return
+    }
+
+    // Update the ref to track current selection
+    prevSelectedNodeIdsRef.current = new Set(selectedNodeIds)
+
+    // Auto-expand ancestors of selected nodes
+    setInternalExpandedNodeIds((prev) => {
       const next = new Set(prev)
       let changed = false
 
@@ -199,7 +272,7 @@ export const TreeList = (props: TreeListProps) => {
 
       return changed ? next : prev
     })
-  }, [selectedNodeIds, data, setExpandedNodeIds])
+  }, [selectedNodeIds, data])
 
   // 获取可见节点（用于虚拟列表）
   const visibleNodes = useMemo(() => {
@@ -400,4 +473,6 @@ export const TreeList = (props: TreeListProps) => {
       </div>
     </TreeContext.Provider>
   )
-}
+})
+
+TreeList.displayName = "TreeList"

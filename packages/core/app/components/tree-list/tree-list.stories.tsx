@@ -2,11 +2,11 @@ import { Element, ToolbarFrame } from "@choiceform/icons-react"
 import { observable } from "@legendapp/state"
 import { observer } from "@legendapp/state/react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React, { useCallback, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { ContextMenu } from "../context-menu"
 import { Splitter } from "../splitter"
 import { TreeList } from "./tree-list"
-import { DropPosition, TreeNodeData, TreeNodeType } from "./types"
+import { DropPosition, TreeNodeData, TreeListHandle, TreeNodeType } from "./types"
 
 // 生成示例数据（带可预测的ID结构，便于调试）
 const generateDemoTreeData = (): TreeNodeData[] => {
@@ -536,19 +536,11 @@ const ComprehensiveTreeList = observer(() => {
     setExternalSelectionInfo(null)
   }
 
-  // 处理节点展开/折叠
-  const handleNodeExpand = (node: TreeNodeType, expanded: boolean) => {
-    if (expanded) {
-      treeState.expandedNodes.set([...treeState.expandedNodes.get(), node])
-    } else {
-      treeState.expandedNodes.set(
-        treeState.expandedNodes.get().filter((n: TreeNodeType) => n.id !== node.id),
-      )
-    }
-  }
-
   const [containerWidth, setContainerWidth] = useState(0)
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(new Set())
+  const [expandedNodeIds, setExpandedNodeIds] = useState<Set<string>>(new Set())
+  const [pendingSelection, setPendingSelection] = useState<string | null>(null)
+  const treeListRef = useRef<TreeListHandle>(null)
   const [lastHoveredNode, setLastHoveredNode] = useState<{
     isHovered: boolean
     node: TreeNodeType
@@ -700,13 +692,91 @@ const ComprehensiveTreeList = observer(() => {
     }
 
     const targetNode = path[path.length - 1]
-    setSelectedNodeIds(new Set([targetNode.id]))
-    setExternalSelectionInfo({
-      id: targetNode.id,
-      name: targetNode.name,
-      path: path.map((node) => node.name),
-    })
-  }, [])
+    const ancestorIds = path.slice(0, -1).map((node) => node.id)
+
+    // Check if all ancestors are already expanded
+    const allAncestorsExpanded =
+      ancestorIds.length === 0 || ancestorIds.every((id) => expandedNodeIds.has(id))
+
+    if (allAncestorsExpanded) {
+      // All ancestors are already expanded, select immediately
+      setSelectedNodeIds(new Set([targetNode.id]))
+      setExternalSelectionInfo({
+        id: targetNode.id,
+        name: targetNode.name,
+        path: path.map((node) => node.name),
+      })
+    } else {
+      // Need to expand ancestors first
+      if (ancestorIds.length > 0 && treeListRef.current) {
+        treeListRef.current.expandNodes(ancestorIds)
+      }
+
+      // Set pending selection - useEffect will handle the actual selection after expansion
+      setPendingSelection(targetNode.id)
+      setExternalSelectionInfo({
+        id: targetNode.id,
+        name: targetNode.name,
+        path: path.map((node) => node.name),
+      })
+    }
+  }, [expandedNodeIds])
+
+  // Handle pending selection after target node appears in DOM
+  useEffect(() => {
+    if (!pendingSelection) {
+      return
+    }
+
+    const snapshot = treeState.data.get()
+    const path = findNodePath(snapshot, pendingSelection)
+    if (!path) {
+      setPendingSelection(null)
+      return
+    }
+
+    // Check if target node appears in DOM
+    const checkNodeInDOM = () => {
+      const targetElement = document.querySelector<HTMLElement>(
+        `[data-node-id="${pendingSelection}"]`,
+      )
+      return targetElement !== null
+    }
+
+    // If node is already in DOM, select it immediately
+    if (checkNodeInDOM()) {
+      setSelectedNodeIds(new Set([pendingSelection]))
+      setPendingSelection(null)
+      return
+    }
+
+    // Otherwise, poll for node appearance in DOM
+    let attempts = 0
+    const maxAttempts = 50 // Maximum 5 seconds (50 * 100ms)
+    const pollInterval = 100 // Check every 100ms
+
+    const pollForNode = setInterval(() => {
+      attempts++
+      if (checkNodeInDOM()) {
+        // Node appeared in DOM, select it
+        setSelectedNodeIds(new Set([pendingSelection]))
+        setPendingSelection(null)
+        clearInterval(pollForNode)
+      } else if (attempts >= maxAttempts) {
+        // Timeout: node didn't appear, give up
+        console.warn(
+          `[TreeList Story] Timeout waiting for node ${pendingSelection} to appear in DOM`,
+        )
+        setPendingSelection(null)
+        clearInterval(pollForNode)
+      }
+    }, pollInterval)
+
+    // Cleanup interval on unmount or when pendingSelection changes
+    return () => {
+      clearInterval(pollForNode)
+    }
+  }, [pendingSelection])
 
   const triggerRenameForNodeOneTwo = useCallback(() => {
     if (typeof window === "undefined") {
@@ -770,6 +840,35 @@ const ComprehensiveTreeList = observer(() => {
     })
   }, [])
 
+  // Handle expanded nodes change callback
+  const handleExpandedNodesChange = useCallback((expandedNodeIds: Set<string>) => {
+    setExpandedNodeIds(expandedNodeIds)
+    // Update treeState for compatibility
+    const snapshot = treeState.data.get()
+    const expandedNodes = Array.from(expandedNodeIds)
+      .map((id) => {
+        const path = findNodePath(snapshot, id)
+        return path?.[path.length - 1]
+      })
+      .filter((node): node is TreeNodeType => node !== undefined)
+    treeState.expandedNodes.set(expandedNodes)
+  }, [])
+
+  // Handle collapse all expanded nodes
+  const handleCollapseAll = useCallback(() => {
+    if (expandedNodeIds.size === 0) {
+      return
+    }
+
+    // Call collapseAll method from TreeList ref
+    treeListRef.current?.collapseAll()
+
+    console.log("[TreeList Story] Collapsed all nodes", {
+      collapsedCount: expandedNodeIds.size,
+      nodeIds: Array.from(expandedNodeIds),
+    })
+  }, [expandedNodeIds])
+
   return (
     <Splitter
       defaultSizes={[240, 1024]}
@@ -781,15 +880,16 @@ const ComprehensiveTreeList = observer(() => {
       <Splitter.Pane minSize={240}>
         <div className="relative h-full w-full">
           <TreeList
+            ref={treeListRef}
             selectedNodeIds={selectedNodeIds}
             className="h-full w-full"
             containerWidth={containerWidth}
             data={treeState.data.get()}
             virtualScroll={treeState.useVirtualScroll.get()}
+            onExpandedNodesChange={handleExpandedNodesChange}
             onNodeRename={handleNodeRename}
             onNodeDrop={handleNodeDrop}
             onNodeSelect={handleNodeSelect}
-            onNodeExpand={handleNodeExpand}
             onNodeHover={handleNodeHover}
             onNodeIconDoubleClick={handleIconDoubleClick}
             renderLabel={renderNodeLabel}
@@ -853,6 +953,15 @@ const ComprehensiveTreeList = observer(() => {
             >
               Rename node 1-2 externally
             </button>
+            {expandedNodeIds.size > 0 && (
+              <button
+                type="button"
+                className="border-default-border bg-default-background text-body-small text-default-foreground self-start rounded border px-3 py-2 font-medium shadow-sm hover:bg-gray-100"
+                onClick={handleCollapseAll}
+              >
+                Collapse all folders
+              </button>
+            )}
             <div className="border-default-border bg-default-background text-body-small text-secondary-foreground rounded border p-3">
               <div className="text-default-foreground font-medium">Last hover</div>
               {lastHoveredNode ? (
