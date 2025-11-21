@@ -26,6 +26,7 @@ export interface RangeTupleProps {
   onChange?: (value: [number, number]) => void
   onChangeEnd?: (value: [number, number]) => void
   onChangeStart?: () => void
+  readonly?: boolean
   step?: number
   thumbSize?: number
   trackSize?: {
@@ -67,6 +68,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
       max = 100,
       step = 1,
       disabled = false,
+      readonly = false,
       className,
       connectsClassName = {
         positive: "bg-accent-background",
@@ -200,6 +202,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
 
     const updatePosition = useEventCallback(
       (clientX: number, thumbIndex: ThumbIndex, isEnd?: boolean) => {
+        if (readonly) return // Prevent position update in readonly mode
         const rect = sliderRef.current?.getBoundingClientRect()
         if (!rect) return
 
@@ -251,7 +254,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
 
     const handlePointerDown = useCallback(
       (e: React.PointerEvent, thumbIndex: ThumbIndex) => {
-        if (disabled) return
+        if (disabled || readonly) return // Prevent drag in readonly mode
         e.preventDefault()
         e.stopPropagation()
 
@@ -328,6 +331,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
       },
       [
         disabled,
+        readonly,
         onChangeEnd,
         onChangeStart,
         updatePosition,
@@ -342,7 +346,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
 
     const handleSliderPointerDown = useCallback(
       (e: React.PointerEvent) => {
-        if (disabled) return
+        if (disabled || readonly) return // Prevent slider drag in readonly mode
         if (e.target === thumb0Ref.current || e.target === thumb1Ref.current) return
 
         // Determine which thumb to move based on proximity
@@ -360,11 +364,11 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
         const thumbIndex: ThumbIndex = dist0 <= dist1 ? 0 : 1
         handlePointerDown(e, thumbIndex)
       },
-      [disabled, handlePointerDown, currentValue, positionToValue],
+      [disabled, readonly, handlePointerDown, currentValue, positionToValue],
     )
 
     const handleKeyDown = useEventCallback((e: React.KeyboardEvent, thumbIndex: ThumbIndex) => {
-      if (disabled) return
+      if (disabled || readonly) return // Prevent keyboard actions in readonly mode
 
       const stepValue = e.shiftKey ? step * 10 : step
       let newValue = currentValue[thumbIndex]
@@ -558,7 +562,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
             type="text"
             onKeyDown={(e) => handleKeyDown(e, 0)}
             className={styles.input()}
-            tabIndex={disabled ? -1 : 0}
+            tabIndex={disabled || readonly ? -1 : 0}
             readOnly
           />
         </div>
@@ -580,7 +584,7 @@ export const RangeTuple = forwardRef<HTMLDivElement, RangeTupleProps>(
             type="text"
             onKeyDown={(e) => handleKeyDown(e, 1)}
             className={styles.input()}
-            tabIndex={disabled ? -1 : 0}
+            tabIndex={disabled || readonly ? -1 : 0}
             readOnly
           />
         </div>
