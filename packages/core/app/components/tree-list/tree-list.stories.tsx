@@ -1036,6 +1036,10 @@ const LargeDatasetTreeList = () => {
     setSelectedNodeIds(new Set())
   }, [])
 
+  const handleSelectFolder100 = useCallback(() => {
+    setSelectedNodeIds(new Set(["100"]))
+  }, [])
+
   return (
     <Splitter
       defaultSizes={[360, 320]}
@@ -1075,6 +1079,13 @@ const LargeDatasetTreeList = () => {
               onClick={handleResetSelection}
             >
               Clear selection
+            </button>
+            <button
+              type="button"
+              className="border-default-border bg-default-background text-body-small text-default-foreground self-start rounded border px-3 py-2 font-medium shadow-sm hover:bg-gray-100"
+              onClick={handleSelectFolder100}
+            >
+              Select Folder 100
             </button>
             <div className="border-default-border bg-default-background text-body-small text-secondary-foreground rounded border p-3">
               <div className="text-default-foreground font-medium">Performance metrics</div>
