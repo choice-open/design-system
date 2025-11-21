@@ -2,19 +2,36 @@ import { useCallback, useState } from "react"
 import { TreeNodeType } from "../types"
 
 export interface UseExpansionProps {
+  expandedNodeIds?: Set<string>
   onNodeExpand?: (node: TreeNodeType, isExpanded: boolean) => void
 }
 
-export function useExpansion({ onNodeExpand }: UseExpansionProps) {
-  // 展开状态
-  const [expandedNodeIds, setExpandedNodeIds] = useState<Set<string>>(new Set())
+export function useExpansion({
+  expandedNodeIds: controlledExpandedNodeIds,
+  onNodeExpand,
+}: UseExpansionProps) {
+  // 展开状态（受控或非受控）
+  const [internalExpandedNodeIds, setInternalExpandedNodeIds] = useState<Set<string>>(new Set())
+
+  // 使用受控的 expandedNodeIds 或内部状态
+  const expandedNodeIds = controlledExpandedNodeIds ?? internalExpandedNodeIds
+  const setExpandedNodeIds = controlledExpandedNodeIds ? undefined : setInternalExpandedNodeIds
 
   // 处理节点展开/折叠
   const expandNode = useCallback(
     (node: TreeNodeType, forceExpanded?: boolean) => {
-      const newExpanded = forceExpanded !== undefined ? forceExpanded : !node.state.isExpanded
+      // 判断当前节点是否已展开（基于实际的 expandedNodeIds）
+      const isCurrentlyExpanded = expandedNodeIds.has(node.id)
+      const newExpanded = forceExpanded !== undefined ? forceExpanded : !isCurrentlyExpanded
 
-      setExpandedNodeIds((prev) => {
+      // 如果是受控模式，只调用回调，不更新内部状态
+      if (controlledExpandedNodeIds) {
+        onNodeExpand?.(node, newExpanded)
+        return
+      }
+
+      // 非受控模式：更新内部状态
+      setInternalExpandedNodeIds((prev) => {
         const newSet = new Set(prev)
 
         if (newExpanded) {
@@ -27,7 +44,7 @@ export function useExpansion({ onNodeExpand }: UseExpansionProps) {
         return newSet
       })
     },
-    [onNodeExpand],
+    [onNodeExpand, controlledExpandedNodeIds, expandedNodeIds],
   )
 
   return {

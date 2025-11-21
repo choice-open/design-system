@@ -42,21 +42,22 @@ export interface TreeListProps {
   // 数据
   data: TreeNodeData[]
 
+  initialExpandedNodeIds?: Set<string>
   keyboardNavigation?: boolean
   nodeHeight?: number
+  onExpandedNodesChange?: (expandedNodeIds: Set<string>) => void
   onMouseDown?: () => void
   onNodeContextMenu?: (node: TreeNodeType, event: React.MouseEvent) => void
   onNodeCreate?: (
     parentNode: TreeNodeType | null,
     nodeType: "folder" | "component" | "layer",
   ) => void
+
   onNodeDrop?: (
     sourceNodes: TreeNodeType[],
     targetNode: TreeNodeType,
     position: DropPosition,
   ) => void
-
-  onNodeExpand?: (node: TreeNodeType, expanded: boolean) => void
   onNodeHover?: (node: TreeNodeType, isHovered: boolean, event: React.MouseEvent) => void
   onNodeIconDoubleClick?: (node: TreeNodeType, event: ReactMouseEvent) => void
   onNodeRename?: (node: TreeNodeType, newName: string) => void
@@ -150,4 +151,10 @@ export interface TreeListContext {
   selectedNodes: TreeNodeType[]
   startDrag: (nodes: TreeNodeType[], event: React.DragEvent) => void
   startRename: (node: TreeNodeType) => void
+}
+
+// TreeList ref 接口
+export interface TreeListHandle {
+  collapseAll: () => void
+  expandNodes: (nodeIds: string[]) => void
 }

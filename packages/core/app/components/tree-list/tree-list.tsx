@@ -1,10 +1,18 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import React, { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { ScrollArea } from "~/components"
 import { tcx } from "~/utils"
 import { TreeNodeWrapper } from "./components"
 import { useDragDrop, useExpansion, useModifierKeys, useRenaming, useSelection } from "./hooks"
-import { TreeListContext, TreeListProps, TreeNodeType } from "./types"
+import { TreeListContext, TreeListHandle, TreeListProps, TreeNodeType } from "./types"
 import { flattenTree, findNodePathById } from "./utils/tree"
 
 // 创建上下文
@@ -22,10 +30,11 @@ export const useTreeContext = () => {
 // 默认节点高度
 const DEFAULT_NODE_HEIGHT = 32
 
-export const TreeList = (props: TreeListProps) => {
+export const TreeList = React.forwardRef<TreeListHandle, TreeListProps>((props, ref) => {
   const {
     data,
     selectedNodeIds,
+    initialExpandedNodeIds,
     className,
     style,
     containerWidth,
@@ -39,7 +48,7 @@ export const TreeList = (props: TreeListProps) => {
     renderActions,
     renderLabel,
     onNodeSelect,
-    onNodeExpand,
+    onExpandedNodesChange,
     onNodeRename,
     onNodeContextMenu,
     onNodeDrop,
@@ -55,9 +64,55 @@ export const TreeList = (props: TreeListProps) => {
   const nodeMeasurerRef = useRef<Map<string, number>>(new Map())
 
   // 使用提取的钩子
-  const { expandedNodeIds, expandNode, setExpandedNodeIds } = useExpansion({
-    onNodeExpand,
-  })
+  // initialExpandedNodeIds 只作为初始值使用
+  const [internalExpandedNodeIds, setInternalExpandedNodeIds] = useState<Set<string>>(
+    initialExpandedNodeIds ?? new Set(),
+  )
+
+  const expandNode = useCallback(
+    (node: TreeNodeType, forceExpanded?: boolean) => {
+      const isCurrentlyExpanded = internalExpandedNodeIds.has(node.id)
+      const newExpanded = forceExpanded !== undefined ? forceExpanded : !isCurrentlyExpanded
+
+      setInternalExpandedNodeIds((prev) => {
+        const newSet = new Set(prev)
+        if (newExpanded) {
+          newSet.add(node.id)
+        } else {
+          newSet.delete(node.id)
+        }
+        return newSet
+      })
+    },
+    [internalExpandedNodeIds],
+  )
+
+  const expandedNodeIds = internalExpandedNodeIds
+
+  // 每次展开状态变化时，通知外部
+  useEffect(() => {
+    onExpandedNodesChange?.(expandedNodeIds)
+  }, [expandedNodeIds, onExpandedNodesChange])
+
+  // 暴露方法给外部
+  useImperativeHandle(
+    ref,
+    () => ({
+      collapseAll: () => {
+        setInternalExpandedNodeIds(new Set())
+      },
+      expandNodes: (nodeIds: string[]) => {
+        setInternalExpandedNodeIds((prev) => {
+          const newSet = new Set(prev)
+          nodeIds.forEach((id) => {
+            newSet.add(id)
+          })
+          return newSet
+        })
+      },
+    }),
+    [],
+  )
 
   // 创建初始的节点列表（没有选择状态）
   const initialFlattenedNodes = useMemo(() => {
@@ -176,12 +231,30 @@ export const TreeList = (props: TreeListProps) => {
     })
   }, [flattenedNodes, dragState, selectedNodeIds])
 
+  // Track previous selectedNodeIds to only auto-expand when selection changes
+  const prevSelectedNodeIdsRef = useRef<Set<string>>(new Set())
+
   useEffect(() => {
     if (selectedNodeIds.size === 0) {
+      prevSelectedNodeIdsRef.current = new Set(selectedNodeIds)
       return
     }
 
-    setExpandedNodeIds((prev) => {
+    // Only auto-expand ancestors when selection actually changes, not when expandedNodeIds changes
+    const selectionChanged =
+      prevSelectedNodeIdsRef.current.size !== selectedNodeIds.size ||
+      Array.from(selectedNodeIds).some((id) => !prevSelectedNodeIdsRef.current.has(id)) ||
+      Array.from(prevSelectedNodeIdsRef.current).some((id) => !selectedNodeIds.has(id))
+
+    if (!selectionChanged) {
+      return
+    }
+
+    // Update the ref to track current selection
+    prevSelectedNodeIdsRef.current = new Set(selectedNodeIds)
+
+    // Auto-expand ancestors of selected nodes
+    setInternalExpandedNodeIds((prev) => {
       const next = new Set(prev)
       let changed = false
 
@@ -199,7 +272,7 @@ export const TreeList = (props: TreeListProps) => {
 
       return changed ? next : prev
     })
-  }, [selectedNodeIds, data, setExpandedNodeIds])
+  }, [selectedNodeIds, data])
 
   // 获取可见节点（用于虚拟列表）
   const visibleNodes = useMemo(() => {
@@ -213,6 +286,75 @@ export const TreeList = (props: TreeListProps) => {
     estimateSize: () => nodeHeight,
     overscan: 10,
   })
+
+  // Track previous selectedNodeIds to detect selection changes
+  const prevSelectedForScrollRef = useRef<Set<string>>(new Set())
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // 自动滚动到选中的节点
+  useEffect(() => {
+    // 清理之前的定时器
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+      scrollTimeoutRef.current = null
+    }
+
+    if (selectedNodeIds.size === 0 || !virtualScroll) {
+      prevSelectedForScrollRef.current = new Set(selectedNodeIds)
+      return
+    }
+
+    const selectedNodeId = Array.from(selectedNodeIds)[0]
+
+    // 检查选中是否发生变化
+    const selectionChanged =
+      prevSelectedForScrollRef.current.size !== selectedNodeIds.size ||
+      Array.from(selectedNodeIds).some((id) => !prevSelectedForScrollRef.current.has(id))
+
+    const scrollToNode = () => {
+      const nodeIndex = visibleNodes.findIndex((node) => node.id === selectedNodeId)
+      if (nodeIndex === -1) {
+        return false
+      }
+
+      // 检查节点是否已经在可见区域内
+      const virtualItems = virtualizer.getVirtualItems()
+      const isAlreadyVisible = virtualItems.some((item) => item.index === nodeIndex)
+
+      // 如果节点已经在可见区域内，不需要滚动
+      if (isAlreadyVisible) {
+        return true
+      }
+
+      // 节点不在可见区域内，滚动到该节点
+      virtualizer.scrollToIndex(nodeIndex, {
+        align: "center",
+        behavior: "auto",
+      })
+      return true
+    }
+
+    // 如果选中发生变化，立即尝试滚动
+    if (selectionChanged) {
+      prevSelectedForScrollRef.current = new Set(selectedNodeIds)
+
+      // 尝试立即滚动
+      if (scrollToNode()) {
+        return
+      }
+
+      // 如果节点还未可见（可能需要展开祖先节点），等待展开完成后再尝试滚动
+      // 当 expandedNodeIds 变化后，visibleNodes 会更新，这个 effect 会再次触发
+      scrollTimeoutRef.current = setTimeout(() => {
+        scrollToNode()
+        scrollTimeoutRef.current = null
+      }, 150) // 等待展开完成
+    } else {
+      // 即使选中没变化，也检查可见性（处理用户手动滚动后再次点击按钮的情况）
+      // 只有当节点不在可见区域内时才滚动
+      scrollToNode()
+    }
+  }, [selectedNodeIds, visibleNodes, virtualizer, virtualScroll, expandedNodeIds])
 
   // 添加节点宽度测量函数
   const measureNodeWidth = useCallback((nodeId: string, width: number) => {
@@ -400,4 +542,6 @@ export const TreeList = (props: TreeListProps) => {
       </div>
     </TreeContext.Provider>
   )
-}
+})
+
+TreeList.displayName = "TreeList"
