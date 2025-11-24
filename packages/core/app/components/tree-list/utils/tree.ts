@@ -159,6 +159,32 @@ export function getAncestorIds(flattenedNodes: TreeNodeType[], nodeId: string): 
 }
 
 /**
+ * 获取节点的完整路径名称数组（从根到当前节点）
+ */
+export function getNodePathNames(flattenedNodes: TreeNodeType[], nodeId: string): string[] {
+  const nodeIndex = flattenedNodes.findIndex((n) => n.id === nodeId)
+  if (nodeIndex === -1) return []
+
+  const node = flattenedNodes[nodeIndex]
+  const pathNames: string[] = [node.name]
+  let currentLevel = node.state.level
+
+  // 从当前节点向上遍历，收集所有祖先节点
+  for (let i = nodeIndex - 1; i >= 0; i--) {
+    const ancestor = flattenedNodes[i]
+    // 只有当祖先节点的 level 小于当前 level 时，才是直接父节点
+    if (ancestor.state.level < currentLevel) {
+      pathNames.unshift(ancestor.name)
+      currentLevel = ancestor.state.level
+      // 如果到达根节点（level 0），停止查找
+      if (currentLevel === 0) break
+    }
+  }
+
+  return pathNames
+}
+
+/**
  * 获取当前节点的所有子孙节点
  */
 export function getDescendantIds(flattenedNodes: TreeNodeType[], nodeId: string): string[] {

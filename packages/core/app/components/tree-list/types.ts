@@ -69,6 +69,12 @@ export interface TreeListProps {
 
   renderNode?: (node: TreeNodeType) => ReactNode
   selectedNodeIds: Set<string>
+  /**
+   * 是否在重命名时显示完整路径
+   * 当为 true 时，输入框会显示完整路径（如 "Folder2/Folder 2 / Group 1"），
+   * 但只选中最后一部分（如 "Folder 2 / Group 1"）
+   */
+  showFullPathOnRename?: boolean
   style?: React.CSSProperties
   virtualScroll?: boolean
 }
@@ -77,6 +83,10 @@ export interface TreeListProps {
 export interface TreeNodeProps {
   className?: string
   containerWidth?: number
+  /**
+   * 完整路径的节点名称数组（从根到当前节点）
+   */
+  fullPath?: string[]
   // 表示此节点是否是连续选择中的中间项
   hasHorizontalScroll?: boolean
   // 表示是否处于多选状态（选中的节点数 > 1）
@@ -105,6 +115,10 @@ export interface TreeNodeProps {
   renderActions?: (node: TreeNodeType) => ReactNode
   renderIcon?: (node: TreeNodeType) => ReactNode
   renderLabel?: (node: TreeNodeType) => ReactNode
+  /**
+   * 是否在重命名时显示完整路径
+   */
+  showFullPathOnRename?: boolean
   size?: number
   start?: number
   style?: React.CSSProperties // 用于测量节点宽度

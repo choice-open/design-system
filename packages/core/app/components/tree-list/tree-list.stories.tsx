@@ -25,17 +25,17 @@ const generateDemoTreeData = (): TreeNodeData[] => {
       children: [
         {
           id: "1-1",
-          name: "Folder 1 / Item 1",
+          name: "Item 1",
           children: [],
         },
         {
           id: "1-2",
-          name: "Folder 1 / Item 2",
+          name: "Item 2",
           children: [],
         },
         {
           id: "1-3",
-          name: "Folder 1 / Item 3",
+          name: "Item 3",
           children: [],
         },
       ],
@@ -47,32 +47,32 @@ const generateDemoTreeData = (): TreeNodeData[] => {
       children: [
         {
           id: "2-1",
-          name: "Folder 2 / Group 1",
+          name: "Group 1",
           isFolder: true,
           children: [
             {
               id: "2-1-1",
-              name: "Folder 2 / Group 1 / Item 1",
+              name: "Item 1",
               children: [
                 {
                   id: "2-1-1-1",
-                  name: "Folder 2 / Group 1 / Item 1 / Detail 1",
+                  name: "Detail 1",
                   children: [],
                 },
                 {
                   id: "2-1-1-2",
-                  name: "Folder 2 / Group 1 / Item 1 / Detail 2",
+                  name: "Detail 2",
                   children: [],
                 },
               ],
             },
             {
               id: "2-1-2",
-              name: "Folder 2 / Group 1 / Item 2",
+              name: "Item 2",
               children: [
                 {
                   id: "2-1-2-1",
-                  name: "Folder 2 / Group 1 / Item 2 / Detail 1",
+                  name: "Detail 1",
                   children: [],
                 },
               ],
@@ -81,21 +81,21 @@ const generateDemoTreeData = (): TreeNodeData[] => {
         },
         {
           id: "2-2",
-          name: "Folder 2 / Group 2",
+          name: "Group 2",
           isFolder: true,
           children: [
             {
               id: "2-2-1",
-              name: "Folder 2 / Group 2 / Item 1",
+              name: "Item 1",
               children: [],
             },
             {
               id: "2-2-2",
-              name: "Folder 2 / Group 2 / Item 2",
+              name: "Item 2",
               children: [
                 {
                   id: "2-2-2-1",
-                  name: "Folder 2 / Group 2 / Item 2 / Detail 1",
+                  name: "Detail 1",
                   children: [],
                 },
               ],
@@ -895,6 +895,7 @@ const ComprehensiveTreeList = observer(() => {
             renderLabel={renderNodeLabel}
             renderActions={renderNodeActions}
             onNodeContextMenu={handleNodeContextMenu}
+            showFullPathOnRename={true}
             renderIcon={(node) => (
               <>
                 {Boolean(node.children && node.children.length > 0) || Boolean(node.isFolder) ? (

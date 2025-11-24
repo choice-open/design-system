@@ -55,6 +55,7 @@ export const TreeList = React.forwardRef<TreeListHandle, TreeListProps>((props, 
     onNodeIconDoubleClick,
     onNodeHover,
     onMouseDown,
+    showFullPathOnRename,
   } = props
 
   // 跟踪节点最大宽度的状态
@@ -415,6 +416,7 @@ export const TreeList = React.forwardRef<TreeListHandle, TreeListProps>((props, 
           onMeasure={(width) => measureNodeWidth(node.id, width)}
           onIconDoubleClick={onNodeIconDoubleClick}
           onHover={onNodeHover}
+          showFullPathOnRename={showFullPathOnRename}
         />
       )
     },
@@ -445,6 +447,7 @@ export const TreeList = React.forwardRef<TreeListHandle, TreeListProps>((props, 
       allowMultiSelect,
       isShiftKeyPressed,
       onNodeIconDoubleClick,
+      showFullPathOnRename,
     ],
   )
 

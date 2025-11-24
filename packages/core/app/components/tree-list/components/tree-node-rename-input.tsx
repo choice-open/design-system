@@ -15,6 +15,11 @@ export interface TreeNodeRenameInputProps {
   contentRef: RefObject<HTMLDivElement>
 
   /**
+   * 完整路径的节点名称数组（从根到当前节点）
+   */
+  fullPath?: string[]
+
+  /**
    * 是否可编辑（可重命名），默认为 true
    */
   isEditable?: boolean
@@ -55,6 +60,12 @@ export interface TreeNodeRenameInputProps {
   renameValue: string
 
   /**
+   * 是否在重命名时显示完整路径
+   * 当为 true 时，输入框会显示完整路径，但只选中最后一部分
+   */
+  showFullPathOnRename?: boolean
+
+  /**
    * 请求外部重新测量节点宽度
    */
   triggerMeasure?: () => void
@@ -72,6 +83,8 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     onRenameValueChange,
     onRename,
     triggerMeasure,
+    showFullPathOnRename = false,
+    fullPath = [],
   } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -86,14 +99,28 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     const scrollLeft = scrollContainer?.scrollLeft ?? 0
 
     inputRef.current.focus()
-    inputRef.current.select()
+
+    // 如果启用完整路径显示，只选中最后一部分（节点名称）
+    if (showFullPathOnRename && fullPath.length > 0) {
+      const fullPathText = fullPath.join("/")
+      // 计算最后一部分（节点名称）的起始位置
+      // 路径格式：parent1/parent2/nodeName
+      // 我们需要找到最后一个 "/" 之后的位置
+      const lastSlashIndex = fullPathText.lastIndexOf("/")
+      const nodeNameStart = lastSlashIndex === -1 ? 0 : lastSlashIndex + 1
+      // 选中最后一部分（节点名称）
+      inputRef.current.setSelectionRange(nodeNameStart, fullPathText.length)
+    } else {
+      // 默认选中全部
+      inputRef.current.select()
+    }
 
     requestAnimationFrame(() => {
       if (scrollContainer && scrollContainer.scrollLeft !== scrollLeft) {
         scrollContainer.scrollLeft = scrollLeft
       }
     })
-  }, [isRenaming])
+  }, [isRenaming, showFullPathOnRename, fullPath, name])
 
   useEffect(() => {
     if (!isRenaming) {
@@ -105,16 +132,38 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     // 如果节点不可编辑，阻止重命名
     if (!isEditable) return
     if (isRenaming) return
-    onRenameValueChange(name)
+
+    // 如果启用完整路径显示，使用完整路径作为初始值
+    if (showFullPathOnRename && fullPath.length > 0) {
+      onRenameValueChange(fullPath.join("/"))
+    } else {
+      onRenameValueChange(name)
+    }
     onRenamingChange(true)
-  }, [isEditable, isRenaming, name, onRenamingChange, onRenameValueChange])
+  }, [
+    isEditable,
+    isRenaming,
+    name,
+    onRenamingChange,
+    onRenameValueChange,
+    showFullPathOnRename,
+    fullPath,
+  ])
 
   const finalizeRename = useCallback(() => {
     if (!isRenaming || hasCommittedRef.current) return
 
     hasCommittedRef.current = true
 
-    const trimmedValue = renameValue.trim()
+    let trimmedValue = renameValue.trim()
+
+    // 如果启用完整路径显示，只提取最后一部分作为新名称
+    if (showFullPathOnRename && fullPath.length > 0) {
+      // 从完整路径中提取最后一部分（节点名称）
+      // 如果用户修改了路径，尝试从修改后的值中提取最后一部分
+      const parts = trimmedValue.split("/")
+      trimmedValue = parts[parts.length - 1] || trimmedValue
+    }
 
     if (trimmedValue !== "" && trimmedValue !== name) {
       onRename?.(trimmedValue)
@@ -139,6 +188,8 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     renameValue,
     triggerMeasure,
     onRenamingChange,
+    showFullPathOnRename,
+    fullPath,
   ])
 
   const cancelRename = useCallback(() => {
@@ -183,6 +234,13 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
     [cancelRename, finalizeRename],
   )
 
+  // 计算显示的输入值
+  const displayValue = isRenaming
+    ? showFullPathOnRename && fullPath.length > 0
+      ? renameValue
+      : renameValue
+    : name
+
   return isRenaming ? (
     <div className="flex w-full items-center px-2">
       <input
@@ -192,7 +250,7 @@ export function TreeNodeRenameInput(props: TreeNodeRenameInputProps) {
           "transition-colors duration-150 ease-in-out",
           "focus-visible:border-selected-boundary focus-visible:outline-none",
         )}
-        value={renameValue}
+        value={displayValue}
         onChange={handleInputChange}
         onBlur={finalizeRename}
         onKeyDown={handleInputKeyDown}

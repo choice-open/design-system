@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useMemo } from "react"
 import { DropPosition, TreeNodeType } from "../types"
 import { getSelectionPosition, isInvalidDropTarget, isLastInParent } from "../utils/node"
+import { getNodePathNames } from "../utils/tree"
 import { TreeNode } from "./tree-node"
 
 interface TreeNodeWrapperProps {
@@ -28,6 +29,7 @@ interface TreeNodeWrapperProps {
   renderLabel?: (node: TreeNodeType) => React.ReactNode
   renderNode?: (node: TreeNodeType) => React.ReactNode
   selectedNodes: TreeNodeType[]
+  showFullPathOnRename?: boolean
   visibleNodes: TreeNodeType[]
 }
 
@@ -61,6 +63,7 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
     renderActions,
     renderLabel,
     selectedNodes,
+    showFullPathOnRename,
     visibleNodes,
   } = props
 
@@ -71,6 +74,12 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
   const selectionPosition = useMemo(
     () => getSelectionPosition(node, visibleNodes, selectedNodes.length),
     [node, visibleNodes, selectedNodes.length],
+  )
+
+  // 获取节点的完整路径名称
+  const nodePathNames = useMemo(
+    () => (showFullPathOnRename ? getNodePathNames(flattenedNodes, node.id) : []),
+    [showFullPathOnRename, flattenedNodes, node.id],
   )
 
   // 判断是否处于多选模式（选中的节点数大于1）
@@ -264,6 +273,8 @@ const TreeNodeWrapperComponent = (props: TreeNodeWrapperProps) => {
       onContextMenu={onContextMenu}
       onMeasure={onMeasure}
       onHover={handleHover}
+      showFullPathOnRename={showFullPathOnRename}
+      fullPath={nodePathNames}
     />
   )
 }

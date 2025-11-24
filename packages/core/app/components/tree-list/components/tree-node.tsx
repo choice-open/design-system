@@ -34,6 +34,8 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
     onMeasure,
     isMultiSelectionActive,
     isCommandKeyPressed,
+    showFullPathOnRename,
+    fullPath,
   } = props
 
   const [isRenaming, setIsRenaming] = useState(false)
@@ -377,6 +379,8 @@ export const TreeNode = forwardRef<HTMLDivElement, TreeNodeProps>((props, ref) =
           onRenameValueChange={setRenameValue}
           onRename={(newName) => onRename?.(node, newName)}
           triggerMeasure={triggerMeasure}
+          showFullPathOnRename={showFullPathOnRename}
+          fullPath={fullPath}
         />
       </div>
     </div>
