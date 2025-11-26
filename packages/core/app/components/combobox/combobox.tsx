@@ -71,11 +71,12 @@ export interface ComboboxProps {
   placement?: Placement
   portalId?: string
   position?: { x: number; y: number } | null
-  readonly?: boolean
+  readOnly?: boolean
   root?: HTMLElement | null
   trigger?: "input" | "coordinate"
   // 新增：明确指定触发器类型
   value?: string
+  variant?: "default" | "light" | "reset"
 }
 
 interface ComboboxComponentType
@@ -103,7 +104,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
     onBlur,
     onOpenChange,
     position,
-    readonly = false,
+    readOnly = false,
     trigger = "input", // 默认为输入模式
     value: controlledValue = "",
     focusManagerProps = {
@@ -111,6 +112,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
       modal: false,
     },
     root,
+    variant = "default",
   } = props
 
   // References - 使用统一的 refs 管理
@@ -150,7 +152,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
 
   // 内部状态更新逻辑
   const updateInputState = useEventCallback((value: string, triggerCallback = true) => {
-    if (readonly) return
+    if (readOnly) return
 
     setInputValue(value)
     const activeIndex = autoSelection ? 0 : null
@@ -191,7 +193,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
 
   // DOM 事件处理器
   const handleInputChange = useEventCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    if (readonly) return
+    if (readOnly) return
     const value = event.target.value
     handleValueChange(value)
   })
@@ -467,11 +469,12 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
       getItemProps,
       setHasFocusInside: () => {},
       isOpen: isControlledOpen,
-      readonly,
+      readOnly,
       selection: false,
       close: handleClose,
+      variant,
     }),
-    [activeIndex, getItemProps, handleClose, isControlledOpen, readonly],
+    [activeIndex, getItemProps, handleClose, isControlledOpen, readOnly, variant],
   )
 
   return (
@@ -499,7 +502,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
               active: isControlledOpen,
               onBlur,
               disabled,
-              readonly,
+              readOnly,
               onClick: handleTriggerClick,
             })}
         </div>
@@ -545,6 +548,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
                       cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth,
+                        variant,
                         ...scrollProps,
                       })}
                   </MenuContext.Provider>

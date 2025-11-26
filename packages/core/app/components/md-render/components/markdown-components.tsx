@@ -88,25 +88,21 @@ export const createMarkdownComponents = (
       </a>
     ),
 
-    code: function CodeComponent({ className, children, node, ...props }) {
+    code: function CodeComponent({ className, children, node }) {
       const isInline =
         !node?.position?.start?.line || node?.position?.start?.line === node?.position?.end?.line
 
       if (isInline) {
-        return (
-          <code
-            className={tv.code()}
-            {...props}
-          >
-            {children}
-          </code>
-        )
+        return <code className={tv.code()}>{children}</code>
       }
 
       const language = extractLanguage(className)
 
       return (
-        <CodeBlock className={tv.codeBlock()}>
+        <CodeBlock
+          className={tv.codeBlock()}
+          lineThreshold={undefined}
+        >
           <CodeBlock.Code
             code={children as string}
             language={language}

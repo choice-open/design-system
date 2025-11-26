@@ -261,14 +261,14 @@ export const WithTooltip: Story = {
 
 /**
  * ### Visual Variants
- * 
+ *
  * Demonstrates different visual variants of the segmented control:
- * 
+ *
  * - **default**: Follows the page theme dynamically (light/dark mode)
  * - **light**: Fixed light appearance regardless of theme
  * - **dark**: Fixed dark appearance regardless of theme
  * - **reset**: Removes variant styling, no variant settings applied
- * 
+ *
  * Each variant maintains full functionality while adapting its visual style
  * to different contexts and themes.
  */
@@ -373,9 +373,9 @@ export const Variants: Story = {
 }
 
 /**
- * Segmented component in readonly state.
+ * Segmented component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The segmented control does not respond to selection changes
  * - The value cannot be changed
  * - Useful for displaying the current selection without allowing changes
@@ -400,7 +400,7 @@ export const Readonly: Story = {
         </div>
 
         <Segmented
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
         >

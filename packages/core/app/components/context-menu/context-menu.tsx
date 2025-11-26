@@ -68,10 +68,11 @@ export interface ContextMenuProps extends HTMLProps<HTMLDivElement> {
   open?: boolean
   placement?: Placement
   portalId?: string
-  readonly?: boolean
+  readOnly?: boolean
   root?: HTMLElement | null
   selection?: boolean
   triggerRef?: React.RefObject<HTMLElement>
+  variant?: "default" | "light" | "reset"
 }
 
 interface ContextMenuTriggerProps extends HTMLProps<HTMLDivElement> {
@@ -135,7 +136,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
     offset: offsetDistance = DEFAULT_OFFSET,
     placement = "bottom-start",
     portalId = PORTAL_ROOT_ID,
-    readonly = false,
+    readOnly = false,
     selection = false,
     open: controlledOpen,
     onOpenChange,
@@ -145,6 +146,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
       modal: false,
     },
     root,
+    variant = "default",
     ...rest
   } = props
 
@@ -436,11 +438,12 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
       getItemProps,
       setHasFocusInside,
       isOpen: isControlledOpen,
-      readonly,
+      readOnly,
       selection,
       close: handleClose,
+      variant,
     }),
-    [activeIndex, getItemProps, handleClose, isControlledOpen, readonly, selection],
+    [activeIndex, getItemProps, handleClose, isControlledOpen, readOnly, selection, variant],
   )
 
   // 创建 ContextMenu 上下文值
@@ -512,6 +515,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
                       {contentElement &&
                         cloneElement(contentElement, {
                           ref: scrollRef,
+                          variant,
                           ...scrollProps,
                           ...rest,
                         })}

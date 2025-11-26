@@ -80,7 +80,7 @@ export const MenuContextSubTrigger = memo(
 
     const handleClick = useEventCallback((event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
-      if (menu.readonly) {
+      if (menu.readOnly) {
         return
       }
 
@@ -90,7 +90,7 @@ export const MenuContextSubTrigger = memo(
 
     const handleMouseUp = useEventCallback((event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
-      if (menu.readonly) {
+      if (menu.readOnly) {
         return
       }
 
@@ -100,7 +100,7 @@ export const MenuContextSubTrigger = memo(
 
     const handlePointerUp = useEventCallback((event: React.PointerEvent<HTMLButtonElement>) => {
       event.stopPropagation()
-      if (menu.readonly) {
+      if (menu.readOnly) {
         return
       }
 

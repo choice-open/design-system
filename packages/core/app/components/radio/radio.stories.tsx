@@ -405,9 +405,9 @@ export const GroupWithDisabledOptions: Story = {
 }
 
 /**
- * RadioGroup component in readonly state.
+ * RadioGroup component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - Radio buttons do not respond to click or keyboard events
  * - The selected value cannot be changed
  * - Useful for displaying radio selection without allowing changes
@@ -432,7 +432,7 @@ export const Readonly: Story = {
         </div>
 
         <RadioGroup
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
         >

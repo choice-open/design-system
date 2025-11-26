@@ -190,7 +190,7 @@ export const Uncontrolled: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the TimeCalendar component in readonly mode.
+ * ReadOnly: Demonstrates the TimeCalendar component in readOnly mode.
  * - Prevents value changes while allowing focus and scrolling
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable time information
@@ -217,7 +217,7 @@ export const ReadOnly: Story = {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <TimeCalendar
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
             format="HH:mm"
@@ -231,7 +231,8 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking time options on the readonly calendar - the value should not change and the change count should remain at 0. Only the normal calendar will change the value.
+          💡 Try clicking time options on the readonly calendar - the value should not change and
+          the change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
     )

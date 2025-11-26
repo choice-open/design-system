@@ -1418,9 +1418,9 @@ export const NestedSubmenuWithLongList: Story = {
 }
 
 /**
- * Dropdown component in readonly state.
+ * Dropdown component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The menu can be opened and closed normally
  * - Clicking on menu items will not execute their onClick handlers
  * - Useful for displaying menu options without allowing actions
@@ -1442,12 +1442,12 @@ export const Readonly: Story = {
         </div>
 
         <Dropdown
-          readonly
+          readOnly
           open={isOpen}
           onOpenChange={setIsOpen}
         >
           <Dropdown.Trigger>
-            <Dropdown.Value>Click to open menu (readonly mode)</Dropdown.Value>
+            <Dropdown.Value>Click to open menu (readOnly mode)</Dropdown.Value>
           </Dropdown.Trigger>
           <Dropdown.Content>
             <Dropdown.Item onClick={handleClick}>
@@ -1471,6 +1471,33 @@ export const Readonly: Story = {
           opened and closed normally.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * Dropdown component in light variant.
+ */
+export const Light: Story = {
+  render: function LightStory() {
+    return (
+      <Dropdown variant="light">
+        <Dropdown.Trigger>
+          <Dropdown.Value>Click to open menu (light mode)</Dropdown.Value>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item>
+            <Dropdown.Value>Copy</Dropdown.Value>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Dropdown.Value>Cut</Dropdown.Value>
+          </Dropdown.Item>
+        </Dropdown.Content>
+        <Dropdown.Divider />
+        <Dropdown.Item variant="danger">
+          <Dropdown.Value>Delete</Dropdown.Value>
+        </Dropdown.Item>
+      </Dropdown>
     )
   },
 }

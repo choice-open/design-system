@@ -155,7 +155,7 @@ export const DifferentCount: Story = {
  * Disabled: Demonstrates the completely disabled state of YearCalendar.
  * - Shows how the entire component appears and behaves when disabled.
  * - Displays proper disabled styling and interaction prevention.
- * - Useful for readonly scenarios or when year selection is not applicable.
+ * - Useful for readOnly scenarios or when year selection is not applicable.
  */
 export const Disabled: Story = {
   args: {
@@ -185,7 +185,7 @@ export const CustomStartYear: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the YearCalendar component in readonly mode.
+ * ReadOnly: Demonstrates the YearCalendar component in readOnly mode.
  * - Prevents value changes while allowing focus and navigation
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable year information
@@ -212,7 +212,7 @@ export const ReadOnly: Story = {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <YearCalendar
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
             currentYear={currentYear}
@@ -224,7 +224,8 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking years on the readonly calendar - the value should not change and the change count should remain at 0. Only the normal calendar will change the value.
+          💡 Try clicking years on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
     )

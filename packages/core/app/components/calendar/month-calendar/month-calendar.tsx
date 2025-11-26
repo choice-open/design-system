@@ -40,7 +40,7 @@ export const MonthCalendar = memo(function MonthCalendar(props: MonthCalendarPro
     minDate,
     onChange,
     onMonthChange,
-    readonly = false,
+    readOnly = false,
     selectionMode: propSelectionMode,
     showOutsideDays = true,
     showWeekNumbers = false,
@@ -304,7 +304,7 @@ export const MonthCalendar = memo(function MonthCalendar(props: MonthCalendarPro
 
   // 日期点击处理
   const handleDateClick = useEventCallback((date: Date) => {
-    if (readonly) return
+    if (readOnly) return
     if (isDateDisabled(date)) return
 
     const flow = dataFlowRef.current

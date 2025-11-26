@@ -54,6 +54,18 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> 
   loading?: boolean
 
   /**
+   * Whether the button is in readOnly state
+   * In readOnly mode, the button will not respond to click events
+   *
+   * @default false
+   * @example
+   * ```tsx
+   * <Button readOnly>Read Only Button</Button>
+   * ```
+   */
+  readOnly?: boolean
+
+  /**
    * Button size variant
    *
    * @default "default"
@@ -75,18 +87,6 @@ export interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> 
    * ```
    */
   tooltip?: TooltipProps
-
-  /**
-   * Whether the button is in readonly state
-   * In readonly mode, the button will not respond to click events
-   *
-   * @default false
-   * @example
-   * ```tsx
-   * <Button readonly>Readonly Button</Button>
-   * ```
-   */
-  readonly?: boolean
 
   /**
    * Visual style variant of the button

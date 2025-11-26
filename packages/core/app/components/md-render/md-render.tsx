@@ -34,13 +34,12 @@ type CodeComponentProps = CodeElementProps & {
 }
 
 const INITIAL_COMPONENTS: InitialComponents = {
-  code: function CodeComponent({ className, children, filename, ...props }: CodeComponentProps) {
+  code: function CodeComponent({ className, children, filename, node }: CodeComponentProps) {
     const isInline =
-      !props.node?.position?.start?.line ||
-      props.node?.position?.start?.line === props.node?.position?.end?.line
+      !node?.position?.start?.line || node?.position?.start?.line === node?.position?.end?.line
 
     if (isInline) {
-      return <code {...props}>{children}</code>
+      return <code className="md-code">{children}</code>
     }
 
     const language = extractLanguage(className)
@@ -50,10 +49,10 @@ const INITIAL_COMPONENTS: InitialComponents = {
       <CodeBlock
         language={language}
         filename={effectiveFilename}
+        lineThreshold={undefined}
       >
         <CodeBlock.Header />
         <CodeBlock.Content code={children as string} />
-        <CodeBlock.Footer />
       </CodeBlock>
     )
   },
@@ -78,7 +77,7 @@ export const MdRender = memo(
     const blockId = id ?? generatedId
     const blocks = useMdBlocks(content)
 
-    const tv = mdRenderTv({ size, variant })
+    const tv = useMemo(() => mdRenderTv({ size, variant }), [size, variant])
 
     const tvComponents = useMemo(
       () => createMarkdownComponents(tv, mentionRenderComponent, mentionItems),

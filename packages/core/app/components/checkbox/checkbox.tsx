@@ -12,7 +12,7 @@ export interface CheckboxProps extends Omit<HTMLProps<HTMLInputElement>, "value"
   focused?: boolean
   mixed?: boolean
   onChange?: (value: boolean) => void
-  readonly?: boolean
+  readOnly?: boolean
   value?: boolean
   variant?: "default" | "accent" | "outline"
 }
@@ -22,7 +22,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
     value,
     onChange,
     disabled,
-    readonly = false,
+    readOnly = false,
     variant = "default",
     className,
     focused,
@@ -46,12 +46,12 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
   })
 
   const handleChange = useEventCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (readonly) return
+    if (readOnly) return
     onChange?.(e.target.checked)
   })
 
   const handleKeyDown = useEventCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (readonly) return
+    if (readOnly) return
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault()
       onChange?.(!value)
@@ -87,12 +87,12 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
             type="checkbox"
             id={id || internalId}
             checked={value}
-            disabled={disabled || readonly}
+            disabled={disabled || readOnly}
             onChange={handleChange}
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedby || descriptionId}
             aria-checked={mixed ? "mixed" : value}
-            aria-disabled={disabled || readonly}
+            aria-disabled={disabled || readOnly}
             role="checkbox"
             onKeyDown={handleKeyDown}
             {...rest}

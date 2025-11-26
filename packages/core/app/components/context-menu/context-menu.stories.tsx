@@ -914,7 +914,7 @@ export const NestedSubmenuWithLongList: Story = {
               Right click for menu with long nested submenu
               <br />
               <span className="text-body-small text-gray-500">
-                Hover over "Long List" to see scrolling submenu
+                Hover over &quot;Long List&quot; to see scrolling submenu
               </span>
             </div>
           </ContextMenu.Trigger>
@@ -975,9 +975,9 @@ export const NestedSubmenuWithLongList: Story = {
 }
 
 /**
- * ContextMenu component in readonly state.
+ * ContextMenu component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The menu can be opened and closed normally
  * - Clicking on menu items will not execute their onClick handlers
  * - Useful for displaying menu options without allowing actions
@@ -997,9 +997,9 @@ export const Readonly: Story = {
           <div className="text-body-small font-mono text-stone-600">{clickCount}</div>
         </div>
 
-        <ContextMenu readonly>
+        <ContextMenu readOnly>
           <ContextMenu.Trigger className="rounded-lg border p-8">
-            Right-click here (readonly mode)
+            Right-click here (readOnly mode)
           </ContextMenu.Trigger>
           <ContextMenu.Content>
             <ContextMenu.Item onClick={handleClick}>
@@ -1019,10 +1019,37 @@ export const Readonly: Story = {
         </ContextMenu>
 
         <div className="text-body-small text-stone-600">
-          💡 Right-click and try clicking on menu items - the click count should not change. The menu
-          can still be opened and closed normally.
+          💡 Right-click and try clicking on menu items - the click count should not change. The
+          menu can still be opened and closed normally.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * ContextMenu component in light variant.
+ */
+export const Light: Story = {
+  render: function LightStory() {
+    return (
+      <ContextMenu variant="light">
+        <ContextMenu.Trigger className="rounded-lg border p-8">
+          <ContextMenu.Value>Right click me for context menu</ContextMenu.Value>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Copy</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Cut</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+        <ContextMenu.Divider />
+        <ContextMenu.Item variant="danger">
+          <ContextMenu.Value>Delete</ContextMenu.Value>
+        </ContextMenu.Item>
+      </ContextMenu>
     )
   },
 }

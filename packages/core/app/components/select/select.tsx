@@ -65,10 +65,11 @@ export interface SelectProps {
   open?: boolean
   placement?: "bottom-start" | "bottom-end"
   portalId?: string
-  readonly?: boolean
+  readOnly?: boolean
   root?: HTMLElement | null
   size?: "default" | "large"
   value?: string | null
+  variant?: "default" | "light" | "reset"
 }
 
 interface SelectComponentType
@@ -102,7 +103,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
     disabled = false,
     portalId = PORTAL_ROOT_ID,
     placement = "bottom-start",
-    readonly = false,
+    readOnly = false,
     children,
     size: sizeProp = "default",
     focusManagerProps = {
@@ -110,6 +111,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
       modal: true,
     },
     root,
+    variant = "default",
   } = props
 
   // 提取子元素 - 从原来的 Select 复制逻辑
@@ -394,7 +396,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
 
   // 处理选择
   const handleSelect = useEventCallback((index: number) => {
-    if (readonly) return
+    if (readOnly) return
 
     if (refs.allowSelect.current) {
       setSelectedIndex(index)
@@ -423,11 +425,12 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
       getItemProps,
       setHasFocusInside,
       isOpen: isControlledOpen,
-      readonly,
+      readOnly,
       selection: true, // Select always has selection
       close: () => handleOpenChange(false),
+      variant,
     }),
-    [activeIndex, setActiveIndex, getItemProps, isControlledOpen, readonly, handleOpenChange],
+    [activeIndex, getItemProps, isControlledOpen, readOnly, variant, handleOpenChange],
   )
 
   // 注册列表项
@@ -590,6 +593,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
                     {cloneElement(contentElement, {
                       ref: refs.scroll,
                       matchTriggerWidth,
+                      variant,
                       ...getFloatingProps({
                         ...scrollProps,
                         onContextMenu(e: React.MouseEvent) {

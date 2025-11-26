@@ -1,32 +1,16 @@
 import { useMemo } from "react"
-import { type SkeletonProps } from "../types"
 
 export interface UseSkeletonParams {
-  animation?: SkeletonProps["animation"]
-  variant?: SkeletonProps["variant"]
   hasChildren: boolean
-  width?: number | string
   height?: number | string
+  width?: number | string
 }
 
 export interface UseSkeletonReturn {
-  shouldShowWave: boolean
-  fitContent: boolean
-  heightAuto: boolean
   styles: React.CSSProperties
 }
 
-export function useSkeleton({
-  animation,
-  variant,
-  hasChildren,
-  width,
-  height,
-}: UseSkeletonParams): UseSkeletonReturn {
-  const shouldShowWave = animation === "wave"
-  const fitContent = hasChildren && !width
-  const heightAuto = hasChildren && !height
-
+export function useSkeleton({ hasChildren, width, height }: UseSkeletonParams): UseSkeletonReturn {
   const styles = useMemo<React.CSSProperties>(() => {
     const result: React.CSSProperties = {}
 
@@ -42,9 +26,6 @@ export function useSkeleton({
   }, [width, height])
 
   return {
-    shouldShowWave,
-    fitContent,
-    heightAuto,
     styles,
   }
 }

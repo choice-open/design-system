@@ -23,7 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     variant = "primary",
     size = "default",
     disabled,
-    readonly = false,
+    readOnly = false,
     active,
     focused,
     loading,
@@ -62,8 +62,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     return props["aria-label"]
   }, [children, props])
 
-  // 在 readonly 模式下阻止 onClick 事件
-  const handleClick = readonly ? undefined : onClick
+  // 在 readOnly 模式下阻止 onClick 事件
+  const handleClick = readOnly ? undefined : onClick
 
   const button = (
     <Button

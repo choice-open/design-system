@@ -651,9 +651,9 @@ export const TupleSentimentNeutralRange: Story = {
 }
 
 /**
- * Range component in readonly state.
+ * Range component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The range slider does not respond to pointer or keyboard events
  * - The value cannot be changed
  * - Useful for displaying range value without allowing changes
@@ -678,7 +678,7 @@ export const Readonly: Story = {
         </div>
 
         <Range
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
           min={0}
@@ -693,8 +693,9 @@ export const Readonly: Story = {
         />
 
         <div className="text-body-small text-stone-600">
-          💡 Try dragging the readonly range slider or using arrow keys - the value should not change
-          and the change count should remain at 0. Only the normal slider will change the value.
+          💡 Try dragging the readonly range slider or using arrow keys - the value should not
+          change and the change count should remain at 0. Only the normal slider will change the
+          value.
         </div>
       </div>
     )
@@ -702,9 +703,9 @@ export const Readonly: Story = {
 }
 
 /**
- * RangeTuple component in readonly state.
+ * RangeTuple component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The range tuple slider does not respond to pointer or keyboard events
  * - The range values cannot be changed
  * - Useful for displaying range values without allowing changes
@@ -732,7 +733,7 @@ export const TupleReadonly: Story = {
 
         <div className="flex items-center gap-4">
           <RangeTuple
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
             min={0}

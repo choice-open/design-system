@@ -13,7 +13,7 @@ export interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "siz
   disabled?: boolean
   focused?: boolean
   loading?: boolean
-  readonly?: boolean
+  readOnly?: boolean
   size?: "default" | "large" | "reset"
   tooltip?: TooltipProps
   variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "dark" | "reset"
@@ -25,7 +25,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       className,
       children,
       disabled,
-      readonly = false,
+      readOnly = false,
       active,
       loading,
       focused,
@@ -48,8 +48,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       size,
     })
 
-    // 在 readonly 模式下阻止 onClick 事件
-    const handleClick = readonly ? undefined : onClick
+    // 在 readOnly 模式下阻止 onClick 事件
+    const handleClick = readOnly ? undefined : onClick
 
     const button = (
       <Button

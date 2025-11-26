@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useRef } from "react"
+import React, { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
 import { ReactEditor } from "slate-react"
 import { useEventCallback } from "usehooks-ts"
 import {
@@ -13,10 +13,12 @@ import {
 } from "./components"
 import { ContextInputEditorContext, useContextInput, useMentions, useSlateEditor } from "./hooks"
 import { contextInputTv } from "./tv"
-import type { ContextInputProps, MentionItem } from "./types"
+import type { ContextInputProps, ContextInputRef, MentionItem } from "./types"
 
 interface ContextInputComponent
-  extends React.ForwardRefExoticComponent<ContextInputProps & React.RefAttributes<HTMLDivElement>> {
+  extends React.ForwardRefExoticComponent<
+    ContextInputProps & React.RefAttributes<ContextInputRef>
+  > {
   CopyButton: typeof CopyButton
   Footer: typeof ContextInputFooter
   Header: typeof ContextInputHeader
@@ -25,12 +27,12 @@ interface ContextInputComponent
 }
 
 // 主要的 ContextInput 组件
-const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function ContextInputBase(
+const ContextInputBase = forwardRef<ContextInputRef, ContextInputProps>(function ContextInputBase(
   {
     value,
     placeholder = "Type someone...",
     disabled = false,
-    readonly = false,
+    readOnly = false,
     maxLength,
     autoFocus = false,
     className,
@@ -63,6 +65,13 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
 
   // MentionMenu ref
   const mentionMenuRef = useRef<MentionMenuRef>(null)
+
+  // 暴露 focus 方法给外部
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      ReactEditor.focus(editor)
+    },
+  }))
 
   const handleFocusClick = useEventCallback(() => {
     ReactEditor.focus(editor)
@@ -105,7 +114,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
   // Context input 状态管理
   const { slateValue, handleChange } = useContextInput({
     value,
-    onChange: readonly ? undefined : onChange,
+    onChange: readOnly ? undefined : onChange,
     editor,
     autoFocus,
   })
@@ -157,7 +166,6 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
       <div className={tv.container({ className })}>
         {header}
         <SlateEditor
-          ref={ref}
           size={size}
           hasHeader={hasHeader}
           hasFooter={hasFooter}
@@ -165,7 +173,7 @@ const ContextInputBase = forwardRef<HTMLDivElement, ContextInputProps>(function 
           slateValue={slateValue}
           placeholder={placeholder}
           disabled={disabled}
-          readonly={readonly}
+          readOnly={readOnly}
           maxLength={maxLength}
           autoFocus={autoFocus}
           variant={variant}

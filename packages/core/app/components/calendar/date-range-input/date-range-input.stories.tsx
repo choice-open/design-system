@@ -463,7 +463,7 @@ export const EdgeCases: Story = {
  * DisabledStates: Demonstrates various disabled state configurations.
  * - Shows individual input field disabling (start only, end only, or both).
  * - Displays how disabled states affect user interaction and visual appearance.
- * - Useful for implementing conditional form controls and readonly scenarios.
+ * - Useful for implementing conditional form controls and readOnly scenarios.
  */
 export const DisabledStates: Story = {
   render: () => (
@@ -503,7 +503,7 @@ export const DisabledStates: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the DateRangeInput component in readonly mode.
+ * ReadOnly: Demonstrates the DateRangeInput component in readOnly mode.
  * - Prevents value changes while allowing focus and selection
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable date range information
@@ -564,7 +564,8 @@ export const ReadOnly: Story = {
           />
         </Panel.Row>
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly date range input - the values should not change and the change count should remain at 0. Only the normal input will change the values.
+          💡 Try changing the readonly date range input - the values should not change and the
+          change count should remain at 0. Only the normal input will change the values.
         </div>
       </div>
     )

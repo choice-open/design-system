@@ -36,7 +36,7 @@ export interface ChipsInputProps
   onChange?: (value: string[]) => void
   onRemove?: (value: string) => void
   placeholder?: string
-  readonly?: boolean
+  readOnly?: boolean
   renderChip?: (props: RenderChipProps) => ReactNode
   size?: "default" | "large"
   value?: string[]
@@ -52,7 +52,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
     onRemove,
     placeholder,
     disabled,
-    readonly = false,
+    readOnly = false,
     size,
     onKeyDown,
     onClick,
@@ -77,8 +77,8 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
 
   const addChip = useCallback(
     (chipToAdd: string) => {
-      if (readonly) return
-      
+      if (readOnly) return
+
       const trimmedChip = chipToAdd.trim()
       if (trimmedChip && (allowDuplicates || !chips.includes(trimmedChip))) {
         const newChips = [...chips, trimmedChip]
@@ -87,13 +87,13 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         setInputValue("")
       }
     },
-    [chips, setChips, onAdd, allowDuplicates, readonly],
+    [chips, setChips, onAdd, allowDuplicates, readOnly],
   )
 
   const removeChip = useCallback(
     (indexToRemove: number) => {
-      if (readonly) return
-      
+      if (readOnly) return
+
       const chipToRemove = chips[indexToRemove]
       const newChips = chips.filter((_chip: string, index: number) => index !== indexToRemove)
       setChips(newChips)
@@ -101,14 +101,14 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         onRemove?.(chipToRemove)
       }
     },
-    [chips, setChips, onRemove, readonly],
+    [chips, setChips, onRemove, readOnly],
   )
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement | HTMLInputElement>) => {
       onKeyDown?.(e as KeyboardEvent<HTMLDivElement>)
 
-      if (readonly) return
+      if (readOnly) return
 
       if (selectedChipIndex !== null && (e.key === "Backspace" || e.key === "Delete")) {
         e.preventDefault()
@@ -131,7 +131,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         }
       }
     },
-    [onKeyDown, selectedChipIndex, chips, removeChip, addChip, isComposing, readonly],
+    [onKeyDown, selectedChipIndex, chips, removeChip, addChip, isComposing, readOnly],
   )
 
   const handleContainerClick = useEventCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -148,7 +148,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
   })
 
   const handleInputBlur = useEventCallback((e: FocusEvent<HTMLInputElement>) => {
-    if (!readonly) {
+    if (!readOnly) {
       // When input loses focus, if there's content, convert it to a chip
       const trimmedValue = inputValue.trim()
       if (trimmedValue) {
@@ -176,7 +176,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
   })
 
   const handleChipRemoveClick = useEventCallback((index: number) => {
-    if (readonly) return
+    if (readOnly) return
     removeChip(index)
   })
 
@@ -231,7 +231,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
             key={`${chip}-${index}`}
             selected={isSelected}
             onClick={() => handleChipClick(index)}
-            onRemove={readonly ? undefined : () => handleChipRemoveClick(index)}
+            onRemove={readOnly ? undefined : () => handleChipRemoveClick(index)}
             size={size === "large" ? "medium" : "default"}
             disabled={disabled}
             className={tcx(tv.chip())}
@@ -245,9 +245,9 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         id={id}
         ref={inputRef}
         className={tcx(tv.input())}
-        disabled={disabled || readonly}
+        disabled={disabled || readOnly}
         onChange={(e) => {
-          if (!readonly) {
+          if (!readOnly) {
             setInputValue(e.target.value)
           }
         }}
@@ -257,7 +257,7 @@ export const ChipsInput = forwardRef<HTMLDivElement, ChipsInputProps>((props, re
         onBlur={handleInputBlur}
         placeholder={chips.length === 0 ? placeholder : ""}
         value={inputValue}
-        readOnly={readonly}
+        readOnly={readOnly}
         style={{
           width: inputWidth,
         }}

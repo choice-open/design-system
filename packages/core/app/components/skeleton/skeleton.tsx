@@ -1,164 +1,97 @@
-import { forwardRef, memo } from "react"
+import { forwardRef, memo, useMemo } from "react"
 import { tcx } from "~/utils"
 import { Slot } from "../slot"
+import { useSkeletonContext } from "./context"
 import { useSkeleton } from "./hooks"
 import { skeletonTv } from "./tv"
-import { type SkeletonProps, type SkeletonSubComponentProps, type SkeletonVariant } from "./types"
+import { type SkeletonProps } from "./types"
 
 /**
  * Skeleton component for loading states
  *
  * @displayName Skeleton
- * @description A loading placeholder that mimics the content it will replace
+ * @description A loading placeholder that mimics the content it will replace.
+ * When children are provided, Skeleton acts as a Slot and passes skeleton styles down.
+ * Use `loading` prop for simple cases, or SkeletonProvider for unified control.
  * @category Feedback
  * @status stable
  * @version 1.0.0
  * @since 1.0.0
  * @see {@link https://design-system.choiceform.io/components/skeleton Skeleton Documentation}
  */
-const SkeletonBase = memo(
+export const Skeleton = memo(
   forwardRef<HTMLSpanElement, SkeletonProps>(function Skeleton(props, ref) {
     const {
-      animation = "pulse",
-      variant = "text",
       width,
       height,
       children,
       className,
       style,
       asChild,
+      loading: loadingProp,
       ...rest
     } = props
 
     const hasChildren = Boolean(children)
+    const skeletonContext = useSkeletonContext()
+    // 优先使用 prop，如果没有则从 Context 获取
+    const loading = loadingProp ?? skeletonContext?.loading ?? false
 
-    const { shouldShowWave, fitContent, heightAuto, styles } = useSkeleton({
-      animation,
-      variant,
+    const { styles: skeletonStyles } = useSkeleton({
       hasChildren,
       width,
       height,
     })
 
-    const tv = skeletonTv({
-      variant,
-      animation,
-      hasChildren,
-      fitContent,
-      heightAuto,
-    })
+    // 使用 useMemo 缓存 tv 计算结果
+    const tv = useMemo(
+      () =>
+        skeletonTv({
+          hasChildren,
+          loading,
+        }),
+      [hasChildren, loading],
+    )
 
+    // 缓存合并后的样式对象
+    const mergedStyle = useMemo(() => {
+      if (!skeletonStyles && !style) return undefined
+      return { ...skeletonStyles, ...style }
+    }, [skeletonStyles, style])
+
+    // 当有 children 时，Skeleton 作为 Slot 向下传递样式（不传递尺寸样式）
+    if (hasChildren) {
+      // 当 loading 为 false 时，不应用任何 skeleton 样式
+      const skeletonClassName = loading ? tv.root() : undefined
+
+      return (
+        <Slot
+          ref={ref}
+          className={tcx(skeletonClassName, className)}
+          style={style}
+          aria-busy={loading ? "true" : undefined}
+          role={loading ? "status" : undefined}
+          {...rest}
+        >
+          {children}
+        </Slot>
+      )
+    }
+
+    // 没有 children 时，作为普通元素或 Slot（当 asChild 为 true 时）
     const Component = asChild ? Slot : "span"
 
     return (
       <Component
         ref={ref}
         className={tcx(tv.root(), className)}
-        style={{ ...styles, ...style }}
-        aria-busy="true"
-        role="status"
+        style={mergedStyle}
+        aria-busy={loading ? "true" : undefined}
+        role={loading ? "status" : undefined}
         {...rest}
-      >
-        {children}
-        {shouldShowWave && (
-          <span
-            className={tcx(tv.wave())}
-            aria-hidden="true"
-          />
-        )}
-      </Component>
+      />
     )
   }),
 )
 
-SkeletonBase.displayName = "Skeleton"
-
-/**
- * Creates a skeleton sub-component with a specific variant
- */
-const createSkeletonSubComponent = (variant: SkeletonVariant) => {
-  const SubComponent = memo(
-    forwardRef<HTMLSpanElement, SkeletonSubComponentProps>(function SkeletonSubComponent(props, ref) {
-      const {
-        animation = "pulse",
-        width,
-        height,
-        className,
-        style,
-        asChild,
-        ...rest
-      } = props
-
-      const hasChildren = false
-
-      const { shouldShowWave, fitContent, heightAuto, styles } = useSkeleton({
-        animation,
-        variant,
-        hasChildren,
-        width,
-        height,
-      })
-
-      const tv = skeletonTv({
-        variant,
-        animation,
-        hasChildren,
-        fitContent,
-        heightAuto,
-      })
-
-      const Component = asChild ? Slot : "span"
-
-      return (
-        <Component
-          ref={ref}
-          className={tcx(tv.root(), className)}
-          style={{ ...styles, ...style }}
-          aria-busy="true"
-          role="status"
-          {...rest}
-        >
-          {shouldShowWave && (
-            <span
-              className={tcx(tv.wave())}
-              aria-hidden="true"
-            />
-          )}
-        </Component>
-      )
-    }),
-  )
-
-  SubComponent.displayName = `Skeleton.${variant.charAt(0).toUpperCase() + variant.slice(1)}`
-  return SubComponent
-}
-
-/**
- * Text skeleton component
- */
-const Text = createSkeletonSubComponent("text")
-
-/**
- * Rectangular skeleton component
- */
-const Rectangular = createSkeletonSubComponent("rectangular")
-
-/**
- * Rounded skeleton component
- */
-const Rounded = createSkeletonSubComponent("rounded")
-
-/**
- * Circular skeleton component
- */
-const Circular = createSkeletonSubComponent("circular")
-
-// Attach sub-components to main component
-const SkeletonWithSubComponents = Object.assign(SkeletonBase, {
-  Text,
-  Rectangular,
-  Rounded,
-  Circular,
-})
-
-export { SkeletonWithSubComponents as Skeleton }
+Skeleton.displayName = "Skeleton"

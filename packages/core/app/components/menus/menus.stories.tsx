@@ -261,3 +261,95 @@ export const NumberInputStory: Story = {
     )
   },
 }
+
+/**
+ * variant: Demonstrates the different variants of the Menus component.
+ * - default: Follows the page theme dynamically (light/dark mode)
+ * - light: Fixed light appearance regardless of theme
+ * - dark: Fixed dark appearance regardless of theme
+ * - reset: Removes variant styling, no variant settings applied
+ */
+export const Variant: Story = {
+  render: function VariantStory() {
+    const [activeDefaultIndex, setActiveDefaultIndex] = useState<number | null>(null)
+    const [activeLightIndex, setActiveLightIndex] = useState<number | null>(null)
+    const [activeDarkIndex, setActiveDarkIndex] = useState<number | null>(null)
+    return (
+      <div className="grid grid-cols-3 gap-2">
+        <Menus variant="default">
+          <Menus.Label>Default</Menus.Label>
+          <Menus.Item
+            active={activeDefaultIndex === 0}
+            onMouseEnter={() => setActiveDefaultIndex(0)}
+            onMouseLeave={() => setActiveDefaultIndex(null)}
+          >
+            Default
+          </Menus.Item>
+          <Menus.Item
+            variant="highlight"
+            active={activeDefaultIndex === 1}
+            onMouseEnter={() => setActiveDefaultIndex(1)}
+            onMouseLeave={() => setActiveDefaultIndex(null)}
+          >
+            Highlight
+          </Menus.Item>
+          <Menus.Item
+            variant="danger"
+            active={activeDefaultIndex === 2}
+            onMouseEnter={() => setActiveDefaultIndex(2)}
+            onMouseLeave={() => setActiveDefaultIndex(null)}
+          >
+            Danger
+          </Menus.Item>
+          <Menus.Divider />
+          <Menus.Item
+            variant="reset"
+            active={activeDefaultIndex === 3}
+            onMouseEnter={() => setActiveDefaultIndex(3)}
+            onMouseLeave={() => setActiveDefaultIndex(null)}
+            disabled
+          >
+            Disabled
+          </Menus.Item>
+        </Menus>
+
+        <Menus variant="light">
+          <Menus.Label>Light</Menus.Label>
+          <Menus.Item
+            active={activeLightIndex === 0}
+            onMouseEnter={() => setActiveLightIndex(0)}
+            onMouseLeave={() => setActiveLightIndex(null)}
+          >
+            Default
+          </Menus.Item>
+          <Menus.Item
+            variant="highlight"
+            active={activeLightIndex === 1}
+            onMouseEnter={() => setActiveLightIndex(1)}
+            onMouseLeave={() => setActiveLightIndex(null)}
+          >
+            Highlight
+          </Menus.Item>
+          <Menus.Item
+            variant="danger"
+            active={activeLightIndex === 2}
+            onMouseEnter={() => setActiveLightIndex(2)}
+            onMouseLeave={() => setActiveLightIndex(null)}
+          >
+            Danger
+          </Menus.Item>
+          <Menus.Divider />
+          <Menus.Item
+            variant="reset"
+            active={activeLightIndex === 3}
+            onMouseEnter={() => setActiveLightIndex(3)}
+            onMouseLeave={() => setActiveLightIndex(null)}
+            disabled
+          >
+            Disabled
+          </Menus.Item>
+        </Menus>
+      </div>
+    )
+  },
+}

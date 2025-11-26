@@ -442,7 +442,7 @@ export const DurationOnly: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the TimeRangeInput component in readonly mode.
+ * ReadOnly: Demonstrates the TimeRangeInput component in readOnly mode.
  * - Prevents value changes while allowing focus and selection
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable time range information
@@ -501,7 +501,8 @@ export const ReadOnly: Story = {
           />
         </Panel.Row>
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly time range input - the values should not change and the change count should remain at 0. Only the normal input will change the values.
+          💡 Try changing the readonly time range input - the values should not change and the
+          change count should remain at 0. Only the normal input will change the values.
         </div>
       </div>
     )

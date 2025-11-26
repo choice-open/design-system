@@ -12,7 +12,7 @@ export interface RadioGroupProps extends Omit<HTMLProps<HTMLDivElement>, "value"
     label: string
     value: string
   }[]
-  readonly?: boolean
+  readOnly?: boolean
   value: string
   variant?: "default" | "accent" | "outline"
 }
@@ -25,8 +25,13 @@ type RadioGroupItemProps = Omit<RadioProps, "value" | "onChange"> & {
 const RadioGroupItem = memo(
   forwardRef<HTMLInputElement, RadioGroupItemProps>(function RadioGroupItem(props, ref) {
     const { value, children, className, disabled, ...rest } = props
-    const { name, value: selectedValue, onChange, variant, readonly: contextReadonly } =
-      useRadioGroupContext()
+    const {
+      name,
+      value: selectedValue,
+      onChange,
+      variant,
+      readOnly: contextReadonly,
+    } = useRadioGroupContext()
     const isChecked = selectedValue === value
 
     const handleChange = useEventCallback(() => {
@@ -39,7 +44,7 @@ const RadioGroupItem = memo(
         name={name}
         value={isChecked}
         disabled={disabled}
-        readonly={contextReadonly}
+        readOnly={contextReadonly}
         variant={variant}
         onChange={handleChange}
         className={className}
@@ -61,7 +66,7 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
     value,
     onChange,
     disabled,
-    readonly = false,
+    readOnly = false,
     variant = "default",
     children,
     ...rest
@@ -69,7 +74,7 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
   const id = useId()
 
   const handleChange = useEventCallback((newValue: string) => {
-    if (readonly) return
+    if (readOnly) return
     onChange(newValue)
   })
 
@@ -79,10 +84,10 @@ const RadioGroupBase = forwardRef<HTMLDivElement, RadioGroupProps>(function Radi
       value,
       onChange: handleChange,
       disabled,
-      readonly,
+      readOnly,
       variant,
     }),
-    [id, value, handleChange, disabled, readonly, variant],
+    [id, value, handleChange, disabled, readOnly, variant],
   )
 
   // 渲染基于选项的单选按钮

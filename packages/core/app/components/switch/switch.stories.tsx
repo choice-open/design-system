@@ -275,9 +275,9 @@ export const WithTooltip: Story = {
 }
 
 /**
- * Switch component in readonly state.
+ * Switch component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The switch does not respond to click or change events
  * - The value cannot be changed
  * - Useful for displaying switch state without allowing changes
@@ -303,14 +303,14 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <Switch
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
           >
             Readonly Switch
           </Switch>
           <Switch
-            readonly
+            readOnly
             value={!value}
             onChange={handleChange}
           >
@@ -325,8 +325,8 @@ export const Readonly: Story = {
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly switches - the value should not change and the change count
-          should remain at 0. Only the normal switch will change the value.
+          💡 Try clicking on the readonly switches - the value should not change and the change
+          count should remain at 0. Only the normal switch will change the value.
         </div>
       </div>
     )

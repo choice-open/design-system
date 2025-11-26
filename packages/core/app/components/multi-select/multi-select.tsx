@@ -60,6 +60,7 @@ const PORTAL_ROOT_ID = "floating-menu-root"
 
 export interface MultiSelectProps {
   children?: React.ReactNode
+  chipVariant?: ChipProps["variant"]
   className?: string
   closeOnSelect?: boolean
   disabled?: boolean
@@ -79,7 +80,7 @@ export interface MultiSelectProps {
   placeholder?: string
   placement?: Placement
   portalId?: string
-  readonly?: boolean
+  readOnly?: boolean
   renderChip?: (props: {
     disabled?: boolean
     displayValue: string
@@ -91,7 +92,7 @@ export interface MultiSelectProps {
   showValidationMessage?: boolean
   size?: "default" | "large"
   values?: string[]
-  variant?: ChipProps["variant"]
+  variant?: "default" | "light" | "reset"
 }
 
 interface MultiSelectComponentType
@@ -136,15 +137,16 @@ const MultiSelectComponent = memo(
       disabled = false,
       portalId = PORTAL_ROOT_ID,
       placement = "bottom-start",
-      readonly = false,
+      readOnly = false,
       children,
       size: sizeProp = "default",
-      variant = "default",
+      chipVariant = "default",
       focusManagerProps = {
         returnFocus: false,
         modal: true,
       },
       root,
+      variant = "default",
     } = props
 
     // 提取子元素
@@ -347,16 +349,16 @@ const MultiSelectComponent = memo(
 
     // 处理选择 - 添加允许选择的检查
     const handleSelect = useEventCallback((index: number) => {
-      if (readonly) return
+      if (readOnly) return
 
       if (allowSelectRef.current) {
         baseHandleSelect(index)
       }
     })
 
-    // 处理移除 - 添加 readonly 检查
+    // 处理移除 - 添加 readOnly 检查
     const handleRemove = useEventCallback((value: string) => {
-      if (readonly) return
+      if (readOnly) return
       baseHandleRemove(value)
     })
 
@@ -412,10 +414,19 @@ const MultiSelectComponent = memo(
         setHasFocusInside,
         isOpen: isControlledOpen,
         selection: true,
-        readonly,
+        readOnly,
+        variant,
         close: () => handleOpenChange(false),
       }),
-      [activeIndex, setActiveIndex, getItemProps, isControlledOpen, readonly, handleOpenChange],
+      [
+        activeIndex,
+        setActiveIndex,
+        getItemProps,
+        isControlledOpen,
+        readOnly,
+        handleOpenChange,
+        variant,
+      ],
     )
 
     // 注册列表项
@@ -506,13 +517,13 @@ const MultiSelectComponent = memo(
         onRemove: handleRemove,
         size: sizeProp,
         disabled,
-        readonly,
+        readOnly,
         open: isControlledOpen,
         getDisplayValue,
         maxChips,
         placeholder,
         renderChip,
-        variant,
+        variant: chipVariant,
         valueDisabledMap,
       })
     }, [
@@ -521,13 +532,13 @@ const MultiSelectComponent = memo(
       handleRemove,
       sizeProp,
       disabled,
-      readonly,
+      readOnly,
       isControlledOpen,
       getDisplayValue,
       maxChips,
       placeholder,
       renderChip,
-      variant,
+      chipVariant,
       valueDisabledMap,
     ])
 
@@ -591,6 +602,7 @@ const MultiSelectComponent = memo(
                       {cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth,
+                        variant,
                         ...scrollProps,
                         children: (
                           <FloatingList

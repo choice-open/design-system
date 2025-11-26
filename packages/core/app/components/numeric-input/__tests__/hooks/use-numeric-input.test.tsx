@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event"
 import "@testing-library/jest-dom"
 import { act } from "react-dom/test-utils"
 import { useNumericInput } from "../../hooks/use-numeric-input"
+import { NumericInputValue } from "../../types"
 
 // Test component using the hook
 function TestComponent({
@@ -22,7 +23,7 @@ function TestComponent({
   decimal?: number
   disabled?: boolean
   expression?: string
-  initialValue?: any
+  initialValue?: NumericInputValue
   max?: number
   min?: number
   onChange?: jest.Mock
@@ -341,7 +342,7 @@ describe("useNumericInput", () => {
     it("applies readOnly state", () => {
       render(<TestComponent readOnly />)
       const input = screen.getByTestId("input")
-      expect(input).toHaveAttribute("readonly")
+      expect(input).toHaveAttribute("readOnly")
     })
 
     it("prevents interaction when disabled", async () => {

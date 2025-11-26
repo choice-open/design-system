@@ -58,7 +58,7 @@ export interface ContextInputProps {
   onMentionSelect?: (mention: MentionItem, trigger: string) => void
   placeholder?: string
 
-  readonly?: boolean
+  readOnly?: boolean
   // 渲染自定义
   renderMention?: (mention: MentionMatch) => React.ReactNode
   renderSuggestion?: (item: MentionItem, isSelected: boolean) => React.ReactNode
@@ -92,4 +92,8 @@ export type ContextInputElement = ContextMentionElement | ContextParagraphElemen
 
 export interface ContextInputText {
   text: string
+}
+
+export interface ContextInputRef {
+  focus: () => void
 }

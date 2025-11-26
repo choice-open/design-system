@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
+import { useStickToBottom } from "use-stick-to-bottom"
 import { CodeBlock } from "."
+import { ScrollArea } from "../scroll-area"
+import { mergeRefs } from "../../utils"
 
 const meta = {
   title: "Components/CodeBlock",
@@ -708,6 +711,313 @@ function TodoItem({ todo, onToggle }) {
             <CodeBlock.Footer />
           </CodeBlock>
         </div>
+      </div>
+    )
+  },
+}
+
+const streamingCodeExamples = [
+  {
+    language: "typescript",
+    filename: "utils.ts",
+    code: `export function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}`,
+  },
+  {
+    language: "tsx",
+    filename: "Button.tsx",
+    code: `import React from 'react'
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary'
+  children: React.ReactNode
+  onClick?: () => void
+}
+
+export function Button({ variant = 'primary', children, onClick }: ButtonProps) {
+  return (
+    <button
+      className={\`btn btn-\${variant}\`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+}`,
+  },
+  {
+    language: "css",
+    filename: "styles.css",
+    code: `.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #1f2937;
+}`,
+  },
+  {
+    language: "json",
+    filename: "package.json",
+    code: `{
+  "name": "my-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}`,
+  },
+  {
+    language: "python",
+    filename: "main.py",
+    code: `def fibonacci(n: int) -> list[int]:
+    """Generate fibonacci sequence up to n numbers."""
+    if n <= 0:
+        return []
+    if n == 1:
+        return [0]
+    
+    sequence = [0, 1]
+    while len(sequence) < n:
+        sequence.append(sequence[-1] + sequence[-2])
+    return sequence
+
+if __name__ == "__main__":
+    print(fibonacci(10))`,
+  },
+]
+
+/**
+ * Streaming code blocks simulation with auto-scroll to bottom.
+ * Uses useStickToBottom hook to keep scroll position at bottom as new code blocks appear.
+ * Click "Add Code Block" to simulate streaming new content.
+ */
+export const StreamingWithAutoScroll: Story = {
+  render: function StreamingWithAutoScrollRender() {
+    const [blocks, setBlocks] = useState<typeof streamingCodeExamples>([])
+    const [isStreaming, setIsStreaming] = useState(false)
+    const streamIndexRef = useRef(0)
+
+    const { scrollRef, contentRef, isAtBottom, scrollToBottom } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
+
+    const addBlock = () => {
+      const nextBlock = streamingCodeExamples[streamIndexRef.current % streamingCodeExamples.length]
+      setBlocks((prev) => [...prev, nextBlock])
+      streamIndexRef.current++
+    }
+
+    const startStreaming = () => {
+      if (isStreaming) return
+      setIsStreaming(true)
+
+      const interval = setInterval(() => {
+        addBlock()
+        if (streamIndexRef.current >= streamingCodeExamples.length * 2) {
+          clearInterval(interval)
+          setIsStreaming(false)
+        }
+      }, 1500)
+    }
+
+    const reset = () => {
+      setBlocks([])
+      streamIndexRef.current = 0
+      setIsStreaming(false)
+    }
+
+    return (
+      <div className="flex h-[600px] w-[600px] flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={addBlock}
+            disabled={isStreaming}
+            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
+          >
+            Add Code Block
+          </button>
+          <button
+            onClick={startStreaming}
+            disabled={isStreaming}
+            className="rounded bg-green-500 px-3 py-1.5 text-sm text-white hover:bg-green-600 disabled:opacity-50"
+          >
+            {isStreaming ? "Streaming..." : "Auto Stream"}
+          </button>
+          <button
+            onClick={reset}
+            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+          >
+            Reset
+          </button>
+          {!isAtBottom && (
+            <button
+              onClick={() => scrollToBottom()}
+              className="rounded bg-orange-500 px-3 py-1.5 text-sm text-white hover:bg-orange-600"
+            >
+              Scroll to Bottom
+            </button>
+          )}
+        </div>
+
+        <div className="text-body-small text-fg-subtle">
+          Blocks: {blocks.length} | At bottom: {isAtBottom ? "Yes" : "No"}
+        </div>
+
+        <ScrollArea className="flex-1 rounded-lg border">
+          <ScrollArea.Viewport ref={scrollRef}>
+            <ScrollArea.Content
+              ref={contentRef}
+              className="flex flex-col gap-4 p-4"
+            >
+              {blocks.length === 0 ? (
+                <div className="text-body-small text-fg-subtle py-8 text-center">
+                  Click &quot;Add Code Block&quot; or &quot;Auto Stream&quot; to start
+                </div>
+              ) : (
+                blocks.map((block, index) => (
+                  <CodeBlock
+                    key={index}
+                    language={block.language}
+                    filename={block.filename}
+                  >
+                    <CodeBlock.Header />
+                    <CodeBlock.Content code={block.code} />
+                  </CodeBlock>
+                ))
+              )}
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
+      </div>
+    )
+  },
+}
+
+/**
+ * Simulates character-by-character streaming of code content.
+ * Content appears gradually like AI-generated code output.
+ */
+export const CharacterStreaming: Story = {
+  render: function CharacterStreamingRender() {
+    const [streamedCode, setStreamedCode] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
+
+    const fullCode = `import { useState, useEffect } from 'react'
+
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+export function useUser(userId: string) {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        setLoading(true)
+        const response = await fetch(\`/api/users/\${userId}\`)
+        if (!response.ok) throw new Error('Failed to fetch')
+        const data = await response.json()
+        setUser(data)
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Unknown error'))
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUser()
+  }, [userId])
+
+  return { user, loading, error }
+}`
+
+    const { scrollRef, contentRef } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
+
+    const startCharacterStream = () => {
+      if (isStreaming) return
+      setIsStreaming(true)
+      setStreamedCode("")
+
+      let index = 0
+      const interval = setInterval(() => {
+        if (index < fullCode.length) {
+          const chunkSize = Math.floor(Math.random() * 5) + 1
+          setStreamedCode(fullCode.slice(0, index + chunkSize))
+          index += chunkSize
+        } else {
+          clearInterval(interval)
+          setIsStreaming(false)
+        }
+      }, 20)
+    }
+
+    const reset = () => {
+      setStreamedCode("")
+      setIsStreaming(false)
+    }
+
+    return (
+      <div className="flex h-[500px] w-[600px] flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={startCharacterStream}
+            disabled={isStreaming}
+            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
+          >
+            {isStreaming ? "Streaming..." : "Start Stream"}
+          </button>
+          <button
+            onClick={reset}
+            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+          >
+            Reset
+          </button>
+        </div>
+
+        <ScrollArea className="flex-1 rounded-lg border">
+          <ScrollArea.Viewport ref={scrollRef}>
+            <ScrollArea.Content
+              ref={contentRef}
+              className="p-4"
+            >
+              <CodeBlock
+                language="typescript"
+                filename="useUser.ts"
+              >
+                <CodeBlock.Header />
+                <CodeBlock.Content
+                  code={streamedCode || "// Code will appear here..."}
+                  withScrollArea={false}
+                />
+              </CodeBlock>
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </div>
     )
   },

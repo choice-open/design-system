@@ -11,7 +11,7 @@ export interface RadioProps extends Omit<HTMLProps<HTMLInputElement>, "value" | 
   className?: string
   focused?: boolean
   onChange: (value: boolean) => void
-  readonly?: boolean
+  readOnly?: boolean
   value: boolean
   variant?: "default" | "accent" | "outline"
 }
@@ -21,7 +21,7 @@ const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props,
     value,
     onChange,
     disabled,
-    readonly = false,
+    readOnly = false,
     name,
     variant = "default",
     className,
@@ -44,12 +44,12 @@ const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props,
   })
 
   const handleChange = useEventCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (readonly) return
+    if (readOnly) return
     onChange(e.target.checked)
   })
 
   const handleKeyDown = useEventCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (readonly) return
+    if (readOnly) return
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault()
       onChange(!value)
@@ -76,12 +76,12 @@ const RadioBase = forwardRef<HTMLInputElement, RadioProps>(function Radio(props,
             id={id}
             name={name}
             checked={value}
-            disabled={disabled || readonly}
+            disabled={disabled || readOnly}
             onChange={handleChange}
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedby || descriptionId}
             aria-checked={value}
-            aria-disabled={disabled || readonly}
+            aria-disabled={disabled || readOnly}
             role="radio"
             onKeyDown={handleKeyDown}
             {...rest}

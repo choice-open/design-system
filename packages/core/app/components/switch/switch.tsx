@@ -22,7 +22,7 @@ export interface SwitchProps
   focused?: boolean
   label?: string
   onChange: (value: boolean) => void
-  readonly?: boolean
+  readOnly?: boolean
   size?: "small" | "medium"
   value: boolean
   variant?: "default" | "accent" | "outline" // 保持向后兼容性
@@ -65,7 +65,7 @@ const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(function Switch(pro
     label,
     children,
     disabled,
-    readonly = false,
+    readOnly = false,
     size = "medium",
     variant = "default",
     className,
@@ -119,15 +119,15 @@ const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(function Switch(pro
         type="checkbox"
         id={props.id || internalId}
         checked={value}
-        disabled={disabled || readonly}
+        disabled={disabled || readOnly}
         onChange={(e) => {
-          if (readonly) return
+          if (readOnly) return
           onChange(e.target.checked)
         }}
         aria-label={ariaLabel || (typeof children === "string" ? children : label?.toString())}
         aria-describedby={ariaDescribedby || (hasLabel ? descriptionId : undefined)}
         aria-checked={value}
-        aria-disabled={disabled || readonly}
+        aria-disabled={disabled || readOnly}
         {...rest}
       />
       <div

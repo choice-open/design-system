@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React from "react"
+import React, { useRef, useState } from "react"
+import { useStickToBottom } from "use-stick-to-bottom"
 import { MdRender } from "./md-render"
 import { Avatar } from "../avatar"
+import { ScrollArea } from "../scroll-area"
 import { Tooltip } from "../tooltip"
 import type { MentionRenderProps } from "./types"
 import { useDarkMode } from "@vueless/storybook-dark-mode"
@@ -1458,6 +1460,865 @@ export const GithubVariant: Story = {
             variant="github"
           />
         </div>
+      </div>
+    )
+  },
+}
+
+const streamingMarkdownChunks = [
+  `# Getting Started
+
+Welcome to our documentation! Let's begin with the basics.`,
+
+  `
+
+## Installation
+
+First, install the package using your preferred package manager:
+
+\`\`\`bash
+npm install @choiceform/design-system
+\`\`\``,
+
+  `
+
+## Quick Start
+
+Here's a simple example to get you started:
+
+\`\`\`typescript
+import { Button } from '@choiceform/design-system'
+
+export function App() {
+  return <Button>Click me</Button>
+}
+\`\`\``,
+
+  `
+
+## Features
+
+Our design system includes:
+
+- ✅ 50+ components
+- ✅ Full TypeScript support
+- ✅ Dark mode built-in
+- ✅ Accessible by default`,
+
+  `
+
+## Component Overview
+
+| Component | Status | Description |
+|-----------|--------|-------------|
+| Button | Stable | Primary action component |
+| Input | Stable | Text input field |
+| Modal | Beta | Dialog overlay |
+| Table | Alpha | Data display |`,
+
+  `
+
+## Code Examples
+
+### React Component
+
+\`\`\`tsx
+import React, { useState } from 'react'
+import { Button, Input } from '@choiceform/design-system'
+
+export function LoginForm() {
+  const [email, setEmail] = useState('')
+  
+  return (
+    <form>
+      <Input
+        label="Email"
+        value={email}
+        onChange={setEmail}
+      />
+      <Button type="submit">
+        Login
+      </Button>
+    </form>
+  )
+}
+\`\`\``,
+
+  `
+
+### Styling with Tailwind
+
+\`\`\`css
+.custom-button {
+  @apply px-4 py-2 rounded-lg;
+  @apply bg-blue-500 text-white;
+  @apply hover:bg-blue-600;
+  @apply transition-colors;
+}
+\`\`\``,
+
+  `
+
+## Best Practices
+
+> **Note:** Always follow accessibility guidelines when building your UI.
+
+1. Use semantic HTML elements
+2. Provide proper ARIA labels
+3. Ensure keyboard navigation
+4. Test with screen readers`,
+
+  `
+
+## Conclusion
+
+That's it! You're now ready to build amazing user interfaces.
+
+**Happy coding!** 🚀`,
+]
+
+/**
+ * Streaming Markdown: Simulates AI-generated markdown content with auto-scroll.
+ * - Uses useStickToBottom hook to keep scroll at bottom
+ * - Content appears chunk by chunk like streaming responses
+ * - Demonstrates how markdown renders progressively
+ */
+export const StreamingMarkdown: Story = {
+  render: function StreamingMarkdownRender() {
+    const [content, setContent] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
+    const chunkIndexRef = useRef(0)
+
+    const { scrollRef, contentRef, isAtBottom, scrollToBottom } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
+
+    const addChunk = () => {
+      if (chunkIndexRef.current < streamingMarkdownChunks.length) {
+        setContent((prev) => prev + streamingMarkdownChunks[chunkIndexRef.current])
+        chunkIndexRef.current++
+      }
+    }
+
+    const startStreaming = () => {
+      if (isStreaming) return
+      setIsStreaming(true)
+
+      const interval = setInterval(() => {
+        if (chunkIndexRef.current < streamingMarkdownChunks.length) {
+          addChunk()
+        } else {
+          clearInterval(interval)
+          setIsStreaming(false)
+        }
+      }, 800)
+    }
+
+    const reset = () => {
+      setContent("")
+      chunkIndexRef.current = 0
+      setIsStreaming(false)
+    }
+
+    return (
+      <div className="flex h-[600px] w-[700px] flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={addChunk}
+            disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
+            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
+          >
+            Add Chunk
+          </button>
+          <button
+            onClick={startStreaming}
+            disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
+            className="rounded bg-green-500 px-3 py-1.5 text-sm text-white hover:bg-green-600 disabled:opacity-50"
+          >
+            {isStreaming ? "Streaming..." : "Auto Stream"}
+          </button>
+          <button
+            onClick={reset}
+            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+          >
+            Reset
+          </button>
+          {!isAtBottom && (
+            <button
+              onClick={() => scrollToBottom()}
+              className="rounded bg-orange-500 px-3 py-1.5 text-sm text-white hover:bg-orange-600"
+            >
+              Scroll to Bottom
+            </button>
+          )}
+        </div>
+
+        <div className="text-body-small text-fg-subtle">
+          Chunks: {chunkIndexRef.current}/{streamingMarkdownChunks.length} | At bottom:{" "}
+          {isAtBottom ? "Yes" : "No"}
+        </div>
+
+        <ScrollArea className="flex-1 rounded-lg border">
+          <ScrollArea.Viewport ref={scrollRef}>
+            <ScrollArea.Content
+              ref={contentRef}
+              className="w-full min-w-0 p-4"
+            >
+              {content ? (
+                <MdRender content={content} />
+              ) : (
+                <div className="text-body-small text-fg-subtle py-8 text-center">
+                  Click &quot;Add Chunk&quot; or &quot;Auto Stream&quot; to start
+                </div>
+              )}
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
+      </div>
+    )
+  },
+}
+
+/**
+ * Character-by-character streaming markdown simulation.
+ * - Content appears gradually like typing effect
+ * - Auto-scroll follows the content
+ * - Demonstrates real-time markdown parsing
+ */
+export const CharacterStreamingMarkdown: Story = {
+  render: function CharacterStreamingMarkdownRender() {
+    const [streamedContent, setStreamedContent] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
+
+    const fullContent = `# Welcome to the Design System
+
+This is a **streaming demonstration** that shows how markdown content can be rendered progressively with multiple long code blocks.
+
+## React Hook Example
+
+Here's a comprehensive custom hook implementation:
+
+\`\`\`typescript
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+
+interface FetchState<T> {
+  data: T | null
+  loading: boolean
+  error: Error | null
+  refetch: () => Promise<void>
+}
+
+interface FetchOptions<T> {
+  url: string
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  body?: Record<string, unknown>
+  headers?: Record<string, string>
+  transform?: (data: unknown) => T
+  onSuccess?: (data: T) => void
+  onError?: (error: Error) => void
+  enabled?: boolean
+  refetchInterval?: number
+  retryCount?: number
+  retryDelay?: number
+}
+
+export function useFetch<T>(options: FetchOptions<T>): FetchState<T> {
+  const {
+    url,
+    method = 'GET',
+    body,
+    headers = {},
+    transform,
+    onSuccess,
+    onError,
+    enabled = true,
+    refetchInterval,
+    retryCount = 3,
+    retryDelay = 1000,
+  } = options
+
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const retryCountRef = useRef(0)
+  const abortControllerRef = useRef<AbortController | null>(null)
+
+  const fetchData = useCallback(async () => {
+    if (!enabled) return
+
+    // Cancel previous request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    abortControllerRef.current = new AbortController()
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          ...headers,
+        },
+        body: body ? JSON.stringify(body) : undefined,
+        signal: abortControllerRef.current.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(\`HTTP error! status: \${response.status}\`)
+      }
+
+      const rawData = await response.json()
+      const transformedData = transform ? transform(rawData) : rawData as T
+
+      setData(transformedData)
+      onSuccess?.(transformedData)
+      retryCountRef.current = 0
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return // Ignore abort errors
+      }
+
+      const error = err instanceof Error ? err : new Error('Unknown error')
+
+      if (retryCountRef.current < retryCount) {
+        retryCountRef.current++
+        setTimeout(fetchData, retryDelay * retryCountRef.current)
+        return
+      }
+
+      setError(error)
+      onError?.(error)
+    } finally {
+      setLoading(false)
+    }
+  }, [url, method, body, headers, transform, onSuccess, onError, enabled, retryCount, retryDelay])
+
+  useEffect(() => {
+    fetchData()
+
+    return () => {
+      abortControllerRef.current?.abort()
+    }
+  }, [fetchData])
+
+  useEffect(() => {
+    if (!refetchInterval || !enabled) return
+
+    const intervalId = setInterval(fetchData, refetchInterval)
+    return () => clearInterval(intervalId)
+  }, [fetchData, refetchInterval, enabled])
+
+  const memoizedState = useMemo(() => ({
+    data,
+    loading,
+    error,
+    refetch: fetchData,
+  }), [data, loading, error, fetchData])
+
+  return memoizedState
+}
+\`\`\`
+
+## React Component Example
+
+A complex form component with validation:
+
+\`\`\`tsx
+import React, { useState, useCallback, useEffect, FormEvent } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+interface FormField {
+  name: string
+  type: 'text' | 'email' | 'password' | 'number' | 'textarea'
+  label: string
+  placeholder?: string
+  required?: boolean
+  minLength?: number
+  maxLength?: number
+  pattern?: RegExp
+  errorMessage?: string
+}
+
+interface DynamicFormProps {
+  fields: FormField[]
+  onSubmit: (data: Record<string, string>) => Promise<void>
+  submitText?: string
+  className?: string
+}
+
+export function DynamicForm({
+  fields,
+  onSubmit,
+  submitText = 'Submit',
+  className,
+}: DynamicFormProps) {
+  const [formData, setFormData] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
+
+  // Initialize form data
+  useEffect(() => {
+    const initialData: Record<string, string> = {}
+    fields.forEach(field => {
+      initialData[field.name] = ''
+    })
+    setFormData(initialData)
+  }, [fields])
+
+  const validateField = useCallback((field: FormField, value: string): string | null => {
+    if (field.required && !value.trim()) {
+      return field.errorMessage || \`\${field.label} is required\`
+    }
+
+    if (field.minLength && value.length < field.minLength) {
+      return \`\${field.label} must be at least \${field.minLength} characters\`
+    }
+
+    if (field.maxLength && value.length > field.maxLength) {
+      return \`\${field.label} must be no more than \${field.maxLength} characters\`
+    }
+
+    if (field.pattern && !field.pattern.test(value)) {
+      return field.errorMessage || \`\${field.label} format is invalid\`
+    }
+
+    if (field.type === 'email' && value) {
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
+      if (!emailRegex.test(value)) {
+        return 'Please enter a valid email address'
+      }
+    }
+
+    return null
+  }, [])
+
+  const handleChange = useCallback((name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }))
+
+    const field = fields.find(f => f.name === name)
+    if (field && touched[name]) {
+      const error = validateField(field, value)
+      setErrors(prev => ({ ...prev, [name]: error || '' }))
+    }
+  }, [fields, touched, validateField])
+
+  const handleBlur = useCallback((name: string) => {
+    setTouched(prev => ({ ...prev, [name]: true }))
+
+    const field = fields.find(f => f.name === name)
+    if (field) {
+      const value = formData[name] || ''
+      const error = validateField(field, value)
+      setErrors(prev => ({ ...prev, [name]: error || '' }))
+    }
+  }, [fields, formData, validateField])
+
+  const handleSubmit = useCallback(async (e: FormEvent) => {
+    e.preventDefault()
+    setSubmitError(null)
+    setSubmitSuccess(false)
+
+    // Validate all fields
+    const newErrors: Record<string, string> = {}
+    let hasErrors = false
+
+    fields.forEach(field => {
+      const error = validateField(field, formData[field.name] || '')
+      if (error) {
+        newErrors[field.name] = error
+        hasErrors = true
+      }
+    })
+
+    setErrors(newErrors)
+    setTouched(Object.fromEntries(fields.map(f => [f.name, true])))
+
+    if (hasErrors) return
+
+    setIsSubmitting(true)
+
+    try {
+      await onSubmit(formData)
+      setSubmitSuccess(true)
+      // Reset form
+      const resetData: Record<string, string> = {}
+      fields.forEach(field => {
+        resetData[field.name] = ''
+      })
+      setFormData(resetData)
+      setTouched({})
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Submission failed')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [fields, formData, onSubmit, validateField])
+
+  return (
+    <form onSubmit={handleSubmit} className={className}>
+      <AnimatePresence>
+        {fields.map((field, index) => (
+          <motion.div
+            key={field.name}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="mb-4"
+          >
+            <label className="block text-sm font-medium mb-1">
+              {field.label}
+              {field.required && <span className="text-red-500 ml-1">*</span>}
+            </label>
+            {field.type === 'textarea' ? (
+              <textarea
+                name={field.name}
+                value={formData[field.name] || ''}
+                onChange={e => handleChange(field.name, e.target.value)}
+                onBlur={() => handleBlur(field.name)}
+                placeholder={field.placeholder}
+                className="w-full px-3 py-2 border rounded-md"
+                rows={4}
+              />
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                value={formData[field.name] || ''}
+                onChange={e => handleChange(field.name, e.target.value)}
+                onBlur={() => handleBlur(field.name)}
+                placeholder={field.placeholder}
+                className="w-full px-3 py-2 border rounded-md"
+              />
+            )}
+            {touched[field.name] && errors[field.name] && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-red-500 text-sm mt-1"
+              >
+                {errors[field.name]}
+              </motion.p>
+            )}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {submitError && (
+        <div className="text-red-500 mb-4">{submitError}</div>
+      )}
+
+      {submitSuccess && (
+        <div className="text-green-500 mb-4">Form submitted successfully!</div>
+      )}
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full py-2 px-4 bg-blue-500 text-white rounded-md"
+      >
+        {isSubmitting ? 'Submitting...' : submitText}
+      </button>
+    </form>
+  )
+}
+\`\`\`
+
+## Python Backend Example
+
+A FastAPI server implementation:
+
+\`\`\`python
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field, validator
+from typing import Optional, List, Dict, Any
+from datetime import datetime, timedelta
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import asyncio
+import logging
+import uuid
+
+# Database setup
+DATABASE_URL = "postgresql://user:password@localhost/dbname"
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Models
+class UserModel(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = Column(String, unique=True, index=True, nullable=False)
+    username = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+# Pydantic schemas
+class UserCreate(BaseModel):
+    email: str
+    username: str
+    password: str
+
+    @validator('email')
+    def validate_email(cls, v):
+        if '@' not in v:
+            raise ValueError('Invalid email format')
+        return v.lower()
+
+    @validator('password')
+    def validate_password(cls, v):
+        if len(v) < 8:
+            raise ValueError('Password must be at least 8 characters')
+        return v
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    username: str
+    is_active: bool
+    is_verified: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class UserUpdate(BaseModel):
+    email: Optional[str] = None
+    username: Optional[str] = None
+
+# App setup
+app = FastAPI(
+    title="User Management API",
+    description="A comprehensive user management system",
+    version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Dependencies
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# Background tasks
+async def send_verification_email(email: str, token: str):
+    logger.info(f"Sending verification email to {email}")
+    await asyncio.sleep(2)  # Simulate email sending
+    logger.info(f"Verification email sent to {email}")
+
+async def log_user_activity(user_id: str, action: str):
+    logger.info(f"User {user_id} performed action: {action}")
+
+# Routes
+@app.post("/users/", response_model=UserResponse, status_code=201)
+async def create_user(
+    user: UserCreate,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    # Check if user exists
+    existing_user = db.query(UserModel).filter(
+        (UserModel.email == user.email) | (UserModel.username == user.username)
+    ).first()
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+
+    # Create user
+    db_user = UserModel(
+        email=user.email,
+        username=user.username,
+        hashed_password=hash_password(user.password),
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+
+    # Send verification email in background
+    verification_token = generate_token()
+    background_tasks.add_task(send_verification_email, user.email, verification_token)
+    background_tasks.add_task(log_user_activity, db_user.id, "account_created")
+
+    return db_user
+
+@app.get("/users/", response_model=List[UserResponse])
+async def list_users(
+    skip: int = 0,
+    limit: int = 100,
+    is_active: Optional[bool] = None,
+    db: Session = Depends(get_db)
+):
+    query = db.query(UserModel)
+
+    if is_active is not None:
+        query = query.filter(UserModel.is_active == is_active)
+
+    users = query.offset(skip).limit(limit).all()
+    return users
+
+@app.get("/users/{user_id}", response_model=UserResponse)
+async def get_user(user_id: str, db: Session = Depends(get_db)):
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return user
+
+@app.put("/users/{user_id}", response_model=UserResponse)
+async def update_user(
+    user_id: str,
+    user_update: UserUpdate,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    update_data = user_update.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(user, field, value)
+
+    db.commit()
+    db.refresh(user)
+
+    background_tasks.add_task(log_user_activity, user_id, "profile_updated")
+
+    return user
+
+@app.delete("/users/{user_id}", status_code=204)
+async def delete_user(
+    user_id: str,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    db.delete(user)
+    db.commit()
+
+    background_tasks.add_task(log_user_activity, user_id, "account_deleted")
+
+def hash_password(password: str) -> str:
+    import hashlib
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def generate_token() -> str:
+    return str(uuid.uuid4())
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+\`\`\`
+
+## Summary
+
+> This demonstrates how the MdRender component handles streaming content with multiple long code blocks.
+
+| Feature | Status |
+|---------|--------|
+| Streaming | ✅ |
+| Auto-scroll | ✅ |
+| Multiple code blocks | ✅ |
+| Syntax highlighting | ✅ |
+| Long content | ✅ |
+
+**Testing complete!**`
+
+    const { scrollRef, contentRef } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
+
+    const startCharacterStream = () => {
+      if (isStreaming) return
+      setIsStreaming(true)
+      setStreamedContent("")
+
+      let index = 0
+      const interval = setInterval(() => {
+        if (index < fullContent.length) {
+          const chunkSize = Math.floor(Math.random() * 8) + 2
+          setStreamedContent(fullContent.slice(0, index + chunkSize))
+          index += chunkSize
+        } else {
+          clearInterval(interval)
+          setIsStreaming(false)
+        }
+      }, 15)
+    }
+
+    const reset = () => {
+      setStreamedContent("")
+      setIsStreaming(false)
+    }
+
+    return (
+      <div className="flex h-[500px] w-[600px] flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={startCharacterStream}
+            disabled={isStreaming}
+            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
+          >
+            {isStreaming ? "Streaming..." : "Start Stream"}
+          </button>
+          <button
+            onClick={reset}
+            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+          >
+            Reset
+          </button>
+        </div>
+
+        <ScrollArea className="flex-1 rounded-lg border">
+          <ScrollArea.Viewport ref={scrollRef}>
+            <ScrollArea.Content
+              ref={contentRef}
+              className="w-full min-w-0 p-4"
+            >
+              {streamedContent ? (
+                <MdRender content={streamedContent} />
+              ) : (
+                <div className="text-body-small text-fg-subtle py-8 text-center">
+                  Click &quot;Start Stream&quot; to begin character-by-character streaming
+                </div>
+              )}
+            </ScrollArea.Content>
+          </ScrollArea.Viewport>
+        </ScrollArea>
       </div>
     )
   },

@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react"
 import { codeToHtml } from "shiki"
-import { tcv } from "~/utils"
+import { tcv, tcx } from "~/utils"
 import { useTheme } from "../hooks"
 import type { CodeBlockCodeProps } from "../types"
 
@@ -9,7 +9,16 @@ const codeBlockCodeTv = tcv({
 })
 
 export const CodeBlockCode = memo(function CodeBlockCode(props: CodeBlockCodeProps) {
-  const { code, language = "tsx", className, ...rest } = props
+  // Filter out codeBlock prop injected by CodeBlock parent to prevent passing to DOM
+  const {
+    code,
+    language = "tsx",
+    className,
+    codeBlock: _,
+    ...rest
+  } = props as CodeBlockCodeProps & {
+    codeBlock?: unknown
+  }
 
   const theme = useTheme()
 
@@ -36,13 +45,13 @@ export const CodeBlockCode = memo(function CodeBlockCode(props: CodeBlockCodePro
   // SSR fallback: render plain code if not hydrated yet
   return highlightedHtml ? (
     <div
-      className={classNames}
+      className={tcx("min-w-0", classNames)}
       dangerouslySetInnerHTML={{ __html: highlightedHtml }}
       {...rest}
     />
   ) : (
     <div
-      className={classNames}
+      className={tcx("min-w-0", classNames)}
       {...rest}
     >
       <pre>

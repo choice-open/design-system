@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Tabs>
 
 /**
  * Basic tabs component with text labels.
- * 
+ *
  * Features:
  * - Controlled component requiring `value` and `onChange` props
  * - Use `<Tabs.Item>` for each tab item
@@ -42,7 +42,7 @@ export const Basic: Story = {
 
 /**
  * Tabs with default selected value.
- * 
+ *
  * Features:
  * - Set default value through initial state
  * - No separate `defaultValue` prop (controlled component)
@@ -68,7 +68,7 @@ export const DefaultValue: Story = {
 
 /**
  * Tabs with disabled state.
- * 
+ *
  * Features:
  * - Individual tabs can be disabled
  * - Entire tab group can be disabled
@@ -111,7 +111,7 @@ export const Disabled: Story = {
 
 /**
  * Icon-only tabs for compact interfaces.
- * 
+ *
  * Features:
  * - Icons as tab content
  * - Requires `aria-label` for accessibility
@@ -151,7 +151,7 @@ export const IconTabs: Story = {
 
 /**
  * Tabs with both icons and text labels.
- * 
+ *
  * Features:
  * - Combine icons with descriptive text
  * - Better clarity than icon-only tabs
@@ -200,13 +200,13 @@ export const MixedTabs: Story = {
 
 /**
  * Visual variants of the tabs component.
- * 
+ *
  * Variants:
  * - **default**: Follows the page theme dynamically (light/dark mode)
  * - **light**: Fixed light appearance regardless of theme
  * - **dark**: Fixed dark appearance regardless of theme
  * - **reset**: Removes variant styling, no variant settings applied
- * 
+ *
  * Each variant maintains full functionality while adapting visual style.
  */
 export const Variants: Story = {
@@ -264,9 +264,9 @@ export const Variants: Story = {
 }
 
 /**
- * Tabs component in readonly state.
+ * Tabs component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - Tabs do not respond to click or keyboard events
  * - The selected tab cannot be changed
  * - Useful for displaying tabs without allowing changes
@@ -291,7 +291,7 @@ export const Readonly: Story = {
         </div>
 
         <Tabs
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
         >

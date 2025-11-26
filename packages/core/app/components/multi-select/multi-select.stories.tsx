@@ -958,9 +958,9 @@ export const MaxChips: Story = {
 }
 
 /**
- * Variant
+ * ChipVariant
  */
-export const Variant: Story = {
+export const ChipVariant: Story = {
   render: function VariantStory() {
     const [values, setValues] = useState<string[]>([])
     const [variant, setVariant] = useState<ChipProps["variant"]>("default")
@@ -983,7 +983,7 @@ export const Variant: Story = {
         <MultiSelect
           values={values}
           onChange={setValues}
-          variant={variant}
+          chipVariant={variant}
         >
           <MultiSelect.Trigger className="w-80" />
           <MultiSelect.Content>
@@ -1092,9 +1092,9 @@ export const CustomChip: Story = {
 }
 
 /**
- * MultiSelect component in readonly state.
+ * MultiSelect component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The menu can be opened and closed normally
  * - Clicking on options will not change the current selection
  * - The menu will remain open after clicking an option
@@ -1124,7 +1124,7 @@ export const Readonly: Story = {
         </div>
 
         <MultiSelect
-          readonly
+          readOnly
           values={values}
           onChange={handleChange}
         >
@@ -1142,11 +1142,38 @@ export const Readonly: Story = {
         </MultiSelect>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on different options - the selection should not change and the change count
-          should remain at 0. The menu can still be opened and closed normally. Also try clicking the
-          remove button on chips or pressing Backspace - chips should not be removable in readonly mode.
+          💡 Try clicking on different options - the selection should not change and the change
+          count should remain at 0. The menu can still be opened and closed normally. Also try
+          clicking the remove button on chips or pressing Backspace - chips should not be removable
+          in readonly mode.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * MultiSelect component in light variant.
+ */
+export const Light: Story = {
+  render: function LightStory() {
+    const [values, setValues] = useState<string[]>([])
+    return (
+      <MultiSelect
+        values={values}
+        onChange={setValues}
+        variant="light"
+      >
+        <MultiSelect.Trigger className="w-80" />
+        <MultiSelect.Content>
+          <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+          <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+          <MultiSelect.Item value="orange">Orange</MultiSelect.Item>
+          <MultiSelect.Item value="grape">Grape</MultiSelect.Item>
+          <MultiSelect.Item value="strawberry">Strawberry</MultiSelect.Item>
+          <MultiSelect.Item value="kiwi">Kiwi</MultiSelect.Item>
+        </MultiSelect.Content>
+      </MultiSelect>
     )
   },
 }

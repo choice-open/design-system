@@ -252,9 +252,9 @@ export const AsChild: Story = {
 }
 
 /**
- * IconButton component in readonly state.
+ * IconButton component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The button does not respond to click events
  * - Useful for displaying icon buttons without allowing interactions
  */
@@ -271,13 +271,13 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <IconButton
-            readonly
+            readOnly
             onClick={() => setClickCount((prev) => prev + 1)}
           >
             <FieldTypeAttachment />
           </IconButton>
           <IconButton
-            readonly
+            readOnly
             variant="secondary"
             onClick={() => setClickCount((prev) => prev + 1)}
           >

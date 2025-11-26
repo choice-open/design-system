@@ -192,9 +192,9 @@ export const CustomRenderChip: Story = {
 }
 
 /**
- * ChipsInput component in readonly state.
+ * ChipsInput component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The input field is disabled and read-only
  * - Chips cannot be added (Enter key, blur event)
  * - Chips cannot be removed (remove button, Backspace/Delete keys)
@@ -222,7 +222,7 @@ export const Readonly: Story = {
         </div>
 
         <ChipsInput
-          readonly
+          readOnly
           value={chips}
           onChange={handleChange}
           placeholder="Add tags..."
@@ -230,9 +230,9 @@ export const Readonly: Story = {
         />
 
         <div className="text-body-small text-stone-600">
-          💡 Try typing and pressing Enter, clicking chip remove buttons, or pressing Backspace/Delete
-          - chips should not change and the change count should remain at 0. The input field is
-          read-only.
+          💡 Try typing and pressing Enter, clicking chip remove buttons, or pressing
+          Backspace/Delete - chips should not change and the change count should remain at 0. The
+          input field is read-only.
         </div>
       </div>
     )

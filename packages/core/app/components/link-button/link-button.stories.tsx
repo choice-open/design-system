@@ -283,9 +283,9 @@ export const RealWorldExamples: Story = {
 }
 
 /**
- * LinkButton component in readonly state.
+ * LinkButton component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - Link buttons do not respond to click events
  * - Links will not navigate (href is removed)
  * - Useful for displaying link buttons without allowing interactions
@@ -303,14 +303,14 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <LinkButton
-            readonly
+            readOnly
             href="https://example.com"
             onClick={() => setClickCount((prev) => prev + 1)}
           >
             Readonly Link
           </LinkButton>
           <LinkButton
-            readonly
+            readOnly
             variant="subtle"
             onClick={() => setClickCount((prev) => prev + 1)}
           >

@@ -2,9 +2,9 @@ import { createContext, useContext } from "react"
 
 // Radio 组件的 Context
 export interface RadioContextType {
-  id: string
   descriptionId: string
   disabled?: boolean
+  id: string
 }
 
 export const RadioContext = createContext<RadioContextType | null>(null)
@@ -19,11 +19,11 @@ export function useRadioContext() {
 
 // RadioGroup 组件的 Context
 export interface RadioGroupContextType {
-  name: string
-  value: string
-  onChange: (value: string) => void
   disabled?: boolean
-  readonly?: boolean
+  name: string
+  onChange: (value: string) => void
+  readOnly?: boolean
+  value: string
   variant?: "default" | "accent" | "outline"
 }
 

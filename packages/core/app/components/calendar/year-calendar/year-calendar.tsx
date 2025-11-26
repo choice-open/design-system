@@ -25,7 +25,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     maxYear,
     disabledYears = [],
     disabled = false,
-    readonly = false,
+    readOnly = false,
     startYear: propStartYear,
     yearCount = 12,
     locale = enUS,
@@ -107,8 +107,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
 
   // 事件处理器
   const handleYearSelect = useEventCallback((year: Date) => {
-    if (readonly) return
-    if (disabled) return
+    if (disabled || readOnly) return
 
     const yearNum = year.getFullYear()
     const yearItem = years.find((y) => y.year.getFullYear() === yearNum)

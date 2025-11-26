@@ -840,9 +840,9 @@ export const MentionsWithSlate: Story = {
 }
 
 /**
- * Combobox component in readonly state.
+ * Combobox component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The input field is read-only and cannot be edited
  * - Clicking on menu items will not change the value
  * - The menu can still be opened and closed normally
@@ -876,7 +876,7 @@ export const Readonly: Story = {
         </div>
 
         <Combobox
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
         >
@@ -898,6 +898,41 @@ export const Readonly: Story = {
           should not change and the change count should remain at 0. The input field is read-only.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * Combobox component in light variant.
+ */
+export const Light: Story = {
+  render: function LightStory() {
+    const [value, setValue] = useState<string>("apple")
+    const options = [
+      { value: "apple", label: "Apple" },
+      { value: "banana", label: "Banana" },
+      { value: "orange", label: "Orange" },
+      { value: "grape", label: "Grape" },
+      { value: "strawberry", label: "Strawberry" },
+    ]
+    return (
+      <Combobox
+        variant="light"
+        value={value}
+        onChange={setValue}
+      >
+        <Combobox.Trigger placeholder="Select a fruit..." />
+        <Combobox.Content>
+          {options.map((option) => (
+            <Combobox.Item
+              key={option.value}
+              value={option.value}
+            >
+              <Combobox.Value>{option.label}</Combobox.Value>
+            </Combobox.Item>
+          ))}
+        </Combobox.Content>
+      </Combobox>
     )
   },
 }

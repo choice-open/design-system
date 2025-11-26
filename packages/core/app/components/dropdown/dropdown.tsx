@@ -78,9 +78,10 @@ export interface DropdownProps {
   placement?: Placement
   portalId?: string
   position?: { x: number; y: number } | null
-  readonly?: boolean
+  readOnly?: boolean
   root?: HTMLElement | null
   selection?: boolean
+  variant?: "default" | "light" | "reset"
 }
 
 interface DropdownComponentType
@@ -118,7 +119,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     placement = "bottom-start",
     portalId = PORTAL_ROOT_ID,
     position,
-    readonly = false,
+    readOnly = false,
     selection = false,
     matchTriggerWidth = false,
     open: controlledOpen,
@@ -129,6 +130,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
       ...(position && { disabled: true }), // 坐标模式下禁用焦点管理
     },
     root,
+    variant = "default",
   } = props
 
   // References - 使用统一的 refs 管理
@@ -417,11 +419,12 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
       getItemProps,
       setHasFocusInside,
       isOpen: isControlledOpen,
-      readonly,
+      readOnly,
       selection,
       close: handleClose,
+      variant,
     }),
-    [activeIndex, getItemProps, handleClose, isControlledOpen, readonly, selection],
+    [activeIndex, getItemProps, handleClose, isControlledOpen, readOnly, selection, variant],
   )
 
   return (
@@ -491,6 +494,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
                       cloneElement(contentElement, {
                         ref: scrollRef,
                         matchTriggerWidth: matchTriggerWidth,
+                        variant,
                         ...scrollProps,
                       })}
                   </MenuContext.Provider>

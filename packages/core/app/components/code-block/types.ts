@@ -19,7 +19,6 @@ export interface CodeBlockContextValue {
   lineThreshold: number
   needsScroll: boolean
   scrollRef?: RefObject<HTMLDivElement>
-  theme: "light" | "dark"
 }
 
 export interface CodeBlockInjectedProps {

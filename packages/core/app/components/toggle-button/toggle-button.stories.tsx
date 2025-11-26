@@ -167,9 +167,9 @@ export const Tooltip: Story = {
 }
 
 /**
- * ToggleButton component in readonly state.
+ * ToggleButton component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The toggle button does not respond to click or change events
  * - The value cannot be changed
  * - Useful for displaying toggle state without allowing changes
@@ -195,14 +195,14 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <ToggleButton
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
           >
             {value ? <FieldTypeCheckbox /> : <FieldAdd />}
           </ToggleButton>
           <ToggleButton
-            readonly
+            readOnly
             value={!value}
             onChange={handleChange}
             variant="secondary"

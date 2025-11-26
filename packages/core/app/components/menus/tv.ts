@@ -2,10 +2,11 @@ import { tcv } from "~/utils"
 
 export const MenusTv = tcv({
   base: [
+    "group/menus",
     "relative flex flex-col",
     "z-menu rounded-xl",
     "max-h-[inherit] p-2",
-    "bg-menu-background text-white shadow-lg",
+    "shadow-lg",
     "scrollbar-hide overflow-y-auto overscroll-contain",
     "pointer-events-auto select-none",
   ],
@@ -14,9 +15,15 @@ export const MenusTv = tcv({
       true: "w-full",
       false: "min-w-36",
     },
+    variant: {
+      default: "bg-menu-background text-white",
+      light: "bg-white text-gray-900",
+      reset: {},
+    },
   },
   defaultVariants: {
     matchTriggerWidth: false,
+    variant: "default",
   },
 })
 
@@ -143,7 +150,7 @@ export const MenuItemTv = tcv({
       variant: "highlight",
       active: true,
       class: {
-        root: "bg-white/10",
+        root: "group-data-[variant=light]/menus:bg-gray-200 group-data-[variant=default]/menus:bg-white/10",
       },
     },
     {
@@ -169,7 +176,8 @@ export const MenuItemTv = tcv({
 export const MenuDividerTv = tcv({
   slots: {
     root: "flex h-4 w-full flex-none items-center",
-    divider: "bg-menu-boundary h-px flex-1",
+    divider:
+      "group-data-[variant=light]/menus:bg-gray-200 group-data-[variant=default]/menus:bg-menu-boundary h-px flex-1",
   },
 })
 

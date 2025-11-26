@@ -68,7 +68,7 @@ export const Basic: Story = {
 
 /**
  * States: Demonstrates all interactive states of the DateInput component.
- * - Shows normal, disabled, readonly, and custom prefix configurations.
+ * - Shows normal, disabled, readOnly, and custom prefix configurations.
  * - Displays how the component behaves in different states.
  * - Useful for testing component behavior across various conditions.
  */
@@ -113,7 +113,7 @@ export const States: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the DateInput component in readonly mode.
+ * ReadOnly: Demonstrates the DateInput component in readOnly mode.
  * - Prevents value changes while allowing focus and selection
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable date information
@@ -150,7 +150,8 @@ export const ReadOnly: Story = {
           placeholder="Normal date input..."
         />
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly date input - the value should not change and the change count should remain at 0. Only the normal input will change the value.
+          💡 Try changing the readonly date input - the value should not change and the change count
+          should remain at 0. Only the normal input will change the value.
         </div>
       </div>
     )

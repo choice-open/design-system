@@ -241,9 +241,9 @@ export const LabelUsage: Story = {
 }
 
 /**
- * Checkbox component in readonly state.
+ * Checkbox component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The checkbox does not respond to click or keyboard events
  * - The value cannot be changed
  * - Useful for displaying checkbox state without allowing changes
@@ -269,14 +269,14 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <Checkbox
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
           >
             Readonly Checkbox
           </Checkbox>
           <Checkbox
-            readonly
+            readOnly
             value={!value}
             onChange={handleChange}
           >

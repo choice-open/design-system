@@ -10,7 +10,12 @@ import { AlertDialogProvider, useAlertDialog } from "../alert-dialog"
 import { IconButton } from "../icon-button"
 import { ScrollArea } from "../scroll-area"
 import { ContextInput } from "./context-input"
-import type { ContextInputValue, ContextMentionElement, MentionItem } from "./types"
+import type {
+  ContextInputRef,
+  ContextInputValue,
+  ContextMentionElement,
+  MentionItem,
+} from "./types"
 import { Button } from "../button"
 import { Avatar } from "../avatar"
 import { Checkbox } from "../checkbox/checkbox"
@@ -213,7 +218,7 @@ export const Disabled: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the ContextInput component in readonly mode.
+ * ReadOnly: Demonstrates the ContextInput component in readOnly mode.
  * - Prevents value changes while allowing focus and selection
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable context input information
@@ -258,7 +263,7 @@ export const ReadOnly: Story = {
         </div>
         <div className="w-full max-w-md">
           <ContextInput
-            readonly
+            readOnly
             value={value}
             placeholder="Type @ to mention someone..."
             className="max-h-96 w-80"
@@ -308,7 +313,8 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try editing the readonly context input - the value should not change and the change count should remain at 0. Only the normal input will change the value.
+          💡 Try editing the readonly context input - the value should not change and the change
+          count should remain at 0. Only the normal input will change the value.
         </div>
       </div>
     )
@@ -1586,6 +1592,61 @@ export const CustomMentionComponent: Story = {
             <li>• Receives same props as default Mention component</li>
           </ul>
         </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * Imperative Focus: Demonstrates how to programmatically focus the input using ref.
+ * - Use ref to get access to the focus method
+ * - Call ref.current.focus() to focus the input from outside
+ */
+export const ImperativeFocus: Story = {
+  render: function ImperativeFocus() {
+    const inputRef = useRef<ContextInputRef>(null)
+
+    const handleFocusClick = () => {
+      inputRef.current?.focus()
+    }
+
+    return (
+      <div className="flex w-[500px] flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="secondary"
+            size="default"
+            onClick={handleFocusClick}
+          >
+            Focus Input
+          </Button>
+          <span className="text-body-small text-fg-subtle">
+            Click button to focus the input below
+          </span>
+        </div>
+
+        <ContextInput
+          ref={inputRef}
+          placeholder="This input can be focused programmatically..."
+          triggers={[
+            {
+              char: "@",
+              onSearch: async (query: string) => {
+                return users.filter((user) =>
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
+              },
+            },
+          ]}
+        >
+          <ContextInput.Footer>
+            <div className="flex items-center justify-between">
+              <span className="text-body-small text-fg-subtle">
+                Use ref.current.focus() to focus programmatically
+              </span>
+            </div>
+          </ContextInput.Footer>
+        </ContextInput>
       </div>
     )
   },

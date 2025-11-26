@@ -34,7 +34,7 @@ export const SegmentedItem = memo(
       groupId,
       variant,
       disabled: contextDisabled,
-      readonly: contextReadonly,
+      readOnly: contextReadOnly,
     } = useSegmentedContext()
     const isActive = value === selectedValue
 
@@ -50,7 +50,7 @@ export const SegmentedItem = memo(
     const ariaLabelProp = typeof children === "string" ? children : ariaLabel
 
     const handleChange = useEventCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      if (contextReadonly) return
+      if (contextReadOnly) return
       if (e.target.checked) {
         onChange(value)
       }
@@ -72,12 +72,12 @@ export const SegmentedItem = memo(
         type="radio"
         id={optionId}
         name={groupId}
-        disabled={isDisabled || contextReadonly}
+        disabled={isDisabled || contextReadOnly}
         checked={isActive}
         value={value}
         aria-label={ariaLabelProp}
         aria-checked={isActive}
-        aria-disabled={isDisabled || contextReadonly}
+        aria-disabled={isDisabled || contextReadOnly}
         onChange={handleChange}
       />
     )
@@ -96,7 +96,7 @@ export const SegmentedItem = memo(
         ref={ref}
         htmlFor={optionId}
         className="pointer-events-none relative"
-        aria-disabled={isDisabled || contextReadonly}
+        aria-disabled={isDisabled || contextReadOnly}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...rest}

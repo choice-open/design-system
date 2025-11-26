@@ -16,6 +16,7 @@ import { MenusTv } from "./tv"
 interface MenusProps extends HTMLProps<HTMLDivElement> {
   children: React.ReactNode
   matchTriggerWidth?: boolean
+  variant?: "default" | "light" | "reset"
 }
 
 interface MenusComponentProps
@@ -32,9 +33,9 @@ interface MenusComponentProps
 }
 
 export const MenusBase = forwardRef<HTMLDivElement, MenusProps>((props, ref) => {
-  const { children, className, matchTriggerWidth, ...rest } = props
+  const { children, className, matchTriggerWidth, variant, ...rest } = props
 
-  const styles = MenusTv({ matchTriggerWidth })
+  const styles = MenusTv({ matchTriggerWidth, variant })
 
   // 递归处理子组件，展开所有 Fragment
   const processChildren = (children: React.ReactNode): React.ReactNode => {
@@ -63,6 +64,7 @@ export const MenusBase = forwardRef<HTMLDivElement, MenusProps>((props, ref) => 
       role="menu"
       {...rest}
       className={tcx(styles, className)}
+      data-variant={variant}
     >
       {processedChildren}
     </div>

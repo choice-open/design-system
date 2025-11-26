@@ -209,9 +209,9 @@ export const Tooltip: Story = {
 }
 
 /**
- * Button component in readonly state.
+ * Button component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The button does not respond to click events
  * - Mouse and touch events are blocked
  * - Useful for displaying buttons without allowing interactions
@@ -229,27 +229,25 @@ export const Readonly: Story = {
 
         <div className="flex flex-wrap gap-4">
           <Button
-            readonly
+            readOnly
             onClick={() => setClickCount((prev) => prev + 1)}
           >
             Readonly Button
           </Button>
           <Button
-            readonly
+            readOnly
             variant="secondary"
             onClick={() => setClickCount((prev) => prev + 1)}
           >
             Readonly Secondary
           </Button>
-          <Button
-            onClick={() => setClickCount((prev) => prev + 1)}
-          >
+          <Button onClick={() => setClickCount((prev) => prev + 1)}>
             Normal Button (for comparison)
           </Button>
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly buttons - the click count should not change. Only the
+          💡 Try clicking on the readOnly buttons - the click count should not change. Only the
           normal button will increment the count.
         </div>
       </div>

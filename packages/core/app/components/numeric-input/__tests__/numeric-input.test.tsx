@@ -327,7 +327,7 @@ describe("NumericInput", () => {
         />,
       )
       const input = screen.getByRole("textbox")
-      expect(input).toHaveAttribute("readonly")
+      expect(input).toHaveAttribute("readOnly")
     })
 
     it("applies focused state correctly", () => {

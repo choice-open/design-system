@@ -1080,9 +1080,9 @@ export const EventPropagation: Story = {
 }
 
 /**
- * Select component in readonly state.
+ * Select component in readOnly state.
  *
- * In readonly mode:
+ * In readOnly mode:
  * - The menu can be opened and closed normally
  * - Clicking on options will not change the current selection
  * - The menu will remain open after clicking an option
@@ -1108,7 +1108,7 @@ export const Readonly: Story = {
         </div>
 
         <Select
-          readonly
+          readOnly
           value={value}
           onChange={handleChange}
         >
@@ -1128,10 +1128,40 @@ export const Readonly: Story = {
         </Select>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on different options - the selection should not change and the change count
-          should remain at 0. The menu can still be opened and closed normally.
+          💡 Try clicking on different options - the selection should not change and the change
+          count should remain at 0. The menu can still be opened and closed normally.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * Select component in light variant.
+ */
+export const Light: Story = {
+  render: function LightStory() {
+    const [value, setValue] = useState<string>("option-2")
+    return (
+      <Select
+        variant="light"
+        value={value}
+        onChange={setValue}
+      >
+        <Select.Trigger>
+          <Select.Value>{value || "Select an option..."}</Select.Value>
+        </Select.Trigger>
+        <Select.Content>
+          {Array.from({ length: 5 }, (_, i) => (
+            <Select.Item
+              key={i}
+              value={`option-${i + 1}`}
+            >
+              <Select.Value>Option {i + 1}</Select.Value>
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select>
     )
   },
 }

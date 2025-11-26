@@ -562,7 +562,7 @@ describe("TimeInput", () => {
       render(<TimeInput readOnly />)
 
       const input = screen.getByRole("textbox")
-      expect(input).toHaveAttribute("readonly")
+      expect(input).toHaveAttribute("readOnly")
     })
   })
 

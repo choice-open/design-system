@@ -4,7 +4,7 @@ export interface TabsContextValue {
   disabled?: boolean
   id: string
   onChange: (value: string) => void
-  readonly?: boolean
+  readOnly?: boolean
   value: string
   variant: "default" | "light" | "dark" | "reset"
 }

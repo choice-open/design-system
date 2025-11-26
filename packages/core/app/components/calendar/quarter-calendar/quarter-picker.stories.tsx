@@ -230,7 +230,7 @@ export const WithDisabledQuarters: Story = {
  * Disabled: Demonstrates the completely disabled state of QuarterCalendar.
  * - Shows how the entire component appears and behaves when disabled.
  * - Displays proper disabled styling and interaction prevention.
- * - Useful for readonly scenarios or when quarter selection is not applicable.
+ * - Useful for readOnly scenarios or when quarter selection is not applicable.
  */
 export const Disabled: Story = {
   args: {
@@ -311,7 +311,7 @@ export const MultiLanguage: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the QuarterCalendar component in readonly mode.
+ * ReadOnly: Demonstrates the QuarterCalendar component in readOnly mode.
  * - Prevents value changes while allowing focus and navigation
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable quarter information
@@ -319,13 +319,15 @@ export const MultiLanguage: Story = {
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
     const currentYear = new Date().getFullYear()
-    const [value, setValue] = useState<{ quarter: number; year: number } | null>({
+    const [value, setValue] = useState<Quarter | null>({
       quarter: 1,
       year: 2024,
+      label: "Q1",
+      months: ["January", "February", "March"],
     })
     const [changeCount, setChangeCount] = useState(0)
 
-    const handleChange = (newValue: { quarter: number; year: number } | null) => {
+    const handleChange = (newValue: Quarter | null) => {
       setValue(newValue)
       setChangeCount((prev) => prev + 1)
     }
@@ -342,7 +344,7 @@ export const ReadOnly: Story = {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <QuarterCalendar
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
             currentYear={currentYear}
@@ -354,7 +356,8 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking quarters on the readonly calendar - the value should not change and the change count should remain at 0. Only the normal calendar will change the value.
+          💡 Try clicking quarters on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
     )

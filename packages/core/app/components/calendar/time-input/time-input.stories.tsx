@@ -76,7 +76,7 @@ export const States: Story = {
 }
 
 /**
- * ReadOnly: Demonstrates the TimeInput component in readonly mode.
+ * ReadOnly: Demonstrates the TimeInput component in readOnly mode.
  * - Prevents value changes while allowing focus and selection
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable time information
@@ -113,7 +113,8 @@ export const ReadOnly: Story = {
           placeholder="Normal time input..."
         />
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly time input - the value should not change and the change count should remain at 0. Only the normal input will change the value.
+          💡 Try changing the readonly time input - the value should not change and the change count
+          should remain at 0. Only the normal input will change the value.
         </div>
       </div>
     )

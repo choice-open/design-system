@@ -607,7 +607,7 @@ export const UnifiedInterface: StoryObj<typeof MonthCalendar> = {
 }
 
 /**
- * ReadOnly: Demonstrates the MonthCalendar component in readonly mode.
+ * ReadOnly: Demonstrates the MonthCalendar component in readOnly mode.
  * - Prevents value changes while allowing focus and navigation
  * - Maintains normal visual appearance (unlike disabled)
  * - Useful for displaying non-editable calendar information
@@ -634,7 +634,7 @@ export const ReadOnly: Story = {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <MonthCalendar
-            readonly
+            readOnly
             value={value}
             onChange={handleChange}
             selectionMode="single"
@@ -648,7 +648,8 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking dates on the readonly calendar - the value should not change and the change count should remain at 0. Only the normal calendar will change the value.
+          💡 Try clicking dates on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
     )

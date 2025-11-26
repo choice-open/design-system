@@ -1,7 +1,6 @@
 import hardenReactMarkdownImport from "harden-react-markdown"
 import { ComponentType, memo } from "react"
 import ReactMarkdown, { Components, Options } from "react-markdown"
-import rehypeKatex from "rehype-katex"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
@@ -48,7 +47,6 @@ export const MarkdownBlock = memo(
     return (
       <HardenedMarkdown
         remarkPlugins={[remarkGfm, remarkBreaks, remarkMath]}
-        rehypePlugins={[rehypeKatex]}
         components={components}
         allowedLinkPrefixes={allowedLinkPrefixes}
         allowedImagePrefixes={allowedImagePrefixes}
