@@ -1,41 +1,55 @@
-import { memo, useId } from "react"
+import { memo, useEffect, useMemo, useRef } from "react"
 
-export const InitialLetter = memo(function InitialCharacter({ letter }: { letter: string }) {
-  const id = useId()
+const SIZE_MAP = {
+  small: 16,
+  medium: 24,
+  large: 32,
+} as const
+
+interface InitialLetterProps {
+  letter: string
+  size?: "small" | "medium" | "large"
+}
+
+export const InitialLetter = memo(function InitialLetter({
+  letter,
+  size = "medium",
+}: InitialLetterProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasSize = useMemo(() => SIZE_MAP[size] * 2, [size])
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    canvas.width = canvasSize
+    canvas.height = canvasSize
+
+    ctx.clearRect(0, 0, canvasSize, canvasSize)
+
+    const fontSize = canvasSize * 0.5
+    ctx.font = `${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillStyle = "currentColor"
+
+    const upperLetter = letter.toUpperCase()
+    ctx.fillText(upperLetter, canvasSize / 2, canvasSize / 2)
+  }, [letter, canvasSize])
 
   return (
-    <svg
-      width={"100%"}
-      height={"100%"}
-      viewBox="0 0 128 128"
-      className="relative"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <pattern
-          id={id}
-          width="100%"
-          height="100%"
-        >
-          <text
-            className="fill-current text-[4rem] uppercase"
-            x="50%"
-            y="50%"
-            dominantBaseline="middle"
-            alignmentBaseline="central"
-            textAnchor="middle"
-          >
-            {letter}
-          </text>
-        </pattern>
-      </defs>
-      <rect
-        width="100%"
-        height="100%"
-        x="0"
-        y="0"
-        fill={`url(#${id})`}
-      ></rect>
-    </svg>
+    <canvas
+      ref={canvasRef}
+      width={canvasSize}
+      height={canvasSize}
+      className="relative h-full w-full"
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    />
   )
 })

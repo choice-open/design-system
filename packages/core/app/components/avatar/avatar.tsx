@@ -50,11 +50,14 @@ export const Avatar = memo(
           }}
         />
       ) : name ? (
-        <InitialLetter letter={name?.[0] ?? ""} />
+        <InitialLetter
+          letter={name?.[0] ?? ""}
+          size={size}
+        />
       ) : (
         <Use className="text-black/40" />
       )
-    }, [photo, imageLoadedError, name, styles])
+    }, [photo, imageLoadedError, name, size, styles])
 
     const textColor = useMemo(() => {
       return tinycolor(color).isDark() ? "white" : "black"

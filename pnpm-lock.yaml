@@ -1363,9 +1363,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.8
         version: 4.1.17
-      '@testing-library/jest-dom':
-        specifier: ^6.6.3
-        version: 6.8.0
       '@types/node':
         specifier: ^22.10.0
         version: 22.18.1
@@ -1741,9 +1738,6 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.13
         version: 4.1.13(vite@7.1.4)
-      '@testing-library/jest-dom':
-        specifier: ^6.6.3
-        version: 6.8.0
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.24

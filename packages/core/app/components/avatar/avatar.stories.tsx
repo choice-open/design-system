@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker"
-import { Story } from "@storybook/addon-docs/blocks"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useMemo } from "react"
 import { Avatar } from "./avatar"
@@ -153,6 +152,44 @@ export const States: Story = {
               states={state}
             />
             <p>{state}</p>
+          </div>
+        ))}
+      </div>
+    )
+  },
+}
+
+/**
+ * Rounded: Demonstrates different border radius options for the Avatar component.
+ * - Shows how to customize the rounded corners using className prop with rounded utilities.
+ * - Available options: rounded-sm, rounded-md, rounded-lg, rounded-xl, rounded-full.
+ * - Useful for adapting Avatar to different design styles or matching other UI elements.
+ * - The default Avatar uses rounded-full, but can be overridden with custom className.
+ */
+export const Rounded: Story = {
+  render: function RoundedStory() {
+    const roundedClasses = [
+      { class: "rounded-sm", label: "rounded-sm" },
+      { class: "rounded-md", label: "rounded-md" },
+      { class: "rounded-lg", label: "rounded-lg" },
+      { class: "rounded-xl", label: "rounded-xl" },
+      { class: "rounded-full", label: "rounded-full" },
+    ]
+
+    return (
+      <div className="grid grid-cols-5 gap-6">
+        {roundedClasses.map((rounded) => (
+          <div
+            className="flex flex-col items-center gap-2"
+            key={rounded.class}
+          >
+            <Avatar
+              name="A"
+              className={rounded.class}
+              color={faker.color.rgb()}
+              size="large"
+            />
+            <p className="text-sm">{rounded.label}</p>
           </div>
         ))}
       </div>
