@@ -2,6 +2,8 @@ import { Story } from "@storybook/addon-docs/blocks"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useState } from "react"
 import { Button } from "../button"
+import { Dialog } from "../dialog"
+import { Popover } from "../popover"
 import { AlertDialogProvider, useAlertDialog } from "./index"
 
 const meta: Meta = {
@@ -808,6 +810,193 @@ export const EventPropagation: Story = {
     return (
       <AlertDialogProvider>
         <EventPropagationExample />
+      </AlertDialogProvider>
+    )
+  },
+}
+
+/**
+ * ZIndexTest: Tests z-index layering when alert dialog is shown inside a regular dialog.
+ * - Opens a regular dialog first, then shows an alert dialog inside it.
+ * - Verifies that the alert dialog appears above the regular dialog.
+ * - This tests the z-index stacking order between dialogs and alert dialogs.
+ */
+export const ZIndexTest: Story = {
+  render: function ZIndexTestStory() {
+    const ZIndexTestExample = () => {
+      const { alert, confirm } = useAlertDialog()
+      const [dialogOpen, setDialogOpen] = useState(false)
+
+      const handleShowAlertInDialog = async () => {
+        await alert({
+          title: "Alert in Dialog",
+          description:
+            "This alert should appear ABOVE the dialog. If you can see this message clearly, the z-index is correct.",
+        })
+      }
+
+      const handleShowConfirmInDialog = async () => {
+        const result = await confirm({
+          title: "Confirm in Dialog",
+          description:
+            "This confirm dialog should appear ABOVE the regular dialog. Click OK or Cancel to test.",
+        })
+        console.log("Confirm result:", result)
+      }
+
+      return (
+        <div className="flex flex-col gap-4">
+          <div className="space-y-2">
+            <h3 className="text-body-large-strong">Z-Index Test</h3>
+          </div>
+
+          <Button
+            className="self-start"
+            onClick={() => setDialogOpen(true)}
+          >
+            Open Dialog
+          </Button>
+
+          {dialogOpen && (
+            <Dialog
+              draggable
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+            >
+              <Dialog.Header title="Regular Dialog" />
+              <Dialog.Content className="flex flex-col gap-4 p-4">
+                <div className="flex gap-2">
+                  <Button
+                    variant="primary"
+                    onClick={handleShowAlertInDialog}
+                  >
+                    Show Alert in Dialog
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={handleShowConfirmInDialog}
+                  >
+                    Show Confirm in Dialog
+                  </Button>
+                </div>
+              </Dialog.Content>
+              <Dialog.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  Close Dialog
+                </Button>
+              </Dialog.Footer>
+            </Dialog>
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <AlertDialogProvider>
+        <ZIndexTestExample />
+      </AlertDialogProvider>
+    )
+  },
+}
+
+/**
+ * PopoverZIndexTest: Tests z-index layering when popover is shown inside a dialog.
+ * - Opens a regular dialog first, then shows a popover inside it.
+ * - Verifies that the popover appears above the dialog.
+ * - Also tests that alert dialogs appear above popovers.
+ * - This tests the z-index stacking order: dialog (810) < popover (820) < alert (830).
+ */
+export const PopoverZIndexTest: Story = {
+  render: function PopoverZIndexTestStory() {
+    const PopoverZIndexTestExample = () => {
+      const { alert, confirm } = useAlertDialog()
+      const [dialogOpen, setDialogOpen] = useState(false)
+
+      const handleShowAlertInPopover = async () => {
+        await alert({
+          title: "Alert Above Popover",
+          description:
+            "This alert should appear ABOVE both the popover and the dialog. If you can see this message clearly, the z-index is correct.",
+        })
+      }
+
+      const handleShowConfirmInPopover = async () => {
+        const result = await confirm({
+          title: "Confirm Above Popover",
+          description:
+            "This confirm dialog should appear ABOVE both the popover and the dialog. Click OK or Cancel to test.",
+        })
+        console.log("Confirm result:", result)
+      }
+
+      return (
+        <div className="flex flex-col gap-4">
+          <div className="space-y-2">
+            <h3 className="text-body-large-strong">Popover Z-Index Test</h3>
+          </div>
+
+          <Button
+            className="self-start"
+            onClick={() => setDialogOpen(true)}
+          >
+            Open Dialog
+          </Button>
+
+          {dialogOpen && (
+            <Dialog
+              draggable
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+            >
+              <Dialog.Header title="Regular Dialog" />
+              <Dialog.Content className="flex flex-col gap-4 p-4">
+                <Popover>
+                  <Popover.Trigger>
+                    <Button
+                      className="self-start"
+                      variant="secondary"
+                    >
+                      Open Popover
+                    </Button>
+                  </Popover.Trigger>
+                  <Popover.Content className="p-4">
+                    <div className="flex gap-2">
+                      <Button
+                        variant="primary"
+                        onClick={handleShowAlertInPopover}
+                      >
+                        Show Alert Above
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={handleShowConfirmInPopover}
+                      >
+                        Show Confirm Above
+                      </Button>
+                    </div>
+                  </Popover.Content>
+                </Popover>
+              </Dialog.Content>
+              <Dialog.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  Close Dialog
+                </Button>
+              </Dialog.Footer>
+            </Dialog>
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <AlertDialogProvider>
+        <PopoverZIndexTestExample />
       </AlertDialogProvider>
     )
   },

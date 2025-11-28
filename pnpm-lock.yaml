@@ -670,8 +670,8 @@ importers:
   packages/core:
     dependencies:
       '@choiceform/design-tokens':
-        specifier: ^0.2.11
-        version: 0.2.11(hono@4.9.6)(tailwindcss@4.1.13)
+        specifier: ^0.2.12
+        version: 0.2.12(hono@4.9.6)(tailwindcss@4.1.13)
       '@choiceform/icons-react':
         specifier: ^1.3.8
         version: 1.3.8(react@18.3.1)
@@ -3656,6 +3656,22 @@ packages:
     transitivePeerDependencies:
       - hono
       - tailwindcss
+    dev: true
+
+  /@choiceform/design-tokens@0.2.12(hono@4.9.6)(tailwindcss@4.1.13):
+    resolution: {integrity: sha512-Z9fO/CHkAU+UAdcViVZzyIrmJUe4FVQRcHAsbBF0oH4kS6d8aiqNy3liM70dmCpZn8xxPwlioOh8jQndLmnivg==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      '@terrazzo/cli': 0.10.2(hono@4.9.6)
+      '@terrazzo/plugin-css': 0.10.2(@terrazzo/cli@0.10.2)
+      '@terrazzo/plugin-js': 0.10.1(@terrazzo/cli@0.10.2)
+      '@terrazzo/plugin-sass': 0.10.1(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)
+      '@terrazzo/plugin-tailwind': 0.3.2(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)(tailwindcss@4.1.13)
+      '@terrazzo/plugin-vanilla-extract': 0.2.1(@terrazzo/cli@0.10.2)(@terrazzo/plugin-css@0.10.2)
+    transitivePeerDependencies:
+      - hono
+      - tailwindcss
+    dev: false
 
   /@choiceform/icons-react@1.2.9(react@18.2.0):
     resolution: {integrity: sha512-HvNjis7U1jfgBx41q796PS5fCv9UvGlNONn9+l6bK8MShPKUaHi0Ioo0mNJCInq+3NIuNhdG/Xk7RwjCNt2NlA==}
