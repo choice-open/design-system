@@ -213,7 +213,7 @@ export const Rounded: Story = {
             <Avatar
               name="A"
               className={rounded.class}
-              color={faker.color.rgb()}
+              photo="https://api.dicebear.com/7.x/avataaars/svg?seed=1"
               size="large"
             />
             <p className="text-sm">{rounded.label}</p>

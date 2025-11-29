@@ -2,13 +2,10 @@ import { tcv } from "~/utils"
 
 export const avatarTv = tcv({
   slots: {
-    root: [
-      "rounded-full",
-      "relative flex shrink-0 items-center justify-center align-middle overflow-hidden",
-    ],
+    root: ["rounded-full", "relative flex shrink-0 items-center justify-center align-middle"],
     image: [
       "overflow-hidden",
-      "absolute inset-0 h-full w-full",
+      "absolute inset-0 h-full w-full rounded-[inherit]",
       "pointer-events-none object-cover",
     ],
   },

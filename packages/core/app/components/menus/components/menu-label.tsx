@@ -4,6 +4,7 @@ import { MenuLabelTv } from "../tv"
 
 export interface MenuLabelProps {
   children?: ReactNode
+  className?: string
   selection?: boolean
 }
 
