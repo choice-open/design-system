@@ -3,6 +3,7 @@ import type { Components, Options } from "react-markdown"
 import remarkBreaks from "remark-breaks"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
+import { MD_BLOCK_DEFAULT_ALLOWED_IMAGE_PREFIXES, MD_BLOCK_DEFAULT_ALLOWED_LINK_PREFIXES } from ".."
 
 type HardenReactMarkdownProps = Options & {
   allowedImagePrefixes?: string[]
@@ -22,9 +23,6 @@ type HardenedMarkdownComponent = ComponentType<
     defaultOrigin?: string
   }
 >
-
-export const MD_BLOCK_DEFAULT_ALLOWED_IMAGE_PREFIXES = ["https://", "http://", "data:image/"]
-export const MD_BLOCK_DEFAULT_ALLOWED_LINK_PREFIXES = ["https://", "http://", "mailto:", "#"]
 
 export const MarkdownBlock = memo(
   function MarkdownBlock(props: MarkdownBlockProps) {
