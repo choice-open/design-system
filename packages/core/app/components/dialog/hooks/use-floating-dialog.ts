@@ -257,8 +257,10 @@ export function useFloatingDialog({
       }
     }
 
-    window.addEventListener("keydown", handleEscape, { capture: true })
-    return () => window.removeEventListener("keydown", handleEscape, { capture: true })
+    // Use bubble phase (default) instead of capture phase
+    // This allows child elements (like Input) to handle ESC first
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
   }, [innerOpen, closeOnEscape, handleClose])
 
   return {

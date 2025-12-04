@@ -646,3 +646,112 @@ export const EventPropagation: Story = {
     )
   },
 }
+
+/**
+ * WithInput: Demonstrates a dialog containing input fields for user data entry.
+ * This example shows a typical form dialog pattern with text inputs and action buttons.
+ * The dialog automatically focuses the first input when opened for better UX.
+ *
+ * Keyboard behavior:
+ * - ESC in input field: Blur the input (does not close dialog)
+ * - ESC outside input field: Close the dialog
+ *
+ * Implementation: Input handles ESC to blur and stops propagation.
+ * Dialog only receives ESC events when focus is not on an input.
+ */
+export const WithInput: Story = {
+  render: function WithInputStory() {
+    const [open, setOpen] = useState(false)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+
+    const handleSubmit = () => {
+      console.log("Form submitted:", { name, email })
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
+
+    const handleCancel = () => {
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
+
+    const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Escape") {
+        // Blur the input
+        e.currentTarget.blur()
+        // Stop propagation to prevent Dialog from closing
+        e.stopPropagation()
+      }
+    }
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open Form Dialog</Button>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+          outsidePress
+        >
+          <Dialog.Header title="User Information" />
+          <Dialog.Content className="w-96 p-4">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="name-input"
+                  className="text-body-medium font-strong"
+                >
+                  Name
+                </label>
+                <Input
+                  id="name-input"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={setName}
+                  onKeyDown={handleInputKeyDown}
+                  autoFocus
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="email-input"
+                  className="text-body-medium font-strong"
+                >
+                  Email
+                </label>
+                <Input
+                  id="email-input"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={setEmail}
+                  onKeyDown={handleInputKeyDown}
+                />
+              </div>
+              <p className="text-secondary-foreground text-body-small">
+                Press ESC in an input to blur it. Press ESC outside inputs to close the dialog.
+              </p>
+            </div>
+          </Dialog.Content>
+          <Dialog.Footer className="justify-end gap-2">
+            <Button
+              variant="ghost"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSubmit}
+              disabled={!name || !email}
+            >
+              Submit
+            </Button>
+          </Dialog.Footer>
+        </Dialog>
+      </>
+    )
+  },
+}

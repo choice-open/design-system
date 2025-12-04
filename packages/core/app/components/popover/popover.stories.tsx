@@ -1266,3 +1266,110 @@ export const PopoverFooter: Story = {
     )
   },
 }
+
+/**
+ * WithInput: Demonstrates a popover containing input fields for user data entry.
+ * This example shows a typical form popover pattern with text inputs and action buttons.
+ * 
+ * Keyboard behavior:
+ * - ESC in input field: Blur the input (does not close popover)
+ * - ESC outside input field: Close the popover
+ * 
+ * Implementation: Input handles ESC to blur and stops propagation.
+ * Popover only receives ESC events when focus is not on an input.
+ */
+export const WithInput: Story = {
+  render: function WithInputStory() {
+    const [open, setOpen] = useState(false)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+
+    const handleSubmit = () => {
+      console.log("Form submitted:", { name, email })
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
+
+    const handleCancel = () => {
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
+
+    const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Escape") {
+        // Blur the input
+        e.currentTarget.blur()
+        // Stop propagation to prevent Popover from closing
+        e.stopPropagation()
+      }
+    }
+
+    return (
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <Popover.Trigger>
+          <Button>Open Form Popover</Button>
+        </Popover.Trigger>
+        <Popover.Header title="User Information" />
+        <Popover.Content className="w-80 p-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="popover-name-input"
+                className="text-body-medium font-strong"
+              >
+                Name
+              </label>
+              <Input
+                id="popover-name-input"
+                placeholder="Enter your name"
+                value={name}
+                onChange={setName}
+                onKeyDown={handleInputKeyDown}
+                autoFocus
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="popover-email-input"
+                className="text-body-medium font-strong"
+              >
+                Email
+              </label>
+              <Input
+                id="popover-email-input"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={setEmail}
+                onKeyDown={handleInputKeyDown}
+              />
+            </div>
+            <p className="text-secondary-foreground text-body-small">
+              Press ESC in an input to blur it. Press ESC outside inputs to close the popover.
+            </p>
+          </div>
+        </Popover.Content>
+        <Popover.Footer className="flex justify-end gap-2 p-3">
+          <Button
+            variant="ghost"
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            disabled={!name || !email}
+          >
+            Submit
+          </Button>
+        </Popover.Footer>
+      </Popover>
+    )
+  },
+}
