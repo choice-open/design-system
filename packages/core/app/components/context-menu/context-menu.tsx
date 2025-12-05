@@ -72,6 +72,7 @@ export interface ContextMenuProps extends HTMLProps<HTMLDivElement> {
   root?: HTMLElement | null
   selection?: boolean
   triggerRef?: React.RefObject<HTMLElement>
+  triggerSelector?: string
   variant?: "default" | "light" | "reset"
 }
 
@@ -141,6 +142,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
     open: controlledOpen,
     onOpenChange,
     triggerRef,
+    triggerSelector,
     focusManagerProps = {
       returnFocus: false,
       modal: false,
@@ -339,12 +341,15 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
     }
   }, [isControlledOpen, handleOpenChange])
 
-  // Handle triggerRef support
+  // Handle triggerRef and triggerSelector support
   useEffect(() => {
-    const element = triggerRef?.current
+    // 优先使用 triggerRef，其次使用 triggerSelector
+    const element =
+      triggerRef?.current ??
+      (triggerSelector ? document.querySelector<HTMLElement>(triggerSelector) : null)
     if (!element) return
 
-    // Set the floating reference to the triggerRef element
+    // Set the floating reference to the trigger element
     refs.setReference(element)
 
     // Add contextmenu event listener
@@ -365,7 +370,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
       element.removeEventListener("contextmenu", handleTriggerContextMenu)
       element.removeAttribute("data-context-menu-disabled")
     }
-  }, [triggerRef, refs, handleContextMenu, disabled])
+  }, [triggerRef, triggerSelector, refs, handleContextMenu, disabled])
 
   // 使用共享的滚动逻辑 - 参考 dropdown.tsx
   const { handleArrowScroll, handleArrowHide, scrollProps } = useMenuScroll({
@@ -458,7 +463,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
   return (
     <FloatingNode id={nodeId}>
       <ContextMenuContext.Provider value={contextMenuContextValue}>
-        {/* Render target for root level, SubTrigger for nested, but skip target if triggerRef is provided */}
+        {/* Render target for root level, SubTrigger for nested, but skip target if triggerRef or triggerSelector is provided */}
         {isNested
           ? subTriggerElement && (
               <div
@@ -479,7 +484,7 @@ const ContextMenuComponent = memo(function ContextMenuComponent(props: ContextMe
                 {cloneElement(subTriggerElement, { active: isControlledOpen })}
               </div>
             )
-          : !triggerRef && targetElement}
+          : !triggerRef && !triggerSelector && targetElement}
 
         <FloatingList
           elementsRef={elementsRef}

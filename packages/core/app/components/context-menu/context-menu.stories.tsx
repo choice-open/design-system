@@ -638,6 +638,97 @@ export const WithTriggerRef: Story = {
 }
 
 /**
+ * WithTriggerSelector: Demonstrates using triggerSelector (CSS selector) instead of triggerRef.
+ *
+ * This approach is useful when:
+ * - You cannot access the element via ref (e.g., third-party components)
+ * - The trigger element is rendered elsewhere in the DOM
+ * - You prefer a simpler, selector-based approach
+ *
+ * Features:
+ * - Supports any valid CSS selector (#id, .class, [data-*], etc.)
+ * - Same functionality as triggerRef
+ * - triggerRef takes priority if both are provided
+ */
+export const WithTriggerSelector: Story = {
+  render: function WithTriggerSelectorStory() {
+    return (
+      <div className="flex h-64 flex-col items-center justify-center gap-8">
+        <div className="flex gap-8">
+          {/* Using id selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using #id selector</p>
+            <div
+              id="context-menu-trigger-by-id"
+              className="bg-secondary-background rounded-xl border border-dashed p-8"
+            >
+              Right click me (id selector)
+            </div>
+            <ContextMenu triggerSelector="#context-menu-trigger-by-id">
+              <ContextMenu.Content>
+                <ContextMenu.Label>ID Selector Menu</ContextMenu.Label>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Action 1</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Action 2</ContextMenu.Value>
+                </ContextMenu.Item>
+              </ContextMenu.Content>
+            </ContextMenu>
+          </div>
+
+          {/* Using class selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using .class selector</p>
+            <div className="context-menu-trigger-by-class bg-secondary-background rounded-xl border border-dashed p-8">
+              Right click me (class selector)
+            </div>
+            <ContextMenu triggerSelector=".context-menu-trigger-by-class">
+              <ContextMenu.Content>
+                <ContextMenu.Label>Class Selector Menu</ContextMenu.Label>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Option A</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Option B</ContextMenu.Value>
+                </ContextMenu.Item>
+              </ContextMenu.Content>
+            </ContextMenu>
+          </div>
+
+          {/* Using data attribute selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using [data-*] selector</p>
+            <div
+              data-context-trigger="custom"
+              className="bg-secondary-background rounded-xl border border-dashed p-8"
+            >
+              Right click me (data-* selector)
+            </div>
+            <ContextMenu triggerSelector="[data-context-trigger='custom']">
+              <ContextMenu.Content>
+                <ContextMenu.Label>Data Attribute Menu</ContextMenu.Label>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Item X</ContextMenu.Value>
+                </ContextMenu.Item>
+                <ContextMenu.Item>
+                  <ContextMenu.Value>Item Y</ContextMenu.Value>
+                </ContextMenu.Item>
+              </ContextMenu.Content>
+            </ContextMenu>
+          </div>
+        </div>
+
+        <div className="bg-secondary-background max-w-xl rounded-xl p-4 text-center">
+          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS 选择器，当无法使用 ref
+          时非常有用。
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
  * WithDisabled: Demonstrates disabled ContextMenu functionality.
  *
  * Features:

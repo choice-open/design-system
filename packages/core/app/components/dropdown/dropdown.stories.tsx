@@ -1501,3 +1501,153 @@ export const Light: Story = {
     )
   },
 }
+
+/**
+ * Using triggerRef to bind dropdown to an external element.
+ *
+ * This is useful when:
+ * - You need to attach a dropdown to an existing element
+ * - You want to avoid using Dropdown.Trigger wrapper
+ * - You need more control over the trigger element
+ */
+export const WithTriggerRef: Story = {
+  render: function WithTriggerRefStory() {
+    const triggerRef = useRef<HTMLButtonElement>(null)
+    const [isOpen, setIsOpen] = useState(false)
+
+    return (
+      <div className="flex h-64 items-center justify-center gap-8">
+        <div>
+          <p className="text-body-small-strong mb-2">Using triggerRef</p>
+          <button
+            ref={triggerRef}
+            className="bg-secondary-background rounded-xl border border-dashed px-4 py-2"
+          >
+            Click me (via triggerRef)
+          </button>
+          <Dropdown
+            triggerRef={triggerRef}
+            open={isOpen}
+            onOpenChange={setIsOpen}
+          >
+            <Dropdown.Content>
+              <Dropdown.Label>TriggerRef Menu</Dropdown.Label>
+              <Dropdown.Item>
+                <Dropdown.Value>Option 1</Dropdown.Value>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Dropdown.Value>Option 2</Dropdown.Value>
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item variant="danger">
+                <Dropdown.Value>Delete</Dropdown.Value>
+              </Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * Using triggerSelector (CSS selector) to bind dropdown to an element.
+ *
+ * This is useful when:
+ * - You cannot access the element via ref (e.g., third-party components)
+ * - The trigger element is rendered elsewhere in the DOM
+ * - You prefer a simpler, selector-based approach
+ */
+export const WithTriggerSelector: Story = {
+  render: function WithTriggerSelectorStory() {
+    const [isOpen1, setIsOpen1] = useState(false)
+    const [isOpen2, setIsOpen2] = useState(false)
+    const [isOpen3, setIsOpen3] = useState(false)
+
+    return (
+      <div className="flex h-64 flex-col items-center justify-center gap-8">
+        <div className="flex gap-8">
+          {/* Using id selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using #id selector</p>
+            <button
+              id="dropdown-trigger-by-id"
+              className="bg-secondary-background rounded-xl border border-dashed px-4 py-2"
+            >
+              Click me (id selector)
+            </button>
+            <Dropdown
+              triggerSelector="#dropdown-trigger-by-id"
+              open={isOpen1}
+              onOpenChange={setIsOpen1}
+            >
+              <Dropdown.Content>
+                <Dropdown.Label>ID Selector Menu</Dropdown.Label>
+                <Dropdown.Item>
+                  <Dropdown.Value>Action 1</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Dropdown.Value>Action 2</Dropdown.Value>
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+
+          {/* Using class selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using .class selector</p>
+            <button className="dropdown-trigger-by-class bg-secondary-background rounded-xl border border-dashed px-4 py-2">
+              Click me (class selector)
+            </button>
+            <Dropdown
+              triggerSelector=".dropdown-trigger-by-class"
+              open={isOpen2}
+              onOpenChange={setIsOpen2}
+            >
+              <Dropdown.Content>
+                <Dropdown.Label>Class Selector Menu</Dropdown.Label>
+                <Dropdown.Item>
+                  <Dropdown.Value>Option A</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Dropdown.Value>Option B</Dropdown.Value>
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+
+          {/* Using data attribute selector */}
+          <div>
+            <p className="text-body-small-strong mb-2">Using [data-*] selector</p>
+            <button
+              data-dropdown-trigger="custom"
+              className="bg-secondary-background rounded-xl border border-dashed px-4 py-2"
+            >
+              Click me (data-* selector)
+            </button>
+            <Dropdown
+              triggerSelector="[data-dropdown-trigger='custom']"
+              open={isOpen3}
+              onOpenChange={setIsOpen3}
+            >
+              <Dropdown.Content>
+                <Dropdown.Label>Data Attribute Menu</Dropdown.Label>
+                <Dropdown.Item>
+                  <Dropdown.Value>Item X</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Dropdown.Value>Item Y</Dropdown.Value>
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div className="bg-secondary-background max-w-xl rounded-xl p-4 text-center">
+          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS 选择器，当无法使用 ref
+          时非常有用。
+        </div>
+      </div>
+    )
+  },
+}

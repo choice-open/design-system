@@ -82,6 +82,8 @@ export interface DropdownProps {
   readOnly?: boolean
   root?: HTMLElement | null
   selection?: boolean
+  triggerRef?: React.RefObject<HTMLElement>
+  triggerSelector?: string
   variant?: "default" | "light" | "reset"
 }
 
@@ -125,6 +127,8 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     matchTriggerWidth = false,
     open: controlledOpen,
     onOpenChange,
+    triggerRef,
+    triggerSelector,
     focusManagerProps = {
       returnFocus: false,
       modal: position ? false : true,
@@ -133,6 +137,9 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     root,
     variant = "default",
   } = props
+
+  // 是否使用外部触发器（triggerRef 或 triggerSelector）
+  const hasExternalTrigger = Boolean(triggerRef || triggerSelector)
 
   // References - 使用统一的 refs 管理
   const { scrollRef, elementsRef, labelsRef, selectTimeoutRef } = useMenuBaseRefs()
@@ -274,6 +281,33 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
       setActiveIndex(null)
     }
   }, [isCoordinateMode, isControlledOpen])
+
+  // 用 ref 存储当前 open 状态，避免 useEffect 依赖 isControlledOpen
+  const isOpenRef = useRef(isControlledOpen)
+  isOpenRef.current = isControlledOpen
+
+  // 处理 triggerRef 和 triggerSelector
+  useEffect(() => {
+    if (isCoordinateMode || (!triggerRef && !triggerSelector)) return
+
+    const element =
+      triggerRef?.current ??
+      (triggerSelector ? document.querySelector<HTMLElement>(triggerSelector) : null)
+    if (!element) return
+
+    refs.setReference(element)
+
+    const handleClick = (e: MouseEvent) => {
+      e.preventDefault()
+      handleOpenChange(!isOpenRef.current)
+    }
+
+    element.addEventListener("click", handleClick)
+
+    return () => {
+      element.removeEventListener("click", handleClick)
+    }
+  }, [triggerRef, triggerSelector, refs, handleOpenChange, isCoordinateMode])
 
   // 交互处理器配置
   const hover = useHover(context, {
@@ -430,7 +464,8 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
 
   return (
     <FloatingNode id={nodeId}>
-      {!isCoordinateMode && (
+      {/* 不在坐标模式且没有外部触发器时渲染内置 Slot */}
+      {!isCoordinateMode && !hasExternalTrigger && (
         <Slot
           ref={refs.setReference}
           tabIndex={!isNested ? undefined : parent?.activeIndex === item.index ? 0 : -1}
