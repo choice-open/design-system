@@ -6,7 +6,7 @@ import { CodeBlockCode } from "./code-block-code"
 const codeBlockTv = tcv({
   slots: {
     code: "overflow-hidden",
-    content: "flex w-fit flex-col overflow-clip p-4",
+    content: "flex w-fit flex-col overflow-clip p-[inherit]",
   },
 })
 
@@ -33,11 +33,12 @@ export function CodeBlockContent(props: CodeBlockContentProps) {
   const shouldLimitHeight = lineCount > lineThreshold && !codeExpanded
 
   return (
-    <div className={tcx(tv.code(), className)}>
+    <>
       {withScrollArea ? (
         <ScrollArea
           orientation="both"
           hoverBoundary="none"
+          className={tcx(tv.code(), className)}
         >
           <ScrollArea.Viewport
             ref={scrollRef}
@@ -52,18 +53,20 @@ export function CodeBlockContent(props: CodeBlockContentProps) {
               <CodeBlockCode
                 code={code}
                 language={language}
+                codeBlock={codeBlock}
               />
             </ScrollArea.Content>
           </ScrollArea.Viewport>
         </ScrollArea>
       ) : (
-        <div className={tv.content()}>
+        <div className={tcx(tv.content(), className)}>
           <CodeBlockCode
             code={code}
             language={language}
+            codeBlock={codeBlock}
           />
         </div>
       )}
-    </div>
+    </>
   )
 }

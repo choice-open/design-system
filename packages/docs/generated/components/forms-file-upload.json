@@ -1,0 +1,321 @@
+{
+  "slug": "forms/file-upload",
+  "title": "FileUpload",
+  "package": {
+    "name": "@choice-ui/file-upload",
+    "version": "0.0.3",
+    "description": "File upload component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/slot": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "FileUpload"
+  ],
+  "props": [
+    {
+      "displayName": "FileUpload",
+      "description": "",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "File[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "dir",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "invalid",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxFiles",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxSize",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "multiple",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onAccept",
+          "type": "((files: File[]) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFileAccept",
+          "type": "((file: File) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFileReject",
+          "type": "((file: File, message: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFileValidate",
+          "type": "((file: File) => string | null | undefined) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onUpload",
+          "type": "((files: File[], options: { onError: (file: File, error: Error) => void; onProgress: (file: File, progress: number) => void; onSuccess: (file: File) => void; }) => void | Promise<...>) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "((files: File[]) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "File[] | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadClear",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "forceMount",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadDropzone",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadItem",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "File",
+          "required": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadItemDelete",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadItemMetadata",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadItemPreview",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "render",
+          "type": "((file: File) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadItemProgress",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "circular",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadList",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "forceMount",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "orientation",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "FileUploadTrigger",
+      "description": "",
+      "props": [
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "useStore",
+      "description": "文件上传状态订阅 Hook\n\n这个 Hook 使用 useSyncExternalStore 来订阅文件上传状态的变化。\n它实现了选择器模式，只有当选择器返回的值发生变化时，组件才会重新渲染。\n\n内部使用了优化策略：\n- 缓存上一次的状态和选择器结果\n- 只有当状态引用发生变化时才重新计算选择器\n- 避免不必要的重新渲染",
+      "props": []
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-fileupload--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic FileUpload with compound component pattern",
+      "source": "import { Component } from \"@choice-ui/file-upload\"\n\nexport default function App() {\n  return (\n    <FileUpload\n      maxFiles={2}\n      maxSize={5 * 1024 * 1024}\n      value={files}\n      onValueChange={setFiles}\n      onFileReject={onFileReject}\n      multiple\n    >\n      <FileUpload.Dropzone>\n        <div className=\"flex flex-col items-center gap-1\">\n          <DataUpload\n            className=\"text-tertiary-foreground\"\n            width={32}\n            height={32}\n            strokeWidth={(2 * 16) / 32}\n          />\n\n          <p className=\"font-strong\">Drag & drop files here</p>\n          <p className=\"text-secondary-foreground\">\n            Or click to browse (max 2 files, up to 5MB each)\n          </p>\n        </div>\n        <FileUpload.Trigger asChild>\n          <Button variant=\"secondary\" className=\"mt-2 w-fit\">\n            Browse files\n          </Button>\n        </FileUpload.Trigger>\n      </FileUpload.Dropzone>\n      <FileUpload.List>\n        {files.map((file, index) => (\n          <FileUpload.Item key={index} value={file}>\n            <FileUpload.ItemPreview />\n            <FileUpload.ItemMetadata />\n            <FileUpload.ItemDelete asChild>\n              <IconButton>\n                <RemoveSmall />\n              </IconButton>\n            </FileUpload.ItemDelete>\n          </FileUpload.Item>\n        ))}\n      </FileUpload.List>\n    </FileUpload>\n  );\n}"
+    },
+    {
+      "id": "forms-fileupload--backward-compatible",
+      "name": "Backward Compatible",
+      "exportName": "BackwardCompatible",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/file-upload\"\n\nexport default function App() {\n  return (\n    <FileUpload\n      maxFiles={2}\n      maxSize={5 * 1024 * 1024}\n      value={files}\n      onValueChange={setFiles}\n      onFileReject={onFileReject}\n      multiple\n    >\n      <FileUploadDropzone>\n        <div className=\"flex flex-col items-center gap-1\">\n          <DataUpload\n            className=\"text-tertiary-foreground\"\n            width={32}\n            height={32}\n            strokeWidth={(2 * 16) / 32}\n          />\n\n          <p className=\"font-strong\">Drag & drop files here</p>\n          <p className=\"text-secondary-foreground\">\n            Legacy usage style (still works)\n          </p>\n        </div>\n        <FileUploadTrigger asChild>\n          <Button variant=\"secondary\" className=\"mt-2 w-fit\">\n            Browse files\n          </Button>\n        </FileUploadTrigger>\n      </FileUploadDropzone>\n      <FileUploadList>\n        {files.map((file, index) => (\n          <FileUploadItem key={index} value={file}>\n            <FileUploadItemPreview />\n            <FileUploadItemMetadata />\n            <FileUploadItemDelete asChild>\n              <IconButton>\n                <RemoveSmall />\n              </IconButton>\n            </FileUploadItemDelete>\n          </FileUploadItem>\n        ))}\n      </FileUploadList>\n    </FileUpload>\n  );\n}"
+    },
+    {
+      "id": "forms-fileupload--with-progress",
+      "name": "With Progress",
+      "exportName": "WithProgress",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/file-upload\"\n\nexport default function App() {\n  return (\n    <FileUpload\n      maxFiles={3}\n      value={files}\n      onValueChange={setFiles}\n      onUpload={simulateUpload}\n      multiple\n    >\n      <FileUpload.Dropzone>\n        <div className=\"flex flex-col items-center gap-1\">\n          <DataUpload\n            className=\"text-tertiary-foreground\"\n            width={32}\n            height={32}\n            strokeWidth={(2 * 16) / 32}\n          />\n          <p className=\"font-strong\">Drop files to upload</p>\n          <p className=\"text-secondary-foreground\">\n            Upload will start automatically\n          </p>\n        </div>\n        <FileUpload.Trigger asChild>\n          <Button variant=\"secondary\" className=\"mt-2 w-fit\">\n            Select files\n          </Button>\n        </FileUpload.Trigger>\n      </FileUpload.Dropzone>\n      <FileUpload.List>\n        {files.map((file, index) => (\n          <FileUpload.Item key={index} value={file}>\n            <FileUpload.ItemPreview />\n            <div className=\"flex-1\">\n              <FileUpload.ItemMetadata />\n              <FileUpload.ItemProgress />\n            </div>\n            <FileUpload.ItemDelete asChild>\n              <IconButton>\n                <RemoveSmall />\n              </IconButton>\n            </FileUpload.ItemDelete>\n          </FileUpload.Item>\n        ))}\n      </FileUpload.List>\n    </FileUpload>\n  );\n}"
+    }
+  ]
+}

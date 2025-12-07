@@ -1,0 +1,234 @@
+{
+  "slug": "forms/md-input",
+  "title": "MdInput",
+  "package": {
+    "name": "@choice-ui/md-input",
+    "version": "0.0.3",
+    "description": "Markdown Input component for Choiceform Design System",
+    "dependencies": {
+      "usehooks-ts": "^3.1.1",
+      "@choice-ui/combobox": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/icon-button": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/md-render": "workspace:*",
+      "@choice-ui/scroll-area": "workspace:*",
+      "@choice-ui/tabs": "workspace:*",
+      "@choice-ui/textarea": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "MdInput"
+  ],
+  "props": [
+    {
+      "displayName": "MdInput",
+      "description": "",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mentionItems",
+          "type": "MentionItemProps[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mentionOnSelect",
+          "type": "((item: MentionItemProps, query: string) => string) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-mdinput--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic: Shows the default markdown input usage.\n- Demonstrates a simple markdown editor with toolbar and preview.\n- Use for basic markdown editing needs.",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor placeholder=\"Enter markdown...\" />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--without-preview",
+      "name": "Without Preview",
+      "exportName": "WithoutPreview",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--only-preview",
+      "name": "Only Preview",
+      "exportName": "OnlyPreview",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <p>With ScrollArea</p>\n      <MdInput value={value}>\n        <MdInput.Render />\n      </MdInput>\n\n      <p>Without ScrollArea</p>\n      <MdInput value={value}>\n        <MdInput.Render className=\"p-4\" />\n      </MdInput>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--without-toolbar",
+      "name": "Without Toolbar",
+      "exportName": "WithoutToolbar",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--read-only",
+      "name": "Read Only",
+      "exportName": "ReadOnly",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} readOnly>\n      <MdInput.Header>\n        <MdInput.Tabs />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled: Shows markdown input in disabled state.\n- Prevents all interactions.\n- Useful for disabled form states.",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} disabled>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-height",
+      "name": "Custom Height",
+      "exportName": "CustomHeight",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor maxRows={36} minRows={12} />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--empty",
+      "name": "Empty",
+      "exportName": "Empty",
+      "description": "Empty: Shows markdown input with empty initial value.\n- Demonstrates the placeholder functionality.\n- Useful for new content creation.",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor placeholder=\"Start writing markdown...\" />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-toolbar-actions",
+      "name": "Custom Toolbar Actions",
+      "exportName": "CustomToolbarActions",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar visibleActions={[\"bold\", \"italic\", \"code\"]} />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--lists-only",
+      "name": "Lists Only",
+      "exportName": "ListsOnly",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar\n          visibleActions={[\"unordered-list\", \"ordered-list\", \"task-list\"]}\n        />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--git-hub-flavored-markdown",
+      "name": "Git Hub Flavored Markdown",
+      "exportName": "GitHubFlavoredMarkdown",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor minRows={48} maxRows={72} />\n        <MdInput.Render customColor={customColor} />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-layout",
+      "name": "Custom Layout",
+      "exportName": "CustomLayout",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Toolbar />\n        <MdInput.Tabs />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n      <MdInput.Footer>\n        <div className=\"text-muted-foreground text-xs\">\n          Markdown supported\n        </div>\n      </MdInput.Footer>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-toolbar",
+      "name": "Custom Toolbar",
+      "exportName": "CustomToolbar",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar groups={customGroups} />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--toolbar-in-footer",
+      "name": "Toolbar In Footer",
+      "exportName": "ToolbarInFooter",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n      <MdInput.Footer>\n        <MdInput.Toolbar />\n      </MdInput.Footer>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-toolbar-in-footer",
+      "name": "Custom Toolbar In Footer",
+      "exportName": "CustomToolbarInFooter",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n      <MdInput.Footer>\n        <div className=\"flex items-center justify-between\">\n          <MdInput.Toolbar groups={footerGroups} />\n          <div className=\"text-muted-foreground text-xs\">\n            Markdown supported\n          </div>\n        </div>\n      </MdInput.Footer>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--with-mentions",
+      "name": "With Mentions",
+      "exportName": "WithMentions",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor placeholder=\"Type @ to mention someone...\" />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-mention-format",
+      "name": "Custom Mention Format",
+      "exportName": "CustomMentionFormat",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput\n      value={value}\n      onChange={setValue}\n      mentionItems={mentionItems}\n      mentionOnSelect={handleMentionSelect}\n    >\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor placeholder=\"Type @ to mention someone...\" />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--mentions-with-filtering",
+      "name": "Mentions With Filtering",
+      "exportName": "MentionsWithFiltering",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor placeholder=\"Type @ and start typing to filter...\" />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--mentions-in-existing-content",
+      "name": "Mentions In Existing Content",
+      "exportName": "MentionsInExistingContent",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>\n      <MdInput.Header>\n        <MdInput.Tabs />\n        <MdInput.Toolbar />\n      </MdInput.Header>\n      <MdInput.Container>\n        <MdInput.Editor />\n        <MdInput.Render />\n      </MdInput.Container>\n    </MdInput>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--custom-mention-rendering",
+      "name": "Custom Mention Rendering",
+      "exportName": "CustomMentionRendering",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <span className=\"bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle\">\n      @{mention}\n    </span>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--mention-rendering-in-various-formats",
+      "name": "Mention Rendering In Various Formats",
+      "exportName": "MentionRenderingInVariousFormats",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <span className=\"bg-accent text-accent-foreground inline-flex items-center rounded px-1.5 py-0.5\">\n      @{mention}\n    </span>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--mention-with-allowed-domains",
+      "name": "Mention With Allowed Domains",
+      "exportName": "MentionWithAllowedDomains",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <a\n      href={`mailto:${user?.email}`}\n      className=\"bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle\"\n      title={user?.email}\n      target=\"_blank\"\n      rel=\"noopener noreferrer\"\n    >\n      <img\n        src={user?.avatar}\n        alt={user?.label}\n        className=\"h-4 w-4 rounded-full\"\n      />\n      {mention}\n    </a>\n  );\n}"
+    },
+    {
+      "id": "forms-mdinput--code-display",
+      "name": "Code Display",
+      "exportName": "CodeDisplay",
+      "description": "",
+      "source": "import { MdInput } from \"@choice-ui/md-input\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <Button onClick={() => setCount(count - 1)}>-</Button>\n      <span className=\"text-xl font-bold\">{count}</span>\n      <Button onClick={() => setCount(count + 1)}>+</Button>\n    </div>\n  );\n}"
+    }
+  ]
+}

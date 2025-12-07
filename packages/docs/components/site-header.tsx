@@ -1,53 +1,64 @@
+"use client"
+
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { cn } from "@/lib/utils"
+import { IconButton, Tabs } from "@/components/ui"
+import { useState } from "react"
+import { Github } from "@choiceform/icons-react"
 
 export function SiteHeader() {
+  const [selectedTab, setSelectedTab] = useState("docs")
+
   return (
-    <header className="border-border/40 bg-background/80 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur-md">
+    <header className="border-default-boundary/40 bg-default-background/80 supports-[backdrop-filter]:bg-default-background/60 sticky top-0 z-50 w-full border-b backdrop-blur-md">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-8 flex items-center">
           <Link
             className="mr-6 flex items-center gap-2"
             href="/"
           >
-            <div className="h-6 w-6 rounded-full bg-zinc-900 dark:bg-zinc-50" />
-            <span className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-              Hero UI
-            </span>
+            <div className="bg-selected-background h-6 w-6 rounded-full" />
+            <span className="text-heading-medium">@choice-ui</span>
           </Link>
-          <nav className="flex items-center gap-6 text-sm font-medium">
-            <Link
-              href="/docs"
-              className={cn("hover:text-foreground/80 transition-colors", "text-foreground")}
+          <Tabs
+            value={selectedTab}
+            onChange={setSelectedTab}
+            variant="accent"
+          >
+            <Tabs.Item
+              as={Link}
+              href="/docs/guide/introduction"
+              value="docs"
             >
               Docs
-            </Link>
-            <Link
-              href="/components"
-              className={cn("hover:text-foreground/80 transition-colors", "text-foreground/60")}
+            </Tabs.Item>
+            <Tabs.Item
+              as={Link}
+              href="/docs/components/buttons/button"
+              value="components"
             >
               Components
-            </Link>
-            <Link
-              href="/tokens"
-              className={cn("hover:text-foreground/80 transition-colors", "text-foreground/60")}
+            </Tabs.Item>
+            <Tabs.Item
+              as={Link}
+              href="/docs/tokens"
+              value="tokens"
             >
               Tokens
-            </Link>
-          </nav>
+            </Tabs.Item>
+          </Tabs>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <button className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm font-medium text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50">
-              <span className="text-xs">Quick search...</span>
-              <kbd className="bg-muted pointer-events-none hidden h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </button>
-          </div>
           <nav className="flex items-center gap-2">
             <ThemeToggle />
+            <IconButton
+              as={Link}
+              href="https://github.com/choice-form/design-tokens"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github />
+            </IconButton>
           </nav>
         </div>
       </div>

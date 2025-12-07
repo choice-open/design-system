@@ -1,0 +1,100 @@
+{
+  "slug": "forms/label",
+  "title": "Label",
+  "package": {
+    "name": "@choice-ui/label",
+    "version": "0.0.2",
+    "description": "Label component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Label"
+  ],
+  "props": [
+    {
+      "displayName": "Label",
+      "description": "",
+      "props": [
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "as",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-label--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic label usage.\n\nUse the `Label` component to annotate form fields.",
+      "source": "import { Component } from \"@choice-ui/label\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label htmlFor=\"name\">Name</Label>\n      <Input id=\"name\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-label--with-description",
+      "name": "With Description",
+      "exportName": "WithDescription",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/label\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label htmlFor=\"description\" description=\"Please enter your full name\">\n        Name\n      </Label>\n\n      <Input id=\"description\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-label--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled label.\n\nUse the `disabled` prop to indicate the field is not editable.",
+      "source": "import { Component } from \"@choice-ui/label\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label htmlFor=\"disabled\" disabled>\n        Name\n      </Label>\n      <Input id=\"disabled\" disabled />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-label--required",
+      "name": "Required",
+      "exportName": "Required",
+      "description": "Required label.\n\nUse the `required` prop to show a required indicator.",
+      "source": "import { Component } from \"@choice-ui/label\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label htmlFor=\"required\" required>\n        Name\n      </Label>\n      <Input id=\"required\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-label--with-action",
+      "name": "With Action",
+      "exportName": "WithAction",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/label\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label\n        htmlFor=\"action\"\n        description=\"This is a description\"\n        action={\n          <IconButton variant=\"ghost\" className=\"size-4\">\n            <QuestionCircle />\n          </IconButton>\n        }\n      >\n        Name\n      </Label>\n      <Input id=\"action\" />\n    </div>\n  );\n}"
+    }
+  ]
+}

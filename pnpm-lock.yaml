@@ -2872,6 +2872,9 @@ importers:
       tinycolor2:
         specifier: ^1.6.0
         version: 1.6.0
+      usehooks-ts:
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.0)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -2918,6 +2921,12 @@ importers:
       '@types/tinycolor2':
         specifier: ^1.4.6
         version: 1.4.6
+      chokidar:
+        specifier: ^4.0.3
+        version: 4.0.3
+      concurrently:
+        specifier: ^9.1.2
+        version: 9.2.1
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -2960,9 +2969,6 @@ importers:
       use-stick-to-bottom:
         specifier: ^1.0.45
         version: 1.1.1(react@19.2.0)
-      usehooks-ts:
-        specifier: ^3.1.1
-        version: 3.1.1(react@19.2.0)
       zod:
         specifier: ^3.25.36
         version: 3.25.76
@@ -9707,6 +9713,19 @@ packages:
       rxjs: 7.8.2
       shell-quote: 1.8.3
       spawn-command: 0.0.2
+      supports-color: 8.1.1
+      tree-kill: 1.2.2
+      yargs: 17.7.2
+    dev: true
+
+  /concurrently@9.2.1:
+    resolution: {integrity: sha512-fsfrO0MxV64Znoy8/l1vVIjjHa29SZyyqPgQBwhiDcaW8wJc2W3XWVOGx4M3oJBnv/zdUZIIp1gDeS98GzP8Ng==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      chalk: 4.1.2
+      rxjs: 7.8.2
+      shell-quote: 1.8.3
       supports-color: 8.1.1
       tree-kill: 1.2.2
       yargs: 17.7.2
@@ -17176,7 +17195,7 @@ packages:
     dependencies:
       lodash.debounce: 4.0.8
       react: 19.2.0
-    dev: true
+    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}

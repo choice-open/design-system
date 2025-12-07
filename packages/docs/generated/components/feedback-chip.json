@@ -1,0 +1,138 @@
+{
+  "slug": "feedback/chip",
+  "title": "Chip",
+  "package": {
+    "name": "@choice-ui/chip",
+    "version": "0.0.3",
+    "description": "Chip component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/icon-button": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Chip"
+  ],
+  "props": [
+    {
+      "displayName": "Chip",
+      "description": "",
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "as",
+          "type": "ElementType | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "((e: MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "classNames",
+          "type": "{ closeButton?: string | undefined; prefix?: string | undefined; root?: string | undefined; suffix?: string | undefined; text?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "i18n",
+          "type": "{ chip: string; remove: string; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRemove",
+          "type": "((e: MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "prefixElement",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "suffixElement",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ref",
+          "type": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "feedback-chip--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "`Chip` is a compact, interactive component used for displaying information, selections, or actions.\n\nFeatures:\n- Can be selected, deselected, or removed\n- Supports prefix and suffix elements (icons, avatars, etc.)\n- Clickable for toggling selection or triggering actions\n- Can be used in groups for multi-select scenarios\n\nUsage:\n- Use chips for tags, filters, selections, or compact actions\n- Combine with prefix/suffix elements for richer context\n- Use the `onRemove` prop to make chips removable\n\nBest Practices:\n- Keep chip labels concise\n- Use icons or color indicators for additional meaning\n- Ensure sufficient contrast and accessible focus indicators\n\nAccessibility:\n- Fully accessible to screen readers and keyboard users\n- Removable chips provide accessible remove buttons\n- Prefix and suffix elements should be decorative or have accessible labels if meaningful\nBasic: Shows a simple, static Chip.\n- Use for displaying a single tag or label.",
+      "source": ""
+    },
+    {
+      "id": "feedback-chip--selected",
+      "name": "Selected",
+      "exportName": "Selected",
+      "description": "Selected: Demonstrates a selectable Chip.\n- Click to toggle selection state.\n- Useful for filter chips or multi-select scenarios.",
+      "source": "import { Component } from \"@choice-ui/chip\"\n\nexport default function App() {\n  return (\n    <Chip selected={selected} onClick={() => setSelected(!selected)}>\n      Chip\n    </Chip>\n  );\n}"
+    },
+    {
+      "id": "feedback-chip--on-remove",
+      "name": "On Remove",
+      "exportName": "OnRemove",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/chip\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-wrap gap-2\">\n      {chips.map((chip) => (\n        <Chip\n          key={chip}\n          selected={selected.includes(chip)}\n          onClick={() => {\n            setSelected(\n              selected.includes(chip)\n                ? selected.filter((c) => c !== chip)\n                : [...selected, chip]\n            );\n          }}\n          onRemove={() => {\n            setChips(chips.filter((c) => c !== chip));\n          }}\n        >\n          {chip}\n        </Chip>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "feedback-chip--prefix",
+      "name": "Prefix",
+      "exportName": "Prefix",
+      "description": "Prefix: Demonstrates a Chip with a prefix element (e.g., icon, color dot).\n- Use for status indicators, avatars, or icons before the label.",
+      "source": "import { Component } from \"@choice-ui/chip\"\n\nexport default function App() {\n  return (\n    <Chip prefixElement={<div className=\"h-2 w-2 rounded-full bg-red-500\" />}>\n      Chip\n    </Chip>\n  );\n}"
+    },
+    {
+      "id": "feedback-chip--suffix",
+      "name": "Suffix",
+      "exportName": "Suffix",
+      "description": "Suffix: Demonstrates a Chip with a suffix element (e.g., icon).\n- Use for actions, status, or icons after the label.",
+      "source": ""
+    }
+  ]
+}

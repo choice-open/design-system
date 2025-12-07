@@ -9,18 +9,14 @@ const codeBlockCodeTv = tcv({
 })
 
 export const CodeBlockCode = memo(function CodeBlockCode(props: CodeBlockCodeProps) {
-  // Filter out codeBlock prop injected by CodeBlock parent to prevent passing to DOM
-  const {
-    code,
-    language = "tsx",
-    className,
-    codeBlock: _,
-    ...rest
-  } = props as CodeBlockCodeProps & {
-    codeBlock?: unknown
-  }
+  const { code, language = "tsx", className, variant: variantProp, codeBlock, ...rest } = props
 
-  const theme = useTheme()
+  const systemTheme = useTheme()
+
+  // 优先级：手动传入的 variant > codeBlock context 的 variant > 系统主题
+  const resolvedVariant =
+    variantProp ?? (codeBlock?.variant === "default" ? undefined : codeBlock?.variant)
+  const theme = resolvedVariant ?? systemTheme
 
   const [highlightedHtml, setHighlightedHtml] = useState<string | null>(null)
 

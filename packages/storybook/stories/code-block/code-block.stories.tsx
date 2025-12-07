@@ -1032,3 +1032,27 @@ export function useUser(userId: string) {
     );
   },
 };
+
+/**
+ * Code block with different variants.
+ */
+export const Variants: Story = {
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-col gap-2">
+        <CodeBlock variant="default" language="typescript">
+          <CodeBlock.Header />
+          <CodeBlock.Content code="console.log('Hello, world!')" />
+        </CodeBlock>
+        <CodeBlock variant="light" language="typescript">
+          <CodeBlock.Header />
+          <CodeBlock.Content code="console.log('Hello, world!')" />
+        </CodeBlock>
+        <CodeBlock variant="dark" language="typescript">
+          <CodeBlock.Header />
+          <CodeBlock.Content code="console.log('Hello, world!')" />
+        </CodeBlock>
+      </div>
+    );
+  },
+};

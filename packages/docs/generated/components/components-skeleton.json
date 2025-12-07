@@ -1,0 +1,151 @@
+{
+  "slug": "components/skeleton",
+  "title": "skeleton",
+  "package": {
+    "name": "@choice-ui/skeleton",
+    "version": "0.0.2",
+    "description": "Skeleton component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/slot": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Skeleton",
+    "type SkeletonProps",
+    "type SkeletonVariant",
+    "skeletonTv",
+    "useSkeleton",
+    "useSkeletonContext",
+    "SkeletonProvider",
+    "type SkeletonContextValue",
+    "type SkeletonProviderProps"
+  ],
+  "props": [
+    {
+      "displayName": "Skeleton",
+      "description": "Skeleton component for loading states",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Additional CSS classes"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional children to infer width and height from\nWhen children are provided, Skeleton acts as a Slot and passes styles down"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to render as child element"
+        },
+        {
+          "name": "height",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Height of the skeleton"
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "undefined (falls back to Context)",
+          "description": "Whether the skeleton is in loading state\nWhen true, children will be wrapped with skeleton styles (gray background, no border/shadow, invisible children)\nIf not provided, will fallback to SkeletonContext loading state"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "'text'",
+          "description": "The variant of the skeleton"
+        },
+        {
+          "name": "width",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Width of the skeleton"
+        },
+        {
+          "name": "ref",
+          "type": "((instance: HTMLSpanElement | null) => void) | RefObject<HTMLSpanElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-skeleton--default",
+      "name": "Default",
+      "exportName": "Default",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <DefaultExample />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--loading-prop",
+      "name": "Loading Prop",
+      "exportName": "LoadingProp",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <LoadingPropExample />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--skeleton-provider-story",
+      "name": "SkeletonProvider",
+      "exportName": "SkeletonProviderStory",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <SkeletonProviderExample />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--button-example",
+      "name": "Button Wrapped",
+      "exportName": "ButtonExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <ButtonExampleComponent />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--card-example",
+      "name": "Card Wrapped",
+      "exportName": "CardExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <CardExampleComponent />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--form-example",
+      "name": "Form Wrapped",
+      "exportName": "FormExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <FormExampleComponent />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--profile-example",
+      "name": "Profile Card",
+      "exportName": "ProfileExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <ProfileExampleComponent />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--list-example",
+      "name": "List Items",
+      "exportName": "ListExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <ListExampleComponent />\n  );\n}"
+    },
+    {
+      "id": "components-skeleton--mixed-example",
+      "name": "Mixed Components",
+      "exportName": "MixedExample",
+      "description": "",
+      "source": "import { Skeleton } from \"@choice-ui/skeleton\"\n\nexport default function App() {\n  return (\n    <MixedExampleComponent />\n  );\n}"
+    }
+  ]
+}

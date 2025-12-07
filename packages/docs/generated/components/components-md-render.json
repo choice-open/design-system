@@ -1,0 +1,253 @@
+{
+  "slug": "components/md-render",
+  "title": "MdRender",
+  "package": {
+    "name": "@choice-ui/md-render",
+    "version": "0.0.3",
+    "description": "Markdown Render component for Choiceform Design System",
+    "dependencies": {
+      "marked": "^15.0.7",
+      "react-markdown": "^9.0.3",
+      "remark-gfm": "^4.0.1",
+      "remark-breaks": "^4.0.0",
+      "remark-math": "^6.0.0",
+      "harden-react-markdown": "^1.0.4",
+      "@choice-ui/code-block": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/scroll-area": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "MdRender",
+    "type MdRenderProps",
+    "type MentionRenderProps"
+  ],
+  "props": [
+    {
+      "displayName": "MdRender",
+      "description": "",
+      "props": [
+        {
+          "name": "allowedPrefixes",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "components",
+          "type": "Partial<Components> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "customColor",
+          "type": "{ codeBackground?: string | undefined; defaultBackground?: string | undefined; defaultBoundary?: string | undefined; defaultForeground?: string | undefined; secondaryBackground?: string | undefined; secondaryForeground?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mentionItems",
+          "type": "MentionItemProps[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mentionRenderComponent",
+          "type": "ComponentType<MentionRenderProps> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ref",
+          "type": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-mdrender--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic markdown rendering with common formatting elements.\n- Headings, paragraphs, lists\n- Bold, italic, strikethrough text\n- Links and inline code",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--git-hub-flavored-markdown",
+      "name": "Git Hub Flavored Markdown",
+      "exportName": "GitHubFlavoredMarkdown",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--custom-color",
+      "name": "Custom Color",
+      "exportName": "CustomColor",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <MdRender\n      className=\"p-4\"\n      content={GitHubFlavoredMarkdownContent}\n      customColor={customColor}\n    />\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--code-blocks",
+      "name": "Code Blocks",
+      "exportName": "CodeBlocks",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--task-lists",
+      "name": "Task Lists",
+      "exportName": "TaskLists",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--tables",
+      "name": "Tables",
+      "exportName": "Tables",
+      "description": "Tables with different alignments and formatting.\n- Left, center, and right alignment\n- Complex table structures\n- Tables with formatted content",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--nested-structures",
+      "name": "Nested Structures",
+      "exportName": "NestedStructures",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--with-mentions",
+      "name": "With Mentions",
+      "exportName": "WithMentions",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--custom-mention-rendering",
+      "name": "Custom Mention Rendering",
+      "exportName": "CustomMentionRendering",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <span className=\"bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle\">\n      @{mention}\n    </span>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--mentions-in-various-contexts",
+      "name": "Mentions In Various Contexts",
+      "exportName": "MentionsInVariousContexts",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <span className=\"bg-accent text-accent-foreground inline-flex items-center rounded px-1.5 py-0.5\">\n      @{mention}\n    </span>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--complex-document",
+      "name": "Complex Document",
+      "exportName": "ComplexDocument",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--empty-content",
+      "name": "Empty Content",
+      "exportName": "EmptyContent",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--url-whitelist",
+      "name": "URL Whitelist",
+      "exportName": "UrlWhitelist",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--url-whitelist-with-mentions",
+      "name": "URL Whitelist With Mentions",
+      "exportName": "UrlWhitelistWithMentions",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--long-document",
+      "name": "Long Document",
+      "exportName": "LongDocument",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "components-mdrender--typography-scale",
+      "name": "Typography Scale",
+      "exportName": "TypographyScale",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <div className=\"max-w-4xl p-6\">\n      <div className=\"mb-8\">\n        <h2 className=\"text-body-large-strong mb-4\">Normal Mode</h2>\n        <MdRender content={typographyScaleContent} />\n      </div>\n      <hr className=\"my-8\" />\n      <div>\n        <h2 className=\"text-body-large-strong mb-4\">Compact Mode</h2>\n        <MdRender content={typographyScaleContent} size=\"small\" />\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--size-comparison",
+      "name": "Size Comparison",
+      "exportName": "SizeComparison",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <div className=\"flex gap-6 p-6\">\n      <div className=\"w-80 rounded-xl border bg-white p-4 dark:bg-gray-900\">\n        <h3 className=\"text-body-small font-strong mb-4 text-gray-500 uppercase\">\n          Small (13px)\n        </h3>\n        <MdRender content={sizingContent} size=\"small\" />\n      </div>\n      <div className=\"w-80 rounded-xl border bg-white p-4 dark:bg-gray-900\">\n        <h3 className=\"text-body-small font-strong mb-4 text-gray-500 uppercase\">\n          Default (14px)\n        </h3>\n        <MdRender content={sizingContent} />\n      </div>\n      <div className=\"w-80 rounded-xl border bg-white p-4 dark:bg-gray-900\">\n        <h3 className=\"text-body-small font-strong mb-4 text-gray-500 uppercase\">\n          Large (16px)\n        </h3>\n        <MdRender content={sizingContent} size=\"large\" />\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--large-mode-documentation",
+      "name": "Large Mode Documentation",
+      "exportName": "LargeModeDocumentation",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <span className=\"custom-mention\">\n      @{mention}\n    </span>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--github-variant",
+      "name": "Github Variant",
+      "exportName": "GithubVariant",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <div className=\"grid grid-cols-2 gap-6 p-6\">\n      <div className=\"w-full rounded-xl border bg-white p-4 dark:bg-gray-900\">\n        <h3 className=\"text-body-small font-strong mb-4 text-gray-500 uppercase\">\n          Default\n        </h3>\n        <MdRender content={sizingContent} variant=\"default\" />\n      </div>\n\n      <div className=\"w-full rounded-xl border bg-white p-4 dark:bg-gray-900\">\n        <h3 className=\"text-body-small font-strong mb-4 text-gray-500 uppercase\">\n          Github\n        </h3>\n        <MdRender content={sizingContent} variant=\"github\" />\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--streaming-markdown",
+      "name": "Streaming Markdown",
+      "exportName": "StreamingMarkdown",
+      "description": "",
+      "source": "import { MdRender } from \"@choice-ui/md-render\"\n\nexport default function App() {\n  return (\n    <div className=\"flex h-[600px] w-[700px] flex-col gap-4\">\n      <div className=\"flex items-center gap-2\">\n        <button\n          onClick={addChunk}\n          disabled={\n            isStreaming ||\n            chunkIndexRef.current >= streamingMarkdownChunks.length\n          }\n          className=\"rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50\"\n        >\n          Add Chunk\n        </button>\n        <button\n          onClick={startStreaming}\n          disabled={\n            isStreaming ||\n            chunkIndexRef.current >= streamingMarkdownChunks.length\n          }\n          className=\"rounded bg-green-500 px-3 py-1.5 text-sm text-white hover:bg-green-600 disabled:opacity-50\"\n        >\n          {isStreaming ? \"Streaming...\" : \"Auto Stream\"}\n        </button>\n        <button\n          onClick={reset}\n          className=\"rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600\"\n        >\n          Reset\n        </button>\n        {!isAtBottom && (\n          <button\n            onClick={() => scrollToBottom()}\n            className=\"rounded bg-orange-500 px-3 py-1.5 text-sm text-white hover:bg-orange-600\"\n          >\n            Scroll to Bottom\n          </button>\n        )}\n      </div>\n\n      <div className=\"text-body-small text-fg-subtle\">\n        Chunks: {chunkIndexRef.current}/{streamingMarkdownChunks.length} | At\n        bottom: {isAtBottom ? \"Yes\" : \"No\"}\n      </div>\n\n      <ScrollArea className=\"flex-1 rounded-lg border\">\n        <ScrollArea.Viewport ref={scrollRef}>\n          <ScrollArea.Content ref={contentRef} className=\"w-full min-w-0 p-4\">\n            {content ? (\n              <MdRender content={content} />\n            ) : (\n              <div className=\"text-body-small text-fg-subtle py-8 text-center\">\n                Click &quot;Add Chunk&quot; or &quot;Auto Stream&quot; to\n                start\n              </div>\n            )}\n          </ScrollArea.Content>\n        </ScrollArea.Viewport>\n      </ScrollArea>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-mdrender--character-streaming-markdown",
+      "name": "Character Streaming Markdown",
+      "exportName": "CharacterStreamingMarkdown",
+      "description": "",
+      "source": ""
+    }
+  ]
+}

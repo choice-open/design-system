@@ -1,0 +1,139 @@
+{
+  "slug": "navigation/pagination",
+  "title": "Pagination",
+  "package": {
+    "name": "@choice-ui/pagination",
+    "version": "0.0.2",
+    "description": "Pagination component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/button": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/segmented": "workspace:*",
+      "usehooks-ts": "^3.1.0"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Pagination",
+    "type PaginationItemsPerPageProps",
+    "type PaginationLabels",
+    "type PaginationNavigationProps",
+    "type PaginationRootProps",
+    "type PaginationSpinnerProps"
+  ],
+  "props": [
+    {
+      "displayName": "Pagination",
+      "description": "",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Disabled state"
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "required": true,
+          "description": "Current active page (1-indexed)"
+        },
+        {
+          "name": "itemsPerPage",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Number of items per page"
+        },
+        {
+          "name": "labels",
+          "type": "Partial<PaginationLabels> | undefined",
+          "required": false,
+          "description": "Custom labels"
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Loading state"
+        },
+        {
+          "name": "maxPageButtons",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Maximum number of page buttons to display"
+        },
+        {
+          "name": "onItemsPerPageChange",
+          "type": "((itemsPerPage: number) => void) | undefined",
+          "required": false,
+          "description": "Callback when items per page changes"
+        },
+        {
+          "name": "onPageChange",
+          "type": "((page: number) => void) | undefined",
+          "required": false,
+          "description": "Callback when page changes"
+        },
+        {
+          "name": "pageSizeOptions",
+          "type": "number[] | undefined",
+          "required": false,
+          "description": "Available page size options"
+        },
+        {
+          "name": "showPageSizeSelector",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Show page size selector"
+        },
+        {
+          "name": "totalItems",
+          "type": "number",
+          "required": true,
+          "description": "Total number of items"
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "navigation-pagination--default",
+      "name": "Default",
+      "exportName": "Default",
+      "description": "",
+      "source": "import { Pagination } from \"@choice-ui/pagination\"\n\nexport default function App() {\n  return (\n    <PaginationWrapper totalItems={100} />\n  );\n}"
+    },
+    {
+      "id": "navigation-pagination--basic-pagination",
+      "name": "Basic Pagination",
+      "exportName": "BasicPagination",
+      "description": "",
+      "source": "import { Pagination } from \"@choice-ui/pagination\"\n\nexport default function App() {\n  return (\n    <PaginationWrapper {...args} />\n  );\n}"
+    },
+    {
+      "id": "navigation-pagination--real-world-example",
+      "name": "Real World Example",
+      "exportName": "RealWorldExample",
+      "description": "",
+      "source": "import { Pagination } from \"@choice-ui/pagination\"\n\nexport default function App() {\n  return (\n    <div className=\"w-full space-y-4\">\n      <div className=\"rounded-lg border p-4\">\n        <h3 className=\"mb-2 text-lg font-semibold\">Data Table Example</h3>\n        <div className=\"mb-4 space-y-2\">\n          {currentItems.map((item) => (\n            <div\n              key={item}\n              className=\"rounded bg-gray-50 px-3 py-2 dark:bg-gray-800\"\n            >\n              {item}\n            </div>\n          ))}\n        </div>\n      </div>\n      <Pagination\n        currentPage={currentPage}\n        totalItems={totalItems}\n        itemsPerPage={itemsPerPage}\n        onPageChange={setCurrentPage}\n        onItemsPerPageChange={setItemsPerPage}\n        pageSizeOptions={[10, 25, 50, 100]}\n      >\n        <Pagination.Spinner />\n        <Pagination.Navigation />\n        <Pagination.ItemsPerPage />\n      </Pagination>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "navigation-pagination--responsive-example",
+      "name": "Responsive Example",
+      "exportName": "ResponsiveExample",
+      "description": "",
+      "source": "import { Pagination } from \"@choice-ui/pagination\"\n\nexport default function App() {\n  return (\n    <div className=\"w-full space-y-8\">\n      <div>\n        <h3 className=\"mb-2 text-sm font-medium\">\n          Desktop View (All Features)\n        </h3>\n        <Pagination\n          currentPage={currentPage}\n          totalItems={500}\n          itemsPerPage={itemsPerPage}\n          onPageChange={setCurrentPage}\n          onItemsPerPageChange={setItemsPerPage}\n          showPageSizeSelector={true}\n        >\n          <Pagination.Spinner />\n          <Pagination.Navigation />\n          <Pagination.ItemsPerPage />\n        </Pagination>\n      </div>\n\n      <div>\n        <h3 className=\"mb-2 text-sm font-medium\">Mobile View (Compact)</h3>\n        <Pagination\n          currentPage={currentPage}\n          totalItems={500}\n          itemsPerPage={itemsPerPage}\n          onPageChange={setCurrentPage}\n          onItemsPerPageChange={setItemsPerPage}\n          maxPageButtons={5}\n        >\n          <Pagination.Navigation />\n        </Pagination>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "navigation-pagination--loading-state",
+      "name": "Loading State",
+      "exportName": "LoadingState",
+      "description": "",
+      "source": "import { Pagination } from \"@choice-ui/pagination\"\n\nexport default function App() {\n  return (\n    <div className=\"w-full space-y-4\">\n      <div className=\"rounded-lg border p-4\">\n        <div className=\"mb-4 flex items-center gap-4\">\n          <h3 className=\"text-lg font-semibold\">Loading State Example</h3>\n          <button\n            type=\"button\"\n            onClick={() => setIsLoading(!isLoading)}\n            className=\"rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700\"\n          >\n            Toggle Loading\n          </button>\n        </div>\n\n        <div className=\"mb-4 space-y-2\">\n          {isLoading ? (\n            <div className=\"space-y-2\">\n              <div className=\"h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700\" />\n              <div className=\"h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700\" />\n              <div className=\"h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700\" />\n            </div>\n          ) : (\n            Array.from({ length: itemsPerPage }, (_, i) => (\n              <div\n                key={`${currentPage}-${i}`}\n                className=\"rounded bg-gray-50 px-3 py-2 dark:bg-gray-800\"\n              >\n                Page {currentPage} - Item {i + 1}\n              </div>\n            ))\n          )}\n        </div>\n      </div>\n\n      <Pagination\n        currentPage={currentPage}\n        totalItems={250}\n        itemsPerPage={itemsPerPage}\n        onPageChange={handlePageChange}\n        onItemsPerPageChange={handleItemsPerPageChange}\n        loading={isLoading}\n        pageSizeOptions={[10, 20, 50, 100]}\n      >\n        <Pagination.Spinner />\n        <Pagination.Navigation />\n        <Pagination.ItemsPerPage />\n      </Pagination>\n    </div>\n  );\n}"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ export interface TabsContextValue {
   onChange: (value: string) => void
   readOnly?: boolean
   value: string
-  variant: "default" | "light" | "dark" | "reset"
+  variant: "default" | "light" | "dark" | "accent" | "reset"
 }
 
 export const TabsContext = createContext<TabsContextValue | null>(null)

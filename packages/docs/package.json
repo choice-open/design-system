@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "concurrently -n docs,next -c blue,green \"tsx scripts/generate-from-stories/index.ts --watch\" \"next dev\"",
+    "build": "tsx scripts/generate-from-stories/index.ts && next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:docs": "tsx scripts/generate-from-stories.ts"
+    "generate:docs": "tsx scripts/generate-from-stories/index.ts",
+    "generate:docs:watch": "tsx scripts/generate-from-stories/index.ts --watch"
   },
   "dependencies": {
     "@choice-ui/react": "workspace:*",
@@ -28,9 +29,12 @@
     "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
-    "tinycolor2": "^1.6.0"
+    "tinycolor2": "^1.6.0",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.1.2",
     "@faker-js/faker": "^8.4.1",
     "@floating-ui/react": "0.27.15",
     "@legendapp/state": "v3.0.0-beta.26",

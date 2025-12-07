@@ -1,0 +1,114 @@
+{
+  "slug": "components/comments/comment-input",
+  "title": "CommentInput",
+  "package": {
+    "name": "@choice-ui/comments",
+    "version": "0.0.3",
+    "description": "Comments component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/avatar": "workspace:*",
+      "@choice-ui/button": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/dialog": "workspace:*",
+      "@choice-ui/dropdown": "workspace:*",
+      "@choice-ui/emoji-picker": "workspace:*",
+      "@choice-ui/icon-button": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/menus": "workspace:*",
+      "@choice-ui/picture-preview": "workspace:*",
+      "@choice-ui/popover": "workspace:*",
+      "@choice-ui/scroll-area": "workspace:*",
+      "@choice-ui/tooltip": "workspace:*",
+      "@date-fns/tz": "^1.2.0",
+      "@floating-ui/react": "0.27.15",
+      "@legendapp/state": "v3.0.0-beta.26",
+      "date-fns": "^4.1.0",
+      "is-hotkey": "^0.2.0",
+      "nanoid": "^5.1.6",
+      "slate": "^0.120.0",
+      "slate-history": "^0.113.1",
+      "slate-react": "^0.120.0",
+      "usehooks-ts": "^3.1.0"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Comments"
+  ],
+  "props": [
+    {
+      "displayName": "CommentsComponent",
+      "description": "",
+      "props": [
+        {
+          "name": "author",
+          "type": "User",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultText",
+          "type": "DefaultText | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "fetchMoreComments",
+          "type": "((page: number, pageSize: number) => Promise<{ comments: SubmittedCommentData[]; totalCount: number; }>) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "initialComments",
+          "type": "SubmittedCommentData[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "totalCount",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "users",
+          "type": "User[] | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-comments-commentinput--default",
+      "name": "Default",
+      "exportName": "Default",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/comments\"\n\nexport default function App() {\n  return (\n    <BasicCommentInput\n      users={mockUsers}\n      placeholder=\"Add a comment, use @ to mention users...\"\n    />\n  );\n}"
+    },
+    {
+      "id": "components-comments-commentinput--solid",
+      "name": "Solid",
+      "exportName": "Solid",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/comments\"\n\nexport default function App() {\n  return (\n    <BasicCommentInput\n      users={mockUsers}\n      placeholder=\"Add a comment, use @ to mention users...\"\n      variant=\"solid\"\n    />\n  );\n}"
+    },
+    {
+      "id": "components-comments-commentinput--no-users",
+      "name": "No Users",
+      "exportName": "NoUsers",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/comments\"\n\nexport default function App() {\n  return (\n    <BasicCommentInput placeholder=\"This example has no users to @mention\" />\n  );\n}"
+    }
+  ]
+}

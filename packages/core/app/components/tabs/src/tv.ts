@@ -17,6 +17,7 @@ export const tabsTv = tcv({
       default: {},
       light: {},
       dark: {},
+      accent: {},
       reset: {},
     },
     active: {
@@ -117,6 +118,36 @@ export const tabsTv = tcv({
       disabled: true,
       class: {
         tab: "text-white/50",
+      },
+    },
+    // Accent
+    {
+      variant: "accent",
+      active: false,
+      class: {
+        tab: "text-default-foreground",
+      },
+    },
+    {
+      variant: "accent",
+      active: true,
+      class: {
+        tab: "bg-selected-background text-accent-foreground",
+      },
+    },
+    {
+      variant: "accent",
+      disabled: false,
+      active: false,
+      class: {
+        tab: "hover:bg-secondary-background",
+      },
+    },
+    {
+      variant: "accent",
+      disabled: true,
+      class: {
+        tab: "text-secondary-foreground",
       },
     },
   ],

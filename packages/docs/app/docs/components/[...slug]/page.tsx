@@ -1,23 +1,16 @@
 "use client"
 
-import { use } from "react"
-import type { ReactNode } from "react"
 import { ComponentPreview } from "@/components/component-preview"
-import components from "@/generated/components.json"
+import { Installation } from "@/components/installation"
+import indexData from "@/generated/index.json"
 import { storyRegistry } from "@/generated/registry"
+import type { ReactNode } from "react"
+import { use, useEffect, useState } from "react"
 import { MdRender } from "~/components/md-render"
 
-function slugifyPart(part: string): string {
-  return part
-    .trim()
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .replace(/[^a-zA-Z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .toLowerCase()
-}
-
 type StoryExport = { render?: () => ReactNode } | ((props?: Record<string, unknown>) => ReactNode)
-type PropGroup = {
+
+type PropsGroup = {
   displayName?: string
   description?: string
   props?: {
@@ -27,6 +20,46 @@ type PropGroup = {
     defaultValue?: string
     description?: string
   }[]
+}
+
+type StoryItem = {
+  id: string
+  name: string
+  exportName: string
+  description: string
+  source?: string
+}
+
+type IndexItem = {
+  slug: string
+  name: string
+  title: string
+  description: string
+  version: string
+}
+
+type ComponentDetail = {
+  slug: string
+  title: string
+  package: {
+    name: string
+    version: string
+    description: string
+    dependencies: Record<string, string>
+    peerDependencies?: Record<string, string>
+  }
+  exports: string[]
+  props: PropsGroup[]
+  stories: StoryItem[]
+}
+
+function slugifyPart(part: string): string {
+  return part
+    .trim()
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase()
 }
 
 function cleanDescription(text?: string): string {
@@ -40,35 +73,25 @@ function cleanDescription(text?: string): string {
   return firstLine ?? ""
 }
 
-function normalizePropGroups(raw?: unknown): PropGroup[] {
-  if (!Array.isArray(raw)) return []
-  const first = raw[0] as Record<string, unknown> | undefined
-  if (first && "props" in first) {
-    return raw as PropGroup[]
-  }
-  return [
-    {
-      props: raw as PropGroup["props"],
-    },
-  ]
-}
+function StoryRenderer({
+  moduleExports,
+  exportName,
+}: {
+  moduleExports: Record<string, unknown> | undefined
+  exportName: string
+}) {
+  const emptyMessage = (
+    <span className="text-muted-foreground text-sm">该 story 暂无可渲染内容。</span>
+  )
 
-function renderStory(
-  moduleExports: Record<string, unknown> | undefined,
-  exportName: string,
-): ReactNode {
-  if (!moduleExports) {
-    return null
-  }
+  if (!moduleExports) return emptyMessage
 
   const storyExport = moduleExports[exportName] as StoryExport | undefined
-
-  if (!storyExport) {
-    return null
-  }
+  if (!storyExport) return emptyMessage
 
   if (typeof storyExport === "function") {
-    return storyExport({})
+    const Component = storyExport
+    return <Component />
   }
 
   if (
@@ -77,44 +100,15 @@ function renderStory(
     "render" in storyExport &&
     typeof storyExport.render === "function"
   ) {
-    return storyExport.render()
+    const Component = storyExport.render
+    return <Component />
   }
 
-  return null
+  return emptyMessage
 }
 
-function getStoryCode(
-  moduleExports: Record<string, unknown> | undefined,
-  exportName: string,
-  fallback?: string,
-): string {
-  if (fallback && fallback.trim().length > 0) {
-    return fallback
-  }
-
-  if (!moduleExports) {
-    return ""
-  }
-
-  const storyExport = moduleExports[exportName] as StoryExport | undefined
-  if (!storyExport) {
-    return ""
-  }
-
-  if (typeof storyExport === "function") {
-    return storyExport.toString()
-  }
-
-  if (
-    typeof storyExport === "object" &&
-    storyExport !== null &&
-    "render" in storyExport &&
-    typeof storyExport.render === "function"
-  ) {
-    return storyExport.render.toString()
-  }
-
-  return ""
+function getStoryCode(source?: string): string {
+  return source?.trim() || ""
 }
 
 function formatDescription(description: string) {
@@ -132,12 +126,34 @@ function formatDescription(description: string) {
 export default function DocsCatchAllPage({ params }: { params: Promise<{ slug?: string[] }> }) {
   const resolvedParams = use(params)
   const slug = resolvedParams.slug ?? []
-  const normalizedSlug = slug.map(slugifyPart)
-  const slugKey = normalizedSlug.join("/")
-  const doc = components.find((item) => item.slug.join("/") === slugKey)
+  const slugKey = slug.map(slugifyPart).join("/")
+
+  // 查找索引项
+  const indexItem = (indexData.components as IndexItem[]).find((item) => item.slug === slugKey)
   const storyModule = storyRegistry[slugKey] as Record<string, unknown> | undefined
 
-  if (!doc) {
+  // 动态加载组件详情
+  const [detail, setDetail] = useState<ComponentDetail | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!indexItem) {
+      setLoading(false)
+      return
+    }
+
+    const fileName = slugKey.replace(/\//g, "-") + ".json"
+    import(`@/generated/components/${fileName}`)
+      .then((mod) => {
+        setDetail(mod.default as ComponentDetail)
+        setLoading(false)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+  }, [slugKey, indexItem])
+
+  if (!indexItem) {
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">未找到组件</h1>
@@ -146,21 +162,42 @@ export default function DocsCatchAllPage({ params }: { params: Promise<{ slug?: 
     )
   }
 
-  const description = doc.description || `${doc.componentName} 的自动化文档。`
+  if (loading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
+        <div className="h-4 w-96 animate-pulse rounded bg-gray-200" />
+      </div>
+    )
+  }
+
+  if (!detail) {
+    return (
+      <div className="space-y-4">
+        <h1 className="text-2xl font-semibold">加载失败</h1>
+        <p className="text-muted-foreground text-sm">无法加载组件详情。</p>
+      </div>
+    )
+  }
 
   return (
     <>
       <div className="min-w-0 space-y-8">
         <div className="space-y-2">
-          <h1 className="text-heading-display">{doc.title}</h1>
+          <h1 className="text-heading-display">{detail.title}</h1>
+          {formatDescription(detail.package.description)}
+        </div>
 
-          {formatDescription(description)}
+        <div>
+          <Installation
+            packageName={detail.package.name}
+            components={detail.exports}
+          />
         </div>
 
         <div className="space-y-10">
-          {doc.stories.map((story) => {
-            const content = renderStory(storyModule, story.exportName)
-            const code = getStoryCode(storyModule, story.exportName, story.source ?? "")
+          {detail.stories.map((story) => {
+            const code = getStoryCode(story.source)
             const anchor = slugifyPart(story.name || story.id)
 
             return (
@@ -179,24 +216,25 @@ export default function DocsCatchAllPage({ params }: { params: Promise<{ slug?: 
                   code={code}
                   language="tsx"
                 >
-                  {(content as React.ReactNode) ?? (
-                    <span className="text-muted-foreground text-sm">该 story 暂无可渲染内容。</span>
-                  )}
+                  <StoryRenderer
+                    moduleExports={storyModule}
+                    exportName={story.exportName}
+                  />
                 </ComponentPreview>
               </section>
             )
           })}
 
-          {doc.props && doc.props.length > 0 ? (
+          {detail.props && detail.props.length > 0 ? (
             <section className="space-y-4">
               <h2 className="text-xl font-semibold">API</h2>
-              {normalizePropGroups(doc.props).map((group, idx) => (
+              {detail.props.map((group, idx) => (
                 <div
                   key={`${group.displayName ?? idx}-${idx}`}
                   className="space-y-2"
                 >
                   <div className="flex items-center justify-between">
-                    <p className="font-medium">{group.displayName || doc.componentName}</p>
+                    <p className="font-medium">{group.displayName || detail.title}</p>
                     {cleanDescription(group.description) ? (
                       <span className="text-muted-foreground">
                         {cleanDescription(group.description)}
@@ -243,7 +281,7 @@ export default function DocsCatchAllPage({ params }: { params: Promise<{ slug?: 
         <div className="sticky top-24 space-y-3">
           <div className="text-xs font-semibold">On this page</div>
           <div className="space-y-2">
-            {doc.stories.map((story) => {
+            {detail.stories.map((story) => {
               const anchor = slugifyPart(story.name || story.id)
               return (
                 <a

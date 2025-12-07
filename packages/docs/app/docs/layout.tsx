@@ -1,5 +1,19 @@
 import { Sidebar } from "@/components/sidebar"
-import components from "@/generated/components.json"
+import indexData from "@/generated/index.json"
+
+type IndexItem = {
+  slug: string
+  name: string
+  title: string
+  description: string
+  version: string
+}
+
+type SidebarNode = {
+  title: string
+  href?: string
+  items?: SidebarNode[]
+}
 
 function slugifyPart(part: string): string {
   return part
@@ -8,17 +22,6 @@ function slugifyPart(part: string): string {
     .replace(/[^a-zA-Z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .toLowerCase()
-}
-
-type SidebarItem = {
-  title: string
-  href: string
-}
-
-type SidebarNode = {
-  title: string
-  href?: string
-  items?: SidebarNode[]
 }
 
 const componentsNav: SidebarNode[] = (() => {
@@ -34,14 +37,15 @@ const componentsNav: SidebarNode[] = (() => {
     return node
   }
 
-  components.forEach((doc) => {
-    const groups = (doc.groups ?? []).length ? doc.groups : [doc.componentName]
-    const href = `/docs/${doc.slug.map(slugifyPart).join("/")}`
+  ;(indexData.components as IndexItem[]).forEach((item) => {
+    const slugParts = item.slug.split("/")
+    const href = `/docs/components/${item.slug}`
 
     let current = root
-    groups.forEach((part, idx) => {
-      current = findOrCreate(current, part)
-      if (idx === groups.length - 1) {
+    slugParts.forEach((part: string, idx: number) => {
+      const displayTitle = idx === slugParts.length - 1 ? item.title : part
+      current = findOrCreate(current, displayTitle)
+      if (idx === slugParts.length - 1) {
         current.href = href
       }
     })
@@ -62,8 +66,9 @@ const docsConfig = {
     {
       title: "Getting Started",
       items: [
-        { title: "Introduction", href: "/docs" },
-        { title: "Installation", href: "/docs/installation" },
+        { title: "Introduction", href: "/docs/guide/introduction" },
+        { title: "Installation", href: "/docs/guide/installation" },
+        { title: "Tailwind V4", href: "/docs/guide/tailwind-v4" },
       ],
     },
     ...componentsNav,

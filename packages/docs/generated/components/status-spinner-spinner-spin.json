@@ -1,0 +1,139 @@
+{
+  "slug": "status/spinner/spinner-spin",
+  "title": "SpinnerSpin",
+  "package": {
+    "name": "@choice-ui/spinner",
+    "version": "0.0.3",
+    "description": "Spinner components for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Spinner"
+  ],
+  "props": [
+    {
+      "displayName": "SpinnerSpin",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "classNames",
+          "type": "{ base?: string | undefined; container?: string | undefined; label?: string | undefined; shape?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "medium",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "SpinnerBounce",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "classNames",
+          "type": "{ base?: string | undefined; container?: string | undefined; label?: string | undefined; shape?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "medium",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "status-spinner-spinnerspin--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "status-spinner-spinnerspin--size",
+      "name": "Size",
+      "exportName": "Size",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <SpinnerSpin size=\"small\" />\n      <SpinnerSpin size=\"medium\" />\n      <SpinnerSpin size=\"large\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "status-spinner-spinnerspin--opacity",
+      "name": "Opacity",
+      "exportName": "Opacity",
+      "description": "The shapeOpacity slots will not append classes, but instead replace the original classes as a whole.",
+      "source": ""
+    },
+    {
+      "id": "status-spinner-spinnerspin--variants",
+      "name": "Variants",
+      "exportName": "Variants",
+      "description": "Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`.",
+      "source": "import { Component } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-4\">\n      <SpinnerSpin />\n      <SpinnerSpin variant=\"primary\" />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "status-spinner-spinnerspin--custom-color",
+      "name": "Custom Color",
+      "exportName": "CustomColor",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "status-spinner-spinnerspin--label",
+      "name": "Label",
+      "exportName": "Label",
+      "description": "",
+      "source": ""
+    }
+  ]
+}

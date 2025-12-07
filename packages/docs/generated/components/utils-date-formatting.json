@@ -1,0 +1,156 @@
+{
+  "slug": "utils/date-formatting",
+  "title": "Date Formatting",
+  "package": {
+    "name": "@choice-ui/date-formatting",
+    "version": "0.0.0",
+    "description": "",
+    "dependencies": {}
+  },
+  "exports": [
+    "Component"
+  ],
+  "props": [],
+  "stories": [
+    {
+      "id": "utils-date-formatting--live-demo",
+      "name": "Live Demo",
+      "exportName": "LiveDemo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--five-minutes-ago",
+      "name": "Five Minutes Ago",
+      "exportName": "FiveMinutesAgo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--two-hours-ago",
+      "name": "Two Hours Ago",
+      "exportName": "TwoHoursAgo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--yesterday",
+      "name": "Yesterday",
+      "exportName": "Yesterday",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--one-week-ago",
+      "name": "One Week Ago",
+      "exportName": "OneWeekAgo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--one-month-ago",
+      "name": "One Month Ago",
+      "exportName": "OneMonthAgo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--one-year-ago",
+      "name": "One Year Ago",
+      "exportName": "OneYearAgo",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--chinese-locale",
+      "name": "Chinese Locale",
+      "exportName": "ChineseLocale",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--japanese-locale",
+      "name": "Japanese Locale",
+      "exportName": "JapaneseLocale",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--spanish-locale",
+      "name": "Spanish Locale",
+      "exportName": "SpanishLocale",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--specific-time-mode",
+      "name": "Specific Time Mode",
+      "exportName": "SpecificTimeMode",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--custom-thresholds",
+      "name": "Custom Thresholds",
+      "exportName": "CustomThresholds",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--force-numeric-format",
+      "name": "Force Numeric Format",
+      "exportName": "ForceNumericFormat",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--custom-formats",
+      "name": "Custom Formats",
+      "exportName": "CustomFormats",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--timezone-handling",
+      "name": "Timezone Handling",
+      "exportName": "TimezoneHandling",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--all-languages-comparison",
+      "name": "All Languages Comparison",
+      "exportName": "AllLanguagesComparison",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/date-formatting\"\n\nexport default function App() {\n  return (\n    <LanguageComparison date={new Date(Date.now() - 2 * 60 * 60 * 1000)} />\n  );\n}"
+    },
+    {
+      "id": "utils-date-formatting--all-formatting-modes",
+      "name": "All Formatting Modes",
+      "exportName": "AllFormattingModes",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/date-formatting\"\n\nexport default function App() {\n  return (\n    <FormattingModes date={new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)} />\n  );\n}"
+    },
+    {
+      "id": "utils-date-formatting--custom-formatter-examples",
+      "name": "Custom Formatter Examples",
+      "exportName": "CustomFormatterExamples",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-date-formatting--invalid-date",
+      "name": "Invalid Date",
+      "exportName": "InvalidDate",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/date-formatting\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"rounded-lg border bg-red-50 p-4\">\n        <strong>Invalid Date Input:</strong>\n        <div className=\"mt-2\">\n          {formatRelativeTime(new Date(\"invalid date\"))}\n        </div>\n      </div>\n      <div className=\"rounded-lg border bg-red-50 p-4\">\n        <strong>Null Input:</strong>\n        <div className=\"mt-2\">\n          {formatRelativeTime(null as unknown as Date)}\n        </div>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "utils-date-formatting--future-dates",
+      "name": "Future Dates",
+      "exportName": "FutureDates",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/date-formatting\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      {[\n        { name: \"In 5 minutes\", date: new Date(Date.now() + 5 * 60 * 1000) },\n        { name: \"In 2 hours\", date: new Date(Date.now() + 2 * 60 * 60 * 1000) },\n        { name: \"Tomorrow\", date: new Date(Date.now() + 24 * 60 * 60 * 1000) },\n        {\n          name: \"Next week\",\n          date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),\n        },\n      ].map((item) => (\n        <div key={item.name} className=\"rounded-lg border bg-blue-50 p-4\">\n          <strong>{item.name}:</strong>\n          <div className=\"mt-2 grid grid-cols-2 gap-4\">\n            <div>\n              <div className=\"text-secondary-foreground\">English</div>\n              <div>{formatRelativeTime(item.date, { language: \"en\" })}</div>\n            </div>\n            <div>\n              <div className=\"text-secondary-foreground\">中文</div>\n              <div>{formatRelativeTime(item.date, { language: \"cn\" })}</div>\n            </div>\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}"
+    }
+  ]
+}

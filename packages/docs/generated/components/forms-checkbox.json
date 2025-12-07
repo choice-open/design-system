@@ -1,0 +1,119 @@
+{
+  "slug": "forms/checkbox",
+  "title": "Checkbox",
+  "package": {
+    "name": "@choice-ui/checkbox",
+    "version": "0.0.4",
+    "description": "Checkbox component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "usehooks-ts": "^3.1.0"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Checkbox",
+    "type CheckboxProps",
+    "type CheckboxLabelProps",
+    "useCheckboxContext",
+    "type CheckboxContextValue"
+  ],
+  "props": [
+    {
+      "displayName": "Checkbox",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mixed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "((value: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-checkbox--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "`Checkbox` is a flexible, accessible component for binary and mixed (indeterminate) selection states.\n\nFeatures:\n- Controlled component: requires `value` and `onChange` for state management\n- Supports three states: checked, unchecked, and mixed (indeterminate)\n- Multiple visual variants: default, accent, outline\n- Disabled and focused states for accessibility and usability\n- Two label approaches: simple string children or explicit `<Checkbox.Label>` for complex content\n- Can be grouped for multi-select scenarios\n\nUsage:\n- Use for toggling settings, selecting items, or multi-select lists\n- Use the mixed state for parent checkboxes representing a partially selected group\n- Combine with labels for clarity and accessibility\n- Simple labels: `<Checkbox>Label text</Checkbox>`\n- Complex labels: `<Checkbox><Checkbox.Label>Complex content</Checkbox.Label></Checkbox>`\n\nBest Practices:\n- Always provide a visible label (string or `<Checkbox.Label>`)\n- Use simple string children for basic labels\n- Use `<Checkbox.Label>` for labels with formatting or complex content\n- Use the controlled pattern for predictable state management\n- Clearly indicate disabled and mixed states\n- Group related checkboxes for multi-select scenarios\n\nAccessibility:\n- Fully accessible to screen readers and keyboard users\n- Properly associates label and input for assistive technology\n- Mixed state is announced to screen readers\nBasic: Demonstrates all variants, states, and interaction states of the Checkbox component.\n- Shows default, accent, and outline variants.\n- Demonstrates rest, focused, and disabled states.\n- Shows checked, unchecked, and mixed (indeterminate) states.\n- Use as a reference for all visual and interaction possibilities.",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col items-start gap-4\">\n      {Object.values(Variant).map((variant, index) => (\n        <Fragment key={variant}>\n          <span className=\"capitalize\">{variant}</span>\n          <div className=\"grid grid-cols-4 gap-2\">\n            {Object.values(State).map((state) => (\n              <Fragment key={state}>\n                <span className=\"text-pink-500 capitalize\">{state}</span>\n\n                {Object.values(Interaction).map((interaction) => (\n                  <Fragment key={interaction}>\n                    <Checkbox\n                      value={\n                        interaction === Interaction.On ||\n                        interaction === Interaction.Mixed\n                      }\n                      mixed={interaction === Interaction.Mixed}\n                      disabled={state === State.Disabled}\n                      focused={state === State.Focused}\n                      variant={variant}\n                    >\n                      {interaction}\n                    </Checkbox>\n                  </Fragment>\n                ))}\n              </Fragment>\n            ))}\n          </div>\n          {index !== Object.values(Variant).length - 1 && (\n            <hr className=\"w-full\" />\n          )}\n        </Fragment>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-checkbox--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled: Demonstrates a disabled Checkbox.\n- Shows how to render a Checkbox that cannot be interacted with.\n- Useful for indicating unavailable options.",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <Checkbox value={value} onChange={(value) => setValue(value)} disabled>\n      Disabled\n    </Checkbox>\n  );\n}"
+    },
+    {
+      "id": "forms-checkbox--variant",
+      "name": "Variant",
+      "exportName": "Variant",
+      "description": "Variant: Demonstrates the different visual variants of the Checkbox component.\n- Shows default, accent, and outline variants side by side.\n- Useful for previewing and choosing the right style for your UI.",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Checkbox\n        value={variant.default}\n        onChange={(value) => setVariant({ ...variant, default: value })}\n      >\n        Default\n      </Checkbox>\n      <Checkbox\n        value={variant.accent}\n        onChange={(value) => setVariant({ ...variant, accent: value })}\n        variant=\"accent\"\n      >\n        Accent\n      </Checkbox>\n      <Checkbox\n        value={variant.outline}\n        onChange={(value) => setVariant({ ...variant, outline: value })}\n        variant=\"outline\"\n      >\n        Outline\n      </Checkbox>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-checkbox--group",
+      "name": "Group",
+      "exportName": "Group",
+      "description": "Group: Demonstrates a group of Checkboxes for multi-select scenarios.\n- Shows how to manage a group of checkboxes with independent state.\n- Useful for forms, filters, and option lists.",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      {groupOptions.map((option) => (\n        <Checkbox\n          key={option.id}\n          value={selectedIds.includes(option.id)}\n          onChange={(checked) => {\n            setSelectedIds((prev) =>\n              checked\n                ? [...prev, option.id]\n                : prev.filter((id) => id !== option.id)\n            );\n          }}\n        >\n          {option.label}\n        </Checkbox>\n      ))}\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-checkbox--label-usage",
+      "name": "Label Usage",
+      "exportName": "LabelUsage",
+      "description": "",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div>\n        <h4 className=\"font-strong mb-2\">\n          Simple string label (auto-wrapped):\n        </h4>\n        <Checkbox value={simple} onChange={setSimple}>\n          Simple text label\n        </Checkbox>\n      </div>\n\n      <div>\n        <h4 className=\"font-strong mb-2\">\n          Explicit Checkbox.Label (for complex content):\n        </h4>\n        <Checkbox value={explicit} onChange={setExplicit}>\n          <Checkbox.Label>\n            <span className=\"text-accent-foreground\">Complex</span> label with{\" \"}\n            <strong>formatting</strong>\n          </Checkbox.Label>\n        </Checkbox>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-checkbox--readonly",
+      "name": "Readonly",
+      "exportName": "Readonly",
+      "description": "Checkbox component in readOnly state.\n\nIn readOnly mode:\n- The checkbox does not respond to click or keyboard events\n- The value cannot be changed\n- Useful for displaying checkbox state without allowing changes",
+      "source": "import { Checkbox } from \"@choice-ui/checkbox\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"rounded-xl border bg-stone-50 p-4\">\n        <div className=\"text-body-small-strong mb-2 text-stone-700\">\n          Current Value:\n        </div>\n        <div className=\"text-body-small font-mono text-stone-600\">\n          {value ? \"true\" : \"false\"}\n        </div>\n        <div className=\"text-body-small-strong mt-2 text-stone-700\">\n          Change Count:\n        </div>\n        <div className=\"text-body-small font-mono text-stone-600\">\n          {changeCount}\n        </div>\n      </div>\n\n      <div className=\"flex flex-wrap gap-4\">\n        <Checkbox readOnly value={value} onChange={handleChange}>\n          Readonly Checkbox\n        </Checkbox>\n        <Checkbox readOnly value={!value} onChange={handleChange}>\n          Readonly Checkbox (checked)\n        </Checkbox>\n        <Checkbox value={value} onChange={handleChange}>\n          Normal Checkbox (for comparison)\n        </Checkbox>\n      </div>\n\n      <div className=\"text-body-small text-stone-600\">\n        💡 Try clicking on the readonly checkboxes or pressing Space/Enter -\n        the value should not change and the change count should remain at 0.\n        Only the normal checkbox will change the value.\n      </div>\n    </div>\n  );\n}"
+    }
+  ]
+}

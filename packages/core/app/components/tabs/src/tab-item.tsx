@@ -1,18 +1,28 @@
 import { tcx } from "@choice-ui/shared"
-import { ButtonHTMLAttributes, forwardRef, KeyboardEvent, memo, MouseEvent, ReactNode } from "react"
+import {
+  forwardRef,
+  HTMLAttributes,
+  HTMLProps,
+  KeyboardEvent,
+  memo,
+  MouseEvent,
+  ReactNode,
+} from "react"
 import { useEventCallback } from "usehooks-ts"
 import { useTabsContext } from "./context"
 import { tabsTv } from "./tv"
 
-export interface TabItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "value"> {
+export interface TabItemProps extends Omit<HTMLProps<HTMLElement>, "value" | "as"> {
+  as?: React.ElementType
   children: ReactNode
   disabled?: boolean
   value: string
 }
 
 export const TabItem = memo(
-  forwardRef<HTMLButtonElement, TabItemProps>(function TabItem(
+  forwardRef<HTMLElement, TabItemProps>(function TabItem(
     {
+      as = "button",
       children,
       value,
       disabled,
@@ -42,7 +52,7 @@ export const TabItem = memo(
       ariaLabelText = children
     }
 
-    const handleMouseDown = useEventCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDown = useEventCallback((e: MouseEvent<HTMLElement>) => {
       if (contextReadOnly) return
 
       if (!contextDisabled && !disabled) {
@@ -55,7 +65,7 @@ export const TabItem = memo(
       }
     })
 
-    const handleKeyDown = useEventCallback((e: KeyboardEvent<HTMLButtonElement>) => {
+    const handleKeyDown = useEventCallback((e: KeyboardEvent<HTMLElement>) => {
       if (contextReadOnly) return
 
       if (!contextDisabled && !disabled && (e.key === "Enter" || e.key === " ")) {
@@ -67,8 +77,10 @@ export const TabItem = memo(
       }
     })
 
+    const As = as ?? "button"
+
     return (
-      <button
+      <As
         ref={ref}
         role="tab"
         type="button"
@@ -92,7 +104,7 @@ export const TabItem = memo(
           </span>
           <span className={tcx(tv.label())}>{children}</span>
         </>
-      </button>
+      </As>
     )
   }),
 )

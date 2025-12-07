@@ -14,11 +14,10 @@ export const CodeBlock = memo(function CodeBlock(props: CodeBlockProps) {
     expandable = true,
     defaultExpanded = true,
     defaultCodeExpanded = false,
+    variant = "default",
     onExpandChange,
     onCodeExpandChange,
   } = props
-
-  const theme = useTheme()
 
   const { scrollRef, contentRef, scrollToBottom } = useStickToBottom({
     resize: "smooth",
@@ -96,7 +95,7 @@ export const CodeBlock = memo(function CodeBlock(props: CodeBlockProps) {
       handleCopy,
       scrollRef: scrollRef as React.RefObject<HTMLDivElement>,
       contentRef: contentRef as React.RefObject<HTMLDivElement>,
-      theme,
+      variant,
     }),
     [
       language,
@@ -113,7 +112,7 @@ export const CodeBlock = memo(function CodeBlock(props: CodeBlockProps) {
       handleCopy,
       scrollRef,
       contentRef,
-      theme,
+      variant,
     ],
   )
 
@@ -139,7 +138,10 @@ export const CodeBlock = memo(function CodeBlock(props: CodeBlockProps) {
   return (
     <div
       className={tcx(
-        "bg-secondary-background group relative overflow-hidden rounded-lg",
+        "group relative overflow-hidden rounded-lg",
+        variant === "default" && "bg-secondary-background",
+        variant === "light" && "bg-gray-100",
+        variant === "dark" && "bg-gray-700",
         className,
       )}
     >

@@ -1,0 +1,99 @@
+{
+  "slug": "layouts/panel/sortable",
+  "title": "Sortable",
+  "package": {
+    "name": "@choice-ui/panel",
+    "version": "0.0.5",
+    "description": "Panel component for Choiceform Design System",
+    "dependencies": {
+      "usehooks-ts": "^3.1.0",
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Panel"
+  ],
+  "props": [
+    {
+      "displayName": "Panel",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "alwaysShowCollapsible",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "isCollapsed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "isEmpty",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onCollapsedChange",
+          "type": "((isCollapsed: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onEmptyChange",
+          "type": "((isEmpty: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showLabels",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "triggerRef",
+          "type": "RefObject<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "layouts-panel-sortable--single-item",
+      "name": "Single Item",
+      "exportName": "SingleItem",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "layouts-panel-sortable--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "",
+      "source": ""
+    }
+  ]
+}

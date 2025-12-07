@@ -1,0 +1,357 @@
+{
+  "slug": "components/conditions",
+  "title": "Conditions",
+  "package": {
+    "name": "@choice-ui/conditions",
+    "version": "0.0.3",
+    "description": "Conditions component for Choiceform Design System",
+    "dependencies": {
+      "date-fns": "^4.1.0",
+      "nanoid": "^5.1.6",
+      "@choice-ui/calendar": "workspace:*",
+      "@choice-ui/checkbox": "workspace:*",
+      "@choice-ui/chip": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/dropdown": "workspace:*",
+      "@choice-ui/icon-button": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/input": "workspace:*",
+      "@choice-ui/numeric-input": "workspace:*",
+      "@choice-ui/popover": "workspace:*",
+      "@choice-ui/select": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "FieldType",
+    "LogicalOperator",
+    "ComparisonOperator",
+    "DateRangePreset",
+    "ConditionsFieldType",
+    "type SelectOption",
+    "type BaseField",
+    "type TextFieldConfig",
+    "type NumberFieldConfig",
+    "type DateFieldConfig",
+    "type BooleanFieldConfig",
+    "type SelectFieldConfig",
+    "type UserFieldConfig",
+    "type TagFieldConfig",
+    "type Field",
+    "type ConditionsTextField",
+    "type ConditionsNumberField",
+    "type ConditionsDateField",
+    "type ConditionsBooleanField",
+    "type ConditionsSelectField",
+    "type ConditionsUserField",
+    "type ConditionsTagField",
+    "type ConditionValue",
+    "type RangeValue",
+    "type Condition",
+    "type ConditionGroupType",
+    "type ConditionGroup",
+    "type ConditionsRoot",
+    "type ConditionItemProps",
+    "type ConditionGroupProps",
+    "type ConditionsProps",
+    "type FieldOperatorMap",
+    "type OperatorConfig",
+    "type ValidationResult",
+    "type ValidationError",
+    "type UseConditionsReturn",
+    "type UseFieldOperatorsReturn",
+    "ConditionsGroup",
+    "ConditionItem"
+  ],
+  "props": [
+    {
+      "displayName": "Conditions",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "",
+          "description": "自定义样式类名"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": "是否禁用"
+        },
+        {
+          "name": "fields",
+          "type": "Field[]",
+          "required": true,
+          "description": "可用字段定义"
+        },
+        {
+          "name": "localization",
+          "type": "{ [key: string]: string; addCondition: string; addGroup: string; and: string; deleteCondition: string; deleteGroup: string; duplicateCondition: string; or: string; where: string; } | undefined",
+          "required": false,
+          "defaultValue": "{\n  // 基础操作\n  addCondition: \"Add a filter\",\n  addGroup: \"Add group\",\n  deleteCondition: \"Delete condition\",\n  deleteGroup: \"Delete group\",\n  duplicateCondition: \"Duplicate condition\",\n\n  // 逻辑连接符\n  where: \"Where\",\n  and: \"And\",\n  or: \"Or\",\n\n  // 操作符标签\n  is: \"Is\",\n  isNot: \"Is not\",\n  contains: \"Contains\",\n  doesNotContain: \"Does not contain\",\n  startsWith: \"Starts with\",\n  endsWith: \"Ends with\",\n  isEmpty: \"Is empty\",\n  isNotEmpty: \"Is not empty\",\n  greaterThan: \"Greater than\",\n  greaterThanOrEqual: \"Greater than or equal\",\n  lessThan: \"Less than\",\n  lessThanOrEqual: \"Less than or equal\",\n  isBetween: \"Is between\",\n  isAnyOf: \"Is any of\",\n  isNotAnyOf: \"Is not any of\",\n  isWithin: \"Is within\",\n  isBefore: \"Is before\",\n  isAfter: \"Is after\",\n  isToday: \"Is today\",\n  isYesterday: \"Is yesterday\",\n  isTomorrow: \"Is tomorrow\",\n  isThisWeek: \"Is this week\",\n  isLastWeek: \"Is last week\",\n  isNextWeek: \"Is next week\",\n  isThisMonth: \"Is this month\",\n  isLastMonth: \"Is last month\",\n  isNextMonth: \"Is next month\",\n\n  // 占位符文本\n  selectField: \"Select field...\",\n  selectOperator: \"Select operator...\",\n  enterValue: \"Enter value...\",\n  selectValue: \"Select value...\",\n  selectDate: \"Select date...\",\n\n  // 日期范围预设\n  today: \"Today\",\n  yesterday: \"Yesterday\",\n  tomorrow: \"Tomorrow\",\n  thisWeek: \"This week\",\n  lastWeek: \"Last week\",\n  nextWeek: \"Next week\",\n  thisMonth: \"This month\",\n  lastMonth: \"Last month\",\n  nextMonth: \"Next month\",\n  last7Days: \"Last 7 days\",\n  last30Days: \"Last 30 days\",\n  last90Days: \"Last 90 days\",\n\n  // 布尔值\n  true: \"True\",\n  false: \"False\",\n\n  // 验证消息\n  fieldRequired: \"Field is required\",\n  operatorRequired: \"Operator is required\",\n  valueRequired: \"Value is required\",\n  invalidValue: \"Invalid value\",\n  invalidOperator: \"Invalid operator for this field type\",\n\n  // 按钮文本\n  apply: \"Apply\",\n  cancel: \"Cancel\",\n  clear: \"Clear\",\n  reset: \"Reset\",\n}",
+          "description": "本地化文本"
+        },
+        {
+          "name": "maxDepth",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "2",
+          "description": "最大嵌套层级"
+        },
+        {
+          "name": "onChange",
+          "type": "((conditions: ConditionsRoot) => void) | undefined",
+          "required": false,
+          "description": "条件变更回调"
+        },
+        {
+          "name": "renderers",
+          "type": "{ condition?: ComponentType<ConditionItemProps> | undefined; group?: ComponentType<ConditionGroupProps> | undefined; } | undefined",
+          "required": false,
+          "description": "自定义渲染器"
+        },
+        {
+          "name": "value",
+          "type": "ConditionsRoot | undefined",
+          "required": false,
+          "description": "条件配置"
+        }
+      ]
+    },
+    {
+      "displayName": "Conditions.Group",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "defaultValue": "",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "fields",
+          "type": "Field[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "group",
+          "type": "ConditionGroupType",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "level",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "0",
+          "description": ""
+        },
+        {
+          "name": "onAddCondition",
+          "type": "(parentGroupId: string) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onAddGroup",
+          "type": "(parentGroupId: string) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onUpdate",
+          "type": "(group: ConditionGroupType) => void",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "onUpdateCondition",
+          "type": "((conditionId: string, updates: Partial<Condition>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "globalDragData",
+          "type": "{ item: ConditionGroupType | Condition; sourceGroupId: string; sourceIndex: number; type: \"group\" | \"condition\"; } | null | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "groupLogicalOperator",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "LogicalOperator.And",
+          "description": ""
+        },
+        {
+          "name": "isFirstGroup",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "isValidDropTarget",
+          "type": "((targetGroupId: string, dragInfo: { item: ConditionGroupType | Condition; sourceGroupId: string; sourceIndex: number; type: \"group\" | \"condition\"; }) => boolean) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxDepth",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "2",
+          "description": ""
+        },
+        {
+          "name": "onClearOtherGuides",
+          "type": "((currentGroupId: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onDragComplete",
+          "type": "((targetGroupId: string, targetIndex?: number | undefined, dragInfo?: { item: ConditionGroupType | Condition; sourceGroupId: string; sourceIndex: number; type: \"group\" | \"condition\"; } | undefined) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onDragEnd",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onDragStart",
+          "type": "((dragInfo: { item: ConditionGroupType | Condition; sourceGroupId: string; sourceIndex: number; type: \"group\" | \"condition\"; }) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onDuplicate",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onGroupDragEnd",
+          "type": "((e: DragEvent<Element>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onGroupDragStart",
+          "type": "((e: DragEvent<Element>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onRegisterGuideClear",
+          "type": "((groupId: string, clearFunction: () => void) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onUnregisterGuideClear",
+          "type": "((groupId: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-conditions--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic usage of the Conditions component with simple field configuration.\nThis demonstrates the fundamental functionality of creating and managing filter conditions.",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <Conditions\n        fields={sampleFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n\n      <div className=\"mt-6 rounded-xl bg-gray-50 p-4\">\n        <h3 className=\"text-body-small-strong mb-2 text-gray-700\">\n          Current Conditions:\n        </h3>\n        <pre className=\"max-h-96 overflow-auto text-xs text-gray-600\">\n          {JSON.stringify(conditions, null, 2)}\n        </pre>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--pre-configured",
+      "name": "Pre Configured",
+      "exportName": "PreConfigured",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3\">\n        <p className=\"text-body-small text-blue-800\">\n          <strong>Pre-configured example:</strong> High priority AND not\n          completed\n        </p>\n      </div>\n\n      <Conditions\n        fields={sampleFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--field-types",
+      "name": "Field Types",
+      "exportName": "FieldTypes",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-green-200 bg-green-50 p-3\">\n        <p className=\"text-body-small text-green-800\">\n          <strong>Field Types Demo:</strong> Each field type shows different\n          available operators\n        </p>\n      </div>\n\n      <Conditions\n        fields={sampleFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Shows the disabled state of the Conditions component.\nAll interactions are disabled but the current conditions remain visible.",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3\">\n        <p className=\"text-body-small text-gray-600\">\n          <strong>Disabled State:</strong> All controls are disabled but\n          conditions remain visible\n        </p>\n      </div>\n\n      <Conditions fields={sampleFields} value={conditions} disabled={true} />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--task-management",
+      "name": "Task Management",
+      "exportName": "TaskManagement",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-indigo-200 bg-indigo-50 p-3\">\n        <p className=\"text-body-small text-indigo-800\">\n          <strong>Task Management:</strong> Filter tasks by priority, due\n          date, and blocking status\n        </p>\n      </div>\n\n      <Conditions\n        fields={taskFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n\n      <div className=\"mt-6 rounded-xl bg-gray-50 p-4\">\n        <h4 className=\"text-body-small-strong mb-2 text-gray-700\">\n          Filter Summary:\n        </h4>\n        <div className=\"text-xs text-gray-600\">\n          {conditions.groups.length === 0 ? (\n            <p>No filters applied</p>\n          ) : (\n            <p>\n              {conditions.groups[0].conditions.length} condition(s) active\n            </p>\n          )}\n        </div>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--advanced-operators",
+      "name": "Advanced Operators",
+      "exportName": "AdvancedOperators",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-purple-200 bg-purple-50 p-3\">\n        <p className=\"text-body-small text-purple-800\">\n          <strong>Advanced Operators:</strong> Filter by field existence,\n          emptiness, and presence\n        </p>\n      </div>\n\n      <Conditions\n        fields={sampleFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--regex-patterns",
+      "name": "Regex Patterns",
+      "exportName": "RegexPatterns",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-orange-200 bg-orange-50 p-3\">\n        <p className=\"text-body-small text-orange-800\">\n          <strong>Regex Patterns:</strong> Use regular expressions for\n          advanced text matching\n        </p>\n        <div className=\"mt-2 text-xs text-orange-700\">\n          <p>• Email pattern validates standard email formats</p>\n          <p>• Phone pattern matches various international phone formats</p>\n        </div>\n      </div>\n\n      <Conditions\n        fields={regexFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--array-length-filters",
+      "name": "Array Length Filters",
+      "exportName": "ArrayLengthFilters",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-teal-200 bg-teal-50 p-3\">\n        <p className=\"text-body-small text-teal-800\">\n          <strong>Length Filters:</strong> Filter by text length or array item\n          count\n        </p>\n        <div className=\"mt-2 text-xs text-teal-700\">\n          <p>• Description must be longer than 50 characters</p>\n          <p>• Categories limited to 3 or fewer</p>\n          <p>• Minimum 2 reviewers required</p>\n        </div>\n      </div>\n\n      <Conditions\n        fields={lengthFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--boolean-logic",
+      "name": "Boolean Logic",
+      "exportName": "BooleanLogic",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3\">\n        <p className=\"text-body-small text-blue-800\">\n          <strong>Boolean Logic:</strong> Simplified true/false operators for\n          cleaner boolean filtering\n        </p>\n        <div className=\"mt-2 text-xs text-blue-700\">\n          <p>• Uses dedicated IsTrue/IsFalse operators</p>\n          <p>• No need to select true/false values manually</p>\n          <p>• Supports complex nested boolean logic</p>\n        </div>\n      </div>\n\n      <Conditions\n        fields={booleanFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n    </div>\n  );\n}"
+    },
+    {
+      "id": "components-conditions--drag-and-drop-test",
+      "name": "Drag And Drop Test",
+      "exportName": "DragAndDropTest",
+      "description": "",
+      "source": "import { FieldType } from \"@choice-ui/conditions\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"mb-4 rounded-xl border border-red-200 bg-red-50 p-3\">\n        <p className=\"text-body-small text-red-800\">\n          <strong>Drag & Drop Test:</strong> Test dragging conditions between\n          groups, within groups, and in/out of nested groups. Open browser\n          console to see debug logs.\n        </p>\n        <div className=\"mt-2 text-xs text-red-700\">\n          <p>• Try dragging conditions from main group to nested group</p>\n          <p>• Try dragging conditions from nested group to main group</p>\n          <p>• Try reordering conditions within the same group</p>\n        </div>\n      </div>\n\n      <Conditions\n        fields={sampleFields}\n        value={conditions}\n        onChange={setConditions}\n      />\n\n      <div className=\"mt-6 rounded-xl bg-gray-50 p-4\">\n        <h4 className=\"text-body-small-strong mb-2 text-gray-700\">\n          Current Structure (for debugging):\n        </h4>\n        <pre className=\"max-h-96 overflow-auto text-xs text-gray-600\">\n          {JSON.stringify(conditions, null, 2)}\n        </pre>\n      </div>\n    </div>\n  );\n}"
+    }
+  ]
+}

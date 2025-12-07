@@ -5,8 +5,9 @@ import { Tooltip, type TooltipProps } from "@choice-ui/tooltip"
 import { forwardRef, HTMLProps } from "react"
 import { iconButtonTv } from "./tv"
 
-export interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
+export interface IconButtonProps extends Omit<HTMLProps<HTMLElement>, "size" | "as"> {
   active?: boolean
+  as?: React.ElementType
   asChild?: boolean
   children?: React.ReactNode
   className?: string
@@ -19,53 +20,52 @@ export interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "siz
   variant?: "default" | "secondary" | "solid" | "highlight" | "ghost" | "dark" | "reset"
 }
 
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  function IconButton(props, ref) {
-    const {
-      className,
-      children,
-      disabled,
-      readOnly = false,
-      active,
-      loading,
-      focused,
-      variant = "default",
-      size = "default",
-      tooltip,
-      asChild,
-      onClick,
-      ...rest
-    } = props
+export const IconButton = forwardRef<HTMLElement, IconButtonProps>(function IconButton(props, ref) {
+  const {
+    as = "button",
+    className,
+    children,
+    disabled,
+    readOnly = false,
+    active,
+    loading,
+    focused,
+    variant = "default",
+    size = "default",
+    tooltip,
+    asChild,
+    onClick,
+    ...rest
+  } = props
 
-    const Button = asChild ? Slot : "button"
+  const As = asChild ? Slot : as
 
-    const style = iconButtonTv({
-      disabled,
-      active,
-      focused,
-      loading,
-      variant,
-      size,
-    })
+  const style = iconButtonTv({
+    disabled,
+    active,
+    focused,
+    loading,
+    variant,
+    size,
+  })
 
-    // 在 readOnly 模式下阻止 onClick 事件
-    const handleClick = readOnly ? undefined : onClick
+  // 在 readOnly 模式下阻止 onClick 事件
+  const handleClick = readOnly ? undefined : onClick
 
-    const button = (
-      <Button
-        {...rest}
-        ref={ref}
-        type={(rest.type as "button" | "submit" | "reset" | undefined) || "button"}
-        className={tcx(style.button(), className)}
-        disabled={disabled || loading}
-        onClick={handleClick}
-      >
-        {loading ? <LoaderCircle className="animate-spin" /> : children}
-      </Button>
-    )
+  const button = (
+    <As
+      {...rest}
+      ref={ref}
+      type={(rest.type as "button" | "submit" | "reset" | undefined) || "button"}
+      className={tcx(style.button(), className)}
+      disabled={disabled || loading}
+      onClick={handleClick}
+    >
+      {loading ? <LoaderCircle className="animate-spin" /> : children}
+    </As>
+  )
 
-    return tooltip ? <Tooltip {...tooltip}>{button}</Tooltip> : button
-  },
-)
+  return tooltip ? <Tooltip {...tooltip}>{button}</Tooltip> : button
+})
 
 IconButton.displayName = "IconButton"

@@ -1,0 +1,1690 @@
+{
+  "slug": "forms/form/adapters",
+  "title": "Adapters",
+  "package": {
+    "name": "@choice-ui/form",
+    "version": "0.0.3",
+    "description": "Form components for Choiceform Design System",
+    "dependencies": {
+      "@tanstack/react-form": "^1.27.1",
+      "usehooks-ts": "^3.1.0",
+      "@choice-ui/button": "workspace:*",
+      "@choice-ui/checkbox": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/input": "workspace:*",
+      "@choice-ui/label": "workspace:*",
+      "@choice-ui/multi-select": "workspace:*",
+      "@choice-ui/numeric-input": "workspace:*",
+      "@choice-ui/radio": "workspace:*",
+      "@choice-ui/range": "workspace:*",
+      "@choice-ui/segmented": "workspace:*",
+      "@choice-ui/select": "workspace:*",
+      "@choice-ui/switch": "workspace:*",
+      "@choice-ui/textarea": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "CheckboxAdapter",
+    "InputAdapter",
+    "RadioGroupAdapter",
+    "SelectAdapter",
+    "TextareaAdapter",
+    "SwitchAdapter",
+    "RangeAdapter",
+    "NumericInputAdapter",
+    "MultiSelectAdapter",
+    "SegmentedAdapter"
+  ],
+  "props": [
+    {
+      "displayName": "useForm",
+      "description": "增强版的 useForm hook\n在 TanStack Form 的基础上添加适配器组件",
+      "props": [
+        {
+          "name": "defaultValues",
+          "type": "Record<string, unknown> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onSubmit",
+          "type": "((formApi: { value: unknown; }) => void | Promise<void>) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "CheckboxAdapter",
+      "description": "Checkbox 适配器 - 将 Checkbox 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "value",
+          "type": "boolean | undefined",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "mixed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "InputAdapter",
+      "description": "Input 适配器 - 将 Input 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusSelection",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIsEditingChange",
+          "type": "((isEditing: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "字段值"
+        }
+      ]
+    },
+    {
+      "displayName": "RadioGroupAdapter",
+      "description": "RadioGroup 适配器 - 将 RadioGroup 组件适配到 Form 系统\n\n核心功能：\n1. 值绑定\n2. 事件处理\n3. 错误状态显示\n4. 样式适配",
+      "props": [
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "{ disabled?: boolean | undefined; label: string; value: string; }[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "字段值"
+        }
+      ]
+    },
+    {
+      "displayName": "SelectAdapter",
+      "description": "Select 适配器 - 将 Select 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusManagerProps",
+          "type": "Partial<FloatingFocusManagerProps> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchTriggerWidth",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "placement",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "portalId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | null | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "字段值"
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "SelectOption<T>[] | undefined",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "TextareaAdapter",
+      "description": "Textarea 适配器 - 将 Textarea 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusSelection",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIsEditingChange",
+          "type": "((isEditing: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "allowNewline",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to allow newline characters when pressing Enter. Default is true"
+        },
+        {
+          "name": "contentRef",
+          "type": "RefObject<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "lineHeight",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Line height in pixels for calculating textarea height. Default is 16"
+        },
+        {
+          "name": "maxRows",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "minRows",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "padding",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Padding in pixels (top/bottom) for calculating textarea height. Default is 4 (py-1)"
+        },
+        {
+          "name": "resize",
+          "type": "false | \"auto\" | \"handle\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "scrollRef",
+          "type": "RefObject<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "字段值"
+        }
+      ]
+    },
+    {
+      "displayName": "SwitchAdapter",
+      "description": "Switch 适配器 - 将 Switch 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "boolean",
+          "required": true,
+          "description": "字段值"
+        }
+      ]
+    },
+    {
+      "displayName": "RangeAdapter",
+      "description": "Switch 适配器 - 将 Switch 组件适配到 Form 系统\n\n核心功能：\n1. 值绑定\n2. 事件处理\n3. 错误状态显示\n4. 样式适配",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "connectsClassName",
+          "type": "{ negative?: string | undefined; positive?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChangeEnd",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChangeStart",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "thumbSize",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "trackSize",
+          "type": "{ height?: number | undefined; width?: number | \"auto\" | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "description": "字段值"
+        }
+      ]
+    },
+    {
+      "displayName": "NumericInputAdapter",
+      "description": "NumericInput 适配器 - 将 NumericInput 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "NumericInputValue | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tooltip",
+          "type": "TooltipProps | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "decimal",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIsEditingChange",
+          "type": "((isEditing: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "classNames",
+          "type": "{ container?: string | undefined; input?: string | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "triggerRef",
+          "type": "RefObject<HTMLDivElement> | ((el: HTMLDivElement | null) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "expression",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "handlerPressed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "handlerProps",
+          "type": "Record<string, unknown> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onEmpty",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onPressEnd",
+          "type": "(((event: PressEvent) => void) & ((e: PointerEvent) => void)) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onPressStart",
+          "type": "(((event: PressEvent) => void) & ((e: PointerEvent) => void)) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "shiftStep",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "description": "字段值"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "MultiSelectAdapter",
+      "description": "MultiSelect 适配器 - 将 MultiSelect 组件适配到 Form 系统",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusManagerProps",
+          "type": "FloatingFocusManagerProps | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchTriggerWidth",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "placement",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "portalId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | null | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "chipVariant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "getDisplayValue",
+          "type": "((value: string) => string) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "i18n",
+          "type": "{ maxSelectionMessage?: ((maxSelection: number) => string) | undefined; minSelectionMessage?: ((minSelection: number) => string) | undefined; } | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxChips",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxSelection",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "minSelection",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderChip",
+          "type": "((props: { disabled?: boolean | undefined; displayValue: string; index: number; onRemove?: ((e: MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined; value: string; }) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "showValidationMessage",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "values",
+          "type": "string[] | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T[]) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T[]) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "T[]",
+          "required": true,
+          "description": "字段值"
+        },
+        {
+          "name": "name",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "SelectOption<T>[] | undefined",
+          "required": false,
+          "defaultValue": "[]",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "SegmentedAdapter",
+      "description": "Segmented 适配器 - 将 Segmented 组件适配到 Form 系统\n\n核心功能：\n1. 值绑定\n2. 事件处理\n3. 错误状态显示\n4. 样式适配",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tooltip",
+          "type": "TooltipProps | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段描述"
+        },
+        {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "单个错误信息"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "字段标签"
+        },
+        {
+          "name": "onBlur",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "失焦回调"
+        },
+        {
+          "name": "onBlurAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步失焦验证"
+        },
+        {
+          "name": "onBlurAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: T) => void",
+          "required": true,
+          "description": "值变化回调"
+        },
+        {
+          "name": "onChangeAsync",
+          "type": "((value: T) => void) | undefined",
+          "required": false,
+          "description": "异步值变化验证"
+        },
+        {
+          "name": "onChangeAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "聚焦回调"
+        },
+        {
+          "name": "onFocusAsync",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "异步聚焦验证"
+        },
+        {
+          "name": "onFocusAsyncDebounceMs",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "description": "字段大小"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "字段值"
+        },
+        {
+          "name": "options",
+          "type": "SegmentedOption<T>[] | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-form-adapters--input",
+      "name": "Input",
+      "exportName": "Input",
+      "description": "When is validation performed?\nIt's up to you! The <Field /> component accepts some callbacks as props such as onChange or onBlur.\nThose callbacks are passed the current value of the field, as well as the fieldAPI object, so that you can perform the validation.\nIf you find a validation error, simply return the error message as string and it will be available in field.state.meta.errors.",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name={`username-${uuid}`}\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as string).length < 3) {\n                return \"Username must be at least 3 characters\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Input\n              name={field.name}\n              label={<div className=\"text-red-500\">onChange validation</div>}\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Enter username\"\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Field\n          name={`email-${uuid}`}\n          validators={{\n            onBlur: ({ value }) => {\n              if ((value as string).length < 3) {\n                return \"Email must be at least 3 characters\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Input\n              name={field.name}\n              label=\"onBlur validation\"\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Enter email\"\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--textarea",
+      "name": "Textarea",
+      "exportName": "Textarea",
+      "description": "Textarea adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"message\"\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as string).length > 100) {\n                return \"Message must be less than 100 characters\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Textarea\n              name={field.name}\n              label=\"Textarea\"\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Enter message\"\n              minRows={4}\n              maxRows={8}\n              description={`${(field.state.value as string).length}/100 characters`}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Field\n          name=\"bio\"\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as string).length > 200) {\n                return \"Message must be less than 100 characters\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Textarea\n              name={field.name}\n              label=\"Bio\"\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Enter bio\"\n              rows={4}\n              maxRows={8}\n              minRows={4}\n              resize=\"handle\"\n              description={`${(field.state.value as string).length}/200 characters`}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--select",
+      "name": "Select",
+      "exportName": "Select",
+      "description": "Select adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"role\"\n          validators={{\n            onChange: ({ value }) => {\n              if (value !== \"admin\") {\n                return \"Role must be admin\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Select\n              name={field.name}\n              label=\"Select\"\n              matchTriggerWidth\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Select role\"\n              options={[\n                { label: \"Admin\", value: \"admin\" },\n                { label: \"User\", value: \"user\" },\n              ]}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--multi-select",
+      "name": "Multi Select",
+      "exportName": "MultiSelect",
+      "description": "",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"roles\"\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as string[]).length < 1) {\n                return \"You must select at least one role\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.MultiSelect\n              name={field.name}\n              label=\"MultiSelect\"\n              matchTriggerWidth\n              value={field.state.value as string[]}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Select roles\"\n              options={[\n                { label: \"Admin\", value: \"admin\" },\n                { label: \"User\", value: \"user\" },\n                { label: \"Guest\", value: \"guest\" },\n                { divider: true },\n                { label: \"Manager\", value: \"manager\" },\n                { label: \"Viewer\", value: \"viewer\" },\n              ]}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--checkbox",
+      "name": "Checkbox",
+      "exportName": "Checkbox",
+      "description": "Checkbox adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"isAdmin\"\n          validators={{\n            onChange: ({ value }) => {\n              if (!value) {\n                return \"You must be an admin\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Checkbox\n              name={field.name}\n              label=\"Admin\"\n              value={field.state.value as boolean}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--radio-group",
+      "name": "Radio Group",
+      "exportName": "RadioGroup",
+      "description": "",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"role\"\n          validators={{\n            onChange: ({ value }) => {\n              if (value !== \"admin\") {\n                return \"Role must be admin\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.RadioGroup\n              name={field.name}\n              label=\"Role\"\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              options={[\n                { label: \"Admin\", value: \"admin\" },\n                { label: \"User\", value: \"user\" },\n                { label: \"Guest\", value: \"guest\" },\n              ]}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--switch",
+      "name": "Switch",
+      "exportName": "Switch",
+      "description": "Switch adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"isAdmin\"\n          validators={{\n            onChange: ({ value }) => {\n              if (!value) {\n                return \"You must be an admin\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Switch\n              name={field.name}\n              label=\"Admin\"\n              value={field.state.value as boolean}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--range",
+      "name": "Range",
+      "exportName": "Range",
+      "description": "Range adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"age\"\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as number) < 18) {\n                return \"You must be at least 18 years old\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Range\n              label=\"Age\"\n              value={field.state.value as number}\n              min={0}\n              max={100}\n              step={1}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--numeric-input",
+      "name": "Numeric Input",
+      "exportName": "NumericInput",
+      "description": "",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"age\"\n          validators={{\n            onChange: ({ value }) => {\n              if ((value as number) < 18) {\n                return \"You must be at least 18 years old\";\n              } else if ((value as number) > 60) {\n                return \"You must be less than 60 years old\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.NumericInput\n              name={field.name}\n              label=\"Age\"\n              value={field.state.value as number}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              placeholder=\"Enter age\"\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            >\n              <NI.Prefix>\n                <FillWidth />\n              </NI.Prefix>\n            </form.NumericInput>\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    },
+    {
+      "id": "forms-form-adapters--segmented",
+      "name": "Segmented",
+      "exportName": "Segmented",
+      "description": "Segmented adapter",
+      "source": "import { CheckboxAdapter } from \"@choice-ui/form\"\n\nexport default function App() {\n  return (\n    <>\n      <form\n        className=\"w-80 space-y-4\"\n        onSubmit={(e) => {\n          e.preventDefault();\n          e.stopPropagation();\n          form.handleSubmit();\n        }}\n      >\n        <form.Field\n          name=\"role\"\n          validators={{\n            onChange: ({ value }) => {\n              if (value !== \"admin\") {\n                return \"Role must be admin\";\n              }\n            },\n          }}\n        >\n          {(field) => (\n            <form.Segmented\n              name={field.name}\n              label=\"Segmented\"\n              value={field.state.value as string}\n              onChange={field.handleChange}\n              onBlur={field.handleBlur}\n              options={[\n                { content: \"Admin\", value: \"admin\" },\n                { content: \"User\", value: \"user\" },\n                { content: \"Guest\", value: \"guest\" },\n              ]}\n              error={\n                <em role=\"alert\">{field.state.meta.errors.join(\", \")}</em>\n              }\n            />\n          )}\n        </form.Field>\n\n        <form.Button type=\"submit\">Submit Form</form.Button>\n      </form>\n\n      <div className=\"bg-secondary-background mt-4 w-80 rounded-xl p-4\">\n        <strong>Form Result:</strong>\n        <CodeBlock language=\"json\">\n          <CodeBlock.Content code={result} />\n        </CodeBlock>\n      </div>\n    </>\n  );\n}"
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "slug": "forms/textarea",
+  "title": "Textarea",
+  "package": {
+    "name": "@choice-ui/textarea",
+    "version": "0.0.3",
+    "description": "Textarea component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/scroll-area": "workspace:*",
+      "usehooks-ts": "^3.1.0"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Textarea",
+    "ResizeHandle",
+    "type TextareaProps",
+    "type TextareaContentProps",
+    "type ResizeHandleProps"
+  ],
+  "props": [
+    {
+      "displayName": "Textarea",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "allowNewline",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to allow newline characters when pressing Enter. Default is true"
+        },
+        {
+          "name": "contentRef",
+          "type": "RefObject<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusSelection",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "lineHeight",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Line height in pixels for calculating textarea height. Default is 16"
+        },
+        {
+          "name": "maxRows",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "minRows",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onIsEditingChange",
+          "type": "((isEditing: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "padding",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Padding in pixels (top/bottom) for calculating textarea height. Default is 4 (py-1)"
+        },
+        {
+          "name": "resize",
+          "type": "false | \"auto\" | \"handle\" | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "scrollRef",
+          "type": "RefObject<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "forms-textarea--default",
+      "name": "Default",
+      "exportName": "Default",
+      "description": "Default: Basic textarea with auto-resize behavior and default styling.\n\nFeatures:\n- Auto-sizing based on content\n- Default visual styling\n- Basic placeholder text\n\nUsage:\n```tsx\n<Textarea placeholder=\"Enter your text here...\" />\n```",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--with-value",
+      "name": "With Value",
+      "exportName": "WithValue",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <Textarea\n      value={value}\n      onChange={setValue}\n      placeholder=\"Enter your text here...\"\n      className=\"w-80\"\n    />\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--variants",
+      "name": "Variants",
+      "exportName": "Variants",
+      "description": "Variants: Demonstrates different visual variants of the textarea component.\n\nFeatures:\n- default: Follows the page theme dynamically (light/dark mode)\n- light: Fixed light appearance regardless of theme\n- dark: Fixed dark appearance regardless of theme\n- reset: Removes variant styling, no variant settings applied\n\nUsage:\n```tsx\n<Textarea\n  variant=\"default\" // Adapts to current theme\n  placeholder=\"Enter text...\"\n/>\n```\n\nBest Practices:\n- Use default variant for inputs that adapt to the current theme\n- Use light/dark variants when you need fixed appearance\n- Use reset variant to remove all variant-specific styling",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>\n        Disabled\n      </Checkbox>\n      <div className=\"grid grid-cols-3 overflow-hidden rounded-xl border\">\n        <div className=\"bg-default-background p-8\">\n          <Textarea\n            disabled={disabled}\n            placeholder=\"Default variant - follows theme...\"\n          />\n        </div>\n        <div className=\"bg-white p-8\">\n          <Textarea\n            disabled={disabled}\n            variant=\"light\"\n            placeholder=\"Light variant - fixed light...\"\n          />\n        </div>\n        <div className=\"bg-gray-800 p-8\">\n          <Textarea\n            disabled={disabled}\n            variant=\"dark\"\n            placeholder=\"Dark variant - fixed dark...\"\n          />\n        </div>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--selected",
+      "name": "Selected",
+      "exportName": "Selected",
+      "description": "Selected State: Textarea in selected/focused state with visual emphasis.\n\nFeatures:\n- Visual indication of selection/focus\n- Enhanced border styling\n- Clear state differentiation\n\nUsage:\n```tsx\n<Textarea\n  selected={true}\n  value=\"Selected content\"\n/>\n```\n\nBest Practices:\n- Use to highlight important or active textareas in complex forms\n- Combine with focus management for better UX",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled State: Non-interactive textarea for display-only content.\n\nFeatures:\n- Visual disabled styling\n- Prevents user interaction\n- Maintains content visibility\n\nUsage:\n```tsx\n<Textarea\n  disabled={true}\n  value=\"Read-only content\"\n/>\n```\n\nAccessibility:\n- Properly communicated to screen readers\n- Skipped in keyboard navigation",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--read-only",
+      "name": "Read Only",
+      "exportName": "ReadOnly",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--with-min-max-rows",
+      "name": "With Min Max Rows",
+      "exportName": "WithMinMaxRows",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--without-autosize",
+      "name": "Without Autosize",
+      "exportName": "WithoutAutosize",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "forms-textarea--long-content",
+      "name": "Long Content",
+      "exportName": "LongContent",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <Textarea\n      value={value}\n      onChange={setValue}\n      placeholder=\"This textarea has a lot of content to demonstrate scrolling behavior.\"\n      className=\"w-80\"\n      maxRows={6}\n    />\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--interactive",
+      "name": "Interactive",
+      "exportName": "Interactive",
+      "description": "Interactive Example: Textarea with real-time feedback and editing state tracking.\n\nFeatures:\n- Real-time character counting\n- Editing state detection\n- Live feedback display\n\nUsage:\n```tsx\nconst [value, setValue] = useState(\"\")\nconst [isEditing, setIsEditing] = useState(false)\n\nreturn (\n  <>\n    <Textarea\n      value={value}\n      onChange={setValue}\n      onIsEditingChange={setIsEditing}\n    />\n    <div>Characters: {value.length}</div>\n  </>\n)\n```\n\nBest Practices:\n- Use onIsEditingChange for form validation timing\n- Display character counts for limited-length fields\n- Provide immediate feedback to users",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Textarea\n        value={value}\n        onChange={setValue}\n        onIsEditingChange={setIsEditing}\n        placeholder=\"Type something...\"\n        className=\"w-80\"\n      />\n      <div className=\"text-secondary-foreground text-body-small\">\n        <p>Character count: {value.length}</p>\n        <p>Is editing: {isEditing ? \"Yes\" : \"No\"}</p>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--resize-handle",
+      "name": "Resize Handle",
+      "exportName": "ResizeHandle",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <Textarea\n      className=\"w-80\"\n      resize=\"handle\"\n      minRows={3}\n      maxRows={10}\n      value={value}\n      onChange={setValue}\n      placeholder=\"Drag the resize handle to adjust height...\"\n    />\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--simple-usage",
+      "name": "Simple Usage",
+      "exportName": "SimpleUsage",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div>\n        <h3 className=\"text-body-small mb-2\">Simple Usage Pattern</h3>\n        <Textarea\n          value={value}\n          onChange={setValue}\n          placeholder=\"This textarea has a lot of content to demonstrate scrolling behavior.\"\n          className=\"w-80\"\n          maxRows={6}\n        />\n      </div>\n      <div className=\"text-body-small text-text-tertiary\">\n        Character count: {value.length}\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--compound-usage",
+      "name": "Compound Usage",
+      "exportName": "CompoundUsage",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div>\n        <h3 className=\"text-body-small mb-2\">Compound Component Pattern</h3>\n        <Textarea\n          value={value}\n          onChange={setValue}\n          placeholder=\"This textarea has a lot of content to demonstrate scrolling behavior.\"\n          className=\"w-80\"\n          maxRows={6}\n        >\n          <Textarea.Content className=\"font-mono\" />\n        </Textarea>\n      </div>\n      <div className=\"text-body-small text-text-tertiary\">\n        Using Textarea.Content with custom font-mono class\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--focus-selection-modes",
+      "name": "Focus Selection Modes",
+      "exportName": "FocusSelectionModes",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-6\">\n      <div>\n        <h3 className=\"text-body-small mb-2\">Select All (Default)</h3>\n        <Textarea\n          value={value1}\n          onChange={setValue1}\n          focusSelection=\"all\"\n          placeholder=\"Click to select all text...\"\n          className=\"w-80\"\n          minRows={2}\n          maxRows={4}\n        />\n        <p className=\"text-body-small text-text-tertiary mt-1\">\n          focusSelection=&quot;all&quot; - Selects all text when focused\n        </p>\n      </div>\n\n      <div>\n        <h3 className=\"text-body-small mb-2\">Move to End</h3>\n        <Textarea\n          value={value2}\n          onChange={setValue2}\n          focusSelection=\"end\"\n          placeholder=\"Click to move cursor to end...\"\n          className=\"w-80\"\n          minRows={2}\n          maxRows={4}\n        />\n        <p className=\"text-body-small text-text-tertiary mt-1\">\n          focusSelection=&quot;end&quot; - Moves cursor to end of text\n        </p>\n      </div>\n\n      <div>\n        <h3 className=\"text-body-small mb-2\">No Selection</h3>\n        <Textarea\n          value={value3}\n          onChange={setValue3}\n          focusSelection=\"none\"\n          placeholder=\"Click anywhere to focus...\"\n          className=\"w-80\"\n          minRows={2}\n          maxRows={4}\n        />\n        <p className=\"text-body-small text-text-tertiary mt-1\">\n          focusSelection=&quot;none&quot; - Maintains cursor position\n        </p>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--no-newline-mode",
+      "name": "No Newline Mode",
+      "exportName": "NoNewlineMode",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-4\">\n      <div>\n        <h3 className=\"text-body-small mb-2\">No Newline Allowed</h3>\n        <Textarea\n          value={value}\n          onChange={setValue}\n          allowNewline={false}\n          placeholder=\"Press Enter - it won't create a new line...\"\n          className=\"w-80\"\n          minRows={2}\n          maxRows={4}\n        />\n        <p className=\"text-body-small text-text-tertiary mt-1\">\n          allowNewline=false - Enter key is disabled\n        </p>\n      </div>\n\n      <div>\n        <h3 className=\"text-body-small mb-2\">Normal Mode (for comparison)</h3>\n        <Textarea\n          value={value}\n          onChange={setValue}\n          allowNewline={true}\n          placeholder=\"Press Enter to create new lines...\"\n          className=\"w-80\"\n          minRows={2}\n          maxRows={4}\n        />\n        <p className=\"text-body-small text-text-tertiary mt-1\">\n          allowNewline=true (default) - Enter key works normally\n        </p>\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--custom-line-height",
+      "name": "Custom Line Height",
+      "exportName": "CustomLineHeight",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"space-y-6\">\n      <Switch\n        value={size === \"large\"}\n        onChange={() => setSize(size === \"large\" ? \"default\" : \"large\")}\n      >\n        <Switch.Label>Size</Switch.Label>\n      </Switch>\n\n      <Textarea\n        value={value}\n        onChange={setValue}\n        minRows={3}\n        maxRows={5}\n        className=\"w-80\"\n        placeholder=\"Default line height...\"\n        lineHeight={size === \"large\" ? 22 : 16}\n      >\n        <Textarea.Content\n          className={\n            size === \"large\" ? \"text-body-large\" : \"text-body-medium\"\n          }\n        />\n      </Textarea>\n    </div>\n  );\n}"
+    },
+    {
+      "id": "forms-textarea--in-popover",
+      "name": "In Popover",
+      "exportName": "InPopover",
+      "description": "",
+      "source": "import { Textarea } from \"@choice-ui/textarea\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center justify-center p-20\">\n      <Popover open={open} onOpenChange={setOpen}>\n        <Popover.Trigger>\n          <Button>Open Popover with Textarea</Button>\n        </Popover.Trigger>\n        <Popover.Header title=\"Add a comment\" />\n        <Popover.Content className=\"space-y-3 p-4\">\n          <div className=\"text-body-small text-text-secondary\">\n            Type your comment below. The textarea should auto-size correctly\n            even though it starts hidden inside a popover.\n          </div>\n          <Textarea\n            value={value}\n            onChange={setValue}\n            placeholder=\"Type your comment here...\"\n            minRows={3}\n            maxRows={10}\n            className=\"w-full\"\n          />\n          <div className=\"text-body-small text-text-tertiary\">\n            Characters: {value.length}\n          </div>\n        </Popover.Content>\n      </Popover>\n    </div>\n  );\n}"
+    }
+  ]
+}

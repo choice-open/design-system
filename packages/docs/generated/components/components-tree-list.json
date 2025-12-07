@@ -1,0 +1,212 @@
+{
+  "slug": "components/tree-list",
+  "title": "TreeList",
+  "package": {
+    "name": "@choice-ui/tree-list",
+    "version": "0.0.5",
+    "description": "Tree List component for Choiceform Design System",
+    "dependencies": {
+      "@tanstack/react-virtual": "^3.13.12",
+      "@choice-ui/shared": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@choice-ui/scroll-area": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "TreeList",
+    "useTreeContext",
+    "TreeNode",
+    "TreeNodeWrapper"
+  ],
+  "props": [
+    {
+      "displayName": "TreeList",
+      "description": "",
+      "props": [
+        {
+          "name": "allowDrag",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "allowDrop",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "allowMultiSelect",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "containerWidth",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "data",
+          "type": "TreeNodeData[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "initialExpandedNodeIds",
+          "type": "Set<string> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "keyboardNavigation",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "nodeHeight",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onExpandedNodesChange",
+          "type": "((expandedNodeIds: Set<string>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onMouseDown",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeContextMenu",
+          "type": "((node: TreeNodeType, event: MouseEvent<Element, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeCreate",
+          "type": "((parentNode: TreeNodeType | null, nodeType: \"folder\" | \"component\" | \"layer\") => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeDrop",
+          "type": "((sourceNodes: TreeNodeType[], targetNode: TreeNodeType, position: DropPosition) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeHover",
+          "type": "((node: TreeNodeType, isHovered: boolean, event: MouseEvent<Element, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeIconDoubleClick",
+          "type": "((node: TreeNodeType, event: MouseEvent<Element, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeRename",
+          "type": "((node: TreeNodeType, newName: string) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onNodeSelect",
+          "type": "((nodes: TreeNodeType[], event?: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element> | undefined) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderActions",
+          "type": "((node: TreeNodeType) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderIcon",
+          "type": "((node: TreeNodeType) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderLabel",
+          "type": "((node: TreeNodeType) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderNode",
+          "type": "((node: TreeNodeType) => ReactNode) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "selectedNodeIds",
+          "type": "Set<string>",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "showFullPathOnRename",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "是否在重命名时显示完整路径\n当为 true 时，输入框会显示完整路径（如 \"Folder2/Folder 2 / Group 1\"），\n但只选中最后一部分（如 \"Folder 2 / Group 1\"）"
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "virtualScroll",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-treelist--comprehensive",
+      "name": "Comprehensive",
+      "exportName": "Comprehensive",
+      "description": "",
+      "source": "import { TreeList } from \"@choice-ui/tree-list\"\n\nexport default function App() {\n  return (\n    <ComprehensiveTreeList />\n  );\n}"
+    },
+    {
+      "id": "components-treelist--label-visibility",
+      "name": "Label Visibility",
+      "exportName": "LabelVisibility",
+      "description": "",
+      "source": "import { TreeList } from \"@choice-ui/tree-list\"\n\nexport default function App() {\n  return (\n    <LabelVisibilityDemo />\n  );\n}"
+    },
+    {
+      "id": "components-treelist--large-dataset",
+      "name": "Large Dataset",
+      "exportName": "LargeDataset",
+      "description": "",
+      "source": "import { TreeList } from \"@choice-ui/tree-list\"\n\nexport default function App() {\n  return (\n    <LargeDatasetTreeList />\n  );\n}"
+    }
+  ]
+}

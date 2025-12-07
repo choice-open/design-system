@@ -1,0 +1,44 @@
+{
+  "slug": "utils/i18n",
+  "title": "I18n",
+  "package": {
+    "name": "@choice-ui/i18n",
+    "version": "0.0.0",
+    "description": "",
+    "dependencies": {}
+  },
+  "exports": [
+    "Component"
+  ],
+  "props": [],
+  "stories": [
+    {
+      "id": "utils-i18n--default",
+      "name": "Default",
+      "exportName": "Default",
+      "description": "Default English configuration",
+      "source": ""
+    },
+    {
+      "id": "utils-i18n--chinese",
+      "name": "Chinese",
+      "exportName": "Chinese",
+      "description": "Chinese configuration showing partial override",
+      "source": ""
+    },
+    {
+      "id": "utils-i18n--partial-french",
+      "name": "Partial French",
+      "exportName": "PartialFrench",
+      "description": "",
+      "source": ""
+    },
+    {
+      "id": "utils-i18n--easy-usage",
+      "name": "Easy Usage",
+      "exportName": "EasyUsage",
+      "description": "",
+      "source": "import { Component } from \"@choice-ui/i18n\"\n\nexport default function App() {\n  return (\n        <div className=\"max-w-md\">\n          <h2 className=\"mb-4 text-lg font-bold\">🚀 Super Easy to Use!</h2>\n          <pre className=\"rounded bg-gray-100 p-4 text-sm\">\n            {`import { useI18n } from \"~/utils\"\n\n    // Just 1 line in your component:\n    const i18n = useI18n(defaultConfig, userI18n)\n\n    // No need to:\n    ❌ Create custom hooks\n    ❌ Write wrapper functions\n    ❌ Handle caching manually\n    ✅ Everything is automated!`}\n          </pre>\n\n          <div className=\"mt-4\">\n            <I18nDemoComponent\n              i18n={{\n                buttons: { save: \"保存\" },\n                messages: { loading: \"载入中...\" },\n              }}\n            />\n          </div>\n        </div>\n  );\n}"
+    }
+  ]
+}

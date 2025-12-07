@@ -19,6 +19,7 @@ export interface CodeBlockContextValue {
   lineThreshold: number
   needsScroll: boolean
   scrollRef?: RefObject<HTMLDivElement>
+  variant?: "default" | "light" | "dark"
 }
 
 export interface CodeBlockInjectedProps {
@@ -40,6 +41,7 @@ export interface CodeBlockProps {
   lineThreshold?: number
   onCodeExpandChange?: (expanded: boolean) => void
   onExpandChange?: (expanded: boolean) => void
+  variant?: "default" | "light" | "dark"
 }
 
 export interface CodeBlockHeaderProps extends CodeBlockInjectedProps {
@@ -68,8 +70,12 @@ export interface CodeBlockContentProps extends CodeBlockInjectedProps {
 export interface CodeBlockCodeProps extends HTMLProps<HTMLDivElement> {
   className?: string
   code: string
+  /** 从 CodeBlock 传递的 context */
+  codeBlock?: CodeBlockContextValue
   codeBlockId?: string
   language?: string
+  /** 手动指定主题，覆盖自动检测 */
+  variant?: "light" | "dark"
 }
 
 // ============================================================================
