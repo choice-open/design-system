@@ -1,0 +1,27 @@
+.field {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 8);
+}
+
+.swatch {
+  background-color: var(--swatch-color);
+  width: calc(var(--cdt-spacing) * 5);
+  height: calc(var(--cdt-spacing) * 5);
+}
+
+.swatchAtomic {
+  width: calc(var(--cdt-spacing) * 5);
+  height: calc(var(--cdt-spacing) * 5);
+}
+
+.icon {
+  color: rgb(var(--cdt-color-icon-secondary));
+}
+
+.flex {
+  flex: 1;
+}

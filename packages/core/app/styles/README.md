@@ -1,6 +1,6 @@
 # Tailwind CSS Theme System
 
-The core theming system for the ChoiceForm Design System, implementing a sophisticated Figma-inspired color system with automatic dark mode support and comprehensive design tokens.
+The core theming system for the ChoiceForm Design System, implementing a sophisticated desktop-optimized color system with automatic dark mode support and comprehensive design tokens.
 
 ## Import
 

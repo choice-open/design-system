@@ -1,0 +1,51 @@
+.section {
+  background-color: rgb(var(--cdt-color-background-default));
+  padding: calc(var(--cdt-spacing) * 12) 0 calc(var(--cdt-spacing) * 48) 0;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 56rem;
+}
+
+.sectionTitle {
+  margin-bottom: calc(var(--cdt-spacing) * 8);
+  color: rgb(var(--cdt-color-text-default));
+  text-align: center;
+}
+
+@media screen and (min-width: 48rem) {
+  .sectionTitle {
+    text-align: left;
+  }
+}
+
+.step {
+  margin-bottom: calc(var(--cdt-spacing) * 8);
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.stepTitle {
+  margin-bottom: calc(var(--cdt-spacing) * 3);
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.stepDesc {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.codeBlockWrapper {
+  background-color: rgb(var(--cdt-color-background-secondary));
+}
+
+.highlight {
+  color: rgb(var(--cdt-color-text-assistive));
+}
+
+.highlightSecondary {
+  color: rgb(var(--cdt-color-text-secondary));
+}

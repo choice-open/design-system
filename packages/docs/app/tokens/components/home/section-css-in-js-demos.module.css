@@ -1,0 +1,124 @@
+.section {
+  background: linear-gradient(
+    135deg,
+    rgb(var(--cdt-color-background-default)) 0%,
+    rgb(var(--cdt-color-background-secondary)) 100%
+  );
+  padding: calc(var(--cdt-spacing) * 16) 0;
+}
+
+.header {
+  margin-bottom: calc(var(--cdt-spacing) * 12);
+  text-align: center;
+}
+
+.title {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 48rem;
+  color: rgb(var(--cdt-color-text-secondary));
+  line-height: 1.7;
+}
+
+.demosList {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cdt-spacing) * 6);
+  margin: 0 auto;
+  max-width: 64rem;
+}
+
+.demoCard {
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  border-radius: var(--cdt-radius-md);
+  background: rgb(var(--cdt-color-background-default));
+  padding: calc(var(--cdt-spacing) * 6);
+}
+
+.demoCard:hover {
+  border-color: rgb(var(--cdt-color-border-selected));
+}
+
+.demoHeader {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+}
+
+.demoName {
+  margin-bottom: calc(var(--cdt-spacing) * 2);
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.demoDesc {
+  margin-bottom: calc(var(--cdt-spacing) * 3);
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.installCommand {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+  border-radius: var(--cdt-radius-sm);
+  background: rgb(var(--cdt-color-background-tertiary));
+  padding: calc(var(--cdt-spacing) * 2) calc(var(--cdt-spacing) * 3);
+  overflow-x: auto;
+  color: rgb(var(--cdt-color-text-default));
+  font-size: 0.75rem;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+}
+
+.codeBlock {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+  border-radius: var(--cdt-radius-md);
+  background: rgb(var(--cdt-color-background-menu));
+  padding: calc(var(--cdt-spacing) * 4);
+  overflow-x: auto;
+}
+
+.codeBlock pre {
+  margin: 0;
+  color: rgb(var(--cdt-color-text-inverse));
+  font-size: 0.8rem;
+  line-height: 1.5;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+}
+
+.featuresList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  margin-bottom: calc(var(--cdt-spacing) * 1.5);
+}
+
+.featureItem::before {
+  flex-shrink: 0;
+  content: "✓";
+  color: rgb(var(--cdt-color-text-success));
+  font-weight: bold;
+}
+
+.featureText {
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.toggleButton {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin-bottom: calc(var(--cdt-spacing) * 3);
+  border: none;
+  border-radius: var(--cdt-radius-md);
+  background: rgb(var(--cdt-color-background-accent));
+  padding: calc(var(--cdt-spacing) * 2) calc(var(--cdt-spacing) * 4);
+  color: rgb(var(--cdt-color-text-on-accent));
+}
+
+.toggleButton:hover {
+  background: rgb(var(--cdt-color-background-accent-hover));
+}

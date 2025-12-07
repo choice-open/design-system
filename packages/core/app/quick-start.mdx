@@ -14,13 +14,13 @@ Install the design system and design tokens using your preferred package manager
 
 ```bash
 # Using pnpm (recommended)
-pnpm add @choice-ui/react @choiceform/design-tokens
+pnpm add @choice-ui/react @choice-ui/design-tokens
 
 # Using npm
-npm install @choice-ui/react @choiceform/design-tokens
+npm install @choice-ui/react @choice-ui/design-tokens
 
 # Using yarn
-yarn add @choice-ui/react @choiceform/design-tokens
+yarn add @choice-ui/react @choice-ui/design-tokens
 ```
 
 ## CSS Configuration
@@ -31,15 +31,15 @@ Add these imports to your main CSS file (e.g., `app.css` or `index.css`):
 
 ```css
 @import "tailwindcss";
-@import "@choiceform/design-tokens/tokens.css";
-@import "@choiceform/design-tokens/preflight.css";
-@import "@choiceform/design-tokens/tailwind.css";
+@import "@choice-ui/design-tokens/tokens.css";
+@import "@choice-ui/design-tokens/preflight.css";
+@import "@choice-ui/design-tokens/tailwind.css";
 @source "../../../node_modules/@choice-ui/react";
 ```
 
 **Note:** The old `@import "@choice-ui/react/styles/theme.css"` is no longer needed and should be removed.
 
-Learn more about design tokens at [https://tokens.choiceform.app/](https://tokens.choiceform.app/)
+Learn more about design tokens at [https://choice-ui.com/tokens](https://choice-ui.com/tokens)
 
 ### Understanding the @source Directive
 

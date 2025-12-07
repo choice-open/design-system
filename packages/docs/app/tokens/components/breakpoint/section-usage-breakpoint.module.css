@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  grid-column: 1 / 3;
+  flex-direction: column;
+}
+
+.wrapper:not(:last-child) {
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+}
+
+.highlight {
+  color: rgb(var(--cdt-color-text-assistive));
+}
+
+.highlightSecondary {
+  color: rgb(var(--cdt-color-text-secondary));
+}

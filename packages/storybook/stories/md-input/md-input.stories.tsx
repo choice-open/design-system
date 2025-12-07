@@ -1141,7 +1141,7 @@ print(quicksort(numbers))
 {
   "name": "@choice-ui/react",
   "version": "1.0.3",
-  "description": "Figma-inspired UI component library",
+  "description": "Desktop-first UI component library built for professional desktop applications",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@choice-ui/react": "workspace:*",
-    "@choiceform/design-tokens": "^0.2.12",
+    "@choice-ui/design-tokens": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
@@ -24,9 +24,11 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "shiki": "^3.9.2",
+    "prism-react-renderer": "^2.4.1",
     "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^3.1.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tinycolor2": "^1.6.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -43,6 +45,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/tinycolor2": "^1.4.6",
     "date-fns": "^4.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",

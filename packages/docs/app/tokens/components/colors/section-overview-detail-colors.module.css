@@ -1,0 +1,25 @@
+.colorRadioButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  cursor: default;
+  border: 1px solid currentcolor;
+  border-radius: var(--cdt-radius-md);
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 6);
+  color: rgb(var(--color, 0, 0, 0), 1);
+  user-select: none;
+  text-transform: capitalize;
+}
+
+.colorRadioButton[data-selected="true"] {
+  border-color: rgb(var(--color, 0, 0, 0), 1);
+  background-color: rgb(var(--color, 0, 0, 0), 1);
+  color: rgb(var(--cdt-color-text-on-accent));
+}
+
+.colorRadioButton[data-selected="false"]:hover {
+  background-color: rgba(var(--color), 0.2);
+}

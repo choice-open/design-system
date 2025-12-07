@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-direction: column;
+  gap: calc(var(--cdt-spacing) * 4);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--cdt-spacing) * 2);
+  margin: 1px 1px 0 1px;
+  background-color: rgb(var(--cdt-color-background-secondary));
+  padding: calc(var(--cdt-spacing) * 4);
+}
+
+.infoGridItem {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cdt-spacing) * 2);
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dynamic-lineHeight);
+  background-image: linear-gradient(
+    rgba(var(--cdt-color-background-danger), 0.2) 1px,
+    transparent 1px
+  );
+  background-position: 0 calc(var(--cdt-spacing) * 4);
+  background-size: var(--dynamic-lineHeight);
+  padding: calc(var(--cdt-spacing) * 4);
+}
+
+.dynamicTypography {
+  font-weight: var(--dynamic-font-weight);
+  font-size: var(--dynamic-font-size);
+  line-height: var(--dynamic-line-height);
+  font-family: var(--dynamic-font-family);
+  letter-spacing: var(--dynamic-letter-spacing);
+}
+
+.primaryText {
+  color: rgb(var(--cdt-color-text-primary));
+}
+
+.secondaryText {
+  max-width: 600px;
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.tertiaryText {
+  color: rgb(var(--cdt-color-text-tertiary));
+}

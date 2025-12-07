@@ -1,0 +1,654 @@
+{
+  "shadows": {
+    "xxs": {
+      "$type": "shadow",
+      "$description": "xxs shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.02)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.3)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "2px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.02)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.3)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.1)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "2px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.04)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.8)"
+            }
+          ]
+        }
+      }
+    },
+    "xs": {
+      "$type": "shadow",
+      "$description": "xs shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.15)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.3)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.15)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.3)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.1)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.5)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.4)"
+            }
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "shadow",
+      "$description": "sm shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "3px",
+          "blur": "8px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.18)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "3px",
+              "blur": "8px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.18)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.08)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.35)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "3px",
+              "blur": "8px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.4)"
+            }
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "shadow",
+      "$description": "md shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "5px",
+          "blur": "12px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.13)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.15)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "5px",
+              "blur": "12px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.13)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.15)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.08)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.3)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "1px",
+              "blur": "3px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.5)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "5px",
+              "blur": "12px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.35)"
+            }
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "shadow",
+      "$description": "lg shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.15)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "10px",
+          "blur": "16px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.12)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.12)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "2px",
+              "blur": "5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.15)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "10px",
+              "blur": "16px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.12)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.12)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.08)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.35)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "2px",
+              "blur": "5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.35)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "10px",
+              "blur": "16px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.35)"
+            }
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "shadow",
+      "$description": "xl shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.15)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "10px",
+          "blur": "24px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.18)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0.5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 0, 0.08)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "2px",
+              "blur": "5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.15)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "10px",
+              "blur": "24px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.18)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.08)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0.5px",
+              "blur": "0px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.08)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0.5px",
+              "spread": "0px",
+              "color": "rgba(255, 255, 255, 0.35)",
+              "inset": true
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "3px",
+              "blur": "5px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.35)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "10px",
+              "blur": "24px",
+              "spread": "0px",
+              "color": "rgba(0, 0, 0, 0.45)"
+            }
+          ]
+        }
+      }
+    },
+    "focus": {
+      "$type": "shadow",
+      "$description": "focus shadow with light/dark mode support",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "color": "rgba(255, 255, 255, 1)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "2px",
+          "color": "rgba(13, 153, 255, 1)"
+        }
+      ],
+      "$extensions": {
+        "mode": {
+          "light": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0px",
+              "spread": "1px",
+              "color": "rgba(255, 255, 255, 1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0px",
+              "spread": "2px",
+              "color": "rgba(13, 153, 255, 1)"
+            }
+          ],
+          "dark": [
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0px",
+              "spread": "1px",
+              "color": "rgba(44, 44, 44, 1)"
+            },
+            {
+              "offsetX": "0px",
+              "offsetY": "0px",
+              "blur": "0px",
+              "spread": "2px",
+              "color": "rgba(12, 140, 233, 1)"
+            }
+          ]
+        }
+      }
+    },
+    "line": {
+      "$type": "shadow",
+      "$description": "line shadow with light/dark mode support",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "0px",
+        "spread": "1px",
+        "color": "rgba(0, 0, 0, 0.1)",
+        "inset": true
+      },
+      "$extensions": {
+        "mode": {
+          "light": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(0, 0, 0, 0.1)",
+            "inset": true
+          },
+          "dark": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(255, 255, 255, 0.1)",
+            "inset": true
+          }
+        }
+      }
+    },
+    "border-default": {
+      "$type": "shadow",
+      "$description": "border-default shadow with light/dark mode support",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "0px",
+        "spread": "1px",
+        "color": "rgba(230, 230, 230, 1)"
+      },
+      "$extensions": {
+        "mode": {
+          "light": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(230, 230, 230, 1)"
+          },
+          "dark": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(68, 68, 68, 1)"
+          }
+        }
+      }
+    },
+    "border-default-inset": {
+      "$type": "shadow",
+      "$description": "border-default-inset shadow with light/dark mode support",
+      "$value": {
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "0px",
+        "spread": "1px",
+        "color": "rgba(230, 230, 230, 1)",
+        "inset": true
+      },
+      "$extensions": {
+        "mode": {
+          "light": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(230, 230, 230, 1)",
+            "inset": true
+          },
+          "dark": {
+            "offsetX": "0px",
+            "offsetY": "0px",
+            "blur": "0px",
+            "spread": "1px",
+            "color": "rgba(68, 68, 68, 1)",
+            "inset": true
+          }
+        }
+      }
+    }
+  }
+}

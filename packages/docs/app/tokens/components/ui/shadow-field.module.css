@@ -1,0 +1,21 @@
+.field {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  width: 100%;
+  height: calc(var(--cdt-spacing) * 8);
+}
+
+.icon {
+  color: rgb(var(--cdt-color-icon-secondary));
+}
+
+.text {
+  flex: 1;
+  overflow: hidden;
+  color: rgb(var(--cdt-color-text-success));
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

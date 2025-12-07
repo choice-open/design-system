@@ -1,0 +1,43 @@
+.buttonContainer {
+  display: grid;
+  place-content: center;
+  border: 1px dashed rgb(var(--cdt-color-border-default));
+  padding: calc(var(--cdt-spacing) * 4);
+  aspect-ratio: 1 / 1;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: var(--cdt-radius-md);
+  background-color: rgb(var(--cdt-color-background-accent));
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 6);
+  color: rgb(var(--cdt-color-text-on-accent));
+}
+
+.button[data-theme="accent"] {
+  background-color: rgb(var(--cdt-color-background-accent));
+  color: rgb(var(--cdt-color-text-on-accent));
+}
+
+.button[data-theme="component"] {
+  background-color: rgb(var(--cdt-color-background-component));
+  color: rgb(var(--cdt-color-text-on-accent));
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--cdt-spacing) * 4);
+}
+
+.gridColumn {
+  grid-column: 1 / 3;
+}
+
+.assistiveText {
+  color: rgb(var(--cdt-color-text-assistive));
+}

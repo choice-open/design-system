@@ -1,0 +1,24 @@
+.colorRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  padding: 0 var(--cdt-spacing) 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 8);
+}
+
+.colorRowBlack {
+  border-color: rgb(var(--cdt-color-gray-800));
+  background-color: rgb(var(--cdt-color-gray-800));
+}
+
+.colorSwatches {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  overflow: hidden;
+}
+
+.label {
+  color: rgb(var(--cdt-color-text-assistive));
+  text-transform: capitalize;
+}

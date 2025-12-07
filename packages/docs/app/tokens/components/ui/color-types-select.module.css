@@ -1,0 +1,10 @@
+.select {
+  margin-left: auto;
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  border-radius: var(--cdt-radius-md);
+  background-color: rgb(var(--cdt-color-background-default));
+  padding: 0 var(--cdt-spacing);
+  height: calc(var(--cdt-spacing) * 6);
+  color: rgb(var(--cdt-color-text-default));
+  text-transform: capitalize;
+}

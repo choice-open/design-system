@@ -1,0 +1,104 @@
+.appContainer {
+  background-color: rgb(var(--cdt-color-white));
+  min-height: 100vh;
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.appContainer[data-theme="dark"] {
+  background-color: rgb(var(--cdt-color-gray-900));
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 calc(var(--cdt-spacing) * 8);
+  max-width: 96rem;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--cdt-z-index-sticky);
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+  background-color: rgb(var(--cdt-color-background-default));
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  color: rgb(var(--cdt-color-text-default));
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: rgb(var(--cdt-color-text-accent));
+}
+
+.rightContainer {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: calc(var(--cdt-spacing) * 2);
+  cursor: pointer;
+  border: none;
+  border-radius: var(--cdt-radius-md);
+  background-color: rgb(var(--cdt-color-background-default));
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 8);
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.button:hover {
+  background-color: rgb(var(--cdt-color-background-secondary));
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--cdt-spacing) * 2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--cdt-spacing) * 2);
+  cursor: default;
+  border-radius: var(--cdt-radius-md);
+  padding: 0 calc(var(--cdt-spacing) * 2);
+  height: calc(var(--cdt-spacing) * 6);
+  color: rgb(var(--cdt-color-text-default));
+  text-decoration: none;
+}
+
+.navLink[data-active="true"] {
+  background-color: rgba(var(--cdt-color-background-accent), 0.1);
+  color: rgb(var(--cdt-color-text-accent));
+}
+
+.navLink[data-active="false"]:hover {
+  background-color: rgb(var(--cdt-color-background-secondary));
+}
+
+.headerContainer {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  place-items: center;
+  gap: calc(var(--cdt-spacing) * 4);
+  height: calc(var(--cdt-spacing) * 16);
+}

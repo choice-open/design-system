@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(var(--cdt-spacing) * 4);
+}
+
+.shadowBox {
+  box-shadow: var(--shadow);
+  border-radius: var(--cdt-radius-lg);
+  padding: calc(var(--cdt-spacing) * 4);
+  aspect-ratio: 1/1;
+  min-width: calc(var(--cdt-spacing) * 24);
+  min-height: calc(var(--cdt-spacing) * 24);
+}
+
+.shadowBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.shadowInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: end;
+  gap: calc(var(--cdt-spacing) * 2);
+}

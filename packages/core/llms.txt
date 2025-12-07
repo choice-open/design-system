@@ -1,14 +1,14 @@
 # ChoiceForm Design System
 
 This is the documentation for the `@choice-ui/design-system` package.
-A Figma-inspired UI component library for professional desktop applications, built with React and TypeScript.
+A desktop-first UI component library built for professional desktop applications, built with React and TypeScript.
 The library provides a comprehensive set of components with rich interactivity and enterprise-grade features.
 
 ## Overview
 
 - Package: `@choice-ui/design-system`
 - Version: 1.0.3
-- Storybook: https://ui.choiceform.app/
+- Storybook: https://storybook.choice-ui.com/
 - Built with: React 18.3+, TypeScript, Tailwind CSS, Vite
 - Testing: Vitest with workspace configuration
 - Styling: Tailwind Variants + SCSS modules
@@ -17,114 +17,114 @@ The library provides a comprehensive set of components with rich interactivity a
 
 ### Form Controls
 
-- [IconButton](https://ui.choiceform.app/components/icon-button/README.md): Button component optimized for icon-only display
-- [LinkButton](https://ui.choiceform.app/components/link-button/README.md): Button styled as a link
-- [Button](https://ui.choiceform.app/components/button/README.md): A versatile button component with multiple variants, sizes, and states
-- [Checkbox](https://ui.choiceform.app/components/checkbox/README.md): A customizable checkbox component with support for indeterminate state
-- [Chip](https://ui.choiceform.app/components/chip/README.md): A compact element for displaying tags, selections, or attributes
-- [ChipsInput](https://ui.choiceform.app/components/chips-input/README.md): An input component for entering multiple values as chips
-- [Input](https://ui.choiceform.app/components/input/README.md): A fundamental text input component with validation states
-- [NumericInput](https://ui.choiceform.app/components/numeric-input/README.md): A specialized input for numeric values with increment/decrement controls
-- [Radio](https://ui.choiceform.app/components/radio/README.md): Radio button component for single selection from multiple options
-- [Range](https://ui.choiceform.app/components/range/README.md): A slider component for selecting values within a range
-- [RangeTuple](https://ui.choiceform.app/components/range/README.md#rangetuple): A dual-thumb slider for selecting a range of values with min/max bounds
-- [SearchInput](https://ui.choiceform.app/components/search-input/README.md): An enhanced input component optimized for search functionality
-- [Segmented](https://ui.choiceform.app/components/segmented/README.md): A segmented control for switching between different views or values
-- [Select](https://ui.choiceform.app/components/select/README.md): A dropdown selection component with search and multi-select capabilities
-- [Switch](https://ui.choiceform.app/components/switch/README.md): A toggle switch component for boolean values
-- [TextField](https://ui.choiceform.app/components/text-field/README.md): An enhanced input field with labels and helper text
-- [Textarea](https://ui.choiceform.app/components/textarea/README.md): A multi-line text input component with auto-resize capabilities
-- [ToggleButton](https://ui.choiceform.app/components/toggle-button/README.md): A button that maintains on/off state
+- [IconButton](https://choice-ui.com/components/icon-button/README.md): Button component optimized for icon-only display
+- [LinkButton](https://choice-ui.com/components/link-button/README.md): Button styled as a link
+- [Button](https://choice-ui.com/components/button/README.md): A versatile button component with multiple variants, sizes, and states
+- [Checkbox](https://choice-ui.com/components/checkbox/README.md): A customizable checkbox component with support for indeterminate state
+- [Chip](https://choice-ui.com/components/chip/README.md): A compact element for displaying tags, selections, or attributes
+- [ChipsInput](https://choice-ui.com/components/chips-input/README.md): An input component for entering multiple values as chips
+- [Input](https://choice-ui.com/components/input/README.md): A fundamental text input component with validation states
+- [NumericInput](https://choice-ui.com/components/numeric-input/README.md): A specialized input for numeric values with increment/decrement controls
+- [Radio](https://choice-ui.com/components/radio/README.md): Radio button component for single selection from multiple options
+- [Range](https://choice-ui.com/components/range/README.md): A slider component for selecting values within a range
+- [RangeTuple](https://choice-ui.com/components/range/README.md#rangetuple): A dual-thumb slider for selecting a range of values with min/max bounds
+- [SearchInput](https://choice-ui.com/components/search-input/README.md): An enhanced input component optimized for search functionality
+- [Segmented](https://choice-ui.com/components/segmented/README.md): A segmented control for switching between different views or values
+- [Select](https://choice-ui.com/components/select/README.md): A dropdown selection component with search and multi-select capabilities
+- [Switch](https://choice-ui.com/components/switch/README.md): A toggle switch component for boolean values
+- [TextField](https://choice-ui.com/components/text-field/README.md): An enhanced input field with labels and helper text
+- [Textarea](https://choice-ui.com/components/textarea/README.md): A multi-line text input component with auto-resize capabilities
+- [ToggleButton](https://choice-ui.com/components/toggle-button/README.md): A button that maintains on/off state
 
 ### Date & Time
 
-- [DateInput](https://ui.choiceform.app/components/calendar/date-input/README.md): Intelligent date input with natural language parsing
-- [DateRangeInput](https://ui.choiceform.app/components/calendar/date-range-input/README.md): Date range selection with smart synchronization
-- [MonthCalendar](https://ui.choiceform.app/components/calendar/month-calendar/README.md): Month view calendar with multiple selection modes
-- [QuarterCalendar](https://ui.choiceform.app/components/calendar/quarter-calendar/README.md): Quarter selection for business applications
-- [TimeCalendar](https://ui.choiceform.app/components/calendar/time-calendar/README.md): Time selection with scrollable interface
-- [TimeInput](https://ui.choiceform.app/components/calendar/time-input/README.md): Time input with smart completion
-- [TimeRangeInput](https://ui.choiceform.app/components/calendar/time-range-input/README.md): Time range selection with cross-midnight support
-- [YearCalendar](https://ui.choiceform.app/components/calendar/year-calendar/README.md): Year selection with flexible ranges
+- [DateInput](https://choice-ui.com/components/calendar/date-input/README.md): Intelligent date input with natural language parsing
+- [DateRangeInput](https://choice-ui.com/components/calendar/date-range-input/README.md): Date range selection with smart synchronization
+- [MonthCalendar](https://choice-ui.com/components/calendar/month-calendar/README.md): Month view calendar with multiple selection modes
+- [QuarterCalendar](https://choice-ui.com/components/calendar/quarter-calendar/README.md): Quarter selection for business applications
+- [TimeCalendar](https://choice-ui.com/components/calendar/time-calendar/README.md): Time selection with scrollable interface
+- [TimeInput](https://choice-ui.com/components/calendar/time-input/README.md): Time input with smart completion
+- [TimeRangeInput](https://choice-ui.com/components/calendar/time-range-input/README.md): Time range selection with cross-midnight support
+- [YearCalendar](https://choice-ui.com/components/calendar/year-calendar/README.md): Year selection with flexible ranges
 
 ### Selection & Dropdown
 
-- [Combobox](https://ui.choiceform.app/components/combobox/README.md): A searchable dropdown with autocomplete functionality
-- [Command](https://ui.choiceform.app/components/command/README.md): A command palette component for quick actions and navigation
-- [ContextMenu](https://ui.choiceform.app/components/context-menu/README.md): Right-click context menu with nested items support
-- [Dropdown](https://ui.choiceform.app/components/dropdown/README.md): A flexible dropdown menu component
-- [EmojiPicker](https://ui.choiceform.app/components/emoji-picker/README.md): An emoji selection component with search and categories
-- [MultiSelect](https://ui.choiceform.app/components/multi-select/README.md): A dropdown for selecting multiple items with tags display
+- [Combobox](https://choice-ui.com/components/combobox/README.md): A searchable dropdown with autocomplete functionality
+- [Command](https://choice-ui.com/components/command/README.md): A command palette component for quick actions and navigation
+- [ContextMenu](https://choice-ui.com/components/context-menu/README.md): Right-click context menu with nested items support
+- [Dropdown](https://choice-ui.com/components/dropdown/README.md): A flexible dropdown menu component
+- [EmojiPicker](https://choice-ui.com/components/emoji-picker/README.md): An emoji selection component with search and categories
+- [MultiSelect](https://choice-ui.com/components/multi-select/README.md): A dropdown for selecting multiple items with tags display
 
 ### Layout & Navigation
 
-- [Pagination](https://ui.choiceform.app/components/pagination/README.md): Advanced pagination with compound components for flexible layouts
-- [Panel](https://ui.choiceform.app/components/panel/README.md): A flexible container component for content organization
-- [Tabs](https://ui.choiceform.app/components/tabs/README.md): Tabbed interface for organizing content into sections
-- [ScrollArea](https://ui.choiceform.app/components/scroll-area/README.md): Custom scrollbar component with smooth scrolling
-- [Splitter](https://ui.choiceform.app/components/splitter/README.md): Resizable split pane component for flexible layouts
-- [Stackflow](https://ui.choiceform.app/components/stackflow/README.md): Stack-based navigation component
-- [VirtualizedGrid](https://ui.choiceform.app/components/virtualized-grid/README.md): High-performance grid for rendering large datasets
+- [Pagination](https://choice-ui.com/components/pagination/README.md): Advanced pagination with compound components for flexible layouts
+- [Panel](https://choice-ui.com/components/panel/README.md): A flexible container component for content organization
+- [Tabs](https://choice-ui.com/components/tabs/README.md): Tabbed interface for organizing content into sections
+- [ScrollArea](https://choice-ui.com/components/scroll-area/README.md): Custom scrollbar component with smooth scrolling
+- [Splitter](https://choice-ui.com/components/splitter/README.md): Resizable split pane component for flexible layouts
+- [Stackflow](https://choice-ui.com/components/stackflow/README.md): Stack-based navigation component
+- [VirtualizedGrid](https://choice-ui.com/components/virtualized-grid/README.md): High-performance grid for rendering large datasets
 
 ### Overlay & Modal
 
-- [AlertDialog](https://ui.choiceform.app/components/alert-dialog/README.md): Modal dialog for important alerts and confirmations
-- [Dialog](https://ui.choiceform.app/components/dialog/README.md): Flexible modal dialog component
-- [Modal](https://ui.choiceform.app/components/modal/README.md): Base modal component with backdrop and animations
-- [Popover](https://ui.choiceform.app/components/popover/README.md): Floating content anchored to a trigger element
-- [Tooltip](https://ui.choiceform.app/components/tooltip/README.md): Contextual hints that appear on hover or focus
+- [AlertDialog](https://choice-ui.com/components/alert-dialog/README.md): Modal dialog for important alerts and confirmations
+- [Dialog](https://choice-ui.com/components/dialog/README.md): Flexible modal dialog component
+- [Modal](https://choice-ui.com/components/modal/README.md): Base modal component with backdrop and animations
+- [Popover](https://choice-ui.com/components/popover/README.md): Floating content anchored to a trigger element
+- [Tooltip](https://choice-ui.com/components/tooltip/README.md): Contextual hints that appear on hover or focus
 
 ### Display & Feedback
 
-- [Avatar](https://ui.choiceform.app/components/avatar/README.md): User avatar component with image and fallback support
-- [Badge](https://ui.choiceform.app/components/badge/README.md): Small status indicators and labels
-- [Bells](https://ui.choiceform.app/components/bells/README.md): Notification bell component with badge support
-- [CodeBlock](https://ui.choiceform.app/components/code-block/README.md): Syntax-highlighted code display with copy, expand/collapse, and multi-language support powered by Shiki
-- [Hint](https://ui.choiceform.app/components/hint/README.md): Inline help text and guidance component
-- [Label](https://ui.choiceform.app/components/label/README.md): Form label component with required indicator
-- [Notifications](https://ui.choiceform.app/components/notifications/README.md): Toast notification system with stacking support
-- [PicturePreview](https://ui.choiceform.app/components/picture-preview/README.md): Image preview with zoom and gallery features
-- [Progress](https://ui.choiceform.app/components/progress/README.md): Progress bar and circular progress indicators
-- [Spinner](https://ui.choiceform.app/components/spinner/README.md): Loading spinner animations
+- [Avatar](https://choice-ui.com/components/avatar/README.md): User avatar component with image and fallback support
+- [Badge](https://choice-ui.com/components/badge/README.md): Small status indicators and labels
+- [Bells](https://choice-ui.com/components/bells/README.md): Notification bell component with badge support
+- [CodeBlock](https://choice-ui.com/components/code-block/README.md): Syntax-highlighted code display with copy, expand/collapse, and multi-language support powered by Shiki
+- [Hint](https://choice-ui.com/components/hint/README.md): Inline help text and guidance component
+- [Label](https://choice-ui.com/components/label/README.md): Form label component with required indicator
+- [Notifications](https://choice-ui.com/components/notifications/README.md): Toast notification system with stacking support
+- [PicturePreview](https://choice-ui.com/components/picture-preview/README.md): Image preview with zoom and gallery features
+- [Progress](https://choice-ui.com/components/progress/README.md): Progress bar and circular progress indicators
+- [Spinner](https://choice-ui.com/components/spinner/README.md): Loading spinner animations
 
 
 ### Advanced Components
 
-- [BezierCurveEditor](https://ui.choiceform.app/components/bezier-curve-editor/README.md): Interactive bezier curve editor for animations
-- [CodeEditor](https://ui.choiceform.app/components/code-editor/README.md): Syntax-highlighted code editor with language support
-- [ContextInput](https://ui.choiceform.app/components/context-input/README.md): Context-aware input with suggestions
-- [MdInput](https://ui.choiceform.app/components/md-input/README.md): Production-ready markdown editor with GFM support, syntax highlighting, @mention autocomplete, and compound component pattern
-- [MdRender](https://ui.choiceform.app/components/md-render/README.md): Markdown renderer with GFM support, Shiki-powered syntax highlighting, and customizable mention rendering
-- [Form](https://ui.choiceform.app/components/form/README.md): Advanced form management with validation
-- [List](https://ui.choiceform.app/components/list/README.md): Flexible list component with selection and keyboard navigation
-- [Menus](https://ui.choiceform.app/components/menus/README.md): Menu system with submenus and keyboard navigation
+- [BezierCurveEditor](https://choice-ui.com/components/bezier-curve-editor/README.md): Interactive bezier curve editor for animations
+- [CodeEditor](https://choice-ui.com/components/code-editor/README.md): Syntax-highlighted code editor with language support
+- [ContextInput](https://choice-ui.com/components/context-input/README.md): Context-aware input with suggestions
+- [MdInput](https://choice-ui.com/components/md-input/README.md): Production-ready markdown editor with GFM support, syntax highlighting, @mention autocomplete, and compound component pattern
+- [MdRender](https://choice-ui.com/components/md-render/README.md): Markdown renderer with GFM support, Shiki-powered syntax highlighting, and customizable mention rendering
+- [Form](https://choice-ui.com/components/form/README.md): Advanced form management with validation
+- [List](https://choice-ui.com/components/list/README.md): Flexible list component with selection and keyboard navigation
+- [Menus](https://choice-ui.com/components/menus/README.md): Menu system with submenus and keyboard navigation
 
 ### Utility Components
 
-- [Kbd](https://ui.choiceform.app/components/kbd/README.md): Keyboard key display component
-- [Slot](https://ui.choiceform.app/components/slot/README.md): Component composition utility for flexible APIs
+- [Kbd](https://choice-ui.com/components/kbd/README.md): Keyboard key display component
+- [Slot](https://choice-ui.com/components/slot/README.md): Component composition utility for flexible APIs
 
 ## Utilities
 
-- [formatBytes](https://ui.choiceform.app/utils/format-bytes/README.md): Convert byte values into human-readable file size strings
-- [formatDate](https://ui.choiceform.app/utils/format-date/README.md): Intelligent date formatting with i18n and relative time support
-- [mergeProps](https://ui.choiceform.app/utils/merge-props/README.md): Intelligently merge React props with event handler chaining
-- [mergeRefs](https://ui.choiceform.app/utils/merge-refs/README.md): Combine multiple React refs into a single ref callback
-- [tcx](https://ui.choiceform.app/utils/tcx/README.md): Tailwind CSS class merging with classnames syntax
+- [formatBytes](https://choice-ui.com/utils/format-bytes/README.md): Convert byte values into human-readable file size strings
+- [formatDate](https://choice-ui.com/utils/format-date/README.md): Intelligent date formatting with i18n and relative time support
+- [mergeProps](https://choice-ui.com/utils/merge-props/README.md): Intelligently merge React props with event handler chaining
+- [mergeRefs](https://choice-ui.com/utils/merge-refs/README.md): Combine multiple React refs into a single ref callback
+- [tcx](https://choice-ui.com/utils/tcx/README.md): Tailwind CSS class merging with classnames syntax
 
 ## Hooks
 
-- [useDirection](https://ui.choiceform.app/hooks/use-direction/README.md): Text direction management with context support for RTL/LTR
-- [useDisableScroll](https://ui.choiceform.app/hooks/use-disable-scroll/README.md): Temporarily disable scrolling on parent containers for overlays
-- [useIsomorphicLayoutEffect](https://ui.choiceform.app/hooks/use-isomorphic-layout-effect/README.md): SSR-safe layout effect with useAsRef utility
-- [useLazyRef](https://ui.choiceform.app/hooks/use-lazy-ref/README.md): Lazy initialization of expensive objects that persist across renders
-- [useMergedValue](https://ui.choiceform.app/hooks/use-merged-value/README.md): Seamlessly handle controlled and uncontrolled component states
-- [useModifierKeys](https://ui.choiceform.app/hooks/use-modifier-keys/README.md): Global tracking of keyboard modifier keys (Shift, Ctrl, Meta)
-- [usePress](https://ui.choiceform.app/hooks/use-press/README.md): Unified press interactions with mouse, touch, and keyboard support
+- [useDirection](https://choice-ui.com/hooks/use-direction/README.md): Text direction management with context support for RTL/LTR
+- [useDisableScroll](https://choice-ui.com/hooks/use-disable-scroll/README.md): Temporarily disable scrolling on parent containers for overlays
+- [useIsomorphicLayoutEffect](https://choice-ui.com/hooks/use-isomorphic-layout-effect/README.md): SSR-safe layout effect with useAsRef utility
+- [useLazyRef](https://choice-ui.com/hooks/use-lazy-ref/README.md): Lazy initialization of expensive objects that persist across renders
+- [useMergedValue](https://choice-ui.com/hooks/use-merged-value/README.md): Seamlessly handle controlled and uncontrolled component states
+- [useModifierKeys](https://choice-ui.com/hooks/use-modifier-keys/README.md): Global tracking of keyboard modifier keys (Shift, Ctrl, Meta)
+- [usePress](https://choice-ui.com/hooks/use-press/README.md): Unified press interactions with mouse, touch, and keyboard support
 
 ## Styling System
 
-- [Theme System](https://ui.choiceform.app/styles/README.md): Comprehensive Tailwind CSS theme with Figma-inspired colors, dark mode, and design tokens
+- [Theme System](https://choice-ui.com/styles/README.md): Comprehensive Tailwind CSS theme with desktop-optimized colors, dark mode, and design tokens
 
 ## Architecture
 
@@ -157,4 +157,4 @@ pnpm build
 pnpm format
 ```
 
-For detailed API documentation, usage examples, and interactive demos, visit the individual component documentation links above or explore the [Storybook](https://ui.choiceform.app/).
+For detailed API documentation, usage examples, and interactive demos, visit the individual component documentation links above or explore the [Storybook](https://choice-ui.com/).

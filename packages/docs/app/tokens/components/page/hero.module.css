@@ -1,0 +1,14 @@
+.hero {
+  padding: calc(var(--cdt-spacing) * 16) 0;
+  text-align: left;
+}
+
+.heroTitle {
+  margin-bottom: calc(var(--cdt-spacing) * 4);
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.heroDescription {
+  margin-bottom: calc(var(--cdt-spacing) * 6);
+  color: rgb(var(--cdt-color-text-secondary));
+}

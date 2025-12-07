@@ -23,7 +23,7 @@ const REACT_DEPS = ["react", "react-dom", "react/jsx-runtime"]
 // 需要外部化的依赖包（不打包进 bundle）
 const EXTERNAL_DEPENDENCIES = [
   "@choiceform/icons-react",
-  "@choiceform/design-tokens",
+  "@choice-ui/design-tokens",
   "@codemirror",
   "@date-fns",
   "@floating-ui",

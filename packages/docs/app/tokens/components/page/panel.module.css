@@ -1,0 +1,22 @@
+.themePanel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cdt-spacing) * 4);
+  background-color: rgb(var(--cdt-color-background-default));
+  padding: calc(var(--cdt-spacing) * 4);
+  min-width: 0;
+  color: rgb(var(--cdt-color-text-default));
+}
+
+.themePanelEmpty {
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: rgb(var(--cdt-color-background-secondary));
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.themeTitle {
+  color: rgb(var(--cdt-color-text-secondary));
+  text-transform: uppercase;
+}

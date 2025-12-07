@@ -1,0 +1,20 @@
+{
+  "spacing": {
+    "default": {
+      "$type": "dimension",
+      "$description": "Spacing value default (0.25rem)",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      }
+    },
+    "px": {
+      "$type": "dimension",
+      "$description": "Spacing value px",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      }
+    }
+  }
+}

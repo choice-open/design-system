@@ -776,7 +776,7 @@ These URLs are in the allowedPrefixes list and will work normally:
 
 ### Links
 - [ChoiceForm Official](https://choiceform.com)
-- [ChoiceForm Docs](https://ui.choiceform.app)
+- [ChoiceForm Docs](https://choice-ui.com)
 - [GitHub Repository](https://github.com/choiceform/design-system)
 
 ### Images
@@ -806,7 +806,7 @@ These URLs are NOT in the allowedPrefixes and will be filtered out:
 
 Current allowed prefixes:
 - \`https://choiceform.com\`
-- \`https://ui.choiceform.app\`
+- \`https://choice-ui.com\`
 - \`https://github.com/choiceform\`
 - \`https://via.placeholder.com\`
 
@@ -818,7 +818,7 @@ Any URL not starting with these prefixes will be automatically filtered out for 
           content={content}
           allowedPrefixes={[
             "https://choiceform.com",
-            "https://ui.choiceform.app",
+            "https://choice-ui.com",
             "https://github.com/choiceform",
             "https://via.placeholder.com",
           ]}
@@ -1169,7 +1169,7 @@ const users = [
 
 MdRender provides a complete solution for rendering markdown content in React applications. With its extensive feature set and customization options, it's perfect for documentation, blogs, comments, and any content that needs rich formatting.
 
-For more information, visit our [documentation](https://ui.choiceform.app/) or check out the [GitHub repository](https://github.com/choiceform/design-system).`,
+For more information, visit our [documentation](https://choice-ui.com/) or check out the [GitHub repository](https://github.com/choiceform/choice-ui).`,
   },
 };
 

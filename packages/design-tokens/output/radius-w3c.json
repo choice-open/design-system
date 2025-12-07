@@ -1,0 +1,36 @@
+{
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$description": "Border radius sm size",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$description": "Border radius md size",
+      "$value": {
+        "value": 0.3125,
+        "unit": "rem"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$description": "Border radius lg size",
+      "$value": {
+        "value": 0.4375,
+        "unit": "rem"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$description": "Border radius xl size",
+      "$value": {
+        "value": 0.8125,
+        "unit": "rem"
+      }
+    }
+  }
+}

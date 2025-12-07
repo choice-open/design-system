@@ -1,12 +1,12 @@
 # @choice-ui/react
 
-A Figma-inspired UI component library for professional desktop applications.
+A desktop-first UI component library built for professional desktop applications.
 
-This library provides a set of high-quality, customizable React components designed for building modern, professional-grade desktop web applications. The design language is inspired by Figma, focusing on clarity, usability, and a clean aesthetic suitable for complex, data-rich interfaces.
+This library provides a set of high-quality, customizable React components designed specifically for building modern, professional-grade desktop web applications. Unlike general-purpose UI libraries, Choice UI is optimized for desktop experiences with rich interactivity, complex data handling, and enterprise-grade features suitable for applications like Figma, Notion, and other professional desktop tools.
 
 ## Features
 
-- ✨ Figma-style design: Minimal, clear, and modern UI
+- 🖥️ Desktop-first: Optimized for desktop applications with rich interactions
 - 🖥️ Optimized for professional desktop web apps
 - 🧩 Rich set of reusable React components
 - 🎨 Built-in theming and dark mode support
@@ -18,9 +18,9 @@ This library provides a set of high-quality, customizable React components desig
 Add the packages to your project:
 
 ```bash
-pnpm add @choice-ui/react @choiceform/design-tokens
+pnpm add @choice-ui/react @choice-ui/design-tokens
 # or
-npm install @choice-ui/react @choiceform/design-tokens
+npm install @choice-ui/react @choice-ui/design-tokens
 ```
 
 ## Setup
@@ -29,14 +29,14 @@ Import the design tokens in your main CSS file:
 
 ```css
 /* In your main CSS file (e.g., app.css or index.css) */
-@import "@choiceform/design-tokens/tokens.css";
-@import "@choiceform/design-tokens/preflight.css";
-@import "@choiceform/design-tokens/tailwind.css";
+@import "@choice-ui/design-tokens/tokens.css";
+@import "@choice-ui/design-tokens/preflight.css";
+@import "@choice-ui/design-tokens/tailwind.css";
 ```
 
 **Note:** The old `@import "@choice-ui/react/styles/theme.css"` is no longer needed and should be removed.
 
-Learn more about design tokens at [https://tokens.choiceform.app/](https://tokens.choiceform.app/)
+Learn more about design tokens at [https://choice-ui.com/tokens](https://choice-ui.com/tokens)
 
 ## Usage
 

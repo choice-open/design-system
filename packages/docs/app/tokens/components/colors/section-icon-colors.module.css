@@ -1,0 +1,9 @@
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: calc(var(--cdt-spacing) * 4);
+  border: 1px solid rgb(var(--cdt-color-border-default));
+  width: calc(var(--cdt-spacing) * 8);
+  height: calc(var(--cdt-spacing) * 8);
+}

@@ -1,0 +1,36 @@
+.container {
+  margin: 0 auto;
+  max-width: 64rem;
+}
+
+.spacingGrid {
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr;
+  grid-column: 1 / -1;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.spacingBar {
+  background-color: rgb(var(--cdt-color-background-accent));
+  width: var(--width);
+  height: calc(var(--cdt-spacing) * 4);
+}
+
+.spacingValue {
+  padding: calc(var(--cdt-spacing) * 2);
+  color: rgb(var(--cdt-color-text-default));
+  white-space: nowrap;
+}
+
+.spacingLabel {
+  color: rgb(var(--cdt-color-text-assistive));
+}
+
+.spacingDivider {
+  grid-column: 1 / -1;
+  background-color: rgb(var(--cdt-color-border-default));
+  height: var(--cdt-spacing-px);
+}

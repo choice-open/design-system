@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
-@import "@choiceform/design-tokens/tokens.css";
-@import "@choiceform/design-tokens/preflight.css";
-@import "@choiceform/design-tokens/tailwind.css";
+@import "../../design-tokens/dist/tokens.css";
+@import "../../design-tokens/dist/preflight.css";
+@import "../../design-tokens/dist/tailwind.css";
 
-@import "@choice-ui/react/styles/components.css";
-@import "@choice-ui/react/styles/markdown.css";
+@import "../../core/app/styles/components.css";
+@import "../../core/app/styles/markdown.css";
 
-@source "../node_modules/@choice-ui/react";
+@source "../../core/app";
 
 body {
   background-color: var(--color-default-background);

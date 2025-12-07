@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  place-content: center;
+  gap: calc(var(--cdt-spacing) * 8);
+  padding: calc(var(--cdt-spacing) * 8);
+}
+
+.shadowBox {
+  box-shadow: var(--shadow);
+  border-radius: var(--cdt-radius-lg);
+  padding: calc(var(--cdt-spacing) * 4);
+  aspect-ratio: 1/1;
+}

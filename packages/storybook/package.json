@@ -11,7 +11,7 @@
   "dependencies": {
     "@choice-ui/react": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/design-tokens": "^0.2.12"
+    "@choice-ui/design-tokens": "workspace:*"
   },
   "devDependencies": {
     "@floating-ui/react": "0.27.15",

@@ -1,0 +1,15 @@
+.breakpointTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.breakpointTable th,
+.breakpointTable td {
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+  padding: calc(var(--cdt-spacing) * 2) calc(var(--cdt-spacing) * 4);
+  text-align: left;
+}
+
+.breakpointTable th {
+  /* Typography will be applied via inline styles */
+}

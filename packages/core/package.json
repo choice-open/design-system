@@ -1,7 +1,7 @@
 {
   "name": "@choice-ui/react",
   "version": "1.3.10",
-  "description": "A modern React UI component library - Figma-inspired design system with comprehensive documentation",
+  "description": "A desktop-first React UI component library built for professional desktop applications with comprehensive documentation",
   "sideEffects": false,
   "type": "module",
   "source": "./app/index.ts",
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/design-tokens": "^0.2.12",
+    "@choice-ui/design-tokens": "workspace:*",
     "@date-fns/tz": "^1.2.0",
     "@floating-ui/react": "0.27.15",
     "@legendapp/state": "v3.0.0-beta.26",

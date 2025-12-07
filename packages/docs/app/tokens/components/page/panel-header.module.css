@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  gap: calc(var(--cdt-spacing) * 2);
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+  padding: calc(var(--cdt-spacing) * 4);
+}
+
+@media screen and (min-width: 64rem) {
+  .header {
+    grid-column: 1 / 3;
+  }
+}

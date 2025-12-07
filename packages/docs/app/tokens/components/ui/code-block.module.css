@@ -1,0 +1,10 @@
+.codeBlock {
+  background: transparent;
+  padding: calc(var(--cdt-spacing) * 4);
+  overflow-x: auto;
+  color: rgb(var(--cdt-color-text-default));
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  white-space: pre;
+}

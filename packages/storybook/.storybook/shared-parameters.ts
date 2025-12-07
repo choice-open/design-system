@@ -3,7 +3,7 @@ import type { Preview } from "@storybook/react-vite";
 
 const lightTheme = {
   brandTitle: "@choice-ui/react",
-  brandUrl: "https://ui.choiceform.app",
+  brandUrl: "https://choice-ui.com",
   brandImage: "https://assets.choiceform.app/favicons/dev/brand.png",
 
   colorPrimary: "rgba(13, 153, 255, 1)",
@@ -20,7 +20,7 @@ const lightTheme = {
 
 const darkTheme = {
   brandTitle: "@choice-ui/react",
-  brandUrl: "https://ui.choiceform.app",
+  brandUrl: "https://choice-ui.com",
   brandImage: "https://assets.choiceform.app/favicons/dev/brand_dark.png",
 
   colorPrimary: "rgba(7, 104, 207, 1)",

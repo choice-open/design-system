@@ -1,0 +1,108 @@
+{
+  "name": "@choice-ui/design-tokens",
+  "version": "0.2.12",
+  "description": "Design tokens generator for Choice UI - converts TypeScript tokens to W3C format and outputs to multiple formats",
+  "main": "dist/tokens.js",
+  "types": "dist/tokens.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js",
+      "require": "./dist/tokens.js"
+    },
+    "./helpers": {
+      "types": "./dist/helpers/index.d.ts",
+      "import": "./dist/helpers/index.js",
+      "require": "./dist/helpers/index.js"
+    },
+    "./css": "./dist/tokens.css",
+    "./scss": "./dist/tokens.scss",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./tokens.css": {
+      "style": "./dist/tokens.css",
+      "default": "./dist/tokens.css"
+    },
+    "./preflight.css": {
+      "style": "./dist/preflight.css",
+      "default": "./dist/preflight.css"
+    },
+    "./tokens.scss": "./dist/tokens.scss",
+    "./mixins.scss": "./dist/mixins.scss",
+    "./functions.scss": "./dist/functions.scss",
+    "./tokens.js": "./dist/tokens.js",
+    "./tokens.d.ts": "./dist/tokens.d.ts"
+  },
+  "keywords": [
+    "design-tokens",
+    "w3c",
+    "design-system",
+    "terrazzo",
+    "tokens",
+    "choice-ui",
+    "choiceform"
+  ],
+  "author": "Choiceform Design Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm run clean && node scripts/build.cjs && npm run terrazzo && node scripts/helpers/build-helpers.cjs",
+    "build:tokens": "node scripts/build.cjs",
+    "build:colors": "node scripts/generators/generate-w3c-colors-from-ts.cjs",
+    "build:typography": "node scripts/generators/generate-w3c-typography-from-ts.cjs",
+    "build:spacing": "node scripts/generators/generate-w3c-spacing-from-ts.cjs",
+    "build:radius": "node scripts/generators/generate-w3c-radius-from-ts.cjs",
+    "build:zindex": "node scripts/generators/generate-w3c-zindex-from-ts.cjs",
+    "build:breakpoints": "node scripts/generators/generate-w3c-breakpoints-from-ts.cjs",
+    "build:shadows": "node scripts/generators/generate-w3c-shadows-from-ts.cjs",
+    "build:helpers": "node scripts/helpers/build-helpers.cjs",
+    "terrazzo": "terrazzo build --config config/terrazzo.config.mjs",
+    "terrazzo:watch": "terrazzo build --config config/terrazzo.config.mjs --watch",
+    "compile": "npm run build",
+    "clean": "rm -rf output/* dist/*",
+    "dev": "npm run build:tokens && npm run terrazzo:watch",
+    "test": "vitest run",
+    "test:run": "vitest run",
+    "test:vitest": "vitest",
+    "test:vitest:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "prepublishOnly": "npm run build && npm run test",
+    "stats": "node -e \"console.log('📊 Design token stats:'); const fs = require('fs'); const files = fs.readdirSync('./output').filter(f => f.endsWith('.json')); let total = 0; files.forEach(f => { const data = JSON.parse(fs.readFileSync('./output/' + f)); const count = JSON.stringify(data).split('$type').length - 1; total += count; console.log(`📄 ${f}: ${count} tokens`); }); console.log(`📋 Total: ${total} tokens`);\""
+  },
+  "dependencies": {
+    "@terrazzo/cli": "^0.10.2",
+    "@terrazzo/plugin-css": "^0.10.2",
+    "@terrazzo/plugin-js": "^0.10.1",
+    "@terrazzo/plugin-sass": "^0.10.1",
+    "@terrazzo/plugin-tailwind": "^0.3.2",
+    "@terrazzo/plugin-vanilla-extract": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "@vitest/ui": "^2.1.9",
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.9"
+  },
+  "files": [
+    "scripts/",
+    "config/",
+    "src/",
+    "output/",
+    "dist/",
+    "tokens/",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/choiceform/design-tokens.git",
+    "directory": "packages/generate-tokens"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

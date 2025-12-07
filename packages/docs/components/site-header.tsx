@@ -29,6 +29,12 @@ export function SiteHeader() {
             >
               Components
             </Link>
+            <Link
+              href="/tokens"
+              className={cn("hover:text-foreground/80 transition-colors", "text-foreground/60")}
+            >
+              Tokens
+            </Link>
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">

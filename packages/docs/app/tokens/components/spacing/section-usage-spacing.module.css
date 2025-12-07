@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  grid-column: 1 / 3;
+  flex-direction: column;
+}
+
+.wrapper {
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+}
+
+.wrapper:not(:last-child) {
+  border-bottom: 1px solid rgb(var(--cdt-color-border-default));
+}
+
+.commentHighlight {
+  color: rgb(var(--cdt-color-text-secondary));
+}
+
+.functionHighlight {
+  color: rgb(var(--cdt-color-text-assistive));
+}

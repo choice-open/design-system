@@ -1,0 +1,4 @@
+.heading {
+  margin-top: calc(var(--cdt-spacing) * 4);
+  color: var(--color);
+}

@@ -1,0 +1,44 @@
+.container {
+  background-color: rgb(var(--cdt-color-background-secondary));
+  padding: calc(var(--cdt-spacing) * 4);
+}
+
+@media screen and (min-width: 40rem) {
+  .container {
+    background-color: rgba(var(--cdt-color-background-accent), 0.1);
+    padding: calc(var(--cdt-spacing) * 6);
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .container {
+    background-color: rgba(var(--cdt-color-background-accent), 0.2);
+    padding: calc(var(--cdt-spacing) * 8);
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--cdt-spacing) * 6);
+    background-color: rgba(var(--cdt-color-background-accent), 0.3);
+    padding: calc(var(--cdt-spacing) * 10);
+  }
+}
+
+.content h3 {
+  margin: 0 0 calc(var(--cdt-spacing) * 3);
+}
+
+.content p {
+  margin: 0 0 calc(var(--cdt-spacing) * 2);
+}
+
+.code {
+  background: rgb(var(--cdt-color-background-default));
+}
+
+.highlight {
+  color: rgb(var(--cdt-color-text-assistive));
+}

@@ -1,0 +1,5 @@
+.colorSwatch {
+  background-color: var(--dynamic-color);
+  width: calc(var(--cdt-spacing) * 5);
+  height: calc(var(--cdt-spacing) * 5);
+}

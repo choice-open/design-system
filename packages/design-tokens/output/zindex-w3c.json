@@ -1,0 +1,54 @@
+{
+  "zindex": {
+    "sticky": {
+      "$type": "number",
+      "$description": "Z-index value for sticky layer",
+      "$value": 100
+    },
+    "fixed": {
+      "$type": "number",
+      "$description": "Z-index value for fixed layer",
+      "$value": 700
+    },
+    "backdrop": {
+      "$type": "number",
+      "$description": "Z-index value for backdrop layer",
+      "$value": 800
+    },
+    "modals": {
+      "$type": "number",
+      "$description": "Z-index value for modals layer",
+      "$value": 810
+    },
+    "popover": {
+      "$type": "number",
+      "$description": "Z-index value for popover layer",
+      "$value": 820
+    },
+    "menu": {
+      "$type": "number",
+      "$description": "Z-index value for menu layer",
+      "$value": 910
+    },
+    "alert": {
+      "$type": "number",
+      "$description": "Z-index value for alert layer",
+      "$value": 920
+    },
+    "tooltip": {
+      "$type": "number",
+      "$description": "Z-index value for tooltip layer",
+      "$value": 1000
+    },
+    "notification": {
+      "$type": "number",
+      "$description": "Z-index value for notification layer",
+      "$value": 1100
+    },
+    "scroll-bar": {
+      "$type": "number",
+      "$description": "Z-index value for scroll-bar layer",
+      "$value": 1200
+    }
+  }
+}

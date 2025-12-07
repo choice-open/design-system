@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@import "@choiceform/design-tokens/tokens.css";
-@import "@choiceform/design-tokens/preflight.css";
-@import "@choiceform/design-tokens/tailwind.css";
+@import "@choice-ui/design-tokens/tokens.css";
+@import "@choice-ui/design-tokens/preflight.css";
+@import "@choice-ui/design-tokens/tailwind.css";
 
 @import "@choice-ui/react/styles/components.css";
 @import "@choice-ui/react/styles/markdown.css";
