@@ -58,7 +58,7 @@ function renderTree(
             id={nodeId}
             parentId={parentId ?? undefined}
           >
-            <List.Value className="text-body-medium-strong text-secondary-foreground">
+            <List.Value className="text-body-large text-secondary-foreground">
               {item.title}
             </List.Value>
           </List.SubTrigger>
@@ -79,7 +79,7 @@ function renderTree(
           as="div"
           selected={active}
           parentId={parentId ?? undefined}
-          className={tcx(active && "bg-selected-background")}
+          className={tcx("text-body-large", active && "bg-selected-background")}
         >
           <List.Value>{item.title}</List.Value>
         </List.Item>
@@ -89,6 +89,7 @@ function renderTree(
         key={nodeId}
         selected={active}
         parentId={parentId ?? undefined}
+        className="text-body-large"
       >
         <List.Value>{item.title}</List.Value>
       </List.Item>
@@ -108,6 +109,7 @@ export function Sidebar({ items, className, ...props }: SidebarNavProps) {
           <List
             selection
             shouldShowReferenceLine
+            size="large"
             className="py-0 pr-4 pl-0"
           >
             <List.Content>{renderTree(items, null, pathname).node}</List.Content>

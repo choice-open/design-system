@@ -44,12 +44,12 @@ function Navigation() {
   const pathname = usePathname()
 
   const navItems = [
-    { path: "/tokens", label: "Home" },
-    { path: "/tokens/colors", label: "Colors" },
-    { path: "/tokens/spacing", label: "Spacing" },
-    { path: "/tokens/shadows", label: "Shadows" },
-    { path: "/tokens/breakpoints", label: "Breakpoints" },
-    { path: "/tokens/typography", label: "Typography" },
+    { path: "/docs/tokens", label: "Home" },
+    { path: "/docs/tokens/colors", label: "Colors" },
+    { path: "/docs/tokens/spacing", label: "Spacing" },
+    { path: "/docs/tokens/shadows", label: "Shadows" },
+    { path: "/docs/tokens/breakpoints", label: "Breakpoints" },
+    { path: "/docs/tokens/typography", label: "Typography" },
   ]
 
   return (
@@ -93,42 +93,6 @@ export function TokensLayout({ children }: TokensLayoutProps) {
           letterSpacing: bodyTypography.letterSpacing,
         }}
       >
-        <header className={styles.header}>
-          <div className={`${styles.container} ${styles.headerContainer}`}>
-            <Link
-              href="/tokens"
-              className={styles.logo}
-              style={{
-                fontFamily: headingTypography.fontFamily,
-                fontSize: headingTypography.fontSize,
-                fontWeight: headingTypography.fontWeight,
-                lineHeight: headingTypography.lineHeight,
-                letterSpacing: headingTypography.letterSpacing,
-              }}
-            >
-              <Choiceform
-                width={32}
-                height={32}
-              />
-              <span>@choice-ui/design-tokens</span>
-            </Link>
-            <Navigation />
-
-            <div className={styles.rightContainer}>
-              <ThemeToggle />
-              <a
-                href="https://github.com/choice-form/design-tokens"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className={styles.button}>
-                  <Github />
-                </button>
-              </a>
-            </div>
-          </div>
-        </header>
-
         <main>{children}</main>
       </div>
     </ThemeContext.Provider>

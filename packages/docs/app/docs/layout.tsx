@@ -24,7 +24,7 @@ function slugifyPart(part: string): string {
     .toLowerCase()
 }
 
-const componentsNav: SidebarNode[] = (() => {
+const componentsNav: { title: string; items: SidebarNode[] } = (() => {
   const root: SidebarNode = { title: "Components", items: [] }
 
   const findOrCreate = (parent: SidebarNode, title: string) => {
@@ -58,7 +58,10 @@ const componentsNav: SidebarNode[] = (() => {
   }
 
   sortNodes(root.items)
-  return root.items ?? []
+  return {
+    title: "Components",
+    items: root.items ?? [],
+  }
 })()
 
 const docsConfig = {
@@ -71,19 +74,32 @@ const docsConfig = {
         { title: "Tailwind V4", href: "/docs/guide/tailwind-v4" },
       ],
     },
-    ...componentsNav,
+    {
+      title: "Tokens",
+      items: [
+        { title: "Colors", href: "/docs/tokens/colors" },
+        { title: "Spacing", href: "/docs/tokens/spacing" },
+        { title: "Shadows", href: "/docs/tokens/shadows" },
+        { title: "Breakpoints", href: "/docs/tokens/breakpoints" },
+        { title: "Typography", href: "/docs/tokens/typography" },
+      ],
+    },
+    {
+      title: componentsNav.title,
+      items: componentsNav.items,
+    },
   ],
 }
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-7xl flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-      <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+    <div className="mx-auto max-w-7xl flex-1 items-start md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
+      <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
         <div className="h-full py-6 pr-6 lg:py-8">
           <Sidebar items={docsConfig.sidebarNav} />
         </div>
       </aside>
-      <main className="relative min-w-0 py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+      <main className="relative min-w-0 py-6 lg:gap-8 lg:py-8 xl:grid xl:grid-cols-[1fr_12rem]">
         {children}
       </main>
     </div>
