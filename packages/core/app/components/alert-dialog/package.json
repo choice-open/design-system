@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/alert-dialog",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Alert Dialog component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

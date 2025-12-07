@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/skeleton",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Skeleton component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

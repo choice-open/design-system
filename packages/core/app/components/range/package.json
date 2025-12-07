@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/range",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Range components for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

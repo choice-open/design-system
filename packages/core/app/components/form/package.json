@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/form",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Form components for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

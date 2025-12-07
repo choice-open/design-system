@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/dialog",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Dialog component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

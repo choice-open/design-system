@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/radio",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Radio component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

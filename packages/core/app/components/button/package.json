@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/button",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Button component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

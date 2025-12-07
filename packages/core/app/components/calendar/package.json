@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/calendar",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Calendar components for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

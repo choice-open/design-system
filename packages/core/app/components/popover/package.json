@@ -1,6 +1,6 @@
 {
   "name": "@choiceform/popover",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Popover component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",
