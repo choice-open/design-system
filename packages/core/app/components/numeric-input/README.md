@@ -5,7 +5,7 @@ A sophisticated numeric input component that supports mathematical expression ev
 ## Import
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
+import { NumericInput } from "@choice-ui/react"
 ```
 
 ## Features
@@ -105,7 +105,7 @@ const [dimensions, setDimensions] = useState({
 ### With Dropdown Menu
 
 ```tsx
-import { Dropdown, IconButton } from "@choiceform/design-system"
+import { Dropdown, IconButton } from "@choice-ui/react"
 import { ChevronDownSmall, FixedHeight, HugHeight } from "@choiceform/icons-react"
 
 const [value, setValue] = useState(10)
@@ -145,7 +145,7 @@ const [menuOpen, setMenuOpen] = useState(false)
 ### With Action Menu
 
 ```tsx
-import { Select } from "@choiceform/design-system"
+import { Select } from "@choice-ui/react"
 import { ChevronDownSmall } from "@choiceform/icons-react"
 
 const [value, setValue] = useState(10)

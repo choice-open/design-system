@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { memo } from "react"
 import { useStickToBottom } from "use-stick-to-bottom"
 import { useCodeBlock, useLineCount, useScrollDetection, useTheme } from "./hooks"

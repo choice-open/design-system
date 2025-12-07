@@ -1,6 +1,6 @@
-import { findChildByType, tcx } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
-import { Modal, ModalBackdrop, ModalContent, ModalFooter } from "@choiceform/modal"
+import { findChildByType, tcx } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
+import { Modal, ModalBackdrop, ModalContent, ModalFooter } from "@choice-ui/modal"
 import {
   FloatingFocusManager,
   FloatingFocusManagerProps,

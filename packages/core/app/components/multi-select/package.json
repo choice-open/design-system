@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/multi-select",
+  "name": "@choice-ui/multi-select",
   "version": "0.0.4",
   "description": "Multi Select component for Choiceform Design System",
   "sideEffects": false,
@@ -27,11 +27,11 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/chip": "workspace:*",
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/chip": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/menus": "workspace:*",
-    "@choiceform/slot": "workspace:*",
+    "@choice-ui/menus": "workspace:*",
+    "@choice-ui/slot": "workspace:*",
     "@floating-ui/react": "0.27.15",
     "usehooks-ts": "^3.1.0"
   },

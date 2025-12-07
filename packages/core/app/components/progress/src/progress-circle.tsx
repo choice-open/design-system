@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { createContext, forwardRef, useContext, useMemo } from "react"
 import tinycolor from "tinycolor2"
 import { progressCircleTv } from "./tv"

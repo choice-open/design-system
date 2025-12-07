@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/textarea",
+  "name": "@choice-ui/textarea",
   "version": "0.0.3",
   "description": "Textarea component for Choiceform Design System",
   "sideEffects": false,
@@ -27,8 +27,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/scroll-area": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/scroll-area": "workspace:*",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {

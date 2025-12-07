@@ -1,8 +1,4 @@
-import {
-  Panel,
-  TimeRangeInput,
-  timeStringToDate,
-} from "@choiceform/design-system";
+import { Panel, TimeRangeInput, timeStringToDate } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { enUS, ja, zhCN } from "date-fns/locale";
 import React, { useState } from "react";

@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/chips-input",
+  "name": "@choice-ui/chips-input",
   "version": "0.0.4",
   "description": "Chips Input component for Choiceform Design System",
   "sideEffects": false,
@@ -27,9 +27,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/chip": "workspace:*",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/slot": "workspace:*",
+    "@choice-ui/chip": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/slot": "workspace:*",
     "ahooks": "^3.8.0",
     "usehooks-ts": "^3.1.0"
   },

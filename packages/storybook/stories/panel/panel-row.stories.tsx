@@ -13,7 +13,7 @@ import {
   Splitter,
   Switch,
   tcx,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   AlignBottom,
   AlignCenterHorizontal,

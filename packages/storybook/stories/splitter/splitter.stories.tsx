@@ -3,7 +3,7 @@ import {
   IconButton,
   Splitter,
   type SplitterHandle,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { RemoveSmall } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useRef, useState } from "react";

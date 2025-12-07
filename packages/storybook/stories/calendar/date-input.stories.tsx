@@ -1,4 +1,4 @@
-import type { CalendarValue, DateDataFormat } from "@choiceform/design-system";
+import type { CalendarValue, DateDataFormat } from "@choice-ui/react";
 import {
   DateInput,
   DateRangeInput,
@@ -8,7 +8,7 @@ import {
   Popover,
   Select,
   TextField,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { FieldTypeDateAndTime } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { addDays, isToday } from "date-fns";

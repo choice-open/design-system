@@ -1,4 +1,4 @@
-import { bells, Button, Chip, tcx } from "@choiceform/design-system";
+import { bells, Button, Chip, tcx } from "@choice-ui/react";
 import { LayoutWallpaper } from "@choiceform/icons-react";
 import type { StoryObj } from "@storybook/react-vite";
 import React, { useEffect, useState } from "react";

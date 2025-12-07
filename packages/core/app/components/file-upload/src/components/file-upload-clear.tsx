@@ -1,6 +1,6 @@
-import { Slot } from "@choiceform/slot"
+import { Slot } from "@choice-ui/slot"
 import { ComponentPropsWithoutRef, forwardRef, useCallback } from "react"
-import { useAsRef } from "@choiceform/design-shared"
+import { useAsRef } from "@choice-ui/shared"
 import { CLEAR_NAME } from "../constants"
 import { useFileUploadContext, useStore, useStoreContext } from "../hooks"
 

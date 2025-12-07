@@ -1,5 +1,5 @@
-import type { TimeCalendarProps } from "@choiceform/design-system";
-import { createTimeToday, TimeCalendar } from "@choiceform/design-system";
+import type { TimeCalendarProps } from "@choice-ui/react";
+import { createTimeToday, TimeCalendar } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 

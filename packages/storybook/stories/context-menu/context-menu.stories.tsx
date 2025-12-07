@@ -4,7 +4,7 @@ import {
   ContextMenu,
   Dropdown,
   Popover,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useRef, useState } from "react";
 

@@ -5,10 +5,7 @@ SSR-safe layout effect hook and a utility hook for maintaining fresh references 
 ## Import
 
 ```typescript
-import {
-  useIsomorphicLayoutEffect,
-  useAsRef,
-} from "@choiceform/design-system/hooks";
+import { useIsomorphicLayoutEffect, useAsRef } from "@choice-ui/react/hooks";
 ```
 
 ## Usage

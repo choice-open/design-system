@@ -9,7 +9,7 @@ import {
   FileUploadList,
   FileUploadTrigger,
   IconButton,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { DataUpload, RemoveSmall } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useCallback, useState } from "react";

@@ -33,7 +33,7 @@ The `MdInput` component uses a compound component pattern, allowing you to compo
 ### Full Editor with Tabs and Toolbar
 
 ```tsx
-import { MdInput } from "@choiceform/design-system"
+import { MdInput } from "@choice-ui/react"
 
 function MyEditor() {
   const [value, setValue] = useState("")
@@ -303,7 +303,7 @@ interface MentionRenderProps {
 ### Custom Toolbar Actions
 
 ```tsx
-import type { ToolbarAction } from "@choiceform/design-system"
+import type { ToolbarAction } from "@choice-ui/react"
 
 const customGroups: ToolbarAction[][] = [
   [
@@ -371,7 +371,7 @@ const customGroups: ToolbarAction[][] = [
 ### Using Context API
 
 ```tsx
-import { useMdInputContext } from "@choiceform/design-system"
+import { useMdInputContext } from "@choice-ui/react"
 
 function CustomComponent() {
   const { value, onChange, activeTab, setActiveTab, insertText, wrapText, insertListPrefix } =

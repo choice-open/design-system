@@ -5,7 +5,7 @@ A specialized search input component built on top of TextField, featuring a sear
 ## Import
 
 ```tsx
-import { SearchInput } from "@choiceform/design-system"
+import { SearchInput } from "@choice-ui/react"
 ```
 
 ## Features

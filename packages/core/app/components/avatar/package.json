@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/avatar",
+  "name": "@choice-ui/avatar",
   "version": "0.0.4",
   "description": "Avatar component for Choiceform Design System",
   "sideEffects": false,
@@ -27,7 +27,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
     "tinycolor2": "1.6.0"
   },

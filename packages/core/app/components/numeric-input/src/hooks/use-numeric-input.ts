@@ -1,11 +1,6 @@
-import { mergeRefs } from "@choiceform/design-shared"
+import { mergeRefs } from "@choice-ui/shared"
 import React, { HTMLProps, useCallback, useEffect, useRef, useState } from "react"
-import {
-  PressMoveProps,
-  useMergedValue,
-  useModifierKeys,
-  usePressMove,
-} from "@choiceform/design-shared"
+import { PressMoveProps, useMergedValue, useModifierKeys, usePressMove } from "@choice-ui/shared"
 import { NumberResult, NumericInputValue } from "../types"
 import { dealWithNumericInputValue } from "../utils/numeric-value-processor"
 import { useInputInteractions } from "./use-input-interactions"

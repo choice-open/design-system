@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, useMemo } from "react"
 import { LevelContext, useExpandContext, useStructureContext } from "../context"
 import { ListContentTv } from "../tv"

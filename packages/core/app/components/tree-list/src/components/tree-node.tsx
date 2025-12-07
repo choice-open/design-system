@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, useEffect, useMemo, useRef, useState, type MouseEvent } from "react"
 import { useNodeWidth } from "../hooks/use-node-width"
 import { TreeNodeProps } from "../types"

@@ -8,7 +8,7 @@ import {
   PRESET_EASINGS,
   PREVIEW_KEYFRAMES,
   tcx,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useCallback, useMemo, useState } from "react";
 

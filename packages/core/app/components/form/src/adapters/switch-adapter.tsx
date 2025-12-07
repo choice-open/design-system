@@ -1,4 +1,4 @@
-import { Switch } from "@choiceform/switch"
+import { Switch } from "@choice-ui/switch"
 import type { SwitchAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

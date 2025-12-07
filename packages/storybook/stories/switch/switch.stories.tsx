@@ -1,4 +1,4 @@
-import { Switch, Tooltip } from "@choiceform/design-system";
+import { Switch, Tooltip } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Fragment, useState } from "react";
 

@@ -1,6 +1,6 @@
-import { Chip } from "@choiceform/chip"
-import { mergeRefs, tcx } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
+import { Chip } from "@choice-ui/chip"
+import { mergeRefs, tcx } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
 import { useControllableValue } from "ahooks"
 import {
   type FocusEvent,

@@ -1,4 +1,4 @@
-import { NumericInput } from "@choiceform/numeric-input"
+import { NumericInput } from "@choice-ui/numeric-input"
 import { ConditionsFieldType, type ConditionsNumberField } from "../../types"
 import type { BaseFieldInputProps, RangeFieldInputProps } from "./types"
 

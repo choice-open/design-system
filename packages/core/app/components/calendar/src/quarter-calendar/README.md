@@ -5,7 +5,7 @@ A specialized calendar component for selecting quarters (Q1, Q2, Q3, Q4) within 
 ## Import
 
 ```tsx
-import { QuarterCalendar } from "@choiceform/design-system"
+import { QuarterCalendar } from "@choice-ui/react"
 ```
 
 ## Features
@@ -463,7 +463,7 @@ function MultiLanguageQuarterSelector() {
 The component provides utility functions for working with quarters:
 
 ```tsx
-import { getCurrentQuarter, getYearQuarters, isQuarterEqual } from "@choiceform/design-system"
+import { getCurrentQuarter, getYearQuarters, isQuarterEqual } from "@choice-ui/react"
 
 // Get current quarter
 const currentQuarter = getCurrentQuarter(2025, "en-US")

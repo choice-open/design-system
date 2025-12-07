@@ -1,4 +1,4 @@
-import { Button } from "@choiceform/button"
+import { Button } from "@choice-ui/button"
 import React from "react"
 
 interface ErrorBoundaryState {

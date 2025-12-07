@@ -1,4 +1,4 @@
-import { tcv } from "@choiceform/design-shared"
+import { tcv } from "@choice-ui/shared"
 
 export const InputTv = tcv({
   base: ["min-w-0 rounded-md px-2", "cursor-default", "appearance-none"],

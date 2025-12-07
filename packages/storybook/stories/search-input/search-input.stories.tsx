@@ -1,4 +1,4 @@
-import { Checkbox, SearchInput } from "@choiceform/design-system";
+import { Checkbox, SearchInput } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 

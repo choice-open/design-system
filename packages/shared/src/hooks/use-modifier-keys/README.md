@@ -5,7 +5,7 @@ A React hook for tracking the state of keyboard modifier keys (Shift, Ctrl, Meta
 ## Import
 
 ```typescript
-import { useModifierKeys } from "@choiceform/design-system/hooks";
+import { useModifierKeys } from "@choice-ui/react/hooks";
 ```
 
 ## Usage

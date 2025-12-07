@@ -5,7 +5,7 @@ A high-performance custom scroll area component built with native DOM APIs inste
 ## Import
 
 ```tsx
-import { ScrollArea } from "@choiceform/design-system"
+import { ScrollArea } from "@choice-ui/react"
 ```
 
 ## Features
@@ -158,7 +158,7 @@ function VirtualScrollArea({ items }) {
 Built-in performance monitoring for scroll optimization:
 
 ```tsx
-import { useScrollPerformanceMonitor } from "@choiceform/design-system"
+import { useScrollPerformanceMonitor } from "@choice-ui/react"
 
 function MonitoredScrollArea() {
   const [viewport, setViewport] = useState(null)

@@ -1,6 +1,6 @@
-import { Chip } from "@choiceform/chip"
-import { Dropdown } from "@choiceform/dropdown"
-import { IconButton } from "@choiceform/icon-button"
+import { Chip } from "@choice-ui/chip"
+import { Dropdown } from "@choice-ui/dropdown"
+import { IconButton } from "@choice-ui/icon-button"
 import { Add, CopySmall, EllipsisSmall, Trash } from "@choiceform/icons-react"
 import { LogicalOperator } from "../types"
 

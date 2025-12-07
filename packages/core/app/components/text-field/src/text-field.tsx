@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
-import { Input, type InputProps } from "@choiceform/input"
-import { Label } from "@choiceform/label"
+import { tcx } from "@choice-ui/shared"
+import { Input, type InputProps } from "@choice-ui/input"
+import { Label } from "@choice-ui/label"
 import React, {
   Children,
   cloneElement,

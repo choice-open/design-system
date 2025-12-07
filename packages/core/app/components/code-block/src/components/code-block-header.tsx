@@ -1,5 +1,5 @@
-import { IconButton } from "@choiceform/icon-button"
-import { tcv } from "@choiceform/design-shared"
+import { IconButton } from "@choice-ui/icon-button"
+import { tcv } from "@choice-ui/shared"
 import { CircleCirclehecirclek, ClipboardSmall, Enlarge, FileCode } from "@choiceform/icons-react"
 import React, { memo } from "react"
 import type { CodeBlockHeaderProps } from "../types"

@@ -1,5 +1,5 @@
-import { Button, type ButtonProps } from "@choiceform/button"
-import { tcx } from "@choiceform/design-shared"
+import { Button, type ButtonProps } from "@choice-ui/button"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, memo } from "react"
 import { MenuButtonTv } from "../tv"
 

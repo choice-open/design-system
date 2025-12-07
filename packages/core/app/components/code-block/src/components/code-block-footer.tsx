@@ -1,4 +1,4 @@
-import { tcv } from "@choiceform/design-shared"
+import { tcv } from "@choice-ui/shared"
 import { ChevronDownSmall, ChevronUpSmall } from "@choiceform/icons-react"
 import { memo } from "react"
 import type { CodeBlockFooterProps } from "../types"

@@ -1,5 +1,5 @@
-import { mergeRefs } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
+import { mergeRefs } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
 import { forwardRef, memo } from "react"
 import { usePopoverContext } from "../popover-context"
 

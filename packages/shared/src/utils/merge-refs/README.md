@@ -5,7 +5,7 @@ A utility for combining multiple React refs into a single ref callback, enabling
 ## Import
 
 ```typescript
-import { mergeRefs, assignRef } from "@choiceform/design-system/utils";
+import { mergeRefs, assignRef } from "@choice-ui/react/utils";
 ```
 
 ## Usage

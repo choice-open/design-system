@@ -1,6 +1,6 @@
 import type { BaseFieldInputProps } from "./types"
 import { ConditionsFieldType, type ConditionsBooleanField } from "../../types"
-import { Checkbox } from "@choiceform/checkbox"
+import { Checkbox } from "@choice-ui/checkbox"
 
 export function BooleanInput({ condition, field, disabled, onChange }: BaseFieldInputProps) {
   if (field.type !== ConditionsFieldType.Boolean) {

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, HTMLProps, useCallback } from "react"
 import { useUnmount } from "usehooks-ts"
 import { InputTv } from "./tv"

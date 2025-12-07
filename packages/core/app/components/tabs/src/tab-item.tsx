@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { ButtonHTMLAttributes, forwardRef, KeyboardEvent, memo, MouseEvent, ReactNode } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { useTabsContext } from "./context"

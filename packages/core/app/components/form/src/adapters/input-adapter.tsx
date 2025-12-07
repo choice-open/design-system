@@ -1,4 +1,4 @@
-import { Input } from "@choiceform/input"
+import { Input } from "@choice-ui/input"
 import type { InputAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

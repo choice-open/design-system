@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Segmented } from "@choiceform/segmented"
+import { tcx } from "@choice-ui/shared"
+import { Segmented } from "@choice-ui/segmented"
 import { forwardRef } from "react"
 import type { PaginationItemsPerPageProps } from "../types"
 import { usePaginationContext } from "./pagination-context"

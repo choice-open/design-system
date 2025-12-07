@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { Children, forwardRef, Fragment, HTMLProps, isValidElement } from "react"
 import { MenuButton } from "./components/menu-button"
 import { MenuCheckbox } from "./components/menu-checkbox"

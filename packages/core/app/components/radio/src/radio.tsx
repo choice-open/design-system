@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { Dot } from "@choiceform/icons-react"
 import { forwardRef, HTMLProps, memo, ReactNode, useId } from "react"
 import { useEventCallback } from "usehooks-ts"

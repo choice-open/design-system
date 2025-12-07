@@ -3,7 +3,7 @@ import type {
   ContextInputValue,
   ContextMentionElement,
   MentionItem,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   AlertDialogProvider,
   Avatar,
@@ -14,7 +14,7 @@ import {
   IconButton,
   tcx,
   useAlertDialog,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { AddSmall, ArrowUp, ExpandSmall, Image } from "@choiceform/icons-react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react";

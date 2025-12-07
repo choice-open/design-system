@@ -1,4 +1,4 @@
-import { ScrollArea } from "@choiceform/scroll-area"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import { forwardRef, useMemo } from "react"
 import { useRichInputContext } from "../context"
 import { richInputTv } from "../tv"

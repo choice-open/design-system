@@ -1,5 +1,5 @@
-import { Chip, ChipProps } from "@choiceform/chip"
-import { mergeRefs, tcx } from "@choiceform/design-shared"
+import { Chip, ChipProps } from "@choice-ui/chip"
+import { mergeRefs, tcx } from "@choice-ui/shared"
 import { ChevronDownSmall } from "@choiceform/icons-react"
 import { forwardRef, HTMLProps, memo, ReactNode, useCallback, useMemo, useRef } from "react"
 import { multiSelectTriggerTv } from "../tv"

@@ -1,4 +1,4 @@
-import { Button, Select, tcx } from "@choiceform/design-system";
+import { Button, Select, tcx } from "@choice-ui/react";
 import { SearchSmall } from "@choiceform/icons-react";
 import { Story } from "@storybook/addon-docs/blocks";
 import type { Meta, StoryObj } from "@storybook/react-vite";

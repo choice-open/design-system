@@ -1,4 +1,4 @@
-import { IconButton, type IconButtonProps } from "@choiceform/icon-button"
+import { IconButton, type IconButtonProps } from "@choice-ui/icon-button"
 import { Check, CopySmall } from "@choiceform/icons-react"
 import React, { useContext, useState } from "react"
 import { ContextInputEditorContext } from "../hooks"

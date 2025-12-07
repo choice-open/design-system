@@ -5,7 +5,7 @@ A comprehensive emoji selection component with virtual scrolling, category brows
 ## Import
 
 ```tsx
-import { EmojiPicker } from "@choiceform/design-system"
+import { EmojiPicker } from "@choice-ui/react"
 ```
 
 ## Features
@@ -28,7 +28,7 @@ import { EmojiPicker } from "@choiceform/design-system"
 
 ```tsx
 import { useState } from "react"
-import { EmojiPicker, type EmojiData } from "@choiceform/design-system"
+import { EmojiPicker, type EmojiData } from "@choice-ui/react"
 
 function MyComponent() {
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiData | null>(null)
@@ -103,7 +103,7 @@ function MyComponent() {
 ### In a Popover
 
 ```tsx
-import { Popover } from "@choiceform/design-system"
+import { Popover } from "@choice-ui/react"
 
 function PopoverEmojiPicker() {
   const [open, setOpen] = useState(false)
@@ -242,7 +242,7 @@ The footer displays emoji information with smart priority:
 3. **Default Message** - Shows "Pick an emoji..." when empty
 
 ```tsx
-import { EmojiFooter } from "@choiceform/design-system"
+import { EmojiFooter } from "@choice-ui/react"
 ;<EmojiFooter
   hoveredEmoji={hoveredEmoji}
   selectedEmoji={selectedEmoji}

@@ -1,4 +1,4 @@
-import { SpinnerSpin, tcx } from "@choiceform/design-system";
+import { SpinnerSpin, tcx } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof SpinnerSpin> = {

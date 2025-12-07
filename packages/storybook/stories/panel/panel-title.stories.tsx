@@ -6,7 +6,7 @@ import {
   ScrollArea,
   Splitter,
   tcx,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { Styles, Target } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";

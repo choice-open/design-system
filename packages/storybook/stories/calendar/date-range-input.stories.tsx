@@ -1,4 +1,4 @@
-import { DateRangeInput, Panel } from "@choiceform/design-system";
+import { DateRangeInput, Panel } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { addDays, subDays } from "date-fns";
 import { enUS, ja, ko, zhCN } from "date-fns/locale";

@@ -1,5 +1,5 @@
-import { Dialog } from "@choiceform/dialog"
-import { PicturePreview } from "@choiceform/picture-preview"
+import { Dialog } from "@choice-ui/dialog"
+import { PicturePreview } from "@choice-ui/picture-preview"
 import { memo, useMemo } from "react"
 import { SubmittedCommentData } from "../types"
 

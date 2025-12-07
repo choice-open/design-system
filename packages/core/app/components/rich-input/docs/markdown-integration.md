@@ -13,7 +13,7 @@ The RichInput component now includes built-in utilities for converting between S
 ### Export to Markdown
 
 ```typescript
-import { RichInput, slateToMarkdown } from "@choiceform/design-system"
+import { RichInput, slateToMarkdown } from "@choice-ui/react"
 
 // Get the current value from RichInput
 const handleExport = (value: Descendant[]) => {
@@ -28,7 +28,7 @@ const handleExport = (value: Descendant[]) => {
 ### Import from Markdown
 
 ```typescript
-import { RichInput, markdownToSlate } from "@choiceform/design-system"
+import { RichInput, markdownToSlate } from "@choice-ui/react"
 
 // Convert markdown to Slate format
 const handleImport = (markdownText: string) => {
@@ -65,7 +65,7 @@ See the complete example in `/examples/markdown-integration.tsx`:
 
 ```tsx
 import { useState } from "react"
-import { RichInput, slateToMarkdown, markdownToSlate } from "@choiceform/design-system"
+import { RichInput, slateToMarkdown, markdownToSlate } from "@choice-ui/react"
 
 export function MarkdownEditor() {
   const [value, setValue] = useState(initialValue)

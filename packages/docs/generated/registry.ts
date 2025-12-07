@@ -76,7 +76,10 @@ import * as StoryModule74 from "../../storybook/stories/spinner/spinner-spin.sto
 import * as StoryModule75 from "../../storybook/stories/bezier-curve-editor/bezier-curve-editor.stories"
 import * as StoryModule76 from "../../storybook/stories/spring-visualizer/spring-visualizer.stories"
 import * as StoryModule77 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
-import * as StoryModule78 from "../../storybook/stories/slot/slot.stories"
+import * as StoryModule78 from "../../storybook/stories/shared/format-date.stories"
+import * as StoryModule79 from "../../storybook/stories/shared/i18n-utils.stories"
+import * as StoryModule80 from "../../storybook/stories/slot/slot.stories"
+import * as StoryModule81 from "../../storybook/stories/shared/tcx.stories"
 
 export const storyRegistry: Record<string, Record<string, unknown>> = {
   "buttons/button": StoryModule0,
@@ -157,5 +160,8 @@ export const storyRegistry: Record<string, Record<string, unknown>> = {
   "utilities/bezier-curve-editor": StoryModule75,
   "utilities/spring-visualizer": StoryModule76,
   "utilities/virtualized-grid": StoryModule77,
-  "utils/slot": StoryModule78,
+  "utils/date-formatting": StoryModule78,
+  "utils/i18n": StoryModule79,
+  "utils/slot": StoryModule80,
+  "utils/tcx-tw-merge": StoryModule81,
 }

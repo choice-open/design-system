@@ -6,7 +6,7 @@ import {
   LogicalOperator,
   type ConditionsRoot,
   type Field,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { ChevronDownSmall, ChevronRightSmall } from "@choiceform/icons-react"
 import { forwardRef, HTMLProps, memo, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"

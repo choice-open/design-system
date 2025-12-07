@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { RemoveTiny } from "@choiceform/icons-react"
 import { ElementType, forwardRef, HTMLProps, memo, ReactNode } from "react"
 import { chipTv } from "./tv"

@@ -5,7 +5,7 @@ An advanced input component that allows users to enter multiple values as chips 
 ## Import
 
 ```tsx
-import { ChipsInput } from "@choiceform/design-system"
+import { ChipsInput } from "@choice-ui/react"
 ```
 
 ## Features

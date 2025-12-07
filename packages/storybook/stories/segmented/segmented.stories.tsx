@@ -1,4 +1,4 @@
-import { Checkbox, Segmented } from "@choiceform/design-system";
+import { Checkbox, Segmented } from "@choice-ui/react";
 import {
   FieldTypeAttachment,
   FieldTypeCheckbox,

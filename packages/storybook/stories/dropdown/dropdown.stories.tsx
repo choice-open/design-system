@@ -4,7 +4,7 @@ import {
   Dropdown,
   IconButton,
   Popover,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   Add,
   FieldTypeAttachment,

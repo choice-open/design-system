@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/design-system-monorepo",
+  "name": "@choice-ui/react-monorepo",
   "version": "0.1.8",
   "private": true,
   "scripts": {
@@ -7,11 +7,12 @@
     "build": "turbo build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "components:build": "pnpm --filter=\"./packages/core/app/components/**\" run build",
-    "docs:build": "pnpm --filter=\"@choiceform/design-docs\" run build",
-    "docs:dev": "pnpm --filter=\"@choiceform/design-docs\" run dev",
+    "docs:build": "pnpm --filter=\"@choice-ui/design-docs\" run build",
+    "docs:dev": "pnpm --filter=\"@choice-ui/design-docs\" run dev",
     "docs:generate": "tsx packages/docs/scripts/generate-from-stories.ts",
-    "storybook:dev": "pnpm --filter=\"@choiceform/storybook\" run dev",
-    "storybook:build": "pnpm --filter=\"@choiceform/storybook\" run build-storybook",
+    "storybook:dev": "pnpm --filter=\"@choice-ui/storybook\" run dev",
+    "storybook:build": "pnpm --filter=\"@choice-ui/storybook\" run build-storybook",
+    "core:build": "pnpm --filter=\"@choice-ui/react\" run build",
     "core:lint": "eslint packages/core/app/**/*.{ts,tsx} --ext .ts,.tsx",
     "core:lint:fix": "eslint packages/core/app/**/*.{ts,tsx} --ext .ts,.tsx --fix",
     "test": "vitest run",

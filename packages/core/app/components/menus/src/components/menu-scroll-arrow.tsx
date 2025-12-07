@@ -1,8 +1,8 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { ChevronDownSmall, ChevronUpSmall } from "@choiceform/icons-react"
 import { useRef, useState } from "react"
 import { flushSync } from "react-dom"
-import { useIsomorphicLayoutEffect } from "@choiceform/design-shared"
+import { useIsomorphicLayoutEffect } from "@choice-ui/shared"
 import { MenuScrollArrowTv } from "../tv"
 
 const SCROLL_ARROW_PADDING = 16

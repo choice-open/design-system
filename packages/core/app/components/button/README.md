@@ -5,7 +5,7 @@ A versatile, accessible button component that supports multiple visual variants,
 ## Import
 
 ```tsx
-import { Button } from "@choiceform/design-system"
+import { Button } from "@choice-ui/react"
 ```
 
 ## Features

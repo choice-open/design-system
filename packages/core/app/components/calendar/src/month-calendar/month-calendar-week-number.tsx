@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { memo } from "react"
 import { MonthCalendarTv } from "./tv"
 

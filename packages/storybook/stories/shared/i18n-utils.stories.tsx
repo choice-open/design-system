@@ -1,4 +1,4 @@
-import { useI18n } from "@choiceform/design-system";
+import { useI18n } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 

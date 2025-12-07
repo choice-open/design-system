@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { AnimatePresence, motion, MotionProps } from "framer-motion"
 import { memo } from "react"
 import { ModalBackdropTv } from "../tv"

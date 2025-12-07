@@ -1,4 +1,4 @@
-import { Button, Loader } from "@choiceform/design-system";
+import { Button, Loader } from "@choice-ui/react";
 import {
   ActionCodeBlock,
   Bolt,

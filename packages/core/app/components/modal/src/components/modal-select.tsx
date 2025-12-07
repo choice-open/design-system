@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
-import { Label } from "@choiceform/label"
-import { Select, SelectProps } from "@choiceform/select"
+import { tcx } from "@choice-ui/shared"
+import { Label } from "@choice-ui/label"
+import { Select, SelectProps } from "@choice-ui/select"
 import { memo, useId } from "react"
 
 interface ModalSelectProps extends Omit<SelectProps, "label"> {

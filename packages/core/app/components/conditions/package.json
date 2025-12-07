@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/conditions",
+  "name": "@choice-ui/conditions",
   "version": "0.0.3",
   "description": "Conditions component for Choiceform Design System",
   "sideEffects": false,
@@ -29,17 +29,17 @@
   "dependencies": {
     "date-fns": "^4.1.0",
     "nanoid": "^5.1.6",
-    "@choiceform/calendar": "workspace:*",
-    "@choiceform/checkbox": "workspace:*",
-    "@choiceform/chip": "workspace:*",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/dropdown": "workspace:*",
-    "@choiceform/icon-button": "workspace:*",
+    "@choice-ui/calendar": "workspace:*",
+    "@choice-ui/checkbox": "workspace:*",
+    "@choice-ui/chip": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/dropdown": "workspace:*",
+    "@choice-ui/icon-button": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/input": "workspace:*",
-    "@choiceform/numeric-input": "workspace:*",
-    "@choiceform/popover": "workspace:*",
-    "@choiceform/select": "workspace:*"
+    "@choice-ui/input": "workspace:*",
+    "@choice-ui/numeric-input": "workspace:*",
+    "@choice-ui/popover": "workspace:*",
+    "@choice-ui/select": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

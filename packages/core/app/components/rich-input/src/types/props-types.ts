@@ -1,4 +1,4 @@
-import { type IconButtonProps } from "@choiceform/icon-button"
+import { type IconButtonProps } from "@choice-ui/icon-button"
 import { type UseFloatingReturn } from "@floating-ui/react"
 import { Descendant, Editor } from "slate"
 import { type ReactEditor, type RenderElementProps, type RenderLeafProps } from "slate-react"

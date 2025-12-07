@@ -5,7 +5,7 @@ A comprehensive calendar component for displaying and selecting dates within a m
 ## Import
 
 ```tsx
-import { MonthCalendar } from "@choiceform/design-system"
+import { MonthCalendar } from "@choice-ui/react"
 ```
 
 ## Features
@@ -472,8 +472,8 @@ function MultiLanguageCalendar() {
 ### With Date Input
 
 ```tsx
-import { DateInput } from "@choiceform/design-system"
-import { Popover } from "@choiceform/design-system"
+import { DateInput } from "@choice-ui/react"
+import { Popover } from "@choice-ui/react"
 
 function DatePicker() {
   const [date, setDate] = useState<Date | null>(null)
@@ -511,7 +511,7 @@ function DatePicker() {
 ### With Date Range Input
 
 ```tsx
-import { DateRangeInput } from "@choiceform/design-system"
+import { DateRangeInput } from "@choice-ui/react"
 
 function DateRangePicker() {
   const [range, setRange] = useState(null)

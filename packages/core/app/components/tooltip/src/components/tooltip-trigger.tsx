@@ -1,4 +1,4 @@
-import { Slot } from "@choiceform/slot"
+import { Slot } from "@choice-ui/slot"
 import { useMergeRefs } from "@floating-ui/react"
 import { forwardRef, HTMLProps, Ref } from "react"
 import { useTooltipState } from "../context/tooltip-context"

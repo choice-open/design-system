@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Kbd, type KbdKey } from "@choiceform/kbd"
+import { tcx } from "@choice-ui/shared"
+import { Kbd, type KbdKey } from "@choice-ui/kbd"
 import { forwardRef, memo, ReactNode } from "react"
 import { MenuItemTv } from "../tv"
 

@@ -18,7 +18,7 @@ export type * from "./types"
 // 导入 TanStack Form
 import { useForm as useTanStackForm } from "@tanstack/react-form"
 export * as TanstackReactForm from "@tanstack/react-form"
-import { Button } from "@choiceform/button"
+import { Button } from "@choice-ui/button"
 // Import adapters directly from their individual files to avoid circular dependency
 import { InputAdapter } from "./adapters/input-adapter"
 import { SelectAdapter } from "./adapters/select-adapter"

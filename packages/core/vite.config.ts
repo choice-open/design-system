@@ -172,15 +172,15 @@ function createDtsPlugin(): PluginOption {
     copyDtsFiles: true,
     compilerOptions: {
       paths: {
-        "@choiceform/design-shared": ["../shared/src/index.ts"],
+        "@choice-ui/shared": ["../shared/src/index.ts"],
         "~/*": ["./app/*"],
       },
     },
     beforeWriteFile: (filePath, content) => {
-      // 在类型定义中将 @choiceform/design-shared 导入替换为相对路径
-      if (filePath.endsWith("index.d.ts") && content.includes("@choiceform/design-shared")) {
+      // 在类型定义中将 @choice-ui/shared 导入替换为相对路径
+      if (filePath.endsWith("index.d.ts") && content.includes("@choice-ui/shared")) {
         const newContent = content.replace(
-          /export \* from ["']@choiceform\/design-shared["'];?/g,
+          /export \* from ["']@choice-ui\/design-shared["'];?/g,
           'export * from "../../shared/src/hooks";\nexport * from "../../shared/src/utils";',
         )
         return {
@@ -204,7 +204,7 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: {
         "~": APP_DIR,
-        "@choiceform/design-shared": SHARED_DIR,
+        "@choice-ui/shared": SHARED_DIR,
       },
     },
     plugins: [

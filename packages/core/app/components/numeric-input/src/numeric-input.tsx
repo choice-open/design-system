@@ -1,5 +1,5 @@
-import { mergeProps, mergeRefs, tcx } from "@choiceform/design-shared"
-import { Tooltip, type TooltipProps } from "@choiceform/tooltip"
+import { mergeProps, mergeRefs, tcx } from "@choice-ui/shared"
+import { Tooltip, type TooltipProps } from "@choice-ui/tooltip"
 import React, {
   Children,
   cloneElement,
@@ -12,7 +12,7 @@ import React, {
   useState,
 } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useDisableScroll } from "@choiceform/design-shared"
+import { useDisableScroll } from "@choice-ui/shared"
 import {
   NumericInputElement,
   NumericInputMenuActionPrompt,

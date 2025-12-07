@@ -11,7 +11,7 @@ import {
   type ReferenceType,
 } from "@floating-ui/react"
 import { useCallback, useEffect, useRef, useState } from "react"
-import { useMergedValue } from "@choiceform/design-shared"
+import { useMergedValue } from "@choice-ui/shared"
 import { DialogPosition } from "../types"
 import { calculateInitialPosition } from "../utils"
 

@@ -1,4 +1,4 @@
-import { isBrowser } from "@choiceform/design-shared"
+import { isBrowser } from "@choice-ui/shared"
 import { useEffect, useMemo, useState } from "react"
 import { emojis } from "../utils"
 

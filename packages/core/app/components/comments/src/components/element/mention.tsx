@@ -1,5 +1,5 @@
-import { Avatar } from "@choiceform/avatar"
-import { Tooltip } from "@choiceform/tooltip"
+import { Avatar } from "@choice-ui/avatar"
+import { Tooltip } from "@choice-ui/tooltip"
 import { memo, useEffect, useMemo } from "react"
 import { Editor, Transforms } from "slate"
 import { ReactEditor, RenderElementProps, useFocused, useSelected, useSlate } from "slate-react"

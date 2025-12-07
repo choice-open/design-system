@@ -1,4 +1,4 @@
-import { Tabs, type TabsProps } from "@choiceform/tabs"
+import { Tabs, type TabsProps } from "@choice-ui/tabs"
 import { forwardRef } from "react"
 import { useCommand } from "../hooks/use-command"
 import { commandTabsTv } from "../tv"

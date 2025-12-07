@@ -1,4 +1,4 @@
-import { Combobox } from "@choiceform/combobox"
+import { Combobox } from "@choice-ui/combobox"
 import React, { forwardRef, memo, useImperativeHandle } from "react"
 import { contextInputTv } from "../tv"
 import type { MentionItem } from "../types"

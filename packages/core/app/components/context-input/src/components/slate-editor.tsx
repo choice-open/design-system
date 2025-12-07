@@ -1,4 +1,4 @@
-import { ScrollArea } from "@choiceform/scroll-area"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import React, { useCallback, useMemo } from "react"
 import type { Descendant } from "slate"
 import {

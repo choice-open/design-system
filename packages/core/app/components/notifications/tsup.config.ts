@@ -6,7 +6,7 @@ export default defineConfig({
   format: ["esm", "cjs"],
   dts: true,
   clean: true,
-  external: ["react", "react-dom", "@choiceform/design-shared", /^@choiceform\//],
+  external: ["react", "react-dom", "@choice-ui/shared", /^@choiceform\//],
   treeshake: true,
   splitting: false,
   sourcemap: false,

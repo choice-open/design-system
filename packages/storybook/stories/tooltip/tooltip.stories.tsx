@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { Placement } from "@floating-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

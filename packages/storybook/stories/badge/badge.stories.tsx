@@ -1,4 +1,4 @@
-import { Badge } from "@choiceform/design-system";
+import { Badge } from "@choice-ui/react";
 import { Dot } from "@choiceform/icons-react";
 import { Story } from "@storybook/addon-docs/blocks";
 import type { Meta, StoryObj } from "@storybook/react-vite";

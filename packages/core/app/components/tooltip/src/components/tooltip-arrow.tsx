@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { useMergeRefs } from "@floating-ui/react"
 import { forwardRef, useMemo } from "react"
 import { useTooltipState } from "../context/tooltip-context"

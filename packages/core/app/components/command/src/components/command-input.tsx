@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Input, type InputProps } from "@choiceform/input"
+import { tcx } from "@choice-ui/shared"
+import { Input, type InputProps } from "@choice-ui/input"
 import { forwardRef, ReactNode, useEffect } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { useCommand, useCommandState } from "../hooks"

@@ -1,6 +1,6 @@
 import type { Placement, UseFloatingReturn } from "@floating-ui/react"
 import type { ReactNode } from "react"
-import type { KbdKey } from "@choiceform/kbd"
+import type { KbdKey } from "@choice-ui/kbd"
 
 export interface TooltipOptions {
   disabled?: boolean

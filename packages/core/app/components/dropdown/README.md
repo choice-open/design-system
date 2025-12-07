@@ -5,7 +5,7 @@ A comprehensive dropdown menu component with advanced features including nested 
 ## Import
 
 ```tsx
-import { Dropdown } from "@choiceform/design-system"
+import { Dropdown } from "@choice-ui/react"
 ```
 
 ## Features

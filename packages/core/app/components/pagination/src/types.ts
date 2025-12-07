@@ -1,4 +1,4 @@
-import type { ButtonProps } from "@choiceform/button"
+import type { ButtonProps } from "@choice-ui/button"
 import type { HTMLProps } from "react"
 
 // ==================== Base Types ====================

@@ -5,7 +5,7 @@ A sophisticated, enterprise-grade command palette component that provides fast s
 ## Import
 
 ```tsx
-import { Command } from "@choiceform/design-system"
+import { Command } from "@choice-ui/react"
 ```
 
 ## Features

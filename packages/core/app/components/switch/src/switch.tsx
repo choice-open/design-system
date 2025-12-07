@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { motion } from "framer-motion"
 import { forwardRef, HTMLProps, memo, ReactNode, useId } from "react"
 import { switchTv } from "./tv"

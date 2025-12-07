@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { useMemo } from "react"
 import { SpinnerSpinVariant } from "./tv"
 

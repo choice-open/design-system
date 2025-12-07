@@ -1,5 +1,5 @@
-import type { CalendarValue } from "@choiceform/design-system";
-import { MonthCalendar, MonthCalendarProps } from "@choiceform/design-system";
+import type { CalendarValue } from "@choice-ui/react";
+import { MonthCalendar, MonthCalendarProps } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 

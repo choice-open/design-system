@@ -1,4 +1,4 @@
-import { Range } from "@choiceform/range"
+import { Range } from "@choice-ui/range"
 import type { RangeAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

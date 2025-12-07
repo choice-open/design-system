@@ -1,4 +1,4 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
+import { mergeRefs, tcx } from "@choice-ui/shared"
 import { forwardRef, Fragment, HTMLProps, ReactNode, useRef } from "react"
 import { useHover } from "usehooks-ts"
 

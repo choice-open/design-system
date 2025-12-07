@@ -299,13 +299,13 @@ function resolveComponentImport(
     ts.ScriptKind.TSX,
   )
 
-  // 先检查是否从 @choiceform/design-system 导入
+  // 先检查是否从 @choice-ui/react 导入
   for (const statement of sourceFile.statements) {
     if (!ts.isImportDeclaration(statement)) continue
     if (!ts.isStringLiteralLike(statement.moduleSpecifier)) continue
 
     const modulePath = statement.moduleSpecifier.text
-    if (modulePath === "@choiceform/design-system") {
+    if (modulePath === "@choice-ui/react") {
       const importClause = statement.importClause
       const namedBindings = importClause?.namedBindings
       if (namedBindings && ts.isNamedImports(namedBindings)) {

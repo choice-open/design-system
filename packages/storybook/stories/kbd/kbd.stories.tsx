@@ -1,4 +1,4 @@
-import { Kbd } from "@choiceform/design-system";
+import { Kbd } from "@choice-ui/react";
 import { Story } from "@storybook/addon-docs/blocks";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

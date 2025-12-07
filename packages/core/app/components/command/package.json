@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/command",
+  "name": "@choice-ui/command",
   "version": "0.0.3",
   "description": "Command component for Choiceform Design System",
   "sideEffects": false,
@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "usehooks-ts": "^3.1.0",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/input": "workspace:*",
-    "@choiceform/kbd": "workspace:*",
-    "@choiceform/scroll-area": "workspace:*",
-    "@choiceform/tabs": "workspace:*"
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/input": "workspace:*",
+    "@choice-ui/kbd": "workspace:*",
+    "@choice-ui/scroll-area": "workspace:*",
+    "@choice-ui/tabs": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

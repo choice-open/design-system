@@ -1,14 +1,11 @@
-import type {
-  NumberResult,
-  NumericInputValue,
-} from "@choiceform/design-system";
+import type { NumberResult, NumericInputValue } from "@choice-ui/react";
 import {
   Checkbox,
   Dropdown,
   IconButton,
   NumericInput,
   Select,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   ChevronDownSmall,
   ColorTypeSolid,

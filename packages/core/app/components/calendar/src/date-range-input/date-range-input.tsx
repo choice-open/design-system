@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { ArrowRight } from "@choiceform/icons-react"
-import { TextFieldProps } from "@choiceform/text-field"
+import { TextFieldProps } from "@choice-ui/text-field"
 import { formatDistanceStrict, type Locale } from "date-fns"
 import { enUS } from "date-fns/locale"
 import { useMemo } from "react"

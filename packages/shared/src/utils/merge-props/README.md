@@ -5,7 +5,7 @@ A utility function for intelligently merging multiple props objects with special
 ## Import
 
 ```typescript
-import { mergeProps } from "@choiceform/design-system/utils";
+import { mergeProps } from "@choice-ui/react/utils";
 ```
 
 ## Usage
@@ -91,7 +91,7 @@ Both `className` and `class` props are merged:
 const props = mergeProps(
   { className: "btn" },
   { className: "btn-primary" },
-  { className: "large" },
+  { className: "large" }
 );
 // Result: { className: "btn btn-primary large" }
 

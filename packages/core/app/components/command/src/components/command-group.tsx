@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, HTMLProps, useEffect, useId, useMemo, useRef } from "react"
 import { GroupContext, useCommand, useCommandState, useValue } from "../hooks"
 import { commandGroupTv } from "../tv"

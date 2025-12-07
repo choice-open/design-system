@@ -1,4 +1,4 @@
-import { tcv, tcx } from "@choiceform/design-shared"
+import { tcv, tcx } from "@choice-ui/shared"
 import { useEffect, useMemo, useState } from "react"
 
 interface SpringVisualizerProps extends React.ComponentPropsWithoutRef<"svg"> {

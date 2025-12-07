@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { DetailedHTMLProps, HTMLAttributes, useMemo } from "react"
 import { kbdTv } from "./tv"
 import { KbdKey, kbdKeysLabelMap, kbdKeysMap } from "./utils"

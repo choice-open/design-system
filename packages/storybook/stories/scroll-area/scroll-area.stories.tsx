@@ -5,7 +5,7 @@ import {
   ScrollArea,
   Tooltip,
   useScrollPerformanceMonitor,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useVirtualizer } from "@tanstack/react-virtual";

@@ -1,6 +1,6 @@
-import { findChildByType, mergeRefs, tcx } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
-import { Modal, ModalContent, ModalFooter } from "@choiceform/modal"
+import { findChildByType, mergeRefs, tcx } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
+import { Modal, ModalContent, ModalFooter } from "@choice-ui/modal"
 import type { FloatingFocusManagerProps, Placement } from "@floating-ui/react"
 import {
   FloatingFocusManager,

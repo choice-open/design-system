@@ -5,7 +5,7 @@ A flexible checkbox component with support for labels, mixed state, and multiple
 ## Import
 
 ```tsx
-import { Checkbox } from "@choiceform/design-system"
+import { Checkbox } from "@choice-ui/react"
 ```
 
 ## Features

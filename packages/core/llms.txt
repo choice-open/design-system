@@ -1,12 +1,12 @@
 # ChoiceForm Design System
 
-This is the documentation for the `@choiceform/design-system` package.
+This is the documentation for the `@choice-ui/design-system` package.
 A Figma-inspired UI component library for professional desktop applications, built with React and TypeScript.
 The library provides a comprehensive set of components with rich interactivity and enterprise-grade features.
 
 ## Overview
 
-- Package: `@choiceform/design-system`
+- Package: `@choice-ui/design-system`
 - Version: 1.0.3
 - Storybook: https://ui.choiceform.app/
 - Built with: React 18.3+, TypeScript, Tailwind CSS, Vite

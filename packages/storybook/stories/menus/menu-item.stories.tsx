@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  KbdKey,
-  MenuItem,
-  Menus,
-  tcx,
-} from "@choiceform/design-system";
+import { Avatar, KbdKey, MenuItem, Menus, tcx } from "@choice-ui/react";
 import {
   Check,
   ChevronRightSmall,

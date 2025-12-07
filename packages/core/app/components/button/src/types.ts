@@ -1,4 +1,4 @@
-import { type TooltipProps } from "@choiceform/tooltip"
+import { type TooltipProps } from "@choice-ui/tooltip"
 import { HTMLProps } from "react"
 
 /**

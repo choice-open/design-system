@@ -4,7 +4,7 @@ import {
   useMergedValue,
   useModifierKeys,
   usePressMove,
-} from "@choiceform/design-shared"
+} from "@choice-ui/shared"
 import { addDays, addMonths, addWeeks, format, isValid } from "date-fns"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"

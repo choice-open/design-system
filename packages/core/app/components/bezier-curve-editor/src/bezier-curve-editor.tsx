@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { useCallback, useMemo, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
 import {

@@ -1,7 +1,7 @@
 import { Story } from "@storybook/addon-docs/blocks";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { Fragment, useState } from "react";
-import { Checkbox } from "@choiceform/design-system";
+import { Checkbox } from "@choice-ui/react";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Forms/Checkbox",
@@ -192,7 +192,7 @@ export const Group: Story = {
               setSelectedIds((prev) =>
                 checked
                   ? [...prev, option.id]
-                  : prev.filter((id) => id !== option.id),
+                  : prev.filter((id) => id !== option.id)
               );
             }}
           >

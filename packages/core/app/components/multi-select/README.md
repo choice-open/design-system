@@ -5,7 +5,7 @@ A powerful multiple selection component that allows users to choose multiple opt
 ## Import
 
 ```tsx
-import { MultiSelect } from "@choiceform/design-system"
+import { MultiSelect } from "@choice-ui/react"
 ```
 
 ## Features

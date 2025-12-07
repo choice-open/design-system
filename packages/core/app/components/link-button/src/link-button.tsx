@@ -1,4 +1,4 @@
-import { tcv, tcx } from "@choiceform/design-shared"
+import { tcv, tcx } from "@choice-ui/shared"
 import { forwardRef } from "react"
 
 // 基础 props 接口

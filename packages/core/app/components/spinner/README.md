@@ -5,7 +5,7 @@ A collection of loading indicator components that provide visual feedback during
 ## Import
 
 ```tsx
-import { SpinnerBounce, SpinnerSpin } from "@choiceform/design-system"
+import { SpinnerBounce, SpinnerSpin } from "@choice-ui/react"
 ```
 
 ## Features

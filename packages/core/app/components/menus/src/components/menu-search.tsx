@@ -1,6 +1,6 @@
-import { Button } from "@choiceform/button"
-import { tcx } from "@choiceform/design-shared"
-import { SearchInput, type SearchInputProps } from "@choiceform/search-input"
+import { Button } from "@choice-ui/button"
+import { tcx } from "@choice-ui/shared"
+import { SearchInput, type SearchInputProps } from "@choice-ui/search-input"
 import { forwardRef, memo, useCallback } from "react"
 import { MenuSearchEmptyTv } from "../tv"
 

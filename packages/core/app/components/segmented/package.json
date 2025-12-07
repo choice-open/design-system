@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/segmented",
+  "name": "@choice-ui/segmented",
   "version": "0.0.4",
   "description": "Segmented component for Choiceform Design System",
   "sideEffects": false,
@@ -27,8 +27,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/tooltip": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/tooltip": "workspace:*",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {

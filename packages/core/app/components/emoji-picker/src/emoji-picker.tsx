@@ -9,9 +9,9 @@ import {
   EmojiSymbols,
   EmojiTravelPlaces,
 } from "@choiceform/icons-react"
-import { ScrollArea } from "@choiceform/scroll-area"
-import { SearchInput } from "@choiceform/search-input"
-import { Segmented } from "@choiceform/segmented"
+import { ScrollArea } from "@choice-ui/scroll-area"
+import { SearchInput } from "@choice-ui/search-input"
+import { Segmented } from "@choice-ui/segmented"
 import React, { memo, useMemo, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { EmojiCategoryHeader, EmojiEmpty, EmojiFooter, EmojiItem } from "./components"

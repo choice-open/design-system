@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/context-menu",
+  "name": "@choice-ui/context-menu",
   "version": "0.0.7",
   "description": "Context Menu component for Choiceform Design System",
   "sideEffects": false,
@@ -29,7 +29,7 @@
   "dependencies": {
     "@floating-ui/react": "0.27.15",
     "usehooks-ts": "^3.1.0",
-    "@choiceform/menus": "workspace:*"
+    "@choice-ui/menus": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

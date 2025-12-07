@@ -17,7 +17,7 @@
     "target": "ES2022",
     "types": ["vite/client"],
     "paths": {
-      "@choiceform/design-system": ["../core/app/index.ts"]
+      "@choice-ui/react": ["../core/app/index.ts"]
     }
   },
   "include": [

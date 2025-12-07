@@ -5,7 +5,7 @@ A controlled tab navigation component for organizing content into multiple panel
 ## Import
 
 ```tsx
-import { Tabs } from "@choiceform/design-system"
+import { Tabs } from "@choice-ui/react"
 ```
 
 ## Features

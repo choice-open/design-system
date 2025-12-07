@@ -5,7 +5,7 @@ A specialized calendar component for time selection with customizable time steps
 ## Import
 
 ```tsx
-import { TimeCalendar } from "@choiceform/design-system"
+import { TimeCalendar } from "@choice-ui/react"
 ```
 
 ## Features
@@ -92,7 +92,7 @@ const [selectedTime, setSelectedTime] = useState<Date | null>(null)
 ### With Default Value
 
 ```tsx
-import { createTimeToday } from "@choiceform/design-system"
+import { createTimeToday } from "@choice-ui/react"
 
 const defaultTime = createTimeToday(10, 30) // 10:30 AM
 
@@ -257,7 +257,7 @@ const customTime = createTimeToday(14, 37) // 14:37 (not in 15-min steps)
 ### Creating Time Values
 
 ```tsx
-import { createTimeToday } from "@choiceform/design-system"
+import { createTimeToday } from "@choice-ui/react"
 
 // Create time for today
 const morning = createTimeToday(9, 30) // 9:30 AM today
@@ -268,7 +268,7 @@ const evening = createTimeToday(20, 0) // 8:00 PM today
 ### Time String Conversion
 
 ```tsx
-import { timeStringToDate, normalizeTimeValue } from "@choiceform/design-system"
+import { timeStringToDate, normalizeTimeValue } from "@choice-ui/react"
 
 // Convert time string to Date object
 const timeDate = timeStringToDate("14:30")
@@ -282,8 +282,8 @@ const timeString = normalizeTimeValue(new Date())
 ### Time Picker in Popover
 
 ```tsx
-import { Popover } from "@choiceform/design-system"
-import { TimeInput } from "@choiceform/design-system"
+import { Popover } from "@choice-ui/react"
+import { TimeInput } from "@choice-ui/react"
 
 function TimePicker() {
   const [selectedTime, setSelectedTime] = useState<Date | null>(null)

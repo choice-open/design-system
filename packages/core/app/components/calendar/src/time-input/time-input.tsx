@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { Clock } from "@choiceform/icons-react"
-import { TextField, TextFieldProps } from "@choiceform/text-field"
+import { TextField, TextFieldProps } from "@choice-ui/text-field"
 import { enUS } from "date-fns/locale"
 import React, { forwardRef } from "react"
 import { useTimeInput } from "../hooks/use-time-input"

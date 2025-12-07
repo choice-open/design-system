@@ -10,7 +10,7 @@ import {
   IconButton,
   Kbd,
   useCommandState,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   ChevronLeftSmall,
   ColorAlpha,

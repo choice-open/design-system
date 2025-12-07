@@ -5,7 +5,7 @@ A React hook for lazy initialization of expensive objects that persist across re
 ## Import
 
 ```typescript
-import { useLazyRef } from "@choiceform/design-system/hooks";
+import { useLazyRef } from "@choice-ui/react/hooks";
 ```
 
 ## Usage

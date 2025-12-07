@@ -5,7 +5,7 @@ A sophisticated component for selecting date ranges with intelligent synchroniza
 ## Import
 
 ```tsx
-import { DateRangeInput } from "@choiceform/design-system"
+import { DateRangeInput } from "@choice-ui/react"
 ```
 
 ## Features
@@ -334,7 +334,7 @@ Properly calculates ranges spanning multiple years:
 ## Integration with Panel
 
 ```tsx
-import { Panel } from "@choiceform/design-system"
+import { Panel } from "@choice-ui/react"
 ;<Panel.Row type="two-input-two-icon">
   <DateRangeInput
     startValue={startValue}
@@ -363,8 +363,8 @@ import { Panel } from "@choiceform/design-system"
 ### Complete Implementation
 
 ```tsx
-import { DateRangeInput } from "@choiceform/design-system"
-import { Panel } from "@choiceform/design-system"
+import { DateRangeInput } from "@choice-ui/react"
+import { Panel } from "@choice-ui/react"
 import { addDays } from "date-fns"
 import { zhCN } from "date-fns/locale"
 import { useState } from "react"

@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { ChevronLeftSmall, ChevronRightSmall, Undo } from "@choiceform/icons-react"
 import { format } from "date-fns"
 import { forwardRef } from "react"

@@ -14,10 +14,10 @@ A powerful markdown renderer component with GitHub Flavored Markdown (GFM) suppo
 
 ## Installation
 
-The MdRender component is part of the `@choiceform/design-system` package.
+The MdRender component is part of the `@choice-ui/react` package.
 
 ```bash
-pnpm add @choiceform/design-system
+pnpm add @choice-ui/react
 ```
 
 ## Basic Usage
@@ -25,7 +25,7 @@ pnpm add @choiceform/design-system
 ### Simple Rendering
 
 ```tsx
-import { MdRender } from "@choiceform/design-system"
+import { MdRender } from "@choice-ui/react"
 
 function App() {
   const markdown = `# Hello World
@@ -284,8 +284,8 @@ Enhanced readability for long-form content:
 ### Custom Mention Rendering
 
 ```tsx
-import { MdRender } from "@choiceform/design-system"
-import { Avatar } from "@choiceform/design-system"
+import { MdRender } from "@choice-ui/react"
+import { Avatar } from "@choice-ui/react"
 
 const mentionItems = [
   {
@@ -347,8 +347,8 @@ URLs not matching the allowed prefixes will be filtered out.
 ### Mentions with Rich Tooltips
 
 ```tsx
-import { MdRender } from "@choiceform/design-system"
-import { Avatar, Tooltip } from "@choiceform/design-system"
+import { MdRender } from "@choice-ui/react"
+import { Avatar, Tooltip } from "@choice-ui/react"
 
 const CustomMention = ({ mention, mentionItems }: MentionRenderProps) => {
   const user = mentionItems?.find((item) => item.label === mention)
@@ -621,7 +621,7 @@ Use `allowedPrefixes` to whitelist safe domains:
 MdRender is designed to work seamlessly with MdInput for a complete editing experience:
 
 ```tsx
-import { MdInput } from "@choiceform/design-system"
+import { MdInput } from "@choice-ui/react"
 
 function Editor() {
   const [value, setValue] = useState("")

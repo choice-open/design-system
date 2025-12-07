@@ -1,5 +1,5 @@
-import { CodeBlock, getDefaultFilenameForLanguage } from "@choiceform/code-block"
-import { tcx } from "@choiceform/design-shared"
+import { CodeBlock, getDefaultFilenameForLanguage } from "@choice-ui/code-block"
+import { tcx } from "@choice-ui/shared"
 import {
   DetailedHTMLProps,
   forwardRef,

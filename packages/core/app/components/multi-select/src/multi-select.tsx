@@ -1,6 +1,6 @@
-import { ChipProps } from "@choiceform/chip"
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { ChipProps } from "@choice-ui/chip"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import {
   MenuContext,
   MenuContextContent,
@@ -13,7 +13,7 @@ import {
   useMenuScroll,
   useMenuScrollHeight,
   type MenuContextItemProps,
-} from "@choiceform/menus"
+} from "@choice-ui/menus"
 import {
   autoUpdate,
   flip,

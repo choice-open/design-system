@@ -1,6 +1,6 @@
 "use client"
 
-import { CodeBlock, Tabs, tcx } from "@choiceform/design-system"
+import { CodeBlock, Tabs, tcx } from "@choice-ui/react"
 import { useState } from "react"
 
 type ComponentPreviewProps = React.HTMLAttributes<HTMLDivElement> & {

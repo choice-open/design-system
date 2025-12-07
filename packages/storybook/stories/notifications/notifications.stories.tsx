@@ -1,4 +1,4 @@
-import { Button, Dialog, notifications } from "@choiceform/design-system";
+import { Button, Dialog, notifications } from "@choice-ui/react";
 import { LayoutWallpaper } from "@choiceform/icons-react";
 import type { StoryObj } from "@storybook/react-vite";
 import React, { useEffect, useState } from "react";

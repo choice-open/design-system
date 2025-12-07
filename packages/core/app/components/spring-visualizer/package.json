@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/spring-visualizer",
+  "name": "@choice-ui/spring-visualizer",
   "version": "0.0.2",
   "description": "Spring Visualizer component for Choiceform Design System",
   "sideEffects": false,
@@ -27,7 +27,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*"
+    "@choice-ui/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

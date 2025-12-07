@@ -1,5 +1,5 @@
-import { Checkbox } from "@choiceform/checkbox"
-import { Input } from "@choiceform/input"
+import { Checkbox } from "@choice-ui/checkbox"
+import { Input } from "@choice-ui/input"
 import { useCallback, useMemo, useState } from "react"
 import type { BaseFieldInputProps } from "./types"
 

@@ -5,7 +5,7 @@ A React hook that temporarily disables scrolling on parent containers when an el
 ## Import
 
 ```typescript
-import { useDisableScroll } from "@choiceform/design-system/hooks";
+import { useDisableScroll } from "@choice-ui/react/hooks";
 ```
 
 ## Usage
@@ -51,7 +51,7 @@ function Select({ options }) {
 
 ```typescript
 function useDisableScroll(
-  options: UseDisableScrollOptions,
+  options: UseDisableScrollOptions
 ): UseDisableScrollReturn;
 
 interface UseDisableScrollOptions {

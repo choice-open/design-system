@@ -1,4 +1,4 @@
-import { Kbd } from "@choiceform/kbd"
+import { Kbd } from "@choice-ui/kbd"
 import { TooltipContent } from "./components/tooltip-content"
 import { TooltipTrigger } from "./components/tooltip-trigger"
 import { TooltipContext, PORTAL_ROOT_ID } from "./context/tooltip-context"

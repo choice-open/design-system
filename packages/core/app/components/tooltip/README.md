@@ -5,7 +5,7 @@ A lightweight floating component for displaying helpful information on hover or 
 ## Import
 
 ```tsx
-import { Tooltip, TooltipProvider } from "@choiceform/design-system"
+import { Tooltip, TooltipProvider } from "@choice-ui/react"
 ```
 
 ## Features

@@ -1,5 +1,5 @@
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import { ComponentPropsWithoutRef, forwardRef } from "react"
 import { ITEM_PROGRESS_NAME } from "../constants"
 import { useFileUploadItemContext } from "../hooks"

@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { Remove } from "@choiceform/icons-react"
 import { motion, useAnimationControls } from "framer-motion"
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"

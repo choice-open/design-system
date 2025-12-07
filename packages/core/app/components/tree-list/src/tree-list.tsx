@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { ScrollArea } from "@choiceform/scroll-area"
+import { tcx } from "@choice-ui/shared"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import React, {
   createContext,

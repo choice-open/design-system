@@ -5,7 +5,7 @@ A global dialog system that provides alert, confirm, and custom dialog functiona
 ## Import
 
 ```tsx
-import { AlertDialogProvider, useAlertDialog } from "@choiceform/design-system"
+import { AlertDialogProvider, useAlertDialog } from "@choice-ui/react"
 ```
 
 ## Features
@@ -25,7 +25,7 @@ import { AlertDialogProvider, useAlertDialog } from "@choiceform/design-system"
 Wrap your app with the provider:
 
 ```tsx
-import { AlertDialogProvider } from "@choiceform/design-system"
+import { AlertDialogProvider } from "@choice-ui/react"
 
 function App() {
   return <AlertDialogProvider>{/* Your app content */}</AlertDialogProvider>

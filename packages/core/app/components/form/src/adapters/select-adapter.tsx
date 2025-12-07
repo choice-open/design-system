@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import { Select } from "@choiceform/select"
+import { Select } from "@choice-ui/select"
 import type { SelectAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

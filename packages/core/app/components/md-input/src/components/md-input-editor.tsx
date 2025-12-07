@@ -1,5 +1,5 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
-import { Textarea, type TextareaProps } from "@choiceform/textarea"
+import { mergeRefs, tcx } from "@choice-ui/shared"
+import { Textarea, type TextareaProps } from "@choice-ui/textarea"
 import { forwardRef, memo, useEffect, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { useMdInputContext } from "../context"

@@ -1,5 +1,5 @@
-import type { YearCalendarProps } from "@choiceform/design-system";
-import { YearCalendar } from "@choiceform/design-system";
+import type { YearCalendarProps } from "@choice-ui/react";
+import { YearCalendar } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 

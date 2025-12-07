@@ -5,7 +5,7 @@ React hooks for handling press interactions with unified mouse, touch, and keybo
 ## Import
 
 ```typescript
-import { usePress, usePressMove } from "@choiceform/design-system/hooks";
+import { usePress, usePressMove } from "@choice-ui/react/hooks";
 ```
 
 ## Usage

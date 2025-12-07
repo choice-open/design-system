@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { AnimatePresence, motion } from "framer-motion"
 import React, { forwardRef, useEffect, useRef, useState } from "react"
 import { LoaderProvider } from "./hooks"

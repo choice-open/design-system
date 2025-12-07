@@ -5,7 +5,7 @@ An accessible radio group component styled as a segmented control, providing a c
 ## Import
 
 ```tsx
-import { Segmented } from "@choiceform/design-system"
+import { Segmented } from "@choice-ui/react"
 ```
 
 ## Features

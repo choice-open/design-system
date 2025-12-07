@@ -1,4 +1,4 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
+import { mergeRefs, tcx } from "@choice-ui/shared"
 import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from "react"
 import {
   SortableItem,

@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Label } from "@choiceform/label"
+import { tcx } from "@choice-ui/shared"
+import { Label } from "@choice-ui/label"
 import { ReactNode } from "react"
 import { FormTv } from "../tv"
 

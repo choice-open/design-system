@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import { PressMoveProps } from "@choiceform/design-shared"
+import { PressMoveProps } from "@choice-ui/shared"
 import { NumericInputValue, NumericChangeDetail } from "../types"
 
 export interface NumericInputContextValue {

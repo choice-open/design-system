@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, useMemo } from "react"
 import { useScrollAreaContext } from "../context/scroll-area-context"
 import { ScrollTv } from "../tv"

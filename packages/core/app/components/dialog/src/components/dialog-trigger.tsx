@@ -1,4 +1,4 @@
-import { Slot } from "@choiceform/slot"
+import { Slot } from "@choice-ui/slot"
 import { forwardRef, memo } from "react"
 import { useDialogContext } from "../dialog-context"
 

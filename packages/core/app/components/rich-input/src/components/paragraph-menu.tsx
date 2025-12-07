@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { useEffect } from "react"
 import { buttonTv, floatingMenuTv } from "../tv"
 import type { CustomElement, ParagraphMenuProps } from "../types"

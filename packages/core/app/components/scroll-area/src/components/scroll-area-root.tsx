@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, useId, useMemo, useState } from "react"
 import { ScrollAreaContext } from "../context/scroll-area-context"
 import { useScrollStateAndVisibility } from "../hooks"

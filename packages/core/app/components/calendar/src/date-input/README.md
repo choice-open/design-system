@@ -5,7 +5,7 @@ A sophisticated date input component with intelligent parsing, prediction, and r
 ## Import
 
 ```tsx
-import { DateInput } from "@choiceform/design-system"
+import { DateInput } from "@choice-ui/react"
 ```
 
 ## Features
@@ -239,8 +239,8 @@ Invalid dates are automatically corrected:
 ## Integration Example
 
 ```tsx
-import { MonthCalendar } from "@choiceform/design-system"
-import { Popover } from "@choiceform/design-system"
+import { MonthCalendar } from "@choice-ui/react"
+import { Popover } from "@choice-ui/react"
 import { useState } from "react"
 
 function DateSelector() {

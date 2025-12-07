@@ -1,5 +1,5 @@
-import { useI18n } from "@choiceform/design-shared"
-import { ScrollArea } from "@choiceform/scroll-area"
+import { useI18n } from "@choice-ui/shared"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import { useMergeRefs } from "@floating-ui/react"
 import React, { forwardRef, useCallback, useRef } from "react"
 import { Descendant } from "slate"

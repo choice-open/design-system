@@ -6,7 +6,7 @@ import {
   TimeCalendar,
   TimeInput,
   TimeRangeInput,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { ActionWaitForSomeTime } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { enUS } from "date-fns/locale";

@@ -1,7 +1,4 @@
-import {
-  AlertDialogProvider,
-  TooltipProvider,
-} from "@choiceform/design-system";
+import { AlertDialogProvider, TooltipProvider } from "@choice-ui/react";
 import { Preview } from "@storybook/react-vite";
 import "../styles/tailwind.css";
 import "./global.css";

@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/range",
+  "name": "@choice-ui/range",
   "version": "0.0.4",
   "description": "Range components for Choiceform Design System",
   "sideEffects": false,
@@ -27,7 +27,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "es-toolkit": "^1.42.0",
     "usehooks-ts": "^3.1.0"
   },

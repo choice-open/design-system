@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/skeleton",
+  "name": "@choice-ui/skeleton",
   "version": "0.0.2",
   "description": "Skeleton component for Choiceform Design System",
   "sideEffects": false,
@@ -27,8 +27,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/slot": "workspace:*"
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/slot": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

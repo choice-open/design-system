@@ -1,6 +1,6 @@
-import { CodeBlock } from "@choiceform/code-block"
+import { CodeBlock } from "@choice-ui/code-block"
 import { Check } from "@choiceform/icons-react"
-import { ScrollArea } from "@choiceform/scroll-area"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import { Children, memo } from "react"
 import type { Components } from "react-markdown"
 import { mdRenderTv } from "../tv"

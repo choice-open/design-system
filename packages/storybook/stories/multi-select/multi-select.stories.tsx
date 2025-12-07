@@ -1,4 +1,4 @@
-import { ChipProps, MultiSelect, Select, tcx } from "@choiceform/design-system";
+import { ChipProps, MultiSelect, Select, tcx } from "@choice-ui/react";
 import {
   FieldTypeAttachment,
   FieldTypeCheckbox,

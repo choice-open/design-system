@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, memo } from "react"
 import { useMdInputContext } from "../context"
 import { mdInputTv } from "../tv"

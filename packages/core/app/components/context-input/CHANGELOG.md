@@ -88,7 +88,7 @@ All notable changes to the Context Input component will be documented in this fi
 ### Changed
 
 - Enhance component structure and update dependencies for improved usability
-- Update @choiceform/design-system version to 0.9.997, add clear function test and optimize ContextInput component
+- Update @choice-ui/react version to 0.9.997, add clear function test and optimize ContextInput component
 
 ## [2025-05-08]
 

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { Use } from "@choiceform/icons-react"
 import { ElementType, forwardRef, memo, useMemo, useState, type HTMLProps } from "react"
 import tinycolor from "tinycolor2"

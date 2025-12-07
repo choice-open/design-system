@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/progress",
+  "name": "@choice-ui/progress",
   "version": "0.0.2",
   "description": "Progress components for Choiceform Design System",
   "sideEffects": false,
@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "tinycolor2": "^1.6.0",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/label": "workspace:*"
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/label": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

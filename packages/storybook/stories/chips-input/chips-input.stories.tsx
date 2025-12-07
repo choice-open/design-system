@@ -1,4 +1,4 @@
-import { ChipsInput, RenderChipProps } from "@choiceform/design-system";
+import { ChipsInput, RenderChipProps } from "@choice-ui/react";
 import { RemoveSmall } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";

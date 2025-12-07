@@ -5,7 +5,7 @@ A compact, interactive element used to display tags, filters, selections, or att
 ## Import
 
 ```tsx
-import { Chip } from "@choiceform/design-system"
+import { Chip } from "@choice-ui/react"
 ```
 
 ## Features

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { CheckboxBtn, CheckboxBtnChecked } from "@choiceform/icons-react"
 import { memo } from "react"
 import { Transforms } from "slate"

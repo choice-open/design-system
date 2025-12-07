@@ -1,10 +1,5 @@
-import type { MentionRenderProps } from "@choiceform/design-system";
-import {
-  Avatar,
-  MdRender,
-  ScrollArea,
-  Tooltip,
-} from "@choiceform/design-system";
+import type { MentionRenderProps } from "@choice-ui/react";
+import { Avatar, MdRender, ScrollArea, Tooltip } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useRef, useState } from "react";
 import { useStickToBottom } from "use-stick-to-bottom";
@@ -257,7 +252,7 @@ def quicksort(arr):
 
 \`\`\`json
 {
-  "name": "@choiceform/design-system",
+  "name": "@choice-ui/react",
   "version": "1.0.3",
   "dependencies": {
     "react": "^18.3.1"
@@ -685,13 +680,13 @@ This project demonstrates the **MdRender** component with full GitHub Flavored M
 ## Installation
 
 \`\`\`bash
-npm install @choiceform/design-system
+npm install @choice-ui/react
 \`\`\`
 
 ## Quick Start
 
 \`\`\`typescript
-import { Render } from '@choiceform/design-system';
+import { Render } from '@choice-ui/react';
 
 function App() {
   const content = "# Hello World\\n\\nThis is **markdown**!";
@@ -1024,19 +1019,19 @@ Key benefits:
 
 \`\`\`bash
 # Using npm
-npm install @choiceform/design-system
+npm install @choice-ui/react
 
 # Using pnpm
-pnpm add @choiceform/design-system
+pnpm add @choice-ui/react
 
 # Using yarn
-yarn add @choiceform/design-system
+yarn add @choice-ui/react
 \`\`\`
 
 ### Basic Example
 
 \`\`\`typescript
-import { Render } from '@choiceform/design-system';
+import { Render } from '@choice-ui/react';
 
 export function MyComponent() {
   const markdown = \`
@@ -1347,13 +1342,13 @@ Before you begin, make sure you have the following prerequisites:
 ### Installation
 
 \`\`\`bash
-npm install @choiceform/design-system
+npm install @choice-ui/react
 \`\`\`
 
 ### Quick Start
 
 \`\`\`typescript
-import { MdRender } from '@choiceform/design-system';
+import { MdRender } from '@choice-ui/react';
 
 export function App() {
   const content = "# Hello World";
@@ -1480,7 +1475,7 @@ Welcome to our documentation! Let's begin with the basics.`,
 First, install the package using your preferred package manager:
 
 \`\`\`bash
-npm install @choiceform/design-system
+npm install @choice-ui/react
 \`\`\``,
 
   `
@@ -1490,7 +1485,7 @@ npm install @choiceform/design-system
 Here's a simple example to get you started:
 
 \`\`\`typescript
-import { Button } from '@choiceform/design-system'
+import { Button } from '@choice-ui/react'
 
 export function App() {
   return <Button>Click me</Button>
@@ -1527,7 +1522,7 @@ Our design system includes:
 
 \`\`\`tsx
 import React, { useState } from 'react'
-import { Button, Input } from '@choiceform/design-system'
+import { Button, Input } from '@choice-ui/react'
 
 export function LoginForm() {
   const [email, setEmail] = useState('')

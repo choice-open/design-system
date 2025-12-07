@@ -1,4 +1,4 @@
-import { Tabs } from "@choiceform/tabs"
+import { Tabs } from "@choice-ui/tabs"
 import { forwardRef, memo } from "react"
 import { useMdInputContext } from "../context"
 

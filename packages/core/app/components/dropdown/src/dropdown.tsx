@@ -1,5 +1,5 @@
-import { getDocument, tcx } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
+import { getDocument, tcx } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
 import {
   MenuButton,
   MenuContext,
@@ -17,7 +17,7 @@ import {
   useMenuScroll,
   useMenuScrollHeight,
   useMenuTree,
-} from "@choiceform/menus"
+} from "@choice-ui/menus"
 import {
   autoUpdate,
   flip,
@@ -56,7 +56,7 @@ import React, {
   useState,
 } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useIsomorphicLayoutEffect } from "@choiceform/design-shared"
+import { useIsomorphicLayoutEffect } from "@choice-ui/shared"
 
 const PORTAL_ROOT_ID = "floating-menu-root"
 const DEFAULT_OFFSET = 4

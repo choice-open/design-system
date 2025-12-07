@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { LockSmall, Visible } from "@choiceform/icons-react"
 import { useMemo } from "react"
 

@@ -1,4 +1,4 @@
-import { Avatar } from "@choiceform/design-system";
+import { Avatar } from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useMemo } from "react";

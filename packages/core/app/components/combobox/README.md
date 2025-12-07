@@ -5,7 +5,7 @@ A searchable dropdown component that combines a text input with a list of select
 ## Import
 
 ```tsx
-import { Combobox } from "@choiceform/design-system"
+import { Combobox } from "@choice-ui/react"
 import { useState, useMemo } from "react"
 ```
 

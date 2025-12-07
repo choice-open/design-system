@@ -5,11 +5,11 @@ import {
   createDateFormatter,
   formatSimpleDate,
   formatTime,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type {
   FormatRelativeTimeOptions,
   SupportedLanguage,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 
 // Mock component to demonstrate the formatting utilities
 const DateFormattingDemo = ({

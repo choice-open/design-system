@@ -9,7 +9,7 @@ import {
   Select,
   Tabs,
   tcx,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Placement as FloatingPlacement } from "@floating-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";

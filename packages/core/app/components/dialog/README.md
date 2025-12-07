@@ -5,7 +5,7 @@ A flexible, accessible modal dialog component with advanced positioning, draggin
 ## Import
 
 ```tsx
-import { Dialog } from "@choiceform/design-system"
+import { Dialog } from "@choice-ui/react"
 ```
 
 ## Features

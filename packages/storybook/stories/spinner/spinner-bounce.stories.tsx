@@ -1,4 +1,4 @@
-import { SpinnerBounce } from "@choiceform/design-system";
+import { SpinnerBounce } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof SpinnerBounce> = {

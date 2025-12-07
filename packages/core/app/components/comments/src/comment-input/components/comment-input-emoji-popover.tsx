@@ -1,5 +1,5 @@
-import { EmojiData, EmojiPicker } from "@choiceform/emoji-picker"
-import { Popover } from "@choiceform/popover"
+import { EmojiData, EmojiPicker } from "@choice-ui/emoji-picker"
+import { Popover } from "@choice-ui/popover"
 import { useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 

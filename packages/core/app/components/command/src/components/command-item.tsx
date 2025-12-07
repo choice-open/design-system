@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Kbd, type KbdKey } from "@choiceform/kbd"
+import { tcx } from "@choice-ui/shared"
+import { Kbd, type KbdKey } from "@choice-ui/kbd"
 import React, { forwardRef, HTMLProps, ReactNode, useEffect, useMemo, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { GroupContext, useCommand, useCommandState, useValue } from "../hooks"

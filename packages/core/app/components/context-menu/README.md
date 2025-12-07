@@ -5,7 +5,7 @@ A right-click context menu component that provides contextual actions for any el
 ## Import
 
 ```tsx
-import { ContextMenu } from "@choiceform/design-system"
+import { ContextMenu } from "@choice-ui/react"
 ```
 
 ## Features

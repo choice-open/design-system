@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import type { MouseEvent, ReactNode } from "react"
 import { TreeNodeType } from "../types"
 

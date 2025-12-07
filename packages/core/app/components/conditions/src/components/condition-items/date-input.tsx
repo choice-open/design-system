@@ -1,5 +1,5 @@
-import { DateInput as CoreDateInput, MonthCalendar } from "@choiceform/calendar"
-import { Popover } from "@choiceform/popover"
+import { DateInput as CoreDateInput, MonthCalendar } from "@choice-ui/calendar"
+import { Popover } from "@choice-ui/popover"
 import { format, isValid, parse, parseISO } from "date-fns"
 import { useRef, useState } from "react"
 import { ConditionsFieldType } from "../../types"

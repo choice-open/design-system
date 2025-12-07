@@ -5,7 +5,7 @@ A specialized calendar component for year selection with flexible range and disp
 ## Import
 
 ```tsx
-import { YearCalendar } from "@choiceform/design-system"
+import { YearCalendar } from "@choice-ui/react"
 ```
 
 ## Features
@@ -588,8 +588,8 @@ The component uses a grid-based layout with:
 ### With Date Picker
 
 ```tsx
-import { DateInput } from "@choiceform/design-system"
-import { Popover } from "@choiceform/design-system"
+import { DateInput } from "@choice-ui/react"
+import { Popover } from "@choice-ui/react"
 
 function YearDatePicker() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)

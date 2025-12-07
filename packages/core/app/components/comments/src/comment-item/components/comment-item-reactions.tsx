@@ -1,6 +1,6 @@
-import { IconButton } from "@choiceform/icon-button"
+import { IconButton } from "@choice-ui/icon-button"
 import { DeleteReaction } from "@choiceform/icons-react"
-import { Tooltip } from "@choiceform/tooltip"
+import { Tooltip } from "@choice-ui/tooltip"
 import React, { memo, useMemo } from "react"
 import type { Reaction, User } from "../../types"
 import { CommentItemReactionsTv } from "../tv"

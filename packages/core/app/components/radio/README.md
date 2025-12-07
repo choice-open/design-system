@@ -5,7 +5,7 @@ A form control component that allows users to select exactly one option from a s
 ## Import
 
 ```tsx
-import { Radio, RadioGroup } from "@choiceform/design-system"
+import { Radio, RadioGroup } from "@choice-ui/react"
 ```
 
 ## Features

@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { NumericInput, type NumericInputValue } from "@choiceform/numeric-input"
+import { NumericInput, type NumericInputValue } from "@choice-ui/numeric-input"
 import type { BaseFieldInputProps } from "./types"
 
 export function ArrayLengthInput({ condition, disabled, onChange }: BaseFieldInputProps) {

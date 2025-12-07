@@ -1,17 +1,17 @@
-import { ContextMenu } from "@choiceform/design-system";
+import { ContextMenu } from "@choice-ui/react";
 import { Element, ToolbarFrame } from "@choiceform/icons-react";
-import { Splitter } from "@choiceform/design-system";
+import { Splitter } from "@choice-ui/react";
 import { observable } from "@legendapp/state";
 import { observer } from "@legendapp/state/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { TreeList } from "@choiceform/design-system";
+import { TreeList } from "@choice-ui/react";
 import {
   DropPosition,
   TreeListHandle,
   TreeNodeData,
   TreeNodeType,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 
 // 生成示例数据（带可预测的ID结构，便于调试）
 const generateDemoTreeData = (): TreeNodeData[] => {
@@ -124,7 +124,7 @@ console.log("🤖 ~ demoTreeData:", demoTreeData);
 
 const generateLargeTestData = (
   rootCount = 500,
-  childrenPerRoot = 20,
+  childrenPerRoot = 20
 ): TreeNodeData[] => {
   const result: TreeNodeData[] = [];
 
@@ -211,7 +211,7 @@ const treeState = observable({
 const findNodePath = (
   nodes: TreeNodeData[],
   targetId: string,
-  path: TreeNodeData[] = [],
+  path: TreeNodeData[] = []
 ): TreeNodeData[] | null => {
   for (const node of nodes) {
     const currentPath = [...path, node];
@@ -300,7 +300,7 @@ const ComprehensiveTreeList = observer(() => {
   const handleNodeDrop = (
     sourceNodes: TreeNodeType[],
     targetNode: TreeNodeType,
-    position: DropPosition,
+    position: DropPosition
   ) => {
     try {
       // 实际处理拖放逻辑
@@ -315,14 +315,14 @@ const ComprehensiveTreeList = observer(() => {
         "处理拖放操作：",
         sourceNodes.map((n) => n.id),
         targetNode.id,
-        position,
+        position
       );
 
       // 查找节点的父节点路径
       const findNodePath = (
         nodes: TreeNodeData[],
         id: string,
-        path: (number | string)[] = [],
+        path: (number | string)[] = []
       ): (number | string)[] | null => {
         for (let i = 0; i < nodes.length; i++) {
           if (nodes[i].id === id) {
@@ -345,7 +345,7 @@ const ComprehensiveTreeList = observer(() => {
       const isDescendantOf = (
         data: TreeNodeData[],
         targetId: string,
-        sourceId: string,
+        sourceId: string
       ): boolean => {
         // 获取目标节点的完整路径
         const targetPath = findNodePath(data, targetId);
@@ -375,7 +375,7 @@ const ComprehensiveTreeList = observer(() => {
       // 根据路径获取节点引用
       const getNodeByPath = (
         nodes: TreeNodeData[],
-        path: (number | string)[],
+        path: (number | string)[]
       ): TreeNodeData | null => {
         let current: TreeNodeData[] | TreeNodeData | null = nodes;
         for (const segment of path) {
@@ -395,7 +395,7 @@ const ComprehensiveTreeList = observer(() => {
       // 根据路径删除节点
       const removeNodeByPath = (
         nodes: TreeNodeData[],
-        path: (number | string)[],
+        path: (number | string)[]
       ): TreeNodeData[] => {
         // 创建深拷贝以避免修改原始数据
         const result = JSON.parse(JSON.stringify(nodes)) as TreeNodeData[];
@@ -430,7 +430,7 @@ const ComprehensiveTreeList = observer(() => {
         nodes: TreeNodeData[],
         path: (number | string)[],
         nodeToInsert: TreeNodeData,
-        position: DropPosition,
+        position: DropPosition
       ): TreeNodeData[] => {
         // 创建深拷贝
         const result = JSON.parse(JSON.stringify(nodes)) as TreeNodeData[];
@@ -497,7 +497,7 @@ const ComprehensiveTreeList = observer(() => {
         const folderNodes = sourceNodes.filter(
           (node) =>
             Boolean(node.children && node.children.length > 0) ||
-            Boolean(node.isFolder),
+            Boolean(node.isFolder)
         );
 
         for (const sourceNode of folderNodes) {
@@ -507,7 +507,7 @@ const ComprehensiveTreeList = observer(() => {
               "不能将文件夹拖拽到其自身的子节点中",
               sourceNode.id,
               "->",
-              targetNode.id,
+              targetNode.id
             );
             return; // 禁止操作
           }
@@ -564,7 +564,7 @@ const ComprehensiveTreeList = observer(() => {
       if (!targetPath) {
         console.error(
           "移除源节点后找不到目标节点（可能是循环引用导致）:",
-          targetNode.id,
+          targetNode.id
         );
         return;
       }
@@ -605,10 +605,10 @@ const ComprehensiveTreeList = observer(() => {
 
   const [containerWidth, setContainerWidth] = useState(0);
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [expandedNodeIds, setExpandedNodeIds] = useState<Set<string>>(
-    new Set(),
+    new Set()
   );
   const [pendingSelection, setPendingSelection] = useState<string | null>(null);
   const treeListRef = useRef<TreeListHandle>(null);
@@ -623,10 +623,10 @@ const ComprehensiveTreeList = observer(() => {
     path: string[];
   } | null>(null);
   const [lastActionLog, setLastActionLog] = useState<string>(
-    "No node actions triggered yet",
+    "No node actions triggered yet"
   );
   const [contextMenuNode, setContextMenuNode] = useState<TreeNodeType | null>(
-    null,
+    null
   );
 
   const handleNodeHover = useCallback(
@@ -635,10 +635,10 @@ const ComprehensiveTreeList = observer(() => {
       const path = findNodePath(snapshot, node.id);
       const pathNames = path?.map((item) => item.name) ?? [];
       setLastHoveredNode(
-        isHovered ? { node, isHovered, path: pathNames } : null,
+        isHovered ? { node, isHovered, path: pathNames } : null
       );
     },
-    [],
+    []
   );
 
   const renderNodeLabel = useCallback(
@@ -647,7 +647,7 @@ const ComprehensiveTreeList = observer(() => {
         {node.isFolder ? "📁" : "📄"} {node.name}
       </span>
     ),
-    [],
+    []
   );
 
   const renderNodeActions = useCallback(
@@ -680,7 +680,7 @@ const ComprehensiveTreeList = observer(() => {
         </button>
       </div>
     ),
-    [setLastActionLog],
+    [setLastActionLog]
   );
 
   const handleIconDoubleClick = useCallback((node?: TreeNodeType) => {
@@ -716,7 +716,7 @@ const ComprehensiveTreeList = observer(() => {
         triggerElement.dispatchEvent(syntheticEvent);
       });
     },
-    [contextMenuTriggerRef],
+    [contextMenuTriggerRef]
   );
 
   const handleContextMenuAction = useCallback(
@@ -729,7 +729,7 @@ const ComprehensiveTreeList = observer(() => {
       setLastActionLog(actionLabel);
       console.info(`[TreeList Story] ${actionLabel}`, contextMenuNode);
     },
-    [contextMenuNode],
+    [contextMenuNode]
   );
 
   const triggerHover = useCallback(() => {
@@ -739,7 +739,7 @@ const ComprehensiveTreeList = observer(() => {
       return;
     }
     const target = document.querySelector<HTMLElement>(
-      `[data-node-id="${targetId}"]`,
+      `[data-node-id="${targetId}"]`
     );
     if (!target) {
       return;
@@ -767,7 +767,7 @@ const ComprehensiveTreeList = observer(() => {
     const path = findNodePath(snapshot, "2-1-1");
     if (!path) {
       console.warn(
-        "[TreeList Story] Target node 2-1-1 not found for external selection",
+        "[TreeList Story] Target node 2-1-1 not found for external selection"
       );
       return;
     }
@@ -820,7 +820,7 @@ const ComprehensiveTreeList = observer(() => {
     // Check if target node appears in DOM
     const checkNodeInDOM = () => {
       const targetElement = document.querySelector<HTMLElement>(
-        `[data-node-id="${pendingSelection}"]`,
+        `[data-node-id="${pendingSelection}"]`
       );
       return targetElement !== null;
     };
@@ -847,7 +847,7 @@ const ComprehensiveTreeList = observer(() => {
       } else if (attempts >= maxAttempts) {
         // Timeout: node didn't appear, give up
         console.warn(
-          `[TreeList Story] Timeout waiting for node ${pendingSelection} to appear in DOM`,
+          `[TreeList Story] Timeout waiting for node ${pendingSelection} to appear in DOM`
         );
         setPendingSelection(null);
         clearInterval(pollForNode);
@@ -867,11 +867,11 @@ const ComprehensiveTreeList = observer(() => {
 
     const ensureExpanded = (nodeId: string) => {
       const container = document.querySelector<HTMLElement>(
-        `[data-node-id="${nodeId}"]`,
+        `[data-node-id="${nodeId}"]`
       );
       if (!container) {
         console.warn(
-          `[TreeList Story] Node ${nodeId} not found while expanding`,
+          `[TreeList Story] Node ${nodeId} not found while expanding`
         );
         return false;
       }
@@ -883,7 +883,7 @@ const ComprehensiveTreeList = observer(() => {
       const toggleButton = container.querySelector<HTMLButtonElement>("button");
       if (!toggleButton) {
         console.warn(
-          `[TreeList Story] Expand toggle not found for node ${nodeId}`,
+          `[TreeList Story] Expand toggle not found for node ${nodeId}`
         );
         return false;
       }
@@ -902,17 +902,17 @@ const ComprehensiveTreeList = observer(() => {
         document.querySelector<HTMLElement>(`[data-node-id="1-2"]`);
       if (!targetContainer) {
         console.warn(
-          "[TreeList Story] Target node 1-2 not found for rename trigger",
+          "[TreeList Story] Target node 1-2 not found for rename trigger"
         );
         return;
       }
 
       const renameTrigger = targetContainer.querySelector<HTMLElement>(
-        "span.whitespace-pre",
+        "span.whitespace-pre"
       );
       if (!renameTrigger) {
         console.warn(
-          "[TreeList Story] Rename trigger element not found for node 1-2",
+          "[TreeList Story] Rename trigger element not found for node 1-2"
         );
         return;
       }
@@ -949,7 +949,7 @@ const ComprehensiveTreeList = observer(() => {
         .filter((node): node is TreeNodeType => node !== undefined);
       treeState.expandedNodes.set(expandedNodes);
     },
-    [],
+    []
   );
 
   // Handle collapse all expanded nodes
@@ -1110,7 +1110,7 @@ const ComprehensiveTreeList = observer(() => {
 
                 if (!targetNode) {
                   console.warn(
-                    "[TreeList Story] Please select a node before double clicking the demo area.",
+                    "[TreeList Story] Please select a node before double clicking the demo area."
                   );
                   return;
                 }
@@ -1142,10 +1142,10 @@ export const Comprehensive: Story = {
 
 const LabelVisibilityDemo = () => {
   const [withActionsSelection, setWithActionsSelection] = useState<Set<string>>(
-    () => new Set(),
+    () => new Set()
   );
   const [plainSelection, setPlainSelection] = useState<Set<string>>(
-    () => new Set(),
+    () => new Set()
   );
   const containerWidth = 320;
 
@@ -1155,7 +1155,7 @@ const LabelVisibilityDemo = () => {
         {node.name}
       </span>
     ),
-    [],
+    []
   );
 
   const renderIcon = useCallback(
@@ -1165,7 +1165,7 @@ const LabelVisibilityDemo = () => {
       ) : (
         <Element />
       ),
-    [],
+    []
   );
 
   const renderActions = useCallback(
@@ -1182,14 +1182,14 @@ const LabelVisibilityDemo = () => {
         Quick view
       </button>
     ),
-    [],
+    []
   );
 
   const handleSelectionChange = useCallback(
     (nodes: TreeNodeType[], setter: (ids: Set<string>) => void) => {
       setter(new Set(nodes.map((node) => node.id)));
     },
-    [],
+    []
   );
 
   return (
@@ -1251,7 +1251,7 @@ const LargeDatasetTreeList = () => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [virtualScroll, setVirtualScroll] = useState(true);
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(
-    () => new Set(),
+    () => new Set()
   );
 
   const handleNodeSelect = useCallback((nodes: TreeNodeType[]) => {

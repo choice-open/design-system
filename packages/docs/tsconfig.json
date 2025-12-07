@@ -21,8 +21,8 @@
     "paths": {
       "@/*": ["./*"],
       "~/*": ["../core/app/*"],
-      "@choiceform/design-system": ["../core/app/index.ts"],
-      "@choiceform/design-system/*": ["../core/app/*"]
+      "@choice-ui/react": ["../core/app/index.ts"],
+      "@choice-ui/react/*": ["../core/app/*"]
     },
     "types": ["node", "react", "react-dom"]
   },

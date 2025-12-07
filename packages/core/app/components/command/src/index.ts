@@ -2,7 +2,7 @@ export { Command as CommandRoot, defaultFilter } from "./command"
 export { useCommandState } from "./hooks"
 
 import { Command as CommandRoot } from "./command"
-import { TabItem } from "@choiceform/tabs"
+import { TabItem } from "@choice-ui/tabs"
 import {
   CommandDivider,
   CommandEmpty,

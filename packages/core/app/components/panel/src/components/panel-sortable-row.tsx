@@ -1,4 +1,4 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
+import { mergeRefs, tcx } from "@choice-ui/shared"
 import { GripVerticalSmall } from "@choiceform/icons-react"
 import { forwardRef, memo, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { useRef } from "react"
 import { VirtualizedGridErrorBoundary } from "./error-boundary"
 import { VirtualizedGridTv } from "./tv"

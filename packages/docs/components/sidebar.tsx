@@ -1,6 +1,6 @@
 "use client"
 
-import { List, ScrollArea, tcx } from "@choiceform/design-system"
+import { List, ScrollArea, tcx } from "@choice-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Fragment } from "react"

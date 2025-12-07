@@ -1,5 +1,5 @@
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, memo, useMemo } from "react"
 import { useSkeletonContext } from "./context"
 import { useSkeleton } from "./hooks"

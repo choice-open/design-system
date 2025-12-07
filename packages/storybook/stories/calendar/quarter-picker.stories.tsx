@@ -1,9 +1,9 @@
-import type { Quarter, QuarterCalendarProps } from "@choiceform/design-system";
+import type { Quarter, QuarterCalendarProps } from "@choice-ui/react";
 import {
   formatQuarter,
   getCurrentQuarter,
   QuarterCalendar,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 

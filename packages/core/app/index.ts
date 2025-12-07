@@ -1,7 +1,7 @@
 export * from "./components"
 
-// Re-export shared utilities from @choiceform/design-shared
-// This allows users to import utilities directly from @choiceform/design-system
+// Re-export shared utilities from @choice-ui/shared
+// This allows users to import utilities directly from @choice-ui/react
 // Using relative path so it gets bundled correctly during build
 export * from "../../shared/src/hooks"
 export * from "../../shared/src/utils"

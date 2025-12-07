@@ -5,7 +5,7 @@ A comprehensive date formatting utility with internationalization support and in
 ## Import
 
 ```typescript
-import { formatRelativeTime } from "@choiceform/design-system/utils";
+import { formatRelativeTime } from "@choice-ui/react/utils";
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ formatRelativeTime(oldDate, {
 ```typescript
 function formatRelativeTime(
   date: Date,
-  options?: FormatRelativeTimeOptions,
+  options?: FormatRelativeTimeOptions
 ): string;
 ```
 

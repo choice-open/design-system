@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { FloatingPortal, useMergeRefs, useTransitionStyles } from "@floating-ui/react"
 import { forwardRef, HTMLProps, ReactNode, useMemo } from "react"
 import { useHintState } from "../context/hint-context"

@@ -5,7 +5,7 @@ A utility function for converting byte values into human-readable file size stri
 ## Import
 
 ```typescript
-import { formatBytes } from "@choiceform/design-system/utils";
+import { formatBytes } from "@choice-ui/react/utils";
 ```
 
 ## Usage

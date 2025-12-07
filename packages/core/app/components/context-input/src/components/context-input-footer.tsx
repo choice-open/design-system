@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, memo } from "react"
 import { contextInputFooterTv } from "./tv"
 

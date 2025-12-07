@@ -34,14 +34,14 @@ const utilAliases = createWorkspaceAliases(path.resolve(coreDir, "app/utils"))
 const nextConfig: NextConfig = {
   /* config options here */
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  transpilePackages: ["@choiceform/design-system"],
+  transpilePackages: ["@choice-ui/react"],
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias ?? {}),
       // styles 路径需要在主包之前
-      "@choiceform/design-system/styles": path.resolve(coreDir, "app/styles"),
-      "@choiceform/design-system": path.resolve(coreDir, "app/index.ts"),
-      "@choiceform/design-shared": path.resolve(__dirname, "../shared/src/index.ts"),
+      "@choice-ui/react/styles": path.resolve(coreDir, "app/styles"),
+      "@choice-ui/react": path.resolve(coreDir, "app/index.ts"),
+      "@choice-ui/shared": path.resolve(__dirname, "../shared/src/index.ts"),
       "~": path.resolve(coreDir, "app"),
       ...componentAliases,
       ...hookAliases,

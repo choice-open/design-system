@@ -5,7 +5,7 @@ A versatile toast-style notification system for displaying temporary messages an
 ## Import
 
 ```tsx
-import { notifications } from "@choiceform/design-system"
+import { notifications } from "@choice-ui/react"
 import { Toaster } from "sonner" // Required for rendering notifications
 ```
 
@@ -43,7 +43,7 @@ function App() {
 ### Basic Notification
 
 ```tsx
-import { notifications } from "@choiceform/design-system"
+import { notifications } from "@choice-ui/react"
 
 // Simple text notification
 notifications({

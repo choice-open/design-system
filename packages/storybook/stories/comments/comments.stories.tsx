@@ -1,5 +1,5 @@
-import type { SubmittedCommentData, User } from "@choiceform/design-system";
-import { Comments, comments$, Dialog, tcx } from "@choiceform/design-system";
+import type { SubmittedCommentData, User } from "@choice-ui/react";
+import { Comments, comments$, Dialog, tcx } from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useRef, useState } from "react";

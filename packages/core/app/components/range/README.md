@@ -5,7 +5,7 @@ A customizable slider component family that allows users to select numeric value
 ## Import
 
 ```tsx
-import { Range, RangeTuple } from "@choiceform/design-system"
+import { Range, RangeTuple } from "@choice-ui/react"
 ```
 
 ## Features
@@ -149,7 +149,7 @@ const [value, setValue] = useState(0)
 ### In a popover
 
 ```tsx
-import { Popover, Button } from "@choiceform/design-system"
+import { Popover, Button } from "@choice-ui/react"
 
 const [value, setValue] = useState(0)
 
@@ -179,7 +179,7 @@ const [value, setValue] = useState(0)
 ### With numeric input
 
 ```tsx
-import { NumericInput } from "@choiceform/design-system"
+import { NumericInput } from "@choice-ui/react"
 
 const [value, setValue] = useState(0)
 
@@ -520,7 +520,7 @@ const [value, setValue] = useState<[number, number]>([20, 80])
 ### In a popover
 
 ```tsx
-import { Popover, Button } from "@choiceform/design-system"
+import { Popover, Button } from "@choice-ui/react"
 
 const [value, setValue] = useState<[number, number]>([25, 75])
 

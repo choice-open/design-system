@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { memo, ReactNode } from "react"
 import { MenuLabelTv } from "../tv"
 

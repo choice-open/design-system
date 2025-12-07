@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, memo, ReactNode, useMemo } from "react"
 import { useNumericInputContext } from "../context"
 import { NumericInputElementTv } from "../tv"

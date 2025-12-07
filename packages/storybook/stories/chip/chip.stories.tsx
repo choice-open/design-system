@@ -1,4 +1,4 @@
-import { Chip } from "@choiceform/design-system";
+import { Chip } from "@choice-ui/react";
 import { SearchSmall } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";

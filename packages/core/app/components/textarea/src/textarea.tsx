@@ -1,5 +1,5 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
-import { ScrollArea } from "@choiceform/scroll-area"
+import { mergeRefs, tcx } from "@choice-ui/shared"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import {
   Children,
   forwardRef,

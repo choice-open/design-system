@@ -5,10 +5,7 @@ A React hook for managing text direction (LTR/RTL) in internationalized applicat
 ## Import
 
 ```typescript
-import {
-  useDirection,
-  DirectionContext,
-} from "@choiceform/design-system/hooks";
+import { useDirection, DirectionContext } from "@choice-ui/react/hooks";
 ```
 
 ## Usage

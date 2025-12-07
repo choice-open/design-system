@@ -4,10 +4,10 @@
 @import "@choiceform/design-tokens/preflight.css";
 @import "@choiceform/design-tokens/tailwind.css";
 
-@import "@choiceform/design-system/styles/components.css";
-@import "@choiceform/design-system/styles/markdown.css";
+@import "@choice-ui/react/styles/components.css";
+@import "@choice-ui/react/styles/markdown.css";
 
-@source "../node_modules/@choiceform/design-system";
+@source "../node_modules/@choice-ui/react";
 
 body {
   background-color: var(--color-default-background);

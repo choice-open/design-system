@@ -1,10 +1,5 @@
-import type { MentionRenderProps } from "@choiceform/design-system";
-import {
-  Avatar,
-  MdInput,
-  ToolbarAction,
-  Tooltip,
-} from "@choiceform/design-system";
+import type { MentionRenderProps } from "@choice-ui/react";
+import { Avatar, MdInput, ToolbarAction, Tooltip } from "@choice-ui/react";
 import {
   FontBoldSmall,
   ParagraphCode,
@@ -1109,7 +1104,7 @@ const user = createUser({
 
 \`\`\`tsx
 import React, { useState } from 'react';
-import { Button } from '@choiceform/design-system';
+import { Button } from '@choice-ui/react';
 
 export function Counter() {
   const [count, setCount] = useState(0);
@@ -1144,7 +1139,7 @@ print(quicksort(numbers))
 
 \`\`\`json
 {
-  "name": "@choiceform/design-system",
+  "name": "@choice-ui/react",
   "version": "1.0.3",
   "description": "Figma-inspired UI component library",
   "main": "./dist/index.js",

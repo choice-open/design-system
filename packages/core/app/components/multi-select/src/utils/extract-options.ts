@@ -3,7 +3,7 @@ import {
   MenuContextLabel,
   MenuDivider,
   type MenuContextItemProps,
-} from "@choiceform/menus"
+} from "@choice-ui/menus"
 import React, { Children, isValidElement } from "react"
 
 export function extractItemElements(children: React.ReactNode) {

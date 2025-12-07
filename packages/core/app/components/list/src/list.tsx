@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { MenuValue } from "@choiceform/menus"
+import { tcx } from "@choice-ui/shared"
+import { MenuValue } from "@choice-ui/menus"
 import { forwardRef, HTMLProps } from "react"
 import { ListContent } from "./components/list-content"
 import { ListDivider } from "./components/list-divider"

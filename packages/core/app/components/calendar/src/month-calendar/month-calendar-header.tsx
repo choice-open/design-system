@@ -1,4 +1,4 @@
-import { IconButton } from "@choiceform/icon-button"
+import { IconButton } from "@choice-ui/icon-button"
 import {
   ChevronDownSmall,
   ChevronLeftSmall,

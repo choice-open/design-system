@@ -75,7 +75,7 @@ All notable changes to the Menus component will be documented in this file.
 
 ### Changed
 
-- 更新 @choiceform/design-system 版本至 0.9.997，添加清空功能测试并优化 ContextInput 组件
+- 更新 @choice-ui/react 版本至 0.9.997，添加清空功能测试并优化 ContextInput 组件
 
 ## [2025-07-29]
 

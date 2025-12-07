@@ -5,7 +5,7 @@ A versatile floating overlay component for displaying contextual content. Provid
 ## Import
 
 ```tsx
-import { Popover } from "@choiceform/design-system"
+import { Popover } from "@choice-ui/react"
 ```
 
 ## Features

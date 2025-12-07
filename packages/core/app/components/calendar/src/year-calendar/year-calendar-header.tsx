@@ -1,4 +1,4 @@
-import { IconButton } from "@choiceform/icon-button"
+import { IconButton } from "@choice-ui/icon-button"
 import { ChevronLeftSmall, ChevronRightSmall, Undo } from "@choiceform/icons-react"
 import { memo } from "react"
 import { YearCalendarTv } from "./tv"

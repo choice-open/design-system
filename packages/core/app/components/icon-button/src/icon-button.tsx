@@ -1,7 +1,7 @@
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import { LoaderCircle } from "@choiceform/icons-react"
-import { Tooltip, type TooltipProps } from "@choiceform/tooltip"
+import { Tooltip, type TooltipProps } from "@choice-ui/tooltip"
 import { forwardRef, HTMLProps } from "react"
 import { iconButtonTv } from "./tv"
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
-import { useNumericInput } from "@choiceform/design-system";
+import { useNumericInput } from "@choice-ui/react";
 
 const meta: Meta = {
   title: "Forms/useNumericInput",

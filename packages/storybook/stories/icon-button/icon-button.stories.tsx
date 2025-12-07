@@ -1,9 +1,4 @@
-import {
-  IconButton,
-  IconButtonGroup,
-  Select,
-  tcx,
-} from "@choiceform/design-system";
+import { IconButton, IconButtonGroup, Select, tcx } from "@choice-ui/react";
 import {
   FieldTypeAttachment,
   FieldTypeButton,

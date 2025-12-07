@@ -1,5 +1,5 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
-import { Kbd, type KbdKey } from "@choiceform/kbd"
+import { mergeRefs, tcx } from "@choice-ui/shared"
+import { Kbd, type KbdKey } from "@choice-ui/kbd"
 import { forwardRef, memo, ReactNode, useEffect, useId, useRef } from "react"
 import {
   useActiveItemContext,

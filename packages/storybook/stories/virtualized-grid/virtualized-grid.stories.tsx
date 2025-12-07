@@ -1,11 +1,11 @@
-import { Badge } from "@choiceform/design-system";
-import { Button } from "@choiceform/design-system";
-import { Input } from "@choiceform/design-system";
-import { ScrollArea } from "@choiceform/design-system";
+import { Badge } from "@choice-ui/react";
+import { Button } from "@choice-ui/react";
+import { Input } from "@choice-ui/react";
+import { ScrollArea } from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useMemo, useRef, useState } from "react";
-import { VirtualizedGrid } from "@choiceform/design-system";
+import { VirtualizedGrid } from "@choice-ui/react";
 
 const meta: Meta<typeof VirtualizedGrid> = {
   title: "Utilities/VirtualizedGrid",

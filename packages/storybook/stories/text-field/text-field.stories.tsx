@@ -1,4 +1,4 @@
-import { Badge, Checkbox, Select, TextField } from "@choiceform/design-system";
+import { Badge, Checkbox, Select, TextField } from "@choice-ui/react";
 import { ArrowRight, Search } from "@choiceform/icons-react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";

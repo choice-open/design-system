@@ -1,3 +1,3 @@
 "use client"
 
-export * from "@choiceform/design-system"
+export * from "@choice-ui/react"

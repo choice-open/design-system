@@ -5,7 +5,7 @@ import {
   List,
   Skeleton,
   SkeletonProvider,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 

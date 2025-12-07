@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/tree-list",
+  "name": "@choice-ui/tree-list",
   "version": "0.0.5",
   "description": "Tree List component for Choiceform Design System",
   "sideEffects": false,
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.12",
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/scroll-area": "workspace:*"
+    "@choice-ui/scroll-area": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

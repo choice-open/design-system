@@ -16,7 +16,7 @@ import {
 } from "@floating-ui/react"
 import { useCallback, useEffect, useRef, useState, useMemo, type RefObject } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useMergedValue } from "@choiceform/design-shared"
+import { useMergedValue } from "@choice-ui/shared"
 
 interface UseFloatingPopoverReturn {
   context: FloatingContext

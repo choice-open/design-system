@@ -1,5 +1,5 @@
-import { tcv, tcx } from "@choiceform/design-shared"
-import { ScrollArea } from "@choiceform/scroll-area"
+import { tcv, tcx } from "@choice-ui/shared"
+import { ScrollArea } from "@choice-ui/scroll-area"
 import type { CodeBlockContentProps } from "../types"
 import { CodeBlockCode } from "./code-block-code"
 

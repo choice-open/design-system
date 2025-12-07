@@ -5,7 +5,7 @@ A versatile, accessible text input component that supports multiple visual varia
 ## Import
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ```
 
 ## Features

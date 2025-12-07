@@ -109,13 +109,13 @@ vi.mock("../src/components", () => ({
   ),
 }))
 
-vi.mock("@choiceform/scroll-area", () => ({
+vi.mock("@choice-ui/scroll-area", () => ({
   ScrollArea: ({ children, className }: { children: React.ReactNode; className?: string }) => (
     <div className={className}>{children}</div>
   ),
 }))
 
-vi.mock("@choiceform/search-input", () => ({
+vi.mock("@choice-ui/search-input", () => ({
   SearchInput: ({
     value,
     onChange,
@@ -134,7 +134,7 @@ vi.mock("@choiceform/search-input", () => ({
   ),
 }))
 
-vi.mock("@choiceform/segmented", () => ({
+vi.mock("@choice-ui/segmented", () => ({
   Segmented: ({
     children,
     value,

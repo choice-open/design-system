@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton, type IconButtonProps } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton, type IconButtonProps } from "@choice-ui/icon-button"
 import { ChevronDownSmall } from "@choiceform/icons-react"
 import { forwardRef, HTMLProps } from "react"
 import { useNumericInputContext } from "../context"

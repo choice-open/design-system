@@ -1,4 +1,4 @@
-import { IconButton, type IconButtonProps } from "@choiceform/icon-button"
+import { IconButton, type IconButtonProps } from "@choice-ui/icon-button"
 import { ApplyVariable } from "@choiceform/icons-react"
 import { memo } from "react"
 import { Transforms } from "slate"

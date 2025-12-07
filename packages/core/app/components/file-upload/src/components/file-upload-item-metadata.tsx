@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react"
-import { formatBytes, tcx } from "@choiceform/design-shared"
-import { Slot } from "@choiceform/slot"
+import { formatBytes, tcx } from "@choice-ui/shared"
+import { Slot } from "@choice-ui/slot"
 import { ITEM_METADATA_NAME } from "../constants"
 import { useFileUploadContext, useFileUploadItemContext } from "../hooks"
 import { fileUploadStyles } from "../tv"

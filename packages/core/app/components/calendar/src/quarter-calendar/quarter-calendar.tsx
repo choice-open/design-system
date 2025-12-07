@@ -1,8 +1,8 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { enUS } from "date-fns/locale"
 import { forwardRef, useCallback, useMemo, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useMergedValue } from "@choiceform/design-shared"
+import { useMergedValue } from "@choice-ui/shared"
 import type {
   BaseQuarterProps,
   Quarter,

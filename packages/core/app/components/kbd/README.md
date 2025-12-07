@@ -5,7 +5,7 @@ A keyboard shortcut display component that renders keyboard key combinations usi
 ## Import
 
 ```tsx
-import { Kbd } from "@choiceform/design-system"
+import { Kbd } from "@choice-ui/react"
 ```
 
 ## Features

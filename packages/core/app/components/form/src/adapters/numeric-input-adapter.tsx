@@ -1,4 +1,4 @@
-import { NumericInput } from "@choiceform/numeric-input"
+import { NumericInput } from "@choice-ui/numeric-input"
 import type { NumericInputAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

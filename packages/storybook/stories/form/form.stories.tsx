@@ -8,7 +8,7 @@ import {
   Tabs,
   tcx,
   useForm,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { TrashSmall } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { AnyFieldApi } from "@tanstack/react-form";

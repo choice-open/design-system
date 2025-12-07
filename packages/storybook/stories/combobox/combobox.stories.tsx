@@ -1,4 +1,4 @@
-import { Checkbox, Combobox } from "@choiceform/design-system";
+import { Checkbox, Combobox } from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useCallback, useMemo, useRef, useState } from "react";

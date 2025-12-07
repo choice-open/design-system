@@ -1,4 +1,4 @@
-import { tcv, tcx } from "@choiceform/design-shared"
+import { tcv, tcx } from "@choice-ui/shared"
 import { memo, useEffect, useState } from "react"
 import { codeToHtml } from "shiki"
 import { useTheme } from "../hooks"

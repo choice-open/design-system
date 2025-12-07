@@ -1,4 +1,4 @@
-import { ModalHeader } from "@choiceform/modal"
+import { ModalHeader } from "@choice-ui/modal"
 import { forwardRef, memo } from "react"
 import { useDialogContext } from "../dialog-context"
 

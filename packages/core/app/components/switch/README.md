@@ -5,7 +5,7 @@ A toggle control for binary states like on/off or enabled/disabled. Provides imm
 ## Import
 
 ```tsx
-import { Switch } from "@choiceform/design-system"
+import { Switch } from "@choice-ui/react"
 ```
 
 ## Features
@@ -172,7 +172,7 @@ return (
 ### With Tooltip
 
 ```tsx
-import { Tooltip } from "@choiceform/design-system"
+import { Tooltip } from "@choice-ui/react"
 
 const [tooltip, setTooltip] = useState(false)
 

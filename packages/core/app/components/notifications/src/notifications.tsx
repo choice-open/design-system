@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { memo, useMemo } from "react"
 import { ExternalToast, toast as sonnerToast, ToasterProps } from "sonner"
 import { useEventCallback } from "usehooks-ts"

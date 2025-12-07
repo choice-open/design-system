@@ -1,4 +1,4 @@
-import { CodeBlock, ScrollArea } from "@choiceform/design-system";
+import { CodeBlock, ScrollArea } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
 import { useStickToBottom } from "use-stick-to-bottom";

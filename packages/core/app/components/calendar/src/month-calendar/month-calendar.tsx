@@ -1,8 +1,8 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { enUS } from "date-fns/locale"
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useMergedValue } from "@choiceform/design-shared"
+import { useMergedValue } from "@choice-ui/shared"
 import type { BaseCalendarProps, CalendarLayoutProps, CalendarValue, DateRange } from "../types"
 import {
   calculateWeekNumbers,

@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Tooltip, type TooltipProps } from "@choiceform/tooltip"
+import { tcx } from "@choice-ui/shared"
+import { Tooltip, type TooltipProps } from "@choice-ui/tooltip"
 import { forwardRef, HTMLProps, useId } from "react"
 import { toggleButtonTv } from "./tv"
 

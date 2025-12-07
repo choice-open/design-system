@@ -7,7 +7,7 @@ import {
   Splitter,
   tcx,
   useSortableRowItem,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   AddSmall,
   DeleteSmall,

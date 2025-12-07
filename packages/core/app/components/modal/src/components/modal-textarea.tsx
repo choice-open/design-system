@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
-import { Label } from "@choiceform/label"
-import { Textarea, type TextareaProps } from "@choiceform/textarea"
+import { tcx } from "@choice-ui/shared"
+import { Label } from "@choice-ui/label"
+import { Textarea, type TextareaProps } from "@choice-ui/textarea"
 import { forwardRef, memo, useId } from "react"
 
 interface ModalTextareaProps extends Omit<TextareaProps, "children" | "label"> {

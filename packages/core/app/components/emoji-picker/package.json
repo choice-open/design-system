@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/emoji-picker",
+  "name": "@choice-ui/emoji-picker",
   "version": "0.0.4",
   "description": "Emoji Picker component for Choiceform Design System",
   "sideEffects": false,
@@ -27,11 +27,11 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/scroll-area": "workspace:*",
-    "@choiceform/search-input": "workspace:*",
-    "@choiceform/segmented": "workspace:*",
+    "@choice-ui/scroll-area": "workspace:*",
+    "@choice-ui/search-input": "workspace:*",
+    "@choice-ui/segmented": "workspace:*",
     "@tanstack/react-virtual": "^3.13.12",
     "usehooks-ts": "^3.1.0"
   },

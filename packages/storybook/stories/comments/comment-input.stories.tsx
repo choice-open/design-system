@@ -1,5 +1,5 @@
-import type { User } from "@choiceform/design-system";
-import { Avatar, CommentInput } from "@choiceform/design-system";
+import type { User } from "@choice-ui/react";
+import { Avatar, CommentInput } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { Descendant } from "slate";

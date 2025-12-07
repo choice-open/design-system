@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { type TooltipProps } from "@choiceform/tooltip"
+import { tcx } from "@choice-ui/shared"
+import { type TooltipProps } from "@choice-ui/tooltip"
 import { Children, ForwardedRef, forwardRef, HTMLProps, ReactNode, useId, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { SegmentedContext } from "./context"

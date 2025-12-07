@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { memo } from "react"
 import { useSlate } from "slate-react"
 import { useEventCallback } from "usehooks-ts"

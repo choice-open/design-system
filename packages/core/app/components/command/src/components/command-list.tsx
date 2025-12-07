@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { ScrollArea, type ScrollAreaProps } from "@choiceform/scroll-area"
+import { tcx } from "@choice-ui/shared"
+import { ScrollArea, type ScrollAreaProps } from "@choice-ui/scroll-area"
 import { forwardRef, useEffect, useRef } from "react"
 import { useCommand, useCommandState } from "../hooks"
 import { commandListTv } from "../tv"

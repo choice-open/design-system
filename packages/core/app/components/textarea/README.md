@@ -5,7 +5,7 @@ A powerful, accessible textarea component with auto-resizing, manual resize hand
 ## Import
 
 ```tsx
-import { Textarea } from "@choiceform/design-system"
+import { Textarea } from "@choice-ui/react"
 ```
 
 ## Features

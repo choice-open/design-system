@@ -1,5 +1,5 @@
-import type { PaginationRootProps } from "@choiceform/design-system";
-import { Pagination } from "@choiceform/design-system";
+import type { PaginationRootProps } from "@choice-ui/react";
+import { Pagination } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 

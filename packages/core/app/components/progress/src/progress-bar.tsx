@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { Label } from "@choiceform/label"
+import { tcx } from "@choice-ui/shared"
+import { Label } from "@choice-ui/label"
 import React, { createContext, forwardRef, useCallback, useContext, useMemo } from "react"
 import tinycolor from "tinycolor2"
 import { progressBarTv } from "./tv"

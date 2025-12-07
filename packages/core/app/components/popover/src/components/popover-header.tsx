@@ -1,4 +1,4 @@
-import { ModalHeader, type ModalHeaderProps } from "@choiceform/modal"
+import { ModalHeader, type ModalHeaderProps } from "@choice-ui/modal"
 import { forwardRef, memo } from "react"
 import { usePopoverContext } from "../popover-context"
 

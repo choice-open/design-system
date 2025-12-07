@@ -5,7 +5,7 @@ A sophisticated time input component with intelligent parsing, smart completion,
 ## Import
 
 ```tsx
-import { TimeInput } from "@choiceform/design-system"
+import { TimeInput } from "@choice-ui/react"
 ```
 
 ## Features
@@ -60,7 +60,7 @@ const [selectedTime, setSelectedTime] = useState<Date | null>(null)
 ### Time Range Validation
 
 ```tsx
-import { createTimeToday } from "@choiceform/design-system"
+import { createTimeToday } from "@choice-ui/react"
 ;<TimeInput
   value={workTime}
   onChange={setWorkTime}
@@ -252,7 +252,7 @@ The component intelligently parses various time input formats:
 ### Setting Time Ranges
 
 ```tsx
-import { createTimeToday } from "@choiceform/design-system"
+import { createTimeToday } from "@choice-ui/react"
 
 // Work hours: 9 AM to 6 PM
 <TimeInput
@@ -329,8 +329,8 @@ import { createTimeToday } from "@choiceform/design-system"
 ## Integration with TimeCalendar
 
 ```tsx
-import { TimeCalendar } from "@choiceform/design-system"
-import { Popover } from "@choiceform/design-system"
+import { TimeCalendar } from "@choice-ui/react"
+import { Popover } from "@choice-ui/react"
 import { useState, useRef } from "react"
 
 function TimePicker() {
@@ -524,7 +524,7 @@ function MultiLanguageTimeInput() {
 ### Creating Time Values
 
 ```tsx
-import { createTimeToday } from "@choiceform/design-system"
+import { createTimeToday } from "@choice-ui/react"
 
 // Create specific times for today
 const morning = createTimeToday(9, 30) // 9:30 AM today
@@ -535,7 +535,7 @@ const evening = createTimeToday(20, 0) // 8:00 PM today
 ### Time Validation
 
 ```tsx
-import { isTimeInRange } from "@choiceform/design-system"
+import { isTimeInRange } from "@choice-ui/react"
 
 const isValidWorkTime = isTimeInRange(
   selectedTime,

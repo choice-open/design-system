@@ -1,4 +1,4 @@
-import { Checkbox, Tabs } from "@choiceform/design-system";
+import { Checkbox, Tabs } from "@choice-ui/react";
 import {
   ThemeMoonDark,
   ThemeSunBright,

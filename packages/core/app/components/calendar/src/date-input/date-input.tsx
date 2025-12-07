@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { FieldTypeDate } from "@choiceform/icons-react"
-import { TextField, TextFieldProps } from "@choiceform/text-field"
+import { TextField, TextFieldProps } from "@choice-ui/text-field"
 import type { Locale } from "date-fns"
 import { isThisYear } from "date-fns"
 import { enUS } from "date-fns/locale"

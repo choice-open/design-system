@@ -5,7 +5,7 @@ An accessible form label component that provides proper semantic labeling for fo
 ## Import
 
 ```tsx
-import { Label } from "@choiceform/design-system"
+import { Label } from "@choice-ui/react"
 ```
 
 ## Features
@@ -24,7 +24,7 @@ import { Label } from "@choiceform/design-system"
 ### Basic
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ;<div className="flex flex-col gap-2">
   <Label htmlFor="name">Name</Label>
   <Input id="name" />
@@ -34,7 +34,7 @@ import { Input } from "@choiceform/design-system"
 ### With description
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="email"
@@ -52,7 +52,7 @@ import { Input } from "@choiceform/design-system"
 ### Required field
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="required"
@@ -67,7 +67,7 @@ import { Input } from "@choiceform/design-system"
 ### Disabled state
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ;<div className="flex flex-col gap-2">
   <Label
     htmlFor="disabled"
@@ -85,7 +85,7 @@ import { Input } from "@choiceform/design-system"
 ### With action
 
 ```tsx
-import { Input, IconButton } from "@choiceform/design-system"
+import { Input, IconButton } from "@choice-ui/react"
 import { QuestionCircle } from "@choiceform/icons-react"
 ;<div className="flex flex-col gap-2">
   <Label
@@ -118,7 +118,7 @@ import { QuestionCircle } from "@choiceform/icons-react"
 ### Variants
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 
 // Default - follows page theme
 <Label htmlFor="default" variant="default">
@@ -204,7 +204,7 @@ interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement | HTMLLe
 ### Complete form field
 
 ```tsx
-import { Input } from "@choiceform/design-system"
+import { Input } from "@choice-ui/react"
 ;<div className="space-y-4">
   <div className="flex flex-col gap-2">
     <Label
@@ -225,7 +225,7 @@ import { Input } from "@choiceform/design-system"
 ### Fieldset with legend
 
 ```tsx
-import { RadioGroup } from "@choiceform/design-system"
+import { RadioGroup } from "@choice-ui/react"
 ;<fieldset className="rounded border p-4">
   <Label
     as="legend"
@@ -246,7 +246,7 @@ import { RadioGroup } from "@choiceform/design-system"
 ### With help tooltip
 
 ```tsx
-import { Input, Tooltip, IconButton } from "@choiceform/design-system"
+import { Input, Tooltip, IconButton } from "@choice-ui/react"
 import { QuestionCircle } from "@choiceform/icons-react"
 ;<div className="flex flex-col gap-2">
   <Label

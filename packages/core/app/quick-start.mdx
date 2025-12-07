@@ -6,7 +6,7 @@ import { Meta } from "@storybook/addon-docs/blocks"
 
 # Quick Start Guide
 
-Get up and running with @choiceform/design-system in minutes. This guide covers installation, configuration, and key concepts to help you build beautiful interfaces efficiently.
+Get up and running with @choice-ui/react in minutes. This guide covers installation, configuration, and key concepts to help you build beautiful interfaces efficiently.
 
 ## Installation
 
@@ -14,13 +14,13 @@ Install the design system and design tokens using your preferred package manager
 
 ```bash
 # Using pnpm (recommended)
-pnpm add @choiceform/design-system @choiceform/design-tokens
+pnpm add @choice-ui/react @choiceform/design-tokens
 
 # Using npm
-npm install @choiceform/design-system @choiceform/design-tokens
+npm install @choice-ui/react @choiceform/design-tokens
 
 # Using yarn
-yarn add @choiceform/design-system @choiceform/design-tokens
+yarn add @choice-ui/react @choiceform/design-tokens
 ```
 
 ## CSS Configuration
@@ -34,10 +34,10 @@ Add these imports to your main CSS file (e.g., `app.css` or `index.css`):
 @import "@choiceform/design-tokens/tokens.css";
 @import "@choiceform/design-tokens/preflight.css";
 @import "@choiceform/design-tokens/tailwind.css";
-@source "../../../node_modules/@choiceform/design-system";
+@source "../../../node_modules/@choice-ui/react";
 ```
 
-**Note:** The old `@import "@choiceform/design-system/styles/theme.css"` is no longer needed and should be removed.
+**Note:** The old `@import "@choice-ui/react/styles/theme.css"` is no longer needed and should be removed.
 
 Learn more about design tokens at [https://tokens.choiceform.app/](https://tokens.choiceform.app/)
 
@@ -55,7 +55,7 @@ The `@source` directive is a powerful Tailwind CSS 4.0 feature that tells Tailwi
 #### Why You Need It
 
 ```css
-@source "../../../node_modules/@choiceform/design-system";
+@source "../../../node_modules/@choice-ui/react";
 ```
 
 This directive is essential because:
@@ -224,7 +224,7 @@ function ThemeProvider({ children }) {
 Once configured, you can start using components immediately:
 
 ```tsx
-import { Button, Input, Card } from "@choiceform/design-system"
+import { Button, Input, Card } from "@choice-ui/react"
 
 export default function App() {
   return (
@@ -260,7 +260,7 @@ export default function App() {
 Full TypeScript support is included out of the box:
 
 ```tsx
-import type { ButtonProps } from "@choiceform/design-system"
+import type { ButtonProps } from "@choice-ui/react"
 
 const MyButton: React.FC<ButtonProps> = (props) => {
   return <Button {...props} />

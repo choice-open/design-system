@@ -1,4 +1,4 @@
-import { getDocument, tcx, useIsomorphicLayoutEffect } from "@choiceform/design-shared"
+import { getDocument, tcx, useIsomorphicLayoutEffect } from "@choice-ui/shared"
 import {
   MenuButton,
   MenuContext,
@@ -12,7 +12,7 @@ import {
   useMenuBaseRefs,
   useMenuScroll,
   useMenuScrollHeight,
-} from "@choiceform/menus"
+} from "@choice-ui/menus"
 import {
   autoUpdate,
   flip,

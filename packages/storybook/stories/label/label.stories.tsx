@@ -1,4 +1,4 @@
-import { IconButton, Input, Label } from "@choiceform/design-system";
+import { IconButton, Input, Label } from "@choice-ui/react";
 import { QuestionCircle } from "@choiceform/icons-react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 

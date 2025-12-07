@@ -1,4 +1,4 @@
-import { Hint } from "@choiceform/design-system";
+import { Hint } from "@choice-ui/react";
 import { CircleInfoLargeSolid } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

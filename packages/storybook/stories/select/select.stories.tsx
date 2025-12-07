@@ -1,4 +1,4 @@
-import { Popover, Select } from "@choiceform/design-system";
+import { Popover, Select } from "@choice-ui/react";
 import {
   FieldTypeAttachment,
   FieldTypeCheckbox,

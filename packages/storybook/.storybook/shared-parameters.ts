@@ -2,7 +2,7 @@ import { themes } from "storybook/internal/theming";
 import type { Preview } from "@storybook/react-vite";
 
 const lightTheme = {
-  brandTitle: "@choiceform/design-system",
+  brandTitle: "@choice-ui/react",
   brandUrl: "https://ui.choiceform.app",
   brandImage: "https://assets.choiceform.app/favicons/dev/brand.png",
 
@@ -19,7 +19,7 @@ const lightTheme = {
 };
 
 const darkTheme = {
-  brandTitle: "@choiceform/design-system",
+  brandTitle: "@choice-ui/react",
   brandUrl: "https://ui.choiceform.app",
   brandImage: "https://assets.choiceform.app/favicons/dev/brand_dark.png",
 

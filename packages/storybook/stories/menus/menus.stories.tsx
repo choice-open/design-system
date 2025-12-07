@@ -3,7 +3,7 @@ import {
   MenuSearch,
   MenuSearchEmpty,
   NumericInput,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { Check, Search } from "@choiceform/icons-react";
 import { faker } from "@faker-js/faker";
 import { Story } from "@storybook/addon-docs/blocks";

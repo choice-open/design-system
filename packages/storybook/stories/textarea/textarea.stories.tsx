@@ -28,13 +28,7 @@
  * - High contrast support in all variants
  */
 
-import {
-  Button,
-  Checkbox,
-  Popover,
-  Switch,
-  Textarea,
-} from "@choiceform/design-system";
+import { Button, Checkbox, Popover, Switch, Textarea } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from "@choiceform/design-system";
+import { Radio, RadioGroup } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Fragment, useState } from "react";
 

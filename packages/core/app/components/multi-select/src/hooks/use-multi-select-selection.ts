@@ -1,4 +1,4 @@
-import { type MenuContextItemProps } from "@choiceform/menus"
+import { type MenuContextItemProps } from "@choice-ui/menus"
 import { useEventCallback } from "usehooks-ts"
 
 export interface UseMultiSelectSelectionProps {

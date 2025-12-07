@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/scroll-area",
+  "name": "@choice-ui/scroll-area",
   "version": "0.0.4",
   "description": "Scroll Area component for Choiceform Design System",
   "sideEffects": false,
@@ -27,7 +27,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*"
+    "@choice-ui/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

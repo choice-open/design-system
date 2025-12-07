@@ -5,7 +5,7 @@ A versatile progress indication component that provides both linear (ProgressBar
 ## Import
 
 ```tsx
-import { ProgressBar, ProgressCircle } from "@choiceform/design-system"
+import { ProgressBar, ProgressCircle } from "@choice-ui/react"
 ```
 
 ## Features

@@ -1,8 +1,8 @@
 import { Check } from "@choiceform/icons-react"
-import { Menus } from "@choiceform/menus"
+import { Menus } from "@choice-ui/menus"
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useMergedValue } from "@choiceform/design-shared"
+import { useMergedValue } from "@choice-ui/shared"
 import type { BaseTimeProps, StepProps } from "../types"
 import { generateTimeOptions, normalizeTimeValue, timeStringToDate } from "../utils"
 

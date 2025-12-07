@@ -1,5 +1,5 @@
-import { Button } from "@choiceform/button"
-import { tcx } from "@choiceform/design-shared"
+import { Button } from "@choice-ui/button"
+import { tcx } from "@choice-ui/shared"
 import { EllipsisSmall } from "@choiceform/icons-react"
 import { forwardRef } from "react"
 import { paginationTv } from "../tv"

@@ -86,12 +86,9 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@storybook/addons": "@storybook/manager-api",
         // styles 路径需要在主包之前，否则会被错误解析
-        "@choiceform/design-system/styles": path.resolve(coreDir, "app/styles"),
-        "@choiceform/design-system": path.resolve(coreDir, "app/index.ts"),
-        "@choiceform/design-shared": path.resolve(
-          __dirname,
-          "../shared/src/index.ts"
-        ),
+        "@choice-ui/react/styles": path.resolve(coreDir, "app/styles"),
+        "@choice-ui/react": path.resolve(coreDir, "app/index.ts"),
+        "@choice-ui/shared": path.resolve(__dirname, "../shared/src/index.ts"),
         "~": path.resolve(coreDir, "app"),
         ...componentAliases,
         ...hookAliases,

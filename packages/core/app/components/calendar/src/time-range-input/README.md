@@ -5,7 +5,7 @@ A sophisticated component for selecting time ranges with intelligent synchroniza
 ## Import
 
 ```tsx
-import { TimeRangeInput } from "@choiceform/design-system"
+import { TimeRangeInput } from "@choice-ui/react"
 ```
 
 ## Features
@@ -528,7 +528,7 @@ function TwentyFourHourSchedule() {
 ## Integration with Panel
 
 ```tsx
-import { Panel } from "@choiceform/design-system"
+import { Panel } from "@choice-ui/react"
 ;<Panel.Row type="two-input-two-icon">
   <TimeRangeInput
     startValue={startTime}
@@ -546,7 +546,7 @@ import { Panel } from "@choiceform/design-system"
 ### Time String Conversion
 
 ```tsx
-import { timeStringToDate } from "@choiceform/design-system"
+import { timeStringToDate } from "@choice-ui/react"
 
 // Convert time strings to Date objects
 const startTime = timeStringToDate("09:00")

@@ -1,6 +1,6 @@
-import { Button } from "@choiceform/button"
-import { tcx } from "@choiceform/design-shared"
-import { Modal } from "@choiceform/modal"
+import { Button } from "@choice-ui/button"
+import { tcx } from "@choice-ui/shared"
+import { Modal } from "@choice-ui/modal"
 import {
   FloatingFocusManager,
   FloatingOverlay,

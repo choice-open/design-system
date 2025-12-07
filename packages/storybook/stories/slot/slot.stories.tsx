@@ -1,4 +1,4 @@
-import { Slot, useAsChild, useSlot } from "@choiceform/design-system";
+import { Slot, useAsChild, useSlot } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { ProgressBar, Range } from "@choiceform/design-system";
+import { ProgressBar, Range } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { Fragment, useState } from "react";
 

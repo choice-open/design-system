@@ -1,7 +1,7 @@
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import { ChangeEvent, forwardRef, useCallback, useEffect, useId, useMemo, useRef } from "react"
-import { DirectionContext, useAsRef, useDirection, useLazyRef } from "@choiceform/design-shared"
+import { DirectionContext, useAsRef, useDirection, useLazyRef } from "@choice-ui/shared"
 import {
   FileUploadClear,
   FileUploadDropzone,

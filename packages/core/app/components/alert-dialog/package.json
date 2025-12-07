@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/alert-dialog",
+  "name": "@choice-ui/alert-dialog",
   "version": "0.0.3",
   "description": "Alert Dialog component for Choiceform Design System",
   "sideEffects": false,
@@ -27,9 +27,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/button": "workspace:*",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/modal": "workspace:*",
+    "@choice-ui/button": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/modal": "workspace:*",
     "@floating-ui/react": "0.27.15",
     "usehooks-ts": "^3.1.0"
   },

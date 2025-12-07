@@ -1,8 +1,4 @@
-import {
-  CodeBlock,
-  NumericInput as NI,
-  useForm,
-} from "@choiceform/design-system";
+import { CodeBlock, NumericInput as NI, useForm } from "@choice-ui/react";
 import { FillWidth } from "@choiceform/icons-react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useId, useState } from "react";

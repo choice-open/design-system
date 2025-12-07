@@ -1,4 +1,4 @@
-import { Select, ToggleButton } from "@choiceform/design-system";
+import { Select, ToggleButton } from "@choice-ui/react";
 import {
   FieldAdd,
   FieldTypeAttachment,

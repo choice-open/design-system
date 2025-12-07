@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/stackflow",
+  "name": "@choice-ui/stackflow",
   "version": "0.0.3",
   "description": "Stackflow component for Choiceform Design System",
   "sideEffects": false,
@@ -27,7 +27,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
     "framer-motion": "^11"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
-import { IconButton } from "@choiceform/icon-button"
+import { IconButton } from "@choice-ui/icon-button"
 import { RemoveSmall, Search } from "@choiceform/icons-react"
-import { TextField, type TextFieldProps } from "@choiceform/text-field"
+import { TextField, type TextFieldProps } from "@choice-ui/text-field"
 import { forwardRef } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { searchInputTv } from "./tv"

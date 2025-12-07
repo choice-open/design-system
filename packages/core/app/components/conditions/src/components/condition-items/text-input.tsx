@@ -1,4 +1,4 @@
-import { Input } from "@choiceform/input"
+import { Input } from "@choice-ui/input"
 import { ConditionsFieldType } from "../../types"
 import type { BaseFieldInputProps } from "./types"
 

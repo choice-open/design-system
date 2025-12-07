@@ -1,5 +1,5 @@
-import { Avatar } from "@choiceform/avatar"
-import { MenuItem, MenusBase, MenuScrollArrow } from "@choiceform/menus"
+import { Avatar } from "@choice-ui/avatar"
+import { MenuItem, MenusBase, MenuScrollArrow } from "@choice-ui/menus"
 import {
   autoUpdate,
   FloatingList,

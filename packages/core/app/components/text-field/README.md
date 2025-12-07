@@ -5,7 +5,7 @@ A comprehensive form field component that combines an Input with label, descript
 ## Import
 
 ```tsx
-import { TextField } from "@choiceform/design-system"
+import { TextField } from "@choice-ui/react"
 ```
 
 ## Features

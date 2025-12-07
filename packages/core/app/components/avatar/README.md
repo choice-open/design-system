@@ -5,7 +5,7 @@ A flexible user avatar component that displays profile photos, initial letters, 
 ## Import
 
 ```tsx
-import { Avatar } from "@choiceform/design-system"
+import { Avatar } from "@choice-ui/react"
 ```
 
 ## Features

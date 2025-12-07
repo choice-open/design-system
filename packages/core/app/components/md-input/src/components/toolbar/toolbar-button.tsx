@@ -1,4 +1,4 @@
-import { IconButton } from "@choiceform/icon-button"
+import { IconButton } from "@choice-ui/icon-button"
 import { memo } from "react"
 import { useEventCallback } from "usehooks-ts"
 

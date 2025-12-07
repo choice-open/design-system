@@ -1,4 +1,4 @@
-import { PicturePreview } from "@choiceform/design-system";
+import { PicturePreview } from "@choice-ui/react";
 import type { Meta } from "@storybook/react-vite";
 
 // Sample image URLs

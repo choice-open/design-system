@@ -14,7 +14,7 @@ import {
   useMenuScroll,
   useMenuScrollHeight,
   useMenuTree,
-} from "@choiceform/menus"
+} from "@choice-ui/menus"
 import {
   autoUpdate,
   flip,

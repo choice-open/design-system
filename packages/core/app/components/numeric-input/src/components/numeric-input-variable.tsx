@@ -1,5 +1,5 @@
-import { Chip } from "@choiceform/chip"
-import { tcx } from "@choiceform/design-shared"
+import { Chip } from "@choice-ui/chip"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef } from "react"
 import { useNumericInputContext } from "../context"
 import { NumericInputVariableTv } from "../tv"

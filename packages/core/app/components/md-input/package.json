@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/md-input",
+  "name": "@choice-ui/md-input",
   "version": "0.0.3",
   "description": "Markdown Input component for Choiceform Design System",
   "sideEffects": false,
@@ -28,14 +28,14 @@
   },
   "dependencies": {
     "usehooks-ts": "^3.1.1",
-    "@choiceform/combobox": "workspace:*",
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/icon-button": "workspace:*",
+    "@choice-ui/combobox": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/icon-button": "workspace:*",
     "@choiceform/icons-react": "^1.3.8",
-    "@choiceform/md-render": "workspace:*",
-    "@choiceform/scroll-area": "workspace:*",
-    "@choiceform/tabs": "workspace:*",
-    "@choiceform/textarea": "workspace:*"
+    "@choice-ui/md-render": "workspace:*",
+    "@choice-ui/scroll-area": "workspace:*",
+    "@choice-ui/tabs": "workspace:*",
+    "@choice-ui/textarea": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, memo, useContext, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { MdInputContext } from "../../context"

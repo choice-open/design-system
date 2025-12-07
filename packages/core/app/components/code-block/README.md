@@ -15,10 +15,10 @@ A flexible and feature-rich code block component with syntax highlighting, copy 
 
 ## Installation
 
-The CodeBlock component is part of the `@choiceform/design-system` package.
+The CodeBlock component is part of the `@choice-ui/react` package.
 
 ```bash
-pnpm add @choiceform/design-system
+pnpm add @choice-ui/react
 ```
 
 ## Basic Usage
@@ -26,7 +26,7 @@ pnpm add @choiceform/design-system
 ### Simple Code Block
 
 ```tsx
-import { CodeBlock } from "@choiceform/design-system"
+import { CodeBlock } from "@choice-ui/react"
 
 function App() {
   const code = `function hello() {

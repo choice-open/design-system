@@ -5,7 +5,7 @@ A versatile overlay component for displaying focused content and gathering user 
 ## Import
 
 ```tsx
-import { Modal } from "@choiceform/design-system"
+import { Modal } from "@choice-ui/react"
 ```
 
 ## Features

@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/virtualized-grid",
+  "name": "@choice-ui/virtualized-grid",
   "version": "0.0.2",
   "description": "Virtualized Grid component for Choiceform Design System",
   "sideEffects": false,
@@ -27,8 +27,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/button": "workspace:*",
-    "@choiceform/design-shared": "workspace:*"
+    "@choice-ui/button": "workspace:*",
+    "@choice-ui/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

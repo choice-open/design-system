@@ -1,4 +1,4 @@
-import { List } from "@choiceform/design-system";
+import { List } from "@choice-ui/react";
 import {
   Check,
   FieldTypeAttachment,

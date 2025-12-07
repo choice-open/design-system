@@ -5,7 +5,7 @@ A utility function that combines classnames with Tailwind CSS class merging for 
 ## Import
 
 ```typescript
-import { tcx } from "@choiceform/design-system/utils";
+import { tcx } from "@choice-ui/react/utils";
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ tcx(
   "btn",
   isPrimary && "btn-primary",
   isLarge && "text-body-large",
-  disabled && "cursor-not-allowed opacity-50",
+  disabled && "cursor-not-allowed opacity-50"
 );
 
 // Overriding Tailwind classes
@@ -43,7 +43,7 @@ tcx(
   { conditional: isActive },
   undefined,
   null,
-  false,
+  false
 );
 ```
 
@@ -280,7 +280,7 @@ tcx("btn", isPrimary && "btn-primary", isLarge && "text-body-large");
 // Smart merging
 tcx(
   "bg-gray-500 hover:bg-gray-600",
-  isPrimary && "bg-blue-500 hover:bg-blue-600",
+  isPrimary && "bg-blue-500 hover:bg-blue-600"
 );
 ```
 

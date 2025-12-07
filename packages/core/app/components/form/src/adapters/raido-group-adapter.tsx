@@ -1,4 +1,4 @@
-import { RadioGroup } from "@choiceform/radio"
+import { RadioGroup } from "@choice-ui/radio"
 import type { RadioGroupAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

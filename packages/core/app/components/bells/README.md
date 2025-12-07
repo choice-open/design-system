@@ -5,7 +5,7 @@ A customizable notification component built on top of Sonner, featuring progress
 ## Import
 
 ```tsx
-import { bells, Bell } from "@choiceform/design-system"
+import { bells, Bell } from "@choice-ui/react"
 ```
 
 ## Features

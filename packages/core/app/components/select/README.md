@@ -5,7 +5,7 @@ A high-performance dropdown selection component with macOS-style positioning tha
 ## Import
 
 ```tsx
-import { Select } from "@choiceform/design-system"
+import { Select } from "@choice-ui/react"
 ```
 
 ## Features

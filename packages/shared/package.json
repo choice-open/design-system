@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/design-shared",
+  "name": "@choice-ui/shared",
   "version": "0.0.1",
   "description": "Shared utilities for Choiceform UI components",
   "sideEffects": false,

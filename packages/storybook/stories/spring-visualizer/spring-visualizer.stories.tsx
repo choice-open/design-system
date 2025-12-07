@@ -1,4 +1,4 @@
-import { Label, Range, SpringVisualizer } from "@choiceform/design-system";
+import { Label, Range, SpringVisualizer } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { motion } from "framer-motion";
 import { useState } from "react";

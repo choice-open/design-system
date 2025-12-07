@@ -1,5 +1,5 @@
-import { Slot } from "@choiceform/slot"
-import { tcx } from "@choiceform/design-shared"
+import { Slot } from "@choice-ui/slot"
+import { tcx } from "@choice-ui/shared"
 import { Children, cloneElement, CSSProperties, forwardRef, HTMLProps, isValidElement } from "react"
 import { type IconButtonProps } from "./icon-button"
 import { iconButtonGroupTv } from "./tv"

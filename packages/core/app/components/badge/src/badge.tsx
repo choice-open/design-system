@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { ElementType, forwardRef, HTMLProps, isValidElement, memo } from "react"
 import { BadgeTV } from "./tv"
 

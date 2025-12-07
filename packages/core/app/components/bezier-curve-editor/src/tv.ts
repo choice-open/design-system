@@ -1,4 +1,4 @@
-import { tcv } from "@choiceform/design-shared"
+import { tcv } from "@choice-ui/shared"
 
 export const BezierCurveEditorTv = tcv({
   slots: {

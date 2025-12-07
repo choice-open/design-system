@@ -4,7 +4,7 @@ import {
   Dialog,
   Popover,
   useAlertDialog,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { Story } from "@storybook/addon-docs/blocks";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";

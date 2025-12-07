@@ -1,4 +1,4 @@
-import { Segmented } from "@choiceform/segmented"
+import { Segmented } from "@choice-ui/segmented"
 import type { SegmentedAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

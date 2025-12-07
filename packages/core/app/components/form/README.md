@@ -5,9 +5,9 @@ A comprehensive form state management system built on **@tanstack/react-form** w
 ## Import
 
 ```tsx
-import { useForm } from "@choiceform/design-system"
+import { useForm } from "@choice-ui/react"
 // Or import TanStack Form directly
-import { TanstackReactForm } from "@choiceform/design-system"
+import { TanstackReactForm } from "@choice-ui/react"
 ```
 
 ## Features
@@ -27,7 +27,7 @@ import { TanstackReactForm } from "@choiceform/design-system"
 ### Basic Form
 
 ```tsx
-import { useForm } from "@choiceform/design-system"
+import { useForm } from "@choice-ui/react"
 
 function LoginForm() {
   const form = useForm({
@@ -562,7 +562,7 @@ The hook returns a TanStack Form instance enhanced with adapter components and a
 Access the full TanStack React Form API:
 
 ```tsx
-import { TanstackReactForm } from "@choiceform/design-system"
+import { TanstackReactForm } from "@choice-ui/react"
 
 // Access all TanStack Form utilities
 const { useForm: useTanStackForm, useField } = TanstackReactForm

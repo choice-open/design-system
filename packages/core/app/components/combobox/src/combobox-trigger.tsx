@@ -1,5 +1,5 @@
-import { tcx } from "@choiceform/design-shared"
-import { IconButton } from "@choiceform/icon-button"
+import { tcx } from "@choice-ui/shared"
+import { IconButton } from "@choice-ui/icon-button"
 import { ChevronDownSmall, RemoveSmall } from "@choiceform/icons-react"
 import React, { forwardRef, ReactNode, useState, type HTMLProps } from "react"
 import { useEventCallback } from "usehooks-ts"

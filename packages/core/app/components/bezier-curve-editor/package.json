@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/bezier-curve-editor",
+  "name": "@choice-ui/bezier-curve-editor",
   "version": "0.0.3",
   "description": "Bezier Curve Editor component for Choiceform Design System",
   "sideEffects": false,
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "usehooks-ts": "^3.1.0",
-    "@choiceform/design-shared": "workspace:*"
+    "@choice-ui/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

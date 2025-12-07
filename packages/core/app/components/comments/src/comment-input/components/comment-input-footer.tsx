@@ -1,5 +1,5 @@
-import { Button } from "@choiceform/button"
-import { IconButton } from "@choiceform/icon-button"
+import { Button } from "@choice-ui/button"
+import { IconButton } from "@choice-ui/icon-button"
 import { ArrowUp, AtSign, Image, Smile } from "@choiceform/icons-react"
 import { ChangeEvent, useRef } from "react"
 import type { InputDefaultText } from "../../types"

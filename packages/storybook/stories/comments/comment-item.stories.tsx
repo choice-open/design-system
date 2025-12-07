@@ -1,4 +1,4 @@
-import type { User } from "@choiceform/design-system";
+import type { User } from "@choice-ui/react";
 import {
   CommentItem,
   CustomElement,
@@ -6,7 +6,7 @@ import {
   ImageElement,
   Modal,
   PicturePreview,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useMemo, useState } from "react";

@@ -1,4 +1,4 @@
-import { Select } from "@choiceform/select"
+import { Select } from "@choice-ui/select"
 import React from "react"
 import { ArrayLengthInput } from "../components/condition-items/array-length-input"
 import { BooleanInput } from "../components/condition-items/boolean-input"

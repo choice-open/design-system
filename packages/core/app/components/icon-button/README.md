@@ -5,7 +5,7 @@ A specialized button component designed specifically for displaying icons with p
 ## Import
 
 ```tsx
-import { IconButton } from "@choiceform/design-system"
+import { IconButton } from "@choice-ui/react"
 ```
 
 ## Features
@@ -99,7 +99,7 @@ import { FieldTypeDate } from "@choiceform/icons-react"
 ### Group related actions
 
 ```tsx
-import { IconButtonGroup } from "@choiceform/design-system"
+import { IconButtonGroup } from "@choice-ui/react"
 import { FieldTypeButton, FieldTypeCount, FieldTypeCheckbox } from "@choiceform/icons-react"
 ;<IconButtonGroup variant="solid">
   <IconButton>
@@ -193,7 +193,7 @@ interface IconButtonProps extends Omit<HTMLProps<HTMLButtonElement>, "size"> {
 ### Property inspector toolbar
 
 ```tsx
-import { IconButtonGroup } from "@choiceform/design-system"
+import { IconButtonGroup } from "@choice-ui/react"
 import { Copy, Paste, Delete } from "@choiceform/icons-react"
 ;<IconButtonGroup variant="secondary">
   <IconButton tooltip={{ content: "Copy" }}>

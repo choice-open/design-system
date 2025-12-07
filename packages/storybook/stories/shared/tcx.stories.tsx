@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-system";
+import { tcx } from "@choice-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {

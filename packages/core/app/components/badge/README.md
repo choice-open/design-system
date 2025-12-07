@@ -5,7 +5,7 @@ A compact label component for displaying status, categories, or counts. Supports
 ## Import
 
 ```tsx
-import { Badge } from "@choiceform/design-system"
+import { Badge } from "@choice-ui/react"
 ```
 
 ## Features

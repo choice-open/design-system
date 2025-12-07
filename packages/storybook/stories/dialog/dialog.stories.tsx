@@ -1,4 +1,4 @@
-import type { DialogPosition } from "@choiceform/design-system";
+import type { DialogPosition } from "@choice-ui/react";
 import {
   Button,
   Checkbox,
@@ -9,7 +9,7 @@ import {
   Popover,
   ScrollArea,
   Select,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { FillWidth } from "@choiceform/icons-react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react-vite";

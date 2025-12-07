@@ -1,4 +1,4 @@
-import { Checkbox } from "@choiceform/checkbox"
+import { Checkbox } from "@choice-ui/checkbox"
 import type { CheckboxAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

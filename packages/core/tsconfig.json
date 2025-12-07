@@ -21,7 +21,7 @@
     "types": ["vite/client"],
     "paths": {
       "~/*": ["./app/*"],
-      "@choiceform/design-shared": ["../shared/src/index.ts"]
+      "@choice-ui/shared": ["../shared/src/index.ts"]
     }
   },
   "include": ["app/**/*.ts", "app/**/*.tsx"],

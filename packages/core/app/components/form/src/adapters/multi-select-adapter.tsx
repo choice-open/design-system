@@ -1,4 +1,4 @@
-import { MultiSelect } from "@choiceform/multi-select"
+import { MultiSelect } from "@choice-ui/multi-select"
 import { Fragment } from "react"
 import type { MultiSelectAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"

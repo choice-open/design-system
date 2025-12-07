@@ -1,5 +1,5 @@
-import { Button } from "@choiceform/button"
-import { tcx } from "@choiceform/design-shared"
+import { Button } from "@choice-ui/button"
+import { tcx } from "@choice-ui/shared"
 import { ChevronLeftMedium, ChevronRightMedium } from "@choiceform/icons-react"
 import { forwardRef, useEffect, useRef, useState } from "react"
 import { useEventCallback, useOnClickOutside } from "usehooks-ts"

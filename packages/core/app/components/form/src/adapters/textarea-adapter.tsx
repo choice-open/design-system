@@ -1,4 +1,4 @@
-import { Textarea } from "@choiceform/textarea"
+import { Textarea } from "@choice-ui/textarea"
 import type { TextareaAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 

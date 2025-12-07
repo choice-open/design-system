@@ -1,4 +1,4 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { forwardRef, useCallback, useMemo } from "react"
 import { useScrollAreaContext } from "../context/scroll-area-context"
 import { useThumbDrag, useThumbStyle } from "../hooks"

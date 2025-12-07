@@ -1,4 +1,4 @@
-import { Combobox } from "@choiceform/combobox"
+import { Combobox } from "@choice-ui/combobox"
 import { memo } from "react"
 import type { MentionItemProps } from "../../types"
 

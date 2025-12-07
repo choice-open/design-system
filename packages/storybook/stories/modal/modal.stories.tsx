@@ -8,7 +8,7 @@ import {
   Select,
   Tabs,
   TextField,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import {
   ChevronLeft,
   LockAspectRatio,

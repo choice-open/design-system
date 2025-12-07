@@ -1,5 +1,5 @@
 import { MutableRefObject, useCallback, useContext, useSyncExternalStore } from "react"
-import { useLazyRef } from "@choiceform/design-shared"
+import { useLazyRef } from "@choice-ui/shared"
 import { FILE_UPLOAD_ERRORS } from "../constants"
 import { StoreContext } from "../contexts"
 import { StoreState } from "../types"

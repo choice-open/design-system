@@ -1,5 +1,5 @@
 {
-  "name": "@choiceform/popover",
+  "name": "@choice-ui/popover",
   "version": "0.0.7",
   "description": "Popover component for Choiceform Design System",
   "sideEffects": false,
@@ -27,9 +27,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@choiceform/design-shared": "workspace:*",
-    "@choiceform/modal": "workspace:*",
-    "@choiceform/slot": "workspace:*",
+    "@choice-ui/shared": "workspace:*",
+    "@choice-ui/modal": "workspace:*",
+    "@choice-ui/slot": "workspace:*",
     "@floating-ui/react": "0.27.15",
     "usehooks-ts": "^3.1.0"
   },

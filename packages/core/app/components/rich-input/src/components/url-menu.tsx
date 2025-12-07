@@ -1,6 +1,6 @@
-import { tcx } from "@choiceform/design-shared"
+import { tcx } from "@choice-ui/shared"
 import { FieldTypeUrl } from "@choiceform/icons-react"
-import { LinkButton } from "@choiceform/link-button"
+import { LinkButton } from "@choice-ui/link-button"
 import { memo } from "react"
 import { floatingMenuTv } from "../tv"
 import { UrlMenuProps } from "../types"

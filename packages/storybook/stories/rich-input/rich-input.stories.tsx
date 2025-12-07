@@ -1,11 +1,11 @@
-import type { CustomElement, CustomText } from "@choiceform/design-system";
+import type { CustomElement, CustomText } from "@choice-ui/react";
 import {
   Button,
   CodeBlock,
   MdRender,
   RichInput,
   slateToMarkdown,
-} from "@choiceform/design-system";
+} from "@choice-ui/react";
 import { faker } from "@faker-js/faker";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";

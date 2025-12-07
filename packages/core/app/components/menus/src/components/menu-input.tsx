@@ -1,4 +1,4 @@
-import { Input, type InputProps } from "@choiceform/input"
+import { Input, type InputProps } from "@choice-ui/input"
 
 import { forwardRef, useCallback } from "react"
 

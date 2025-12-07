@@ -1,4 +1,4 @@
-# @choiceform/design-system
+# @choice-ui/react
 
 A Figma-inspired UI component library for professional desktop applications.
 
@@ -18,9 +18,9 @@ This library provides a set of high-quality, customizable React components desig
 Add the packages to your project:
 
 ```bash
-pnpm add @choiceform/design-system @choiceform/design-tokens
+pnpm add @choice-ui/react @choiceform/design-tokens
 # or
-npm install @choiceform/design-system @choiceform/design-tokens
+npm install @choice-ui/react @choiceform/design-tokens
 ```
 
 ## Setup
@@ -34,7 +34,7 @@ Import the design tokens in your main CSS file:
 @import "@choiceform/design-tokens/tailwind.css";
 ```
 
-**Note:** The old `@import "@choiceform/design-system/styles/theme.css"` is no longer needed and should be removed.
+**Note:** The old `@import "@choice-ui/react/styles/theme.css"` is no longer needed and should be removed.
 
 Learn more about design tokens at [https://tokens.choiceform.app/](https://tokens.choiceform.app/)
 
@@ -43,7 +43,7 @@ Learn more about design tokens at [https://tokens.choiceform.app/](https://token
 Import and use components in your React app:
 
 ```tsx
-import { Button, Input } from "@choiceform/design-system"
+import { Button, Input } from "@choice-ui/react"
 
 export default function Example() {
   return (

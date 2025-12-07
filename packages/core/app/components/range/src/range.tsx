@@ -1,4 +1,4 @@
-import { mergeRefs, tcx } from "@choiceform/design-shared"
+import { mergeRefs, tcx } from "@choice-ui/shared"
 import { clamp } from "es-toolkit"
 import React, {
   CSSProperties,
@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react"
 import { useEventCallback } from "usehooks-ts"
-import { useIsomorphicLayoutEffect } from "@choiceform/design-shared"
+import { useIsomorphicLayoutEffect } from "@choice-ui/shared"
 import { rangeTv } from "./tv"
 
 export interface RangeProps {

@@ -4,7 +4,7 @@ import {
   useMergedValue,
   useModifierKeys,
   usePressMove,
-} from "@choiceform/design-shared"
+} from "@choice-ui/shared"
 import { addMinutes, format, setHours, setMinutes, startOfDay } from "date-fns"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useEventCallback } from "usehooks-ts"
