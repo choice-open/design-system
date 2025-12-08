@@ -1,8 +1,8 @@
-import type { MentionRenderProps } from "@choice-ui/react";
-import { Avatar, MdRender, ScrollArea, Tooltip } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useRef, useState } from "react";
-import { useStickToBottom } from "use-stick-to-bottom";
+import type { MentionRenderProps } from "@choice-ui/react"
+import { Avatar, MdRender, ScrollArea, Tooltip } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useRef, useState } from "react"
+import { useStickToBottom } from "use-stick-to-bottom"
 
 const meta: Meta<typeof MdRender> = {
   title: "Components/MdRender",
@@ -17,11 +17,11 @@ const meta: Meta<typeof MdRender> = {
     },
   },
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof MdRender>;
+type Story = StoryObj<typeof MdRender>
 
 /**
  * Basic markdown rendering with common formatting elements.
@@ -51,7 +51,7 @@ You can also use \`inline code\` in your content.
 
 [Link to example](https://example.com)`,
   },
-};
+}
 
 const GitHubFlavoredMarkdownContent = `# GitHub Flavored Markdown
 
@@ -132,7 +132,7 @@ const GitHubFlavoredMarkdownContent = `# GitHub Flavored Markdown
 
 ***
 
-___`;
+___`
 
 /**
  * Comprehensive GitHub Flavored Markdown demonstration.
@@ -144,7 +144,7 @@ export const GitHubFlavoredMarkdown: Story = {
   args: {
     content: GitHubFlavoredMarkdownContent,
   },
-};
+}
 
 /**
  * GitHub Flavored Markdown with custom color.
@@ -152,33 +152,23 @@ export const GitHubFlavoredMarkdown: Story = {
  */
 export const CustomColor: Story = {
   render: function CustomColorRender() {
-    const isDarkMode = true;
+    const isDarkMode = true
     const customColor = {
-      defaultBackground: isDarkMode
-        ? "var(--color-pink-pale-700)"
-        : "var(--color-pink-300)",
-      defaultBoundary: isDarkMode
-        ? "var(--color-pink-pale-500)"
-        : "var(--color-pink-400)",
-      secondaryBackground: isDarkMode
-        ? "var(--color-pink-pale-600)"
-        : "var(--color-pink-200)",
-      secondaryForeground: isDarkMode
-        ? "var(--color-pink-pale-900)"
-        : "var(--color-pink-pale-500)",
-      codeBackground: isDarkMode
-        ? "var(--color-pink-pale-800)"
-        : "var(--color-pink-100)",
-    };
+      defaultBackground: isDarkMode ? "var(--color-pink-pale-700)" : "var(--color-pink-300)",
+      defaultBoundary: isDarkMode ? "var(--color-pink-pale-500)" : "var(--color-pink-400)",
+      secondaryBackground: isDarkMode ? "var(--color-pink-pale-600)" : "var(--color-pink-200)",
+      secondaryForeground: isDarkMode ? "var(--color-pink-pale-900)" : "var(--color-pink-pale-500)",
+      codeBackground: isDarkMode ? "var(--color-pink-pale-800)" : "var(--color-pink-100)",
+    }
     return (
       <MdRender
         className="p-4"
         content={GitHubFlavoredMarkdownContent}
         customColor={customColor}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Code blocks with multiple programming languages.
@@ -264,7 +254,7 @@ def quicksort(arr):
 
 Use \`const greeting = "Hello"\` for inline code examples.`,
   },
-};
+}
 
 /**
  * Task lists for todo items and checklists.
@@ -304,7 +294,7 @@ export const TaskLists: Story = {
 - [ ] Butter
 - [ ] Cheese`,
   },
-};
+}
 
 /**
  * Tables with different alignments and formatting.
@@ -349,7 +339,7 @@ export const Tables: Story = {
 | Angular | TypeScript | ⭐⭐⭐ | Hard |
 | Svelte | JavaScript | ⭐⭐⭐⭐⭐ | Easy |`,
   },
-};
+}
 
 /**
  * Nested and complex structures.
@@ -403,7 +393,7 @@ export const NestedStructures: Story = {
   - [x] Nested task 1
   - [ ] Nested task 2`,
   },
-};
+}
 
 /**
  * Basic mention rendering in markdown content.
@@ -436,7 +426,7 @@ cc: @Diana Prince @Edward Norton`,
       { id: "7", label: "Edward Norton" },
     ],
   },
-};
+}
 
 /**
  * Custom mention component with rich UI.
@@ -466,7 +456,7 @@ Thanks to @Diana Prince for project management!
 - [ ] @Jane Smith - Design new components
 - [x] @Bob Johnson - Set up CI/CD pipeline
 
-cc: @Edward Norton @Fiona Apple`;
+cc: @Edward Norton @Fiona Apple`
 
     const mentionItems = [
       {
@@ -517,16 +507,16 @@ cc: @Edward Norton @Fiona Apple`;
         email: "fiona@example.com",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=8",
       },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
-      const user = mentionItems.find((item) => item.label === mention);
+      const user = mentionItems.find((item) => item.label === mention)
       if (!user) {
         return (
           <span className="bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle">
             @{mention}
           </span>
-        );
+        )
       }
 
       return (
@@ -564,8 +554,8 @@ cc: @Edward Norton @Fiona Apple`;
             {mention}
           </a>
         </Tooltip>
-      );
-    };
+      )
+    }
 
     return (
       <MdRender
@@ -574,9 +564,9 @@ cc: @Edward Norton @Fiona Apple`;
         mentionRenderComponent={CustomMention}
         allowedPrefixes={["https://api.dicebear.com"]}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Mentions in various markdown contexts.
@@ -622,7 +612,7 @@ Paragraph with mention: @Bob Johnson
 
 ### Link with Mention
 
-Check out @John Doe's [profile](https://example.com)`;
+Check out @John Doe's [profile](https://example.com)`
 
     const mentionItems = [
       { id: "1", label: "John Doe" },
@@ -630,15 +620,15 @@ Check out @John Doe's [profile](https://example.com)`;
       { id: "3", label: "Bob Johnson" },
       { id: "4", label: "Alice Williams" },
       { id: "5", label: "Charlie Brown" },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
       return (
         <span className="bg-accent text-accent-foreground inline-flex items-center rounded px-1.5 py-0.5">
           @{mention}
         </span>
-      );
-    };
+      )
+    }
 
     return (
       <MdRender
@@ -646,9 +636,9 @@ Check out @John Doe's [profile](https://example.com)`;
         mentionItems={mentionItems}
         mentionRenderComponent={CustomMention}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Complex real-world document example.
@@ -746,7 +736,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 **Made with ❤️ by the ChoiceForm team**`,
   },
-};
+}
 
 /**
  * Empty content handling.
@@ -757,7 +747,7 @@ export const EmptyContent: Story = {
   args: {
     content: "",
   },
-};
+}
 
 /**
  * URL Whitelist Security: Demonstrates URL prefix whitelisting for links and images.
@@ -810,7 +800,7 @@ Current allowed prefixes:
 - \`https://github.com/choiceform\`
 - \`https://via.placeholder.com\`
 
-Any URL not starting with these prefixes will be automatically filtered out for security.`;
+Any URL not starting with these prefixes will be automatically filtered out for security.`
 
     return (
       <div className="max-w-3xl">
@@ -824,9 +814,9 @@ Any URL not starting with these prefixes will be automatically filtered out for 
           ]}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * URL Whitelist with Mentions: Shows URL whitelisting combined with custom mentions.
@@ -870,7 +860,7 @@ These avatars use whitelisted domains (api.dicebear.com) and will display:
 
 ## Security Note
 
-> All avatars and external resources are validated against the allowedPrefixes list, ensuring only trusted domains can load content.`;
+> All avatars and external resources are validated against the allowedPrefixes list, ensuring only trusted domains can load content.`
 
     const mentionItems = [
       {
@@ -903,16 +893,16 @@ These avatars use whitelisted domains (api.dicebear.com) and will display:
         email: "charlie@example.com",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=5",
       },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
-      const user = mentionItems.find((item) => item.label === mention);
+      const user = mentionItems.find((item) => item.label === mention)
       if (!user) {
         return (
           <span className="bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle">
             @{mention}
           </span>
-        );
+        )
       }
 
       return (
@@ -950,8 +940,8 @@ These avatars use whitelisted domains (api.dicebear.com) and will display:
             {mention}
           </a>
         </Tooltip>
-      );
-    };
+      )
+    }
 
     return (
       <div className="max-w-3xl">
@@ -962,9 +952,9 @@ These avatars use whitelisted domains (api.dicebear.com) and will display:
           allowedPrefixes={["https://api.dicebear.com"]}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Long document with extensive content.
@@ -1171,7 +1161,7 @@ MdRender provides a complete solution for rendering markdown content in React ap
 
 For more information, visit our [documentation](https://choice-ui.com/) or check out the [GitHub repository](https://github.com/choiceform/choice-ui).`,
   },
-};
+}
 
 const typographyScaleContent = `
 # Typography Scale
@@ -1210,7 +1200,7 @@ In compact mode, all sizes are proportionally reduced:
 
 ### Spacing Adjustments
 All spacing values are multiplied by 0.8 for a more condensed layout while maintaining visual hierarchy.
-`;
+`
 
 export const TypographyScale: Story = {
   render: function TypographyScaleRender() {
@@ -1223,12 +1213,15 @@ export const TypographyScale: Story = {
         <hr className="my-8" />
         <div>
           <h2 className="text-body-large-strong mb-4">Compact Mode</h2>
-          <MdRender content={typographyScaleContent} size="small" />
+          <MdRender
+            content={typographyScaleContent}
+            size="small"
+          />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 const sizingContent = `
 # Sizing Mode Comparison
@@ -1281,7 +1274,7 @@ function fibonacci(n) {
 | Spacing | 80% | 100% | 125% |
 
 > **Note:** Choose the size that best fits your content type and available space.
-`;
+`
 
 /**
  * Size Comparison: Shows all three sizing modes side by side.
@@ -1295,10 +1288,11 @@ export const SizeComparison: Story = {
     return (
       <div className="flex gap-6 p-6">
         <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
-            Small (13px)
-          </h3>
-          <MdRender content={sizingContent} size="small" />
+          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Small (13px)</h3>
+          <MdRender
+            content={sizingContent}
+            size="small"
+          />
         </div>
         <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
           <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
@@ -1307,15 +1301,16 @@ export const SizeComparison: Story = {
           <MdRender content={sizingContent} />
         </div>
         <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
-            Large (16px)
-          </h3>
-          <MdRender content={sizingContent} size="large" />
+          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Large (16px)</h3>
+          <MdRender
+            content={sizingContent}
+            size="large"
+          />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Large Mode for Documentation: Shows large mode with extensive documentation content.
@@ -1435,7 +1430,7 @@ For security, you can restrict which URLs are allowed:
 
 **That's it!** You're now ready to use the markdown renderer in your application.`,
   },
-};
+}
 
 /**
  * Github Variant: Shows the github variant of the markdown renderer.
@@ -1446,22 +1441,24 @@ export const GithubVariant: Story = {
     return (
       <div className="grid grid-cols-2 gap-6 p-6">
         <div className="w-full rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
-            Default
-          </h3>
-          <MdRender content={sizingContent} variant="default" />
+          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Default</h3>
+          <MdRender
+            content={sizingContent}
+            variant="default"
+          />
         </div>
 
         <div className="w-full rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
-            Github
-          </h3>
-          <MdRender content={sizingContent} variant="github" />
+          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Github</h3>
+          <MdRender
+            content={sizingContent}
+            variant="github"
+          />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 const streamingMarkdownChunks = [
   `# Getting Started
@@ -1573,7 +1570,7 @@ export function LoginForm() {
 That's it! You're now ready to build amazing user interfaces.
 
 **Happy coding!** 🚀`,
-];
+]
 
 /**
  * Streaming Markdown: Simulates AI-generated markdown content with auto-scroll.
@@ -1583,64 +1580,55 @@ That's it! You're now ready to build amazing user interfaces.
  */
 export const StreamingMarkdown: Story = {
   render: function StreamingMarkdownRender() {
-    const [content, setContent] = useState("");
-    const [isStreaming, setIsStreaming] = useState(false);
-    const chunkIndexRef = useRef(0);
+    const [content, setContent] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
+    const chunkIndexRef = useRef(0)
 
-    const { scrollRef, contentRef, isAtBottom, scrollToBottom } =
-      useStickToBottom({
-        resize: "smooth",
-        initial: "instant",
-      });
+    const { scrollRef, contentRef, isAtBottom, scrollToBottom } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
 
     const addChunk = () => {
       if (chunkIndexRef.current < streamingMarkdownChunks.length) {
-        setContent(
-          (prev) => prev + streamingMarkdownChunks[chunkIndexRef.current]
-        );
-        chunkIndexRef.current++;
+        setContent((prev) => prev + streamingMarkdownChunks[chunkIndexRef.current])
+        chunkIndexRef.current++
       }
-    };
+    }
 
     const startStreaming = () => {
-      if (isStreaming) return;
-      setIsStreaming(true);
+      if (isStreaming) return
+      setIsStreaming(true)
 
       const interval = setInterval(() => {
         if (chunkIndexRef.current < streamingMarkdownChunks.length) {
-          addChunk();
+          addChunk()
         } else {
-          clearInterval(interval);
-          setIsStreaming(false);
+          clearInterval(interval)
+          setIsStreaming(false)
         }
-      }, 800);
-    };
+      }, 800)
+    }
 
     const reset = () => {
-      setContent("");
-      chunkIndexRef.current = 0;
-      setIsStreaming(false);
-    };
+      setContent("")
+      chunkIndexRef.current = 0
+      setIsStreaming(false)
+    }
 
     return (
       <div className="flex h-[600px] w-[700px] flex-col gap-4">
         <div className="flex items-center gap-2">
           <button
             onClick={addChunk}
-            disabled={
-              isStreaming ||
-              chunkIndexRef.current >= streamingMarkdownChunks.length
-            }
+            disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
             className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
           >
             Add Chunk
           </button>
           <button
             onClick={startStreaming}
-            disabled={
-              isStreaming ||
-              chunkIndexRef.current >= streamingMarkdownChunks.length
-            }
+            disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
             className="rounded bg-green-500 px-3 py-1.5 text-sm text-white hover:bg-green-600 disabled:opacity-50"
           >
             {isStreaming ? "Streaming..." : "Auto Stream"}
@@ -1662,28 +1650,30 @@ export const StreamingMarkdown: Story = {
         </div>
 
         <div className="text-body-small text-fg-subtle">
-          Chunks: {chunkIndexRef.current}/{streamingMarkdownChunks.length} | At
-          bottom: {isAtBottom ? "Yes" : "No"}
+          Chunks: {chunkIndexRef.current}/{streamingMarkdownChunks.length} | At bottom:{" "}
+          {isAtBottom ? "Yes" : "No"}
         </div>
 
         <ScrollArea className="flex-1 rounded-lg border">
           <ScrollArea.Viewport ref={scrollRef}>
-            <ScrollArea.Content ref={contentRef} className="w-full min-w-0 p-4">
+            <ScrollArea.Content
+              ref={contentRef}
+              className="w-full min-w-0 p-4"
+            >
               {content ? (
                 <MdRender content={content} />
               ) : (
                 <div className="text-body-small text-fg-subtle py-8 text-center">
-                  Click &quot;Add Chunk&quot; or &quot;Auto Stream&quot; to
-                  start
+                  Click &quot;Add Chunk&quot; or &quot;Auto Stream&quot; to start
                 </div>
               )}
             </ScrollArea.Content>
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Character-by-character streaming markdown simulation.
@@ -1693,8 +1683,8 @@ export const StreamingMarkdown: Story = {
  */
 export const CharacterStreamingMarkdown: Story = {
   render: function CharacterStreamingMarkdownRender() {
-    const [streamedContent, setStreamedContent] = useState("");
-    const [isStreaming, setIsStreaming] = useState(false);
+    const [streamedContent, setStreamedContent] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
 
     const fullContent = `# Welcome to the Design System
 
@@ -2260,35 +2250,35 @@ if __name__ == "__main__":
 | Syntax highlighting | ✅ |
 | Long content | ✅ |
 
-**Testing complete!**`;
+**Testing complete!**`
 
     const { scrollRef, contentRef } = useStickToBottom({
       resize: "smooth",
       initial: "instant",
-    });
+    })
 
     const startCharacterStream = () => {
-      if (isStreaming) return;
-      setIsStreaming(true);
-      setStreamedContent("");
+      if (isStreaming) return
+      setIsStreaming(true)
+      setStreamedContent("")
 
-      let index = 0;
+      let index = 0
       const interval = setInterval(() => {
         if (index < fullContent.length) {
-          const chunkSize = Math.floor(Math.random() * 8) + 2;
-          setStreamedContent(fullContent.slice(0, index + chunkSize));
-          index += chunkSize;
+          const chunkSize = Math.floor(Math.random() * 8) + 2
+          setStreamedContent(fullContent.slice(0, index + chunkSize))
+          index += chunkSize
         } else {
-          clearInterval(interval);
-          setIsStreaming(false);
+          clearInterval(interval)
+          setIsStreaming(false)
         }
-      }, 15);
-    };
+      }, 15)
+    }
 
     const reset = () => {
-      setStreamedContent("");
-      setIsStreaming(false);
-    };
+      setStreamedContent("")
+      setIsStreaming(false)
+    }
 
     return (
       <div className="flex h-[500px] w-[600px] flex-col gap-4">
@@ -2310,19 +2300,21 @@ if __name__ == "__main__":
 
         <ScrollArea className="flex-1 rounded-lg border">
           <ScrollArea.Viewport ref={scrollRef}>
-            <ScrollArea.Content ref={contentRef} className="w-full min-w-0 p-4">
+            <ScrollArea.Content
+              ref={contentRef}
+              className="w-full min-w-0 p-4"
+            >
               {streamedContent ? (
                 <MdRender content={streamedContent} />
               ) : (
                 <div className="text-body-small text-fg-subtle py-8 text-center">
-                  Click &quot;Start Stream&quot; to begin character-by-character
-                  streaming
+                  Click &quot;Start Stream&quot; to begin character-by-character streaming
                 </div>
               )}
             </ScrollArea.Content>
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}

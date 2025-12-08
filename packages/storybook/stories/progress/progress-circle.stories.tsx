@@ -1,16 +1,16 @@
-import { ProgressCircle, Range } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { Fragment, useState } from "react";
+import { ProgressCircle, Range } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { Fragment, useState } from "react"
 
 const meta: Meta<typeof ProgressCircle> = {
   title: "Feedback/ProgressCircle",
   component: ProgressCircle,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof ProgressCircle>;
+type Story = StoryObj<typeof ProgressCircle>
 
 /**
  * `ProgressCircle` is a circular progress indicator with theme-aware variants and an optional
@@ -46,7 +46,7 @@ export const Basic: Story = {
       <ProgressCircle.Value />
     </ProgressCircle>
   ),
-};
+}
 
 /**
  * Sizes: Demonstrates different diameters and stroke widths.
@@ -58,25 +58,36 @@ export const Sizes: Story = {
     <div className="flex items-center gap-6">
       <div className="grid place-items-center gap-2">
         <span>Size 48</span>
-        <ProgressCircle size={48} strokeWidth={4} value={64}>
+        <ProgressCircle
+          size={48}
+          strokeWidth={4}
+          value={64}
+        >
           <ProgressCircle.Value />
         </ProgressCircle>
       </div>
       <div className="grid place-items-center gap-2">
         <span>Size 64</span>
-        <ProgressCircle size={64} value={64}>
+        <ProgressCircle
+          size={64}
+          value={64}
+        >
           <ProgressCircle.Value />
         </ProgressCircle>
       </div>
       <div className="grid place-items-center gap-2">
         <span>Size 96</span>
-        <ProgressCircle size={96} strokeWidth={8} value={64}>
+        <ProgressCircle
+          size={96}
+          strokeWidth={8}
+          value={64}
+        >
           <ProgressCircle.Value />
         </ProgressCircle>
       </div>
     </div>
   ),
-};
+}
 
 /**
  * Variants: Shows theme-driven color variants.
@@ -84,9 +95,10 @@ export const Sizes: Story = {
  */
 export const Variants: Story = {
   render: () => {
-    const variants: Array<
-      NonNullable<React.ComponentProps<typeof ProgressCircle>["variant"]>
-    > = ["accent", "default"];
+    const variants: Array<NonNullable<React.ComponentProps<typeof ProgressCircle>["variant"]>> = [
+      "accent",
+      "default",
+    ]
 
     return (
       <div className="grid gap-4">
@@ -94,17 +106,23 @@ export const Variants: Story = {
           <Fragment key={variant}>
             <span className="capitalize">{variant}</span>
             <div className="flex items-center gap-4">
-              <ProgressCircle variant={variant} value={40} />
-              <ProgressCircle variant={variant} value={70}>
+              <ProgressCircle
+                variant={variant}
+                value={40}
+              />
+              <ProgressCircle
+                variant={variant}
+                value={70}
+              >
                 <ProgressCircle.Value />
               </ProgressCircle>
             </div>
           </Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Based-on-value: Demonstrates continuous color blending driven by `value`.
@@ -114,7 +132,7 @@ export const Variants: Story = {
  */
 export const BasedOnValue: Story = {
   render: function BasedOnValueStory() {
-    const [value, setValue] = useState(35);
+    const [value, setValue] = useState(35)
 
     return (
       <div className="grid grid-cols-2 gap-4">
@@ -155,6 +173,6 @@ export const BasedOnValue: Story = {
           <span>Value: {value}</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}

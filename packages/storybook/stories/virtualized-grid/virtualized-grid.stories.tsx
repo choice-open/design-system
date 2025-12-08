@@ -1,11 +1,11 @@
-import { Badge } from "@choice-ui/react";
-import { Button } from "@choice-ui/react";
-import { Input } from "@choice-ui/react";
-import { ScrollArea } from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useMemo, useRef, useState } from "react";
-import { VirtualizedGrid } from "@choice-ui/react";
+import { Badge } from "@choice-ui/react"
+import { Button } from "@choice-ui/react"
+import { Input } from "@choice-ui/react"
+import { ScrollArea } from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useMemo, useRef, useState } from "react"
+import { VirtualizedGrid } from "@choice-ui/react"
 
 const meta: Meta<typeof VirtualizedGrid> = {
   title: "Utilities/VirtualizedGrid",
@@ -21,10 +21,10 @@ const meta: Meta<typeof VirtualizedGrid> = {
       </div>
     ),
   ],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof VirtualizedGrid>;
+export default meta
+type Story = StoryObj<typeof VirtualizedGrid>
 
 /**
  * High-performance virtualized grid component for rendering large datasets efficiently.
@@ -63,7 +63,7 @@ const generateItems = (count: number) =>
     price: faker.commerce.price(),
     image: `https://api.dicebear.com/7.x/avataaars/svg?seed=${index}`,
     color: faker.color.rgb(),
-  }));
+  }))
 
 /**
  * Basic grid layout with responsive columns.
@@ -84,15 +84,13 @@ const generateItems = (count: number) =>
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const items = useMemo(() => generateItems(1000), []);
+    const items = useMemo(() => generateItems(1000), [])
 
     return (
       <VirtualizedGrid
         items={items}
         overscan={5}
-        columnCount={(width, gap) =>
-          Math.max(1, Math.floor((width + gap) / (250 + gap)))
-        }
+        columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (250 + gap)))}
         gridGap={(width) => (width > 768 ? 24 : 16)}
         itemData={(item) => ({
           key: item.id,
@@ -107,22 +105,18 @@ export const Basic: Story = {
             />
             <div className="p-4">
               <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
-              <p className="text-secondary-foreground mb-3 line-clamp-2">
-                {item.description}
-              </p>
+              <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
               <div className="flex items-center justify-between">
                 <Badge>{item.category}</Badge>
-                <span className="text-success-foreground font-strong">
-                  ${item.price}
-                </span>
+                <span className="text-success-foreground font-strong">${item.price}</span>
               </div>
             </div>
           </div>
         )}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * List mode for single-column vertical layouts.
@@ -144,7 +138,7 @@ export const Basic: Story = {
  */
 export const ListMode: Story = {
   render: function ListModeStory() {
-    const items = useMemo(() => generateItems(500), []);
+    const items = useMemo(() => generateItems(500), [])
 
     return (
       <VirtualizedGrid
@@ -168,27 +162,21 @@ export const ListMode: Story = {
               <div className="min-w-0 flex-grow">
                 <div className="mb-1 flex items-center justify-between">
                   <h3 className="font-strong truncate">{item.title}</h3>
-                  <span className="text-success-foreground font-strong">
-                    ${item.price}
-                  </span>
+                  <span className="text-success-foreground font-strong">${item.price}</span>
                 </div>
-                <p className="text-secondary-foreground mb-2 line-clamp-2">
-                  {item.description}
-                </p>
+                <p className="text-secondary-foreground mb-2 line-clamp-2">{item.description}</p>
                 <div className="flex items-center gap-2">
                   <Badge>{item.category}</Badge>
-                  <span className="text-secondary-foreground">
-                    #{(index ?? 0) + 1}
-                  </span>
+                  <span className="text-secondary-foreground">#{(index ?? 0) + 1}</span>
                 </div>
               </div>
             </div>
           </div>
         )}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Performance optimized setup with DOM node pooling.
@@ -212,7 +200,7 @@ export const ListMode: Story = {
  */
 export const PerformanceOptimized: Story = {
   render: function PerformanceStory() {
-    const items = useMemo(() => generateItems(10000), []);
+    const items = useMemo(() => generateItems(10000), [])
 
     return (
       <div className="space-y-4">
@@ -234,9 +222,7 @@ export const PerformanceOptimized: Story = {
           maxPoolSize={200}
           overscan={2}
           items={items}
-          columnCount={(width, gap) =>
-            Math.max(1, Math.floor((width + gap) / (200 + gap)))
-          }
+          columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (200 + gap)))}
           gridGap={() => 12}
           itemData={(item) => ({
             key: item.id,
@@ -249,18 +235,16 @@ export const PerformanceOptimized: Story = {
                 <h3 className="font-strong line-clamp-1">{item.title}</h3>
                 <div className="flex items-center justify-between">
                   <Badge>#{(index ?? 0) + 1}</Badge>
-                  <span className="text-success-foreground font-strong">
-                    ${item.price}
-                  </span>
+                  <span className="text-success-foreground font-strong">${item.price}</span>
                 </div>
               </div>
             </div>
           )}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Container scroll implementation within a ScrollArea.
@@ -289,17 +273,16 @@ export const PerformanceOptimized: Story = {
  */
 export const ContainerScroll: Story = {
   render: function ContainerScrollStory() {
-    const items = useMemo(() => generateItems(800), []);
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const items = useMemo(() => generateItems(800), [])
+    const scrollRef = useRef<HTMLDivElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
 
     return (
       <div className="space-y-4">
         <div className="rounded-lg bg-green-50 p-4">
           <p className="">
-            <strong>Container Scroll:</strong> Virtualization within a custom
-            scroll container instead of the window. Useful for modals, sidebars,
-            or embedded layouts.
+            <strong>Container Scroll:</strong> Virtualization within a custom scroll container
+            instead of the window. Useful for modals, sidebars, or embedded layouts.
           </p>
         </div>
 
@@ -308,15 +291,16 @@ export const ContainerScroll: Story = {
             ref={scrollRef}
             className="max-h-96 rounded-xl border"
           >
-            <ScrollArea.Content ref={containerRef} className="p-4">
+            <ScrollArea.Content
+              ref={containerRef}
+              className="p-4"
+            >
               <VirtualizedGrid
                 scrollRef={scrollRef}
                 containerRef={containerRef}
                 items={items}
                 overscan={3}
-                columnCount={(width, gap) =>
-                  Math.max(1, Math.floor((width + gap) / (220 + gap)))
-                }
+                columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (220 + gap)))}
                 gridGap={() => 16}
                 itemData={(item) => ({
                   key: item.id,
@@ -328,13 +312,9 @@ export const ContainerScroll: Story = {
                       className="mb-3 h-16 w-full rounded"
                       style={{ backgroundColor: item.color }}
                     />
-                    <h3 className="font-strong mb-2 line-clamp-2">
-                      {item.title}
-                    </h3>
+                    <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-secondary-foreground">
-                        Item {(index ?? 0) + 1}
-                      </span>
+                      <span className="text-secondary-foreground">Item {(index ?? 0) + 1}</span>
                       <Badge>{item.category}</Badge>
                     </div>
                   </div>
@@ -344,9 +324,9 @@ export const ContainerScroll: Story = {
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Error handling and edge cases demonstration.
@@ -372,26 +352,26 @@ export const ContainerScroll: Story = {
  */
 export const ErrorHandling: Story = {
   render: function ErrorHandlingStory() {
-    const [shouldError, setShouldError] = useState(false);
-    const [items, setItems] = useState(() => generateItems(100));
+    const [shouldError, setShouldError] = useState(false)
+    const [items, setItems] = useState(() => generateItems(100))
 
     const errorProneItems = shouldError
       ? items.map((item, index) => {
           if (index === 50) {
             // Simulate an error condition
-            return { ...item, title: null as unknown as string };
+            return { ...item, title: null as unknown as string }
           }
-          return item;
+          return item
         })
-      : items;
+      : items
 
     return (
       <div className="space-y-4">
         <div className="flex items-center gap-4 rounded-lg bg-yellow-50 p-4">
           <div className="flex-grow">
             <p className="">
-              <strong>Error Handling:</strong> Demonstrates error boundaries,
-              recovery, and edge cases.
+              <strong>Error Handling:</strong> Demonstrates error boundaries, recovery, and edge
+              cases.
             </p>
           </div>
           <div className="flex gap-2">
@@ -401,7 +381,10 @@ export const ErrorHandling: Story = {
             >
               {shouldError ? "Fix Error" : "Trigger Error"}
             </Button>
-            <Button variant="secondary" onClick={() => setItems([])}>
+            <Button
+              variant="secondary"
+              onClick={() => setItems([])}
+            >
               Clear Items
             </Button>
             <Button
@@ -416,9 +399,7 @@ export const ErrorHandling: Story = {
         <VirtualizedGrid
           items={errorProneItems}
           overscan={5}
-          columnCount={(width, gap) =>
-            Math.max(1, Math.floor((width + gap) / (250 + gap)))
-          }
+          columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (250 + gap)))}
           gridGap={() => 16}
           itemData={(item) => ({
             key: item.id,
@@ -428,9 +409,7 @@ export const ErrorHandling: Story = {
             <div className="bg-default-background rounded-lg border p-4">
               <div className="mb-3 h-24 w-full rounded bg-gray-200" />
               <h3 className="font-strong mb-2">{item.title?.toUpperCase()}</h3>
-              <p className="text-secondary-foreground mb-3 line-clamp-2">
-                {item.description}
-              </p>
+              <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
               <Badge>#{(index ?? 0) + 1}</Badge>
             </div>
           )}
@@ -439,12 +418,10 @@ export const ErrorHandling: Story = {
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
                 <span className="text-heading-display">⚠️</span>
               </div>
-              <h3 className="text-body-large-strong mb-2">
-                Something went wrong
-              </h3>
+              <h3 className="text-body-large-strong mb-2">Something went wrong</h3>
               <p className="text-secondary-foreground mb-4 max-w-md">
-                The virtualized grid encountered an error while rendering items.
-                This could be due to invalid data or rendering issues.
+                The virtualized grid encountered an error while rendering items. This could be due
+                to invalid data or rendering issues.
               </p>
               <div className="flex gap-2">
                 <Button onClick={retry}>Try Again</Button>
@@ -468,13 +445,13 @@ export const ErrorHandling: Story = {
             </div>
           )}
           onError={(error, errorInfo) => {
-            console.error("VirtualizedGrid Error:", error, errorInfo);
+            console.error("VirtualizedGrid Error:", error, errorInfo)
           }}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Interactive configuration playground.
@@ -498,13 +475,13 @@ export const ErrorHandling: Story = {
  */
 export const Playground: Story = {
   render: function PlaygroundStory() {
-    const [overscan, setOverscan] = useState(5);
-    const [itemCount, setItemCount] = useState(1000);
-    const [enablePooling, setEnablePooling] = useState(false);
-    const [minHeight, setMinHeight] = useState(180);
-    const [maxHeight, setMaxHeight] = useState(220);
+    const [overscan, setOverscan] = useState(5)
+    const [itemCount, setItemCount] = useState(1000)
+    const [enablePooling, setEnablePooling] = useState(false)
+    const [minHeight, setMinHeight] = useState(180)
+    const [maxHeight, setMaxHeight] = useState(220)
 
-    const items = useMemo(() => generateItems(itemCount), [itemCount]);
+    const items = useMemo(() => generateItems(itemCount), [itemCount])
 
     return (
       <div className="space-y-6">
@@ -575,20 +552,18 @@ export const Playground: Story = {
           maxPoolSize={200}
           overscan={overscan}
           items={items}
-          columnCount={(width, gap) =>
-            Math.max(1, Math.floor((width + gap) / (240 + gap)))
-          }
+          columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (240 + gap)))}
           gridGap={() => 16}
           itemData={(item) => {
             // Variable height based on settings
-            const height = minHeight + (item.index % (maxHeight - minHeight));
+            const height = minHeight + (item.index % (maxHeight - minHeight))
             return {
               key: item.id,
               height,
-            };
+            }
           }}
           renderItem={(item, index) => {
-            const height = minHeight + (item.index % (maxHeight - minHeight));
+            const height = minHeight + (item.index % (maxHeight - minHeight))
 
             return (
               <div
@@ -600,22 +575,18 @@ export const Playground: Story = {
                     className="mb-3 h-16 w-full rounded"
                     style={{ backgroundColor: item.color }}
                   />
-                  <h3 className="font-strong mb-2 line-clamp-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-secondary-foreground line-clamp-3">
-                    {item.description}
-                  </p>
+                  <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
+                  <p className="text-secondary-foreground line-clamp-3">{item.description}</p>
                 </div>
                 <div className="mt-auto flex items-center justify-between pt-2">
                   <Badge>#{(index ?? 0) + 1}</Badge>
                   <span className="text-secondary-foreground">{height}px</span>
                 </div>
               </div>
-            );
+            )
           }}
         />
       </div>
-    );
+    )
   },
-};
+}

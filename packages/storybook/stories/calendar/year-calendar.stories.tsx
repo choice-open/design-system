@@ -1,13 +1,11 @@
-import type { YearCalendarProps } from "@choice-ui/react";
-import { YearCalendar } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import type { YearCalendarProps } from "@choice-ui/react"
+import { YearCalendar } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 // 辅助组件
 const YearPickerDemo = (args: YearCalendarProps) => {
-  const [selectedYear, setSelectedYear] = useState<Date | null>(
-    args.value ?? new Date()
-  );
+  const [selectedYear, setSelectedYear] = useState<Date | null>(args.value ?? new Date())
 
   return (
     <div className="space-y-4">
@@ -30,8 +28,8 @@ const YearPickerDemo = (args: YearCalendarProps) => {
         Selected year: {selectedYear?.getFullYear() ?? "None"}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof YearCalendar> = {
   title: "DateAndTime/YearCalendar",
@@ -40,10 +38,10 @@ const meta: Meta<typeof YearCalendar> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `YearCalendar` is a specialized calendar component for year selection with flexible range and display options.
@@ -79,7 +77,7 @@ type Story = StoryObj<typeof meta>;
  * - Semantic HTML structure with proper year semantics
  */
 
-const currentYear = new Date();
+const currentYear = new Date()
 
 /**
  * Default: Shows the basic YearCalendar with standard configuration.
@@ -95,7 +93,7 @@ export const Default: Story = {
     disabled: false,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * WithRange: Demonstrates YearCalendar with year range restrictions.
@@ -113,7 +111,7 @@ export const WithRange: Story = {
     disabled: false,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * WithDisabledYears: Demonstrates selective year disabling functionality.
@@ -134,7 +132,7 @@ export const WithDisabledYears: Story = {
     disabled: false,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * DifferentCount: Demonstrates customizable year count display.
@@ -150,7 +148,7 @@ export const DifferentCount: Story = {
     disabled: false,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * Disabled: Demonstrates the completely disabled state of YearCalendar.
@@ -166,7 +164,7 @@ export const Disabled: Story = {
     disabled: true,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * CustomStartYear: Demonstrates custom starting year configuration.
@@ -183,7 +181,7 @@ export const CustomStartYear: Story = {
     disabled: false,
   },
   render: (args) => <YearPickerDemo {...args} />,
-};
+}
 
 /**
  * ReadOnly: Demonstrates the YearCalendar component in readOnly mode.
@@ -193,29 +191,23 @@ export const CustomStartYear: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [value, setValue] = useState<Date | null>(new Date(2024, 0, 1));
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<Date | null>(new Date(2024, 0, 1))
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: Date | null) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
           <div className="text-body-small font-mono text-stone-600">
             {value ? value.getFullYear().toString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <YearCalendar
@@ -231,11 +223,10 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking years on the readonly calendar - the value should not
-          change and the change count should remain at 0. Only the normal
-          calendar will change the value.
+          💡 Try clicking years on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

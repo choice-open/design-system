@@ -1,17 +1,11 @@
 "use client"
-import { listBreakpoints } from "@choice-ui/design-tokens";
-import { CSSProperties, Fragment, memo } from "react";
-import { Section } from "..";
-import {
-  SpacingBar,
-  SpacingDivider,
-  SpacingGrid,
-  SpacingLabel,
-  SpacingValue,
-} from "../page/share";
+import { listBreakpoints } from "@choice-ui/design-tokens"
+import { CSSProperties, Fragment, memo } from "react"
+import { Section } from ".."
+import { SpacingBar, SpacingDivider, SpacingGrid, SpacingLabel, SpacingValue } from "../page/share"
 
 export const SectionContainerSpacing = memo(function SectionContainerSpacing() {
-  const breakpointData = listBreakpoints();
+  const breakpointData = listBreakpoints()
   return (
     <Section
       orientation="vertical"
@@ -19,9 +13,8 @@ export const SectionContainerSpacing = memo(function SectionContainerSpacing() {
       content={
         <>
           <p>
-            The spacing() function also supports container values. This is
-            useful when you need to set spacing relative to the container
-            element&apos;s width or height.
+            The spacing() function also supports container values. This is useful when you need to
+            set spacing relative to the container element&apos;s width or height.
           </p>
           <ul>
             <li>
@@ -63,14 +56,12 @@ export const SectionContainerSpacing = memo(function SectionContainerSpacing() {
                 } as CSSProperties
               }
             />
-            {index !== breakpointData.breakpoints.length - 1 && (
-              <SpacingDivider />
-            )}
+            {index !== breakpointData.breakpoints.length - 1 && <SpacingDivider />}
           </Fragment>
         ))}
       </SpacingGrid>
     </Section>
-  );
-});
+  )
+})
 
-SectionContainerSpacing.displayName = "SectionContainerSpacing";
+SectionContainerSpacing.displayName = "SectionContainerSpacing"

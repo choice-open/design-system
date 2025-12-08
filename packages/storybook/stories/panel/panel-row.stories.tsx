@@ -13,7 +13,7 @@ import {
   Splitter,
   Switch,
   tcx,
-} from "@choice-ui/react";
+} from "@choice-ui/react"
 import {
   AlignBottom,
   AlignCenterHorizontal,
@@ -34,28 +34,31 @@ import {
   Visible,
   ZoomIn,
   ZoomOut,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+} from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useState } from "react"
 
 const meta: Meta<typeof Panel> = {
   title: "Layouts/Panel/Row",
   component: Panel,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Panel>;
+type Story = StoryObj<typeof Panel>
 
 const AllotmentContainer = ({
   children,
   header,
 }: {
-  children: React.ReactNode;
-  header: React.ReactNode;
+  children: React.ReactNode
+  header: React.ReactNode
 }) => {
   return (
-    <Splitter defaultSizes={[800, 240]} className="absolute! inset-0">
+    <Splitter
+      defaultSizes={[800, 240]}
+      className="absolute! inset-0"
+    >
       <Splitter.Pane minSize={320}>
         <div className="bg-secondary-background flex h-screen min-h-0 w-full flex-1 flex-col"></div>
       </Splitter.Pane>
@@ -64,9 +67,7 @@ const AllotmentContainer = ({
         <ScrollArea className="h-full overflow-hidden">
           <ScrollArea.Viewport className="bg-default-background h-full pb-16">
             <ScrollArea.Content>
-              <div className="text-body-small-strong border-b p-4">
-                {header}
-              </div>
+              <div className="text-body-small-strong border-b p-4">{header}</div>
 
               {children}
             </ScrollArea.Content>
@@ -74,25 +75,22 @@ const AllotmentContainer = ({
         </ScrollArea>
       </Splitter.Pane>
     </Splitter>
-  );
-};
+  )
+}
 
 const SelectComponent = ({ className }: { className?: string }) => {
   const selectOptions = [
     { label: "Option 1", value: "option1" },
     { label: "Option 2", value: "option2" },
     { label: "Option 3", value: "option3" },
-  ];
-  const [selectValue, setSelectValue] = useState(selectOptions[0]);
+  ]
+  const [selectValue, setSelectValue] = useState(selectOptions[0])
   return (
     <Select
       matchTriggerWidth
       value={selectValue.value}
       onChange={(value) =>
-        setSelectValue(
-          selectOptions.find((option) => option.value === value) ??
-            selectOptions[0]
-        )
+        setSelectValue(selectOptions.find((option) => option.value === value) ?? selectOptions[0])
       }
     >
       <Select.Trigger className={tcx("[grid-area:input]", className)}>
@@ -100,17 +98,20 @@ const SelectComponent = ({ className }: { className?: string }) => {
       </Select.Trigger>
       <Select.Content>
         {selectOptions.map((option) => (
-          <Select.Item key={option.value} value={option.value}>
+          <Select.Item
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </Select.Item>
         ))}
       </Select.Content>
     </Select>
-  );
-};
+  )
+}
 
 const InputComponent = ({ className }: { className?: string }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("")
   return (
     <Input
       className={tcx("[grid-area:input]", className)}
@@ -118,11 +119,11 @@ const InputComponent = ({ className }: { className?: string }) => {
       onChange={(value) => setInputValue(value)}
       placeholder="Input"
     />
-  );
-};
+  )
+}
 
 const SegmentedComponent = ({ className }: { className?: string }) => {
-  const [segmentedValue, setSegmentedValue] = useState("zoomOut");
+  const [segmentedValue, setSegmentedValue] = useState("zoomOut")
   return (
     <Segmented
       className={tcx("[grid-area:input]", className)}
@@ -139,11 +140,11 @@ const SegmentedComponent = ({ className }: { className?: string }) => {
         <ZoomIn />
       </Segmented.Item>
     </Segmented>
-  );
-};
+  )
+}
 
 const CheckboxComponent = ({ className }: { className?: string }) => {
-  const [checkboxValue, setCheckboxValue] = useState(false);
+  const [checkboxValue, setCheckboxValue] = useState(false)
   return (
     <Checkbox
       className={tcx("[grid-area:input]", className)}
@@ -152,17 +153,17 @@ const CheckboxComponent = ({ className }: { className?: string }) => {
     >
       <Checkbox.Label>Checkbox</Checkbox.Label>
     </Checkbox>
-  );
-};
+  )
+}
 
 const DropdownComponent = ({ className }: { className?: string }) => {
   const dropdownOptions = [
     { label: "Zoom Out", value: "zoomOut", icon: <ZoomOut /> },
     { label: "100%", value: "100%", icon: <Search /> },
     { label: "Zoom In", value: "zoomIn", icon: <ZoomIn /> },
-  ];
+  ]
 
-  const [dropdownValue, setDropdownValue] = useState(dropdownOptions[0]);
+  const [dropdownValue, setDropdownValue] = useState(dropdownOptions[0])
 
   return (
     <Dropdown>
@@ -184,19 +185,19 @@ const DropdownComponent = ({ className }: { className?: string }) => {
         ))}
       </Dropdown.Content>
     </Dropdown>
-  );
-};
+  )
+}
 
 const NumericInputComponent = ({
   className,
   prefix,
   suffix,
 }: {
-  className?: string;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
+  className?: string
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
 }) => {
-  const [numericInputValue, setNumericInputValue] = useState(100);
+  const [numericInputValue, setNumericInputValue] = useState(100)
   return (
     <NumericInput
       className={tcx("[grid-area:input]", className)}
@@ -206,8 +207,8 @@ const NumericInputComponent = ({
       {prefix && <NumericInput.Prefix>{prefix}</NumericInput.Prefix>}
       {suffix && <NumericInput.Suffix>{suffix}</NumericInput.Suffix>}
     </NumericInput>
-  );
-};
+  )
+}
 
 /**
  * Single row
@@ -234,7 +235,7 @@ const NumericInputComponent = ({
  */
 export const Single: Story = {
   render: function SingleStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -271,9 +272,9 @@ export const Single: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * Two columns
@@ -305,9 +306,8 @@ export const Single: Story = {
 
 export const TwoColumns: Story = {
   render: function TwoColumnsStory() {
-    const [showLabels, setShowLabels] = useState(false);
-    const [segmentedControlValue, setSegmentedControlValue] =
-      useState("zoomOut");
+    const [showLabels, setShowLabels] = useState(false)
+    const [segmentedControlValue, setSegmentedControlValue] = useState("zoomOut")
     return (
       <AllotmentContainer
         header={
@@ -327,9 +327,7 @@ export const TwoColumns: Story = {
           </Panel.Title>
           <Panel.Row type="two-columns">
             <Panel.Label className="[grid-area:label-1]">Dropdown</Panel.Label>
-            <Panel.Label className="[grid-area:label-2]">
-              Segmented Control
-            </Panel.Label>
+            <Panel.Label className="[grid-area:label-2]">Segmented Control</Panel.Label>
             <DropdownComponent className="[grid-area:input-1]" />
             <SegmentedComponent className="[grid-area:input-2]" />
           </Panel.Row>
@@ -369,9 +367,9 @@ export const TwoColumns: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * One Input One Icon
@@ -401,7 +399,7 @@ export const TwoColumns: Story = {
 
 export const OneInputOneIcon: Story = {
   render: function OneInputOneIconStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -443,15 +441,18 @@ export const OneInputOneIcon: Story = {
             </IconButton>
           </Panel.Row>
           <Panel.Row type="one-input-one-icon">
-            <Button className="[grid-area:input]" variant="secondary">
+            <Button
+              className="[grid-area:input]"
+              variant="secondary"
+            >
               Button
             </Button>
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * One Input Two Icon
@@ -482,7 +483,7 @@ export const OneInputOneIcon: Story = {
 
 export const OneInputTwoIcon: Story = {
   render: function OneInputTwoIconStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -537,9 +538,9 @@ export const OneInputTwoIcon: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * Two Input One Icon
@@ -572,7 +573,7 @@ export const OneInputTwoIcon: Story = {
 
 export const TwoInputOneIcon: Story = {
   render: function TwoInputOneIconStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -606,12 +607,8 @@ export const TwoInputOneIcon: Story = {
           </Panel.Row>
 
           <Panel.Row type="two-input-one-icon">
-            <Panel.Label className="[grid-area:label-1]">
-              Number Input 1
-            </Panel.Label>
-            <Panel.Label className="[grid-area:label-2]">
-              Number Input 2
-            </Panel.Label>
+            <Panel.Label className="[grid-area:label-1]">Number Input 1</Panel.Label>
+            <Panel.Label className="[grid-area:label-2]">Number Input 2</Panel.Label>
             <NumericInputComponent
               className="[grid-area:input-1]"
               prefix={<MaxWidth />}
@@ -623,9 +620,9 @@ export const TwoInputOneIcon: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * Two Input Two Icon
@@ -660,7 +657,7 @@ export const TwoInputOneIcon: Story = {
 
 export const TwoInputTwoIcon: Story = {
   render: function TwoInputTwoIconStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -700,12 +697,8 @@ export const TwoInputTwoIcon: Story = {
           </Panel.Row>
 
           <Panel.Row type="two-input-two-icon">
-            <Panel.Label className="[grid-area:label-1]">
-              Number Input 1
-            </Panel.Label>
-            <Panel.Label className="[grid-area:label-2]">
-              Number Input 2
-            </Panel.Label>
+            <Panel.Label className="[grid-area:label-1]">Number Input 1</Panel.Label>
+            <Panel.Label className="[grid-area:label-2]">Number Input 2</Panel.Label>
             <NumericInputComponent
               className="[grid-area:input-1]"
               prefix={<MaxWidth />}
@@ -729,9 +722,9 @@ export const TwoInputTwoIcon: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * One Icon One Input Two Icon
@@ -764,7 +757,7 @@ export const TwoInputTwoIcon: Story = {
 
 export const OneIconOneInputTwoIcon: Story = {
   render: function OneIconOneInputTwoIconStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -808,9 +801,9 @@ export const OneIconOneInputTwoIcon: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * Two Input One Icon Double Row
@@ -848,7 +841,7 @@ export const OneIconOneInputTwoIcon: Story = {
 
 export const TwoInputOneIconDoubleRow: Story = {
   render: function TwoInputOneIconDoubleRowStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -870,9 +863,7 @@ export const TwoInputOneIconDoubleRow: Story = {
 
           <Panel.Row type="two-input-one-icon-double-row">
             <Panel.Label className="[grid-area:label-1]">Select</Panel.Label>
-            <Panel.Label className="[grid-area:label-2]">
-              Double Row
-            </Panel.Label>
+            <Panel.Label className="[grid-area:label-2]">Double Row</Panel.Label>
             <SelectComponent className="[grid-area:input-1]" />
             <NumericInputComponent
               className="[grid-area:input-2]"
@@ -890,9 +881,9 @@ export const TwoInputOneIconDoubleRow: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * One Label One Input
@@ -942,9 +933,9 @@ export const OneLabelOneInput: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * Many Icon
@@ -973,7 +964,7 @@ export const ManyIcon: Story = {
     const [manyIconIsEditing, setManyIconIsEditing] = useState({
       a: false,
       b: false,
-    });
+    })
 
     return (
       <AllotmentContainer header={<>Many Icon</>}>
@@ -1007,9 +998,7 @@ export const ManyIcon: Story = {
           >
             <div
               className="bg-secondary-background focus-within:border-selected-boundary focus-within:bg-default-background flex h-6 min-w-0 flex-1 cursor-default items-center gap-1 rounded-md border border-transparent px-2"
-              onClick={() =>
-                setManyIconIsEditing({ ...manyIconIsEditing, a: true })
-              }
+              onClick={() => setManyIconIsEditing({ ...manyIconIsEditing, a: true })}
             >
               <ColorTypeGradient />
 
@@ -1019,14 +1008,10 @@ export const ManyIcon: Story = {
                   variant="reset"
                   autoFocus
                   value="Panel row many icon"
-                  onBlur={() =>
-                    setManyIconIsEditing({ ...manyIconIsEditing, a: false })
-                  }
+                  onBlur={() => setManyIconIsEditing({ ...manyIconIsEditing, a: false })}
                 />
               ) : (
-                <span className="min-w-0 flex-1 truncate">
-                  Panel row many icon
-                </span>
+                <span className="min-w-0 flex-1 truncate">Panel row many icon</span>
               )}
             </div>
           </Panel.RowManyIcon>
@@ -1063,9 +1048,7 @@ export const ManyIcon: Story = {
           >
             <div
               className="bg-secondary-background focus-within:border-selected-boundary focus-within:bg-default-background flex h-6 min-w-0 flex-1 cursor-default items-center gap-1 rounded-md border border-transparent px-2"
-              onClick={() =>
-                setManyIconIsEditing({ ...manyIconIsEditing, b: true })
-              }
+              onClick={() => setManyIconIsEditing({ ...manyIconIsEditing, b: true })}
             >
               <ColorTypeGradient />
               {manyIconIsEditing.b ? (
@@ -1074,22 +1057,18 @@ export const ManyIcon: Story = {
                   variant="reset"
                   autoFocus
                   value="Panel row many icon"
-                  onBlur={() =>
-                    setManyIconIsEditing({ ...manyIconIsEditing, b: false })
-                  }
+                  onBlur={() => setManyIconIsEditing({ ...manyIconIsEditing, b: false })}
                 />
               ) : (
-                <span className="min-w-0 flex-1 truncate">
-                  Panel row many icon
-                </span>
+                <span className="min-w-0 flex-1 truncate">Panel row many icon</span>
               )}
             </div>
           </Panel.RowManyIcon>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}
 
 /**
  * One Icon One Input
@@ -1105,7 +1084,7 @@ export const ManyIcon: Story = {
  */
 export const OneIconOneInput: Story = {
   render: function OneIconOneInputStory() {
-    const [showLabels, setShowLabels] = useState(false);
+    const [showLabels, setShowLabels] = useState(false)
 
     return (
       <AllotmentContainer
@@ -1127,7 +1106,10 @@ export const OneIconOneInput: Story = {
 
           <Panel.Row type="one-icon-one-input">
             <Panel.Label>Input</Panel.Label>
-            <Input className="[grid-area:input]" placeholder="Input" />
+            <Input
+              className="[grid-area:input]"
+              placeholder="Input"
+            />
             <IconButton
               className="[grid-area:icon]"
               tooltip={{ content: "Visible" }}
@@ -1137,6 +1119,6 @@ export const OneIconOneInput: Story = {
           </Panel.Row>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}

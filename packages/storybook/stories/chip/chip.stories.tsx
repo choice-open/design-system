@@ -1,16 +1,16 @@
-import { Chip } from "@choice-ui/react";
-import { SearchSmall } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Chip } from "@choice-ui/react"
+import { SearchSmall } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta = {
   title: "Feedback/Chip",
   component: Chip,
   tags: ["beta", "autodocs"],
-} satisfies Meta<typeof Chip>;
+} satisfies Meta<typeof Chip>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `Chip` is a compact, interactive component used for displaying information, selections, or actions.
@@ -43,9 +43,9 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    return <Chip>Chip</Chip>;
+    return <Chip>Chip</Chip>
   },
-};
+}
 
 /**
  * Selected: Demonstrates a selectable Chip.
@@ -54,15 +54,18 @@ export const Basic: Story = {
  */
 export const Selected: Story = {
   render: function SelectedStory() {
-    const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState(false)
 
     return (
-      <Chip selected={selected} onClick={() => setSelected(!selected)}>
+      <Chip
+        selected={selected}
+        onClick={() => setSelected(!selected)}
+      >
         Chip
       </Chip>
-    );
+    )
   },
-};
+}
 
 /**
  * OnRemove: Demonstrates removable Chips with selection.
@@ -71,12 +74,8 @@ export const Selected: Story = {
  */
 export const OnRemove: Story = {
   render: function OnRemoveStory() {
-    const [chips, setChips] = useState<string[]>([
-      "Chip 1",
-      "Chip 2",
-      "Chip 3",
-    ]);
-    const [selected, setSelected] = useState<string[]>([]);
+    const [chips, setChips] = useState<string[]>(["Chip 1", "Chip 2", "Chip 3"])
+    const [selected, setSelected] = useState<string[]>([])
 
     return (
       <div className="flex flex-wrap gap-2">
@@ -86,22 +85,20 @@ export const OnRemove: Story = {
             selected={selected.includes(chip)}
             onClick={() => {
               setSelected(
-                selected.includes(chip)
-                  ? selected.filter((c) => c !== chip)
-                  : [...selected, chip]
-              );
+                selected.includes(chip) ? selected.filter((c) => c !== chip) : [...selected, chip],
+              )
             }}
             onRemove={() => {
-              setChips(chips.filter((c) => c !== chip));
+              setChips(chips.filter((c) => c !== chip))
             }}
           >
             {chip}
           </Chip>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Prefix: Demonstrates a Chip with a prefix element (e.g., icon, color dot).
@@ -109,13 +106,9 @@ export const OnRemove: Story = {
  */
 export const Prefix: Story = {
   render: function PrefixStory() {
-    return (
-      <Chip prefixElement={<div className="h-2 w-2 rounded-full bg-red-500" />}>
-        Chip
-      </Chip>
-    );
+    return <Chip prefixElement={<div className="h-2 w-2 rounded-full bg-red-500" />}>Chip</Chip>
   },
-};
+}
 
 /**
  * Suffix: Demonstrates a Chip with a suffix element (e.g., icon).
@@ -123,6 +116,6 @@ export const Prefix: Story = {
  */
 export const Suffix: Story = {
   render: function SuffixStory() {
-    return <Chip suffixElement={<SearchSmall />}>Chip</Chip>;
+    return <Chip suffixElement={<SearchSmall />}>Chip</Chip>
   },
-};
+}

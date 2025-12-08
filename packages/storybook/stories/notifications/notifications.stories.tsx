@@ -1,28 +1,28 @@
-import { Button, Dialog, notifications } from "@choice-ui/react";
-import { LayoutWallpaper } from "@choiceform/icons-react";
-import type { StoryObj } from "@storybook/react-vite";
-import React, { useEffect, useState } from "react";
-import { toast as sonnerToast, Toaster } from "sonner";
+import { Button, Dialog, notifications } from "@choice-ui/react"
+import { LayoutWallpaper } from "@choiceform/icons-react"
+import type { StoryObj } from "@storybook/react-vite"
+import React, { useEffect, useState } from "react"
+import { toast as sonnerToast, Toaster } from "sonner"
 
 const meta = {
   title: "Status/Notifications",
   component: notifications,
   tags: ["new"],
-};
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<
   typeof meta & {
     args: {
       actions: {
-        action: { label: string; onClick: () => void };
-        dismiss: { label: string; onClick: () => void };
-      };
-      icon: React.ReactNode;
-      text: string;
-    };
+        action: { label: string; onClick: () => void }
+        dismiss: { label: string; onClick: () => void }
+      }
+      icon: React.ReactNode
+      text: string
+    }
   }
->;
+>
 
 /**
  * `Notifications` is a versatile toast-style notification system for displaying temporary messages and alerts.
@@ -72,16 +72,19 @@ type Story = StoryObj<
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <div className="flex gap-4">
         <Toaster />
 
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Lorem ipsum dolor sit amet" />
           <Dialog.Content className="w-96 p-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
           </Dialog.Content>
         </Dialog>
 
@@ -91,7 +94,7 @@ export const Basic: Story = {
             notifications({
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            });
+            })
           }}
         >
           Basic Notification
@@ -102,7 +105,7 @@ export const Basic: Story = {
           onClick={() => {
             notifications({
               html: "Lorem ipsum dolor sit amet, <strong class='text-red-500'>consectetur adipiscing elit</strong>. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            });
+            })
           }}
         >
           HTML Notification
@@ -118,12 +121,12 @@ export const Basic: Story = {
                 action: {
                   content: "Reply",
                   onClick: () => {
-                    setOpen(true);
-                    sonnerToast.dismiss(id);
+                    setOpen(true)
+                    sonnerToast.dismiss(id)
                   },
                 },
               }),
-            });
+            })
           }}
         >
           Notification with actions
@@ -139,18 +142,18 @@ export const Basic: Story = {
                 action: {
                   content: "Reply",
                   onClick: () => {
-                    setOpen(true);
-                    sonnerToast.dismiss(id);
+                    setOpen(true)
+                    sonnerToast.dismiss(id)
                   },
                 },
                 dismiss: {
                   content: "Dismiss",
                   onClick: () => {
-                    sonnerToast.dismiss(id);
+                    sonnerToast.dismiss(id)
                   },
                 },
               }),
-            });
+            })
           }}
         >
           Notification with actions and dismiss
@@ -166,26 +169,26 @@ export const Basic: Story = {
                 action: {
                   content: "View Project",
                   onClick: () => {
-                    setOpen(true);
-                    sonnerToast.dismiss(id);
+                    setOpen(true)
+                    sonnerToast.dismiss(id)
                   },
                 },
                 dismiss: {
                   content: "Dismiss",
                   onClick: () => {
-                    sonnerToast.dismiss(id);
+                    sonnerToast.dismiss(id)
                   },
                 },
               }),
-            });
+            })
           }}
         >
           Notification with HTML content
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multiple Toasters: Demonstrates using multiple Toaster instances with different IDs and positions.
@@ -199,8 +202,14 @@ export const MultipleToasters: Story = {
     return (
       <div className="flex flex-col gap-4">
         <Toaster id="notifications-main" />
-        <Toaster id="notifications-secondary" offset={{ bottom: "128px" }} />
-        <Toaster id="notifications-sidebar" offset={{ right: "128px" }} />
+        <Toaster
+          id="notifications-secondary"
+          offset={{ bottom: "128px" }}
+        />
+        <Toaster
+          id="notifications-sidebar"
+          offset={{ right: "128px" }}
+        />
 
         <div className="flex flex-col gap-2">
           <h3 className="text-body-large-strong">Main Toaster</h3>
@@ -212,7 +221,7 @@ export const MultipleToasters: Story = {
                   toasterId: "notifications-main",
                   icon: <LayoutWallpaper />,
                   text: "This notification appears in the main toaster at bottom-right.",
-                });
+                })
               }}
             >
               Main Toaster
@@ -228,11 +237,11 @@ export const MultipleToasters: Story = {
                     action: {
                       content: "View",
                       onClick: () => {
-                        sonnerToast.dismiss(id);
+                        sonnerToast.dismiss(id)
                       },
                     },
                   }),
-                });
+                })
               }}
             >
               With Action
@@ -250,7 +259,7 @@ export const MultipleToasters: Story = {
                   toasterId: "notifications-secondary",
                   icon: <LayoutWallpaper />,
                   text: "This notification appears in the secondary toaster at top-right.",
-                });
+                })
               }}
             >
               Secondary Toaster
@@ -265,11 +274,11 @@ export const MultipleToasters: Story = {
                     dismiss: {
                       content: "Dismiss",
                       onClick: () => {
-                        sonnerToast.dismiss(id);
+                        sonnerToast.dismiss(id)
                       },
                     },
                   }),
-                });
+                })
               }}
             >
               With Dismiss
@@ -287,7 +296,7 @@ export const MultipleToasters: Story = {
                   toasterId: "notifications-sidebar",
                   icon: "📢",
                   text: "Sidebar notification for component-specific messages.",
-                });
+                })
               }}
             >
               Sidebar Toaster
@@ -303,17 +312,17 @@ export const MultipleToasters: Story = {
                     action: {
                       content: "Action",
                       onClick: () => {
-                        sonnerToast.dismiss(id);
+                        sonnerToast.dismiss(id)
                       },
                     },
                     dismiss: {
                       content: "Dismiss",
                       onClick: () => {
-                        sonnerToast.dismiss(id);
+                        sonnerToast.dismiss(id)
                       },
                     },
                   }),
-                });
+                })
               }}
             >
               Full Actions
@@ -324,16 +333,16 @@ export const MultipleToasters: Story = {
         <div className="text-secondary-foreground text-body-small">
           <p className="font-strong">Usage:</p>
           <p>
-            Multiple Toasters allow you to separate notifications by context or
-            priority. Each Toaster can have its own position, offset, and
-            configuration. Use the <code>toasterId</code> prop to target a
-            specific Toaster when calling <code>notifications()</code>.
+            Multiple Toasters allow you to separate notifications by context or priority. Each
+            Toaster can have its own position, offset, and configuration. Use the{" "}
+            <code>toasterId</code> prop to target a specific Toaster when calling{" "}
+            <code>notifications()</code>.
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * UseEffect: Demonstrates using notifications within useEffect for programmatic triggers.
@@ -344,16 +353,14 @@ export const MultipleToasters: Story = {
  */
 export const UseEffect: Story = {
   render: function UseEffectStory() {
-    const [isMonitoring, setIsMonitoring] = useState(false);
-    const [hasNotification, setHasNotification] = useState(false);
-    const [notificationId, setNotificationId] = useState<
-      string | number | null
-    >(null);
-    const [actionCount, setActionCount] = useState(0);
+    const [isMonitoring, setIsMonitoring] = useState(false)
+    const [hasNotification, setHasNotification] = useState(false)
+    const [notificationId, setNotificationId] = useState<string | number | null>(null)
+    const [actionCount, setActionCount] = useState(0)
 
     // 模拟监控条件的 effect
     useEffect(() => {
-      if (!isMonitoring) return;
+      if (!isMonitoring) return
 
       const timer = setTimeout(() => {
         if (!hasNotification) {
@@ -364,38 +371,38 @@ export const UseEffect: Story = {
               action: {
                 content: `Fix Issue (${actionCount})`,
                 onClick: () => {
-                  setActionCount((prev) => prev + 1);
-                  setIsMonitoring(false);
-                  setHasNotification(false);
-                  sonnerToast.dismiss(toastId);
+                  setActionCount((prev) => prev + 1)
+                  setIsMonitoring(false)
+                  setHasNotification(false)
+                  sonnerToast.dismiss(toastId)
                 },
               },
               dismiss: {
                 content: "Ignore",
                 onClick: () => {
-                  setHasNotification(false);
-                  sonnerToast.dismiss(toastId);
+                  setHasNotification(false)
+                  sonnerToast.dismiss(toastId)
                 },
               },
             }),
-          });
+          })
 
-          setNotificationId(id);
-          setHasNotification(true);
+          setNotificationId(id)
+          setHasNotification(true)
         }
-      }, 1500);
+      }, 1500)
 
-      return () => clearTimeout(timer);
-    }, [isMonitoring, hasNotification, actionCount]);
+      return () => clearTimeout(timer)
+    }, [isMonitoring, hasNotification, actionCount])
 
     // 清理 effect
     useEffect(() => {
       return () => {
         if (notificationId) {
-          sonnerToast.dismiss(notificationId);
+          sonnerToast.dismiss(notificationId)
         }
-      };
-    }, [notificationId]);
+      }
+    }, [notificationId])
 
     return (
       <div className="flex flex-col gap-4">
@@ -405,10 +412,10 @@ export const UseEffect: Story = {
           <Button
             variant={isMonitoring ? "primary" : "secondary"}
             onClick={() => {
-              setIsMonitoring(!isMonitoring);
+              setIsMonitoring(!isMonitoring)
               if (isMonitoring && notificationId) {
-                sonnerToast.dismiss(notificationId);
-                setHasNotification(false);
+                sonnerToast.dismiss(notificationId)
+                setHasNotification(false)
               }
             }}
           >
@@ -418,10 +425,10 @@ export const UseEffect: Story = {
           <Button
             variant="secondary"
             onClick={() => {
-              setActionCount(0);
-              setHasNotification(false);
+              setActionCount(0)
+              setHasNotification(false)
               if (notificationId) {
-                sonnerToast.dismiss(notificationId);
+                sonnerToast.dismiss(notificationId)
               }
             }}
           >
@@ -434,14 +441,14 @@ export const UseEffect: Story = {
           <p>Notification: {hasNotification ? "Visible" : "Hidden"}</p>
           <p>Action count: {actionCount}</p>
           <p className="mt-2">
-            Click &quot;Start Monitoring&quot; to automatically trigger a
-            notification after 1.5 seconds.
+            Click &quot;Start Monitoring&quot; to automatically trigger a notification after 1.5
+            seconds.
             <br />
-            Click the &quot;Fix Issue&quot; button in the notification to test
-            state updates and closure handling.
+            Click the &quot;Fix Issue&quot; button in the notification to test state updates and
+            closure handling.
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}

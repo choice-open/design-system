@@ -8,8 +8,10 @@ import { DateInput } from "../date-input"
 import type { DateDataFormat } from "../types"
 import { resolveLocale } from "../utils"
 
-interface DateRangeInputProps
-  extends Omit<TextFieldProps, "value" | "onChange" | "step" | "defaultValue"> {
+interface DateRangeInputProps extends Omit<
+  TextFieldProps,
+  "value" | "onChange" | "step" | "defaultValue"
+> {
   endDisabled?: boolean
   endPlaceholder?: string
   endSuffixElement?: React.ReactNode

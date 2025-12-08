@@ -1,17 +1,17 @@
-import type { SubmittedCommentData, User } from "@choice-ui/react";
-import { Comments, comments$, Dialog, tcx } from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useEffect, useRef, useState } from "react";
+import type { SubmittedCommentData, User } from "@choice-ui/react"
+import { Comments, comments$, Dialog, tcx } from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useEffect, useRef, useState } from "react"
 
 const meta = {
   title: "Components/Comments",
   component: Comments,
   tags: ["experimental"],
-} satisfies Meta<typeof Comments>;
+} satisfies Meta<typeof Comments>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // 清除所有评论数据，确保每次演示都从干净状态开始
 const resetCommentState = () => {
@@ -30,8 +30,8 @@ const resetCommentState = () => {
       hasNew: false,
       id: null,
     },
-  });
-};
+  })
+}
 
 const mockUsers: User[] = [
   {
@@ -83,110 +83,101 @@ const mockUsers: User[] = [
     photo_url: "https://i.pravatar.cc/150?u=eddie",
     color: "#000000",
   },
-];
+]
 
 // 模拟API数据库 - 存储所有可能的评论，但只返回请求的页面
 // 这在实际项目中会是数据库中的所有评论
 const API_DATABASE = (() => {
-  const comments: SubmittedCommentData[] = [];
+  const comments: SubmittedCommentData[] = []
 
-  return comments;
-})();
+  return comments
+})()
 
 // 模拟API调用获取评论 - 只返回请求的页面
 const fetchComments = async (
   page: number,
-  pageSize: number
+  pageSize: number,
 ): Promise<{
-  comments: SubmittedCommentData[];
-  totalCount: number;
+  comments: SubmittedCommentData[]
+  totalCount: number
 }> => {
-  console.log(`🌐 API调用: 获取第${page}页评论，每页${pageSize}条`);
+  console.log(`🌐 API调用: 获取第${page}页评论，每页${pageSize}条`)
 
   // 模拟网络延迟 - 减少延迟以提高响应速度
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await new Promise((resolve) => setTimeout(resolve, 300))
 
   // 计算要返回的数据范围
-  const startIndex = page * pageSize;
-  const endIndex = Math.min(startIndex + pageSize, API_DATABASE.length);
+  const startIndex = page * pageSize
+  const endIndex = Math.min(startIndex + pageSize, API_DATABASE.length)
 
-  console.log(
-    `🌐 返回索引范围: ${startIndex}-${endIndex} (共${endIndex - startIndex}条)`
-  );
+  console.log(`🌐 返回索引范围: ${startIndex}-${endIndex} (共${endIndex - startIndex}条)`)
 
   // 从"数据库"中只提取请求页的评论
-  const pageComments = API_DATABASE.slice(startIndex, endIndex);
+  const pageComments = API_DATABASE.slice(startIndex, endIndex)
 
   // 确保评论按从旧到新排序
   const sortedComments = [...pageComments].sort(
-    (a, b) =>
-      new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-  );
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  )
 
-  console.log(`🌐 返回评论: ${sortedComments.length}条`);
+  console.log(`🌐 返回评论: ${sortedComments.length}条`)
   console.log(
-    `🌐 第一条ID: ${sortedComments[0]?.uuid}, 最后一条ID: ${sortedComments[sortedComments.length - 1]?.uuid}`
-  );
+    `🌐 第一条ID: ${sortedComments[0]?.uuid}, 最后一条ID: ${sortedComments[sortedComments.length - 1]?.uuid}`,
+  )
 
   return {
     comments: sortedComments,
     totalCount: API_DATABASE.length,
-  };
-};
+  }
+}
 
 export const Basic = {
   render: function BasicStory() {
-    const [openDialog, setOpenDialog] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false)
 
-    const [initialComments, setInitialComments] = useState<
-      SubmittedCommentData[]
-    >([]);
+    const [initialComments, setInitialComments] = useState<SubmittedCommentData[]>([])
 
-    const [totalCount, setTotalCount] = useState(0);
+    const [totalCount, setTotalCount] = useState(0)
 
     // 当前已加载的评论 (供调试显示用)
-    const [loadedComments, setLoadedComments] = useState<
-      SubmittedCommentData[]
-    >([]);
+    const [loadedComments, setLoadedComments] = useState<SubmittedCommentData[]>([])
 
     // 使用ref跟踪上一次的评论状态，避免不必要的更新
-    const lastCommentsHashRef = useRef<string>("");
+    const lastCommentsHashRef = useRef<string>("")
 
     // 重置状态，确保每次都从头开始
     useEffect(() => {
-      resetCommentState();
+      resetCommentState()
 
       // 使用正确的方式监听Legend State的变化
       // 直接使用observable的get方法获取状态并计算唯一标识
       const updateCommentsIfChanged = () => {
-        const state = comments$.get();
-        const commentsList = state.order.map((id) => state.byId[id]);
-        const commentsHash = JSON.stringify(commentsList.map((c) => c.uuid));
+        const state = comments$.get()
+        const commentsList = state.order.map((id) => state.byId[id])
+        const commentsHash = JSON.stringify(commentsList.map((c) => c.uuid))
 
         if (commentsHash !== lastCommentsHashRef.current) {
-          lastCommentsHashRef.current = commentsHash;
-          setLoadedComments(commentsList);
+          lastCommentsHashRef.current = commentsHash
+          setLoadedComments(commentsList)
         }
-      };
+      }
 
       // 使用setInterval但间隔更长，减少性能问题
-      const intervalId = setInterval(updateCommentsIfChanged, 500);
+      const intervalId = setInterval(updateCommentsIfChanged, 500)
 
       // 立即执行一次
-      updateCommentsIfChanged();
+      updateCommentsIfChanged()
 
       return () => {
-        clearInterval(intervalId);
-        resetCommentState();
-      };
-    }, []);
+        clearInterval(intervalId)
+        resetCommentState()
+      }
+    }, [])
 
     // 已加载评论的调试视图
     const loadedCommentsDebug = (
       <div className="text-secondary-foreground p-2">
-        <h3 className="font-strong mb-2 text-xs">
-          已加载评论 ({loadedComments.length})
-        </h3>
+        <h3 className="font-strong mb-2 text-xs">已加载评论 ({loadedComments.length})</h3>
         {loadedComments.length === 0 ? (
           <p className="text-xs text-gray-500 italic">无评论</p>
         ) : (
@@ -197,8 +188,8 @@ export const Basic = {
                 className="border-l-2 border-blue-400 pl-2 text-xs"
               >
                 <p>
-                  <strong>评论 {item.uuid}</strong> - 页码: {item.page_id} -{" "}
-                  {item.author.name} 于 {item.created_at.toLocaleString()}
+                  <strong>评论 {item.uuid}</strong> - 页码: {item.page_id} - {item.author.name} 于{" "}
+                  {item.created_at.toLocaleString()}
                 </p>
                 <p className="mt-1 text-xs text-gray-600">{item.message}</p>
               </div>
@@ -206,7 +197,7 @@ export const Basic = {
           </div>
         )}
       </div>
-    );
+    )
 
     // 实时状态监视器
     const stateMonitor = (
@@ -214,22 +205,19 @@ export const Basic = {
         <h3 className="font-strong mb-2 text-xs">状态监控</h3>
         <div className="space-y-2">
           <div>
-            <p className="text-xs text-gray-400">
-              加载的评论数: {loadedComments.length}
-            </p>
+            <p className="text-xs text-gray-400">加载的评论数: {loadedComments.length}</p>
             <p className="text-xs text-gray-400">总评论数: {totalCount}</p>
             <p className="text-xs text-gray-400">
               分页信息: 当前页 {comments$.pagination.get().currentPage},
               {comments$.pagination.get().hasMore ? "有更早评论" : "无更早评论"}
             </p>
             <p className="text-xs text-gray-400">
-              加载状态:{" "}
-              {comments$.pagination.get().isLoading ? "加载中" : "空闲"}
+              加载状态: {comments$.pagination.get().isLoading ? "加载中" : "空闲"}
             </p>
           </div>
         </div>
       </div>
-    );
+    )
 
     // 调试工具
     const debugTools = (
@@ -237,8 +225,8 @@ export const Basic = {
         <button
           className="rounded bg-red-500 px-2 py-1 text-xs text-white"
           onClick={() => {
-            resetCommentState();
-            setLoadedComments([]);
+            resetCommentState()
+            setLoadedComments([])
           }}
         >
           重置状态
@@ -248,8 +236,8 @@ export const Basic = {
           className="rounded bg-blue-500 px-2 py-1 text-xs text-white"
           onClick={() => {
             // 直接使用 comments$ observable 来创建评论
-            const currentState = comments$.get();
-            const newId = `comment-${Date.now()}`;
+            const currentState = comments$.get()
+            const newId = `comment-${Date.now()}`
             const newComment: SubmittedCommentData = {
               uuid: newId,
               author: mockUsers[0],
@@ -268,7 +256,7 @@ export const Basic = {
               reactions: null,
               resolved_at: null,
               updated_at: new Date(),
-            };
+            }
 
             comments$.set({
               ...currentState,
@@ -277,15 +265,15 @@ export const Basic = {
                 [newId]: newComment,
               },
               order: [...currentState.order, newId],
-            });
+            })
           }}
         >
           添加新评论
         </button>
       </div>
-    );
+    )
 
-    const isEmpty = comments$.get().order.length === 0;
+    const isEmpty = comments$.get().order.length === 0
 
     return (
       <>
@@ -316,6 +304,6 @@ export const Basic = {
           </div>
         </div>
       </>
-    );
+    )
   },
-};
+}

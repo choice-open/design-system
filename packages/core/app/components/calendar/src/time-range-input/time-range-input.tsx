@@ -8,8 +8,10 @@ import { TimeInput } from "../time-input"
 import type { TimeDataFormat } from "../types"
 import { resolveLocale } from "../utils"
 
-interface TimeRangeInputProps
-  extends Omit<TextFieldProps, "value" | "onChange" | "step" | "defaultValue"> {
+interface TimeRangeInputProps extends Omit<
+  TextFieldProps,
+  "value" | "onChange" | "step" | "defaultValue"
+> {
   endDisabled?: boolean
   endPlaceholder?: string
   endSuffixElement?: React.ReactNode

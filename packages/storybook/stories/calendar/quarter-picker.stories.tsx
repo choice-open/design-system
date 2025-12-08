@@ -1,17 +1,13 @@
-import type { Quarter, QuarterCalendarProps } from "@choice-ui/react";
-import {
-  formatQuarter,
-  getCurrentQuarter,
-  QuarterCalendar,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+import type { Quarter, QuarterCalendarProps } from "@choice-ui/react"
+import { formatQuarter, getCurrentQuarter, QuarterCalendar } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useState } from "react"
 
 // 辅助组件
 const QuarterCalendarDemo = (args: QuarterCalendarProps) => {
   const [selectedQuarter, setSelectedQuarter] = useState<Quarter | null>(
-    args.value ?? getCurrentQuarter(args.currentYear, args.locale)
-  );
+    args.value ?? getCurrentQuarter(args.currentYear, args.locale),
+  )
 
   return (
     <div className="space-y-4">
@@ -31,20 +27,19 @@ const QuarterCalendarDemo = (args: QuarterCalendarProps) => {
         />
       </div>
       <div className="text-secondary-foreground">
-        Selected quarter:{" "}
-        {selectedQuarter ? formatQuarter(selectedQuarter) : "None"}
+        Selected quarter: {selectedQuarter ? formatQuarter(selectedQuarter) : "None"}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const ComparisonDemo = (args: QuarterCalendarProps) => {
   const [zhQuarter, setZhQuarter] = useState<Quarter | null>(
-    getCurrentQuarter(args.currentYear, "zh-CN")
-  );
+    getCurrentQuarter(args.currentYear, "zh-CN"),
+  )
   const [enQuarter, setEnQuarter] = useState<Quarter | null>(
-    getCurrentQuarter(args.currentYear, "en-US")
-  );
+    getCurrentQuarter(args.currentYear, "en-US"),
+  )
 
   return (
     <div className="space-y-8">
@@ -78,17 +73,17 @@ const ComparisonDemo = (args: QuarterCalendarProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // 单个语言的季度选择器组件
 const LocaleQuarterCalendar: React.FC<{
-  args: QuarterCalendarProps;
-  locale: { code: string; name: string };
+  args: QuarterCalendarProps
+  locale: { code: string; name: string }
 }> = ({ locale, args }) => {
   const [quarter, setQuarter] = useState<Quarter | null>(
-    getCurrentQuarter(args.currentYear, locale.code)
-  );
+    getCurrentQuarter(args.currentYear, locale.code),
+  )
 
   return (
     <div>
@@ -106,8 +101,8 @@ const LocaleQuarterCalendar: React.FC<{
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const MultiLanguageDemo = (args: QuarterCalendarProps) => {
   const locales = [
@@ -117,16 +112,20 @@ const MultiLanguageDemo = (args: QuarterCalendarProps) => {
     { code: "ko-KR", name: "한국어" },
     { code: "fr-FR", name: "Français" },
     { code: "de-DE", name: "Deutsch" },
-  ];
+  ]
 
   return (
     <div className="grid grid-cols-2 gap-6">
       {locales.map((locale) => (
-        <LocaleQuarterCalendar key={locale.code} locale={locale} args={args} />
+        <LocaleQuarterCalendar
+          key={locale.code}
+          locale={locale}
+          args={args}
+        />
       ))}
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof QuarterCalendar> = {
   title: "DateAndTime/QuarterCalendar",
@@ -135,10 +134,10 @@ const meta: Meta<typeof QuarterCalendar> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `QuarterCalendar` is a specialized calendar component for selecting quarters (Q1, Q2, Q3, Q4) within a year.
@@ -172,7 +171,7 @@ type Story = StoryObj<typeof meta>;
  * - Semantic HTML structure for optimal accessibility
  */
 
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear()
 
 /**
  * Default: Shows the basic QuarterCalendar usage with standard configuration.
@@ -187,7 +186,7 @@ export const Default: Story = {
     disabled: false,
   },
   render: (args) => <QuarterCalendarDemo {...args} />,
-};
+}
 
 /**
  * WithRange: Demonstrates QuarterCalendar with year range restrictions.
@@ -204,7 +203,7 @@ export const WithRange: Story = {
     disabled: false,
   },
   render: (args) => <QuarterCalendarDemo {...args} />,
-};
+}
 
 /**
  * WithDisabledQuarters: Demonstrates selective quarter disabling functionality.
@@ -223,7 +222,7 @@ export const WithDisabledQuarters: Story = {
     disabled: false,
   },
   render: (args) => <QuarterCalendarDemo {...args} />,
-};
+}
 
 /**
  * Disabled: Demonstrates the completely disabled state of QuarterCalendar.
@@ -238,7 +237,7 @@ export const Disabled: Story = {
     disabled: true,
   },
   render: (args) => <QuarterCalendarDemo {...args} />,
-};
+}
 
 /**
  * WithSelectedQuarter: Demonstrates QuarterCalendar with a pre-selected quarter.
@@ -259,7 +258,7 @@ export const WithSelectedQuarter: Story = {
     disabled: false,
   },
   render: (args) => <QuarterCalendarDemo {...args} />,
-};
+}
 
 /**
  * DarkVariant: Demonstrates the dark theme styling of QuarterCalendar.
@@ -279,7 +278,7 @@ export const DarkVariant: Story = {
       <QuarterCalendarDemo {...args} />
     </div>
   ),
-};
+}
 
 /**
  * Comparison: Demonstrates side-by-side comparison of Chinese and English locales.
@@ -293,7 +292,7 @@ export const Comparison: Story = {
     disabled: false,
   },
   render: (args) => <ComparisonDemo {...args} />,
-};
+}
 
 /**
  * MultiLanguage: Demonstrates comprehensive internationalization support.
@@ -307,7 +306,7 @@ export const MultiLanguage: Story = {
     disabled: false,
   },
   render: (args) => <MultiLanguageDemo {...args} />,
-};
+}
 
 /**
  * ReadOnly: Demonstrates the QuarterCalendar component in readOnly mode.
@@ -317,35 +316,29 @@ export const MultiLanguage: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const currentYear = new Date().getFullYear();
+    const currentYear = new Date().getFullYear()
     const [value, setValue] = useState<Quarter | null>({
       quarter: 1,
       year: 2024,
       label: "Q1",
       months: ["January", "February", "March"],
-    });
-    const [changeCount, setChangeCount] = useState(0);
+    })
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: Quarter | null) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
           <div className="text-body-small font-mono text-stone-600">
             {value ? `Q${value.quarter} ${value.year}` : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <QuarterCalendar
@@ -361,11 +354,10 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking quarters on the readonly calendar - the value should
-          not change and the change count should remain at 0. Only the normal
-          calendar will change the value.
+          💡 Try clicking quarters on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

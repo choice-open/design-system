@@ -1,5 +1,5 @@
-import { SpinnerBounce } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { SpinnerBounce } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof SpinnerBounce> = {
   title: "Status/Spinner/SpinnerBounce",
@@ -7,14 +7,14 @@ const meta: Meta<typeof SpinnerBounce> = {
   parameters: {
     layout: "centered",
   },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof SpinnerBounce>;
+type Story = StoryObj<typeof SpinnerBounce>
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const SetSizes: Story = {
   render: () => (
@@ -24,7 +24,7 @@ export const SetSizes: Story = {
       <SpinnerBounce size="large" />
     </div>
   ),
-};
+}
 
 /** Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`. */
 export const Variants: Story = {
@@ -34,10 +34,10 @@ export const Variants: Story = {
       <SpinnerBounce variant="primary" />
     </div>
   ),
-};
+}
 
 export const Label: Story = {
   args: {
     label: "Loading...",
   },
-};
+}

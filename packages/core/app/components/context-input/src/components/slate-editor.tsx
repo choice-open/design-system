@@ -13,22 +13,21 @@ import { contextInputTv } from "../tv"
 import type { ContextInputProps } from "../types"
 import { Mention } from "./mention"
 
-interface SlateEditorProps
-  extends Pick<
-    ContextInputProps,
-    | "placeholder"
-    | "disabled"
-    | "readOnly"
-    | "autoFocus"
-    | "variant"
-    | "renderMention"
-    | "mentionPrefix"
-    | "customMentionComponent"
-    | "onFocus"
-    | "onBlur"
-    | "className"
-    | "maxLength"
-  > {
+interface SlateEditorProps extends Pick<
+  ContextInputProps,
+  | "placeholder"
+  | "disabled"
+  | "readOnly"
+  | "autoFocus"
+  | "variant"
+  | "renderMention"
+  | "mentionPrefix"
+  | "customMentionComponent"
+  | "onFocus"
+  | "onBlur"
+  | "className"
+  | "maxLength"
+> {
   children?: React.ReactNode
   editor: ReactEditor
   footer?: React.ReactNode

@@ -1,9 +1,9 @@
-import { DateRangeInput, Panel } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { addDays, subDays } from "date-fns";
-import { enUS, ja, ko, zhCN } from "date-fns/locale";
-import React, { useState } from "react";
-import { useEventCallback } from "usehooks-ts";
+import { DateRangeInput, Panel } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { addDays, subDays } from "date-fns"
+import { enUS, ja, ko, zhCN } from "date-fns/locale"
+import React, { useState } from "react"
+import { useEventCallback } from "usehooks-ts"
 
 const meta: Meta<typeof DateRangeInput> = {
   title: "DateAndTime/DateRangeInput",
@@ -24,10 +24,10 @@ const meta: Meta<typeof DateRangeInput> = {
       description: "日期格式",
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `DateRangeInput` is a sophisticated component for selecting date ranges with intelligent synchronization and validation.
@@ -63,13 +63,14 @@ type Story = StoryObj<typeof meta>;
 
 // 演示组件
 const DateRangeDemo = (args: React.ComponentProps<typeof DateRangeInput>) => {
-  const [startValue, setStartValue] = useState<Date | null>(
-    args.startValue || null
-  );
-  const [endValue, setEndValue] = useState<Date | null>(args.endValue || null);
+  const [startValue, setStartValue] = useState<Date | null>(args.startValue || null)
+  const [endValue, setEndValue] = useState<Date | null>(args.endValue || null)
 
   return (
-    <Panel.Row type="two-input-two-icon" className="px-0">
+    <Panel.Row
+      type="two-input-two-icon"
+      className="px-0"
+    >
       <DateRangeInput
         {...args}
         startValue={startValue}
@@ -78,41 +79,42 @@ const DateRangeDemo = (args: React.ComponentProps<typeof DateRangeInput>) => {
         onEndChange={setEndValue}
       />
     </Panel.Row>
-  );
-};
+  )
+}
 
 // 范围同步演示组件
 const RangeSyncDemo = () => {
-  const [startValue, setStartValue] = useState<Date | null>(new Date());
-  const [endValue, setEndValue] = useState<Date | null>(addDays(new Date(), 3));
+  const [startValue, setStartValue] = useState<Date | null>(new Date())
+  const [endValue, setEndValue] = useState<Date | null>(addDays(new Date(), 3))
 
   const handleStartChange = useEventCallback((newStart: Date | null) => {
     if (newStart) {
       // 计算当前range长度（毫秒），fallback为1天
       const currentRange =
-        startValue && endValue
-          ? endValue.getTime() - startValue.getTime()
-          : 1 * 24 * 60 * 60 * 1000;
+        startValue && endValue ? endValue.getTime() - startValue.getTime() : 1 * 24 * 60 * 60 * 1000
       // 保持range长度
-      const newEnd = new Date(newStart.getTime() + currentRange);
-      setStartValue(newStart);
-      setEndValue(newEnd);
+      const newEnd = new Date(newStart.getTime() + currentRange)
+      setStartValue(newStart)
+      setEndValue(newEnd)
     } else {
-      setStartValue(newStart);
+      setStartValue(newStart)
     }
-  });
+  })
 
   const handleEndChange = useEventCallback((newEnd: Date | null) => {
     if (newEnd && startValue && newEnd <= startValue) {
       // end <= start 时推动start
-      setStartValue(newEnd);
+      setStartValue(newEnd)
     }
-    setEndValue(newEnd);
-  });
+    setEndValue(newEnd)
+  })
 
   return (
     <div className="space-y-6">
-      <Panel.Row type="two-input-two-icon" className="px-0">
+      <Panel.Row
+        type="two-input-two-icon"
+        className="px-0"
+      >
         <DateRangeInput
           startValue={startValue}
           endValue={endValue}
@@ -128,41 +130,37 @@ const RangeSyncDemo = () => {
         <div className="font-strong">🎯 Range Synchronization</div>
         <div className="text-secondary-foreground space-y-2">
           <div>
-            • <strong>Start Date Change</strong>：Automatically adjust the end
-            date to maintain the original range length
+            • <strong>Start Date Change</strong>：Automatically adjust the end date to maintain the
+            original range length
           </div>
           <div>
-            • <strong>End Date Change</strong>：If the end date is less than or
-            equal to the start date, the start date is pushed to the end
-            position
+            • <strong>End Date Change</strong>：If the end date is less than or equal to the start
+            date, the start date is pushed to the end position
           </div>
           <div>
-            • <strong>Dynamic Range</strong>：First adjust the end date to set
-            the desired range length, then any changes to the start date will
-            maintain this length
+            • <strong>Dynamic Range</strong>：First adjust the end date to set the desired range
+            length, then any changes to the start date will maintain this length
           </div>
         </div>
 
         <div className="rounded-md border p-4">
           <div className="font-strong">🧪 Test Steps</div>
           <div className="mt-2 space-y-1">
+            <div>1. Adjust the end date to 5 days later → the range becomes 5 days</div>
             <div>
-              1. Adjust the end date to 5 days later → the range becomes 5 days
+              2. Modify the start date → the end date is automatically adjusted to maintain a 5-day
+              distance
             </div>
             <div>
-              2. Modify the start date → the end date is automatically adjusted
-              to maintain a 5-day distance
-            </div>
-            <div>
-              3. Set the end date to be earlier than the start date → the start
-              date is pushed to the end position
+              3. Set the end date to be earlier than the start date → the start date is pushed to
+              the end position
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * Default: Shows the basic DateRangeInput usage with standard configuration.
@@ -178,7 +176,7 @@ export const Default: Story = {
     locale: enUS,
   },
   render: (args) => <DateRangeDemo {...args} />,
-};
+}
 
 /**
  * Size: Demonstrates the large size variant of DateRangeInput.
@@ -191,9 +189,9 @@ export const Size: Story = {
       <div className="space-y-4">
         <DateRangeDemo size="large" />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Variable: Demonstrates the dark theme variant of DateRangeInput.
@@ -206,9 +204,9 @@ export const Variable: Story = {
       <div className="rounded-xl bg-gray-800 p-8">
         <DateRangeDemo variant="dark" />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * RangeSynchronization: Demonstrates the intelligent range synchronization feature.
@@ -218,7 +216,7 @@ export const Variable: Story = {
  */
 export const RangeSynchronization: Story = {
   render: () => <RangeSyncDemo />,
-};
+}
 
 /**
  * WithPresetRange: Demonstrates DateRangeInput with pre-filled date values.
@@ -236,7 +234,7 @@ export const WithPresetRange: Story = {
     locale: zhCN,
   },
   render: (args) => <DateRangeDemo {...args} />,
-};
+}
 
 /**
  * Internationalization: Demonstrates comprehensive multi-language support.
@@ -270,9 +268,7 @@ export const Internationalization: Story = {
           endPlaceholder="End Date"
           format="MM/dd/yyyy"
         />
-        <div className="text-body-small mt-2 text-gray-500">
-          Range display: 7 days
-        </div>
+        <div className="text-body-small mt-2 text-gray-500">Range display: 7 days</div>
       </div>
 
       <div>
@@ -302,7 +298,7 @@ export const Internationalization: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * DifferentFormats: Demonstrates various date format options and their visual representation.
@@ -354,7 +350,7 @@ export const DifferentFormats: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * CommonScenarios: Demonstrates real-world usage scenarios for DateRangeInput.
@@ -411,7 +407,7 @@ export const CommonScenarios: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * EdgeCases: Demonstrates how DateRangeInput handles boundary and edge cases.
@@ -460,7 +456,7 @@ export const EdgeCases: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * DisabledStates: Demonstrates various disabled state configurations.
@@ -503,7 +499,7 @@ export const DisabledStates: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * ReadOnly: Demonstrates the DateRangeInput component in readOnly mode.
@@ -513,45 +509,38 @@ export const DisabledStates: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [startValue, setStartValue] = useState<Date | null>(new Date());
-    const [endValue, setEndValue] = useState<Date | null>(
-      addDays(new Date(), 7)
-    );
-    const [changeCount, setChangeCount] = useState(0);
+    const [startValue, setStartValue] = useState<Date | null>(new Date())
+    const [endValue, setEndValue] = useState<Date | null>(addDays(new Date(), 7))
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleStartChange = (newValue: Date | null) => {
-      setStartValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setStartValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     const handleEndChange = (newValue: Date | null) => {
-      setEndValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setEndValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Start:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Start:</div>
           <div className="text-body-small font-mono text-stone-600">
             {startValue ? startValue.toLocaleDateString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Current End:
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Current End:</div>
           <div className="text-body-small font-mono text-stone-600">
             {endValue ? endValue.toLocaleDateString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
-        <Panel.Row type="two-input-two-icon" className="px-0">
+        <Panel.Row
+          type="two-input-two-icon"
+          className="px-0"
+        >
           <DateRangeInput
             readOnly
             startValue={startValue}
@@ -561,7 +550,10 @@ export const ReadOnly: Story = {
             locale={enUS}
           />
         </Panel.Row>
-        <Panel.Row type="two-input-two-icon" className="px-0">
+        <Panel.Row
+          type="two-input-two-icon"
+          className="px-0"
+        >
           <DateRangeInput
             startValue={startValue}
             endValue={endValue}
@@ -571,11 +563,10 @@ export const ReadOnly: Story = {
           />
         </Panel.Row>
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly date range input - the values should not
-          change and the change count should remain at 0. Only the normal input
-          will change the values.
+          💡 Try changing the readonly date range input - the values should not change and the
+          change count should remain at 0. Only the normal input will change the values.
         </div>
       </div>
-    );
+    )
   },
-};
+}

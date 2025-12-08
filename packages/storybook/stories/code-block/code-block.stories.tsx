@@ -1,7 +1,7 @@
-import { CodeBlock, ScrollArea } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useRef, useState } from "react";
-import { useStickToBottom } from "use-stick-to-bottom";
+import { CodeBlock, ScrollArea } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useRef, useState } from "react"
+import { useStickToBottom } from "use-stick-to-bottom"
 
 const meta = {
   title: "Components/CodeBlock",
@@ -16,18 +16,18 @@ const meta = {
     },
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof CodeBlock>;
+} satisfies Meta<typeof CodeBlock>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-const tsCode = `export function add(a: number, b: number): number {\n  return a + b\n}`;
-const jsonCode = `{"name":"prompt-kit","version":"1.0.0","private":true}`;
-const diffCode = `diff --git a/index.ts b/index.ts\n--- a/index.ts\n+++ b/index.ts\n@@\n- console.log('hello')\n+ console.info('hello world')\n`;
-const tsxCode = `import React from 'react'\n\nexport function Button({ label }: { label: string }) {\n  return (\n    <button className="px-3 py-1 rounded border">{label}</button>\n  )\n}`;
-const htmlCode = `<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8" />\n    <title>Example</title>\n  </head>\n  <body>\n    <div id="app">Hello</div>\n  </body>\n</html>`;
-const cssCode = `:root {\n  --primary: #0ea5e9;\n}\n\n.button {\n  background: var(--primary);\n  color: white;\n}`;
-const pyCode = `def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(2, 3))`;
+const tsCode = `export function add(a: number, b: number): number {\n  return a + b\n}`
+const jsonCode = `{"name":"prompt-kit","version":"1.0.0","private":true}`
+const diffCode = `diff --git a/index.ts b/index.ts\n--- a/index.ts\n+++ b/index.ts\n@@\n- console.log('hello')\n+ console.info('hello world')\n`
+const tsxCode = `import React from 'react'\n\nexport function Button({ label }: { label: string }) {\n  return (\n    <button className="px-3 py-1 rounded border">{label}</button>\n  )\n}`
+const htmlCode = `<!doctype html>\n<html>\n  <head>\n    <meta charset="utf-8" />\n    <title>Example</title>\n  </head>\n  <body>\n    <div id="app">Hello</div>\n  </body>\n</html>`
+const cssCode = `:root {\n  --primary: #0ea5e9;\n}\n\n.button {\n  background: var(--primary);\n  color: white;\n}`
+const pyCode = `def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(2, 3))`
 
 const longTSXExample = `import React, { useState, useEffect, useCallback, useMemo } from "react"
 import { 
@@ -262,7 +262,7 @@ function highlightSyntax(code: string, language: string): string {
   return highlighted
 }
 
-export default CodeEditor`;
+export default CodeEditor`
 
 /**
  * Demonstrates different programming languages with automatic theme switching.
@@ -284,9 +284,9 @@ export const LanguagesAndThemes: Story = {
           <CodeBlock.Content code={diffCode} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows how long code content is handled with vertical scrolling.
@@ -294,19 +294,16 @@ export const LanguagesAndThemes: Story = {
  */
 export const LongCodeWithScroll: Story = {
   render: function LongCodeWithScrollRender() {
-    const long = Array.from(
-      { length: 80 },
-      (_, i) => `console.log('line ${i + 1}')`
-    ).join("\n");
+    const long = Array.from({ length: 80 }, (_, i) => `console.log('line ${i + 1}')`).join("\n")
     return (
       <div className="max-w-3xl">
         <CodeBlock language="js">
           <CodeBlock.Content code={long} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates code block without scroll area container.
@@ -314,19 +311,19 @@ export const LongCodeWithScroll: Story = {
  */
 export const LongCodeWithoutScroll: Story = {
   render: function LongCodeWithoutScrollRender() {
-    const long = Array.from(
-      { length: 80 },
-      (_, i) => `console.log('line ${i + 1}')`
-    ).join("\n");
+    const long = Array.from({ length: 80 }, (_, i) => `console.log('line ${i + 1}')`).join("\n")
     return (
       <div className="max-w-3xl">
         <CodeBlock language="js">
-          <CodeBlock.Content code={long} withScrollArea={false} />
+          <CodeBlock.Content
+            code={long}
+            withScrollArea={false}
+          />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Showcases popular programming and markup languages.
@@ -358,9 +355,9 @@ export const PopularLanguages: Story = {
           <CodeBlock.Content code={pyCode} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Real-world example with a complex React component.
@@ -374,9 +371,9 @@ export const LongTSXDemo: Story = {
           <CodeBlock.Content code={longTSXExample} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Code block with interactive header showing filename and controls.
@@ -386,14 +383,17 @@ export const WithInteractiveHeader: Story = {
   render: function WithInteractiveHeader() {
     return (
       <div className="max-w-3xl">
-        <CodeBlock language="tsx" filename="HelloWorld.tsx">
+        <CodeBlock
+          language="tsx"
+          filename="HelloWorld.tsx"
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code={tsxCode} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Full featured code block with header and footer.
@@ -403,15 +403,18 @@ export const WithHeaderAndFooter: Story = {
   render: function WithHeaderAndFooterRender() {
     return (
       <div className="max-w-3xl">
-        <CodeBlock language="tsx" filename="LongComponent.tsx">
+        <CodeBlock
+          language="tsx"
+          filename="LongComponent.tsx"
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code={longTSXExample} />
           <CodeBlock.Footer />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Code block collapsed by default to save space.
@@ -431,9 +434,9 @@ export const CollapsedByDefault: Story = {
           <CodeBlock.Footer />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Long code that starts fully expanded, showing all lines.
@@ -453,9 +456,9 @@ export const ExpandedCode: Story = {
           <CodeBlock.Footer />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Code block with expand/collapse functionality disabled.
@@ -465,14 +468,18 @@ export const NonExpandable: Story = {
   render: function NonExpandableRender() {
     return (
       <div className="max-w-3xl">
-        <CodeBlock language="json" filename="config.json" expandable={false}>
+        <CodeBlock
+          language="json"
+          filename="config.json"
+          expandable={false}
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code={jsonCode} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates internationalization support with custom labels.
@@ -482,7 +489,10 @@ export const CustomI18n: Story = {
   render: function CustomI18nRender() {
     return (
       <div className="max-w-3xl">
-        <CodeBlock language="tsx" filename="国际化示例.tsx">
+        <CodeBlock
+          language="tsx"
+          filename="国际化示例.tsx"
+        >
           <CodeBlock.Header
             i18n={{
               collapse: "折叠",
@@ -495,9 +505,9 @@ export const CustomI18n: Story = {
           <CodeBlock.Footer />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Comprehensive showcase of language-specific icons in the header.
@@ -609,7 +619,7 @@ export const LanguageIcons: Story = {
         filename: "Main.java",
         code: `public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello");\n  }\n}`,
       },
-    ];
+    ]
 
     return (
       <div className="grid max-w-6xl grid-cols-3 place-content-start place-items-start gap-4">
@@ -625,9 +635,9 @@ export const LanguageIcons: Story = {
           </CodeBlock>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 export const DefaultFilename: Story = {
   render: function DefaultFilenameRender() {
@@ -638,9 +648,9 @@ export const DefaultFilename: Story = {
           <CodeBlock.Content code={tsxCode} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows how the lineThreshold property controls when footer appears.
@@ -653,7 +663,7 @@ export const LineCountThreshold: Story = {
 function greet(name) {
   return \`Hello, \${name}!\`;
 }
-console.log(greet('World'));`;
+console.log(greet('World'));`
 
     const mediumCode = `// Medium code (12 lines)
 import React from 'react';
@@ -669,14 +679,12 @@ function TodoItem({ todo, onToggle }) {
       <span>{todo.text}</span>
     </li>
   );
-}`;
+}`
 
     return (
       <div className="flex max-w-3xl flex-col gap-4">
         <div>
-          <h3 className="font-strong mb-2">
-            10 lines (no footer, below threshold)
-          </h3>
+          <h3 className="font-strong mb-2">10 lines (no footer, below threshold)</h3>
           <CodeBlock
             language="javascript"
             filename="short.js"
@@ -689,9 +697,7 @@ function TodoItem({ todo, onToggle }) {
         </div>
 
         <div>
-          <h3 className="font-strong mb-2">
-            12 lines (footer shown, above threshold)
-          </h3>
+          <h3 className="font-strong mb-2">12 lines (footer shown, above threshold)</h3>
           <CodeBlock
             language="javascript"
             filename="medium.js"
@@ -716,9 +722,9 @@ function TodoItem({ todo, onToggle }) {
           </CodeBlock>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 const streamingCodeExamples = [
   {
@@ -804,7 +810,7 @@ export function Button({ variant = 'primary', children, onClick }: ButtonProps) 
 if __name__ == "__main__":
     print(fibonacci(10))`,
   },
-];
+]
 
 /**
  * Streaming code blocks simulation with auto-scroll to bottom.
@@ -813,43 +819,39 @@ if __name__ == "__main__":
  */
 export const StreamingWithAutoScroll: Story = {
   render: function StreamingWithAutoScrollRender() {
-    const [blocks, setBlocks] = useState<typeof streamingCodeExamples>([]);
-    const [isStreaming, setIsStreaming] = useState(false);
-    const streamIndexRef = useRef(0);
+    const [blocks, setBlocks] = useState<typeof streamingCodeExamples>([])
+    const [isStreaming, setIsStreaming] = useState(false)
+    const streamIndexRef = useRef(0)
 
-    const { scrollRef, contentRef, isAtBottom, scrollToBottom } =
-      useStickToBottom({
-        resize: "smooth",
-        initial: "instant",
-      });
+    const { scrollRef, contentRef, isAtBottom, scrollToBottom } = useStickToBottom({
+      resize: "smooth",
+      initial: "instant",
+    })
 
     const addBlock = () => {
-      const nextBlock =
-        streamingCodeExamples[
-          streamIndexRef.current % streamingCodeExamples.length
-        ];
-      setBlocks((prev) => [...prev, nextBlock]);
-      streamIndexRef.current++;
-    };
+      const nextBlock = streamingCodeExamples[streamIndexRef.current % streamingCodeExamples.length]
+      setBlocks((prev) => [...prev, nextBlock])
+      streamIndexRef.current++
+    }
 
     const startStreaming = () => {
-      if (isStreaming) return;
-      setIsStreaming(true);
+      if (isStreaming) return
+      setIsStreaming(true)
 
       const interval = setInterval(() => {
-        addBlock();
+        addBlock()
         if (streamIndexRef.current >= streamingCodeExamples.length * 2) {
-          clearInterval(interval);
-          setIsStreaming(false);
+          clearInterval(interval)
+          setIsStreaming(false)
         }
-      }, 1500);
-    };
+      }, 1500)
+    }
 
     const reset = () => {
-      setBlocks([]);
-      streamIndexRef.current = 0;
-      setIsStreaming(false);
-    };
+      setBlocks([])
+      streamIndexRef.current = 0
+      setIsStreaming(false)
+    }
 
     return (
       <div className="flex h-[600px] w-[600px] flex-col gap-4">
@@ -889,17 +891,14 @@ export const StreamingWithAutoScroll: Story = {
         </div>
 
         <ScrollArea className="flex-1 rounded-lg border">
-          <ScrollArea.Viewport
-            ref={scrollRef as React.RefObject<HTMLDivElement>}
-          >
+          <ScrollArea.Viewport ref={scrollRef as React.RefObject<HTMLDivElement>}>
             <ScrollArea.Content
               ref={contentRef as React.RefObject<HTMLDivElement>}
               className="flex flex-col gap-4 p-4"
             >
               {blocks.length === 0 ? (
                 <div className="text-body-small text-fg-subtle py-8 text-center">
-                  Click &quot;Add Code Block&quot; or &quot;Auto Stream&quot; to
-                  start
+                  Click &quot;Add Code Block&quot; or &quot;Auto Stream&quot; to start
                 </div>
               ) : (
                 blocks.map((block, index) => (
@@ -917,9 +916,9 @@ export const StreamingWithAutoScroll: Story = {
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Simulates character-by-character streaming of code content.
@@ -927,8 +926,8 @@ export const StreamingWithAutoScroll: Story = {
  */
 export const CharacterStreaming: Story = {
   render: function CharacterStreamingRender() {
-    const [streamedCode, setStreamedCode] = useState("");
-    const [isStreaming, setIsStreaming] = useState(false);
+    const [streamedCode, setStreamedCode] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
 
     const fullCode = `import { useState, useEffect } from 'react'
 
@@ -962,35 +961,35 @@ export function useUser(userId: string) {
   }, [userId])
 
   return { user, loading, error }
-}`;
+}`
 
     const { scrollRef, contentRef } = useStickToBottom({
       resize: "smooth",
       initial: "instant",
-    });
+    })
 
     const startCharacterStream = () => {
-      if (isStreaming) return;
-      setIsStreaming(true);
-      setStreamedCode("");
+      if (isStreaming) return
+      setIsStreaming(true)
+      setStreamedCode("")
 
-      let index = 0;
+      let index = 0
       const interval = setInterval(() => {
         if (index < fullCode.length) {
-          const chunkSize = Math.floor(Math.random() * 5) + 1;
-          setStreamedCode(fullCode.slice(0, index + chunkSize));
-          index += chunkSize;
+          const chunkSize = Math.floor(Math.random() * 5) + 1
+          setStreamedCode(fullCode.slice(0, index + chunkSize))
+          index += chunkSize
         } else {
-          clearInterval(interval);
-          setIsStreaming(false);
+          clearInterval(interval)
+          setIsStreaming(false)
         }
-      }, 20);
-    };
+      }, 20)
+    }
 
     const reset = () => {
-      setStreamedCode("");
-      setIsStreaming(false);
-    };
+      setStreamedCode("")
+      setIsStreaming(false)
+    }
 
     return (
       <div className="flex h-[500px] w-[600px] flex-col gap-4">
@@ -1011,14 +1010,15 @@ export function useUser(userId: string) {
         </div>
 
         <ScrollArea className="flex-1 rounded-lg border">
-          <ScrollArea.Viewport
-            ref={scrollRef as React.RefObject<HTMLDivElement>}
-          >
+          <ScrollArea.Viewport ref={scrollRef as React.RefObject<HTMLDivElement>}>
             <ScrollArea.Content
               ref={contentRef as React.RefObject<HTMLDivElement>}
               className="p-4"
             >
-              <CodeBlock language="typescript" filename="useUser.ts">
+              <CodeBlock
+                language="typescript"
+                filename="useUser.ts"
+              >
                 <CodeBlock.Header />
                 <CodeBlock.Content
                   code={streamedCode || "// Code will appear here..."}
@@ -1029,9 +1029,9 @@ export function useUser(userId: string) {
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Code block with different variants.
@@ -1040,19 +1040,28 @@ export const Variants: Story = {
   render: function VariantsStory() {
     return (
       <div className="flex flex-col gap-2">
-        <CodeBlock variant="default" language="typescript">
+        <CodeBlock
+          variant="default"
+          language="typescript"
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code="console.log('Hello, world!')" />
         </CodeBlock>
-        <CodeBlock variant="light" language="typescript">
+        <CodeBlock
+          variant="light"
+          language="typescript"
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code="console.log('Hello, world!')" />
         </CodeBlock>
-        <CodeBlock variant="dark" language="typescript">
+        <CodeBlock
+          variant="dark"
+          language="typescript"
+        >
           <CodeBlock.Header />
           <CodeBlock.Content code="console.log('Hello, world!')" />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}

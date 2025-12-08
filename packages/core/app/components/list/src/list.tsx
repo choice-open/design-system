@@ -19,8 +19,9 @@ interface ListProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
   variant?: "default" | "primary"
 }
 
-interface ListComponentProps
-  extends React.ForwardRefExoticComponent<ListProps & React.RefAttributes<HTMLDivElement>> {
+interface ListComponentProps extends React.ForwardRefExoticComponent<
+  ListProps & React.RefAttributes<HTMLDivElement>
+> {
   Content: typeof ListContent
   Divider: typeof ListDivider
   Item: typeof ListItem

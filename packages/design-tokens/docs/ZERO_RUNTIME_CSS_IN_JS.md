@@ -14,34 +14,26 @@ Zero Runtime CSS-in-JS 库在编译时提取CSS，而不是在运行时生成。
 ### 1. Linaria 示例
 
 ```typescript
-import { css } from "@linaria/core";
-import {
-  color,
-  colorRaw,
-  colorConstants,
-} from "@choice-ui/design-tokens/helpers";
+import { css } from "@linaria/core"
+import { color, colorRaw, colorConstants } from "@choice-ui/design-tokens/helpers"
 
 // 方式一：直接使用 color() 函数（推荐）
 const button = css`
-  background-color: ${color(
-    "bg.accent"
-  )}; // rgba(var(--cdt-color-background-accent))
-  color: ${color(
-    "fg.on-accent"
-  )}; // rgba(var(--cdt-color-foreground-on-accent))
+  background-color: ${color("bg.accent")}; // rgba(var(--cdt-color-background-accent))
+  color: ${color("fg.on-accent")}; // rgba(var(--cdt-color-foreground-on-accent))
   border: 1px solid ${color("bd.default", 0.3)}; // rgba(var(--cdt-color-boundary-default), 0.3)
 
   &:hover {
     background-color: ${color("bg.accent-hover")};
   }
-`;
+`
 
 // 方式二：使用 colorConstants（编译时优化）
 const card = css`
   background: ${colorConstants.get("bg.default")};
   border: 1px solid ${colorConstants.get("bd.default")};
   box-shadow: 0 2px 8px ${colorConstants.get("bg.default", 0.1)};
-`;
+`
 
 // 方式三：原始CSS变量（适用于自定义场景）
 const customStyle = css`
@@ -50,14 +42,14 @@ const customStyle = css`
 
   /* 或者在CSS中手动包装 */
   color: rgba(${colorConstants.raw("fg.default")});
-`;
+`
 ```
 
 ### 2. vanilla-extract 示例
 
 ```typescript
-import { style } from "@vanilla-extract/css";
-import { color, staticColors } from "@choice-ui/design-tokens/helpers";
+import { style } from "@vanilla-extract/css"
+import { color, staticColors } from "@choice-ui/design-tokens/helpers"
 
 // 使用 color() 函数
 export const buttonStyle = style({
@@ -70,19 +62,19 @@ export const buttonStyle = style({
       backgroundColor: color("bg.accent-hover"),
     },
   },
-});
+})
 
 // 使用静态颜色映射（编译时优化）
 export const cardStyle = style({
   backgroundColor: staticColors["bg.default"],
   borderColor: staticColors["bd.default"],
-});
+})
 
 // 带透明度的颜色
 export const overlayStyle = style({
   backgroundColor: color("bg.default", 0.8),
   backdropFilter: "blur(4px)",
-});
+})
 ```
 
 ### 3. Compiled (Atlassian) 示例
@@ -115,11 +107,11 @@ const MyComponent = () => (
 
 ```typescript
 // build.js 或 webpack.config.js
-import { setTokensData } from "@choice-ui/design-tokens/helpers";
-import { tokens } from "@choice-ui/design-tokens";
+import { setTokensData } from "@choice-ui/design-tokens/helpers"
+import { tokens } from "@choice-ui/design-tokens"
 
 // 在构建开始前预加载tokens
-setTokensData(tokens);
+setTokensData(tokens)
 
 // 现在所有的color()函数都可以在编译时访问tokens
 ```
@@ -134,33 +126,28 @@ const themeAwareStyle = css`
   background: ${color("bg.default")}; /* 浅色模式: rgba(255, 255, 255) */
   /* 深色模式: rgba(44, 44, 44) */
   color: ${color("fg.default")}; /* 自动适配对比色 */
-`;
+`
 ```
 
 ### 3. 性能优化
 
 ```typescript
-import {
-  color,
-  colorRaw,
-  colorConstants,
-  staticColors,
-} from "@choice-ui/design-tokens/helpers";
+import { color, colorRaw, colorConstants, staticColors } from "@choice-ui/design-tokens/helpers"
 
 // 最佳性能：使用静态映射（编译时替换）
 const optimized = css`
   background: ${staticColors["bg.default"]};
-`;
+`
 
 // 好性能：使用colorConstants（编译时计算）
 const good = css`
   background: ${colorConstants.get("bg.default")};
-`;
+`
 
 // 一般性能：使用color函数（运行时计算，但仍然是编译时替换）
 const normal = css`
   background: ${color("bg.default")};
-`;
+`
 ```
 
 ## 构建配置
@@ -169,8 +156,8 @@ const normal = css`
 
 ```javascript
 // webpack.config.js
-const { setTokensData } = require("@choice-ui/design-tokens/helpers");
-const { tokens } = require("@choice-ui/design-tokens");
+const { setTokensData } = require("@choice-ui/design-tokens/helpers")
+const { tokens } = require("@choice-ui/design-tokens")
 
 module.exports = {
   // 在构建开始前初始化tokens
@@ -178,8 +165,8 @@ module.exports = {
     {
       apply: (compiler) => {
         compiler.hooks.beforeRun.tap("TokensPreloader", () => {
-          setTokensData(tokens);
-        });
+          setTokensData(tokens)
+        })
       },
     },
   ],
@@ -197,20 +184,20 @@ module.exports = {
       },
     ],
   },
-};
+}
 ```
 
 ### Vite 配置示例
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from "vite";
-import { linaria } from "@linaria/vite";
-import { setTokensData } from "@choice-ui/design-tokens/helpers";
-import { tokens } from "@choice-ui/design-tokens";
+import { defineConfig } from "vite"
+import { linaria } from "@linaria/vite"
+import { setTokensData } from "@choice-ui/design-tokens/helpers"
+import { tokens } from "@choice-ui/design-tokens"
 
 // 预加载tokens
-setTokensData(tokens);
+setTokensData(tokens)
 
 export default defineConfig({
   plugins: [
@@ -218,7 +205,7 @@ export default defineConfig({
       // Linaria配置
     }),
   ],
-});
+})
 ```
 
 ## 最佳实践
@@ -227,13 +214,13 @@ export default defineConfig({
 
 ```typescript
 // 推荐：使用语义化别名
-color("bg.default"); // ✅ 清晰的语义
-color("fg.accent"); // ✅ 易于理解
-color("bd.strong"); // ✅ 简洁明了
+color("bg.default") // ✅ 清晰的语义
+color("fg.accent") // ✅ 易于理解
+color("bd.strong") // ✅ 简洁明了
 
 // 避免：直接使用颜色名称
-color("blue.500"); // ❌ 不利于主题切换
-color("color.gray.100"); // ❌ 冗长且不语义化
+color("blue.500") // ❌ 不利于主题切换
+color("color.gray.100") // ❌ 冗长且不语义化
 ```
 
 ### 2. 透明度处理
@@ -242,17 +229,17 @@ color("color.gray.100"); // ❌ 冗长且不语义化
 // 推荐：使用alpha参数
 color("bg.default", 0.8) // ✅ 清晰明确
 // 避免：手动拼接
-`rgba(${colorRaw("bg.default")}, 0.8)`; // ❌ 繁琐且易错
+`rgba(${colorRaw("bg.default")}, 0.8)` // ❌ 繁琐且易错
 ```
 
 ### 3. 构建时优化
 
 ```typescript
 // 在构建脚本中预加载tokens
-import { initColorHelpers } from "@choice-ui/design-tokens/helpers";
+import { initColorHelpers } from "@choice-ui/design-tokens/helpers"
 
 // 构建开始前
-await initColorHelpers();
+await initColorHelpers()
 
 // 现在所有的颜色函数都可以立即访问tokens
 ```
@@ -276,9 +263,9 @@ A: 确保在构建过程开始前调用 `setTokensData()` 或 `initColorHelpers(
 A: 使用 `ColorPath` 类型：
 
 ```typescript
-import type { ColorPath } from "@choice-ui/design-tokens/helpers";
+import type { ColorPath } from "@choice-ui/design-tokens/helpers"
 
 function getButtonColor(variant: "primary" | "secondary"): ColorPath {
-  return variant === "primary" ? "bg.accent" : "bg.secondary";
+  return variant === "primary" ? "bg.accent" : "bg.secondary"
 }
 ```

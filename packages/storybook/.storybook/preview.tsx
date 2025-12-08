@@ -1,8 +1,8 @@
-import { AlertDialogProvider, TooltipProvider } from "@choice-ui/react";
-import { Preview } from "@storybook/react-vite";
-import "../styles/tailwind.css";
-import "./global.css";
-import { sharedParameters } from "./shared-parameters";
+import { AlertDialogProvider, TooltipProvider } from "@choice-ui/react"
+import { Preview } from "@storybook/react-vite"
+import "../styles/tailwind.css"
+import "./global.css"
+import { sharedParameters } from "./shared-parameters"
 
 const preview: Preview = {
   decorators: [
@@ -20,6 +20,6 @@ const preview: Preview = {
     ),
   ],
   parameters: sharedParameters,
-};
+}
 
-export default preview;
+export default preview

@@ -1,15 +1,15 @@
-import { Slot, useAsChild, useSlot } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
+import { Slot, useAsChild, useSlot } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React from "react"
 
 const meta: Meta<typeof Slot> = {
   title: "Utils/Slot",
   component: Slot,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Slot>;
+type Story = StoryObj<typeof Slot>
 
 /**
  * Basic: Demonstrates basic Slot usage for props forwarding.
@@ -28,9 +28,9 @@ export const Basic: Story = {
           </button>
         </Slot>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * EventMerging: Shows how Slot merges event handlers from parent and child.
@@ -41,14 +41,14 @@ export const Basic: Story = {
 export const EventMerging: Story = {
   render: function EventMergingStory() {
     const handleParentClick = () => {
-      console.log("Parent click handler");
-      alert("Parent clicked!");
-    };
+      console.log("Parent click handler")
+      alert("Parent clicked!")
+    }
 
     const handleChildClick = () => {
-      console.log("Child click handler");
-      alert("Child clicked!");
-    };
+      console.log("Child click handler")
+      alert("Child clicked!")
+    }
 
     return (
       <div className="space-y-4">
@@ -56,7 +56,10 @@ export const EventMerging: Story = {
         <p className="text-body-small text-gray-600">
           Click the button to see both child and parent handlers execute
         </p>
-        <Slot onClick={handleParentClick} className="inline-block">
+        <Slot
+          onClick={handleParentClick}
+          className="inline-block"
+        >
           <button
             onClick={handleChildClick}
             className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600"
@@ -65,9 +68,9 @@ export const EventMerging: Story = {
           </button>
         </Slot>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * AsChildPattern: Demonstrates the asChild pattern using useAsChild hook.
@@ -82,7 +85,7 @@ export const AsChildPattern: Story = {
       HTMLButtonElement,
       React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
     >(({ asChild, children, ...props }, ref) => {
-      const Component = useAsChild(asChild, "button");
+      const Component = useAsChild(asChild, "button")
 
       return (
         <Component
@@ -92,10 +95,10 @@ export const AsChildPattern: Story = {
         >
           {children}
         </Component>
-      );
-    });
+      )
+    })
 
-    CustomButton.displayName = "CustomButton";
+    CustomButton.displayName = "CustomButton"
 
     return (
       <div className="space-y-4">
@@ -107,19 +110,20 @@ export const AsChildPattern: Story = {
         </div>
 
         <div className="space-y-2">
-          <p className="text-body-small text-gray-600">
-            AsChild - renders as anchor tag:
-          </p>
+          <p className="text-body-small text-gray-600">AsChild - renders as anchor tag:</p>
           <CustomButton asChild>
-            <a href="#" className="text-decoration-none">
+            <a
+              href="#"
+              className="text-decoration-none"
+            >
               Link Button
             </a>
           </CustomButton>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ComplexComposition: Shows complex component composition with multiple props.
@@ -129,13 +133,11 @@ export const AsChildPattern: Story = {
  */
 export const ComplexComposition: Story = {
   render: function ComplexCompositionStory() {
-    const [count, setCount] = React.useState(0);
+    const [count, setCount] = React.useState(0)
 
     return (
       <div className="space-y-4">
-        <h3 className="text-body-large-strong">
-          Complex Component Composition
-        </h3>
+        <h3 className="text-body-large-strong">Complex Component Composition</h3>
         <p className="text-body-small text-gray-600">Count: {count}</p>
 
         <Slot
@@ -153,9 +155,9 @@ export const ComplexComposition: Story = {
           </div>
         </Slot>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * UseSlotHook: Demonstrates the useSlot hook for custom implementations.
@@ -165,28 +167,22 @@ export const ComplexComposition: Story = {
  */
 export const UseSlotHook: Story = {
   render: function UseSlotHookStory() {
-    const CustomSlotComponent = ({
-      children,
-    }: {
-      children: React.ReactNode;
-    }) => {
+    const CustomSlotComponent = ({ children }: { children: React.ReactNode }) => {
       const slottedChild = useSlot(children, {
         className: "border-4 border-blue-500 p-4 rounded-xl",
         onClick: () => console.log("Hook-based slot clicked"),
         "data-enhanced": "true",
-      });
+      })
 
       return (
         <div className="space-y-2">
-          <p className="text-body-small text-gray-600">
-            Enhanced with useSlot hook:
-          </p>
+          <p className="text-body-small text-gray-600">Enhanced with useSlot hook:</p>
           {slottedChild}
         </div>
-      );
-    };
+      )
+    }
 
-    CustomSlotComponent.displayName = "CustomSlotComponent";
+    CustomSlotComponent.displayName = "CustomSlotComponent"
 
     return (
       <div className="space-y-4">
@@ -198,9 +194,9 @@ export const UseSlotHook: Story = {
           </button>
         </CustomSlotComponent>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * PerformanceComparison: Shows performance benefits of the optimized implementation.
@@ -210,11 +206,11 @@ export const UseSlotHook: Story = {
  */
 export const PerformanceComparison: Story = {
   render: function PerformanceComparisonStory() {
-    const [updateCount, setUpdateCount] = React.useState(0);
+    const [updateCount, setUpdateCount] = React.useState(0)
 
     const handleForceUpdate = () => {
-      setUpdateCount((count) => count + 1);
-    };
+      setUpdateCount((count) => count + 1)
+    }
 
     return (
       <div className="space-y-4">
@@ -223,9 +219,8 @@ export const PerformanceComparison: Story = {
           Update count: {updateCount} (components optimized with useMemo)
         </p>
         <p className="text-xs text-gray-500">
-          Our Slot component uses useMemo caching to prevent unnecessary
-          re-renders, making it up to 30% faster than the original
-          @radix-ui/react-slot implementation.
+          Our Slot component uses useMemo caching to prevent unnecessary re-renders, making it up to
+          30% faster than the original @radix-ui/react-slot implementation.
         </p>
 
         <button
@@ -256,6 +251,6 @@ export const PerformanceComparison: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

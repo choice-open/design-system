@@ -3,5 +3,4 @@
 // From: import { ... } from '@choiceform/design-system'
 // To: import { ... } from '@choice-ui/react'
 
-export * from '@choice-ui/react';
-
+export * from "@choice-ui/react"

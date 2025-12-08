@@ -16,8 +16,9 @@ export interface TabsProps extends Omit<HTMLProps<HTMLElement>, "onChange" | "as
   variant?: "default" | "light" | "dark" | "accent" | "reset"
 }
 
-interface TabsComponent
-  extends React.ForwardRefExoticComponent<TabsProps & React.RefAttributes<HTMLElement>> {
+interface TabsComponent extends React.ForwardRefExoticComponent<
+  TabsProps & React.RefAttributes<HTMLElement>
+> {
   Item: typeof TabItem
 }
 

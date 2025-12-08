@@ -1,11 +1,5 @@
-import type { NumberResult, NumericInputValue } from "@choice-ui/react";
-import {
-  Checkbox,
-  Dropdown,
-  IconButton,
-  NumericInput,
-  Select,
-} from "@choice-ui/react";
+import type { NumberResult, NumericInputValue } from "@choice-ui/react"
+import { Checkbox, Dropdown, IconButton, NumericInput, Select } from "@choice-ui/react"
 import {
   ChevronDownSmall,
   ColorTypeSolid,
@@ -17,20 +11,20 @@ import {
   MinHeight,
   Relative,
   Variable,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { useEventCallback } from "usehooks-ts";
+} from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
+import { useEventCallback } from "usehooks-ts"
 
 const meta: Meta<typeof NumericInput> = {
   title: "Forms/NumericInput",
   component: NumericInput,
   tags: ["upgrade"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof NumericInput>;
+type Story = StoryObj<typeof NumericInput>
 const selectOptions = [
   {
     label: "Fixed height",
@@ -55,7 +49,7 @@ const selectOptions = [
     value: "max",
     icon: <MaxHeight />,
   },
-];
+]
 
 /**
  * # NumericInput Component
@@ -103,16 +97,16 @@ const selectOptions = [
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
 
     return (
       <NumericInput
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing NumericInput with a prefix element.
@@ -120,7 +114,7 @@ export const Basic: Story = {
  */
 export const Prefix: Story = {
   render: function PrefixStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
     return (
       <NumericInput
         value={value}
@@ -130,9 +124,9 @@ export const Prefix: Story = {
           <HugWidth />
         </NumericInput.Prefix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing NumericInput with a suffix element.
@@ -140,7 +134,7 @@ export const Prefix: Story = {
  */
 export const Suffix: Story = {
   render: function SuffixStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
     return (
       <NumericInput
         value={value}
@@ -150,9 +144,9 @@ export const Suffix: Story = {
           <Relative />
         </NumericInput.Suffix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing NumericInput with both prefix and suffix elements.
@@ -160,7 +154,7 @@ export const Suffix: Story = {
  */
 export const PrefixAndSuffix: Story = {
   render: function PrefixAndSuffixStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
     return (
       <NumericInput
         value={value}
@@ -173,9 +167,9 @@ export const PrefixAndSuffix: Story = {
           <Relative />
         </NumericInput.Suffix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example demonstrating a NumericInput with a dropdown menu in the suffix.
@@ -184,8 +178,8 @@ export const PrefixAndSuffix: Story = {
  */
 export const SuffixMenu: Story = {
   render: function SuffixMenuStory() {
-    const [value, setValue] = useState(10);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [value, setValue] = useState(10)
+    const [menuOpen, setMenuOpen] = useState(false)
     return (
       <NumericInput
         focused={menuOpen}
@@ -225,9 +219,9 @@ export const SuffixMenu: Story = {
           </Dropdown>
         </NumericInput.Suffix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing a NumericInput with an action in the suffix.
@@ -236,9 +230,9 @@ export const SuffixMenu: Story = {
  */
 export const SuffixAction: Story = {
   render: function SuffixActionStory() {
-    const [value, setValue] = useState(10);
-    const [menuValue, setMenuValue] = useState("fixed");
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [value, setValue] = useState(10)
+    const [menuValue, setMenuValue] = useState("fixed")
+    const [menuOpen, setMenuOpen] = useState(false)
 
     return (
       <NumericInput
@@ -248,11 +242,7 @@ export const SuffixAction: Story = {
       >
         {menuValue !== "fixed" && (
           <NumericInput.ActionPrompt>
-            {
-              selectOptions
-                .find((option) => option.value === menuValue)
-                ?.label?.split(" ")[0]
-            }
+            {selectOptions.find((option) => option.value === menuValue)?.label?.split(" ")[0]}
           </NumericInput.ActionPrompt>
         )}
 
@@ -291,9 +281,9 @@ export const SuffixAction: Story = {
           </Select>
         </NumericInput.Suffix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example demonstrating variable value support in NumericInput.
@@ -302,22 +292,23 @@ export const SuffixAction: Story = {
  */
 export const AddVariable: Story = {
   render: function AddVariableStory() {
-    const [value, setValue] = useState<number | undefined>(undefined);
-    const [variableValue, setVariableValue] = useState<number | null>(null);
+    const [value, setValue] = useState<number | undefined>(undefined)
+    const [variableValue, setVariableValue] = useState<number | null>(null)
 
     const handleChange = useEventCallback((newValue) => {
-      setValue(newValue as number);
-    });
+      setValue(newValue as number)
+    })
 
     return (
-      <NumericInput value={value} onChange={handleChange}>
+      <NumericInput
+        value={value}
+        onChange={handleChange}
+      >
         <NumericInput.Prefix>
           <FixedWidth />
         </NumericInput.Prefix>
 
-        {variableValue && !value && (
-          <NumericInput.Variable value={variableValue} />
-        )}
+        {variableValue && !value && <NumericInput.Variable value={variableValue} />}
 
         <NumericInput.Suffix type="menu">
           <Dropdown>
@@ -329,8 +320,8 @@ export const AddVariable: Story = {
             <Dropdown.Content>
               <Dropdown.Item
                 onMouseUp={() => {
-                  setVariableValue(10);
-                  setValue(undefined);
+                  setVariableValue(10)
+                  setValue(undefined)
                 }}
               >
                 Add variable...
@@ -339,9 +330,9 @@ export const AddVariable: Story = {
           </Dropdown>
         </NumericInput.Suffix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing expression pattern support for formatting compound values.
@@ -353,23 +344,21 @@ export const Expression: Story = {
     const [value, setValue] = useState({
       width: 10,
       height: 20,
-    });
+    })
 
     return (
       <NumericInput
         expression="{width}px, {height}px"
         value={value}
-        onChange={(newValue) =>
-          setValue(newValue as { height: number; width: number })
-        }
+        onChange={(newValue) => setValue(newValue as { height: number; width: number })}
       >
         <NumericInput.Prefix>
           <FixedWidth />
         </NumericInput.Prefix>
       </NumericInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Example showing NumericInput in disabled state.
@@ -401,7 +390,10 @@ export const Disabled: Story = {
           <NumericInput.Variable value={10} />
 
           <NumericInput.Suffix type="action">
-            <Select disabled placement="bottom-end">
+            <Select
+              disabled
+              placement="bottom-end"
+            >
               <Select.Trigger asChild>
                 <NumericInput.MenuTrigger
                   aria-label="Open menu"
@@ -422,9 +414,9 @@ export const Disabled: Story = {
           </NumericInput.Suffix>
         </NumericInput>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the numeric input component.
@@ -435,11 +427,14 @@ export const Disabled: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [value, setValue] = useState(10);
-    const [disabled, setDisabled] = useState(false);
+    const [value, setValue] = useState(10)
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
@@ -459,7 +454,10 @@ export const Variants: Story = {
               </NumericInput.Prefix>
               <NumericInput.Variable value={10} />
               <NumericInput.Suffix type="action">
-                <Select disabled placement="bottom-end">
+                <Select
+                  disabled
+                  placement="bottom-end"
+                >
                   <Select.Trigger asChild>
                     <NumericInput.MenuTrigger
                       aria-label="Open menu"
@@ -494,7 +492,10 @@ export const Variants: Story = {
               </NumericInput.Prefix>
               <NumericInput.Variable value={10} />
               <NumericInput.Suffix type="action">
-                <Select disabled placement="bottom-end">
+                <Select
+                  disabled
+                  placement="bottom-end"
+                >
                   <Select.Trigger asChild>
                     <NumericInput.MenuTrigger
                       aria-label="Open menu"
@@ -529,7 +530,10 @@ export const Variants: Story = {
               </NumericInput.Prefix>
               <NumericInput.Variable value={10} />
               <NumericInput.Suffix type="action">
-                <Select disabled placement="bottom-end">
+                <Select
+                  disabled
+                  placement="bottom-end"
+                >
                   <Select.Trigger asChild>
                     <NumericInput.MenuTrigger
                       aria-label="Open menu"
@@ -548,9 +552,9 @@ export const Variants: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Tooltip: Story = {
   render: function TooltipStory() {
@@ -561,9 +565,9 @@ export const Tooltip: Story = {
           content: "This is a tooltip",
         }}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Example demonstrating the mathematical expression evaluation feature.
@@ -579,45 +583,41 @@ export const Tooltip: Story = {
  */
 export const ExpressionCalculation: Story = {
   render: function ExpressionCalculationStory() {
-    const [value, setValue] = useState(2);
-    const [changeCount, setChangeCount] = useState(0);
-    const [lastInputText, setLastInputText] = useState("");
+    const [value, setValue] = useState(2)
+    const [changeCount, setChangeCount] = useState(0)
+    const [lastInputText, setLastInputText] = useState("")
 
-    const handleChange = (
-      newValue: NumericInputValue,
-      detail: NumberResult
-    ) => {
-      console.log("onChange triggered with:", newValue, detail);
-      setValue(newValue as number);
-      setChangeCount((prev) => prev + 1);
-      setLastInputText(detail.string);
-    };
+    const handleChange = (newValue: NumericInputValue, detail: NumberResult) => {
+      console.log("onChange triggered with:", newValue, detail)
+      setValue(newValue as number)
+      setChangeCount((prev) => prev + 1)
+      setLastInputText(detail.string)
+    }
 
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="text-body-large-strong">
-            Mathematical Expression Test
-          </h3>
+          <h3 className="text-body-large-strong">Mathematical Expression Test</h3>
           <p className="text-secondary-foreground">
-            Try entering different values and expressions to observe onChange
-            event behavior:
+            Try entering different values and expressions to observe onChange event behavior:
           </p>
           <ul className="text-secondary-foreground list-disc pl-5">
             <li>
-              Current value is {value}, entering {value} won&apos;t trigger
-              onChange
+              Current value is {value}, entering {value} won&apos;t trigger onChange
             </li>
             <li>
-              Current value is {value}, entering expressions that result in{" "}
-              {value} (like {value - 1}+1) won&apos;t trigger onChange
+              Current value is {value}, entering expressions that result in {value} (like{" "}
+              {value - 1}+1) won&apos;t trigger onChange
             </li>
             <li>Entering other values or expressions will trigger onChange</li>
           </ul>
         </div>
 
         <div className="flex flex-col items-start gap-2">
-          <NumericInput value={value} onChange={handleChange} />
+          <NumericInput
+            value={value}
+            onChange={handleChange}
+          />
 
           <div className="mt-2 rounded border bg-gray-50 p-3">
             <p className="text-body-small">
@@ -632,16 +632,15 @@ export const ExpressionCalculation: Story = {
               </p>
             )}
             <p className="text-secondary-foreground mt-2">
-              Tip: Try entering &ldquo;1+1&rdquo;, &ldquo;2*1&rdquo;,
-              &ldquo;4/2&rdquo; or other expressions that result in the current
-              value
+              Tip: Try entering &ldquo;1+1&rdquo;, &ldquo;2*1&rdquo;, &ldquo;4/2&rdquo; or other
+              expressions that result in the current value
             </p>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Example demonstrating expression calculations with unit formatting.
@@ -656,19 +655,16 @@ export const ExpressionCalculation: Story = {
  */
 export const UnitExpressionCalculation: Story = {
   render: function UnitExpressionCalculationStory() {
-    const [value, setValue] = useState(24);
-    const [changeCount, setChangeCount] = useState(0);
-    const [lastInputText, setLastInputText] = useState("");
+    const [value, setValue] = useState(24)
+    const [changeCount, setChangeCount] = useState(0)
+    const [lastInputText, setLastInputText] = useState("")
 
-    const handleChange = (
-      newValue: NumericInputValue,
-      detail: NumberResult
-    ) => {
-      console.log("onChange triggered with:", newValue, detail);
-      setValue(newValue as number);
-      setChangeCount((prev) => prev + 1);
-      setLastInputText(detail.string);
-    };
+    const handleChange = (newValue: NumericInputValue, detail: NumberResult) => {
+      console.log("onChange triggered with:", newValue, detail)
+      setValue(newValue as number)
+      setChangeCount((prev) => prev + 1)
+      setLastInputText(detail.string)
+    }
 
     return (
       <div className="grid w-96 gap-4">
@@ -679,16 +675,13 @@ export const UnitExpressionCalculation: Story = {
           </p>
           <ul className="text-secondary-foreground list-disc pl-5">
             <li>
-              Current value is {value}px, entering {value} won&apos;t trigger
+              Current value is {value}px, entering {value} won&apos;t trigger onChange
+            </li>
+            <li>
+              Entering expressions like &ldquo;{value / 2}+{value / 2}&rdquo; won&apos;t trigger
               onChange
             </li>
-            <li>
-              Entering expressions like &ldquo;{value / 2}+{value / 2}&rdquo;
-              won&apos;t trigger onChange
-            </li>
-            <li>
-              Entering different values or expressions will trigger onChange
-            </li>
+            <li>Entering different values or expressions will trigger onChange</li>
           </ul>
         </div>
 
@@ -712,15 +705,15 @@ export const UnitExpressionCalculation: Story = {
               </p>
             )}
             <p className="text-secondary-foreground mt-2">
-              Tip: Try entering &ldquo;12+12&rdquo;, &ldquo;24*1&rdquo;, or
-              other expressions that result in the current numerical value
+              Tip: Try entering &ldquo;12+12&rdquo;, &ldquo;24*1&rdquo;, or other expressions that
+              result in the current numerical value
             </p>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * 这个示例专门用于测试和展示修复后的多值表达式更新行为。
@@ -732,43 +725,36 @@ export const MultiValueExpressionUpdate: Story = {
     const [value, setValue] = useState({
       width: 10,
       height: 20,
-    });
-    const [updateCount, setUpdateCount] = useState(0);
-    const [lastUpdatedProperty, setLastUpdatedProperty] = useState("");
+    })
+    const [updateCount, setUpdateCount] = useState(0)
+    const [lastUpdatedProperty, setLastUpdatedProperty] = useState("")
 
-    const handleChange = (
-      newValue: NumericInputValue,
-      detail: NumberResult
-    ) => {
-      setValue(newValue as { height: number; width: number });
-      setUpdateCount((prev) => prev + 1);
+    const handleChange = (newValue: NumericInputValue, detail: NumberResult) => {
+      setValue(newValue as { height: number; width: number })
+      setUpdateCount((prev) => prev + 1)
 
       // 确定哪个属性被更新了
-      const newObj = newValue as { height: number; width: number };
+      const newObj = newValue as { height: number; width: number }
       if (newObj.width !== value.width && newObj.height !== value.height) {
-        setLastUpdatedProperty("width & height");
+        setLastUpdatedProperty("width & height")
       } else if (newObj.width !== value.width) {
-        setLastUpdatedProperty("width");
+        setLastUpdatedProperty("width")
       } else if (newObj.height !== value.height) {
-        setLastUpdatedProperty("height");
+        setLastUpdatedProperty("height")
       }
-    };
+    }
 
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
           <h3 className="text-body-large-strong">多值表达式更新测试</h3>
-          <p className="text-secondary-foreground">
-            这个示例测试修复后的多值表达式更新行为：
-          </p>
+          <p className="text-secondary-foreground">这个示例测试修复后的多值表达式更新行为：</p>
           <ul className="text-secondary-foreground list-disc pl-5">
             <li>修改首个值（width）</li>
             <li>修改第二个值（height）</li>
             <li>同时修改两个值</li>
           </ul>
-          <p className="text-secondary-foreground">
-            修复后，所有三种情况都应该正确触发更新。
-          </p>
+          <p className="text-secondary-foreground">修复后，所有三种情况都应该正确触发更新。</p>
         </div>
 
         <div className="flex flex-col items-start gap-2">
@@ -791,17 +777,15 @@ export const MultiValueExpressionUpdate: Story = {
               </p>
             )}
             <p className="text-secondary-foreground mt-2">
-              提示: 输入逗号分隔的两个值（例如 &quot;15,
-              20&quot;）来更新两个属性，
-              或者保留逗号前的值不变只修改后面的值（例如 &quot;,
-              25&quot;）来只更新height。
+              提示: 输入逗号分隔的两个值（例如 &quot;15, 20&quot;）来更新两个属性，
+              或者保留逗号前的值不变只修改后面的值（例如 &quot;, 25&quot;）来只更新height。
             </p>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Step and Shift Step: Demonstrates the step functionality with modifier key support
@@ -813,15 +797,14 @@ export const MultiValueExpressionUpdate: Story = {
  */
 export const StepAndShiftStep: Story = {
   render: function StepAndShiftStepStory() {
-    const [value, setValue] = useState(100);
+    const [value, setValue] = useState(100)
 
     return (
       <div className="grid w-96 gap-4">
         <div className="flex flex-col gap-2">
           <h3 className="text-body-large-strong">Step and Shift Step</h3>
           <p className="text-secondary-foreground">
-            Focus the input and use arrow keys with modifier keys to see
-            different step values:
+            Focus the input and use arrow keys with modifier keys to see different step values:
           </p>
           <ul className="text-secondary-foreground list-disc pl-5">
             <li>↑/↓: Default step (1)</li>
@@ -847,12 +830,11 @@ export const StepAndShiftStep: Story = {
               <b>Current value:</b> {value}
             </p>
             <p className="text-secondary-foreground mt-2">
-              Tip: Try holding Shift while using arrow keys to see different
-              step sizes
+              Tip: Try holding Shift while using arrow keys to see different step sizes
             </p>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

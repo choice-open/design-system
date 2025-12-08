@@ -1,19 +1,19 @@
-import { Checkbox, Combobox } from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react";
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { createEditor, Descendant, Node, Transforms } from "slate";
-import { Editable, ReactEditor, Slate, withReact } from "slate-react";
-import { useEventCallback } from "usehooks-ts";
+import { Checkbox, Combobox } from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useCallback, useMemo, useRef, useState } from "react"
+import { createEditor, Descendant, Node, Transforms } from "slate"
+import { Editable, ReactEditor, Slate, withReact } from "slate-react"
+import { useEventCallback } from "usehooks-ts"
 
 const meta: Meta<typeof Combobox> = {
   title: "Collections/Combobox",
   component: Combobox,
   tags: ["beta", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Combobox>;
+export default meta
+type Story = StoryObj<typeof Combobox>
 
 // Sample data
 const fruits = [
@@ -35,7 +35,7 @@ const fruits = [
   "Strawberry",
   "Tangerine",
   "Watermelon",
-];
+]
 
 /**
  * Basic: Simple combobox with searchable fruit options.
@@ -46,37 +46,33 @@ const fruits = [
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [value, setValue] = useState("");
-    const [triggerType, setTriggerType] = useState<"click" | "focus" | "input">(
-      "input"
-    );
+    const [value, setValue] = useState("")
+    const [triggerType, setTriggerType] = useState<"click" | "focus" | "input">("input")
 
     const itemsToShow = useMemo(() => {
       if (triggerType === "click") {
         // 点击trigger时显示所有items
-        return fruits;
+        return fruits
       }
       if (!value.trim()) {
-        return [];
+        return []
       }
       // 输入或focus时显示过滤后的items
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(value.toLowerCase())
-      );
-    }, [value, triggerType]);
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value, triggerType])
 
     const handleChange = useEventCallback((newValue: string) => {
-      setValue(newValue);
-      setTriggerType("input");
-    });
+      setValue(newValue)
+      setTriggerType("input")
+    })
 
     const handleOpenChange = useEventCallback(
       (open: boolean, trigger: "click" | "focus" | "input" = "input") => {
         if (open) {
-          setTriggerType(trigger);
+          setTriggerType(trigger)
         }
-      }
-    );
+      },
+    )
 
     return (
       <div className="w-64">
@@ -91,7 +87,10 @@ export const Basic: Story = {
               <>
                 <Combobox.Label>Fruits</Combobox.Label>
                 {itemsToShow.map((fruit) => (
-                  <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+                  <Combobox.Item
+                    key={fruit}
+                    onClick={() => setValue(fruit)}
+                  >
                     <Combobox.Value>{fruit}</Combobox.Value>
                   </Combobox.Item>
                 ))}
@@ -100,9 +99,9 @@ export const Basic: Story = {
           )}
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Clearable: Combobox with clearable input.
@@ -111,25 +110,32 @@ export const Basic: Story = {
  */
 export const Clearable: Story = {
   render: function ClearableStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     const filteredFruits = useMemo(() => {
-      if (!value.trim()) return [];
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(value.toLowerCase())
-      );
-    }, [value]);
+      if (!value.trim()) return []
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value])
 
     return (
       <div className="w-64">
-        <Combobox value={value} onChange={setValue}>
-          <Combobox.Trigger showClear placeholder="Search fruits..." />
+        <Combobox
+          value={value}
+          onChange={setValue}
+        >
+          <Combobox.Trigger
+            showClear
+            placeholder="Search fruits..."
+          />
           {filteredFruits.length > 0 && (
             <Combobox.Content>
               <>
                 <Combobox.Label>Fruits</Combobox.Label>
                 {filteredFruits.map((fruit) => (
-                  <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+                  <Combobox.Item
+                    key={fruit}
+                    onClick={() => setValue(fruit)}
+                  >
                     <Combobox.Value>{fruit}</Combobox.Value>
                   </Combobox.Item>
                 ))}
@@ -138,9 +144,9 @@ export const Clearable: Story = {
           )}
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Controlled: Controlled combobox with external state management.
@@ -149,20 +155,21 @@ export const Clearable: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledStory() {
-    const [selectedFruit, setSelectedFruit] = useState("Apple");
-    const [searchValue, setSearchValue] = useState("");
+    const [selectedFruit, setSelectedFruit] = useState("Apple")
+    const [searchValue, setSearchValue] = useState("")
 
     const filteredFruits = useMemo(() => {
-      if (!searchValue.trim()) return [];
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(searchValue.toLowerCase())
-      );
-    }, [searchValue]);
+      if (!searchValue.trim()) return []
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(searchValue.toLowerCase()))
+    }, [searchValue])
 
     return (
       <div className="space-y-4">
         <div className="w-64">
-          <Combobox value={searchValue} onChange={setSearchValue}>
+          <Combobox
+            value={searchValue}
+            onChange={setSearchValue}
+          >
             <Combobox.Trigger placeholder="Search fruits..." />
             <Combobox.Content>
               {filteredFruits.length > 0 ? (
@@ -172,8 +179,8 @@ export const Controlled: Story = {
                     <Combobox.Item
                       key={fruit}
                       onClick={() => {
-                        setSelectedFruit(fruit);
-                        setSearchValue(fruit);
+                        setSelectedFruit(fruit)
+                        setSearchValue(fruit)
                       }}
                     >
                       <Combobox.Value>{fruit}</Combobox.Value>
@@ -181,9 +188,7 @@ export const Controlled: Story = {
                   ))}
                 </>
               ) : (
-                <div className="p-4 text-center text-white/50">
-                  No matches found
-                </div>
+                <div className="p-4 text-center text-white/50">No matches found</div>
               )}
             </Combobox.Content>
           </Combobox>
@@ -198,9 +203,9 @@ export const Controlled: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Empty: Combobox with no initial value.
@@ -209,32 +214,36 @@ export const Controlled: Story = {
  */
 export const Empty: Story = {
   render: function EmptyStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     const filteredFruits = useMemo(() => {
-      if (!value.trim()) return [];
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(value.toLowerCase())
-      );
-    }, [value]);
+      if (!value.trim()) return []
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value])
 
     return (
       <div className="w-64">
-        <Combobox value={value} onChange={setValue}>
+        <Combobox
+          value={value}
+          onChange={setValue}
+        >
           <Combobox.Trigger placeholder="Choose a fruit..." />
           <Combobox.Content>
             <Combobox.Label>Popular Fruits</Combobox.Label>
             {filteredFruits.map((fruit) => (
-              <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+              <Combobox.Item
+                key={fruit}
+                onClick={() => setValue(fruit)}
+              >
                 <Combobox.Value>{fruit}</Combobox.Value>
               </Combobox.Item>
             ))}
           </Combobox.Content>
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Large: Large size variant of the combobox.
@@ -243,19 +252,23 @@ export const Empty: Story = {
  */
 export const Large: Story = {
   render: function LargeStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     const filteredFruits = useMemo(() => {
-      if (!value.trim()) return [];
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(value.toLowerCase())
-      );
-    }, [value]);
+      if (!value.trim()) return []
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value])
 
     return (
       <div className="w-80">
-        <Combobox value={value} onChange={setValue}>
-          <Combobox.Trigger placeholder="Search fruits..." size="large" />
+        <Combobox
+          value={value}
+          onChange={setValue}
+        >
+          <Combobox.Trigger
+            placeholder="Search fruits..."
+            size="large"
+          />
           <Combobox.Content>
             <Combobox.Label>Fruits</Combobox.Label>
             {filteredFruits.map((fruit) => (
@@ -270,9 +283,9 @@ export const Large: Story = {
           </Combobox.Content>
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Disabled combobox state.
@@ -284,7 +297,10 @@ export const Disabled: Story = {
     return (
       <div className="w-64">
         <Combobox disabled>
-          <Combobox.Trigger placeholder="Disabled combobox..." value="Apple" />
+          <Combobox.Trigger
+            placeholder="Disabled combobox..."
+            value="Apple"
+          />
           <Combobox.Content>
             <Combobox.Item>
               <Combobox.Value>Apple</Combobox.Value>
@@ -292,9 +308,9 @@ export const Disabled: Story = {
           </Combobox.Content>
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * LongList: Combobox with many options demonstrating scrolling.
@@ -304,30 +320,30 @@ export const Disabled: Story = {
  */
 export const LongList: Story = {
   render: function LongListStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     const countries = useMemo(
       () => Array.from({ length: 100 }, (_, index) => `Option ${index + 1}`),
-      []
-    );
+      [],
+    )
 
     const filteredCountries = useMemo(() => {
-      if (!value.trim()) return [];
+      if (!value.trim()) return []
       return countries
-        .filter((country) =>
-          country.toLowerCase().startsWith(value.toLowerCase())
-        )
-        .slice(0, 50); // Limit results for performance
-    }, [value, countries]);
+        .filter((country) => country.toLowerCase().startsWith(value.toLowerCase()))
+        .slice(0, 50) // Limit results for performance
+    }, [value, countries])
 
     return (
       <div className="w-64">
-        <Combobox value={value} onChange={setValue}>
+        <Combobox
+          value={value}
+          onChange={setValue}
+        >
           <Combobox.Trigger placeholder="Search countries..." />
           <Combobox.Content>
             <Combobox.Label>
-              Countries ({filteredCountries.length} {!value ? "shown" : "found"}
-              )
+              Countries ({filteredCountries.length} {!value ? "shown" : "found"})
             </Combobox.Label>
             {filteredCountries.map((country, index) => (
               <Combobox.Item
@@ -345,9 +361,9 @@ export const LongList: Story = {
           </Combobox.Content>
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * CustomWidth: Combobox with custom width that doesn't match trigger.
@@ -356,43 +372,46 @@ export const LongList: Story = {
  */
 export const CustomWidth: Story = {
   render: function CustomWidthStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     const filteredFruits = useMemo(() => {
-      if (!value.trim()) return [];
-      return fruits.filter((fruit) =>
-        fruit.toLowerCase().startsWith(value.toLowerCase())
-      );
-    }, [value]);
+      if (!value.trim()) return []
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value])
 
     return (
       <div className="w-48">
-        <Combobox value={value} onChange={setValue} matchTriggerWidth={false}>
+        <Combobox
+          value={value}
+          onChange={setValue}
+          matchTriggerWidth={false}
+        >
           <Combobox.Trigger placeholder="Fruit..." />
           <Combobox.Content className="w-80">
             <Combobox.Label>Available Fruits (Custom Width)</Combobox.Label>
             {filteredFruits.map((fruit) => (
-              <Combobox.Item key={fruit} onClick={() => setValue(fruit)}>
+              <Combobox.Item
+                key={fruit}
+                onClick={() => setValue(fruit)}
+              >
                 <Combobox.Value>{fruit}</Combobox.Value>
               </Combobox.Item>
             ))}
           </Combobox.Content>
         </Combobox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Coordinate mode - Combobox positioned at specific coordinates for mentions
  */
 export const CoordinateMode: Story = {
   render: function CoordinateModeStory() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [position, setPosition] = useState<{ x: number; y: number } | null>(
-      null
-    );
-    const [query, setQuery] = useState("");
+    const [isOpen, setIsOpen] = useState(false)
+    const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
+    const [query, setQuery] = useState("")
 
     const users = useMemo(
       () => [
@@ -415,39 +434,39 @@ export const CoordinateMode: Story = {
           avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=bob",
         },
       ],
-      []
-    );
+      [],
+    )
 
     const filteredUsers = useMemo(() => {
-      if (!query.trim()) return users;
+      if (!query.trim()) return users
       return users.filter(
         (user) =>
           user.name.toLowerCase().includes(query.toLowerCase()) ||
-          user.username.toLowerCase().includes(query.toLowerCase())
-      );
-    }, [query, users]);
+          user.username.toLowerCase().includes(query.toLowerCase()),
+      )
+    }, [query, users])
 
     const handleClick = (event: React.MouseEvent) => {
       setPosition({
         x: event.clientX,
         y: event.clientY,
-      });
-      setQuery("");
-      setIsOpen(true);
-    };
+      })
+      setQuery("")
+      setIsOpen(true)
+    }
 
     const handleSelectUser = (user: (typeof users)[0]) => {
-      setQuery(user.name);
-      setIsOpen(false);
-    };
+      setQuery(user.name)
+      setIsOpen(false)
+    }
 
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
           <h3 className="font-strong mb-2">📍 Coordinate Mode Combobox</h3>
           <p className="text-secondary-foreground text-body-small">
-            Click anywhere in the area below to trigger a Combobox at that
-            position. Perfect for mentions, autocomplete, etc.
+            Click anywhere in the area below to trigger a Combobox at that position. Perfect for
+            mentions, autocomplete, etc.
           </p>
         </div>
 
@@ -512,8 +531,7 @@ export const CoordinateMode: Story = {
             <strong>Query:</strong> &ldquo;{query}&rdquo;
           </div>
           <div>
-            <strong>Position:</strong>{" "}
-            {position ? `${position.x}, ${position.y}` : "null"}
+            <strong>Position:</strong> {position ? `${position.x}, ${position.y}` : "null"}
           </div>
           <div>
             <strong>Open:</strong> {isOpen ? "Yes" : "No"}
@@ -523,26 +541,24 @@ export const CoordinateMode: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Mentions with Slate.js - Combobox integrated with rich text editor for mentions
  */
 export const MentionsWithSlate: Story = {
   render: function MentionsWithSlateStory() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [position, setPosition] = useState<{ x: number; y: number } | null>(
-      null
-    );
-    const [mentionQuery, setMentionQuery] = useState("");
-    const editorRef = useRef<HTMLDivElement>(null);
+    const [isOpen, setIsOpen] = useState(false)
+    const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
+    const [mentionQuery, setMentionQuery] = useState("")
+    const editorRef = useRef<HTMLDivElement>(null)
 
-    const [enterFilter, setEnterFilter] = useState(true);
+    const [enterFilter, setEnterFilter] = useState(true)
 
     // 创建 Slate 编辑器实例
-    const editor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withReact(createEditor()), [])
 
     // 初始值
     const initialValue: Descendant[] = [
@@ -550,8 +566,8 @@ export const MentionsWithSlate: Story = {
         type: "paragraph",
         children: [{ text: "" }],
       } as Descendant,
-    ];
-    const [value, setValue] = useState<Descendant[]>(initialValue);
+    ]
+    const [value, setValue] = useState<Descendant[]>(initialValue)
 
     // 更多用户数据用于测试过滤
     const allUsers = useMemo(
@@ -563,85 +579,85 @@ export const MentionsWithSlate: Story = {
           role: faker.person.jobTitle(),
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${faker.person.fullName()}`,
         })),
-      []
-    );
+      [],
+    )
 
     // 过滤用户列表 - 模拟正常 Combobox 的过滤逻辑
     const filteredUsers = useMemo(() => {
       if (enterFilter) {
         // 类似正常模式：如果没有查询内容，不显示任何选项
-        if (!mentionQuery.trim()) return [];
+        if (!mentionQuery.trim()) return []
 
         return allUsers.filter(
           (user) =>
             user.name.toLowerCase().includes(mentionQuery.toLowerCase()) ||
             user.username.toLowerCase().includes(mentionQuery.toLowerCase()) ||
-            user.role.toLowerCase().includes(mentionQuery.toLowerCase())
-        );
+            user.role.toLowerCase().includes(mentionQuery.toLowerCase()),
+        )
       } else {
-        return allUsers;
+        return allUsers
       }
-    }, [mentionQuery, allUsers, enterFilter]);
+    }, [mentionQuery, allUsers, enterFilter])
 
     // 获取编辑器文本内容
     const getEditorText = useCallback(() => {
-      return value.map((n) => Node.string(n)).join("\n");
-    }, [value]);
+      return value.map((n) => Node.string(n)).join("\n")
+    }, [value])
 
     // 处理 Combobox 的查询变化（仅用于坐标模式下的内部状态同步）
     const handleComboboxQueryChange = useCallback((query: string) => {
       // 在坐标模式下，我们不让 Combobox 控制查询，而是由 Slate 编辑器控制
       // 这个回调通常不会被调用，但为了完整性保留
-    }, []);
+    }, [])
 
     // 处理编辑器内容变化
     const handleChange = useCallback((newValue: Descendant[]) => {
-      setValue(newValue);
+      setValue(newValue)
 
-      const text = newValue.map((n) => Node.string(n)).join("\n");
-      const lastAtIndex = text.lastIndexOf("@");
+      const text = newValue.map((n) => Node.string(n)).join("\n")
+      const lastAtIndex = text.lastIndexOf("@")
 
       // 检查 @ 是否存在，并且 @ 后面没有空格或者是文本的末尾
       if (lastAtIndex !== -1) {
-        const afterAt = text.substring(lastAtIndex + 1);
-        const hasSpaceAfterAt = afterAt.includes(" ") || afterAt.includes("\n");
+        const afterAt = text.substring(lastAtIndex + 1)
+        const hasSpaceAfterAt = afterAt.includes(" ") || afterAt.includes("\n")
 
         if (!hasSpaceAfterAt) {
           // 提取查询字符串（@ 后面的内容）
-          setMentionQuery(afterAt);
+          setMentionQuery(afterAt)
 
           // 获取编辑器位置
-          const domSelection = window.getSelection();
+          const domSelection = window.getSelection()
           if (domSelection && domSelection.rangeCount > 0) {
-            const range = domSelection.getRangeAt(0);
-            const rect = range.getBoundingClientRect();
+            const range = domSelection.getRangeAt(0)
+            const rect = range.getBoundingClientRect()
             setPosition({
               x: rect.left,
               y: rect.bottom + 4,
-            });
+            })
           } else if (editorRef.current) {
             // 备选方案：使用编辑器容器位置
-            const rect = editorRef.current.getBoundingClientRect();
+            const rect = editorRef.current.getBoundingClientRect()
             setPosition({
               x: rect.left,
               y: rect.bottom + 4,
-            });
+            })
           }
-          setIsOpen(true);
+          setIsOpen(true)
         } else {
-          setIsOpen(false);
-          setMentionQuery("");
+          setIsOpen(false)
+          setMentionQuery("")
         }
       } else {
-        setIsOpen(false);
-        setMentionQuery("");
+        setIsOpen(false)
+        setMentionQuery("")
       }
-    }, []);
+    }, [])
 
     // 处理键盘事件 - 在菜单打开时拦截导航键
     const handleKeyDown = useCallback(
       (event: React.KeyboardEvent) => {
-        if (!isOpen) return;
+        if (!isOpen) return
 
         // 如果菜单打开，拦截上下箭头和回车键
         if (
@@ -650,13 +666,11 @@ export const MentionsWithSlate: Story = {
           event.key === "Enter" ||
           event.key === "Escape"
         ) {
-          event.preventDefault();
-          event.stopPropagation();
+          event.preventDefault()
+          event.stopPropagation()
 
           // 获取菜单的键盘处理函数（通过ref访问）
-          const menuElement = document.querySelector(
-            '[role="listbox"]'
-          ) as HTMLElement;
+          const menuElement = document.querySelector('[role="listbox"]') as HTMLElement
           if (menuElement) {
             // 直接在菜单元素上触发键盘事件
             const keyEvent = new KeyboardEvent("keydown", {
@@ -668,66 +682,66 @@ export const MentionsWithSlate: Story = {
               metaKey: event.metaKey,
               bubbles: true,
               cancelable: true,
-            });
-            menuElement.dispatchEvent(keyEvent);
+            })
+            menuElement.dispatchEvent(keyEvent)
           }
         }
       },
-      [isOpen]
-    );
+      [isOpen],
+    )
 
     // 处理用户选择
     const handleSelectUser = useCallback(
       (user: (typeof allUsers)[0]) => {
         // 使用 Slate 的 API 来正确插入提及内容
-        const { selection } = editor;
+        const { selection } = editor
 
         if (selection) {
           // 获取当前文本和光标位置
-          const text = getEditorText();
-          const lastAtIndex = text.lastIndexOf("@");
+          const text = getEditorText()
+          const lastAtIndex = text.lastIndexOf("@")
 
           if (lastAtIndex !== -1) {
             // 计算需要替换的范围
-            const afterAtText = text.substring(lastAtIndex + 1);
+            const afterAtText = text.substring(lastAtIndex + 1)
 
             // 创建选择范围，从 @ 开始到当前光标位置
-            const start = { path: [0, 0], offset: lastAtIndex };
+            const start = { path: [0, 0], offset: lastAtIndex }
             const end = {
               path: [0, 0],
               offset: lastAtIndex + 1 + afterAtText.length,
-            };
-            const range = { anchor: start, focus: end };
+            }
+            const range = { anchor: start, focus: end }
 
             // 选择要替换的文本范围
-            Transforms.select(editor, range);
+            Transforms.select(editor, range)
 
             // 插入提及文本
-            Transforms.insertText(editor, `@${user.name} `);
+            Transforms.insertText(editor, `@${user.name} `)
           }
         }
 
-        setIsOpen(false);
-        setMentionQuery("");
+        setIsOpen(false)
+        setMentionQuery("")
         // 保持编辑器焦点
-        ReactEditor.focus(editor);
+        ReactEditor.focus(editor)
       },
-      [editor, getEditorText]
-    );
+      [editor, getEditorText],
+    )
 
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-2">
-            🔍 Combobox Mentions with Slate.js
-          </h3>
+          <h3 className="font-strong mb-2">🔍 Combobox Mentions with Slate.js</h3>
           <p className="text-secondary-foreground text-body-small">
-            Type @ and continue typing to filter users. Combobox maintains focus
-            on the editor.
+            Type @ and continue typing to filter users. Combobox maintains focus on the editor.
           </p>
         </div>
 
-        <Checkbox value={enterFilter} onChange={setEnterFilter}>
+        <Checkbox
+          value={enterFilter}
+          onChange={setEnterFilter}
+        >
           <Checkbox.Label>Enter filter</Checkbox.Label>
         </Checkbox>
 
@@ -763,11 +777,7 @@ export const MentionsWithSlate: Story = {
           {filteredUsers.length > 0 && (
             <Combobox.Content>
               <Combobox.Label>
-                {enterFilter
-                  ? mentionQuery
-                    ? `Search ${mentionQuery}`
-                    : "Users"
-                  : "Users"}
+                {enterFilter ? (mentionQuery ? `Search ${mentionQuery}` : "Users") : "Users"}
                 {` (${filteredUsers.length})`}
               </Combobox.Label>
 
@@ -782,11 +792,7 @@ export const MentionsWithSlate: Story = {
                       className="size-4 rounded-full"
                     />
                   }
-                  suffixElement={
-                    <span className="text-body-small text-white/60">
-                      {user.role}
-                    </span>
-                  }
+                  suffixElement={<span className="text-body-small text-white/60">{user.role}</span>}
                 >
                   <Combobox.Value>{user.name}</Combobox.Value>
                 </Combobox.Item>
@@ -805,15 +811,13 @@ export const MentionsWithSlate: Story = {
               <strong>Mention query:</strong> &ldquo;{mentionQuery}&rdquo;
             </div>
             <div>
-              <strong>Filtered users:</strong> {filteredUsers.length} /{" "}
-              {allUsers.length}
+              <strong>Filtered users:</strong> {filteredUsers.length} / {allUsers.length}
             </div>
             <div>
               <strong>Menu open:</strong> {isOpen ? "Yes" : "No"}
             </div>
             <div>
-              <strong>Position:</strong>{" "}
-              {position ? `x:${position.x}, y:${position.y}` : "null"}
+              <strong>Position:</strong> {position ? `x:${position.x}, y:${position.y}` : "null"}
             </div>
             <div>
               <strong>Should show menu:</strong> {isOpen ? "Yes" : "No"}
@@ -833,9 +837,9 @@ export const MentionsWithSlate: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Combobox component in readOnly state.
@@ -848,13 +852,13 @@ export const MentionsWithSlate: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState<string>("apple");
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<string>("apple")
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: string) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     const options = [
       { value: "apple", label: "Apple" },
@@ -862,30 +866,29 @@ export const Readonly: Story = {
       { value: "orange", label: "Orange" },
       { value: "grape", label: "Grape" },
       { value: "strawberry", label: "Strawberry" },
-    ];
+    ]
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
-        <Combobox readOnly value={value} onChange={handleChange}>
+        <Combobox
+          readOnly
+          value={value}
+          onChange={handleChange}
+        >
           <Combobox.Trigger placeholder="Select a fruit..." />
           <Combobox.Content>
             {options.map((option) => (
-              <Combobox.Item key={option.value} value={option.value}>
+              <Combobox.Item
+                key={option.value}
+                value={option.value}
+              >
                 <Combobox.Value>{option.label}</Combobox.Value>
               </Combobox.Item>
             ))}
@@ -893,39 +896,45 @@ export const Readonly: Story = {
         </Combobox>
 
         <div className="text-body-small text-stone-600">
-          💡 Try typing in the input, clicking on menu items, or using the clear
-          button - the value should not change and the change count should
-          remain at 0. The input field is read-only.
+          💡 Try typing in the input, clicking on menu items, or using the clear button - the value
+          should not change and the change count should remain at 0. The input field is read-only.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Combobox component in light variant.
  */
 export const Light: Story = {
   render: function LightStory() {
-    const [value, setValue] = useState<string>("apple");
+    const [value, setValue] = useState<string>("apple")
     const options = [
       { value: "apple", label: "Apple" },
       { value: "banana", label: "Banana" },
       { value: "orange", label: "Orange" },
       { value: "grape", label: "Grape" },
       { value: "strawberry", label: "Strawberry" },
-    ];
+    ]
     return (
-      <Combobox variant="light" value={value} onChange={setValue}>
+      <Combobox
+        variant="light"
+        value={value}
+        onChange={setValue}
+      >
         <Combobox.Trigger placeholder="Select a fruit..." />
         <Combobox.Content>
           {options.map((option) => (
-            <Combobox.Item key={option.value} value={option.value}>
+            <Combobox.Item
+              key={option.value}
+              value={option.value}
+            >
               <Combobox.Value>{option.label}</Combobox.Value>
             </Combobox.Item>
           ))}
         </Combobox.Content>
       </Combobox>
-    );
+    )
   },
-};
+}

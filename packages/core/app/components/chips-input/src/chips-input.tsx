@@ -26,8 +26,10 @@ export interface RenderChipProps {
   isSelected: boolean
 }
 
-export interface ChipsInputProps
-  extends Omit<HTMLProps<HTMLDivElement>, "value" | "onChange" | "defaultValue" | "size"> {
+export interface ChipsInputProps extends Omit<
+  HTMLProps<HTMLDivElement>,
+  "value" | "onChange" | "defaultValue" | "size"
+> {
   allowDuplicates?: boolean
   children?: React.ReactNode
   disabled?: boolean

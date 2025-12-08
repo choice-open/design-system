@@ -1,11 +1,11 @@
-import type { CalendarValue } from "@choice-ui/react";
-import { MonthCalendar, MonthCalendarProps } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import type { CalendarValue } from "@choice-ui/react"
+import { MonthCalendar, MonthCalendarProps } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 // 单选模式示例组件
 const SingleSelectDemo = (args: MonthCalendarProps) => {
-  const [value, setValue] = useState<CalendarValue>(null);
+  const [value, setValue] = useState<CalendarValue>(null)
 
   return (
     <div className="space-y-4">
@@ -27,17 +27,15 @@ const SingleSelectDemo = (args: MonthCalendarProps) => {
         />
       </div>
       {value && value instanceof Date && (
-        <p className="text-gray-600">
-          选中日期: {value.toLocaleDateString("zh-CN")}
-        </p>
+        <p className="text-gray-600">选中日期: {value.toLocaleDateString("zh-CN")}</p>
       )}
     </div>
-  );
-};
+  )
+}
 
 // 多选模式示例组件
 const MultiSelectDemo = (args: MonthCalendarProps) => {
-  const [value, setValue] = useState<CalendarValue>([]);
+  const [value, setValue] = useState<CalendarValue>([])
 
   return (
     <div className="space-y-4">
@@ -69,12 +67,12 @@ const MultiSelectDemo = (args: MonthCalendarProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 // 范围选择示例组件
 const RangeSelectDemo = (args: MonthCalendarProps) => {
-  const [value, setValue] = useState<CalendarValue>(null);
+  const [value, setValue] = useState<CalendarValue>(null)
 
   return (
     <div className="space-y-4">
@@ -103,21 +101,21 @@ const RangeSelectDemo = (args: MonthCalendarProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 // 禁用日期示例组件
 const DisabledDatesDemo = (args: MonthCalendarProps) => {
-  const [value, setValue] = useState<CalendarValue>(null);
+  const [value, setValue] = useState<CalendarValue>(null)
 
   // 禁用过去的日期和一些特定日期
-  const today = new Date();
+  const today = new Date()
   const disabledDates = [
     new Date(today.getTime() - 24 * 60 * 60 * 1000), // 昨天
     new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000), // 前天
     new Date(today.getFullYear(), today.getMonth(), 15), // 每月15号
     new Date(today.getFullYear(), today.getMonth(), 25), // 每月25号
-  ];
+  ]
 
   return (
     <div className="space-y-4">
@@ -142,29 +140,29 @@ const DisabledDatesDemo = (args: MonthCalendarProps) => {
       </div>
       <div className="text-secondary-foreground">
         <p>
-          Disabled dates include: yesterday, the day before yesterday, the 15th
-          and 25th of each month
+          Disabled dates include: yesterday, the day before yesterday, the 15th and 25th of each
+          month
         </p>
         {value && value instanceof Date && (
           <p>Selected date: {value.toLocaleDateString("zh-CN")}</p>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // 高亮日期示例组件
 const HighlightDatesDemo = (args: MonthCalendarProps) => {
-  const [value, setValue] = useState<CalendarValue>(null);
+  const [value, setValue] = useState<CalendarValue>(null)
 
   // 高亮一些特定日期（比如节假日）
-  const today = new Date();
+  const today = new Date()
   const highlightDates = [
     new Date(today.getFullYear(), today.getMonth(), 1), // 每月1号
     new Date(today.getFullYear(), today.getMonth(), 10), // 每月10号
     new Date(today.getFullYear(), today.getMonth(), 20), // 每月20号
     new Date(today.getFullYear(), today.getMonth(), 30), // 每月30号
-  ];
+  ]
 
   return (
     <div className="space-y-4">
@@ -188,16 +186,14 @@ const HighlightDatesDemo = (args: MonthCalendarProps) => {
         />
       </div>
       <div className="text-secondary-foreground">
-        <p>
-          Highlighted dates include: the 1st, 10th, 20th and 30th of each month
-        </p>
+        <p>Highlighted dates include: the 1st, 10th, 20th and 30th of each month</p>
         {value && value instanceof Date && (
           <p>Selected date: {value.toLocaleDateString("zh-CN")}</p>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof MonthCalendar> = {
   title: "DateAndTime/MonthCalendar",
@@ -206,10 +202,10 @@ const meta: Meta<typeof MonthCalendar> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `MonthCalendar` is a comprehensive calendar component for displaying and selecting dates within a month view.
@@ -262,9 +258,14 @@ export const Default: Story = {
     fixedGrid: true,
   },
   render: (args) => {
-    return <MonthCalendar {...args} className="w-50 rounded-xl border" />;
+    return (
+      <MonthCalendar
+        {...args}
+        className="w-50 rounded-xl border"
+      />
+    )
   },
-};
+}
 
 /**
  * WithWeekNumbers: Demonstrates MonthCalendar with week numbers displayed.
@@ -280,15 +281,17 @@ export const WithWeekNumbers: Story = {
   render: (args) => {
     return (
       <div className="space-y-4">
-        <MonthCalendar {...args} className="w-50 rounded-xl border" />
+        <MonthCalendar
+          {...args}
+          className="w-50 rounded-xl border"
+        />
         <p className="text-secondary-foreground">
-          Display the left week number column, using the ISO week number
-          standard (Monday starts)
+          Display the left week number column, using the ISO week number standard (Monday starts)
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * SingleSelect: Demonstrates single date selection mode with light and dark variants.
@@ -301,9 +304,12 @@ export const SingleSelect: Story = {
     ...Default.args,
   },
   render: (args) => (
-    <SingleSelectDemo {...args} className="w-50 rounded-xl border" />
+    <SingleSelectDemo
+      {...args}
+      className="w-50 rounded-xl border"
+    />
   ),
-};
+}
 
 /**
  * MultiSelect: Demonstrates multiple date selection mode.
@@ -316,9 +322,12 @@ export const MultiSelect: Story = {
     ...Default.args,
   },
   render: (args) => (
-    <MultiSelectDemo {...args} className="w-50 rounded-xl border" />
+    <MultiSelectDemo
+      {...args}
+      className="w-50 rounded-xl border"
+    />
   ),
-};
+}
 
 /**
  * RangeSelect: Demonstrates date range selection mode.
@@ -331,9 +340,12 @@ export const RangeSelect: Story = {
     ...Default.args,
   },
   render: (args) => (
-    <RangeSelectDemo {...args} className="w-50 rounded-xl border" />
+    <RangeSelectDemo
+      {...args}
+      className="w-50 rounded-xl border"
+    />
   ),
-};
+}
 
 /**
  * DisabledDates: Demonstrates date disabling functionality.
@@ -346,9 +358,12 @@ export const DisabledDates: Story = {
     ...Default.args,
   },
   render: (args) => (
-    <DisabledDatesDemo {...args} className="w-50 rounded-xl border" />
+    <DisabledDatesDemo
+      {...args}
+      className="w-50 rounded-xl border"
+    />
   ),
-};
+}
 
 /**
  * HighlightDates: Demonstrates date highlighting functionality.
@@ -361,9 +376,12 @@ export const HighlightDates: Story = {
     ...Default.args,
   },
   render: (args) => (
-    <HighlightDatesDemo {...args} className="w-50 rounded-xl border" />
+    <HighlightDatesDemo
+      {...args}
+      className="w-50 rounded-xl border"
+    />
   ),
-};
+}
 
 /**
  * CustomWeekdays: Demonstrates custom weekday name configuration.
@@ -380,15 +398,17 @@ export const CustomWeekdays: Story = {
   render: (args) => {
     return (
       <div className="space-y-4">
-        <MonthCalendar {...args} className="w-50 rounded-xl border" />
+        <MonthCalendar
+          {...args}
+          className="w-50 rounded-xl border"
+        />
         <p className="text-secondary-foreground">
-          Use custom weekday name array to override automatic generation of
-          multiple languages
+          Use custom weekday name array to override automatic generation of multiple languages
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MultiLanguage: Demonstrates comprehensive internationalization support.
@@ -436,9 +456,9 @@ export const MultiLanguage: Story = {
           />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WeekStartOptions: Demonstrates different week start day configurations with week numbers.
@@ -457,9 +477,7 @@ export const WeekStartOptions: Story = {
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h3 className="font-strong mb-2">
-              Starts on Sunday (0) + Week Numbers
-            </h3>
+            <h3 className="font-strong mb-2">Starts on Sunday (0) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={0}
@@ -467,9 +485,7 @@ export const WeekStartOptions: Story = {
             />
           </div>
           <div>
-            <h3 className="font-strong mb-2">
-              Starts on Monday (1) + Week Numbers
-            </h3>
+            <h3 className="font-strong mb-2">Starts on Monday (1) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={1}
@@ -477,9 +493,7 @@ export const WeekStartOptions: Story = {
             />
           </div>
           <div>
-            <h3 className="font-strong mb-2">
-              Starts on Saturday (6) + Week Numbers
-            </h3>
+            <h3 className="font-strong mb-2">Starts on Saturday (6) + Week Numbers</h3>
             <MonthCalendar
               {...args}
               weekStartsOn={6}
@@ -488,14 +502,13 @@ export const WeekStartOptions: Story = {
           </div>
         </div>
         <p className="text-secondary-foreground max-w-xl">
-          The week number is calculated based on the ISO standard, and the
-          different week start days will affect the calendar layout but not the
-          week number calculation
+          The week number is calculated based on the ISO standard, and the different week start days
+          will affect the calendar layout but not the week number calculation
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * DynamicRows: Demonstrates dynamic row layout without fixed 6-row grid.
@@ -511,27 +524,30 @@ export const DynamicRows: Story = {
   render: (args) => {
     return (
       <div className="space-y-4">
-        <MonthCalendar {...args} className="w-50 rounded-xl border" />
+        <MonthCalendar
+          {...args}
+          className="w-50 rounded-xl border"
+        />
         <p className="text-secondary-foreground">
-          Dynamic row mode: display 4-6 rows based on the actual needs of the
-          month, and the height will change
+          Dynamic row mode: display 4-6 rows based on the actual needs of the month, and the height
+          will change
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 // 统一接口示例组件
 const UnifiedInterfaceExample = () => {
-  const [singleValue, setSingleValue] = useState<CalendarValue>(new Date());
+  const [singleValue, setSingleValue] = useState<CalendarValue>(new Date())
   const [multiValue, setMultiValue] = useState<CalendarValue>([
     new Date(),
     new Date(Date.now() + 86400000),
-  ]);
+  ])
   const [rangeValue, setRangeValue] = useState<CalendarValue>({
     start: new Date(),
     end: new Date(Date.now() + 7 * 86400000),
-  });
+  })
 
   return (
     <div className="grid grid-cols-2 gap-4">
@@ -544,10 +560,7 @@ const UnifiedInterfaceExample = () => {
           className="w-50 rounded-xl border"
         />
         <p className="text-secondary-foreground mt-2">
-          Selected:{" "}
-          {singleValue instanceof Date
-            ? singleValue.toLocaleDateString()
-            : "None"}
+          Selected: {singleValue instanceof Date ? singleValue.toLocaleDateString() : "None"}
         </p>
       </div>
 
@@ -560,8 +573,7 @@ const UnifiedInterfaceExample = () => {
           className="w-50 rounded-xl border"
         />
         <p className="text-secondary-foreground mt-2">
-          Selected:{" "}
-          {Array.isArray(multiValue) ? `${multiValue.length} dates` : "None"}
+          Selected: {Array.isArray(multiValue) ? `${multiValue.length} dates` : "None"}
         </p>
       </div>
 
@@ -581,8 +593,8 @@ const UnifiedInterfaceExample = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * UnifiedInterface: Demonstrates all three selection modes with unified interface.
@@ -592,7 +604,7 @@ const UnifiedInterfaceExample = () => {
  */
 export const UnifiedInterface: StoryObj<typeof MonthCalendar> = {
   render: () => <UnifiedInterfaceExample />,
-};
+}
 
 /**
  * ReadOnly: Demonstrates the MonthCalendar component in readOnly mode.
@@ -602,29 +614,23 @@ export const UnifiedInterface: StoryObj<typeof MonthCalendar> = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [value, setValue] = useState<CalendarValue>(new Date());
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<CalendarValue>(new Date())
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: CalendarValue) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
           <div className="text-body-small font-mono text-stone-600">
             {value instanceof Date ? value.toLocaleDateString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <MonthCalendar
@@ -642,11 +648,10 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking dates on the readonly calendar - the value should not
-          change and the change count should remain at 0. Only the normal
-          calendar will change the value.
+          💡 Try clicking dates on the readonly calendar - the value should not change and the
+          change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

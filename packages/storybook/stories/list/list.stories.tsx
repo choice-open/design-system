@@ -1,4 +1,4 @@
-import { List } from "@choice-ui/react";
+import { List } from "@choice-ui/react"
 import {
   Check,
   FieldTypeAttachment,
@@ -8,9 +8,9 @@ import {
   FieldTypeSingleSelect,
   File,
   Folder,
-} from "@choiceform/icons-react";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+} from "@choiceform/icons-react"
+import { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useState } from "react"
 
 const meta: Meta<typeof List> = {
   title: "Collections/List",
@@ -19,10 +19,10 @@ const meta: Meta<typeof List> = {
     layout: "centered",
   },
   tags: ["new"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof List>;
+export default meta
+type Story = StoryObj<typeof List>
 
 /**
  * A basic list with simple text items.
@@ -45,7 +45,7 @@ export const Basic: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with icon prefixes for each item.
@@ -68,7 +68,7 @@ export const WithIcons: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with primary variant.
@@ -77,7 +77,10 @@ export const WithIcons: Story = {
  */
 export const Variant: Story = {
   render: (args) => (
-    <List {...args} variant="primary">
+    <List
+      {...args}
+      variant="primary"
+    >
       <List.Content>
         <List.Item prefixElement={<FieldTypeCheckbox />}>
           <List.Value>Home</List.Value>
@@ -91,7 +94,7 @@ export const Variant: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with sections and dividers.
@@ -119,7 +122,7 @@ export const WithLabelsAndDividers: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with collapsible nested items.
@@ -131,7 +134,10 @@ export const NestedList: Story = {
     <List {...args}>
       <List.Content>
         <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
-        <List.SubTrigger id="docs" prefixElement={<Folder />}>
+        <List.SubTrigger
+          id="docs"
+          prefixElement={<Folder />}
+        >
           <List.Value>Documents</List.Value>
         </List.SubTrigger>
         <List.Content parentId="docs">
@@ -141,7 +147,10 @@ export const NestedList: Story = {
           <List.Item parentId="docs">
             <List.Value>Components</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
@@ -151,14 +160,20 @@ export const NestedList: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 export const Size: Story = {
   render: (args) => (
-    <List {...args} size="large">
+    <List
+      {...args}
+      size="large"
+    >
       <List.Content>
         <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
-        <List.SubTrigger id="docs" prefixElement={<Folder />}>
+        <List.SubTrigger
+          id="docs"
+          prefixElement={<Folder />}
+        >
           <List.Value>Documents</List.Value>
         </List.SubTrigger>
         <List.Content parentId="docs">
@@ -168,7 +183,10 @@ export const Size: Story = {
           <List.Item parentId="docs">
             <List.Value>Components</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
@@ -178,7 +196,7 @@ export const Size: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with pre-expanded nested content.
@@ -190,17 +208,30 @@ export const DefaultOpenNestedList: Story = {
     <List {...args}>
       <List.Content>
         <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
-        <List.SubTrigger id="docs" prefixElement={<Folder />} defaultOpen>
+        <List.SubTrigger
+          id="docs"
+          prefixElement={<Folder />}
+          defaultOpen
+        >
           <List.Value>Documents</List.Value>
         </List.SubTrigger>
         <List.Content parentId="docs">
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>Getting Started</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>Components</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
@@ -210,7 +241,7 @@ export const DefaultOpenNestedList: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with indentation reference lines for better visualization of the nesting structure.
@@ -221,18 +252,12 @@ export const DefaultOpenNestedList: Story = {
 export const WithReferenceLines: Story = {
   render: (args) => {
     // 递归创建嵌套项目结构的函数
-    const createNestedItems = (
-      level: number,
-      parentId: string = "",
-      maxDepth: number = 5
-    ) => {
+    const createNestedItems = (level: number, parentId: string = "", maxDepth: number = 5) => {
       // 在达到最大深度时停止递归
-      if (level > maxDepth) return null;
+      if (level > maxDepth) return null
 
-      const currentId = parentId
-        ? `${parentId}-level${level}`
-        : `level${level}`;
-      const items: React.ReactNode[] = [];
+      const currentId = parentId ? `${parentId}-level${level}` : `level${level}`
+      const items: React.ReactNode[] = []
 
       // 创建当前级别的标题
       items.push(
@@ -244,12 +269,15 @@ export const WithReferenceLines: Story = {
           defaultOpen={level <= 3} // 默认展开前三级
         >
           <List.Value>{`Level ${level} Folder`}</List.Value>
-        </List.SubTrigger>
-      );
+        </List.SubTrigger>,
+      )
 
       // 创建该级别的内容容器
       items.push(
-        <List.Content key={`content-${currentId}`} parentId={currentId}>
+        <List.Content
+          key={`content-${currentId}`}
+          parentId={currentId}
+        >
           {/* 为当前级别添加一些文件项目 */}
           {[1, 2].map((fileIndex) => (
             <List.Item
@@ -262,16 +290,18 @@ export const WithReferenceLines: Story = {
           ))}
 
           {/* 递归创建下一级 */}
-          {level < maxDepth &&
-            createNestedItems(level + 1, currentId, maxDepth)}
-        </List.Content>
-      );
+          {level < maxDepth && createNestedItems(level + 1, currentId, maxDepth)}
+        </List.Content>,
+      )
 
-      return items;
-    };
+      return items
+    }
 
     return (
-      <List {...args} shouldShowReferenceLine>
+      <List
+        {...args}
+        shouldShowReferenceLine
+      >
         <List.Content>
           <List.Item prefixElement={<FieldTypeLongText />}>
             <List.Value>Home</List.Value>
@@ -285,9 +315,9 @@ export const WithReferenceLines: Story = {
           </List.Item>
         </List.Content>
       </List>
-    );
+    )
   },
-};
+}
 
 /**
  * A list with keyboard shortcut hints.
@@ -319,7 +349,7 @@ export const WithShortcuts: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with selection functionality.
@@ -332,24 +362,24 @@ export const WithShortcuts: Story = {
 export const WithSelectionEnabled: Story = {
   render: function WithSelectionEnabled(args) {
     // 使用useState管理选中项ID，null表示没有选中项
-    const [selectedId, setSelectedId] = useState<string | null>("doc1");
+    const [selectedId, setSelectedId] = useState<string | null>("doc1")
 
     // 处理点击事件，实现单选和取消选择逻辑
     const handleItemClick = (id: string) => {
       // 如果点击已选中项，则取消选择
       if (selectedId === id) {
-        setSelectedId(null);
+        setSelectedId(null)
       } else {
         // 否则，选择当前点击项
-        setSelectedId(id);
+        setSelectedId(id)
       }
-    };
+    }
 
     // 要完全控制选择状态，我们不启用List组件的内置selection功能
     // 而是手动为选中的项目添加check图标
     const getItemPrefixElement = (id: string) => {
-      return selectedId === id ? <Check /> : <></>;
-    };
+      return selectedId === id ? <Check /> : <></>
+    }
 
     return (
       <div className="flex flex-col gap-2">
@@ -384,9 +414,9 @@ export const WithSelectionEnabled: Story = {
           </List.Content>
         </List>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * A list with disabled items.
@@ -400,7 +430,10 @@ export const WithDisabledItems: Story = {
         <List.Item prefixElement={<FieldTypeLongText />}>
           <List.Value>Home</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeLongText />} disabled>
+        <List.Item
+          prefixElement={<FieldTypeLongText />}
+          disabled
+        >
           <List.Value>Mail (Maintenance)</List.Value>
         </List.Item>
         <List.Item prefixElement={<FieldTypeAttachment />}>
@@ -409,7 +442,7 @@ export const WithDisabledItems: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A nested list with non-collapsible sub-sections.
@@ -430,13 +463,22 @@ export const NonCollapsibleNestedList: Story = {
           <List.Value>Documents</List.Value>
         </List.SubTrigger>
         <List.Content parentId="docs">
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>Getting Started</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>Components</List.Value>
           </List.Item>
-          <List.Item parentId="docs" prefixElement={<File />}>
+          <List.Item
+            parentId="docs"
+            prefixElement={<File />}
+          >
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
@@ -446,7 +488,7 @@ export const NonCollapsibleNestedList: Story = {
       </List.Content>
     </List>
   ),
-};
+}
 
 /**
  * A list with multiple levels of nesting.
@@ -456,18 +498,12 @@ export const NonCollapsibleNestedList: Story = {
 export const MultiLevelNestedList: Story = {
   render: (args) => {
     // 递归创建嵌套项目结构的函数
-    const createNestedItems = (
-      level: number,
-      parentId: string = "",
-      maxDepth: number = 5
-    ) => {
+    const createNestedItems = (level: number, parentId: string = "", maxDepth: number = 5) => {
       // 在达到最大深度时停止递归
-      if (level > maxDepth) return null;
+      if (level > maxDepth) return null
 
-      const currentId = parentId
-        ? `${parentId}-level${level}`
-        : `level${level}`;
-      const items: React.ReactNode[] = [];
+      const currentId = parentId ? `${parentId}-level${level}` : `level${level}`
+      const items: React.ReactNode[] = []
 
       // 创建当前级别的标题
       items.push(
@@ -479,12 +515,15 @@ export const MultiLevelNestedList: Story = {
           defaultOpen={level <= 2} // 默认展开前两级
         >
           <List.Value>{`Level ${level} Folder`}</List.Value>
-        </List.SubTrigger>
-      );
+        </List.SubTrigger>,
+      )
 
       // 创建该级别的内容容器
       items.push(
-        <List.Content key={`content-${currentId}`} parentId={currentId}>
+        <List.Content
+          key={`content-${currentId}`}
+          parentId={currentId}
+        >
           {/* 为当前级别添加一些文件项目 */}
           {[1, 2].map((fileIndex) => (
             <List.Item
@@ -497,16 +536,19 @@ export const MultiLevelNestedList: Story = {
           ))}
 
           {/* 递归创建下一级 */}
-          {level < maxDepth &&
-            createNestedItems(level + 1, currentId, maxDepth)}
-        </List.Content>
-      );
+          {level < maxDepth && createNestedItems(level + 1, currentId, maxDepth)}
+        </List.Content>,
+      )
 
-      return items;
-    };
+      return items
+    }
 
     return (
-      <List {...args} size="large" shouldShowReferenceLine>
+      <List
+        {...args}
+        size="large"
+        shouldShowReferenceLine
+      >
         <List.Content>
           <List.Item prefixElement={<FieldTypeLongText />}>
             <List.Value>Home</List.Value>
@@ -520,9 +562,9 @@ export const MultiLevelNestedList: Story = {
           </List.Item>
         </List.Content>
       </List>
-    );
+    )
   },
-};
+}
 
 /**
  * A nested list with selection functionality.
@@ -532,34 +574,38 @@ export const MultiLevelNestedList: Story = {
 export const NestedListWithSelection: Story = {
   render: function NestedListWithSelection(args) {
     // 使用useState来管理选中状态
-    const [selectedItems, setSelectedItems] = useState<Set<string>>(
-      new Set(["root1", "nested2"])
-    );
+    const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set(["root1", "nested2"]))
 
     // 处理选择变化
     const handleItemClick = (id: string) => {
       setSelectedItems((prev) => {
-        const newSet = new Set(prev);
+        const newSet = new Set(prev)
         if (newSet.has(id)) {
-          newSet.delete(id);
+          newSet.delete(id)
         } else {
-          newSet.add(id);
+          newSet.add(id)
         }
-        return newSet;
-      });
-    };
+        return newSet
+      })
+    }
 
     return (
       <div className="flex flex-col gap-2">
         <div>
           <strong>Selected items:</strong>{" "}
           {[...selectedItems].map((id) => (
-            <span key={id} className="mx-1">
+            <span
+              key={id}
+              className="mx-1"
+            >
               {id}
             </span>
           ))}
         </div>
-        <List {...args} shouldShowReferenceLine>
+        <List
+          {...args}
+          shouldShowReferenceLine
+        >
           <List.Content>
             <List.Item
               id="root1"
@@ -569,7 +615,10 @@ export const NestedListWithSelection: Story = {
             >
               <List.Value>Root Item 1</List.Value>
             </List.Item>
-            <List.SubTrigger id="nested" defaultOpen>
+            <List.SubTrigger
+              id="nested"
+              defaultOpen
+            >
               <List.Value>Nested Section</List.Value>
             </List.SubTrigger>
             <List.Content parentId="nested">
@@ -612,9 +661,9 @@ export const NestedListWithSelection: Story = {
           </List.Content>
         </List>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * A list demonstrating the `as` prop functionality on ListItem.
@@ -656,8 +705,8 @@ export const WithAsProp: Story = {
             <List.Item
               as="a"
               onClick={(e) => {
-                e.preventDefault();
-                console.log("Link clicked");
+                e.preventDefault()
+                console.log("Link clicked")
               }}
             >
               <List.Value>Link Item</List.Value>
@@ -667,9 +716,7 @@ export const WithAsProp: Story = {
       </div>
 
       <div className="space-y-2">
-        <p className="text-body-small text-gray-600">
-          As anchor with all features:
-        </p>
+        <p className="text-body-small text-gray-600">As anchor with all features:</p>
         <List {...args}>
           <List.Content>
             <List.Item
@@ -679,8 +726,8 @@ export const WithAsProp: Story = {
               suffixElement={<FieldTypeSingleSelect />}
               shortcut={{ keys: "L" }}
               onClick={(e) => {
-                e.preventDefault();
-                console.log("Link with features clicked");
+                e.preventDefault()
+                console.log("Link with features clicked")
               }}
             >
               <List.Value>Link with features</List.Value>
@@ -690,15 +737,16 @@ export const WithAsProp: Story = {
       </div>
 
       <div className="space-y-2">
-        <p className="text-body-small text-gray-600">
-          Mixed element types in one list:
-        </p>
+        <p className="text-body-small text-gray-600">Mixed element types in one list:</p>
         <List {...args}>
           <List.Content>
             <List.Item>
               <List.Value>Default Button Item</List.Value>
             </List.Item>
-            <List.Item as="a" prefixElement={<FieldTypeCheckbox />}>
+            <List.Item
+              as="a"
+              prefixElement={<FieldTypeCheckbox />}
+            >
               <List.Value>Link Item</List.Value>
             </List.Item>
             <List.Item as="div">
@@ -716,7 +764,7 @@ export const WithAsProp: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * NonInteractive: Demonstrates a non-interactive list for display purposes only.
@@ -730,8 +778,7 @@ export const NonInteractive: Story = {
       <div className="space-y-2">
         <h3 className="text-body-large-strong">Interactive List (Default)</h3>
         <p className="text-body-small text-secondary-foreground">
-          Hover over items to see active state. Items use button elements by
-          default.
+          Hover over items to see active state. Items use button elements by default.
         </p>
         <List {...args}>
           <List.Content>
@@ -751,10 +798,12 @@ export const NonInteractive: Story = {
       <div className="space-y-2">
         <h3 className="text-body-large-strong">Non-Interactive List</h3>
         <p className="text-body-small text-secondary-foreground">
-          Hover effects disabled. Items use div elements by default. No active
-          state on hover.
+          Hover effects disabled. Items use div elements by default. No active state on hover.
         </p>
-        <List {...args} interactive={false}>
+        <List
+          {...args}
+          interactive={false}
+        >
           <List.Content>
             <List.Item prefixElement={<FieldTypeCheckbox />}>
               <List.Value>Home</List.Value>
@@ -776,4 +825,4 @@ export const NonInteractive: Story = {
       </div>
     </div>
   ),
-};
+}

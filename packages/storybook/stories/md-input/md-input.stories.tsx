@@ -1,22 +1,18 @@
-import type { MentionRenderProps } from "@choice-ui/react";
-import { Avatar, MdInput, ToolbarAction, Tooltip } from "@choice-ui/react";
-import {
-  FontBoldSmall,
-  ParagraphCode,
-  ParagraphItalic,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import type { MentionRenderProps } from "@choice-ui/react"
+import { Avatar, MdInput, ToolbarAction, Tooltip } from "@choice-ui/react"
+import { FontBoldSmall, ParagraphCode, ParagraphItalic } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof MdInput> = {
   title: "Forms/MdInput",
   component: MdInput,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof MdInput>;
+type Story = StoryObj<typeof MdInput>
 
 /**
  * Basic: Shows the default markdown input usage.
@@ -26,10 +22,13 @@ type Story = StoryObj<typeof MdInput>;
 export const Basic: Story = {
   render: function Basic() {
     const [value, setValue] = useState(
-      "### Heading\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2"
-    );
+      "### Heading\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2",
+    )
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -39,9 +38,9 @@ export const Basic: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Without Preview: Shows markdown input without preview tab.
@@ -50,9 +49,12 @@ export const Basic: Story = {
  */
 export const WithoutPreview: Story = {
   render: function WithoutPreview() {
-    const [value, setValue] = useState("### Heading\n\n**Bold text**");
+    const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Toolbar />
         </MdInput.Header>
@@ -60,9 +62,9 @@ export const WithoutPreview: Story = {
           <MdInput.Editor />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Only Preview: Shows markdown input with only preview tab.
@@ -71,7 +73,7 @@ export const WithoutPreview: Story = {
  */
 export const OnlyPreview: Story = {
   render: function OnlyPreview() {
-    const [value, setValue] = useState("### Heading\n\n**Bold text**");
+    const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
       <div className="flex flex-col gap-4">
         <p>With ScrollArea</p>
@@ -84,9 +86,9 @@ export const OnlyPreview: Story = {
           <MdInput.Render className="p-4" />
         </MdInput>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Without Toolbar: Shows markdown input without toolbar.
@@ -95,9 +97,12 @@ export const OnlyPreview: Story = {
  */
 export const WithoutToolbar: Story = {
   render: function WithoutToolbar() {
-    const [value, setValue] = useState("### Heading\n\n**Bold text**");
+    const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
         </MdInput.Header>
@@ -106,9 +111,9 @@ export const WithoutToolbar: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Read Only: Shows markdown input in read-only mode.
@@ -117,10 +122,12 @@ export const WithoutToolbar: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnly() {
-    const value =
-      "### Heading\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2";
+    const value = "### Heading\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2"
     return (
-      <MdInput value={value} readOnly>
+      <MdInput
+        value={value}
+        readOnly
+      >
         <MdInput.Header>
           <MdInput.Tabs />
         </MdInput.Header>
@@ -129,9 +136,9 @@ export const ReadOnly: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Shows markdown input in disabled state.
@@ -140,9 +147,12 @@ export const ReadOnly: Story = {
  */
 export const Disabled: Story = {
   render: function Disabled() {
-    const value = "### Heading\n\n**Bold text**";
+    const value = "### Heading\n\n**Bold text**"
     return (
-      <MdInput value={value} disabled>
+      <MdInput
+        value={value}
+        disabled
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -152,9 +162,9 @@ export const Disabled: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Height: Shows markdown input with custom minimum height.
@@ -163,21 +173,27 @@ export const Disabled: Story = {
  */
 export const CustomHeight: Story = {
   render: function CustomHeight() {
-    const [value, setValue] = useState("### Heading\n\n**Bold text**");
+    const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
         </MdInput.Header>
         <MdInput.Container>
-          <MdInput.Editor maxRows={36} minRows={12} />
+          <MdInput.Editor
+            maxRows={36}
+            minRows={12}
+          />
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Empty: Shows markdown input with empty initial value.
@@ -186,9 +202,12 @@ export const CustomHeight: Story = {
  */
 export const Empty: Story = {
   render: function Empty() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -198,9 +217,9 @@ export const Empty: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Toolbar Actions: Shows markdown input with only specific toolbar actions.
@@ -210,11 +229,12 @@ export const Empty: Story = {
  */
 export const CustomToolbarActions: Story = {
   render: function CustomToolbarActions() {
-    const [value, setValue] = useState(
-      "### Heading\n\n**Bold text** and *italic text*\n\n`code`"
-    );
+    const [value, setValue] = useState("### Heading\n\n**Bold text** and *italic text*\n\n`code`")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar visibleActions={["bold", "italic", "code"]} />
@@ -224,9 +244,9 @@ export const CustomToolbarActions: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Lists Only: Shows markdown input with only list-related actions.
@@ -237,24 +257,25 @@ export const CustomToolbarActions: Story = {
 export const ListsOnly: Story = {
   render: function ListsOnly() {
     const [value, setValue] = useState(
-      "- Unordered item 1\n- Unordered item 2\n\n1. Ordered item 1\n2. Ordered item 2\n\n- [ ] Task 1\n- [x] Task 2"
-    );
+      "- Unordered item 1\n- Unordered item 2\n\n1. Ordered item 1\n2. Ordered item 2\n\n- [ ] Task 1\n- [x] Task 2",
+    )
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
-          <MdInput.Toolbar
-            visibleActions={["unordered-list", "ordered-list", "task-list"]}
-          />
+          <MdInput.Toolbar visibleActions={["unordered-list", "ordered-list", "task-list"]} />
         </MdInput.Header>
         <MdInput.Container>
           <MdInput.Editor />
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * GitHub Flavored Markdown: Comprehensive test of all GitHub-supported Markdown formats.
@@ -487,40 +508,36 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Note**: This example demonstrates all GitHub Flavored Markdown features supported by the component.`);
+**Note**: This example demonstrates all GitHub Flavored Markdown features supported by the component.`)
 
-    const isDarkMode = true;
+    const isDarkMode = true
     const customColor = {
-      defaultBackground: isDarkMode
-        ? "var(--color-pink-pale-700)"
-        : "var(--color-pink-300)",
-      defaultBoundary: isDarkMode
-        ? "var(--color-pink-pale-500)"
-        : "var(--color-pink-400)",
-      secondaryBackground: isDarkMode
-        ? "var(--color-pink-pale-600)"
-        : "var(--color-pink-200)",
-      secondaryForeground: isDarkMode
-        ? "var(--color-pink-pale-900)"
-        : "var(--color-pink-pale-500)",
-      codeBackground: isDarkMode
-        ? "var(--color-pink-pale-800)"
-        : "var(--color-pink-100)",
-    };
+      defaultBackground: isDarkMode ? "var(--color-pink-pale-700)" : "var(--color-pink-300)",
+      defaultBoundary: isDarkMode ? "var(--color-pink-pale-500)" : "var(--color-pink-400)",
+      secondaryBackground: isDarkMode ? "var(--color-pink-pale-600)" : "var(--color-pink-200)",
+      secondaryForeground: isDarkMode ? "var(--color-pink-pale-900)" : "var(--color-pink-pale-500)",
+      codeBackground: isDarkMode ? "var(--color-pink-pale-800)" : "var(--color-pink-100)",
+    }
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
         </MdInput.Header>
         <MdInput.Container>
-          <MdInput.Editor minRows={48} maxRows={72} />
+          <MdInput.Editor
+            minRows={48}
+            maxRows={72}
+          />
           <MdInput.Render customColor={customColor} />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Layout: Shows markdown input with custom layout using compound components.
@@ -529,9 +546,12 @@ MIT License - see [LICENSE](LICENSE) file for details.
  */
 export const CustomLayout: Story = {
   render: function CustomLayout() {
-    const [value, setValue] = useState("### Heading\n\n**Bold text**");
+    const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Toolbar />
           <MdInput.Tabs />
@@ -541,14 +561,12 @@ export const CustomLayout: Story = {
           <MdInput.Render />
         </MdInput.Container>
         <MdInput.Footer>
-          <div className="text-muted-foreground text-xs">
-            Markdown supported
-          </div>
+          <div className="text-muted-foreground text-xs">Markdown supported</div>
         </MdInput.Footer>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Toolbar: Shows markdown input with custom toolbar groups.
@@ -558,9 +576,7 @@ export const CustomLayout: Story = {
  */
 export const CustomToolbar: Story = {
   render: function CustomToolbar() {
-    const [value, setValue] = useState(
-      "### Custom Toolbar\n\n**Bold** and *italic* text"
-    );
+    const [value, setValue] = useState("### Custom Toolbar\n\n**Bold** and *italic* text")
 
     const customGroups: ToolbarAction[][] = [
       [
@@ -568,10 +584,13 @@ export const CustomToolbar: Story = {
         { id: "bold", label: "Bold", icon: "B" },
         { id: "italic", label: "Italic", icon: "I" },
       ],
-    ];
+    ]
 
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar groups={customGroups} />
@@ -581,9 +600,9 @@ export const CustomToolbar: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Toolbar in Footer: Shows markdown input with toolbar placed in the footer.
@@ -593,11 +612,14 @@ export const CustomToolbar: Story = {
 export const ToolbarInFooter: Story = {
   render: function ToolbarInFooter() {
     const [value, setValue] = useState(
-      "### Toolbar in Footer\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2"
-    );
+      "### Toolbar in Footer\n\n**Bold text** and *italic text*\n\n- List item 1\n- List item 2",
+    )
 
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
         </MdInput.Header>
@@ -609,9 +631,9 @@ export const ToolbarInFooter: Story = {
           <MdInput.Toolbar />
         </MdInput.Footer>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Toolbar in Footer with Custom Actions: Shows markdown input with custom toolbar in footer.
@@ -620,9 +642,7 @@ export const ToolbarInFooter: Story = {
  */
 export const CustomToolbarInFooter: Story = {
   render: function CustomToolbarInFooter() {
-    const [value, setValue] = useState(
-      "### Custom Footer Toolbar\n\n**Bold** and *italic* text"
-    );
+    const [value, setValue] = useState("### Custom Footer Toolbar\n\n**Bold** and *italic* text")
 
     const footerGroups: ToolbarAction[][] = [
       [
@@ -630,10 +650,13 @@ export const CustomToolbarInFooter: Story = {
         { id: "italic", label: "Italic", icon: <ParagraphItalic /> },
       ],
       [{ id: "code", label: "Code", icon: <ParagraphCode /> }],
-    ];
+    ]
 
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
         </MdInput.Header>
@@ -644,15 +667,13 @@ export const CustomToolbarInFooter: Story = {
         <MdInput.Footer>
           <div className="flex items-center justify-between">
             <MdInput.Toolbar groups={footerGroups} />
-            <div className="text-muted-foreground text-xs">
-              Markdown supported
-            </div>
+            <div className="text-muted-foreground text-xs">Markdown supported</div>
           </div>
         </MdInput.Footer>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * With Mentions: Shows markdown input with @mention functionality.
@@ -663,7 +684,7 @@ export const CustomToolbarInFooter: Story = {
  */
 export const WithMentions: Story = {
   render: function WithMentions() {
-    const [value, setValue] = useState("Type @ to mention someone:\n\n");
+    const [value, setValue] = useState("Type @ to mention someone:\n\n")
 
     const mentionItems = [
       { id: "1", label: "John Doe", email: "john@example.com" },
@@ -674,10 +695,14 @@ export const WithMentions: Story = {
       { id: "6", label: "Diana Prince", email: "diana@example.com" },
       { id: "7", label: "Edward Norton", email: "edward@example.com" },
       { id: "8", label: "Fiona Apple", email: "fiona@example.com" },
-    ];
+    ]
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -687,9 +712,9 @@ export const WithMentions: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Mention Format: Shows markdown input with custom mention insertion format.
@@ -699,7 +724,7 @@ export const WithMentions: Story = {
  */
 export const CustomMentionFormat: Story = {
   render: function CustomMentionFormat() {
-    const [value, setValue] = useState("Mention team members:\n\n");
+    const [value, setValue] = useState("Mention team members:\n\n")
 
     const mentionItems = [
       {
@@ -726,14 +751,14 @@ export const CustomMentionFormat: Story = {
         email: "alice@example.com",
         role: "Developer",
       },
-    ];
+    ]
 
     const handleMentionSelect = (
       item: { email?: string; id: string; label: string; role?: string },
-      query: string
+      query: string,
     ) => {
-      return `[@${item.label}](mailto:${item.email || ""}) `;
-    };
+      return `[@${item.label}](mailto:${item.email || ""}) `
+    }
 
     return (
       <MdInput
@@ -751,9 +776,9 @@ export const CustomMentionFormat: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Mentions with Filtering: Shows markdown input with mention filtering.
@@ -763,7 +788,7 @@ export const CustomMentionFormat: Story = {
  */
 export const MentionsWithFiltering: Story = {
   render: function MentionsWithFiltering() {
-    const [value, setValue] = useState("Search for a team member:\n\n");
+    const [value, setValue] = useState("Search for a team member:\n\n")
 
     const mentionItems = [
       { id: "1", label: "Alex Anderson", department: "Engineering" },
@@ -776,10 +801,14 @@ export const MentionsWithFiltering: Story = {
       { id: "8", label: "David Bowie", department: "Marketing" },
       { id: "9", label: "Diana Ross", department: "Sales" },
       { id: "10", label: "Edward Scissorhands", department: "Engineering" },
-    ];
+    ]
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -789,9 +818,9 @@ export const MentionsWithFiltering: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Mentions in Existing Content: Shows markdown input with mentions in existing content.
@@ -802,8 +831,8 @@ export const MentionsWithFiltering: Story = {
 export const MentionsInExistingContent: Story = {
   render: function MentionsInExistingContent() {
     const [value, setValue] = useState(
-      "### Team Update\n\nHey team, I wanted to mention @John Doe and @Jane Smith about the project.\n\n**Action items:**\n- [ ] Review PR from @Bob Johnson\n- [ ] Design feedback from @Alice Williams\n\nLet me know if you have questions!"
-    );
+      "### Team Update\n\nHey team, I wanted to mention @John Doe and @Jane Smith about the project.\n\n**Action items:**\n- [ ] Review PR from @Bob Johnson\n- [ ] Design feedback from @Alice Williams\n\nLet me know if you have questions!",
+    )
 
     const mentionItems = [
       { id: "1", label: "John Doe" },
@@ -811,10 +840,14 @@ export const MentionsInExistingContent: Story = {
       { id: "3", label: "Bob Johnson" },
       { id: "4", label: "Alice Williams" },
       { id: "5", label: "Charlie Brown" },
-    ];
+    ]
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -824,9 +857,9 @@ export const MentionsInExistingContent: Story = {
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Mention Rendering: Shows markdown input with custom mention rendering component.
@@ -837,8 +870,8 @@ export const MentionsInExistingContent: Story = {
 export const CustomMentionRendering: Story = {
   render: function CustomMentionRendering() {
     const [value, setValue] = useState(
-      "### Team Collaboration\n\nI'd like to mention @John Doe and @Jane Smith in this discussion.\n\n**Highlights:**\n- @Bob Johnson completed the feature\n- @Alice Williams provided great feedback\n\nThanks @Charlie Brown for the review!"
-    );
+      "### Team Collaboration\n\nI'd like to mention @John Doe and @Jane Smith in this discussion.\n\n**Highlights:**\n- @Bob Johnson completed the feature\n- @Alice Williams provided great feedback\n\nThanks @Charlie Brown for the review!",
+    )
 
     const mentionItems = [
       {
@@ -871,17 +904,17 @@ export const CustomMentionRendering: Story = {
         email: "charlie@example.com",
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=5`,
       },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
-      const user = mentionItems.find((item) => item.label === mention);
-      const isInvalid = !user;
+      const user = mentionItems.find((item) => item.label === mention)
+      const isInvalid = !user
       if (isInvalid) {
         return (
           <span className="bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle">
             @{mention}
           </span>
-        );
+        )
       }
       return (
         <Tooltip
@@ -918,11 +951,15 @@ export const CustomMentionRendering: Story = {
             {mention}
           </a>
         </Tooltip>
-      );
-    };
+      )
+    }
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -932,9 +969,9 @@ export const CustomMentionRendering: Story = {
           <MdInput.Render mentionRenderComponent={CustomMention} />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Mention Rendering in Various Formats: Shows how mentions are rendered in different markdown contexts.
@@ -945,8 +982,8 @@ export const CustomMentionRendering: Story = {
 export const MentionRenderingInVariousFormats: Story = {
   render: function MentionRenderingInVariousFormats() {
     const [value, setValue] = useState(
-      "# Mention @John Doe in Heading\n\n## And @Jane Smith in Subheading\n\nParagraph with mention: @Bob Johnson\n\n**Bold text with @Alice Williams mention**\n\n*Italic text with @Charlie Brown mention*\n\n### Lists with Mentions\n\n- Item mentioning @John Doe\n- Another item with @Jane Smith\n- @Bob Johnson in list item\n\n### Blockquote\n\n> Quote mentioning @Alice Williams\n> And @Charlie Brown\n\n### Link with Mention\n\n[Check @John Doe's work](https://example.com)\n\n### Table\n\n| Name | Status |\n|------|--------|\n| @Jane Smith | Active |\n| @Bob Johnson | Pending |"
-    );
+      "# Mention @John Doe in Heading\n\n## And @Jane Smith in Subheading\n\nParagraph with mention: @Bob Johnson\n\n**Bold text with @Alice Williams mention**\n\n*Italic text with @Charlie Brown mention*\n\n### Lists with Mentions\n\n- Item mentioning @John Doe\n- Another item with @Jane Smith\n- @Bob Johnson in list item\n\n### Blockquote\n\n> Quote mentioning @Alice Williams\n> And @Charlie Brown\n\n### Link with Mention\n\n[Check @John Doe's work](https://example.com)\n\n### Table\n\n| Name | Status |\n|------|--------|\n| @Jane Smith | Active |\n| @Bob Johnson | Pending |",
+    )
 
     const mentionItems = [
       { id: "1", label: "John Doe" },
@@ -954,18 +991,22 @@ export const MentionRenderingInVariousFormats: Story = {
       { id: "3", label: "Bob Johnson" },
       { id: "4", label: "Alice Williams" },
       { id: "5", label: "Charlie Brown" },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
       return (
         <span className="bg-accent text-accent-foreground inline-flex items-center rounded px-1.5 py-0.5">
           @{mention}
         </span>
-      );
-    };
+      )
+    }
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -975,9 +1016,9 @@ export const MentionRenderingInVariousFormats: Story = {
           <MdInput.Render mentionRenderComponent={CustomMention} />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Mention with Allowed Domains: Shows markdown input with allowed URL prefixes for mention images and links.
@@ -988,8 +1029,8 @@ export const MentionRenderingInVariousFormats: Story = {
 export const MentionWithAllowedDomains: Story = {
   render: function MentionWithAllowedDomains() {
     const [value, setValue] = useState(
-      "### Team with Avatars\n\nMention @John Doe and @Jane Smith.\n\nYou can also use markdown images:\n![Avatar](https://api.dicebear.com/7.x/avataaars/svg?seed=test)\n\nAnd links:\n[Visit Dicebear](https://api.dicebear.com)"
-    );
+      "### Team with Avatars\n\nMention @John Doe and @Jane Smith.\n\nYou can also use markdown images:\n![Avatar](https://api.dicebear.com/7.x/avataaars/svg?seed=test)\n\nAnd links:\n[Visit Dicebear](https://api.dicebear.com)",
+    )
 
     const mentionItems = [
       {
@@ -1004,10 +1045,10 @@ export const MentionWithAllowedDomains: Story = {
         email: "jane@example.com",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=2",
       },
-    ];
+    ]
 
     const CustomMention = ({ mention }: MentionRenderProps) => {
-      const user = mentionItems.find((item) => item.label === mention);
+      const user = mentionItems.find((item) => item.label === mention)
       return (
         <a
           href={`mailto:${user?.email}`}
@@ -1023,11 +1064,15 @@ export const MentionWithAllowedDomains: Story = {
           />
           {mention}
         </a>
-      );
-    };
+      )
+    }
 
     return (
-      <MdInput value={value} onChange={setValue} mentionItems={mentionItems}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+        mentionItems={mentionItems}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -1040,9 +1085,9 @@ export const MentionWithAllowedDomains: Story = {
           />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}
 
 /**
  * Code Display: Comprehensive demonstration of inline code and code blocks with syntax highlighting.
@@ -1283,10 +1328,13 @@ And continue with more text after the code block.
 
 ---
 
-**Note**: All code blocks support syntax highlighting and copy-to-clipboard functionality!`);
+**Note**: All code blocks support syntax highlighting and copy-to-clipboard functionality!`)
 
     return (
-      <MdInput value={value} onChange={setValue}>
+      <MdInput
+        value={value}
+        onChange={setValue}
+      >
         <MdInput.Header>
           <MdInput.Tabs />
           <MdInput.Toolbar />
@@ -1300,6 +1348,6 @@ And continue with more text after the code block.
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
-    );
+    )
   },
-};
+}

@@ -1,11 +1,11 @@
-import type { TimeCalendarProps } from "@choice-ui/react";
-import { createTimeToday, TimeCalendar } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import type { TimeCalendarProps } from "@choice-ui/react"
+import { createTimeToday, TimeCalendar } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 // 辅助组件
 const SingleColumnDemo = (args: TimeCalendarProps) => {
-  const [time, setTime] = useState<Date | null>(createTimeToday(0, 30));
+  const [time, setTime] = useState<Date | null>(createTimeToday(0, 30))
 
   return (
     <div className="space-y-4">
@@ -25,11 +25,11 @@ const SingleColumnDemo = (args: TimeCalendarProps) => {
           : "None"}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const SpecialValueDemo = (args: TimeCalendarProps) => {
-  const [time, setTime] = useState<Date | null>(createTimeToday(14, 37)); // 不在15分钟步进中的值
+  const [time, setTime] = useState<Date | null>(createTimeToday(14, 37)) // 不在15分钟步进中的值
 
   return (
     <div className="space-y-4">
@@ -49,13 +49,12 @@ const SpecialValueDemo = (args: TimeCalendarProps) => {
           : "None"}
         <br />
         <span className="text-orange-600">
-          Note: 14:37 is not in the 15-minute step range, but it will still be
-          displayed in the list
+          Note: 14:37 is not in the 15-minute step range, but it will still be displayed in the list
         </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const UncontrolledDemo = (args: TimeCalendarProps) => {
   return (
@@ -65,12 +64,10 @@ const UncontrolledDemo = (args: TimeCalendarProps) => {
         defaultValue={createTimeToday(10, 45)}
         className="h-64"
       />
-      <div className="text-secondary-foreground">
-        Uncontrolled mode, default value: 10:45
-      </div>
+      <div className="text-secondary-foreground">Uncontrolled mode, default value: 10:45</div>
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof TimeCalendar> = {
   title: "DateAndTime/TimeCalendar",
@@ -79,10 +76,10 @@ const meta: Meta<typeof TimeCalendar> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `TimeCalendar` is a specialized calendar component for time selection with customizable time steps and formats.
@@ -129,7 +126,7 @@ export const Default: Story = {
     step: 15,
   },
   render: (args) => <SingleColumnDemo {...args} />,
-};
+}
 
 /**
  * TwelveHourFormat: Demonstrates 12-hour time format with AM/PM indicators.
@@ -143,7 +140,7 @@ export const TwelveHourFormat: Story = {
     step: 15,
   },
   render: (args) => <SingleColumnDemo {...args} />,
-};
+}
 
 /**
  * CustomSteps: Demonstrates 30-minute step intervals for broader time selection.
@@ -157,7 +154,7 @@ export const CustomSteps: Story = {
     step: 30,
   },
   render: (args) => <SingleColumnDemo {...args} />,
-};
+}
 
 /**
  * PreciseMinutes: Demonstrates 5-minute step intervals for precise time selection.
@@ -171,7 +168,7 @@ export const PreciseMinutes: Story = {
     step: 5,
   },
   render: (args) => <SingleColumnDemo {...args} />,
-};
+}
 
 /**
  * SpecialValue: Demonstrates handling of times outside the configured step range.
@@ -185,7 +182,7 @@ export const SpecialValue: Story = {
     step: 15,
   },
   render: (args) => <SpecialValueDemo {...args} />,
-};
+}
 
 /**
  * Uncontrolled: Demonstrates uncontrolled mode with default value.
@@ -199,7 +196,7 @@ export const Uncontrolled: Story = {
     step: 15,
   },
   render: (args) => <UncontrolledDemo {...args} />,
-};
+}
 
 /**
  * ReadOnly: Demonstrates the TimeCalendar component in readOnly mode.
@@ -209,31 +206,23 @@ export const Uncontrolled: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [value, setValue] = useState<Date | null>(
-      new Date(2024, 0, 1, 14, 30)
-    );
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<Date | null>(new Date(2024, 0, 1, 14, 30))
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: Date | null) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
           <div className="text-body-small font-mono text-stone-600">
             {value ? value.toLocaleTimeString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <TimeCalendar
@@ -251,11 +240,10 @@ export const ReadOnly: Story = {
           />
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try clicking time options on the readonly calendar - the value
-          should not change and the change count should remain at 0. Only the
-          normal calendar will change the value.
+          💡 Try clicking time options on the readonly calendar - the value should not change and
+          the change count should remain at 0. Only the normal calendar will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

@@ -8,7 +8,8 @@ import type { BaseTimeProps, StepProps, TimeInteractionProps } from "../types"
 import { resolveLocale } from "../utils"
 
 interface TimeInputProps
-  extends Omit<TextFieldProps, "value" | "onChange" | "format" | "defaultValue" | "step">,
+  extends
+    Omit<TextFieldProps, "value" | "onChange" | "format" | "defaultValue" | "step">,
     BaseTimeProps,
     StepProps,
     TimeInteractionProps {

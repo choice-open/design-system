@@ -1,5 +1,5 @@
-import { themes } from "storybook/internal/theming";
-import type { Preview } from "@storybook/react-vite";
+import { themes } from "storybook/internal/theming"
+import type { Preview } from "@storybook/react-vite"
 
 const lightTheme = {
   brandTitle: "@choice-ui/react",
@@ -16,7 +16,7 @@ const lightTheme = {
   barBg: "rgba(255, 255, 255, 1)",
   buttonBorder: "rgba(230, 230, 230, 1)",
   barTextColor: "rgba(0, 0, 0, 1)",
-};
+}
 
 const darkTheme = {
   brandTitle: "@choice-ui/react",
@@ -33,7 +33,7 @@ const darkTheme = {
   barBg: "rgba(30, 30, 30, 1)",
   buttonBorder: "rgba(68, 68, 68, 1)",
   barTextColor: "rgba(255, 255, 255, 1)",
-};
+}
 
 export const sharedParameters = {
   layout: "centered",
@@ -59,4 +59,4 @@ export const sharedParameters = {
       ...lightTheme,
     },
   },
-} satisfies Preview["parameters"];
+} satisfies Preview["parameters"]

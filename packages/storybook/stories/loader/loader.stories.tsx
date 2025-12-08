@@ -1,4 +1,4 @@
-import { Button, Loader } from "@choice-ui/react";
+import { Button, Loader } from "@choice-ui/react"
 import {
   ActionCodeBlock,
   Bolt,
@@ -20,9 +20,9 @@ import {
   WorkspaceSettings as Settings,
   Wifi,
   WifiOff,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+} from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useState } from "react"
 
 const meta = {
   title: "Layouts/Loader",
@@ -31,10 +31,10 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Loader>;
+} satisfies Meta<typeof Loader>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -45,7 +45,7 @@ export const Default: Story = {
       { label: "Almost done", icon: <CheckCircle /> },
     ],
   },
-};
+}
 
 export const WithMultipleIcons: Story = {
   args: {
@@ -60,11 +60,7 @@ export const WithMultipleIcons: Story = {
       },
       {
         label: "Fetching data",
-        icon: [
-          <CloudDownload key="1" />,
-          <CloudUpload key="2" />,
-          <CloudCheck key="3" />,
-        ],
+        icon: [<CloudDownload key="1" />, <CloudUpload key="2" />, <CloudCheck key="3" />],
       },
       {
         label: "Complete",
@@ -73,25 +69,28 @@ export const WithMultipleIcons: Story = {
     ],
     duration: 4000,
   },
-};
+}
 
 export const Controlled: Story = {
   args: {
     stages: [],
   },
   render: function Controlled() {
-    const [stage, setStage] = useState(0);
+    const [stage, setStage] = useState(0)
 
     const stages = [
       { label: "Step 1", icon: <Packaged /> },
       { label: "Step 2", icon: <PackagedAdd /> },
       { label: "Step 3", icon: <Publish /> },
       { label: "Delivered", icon: <CheckCircle /> },
-    ];
+    ]
 
     return (
       <div className="flex flex-col items-center gap-8">
-        <Loader stages={stages} currentStage={stage} />
+        <Loader
+          stages={stages}
+          currentStage={stage}
+        />
         <div className="flex gap-2">
           <Button
             onClick={() => setStage(0)}
@@ -119,9 +118,9 @@ export const Controlled: Story = {
           </Button>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const FastAnimation: Story = {
   args: {
@@ -132,18 +131,14 @@ export const FastAnimation: Story = {
     ],
     duration: 1000,
   },
-};
+}
 
 export const BuildProcess: Story = {
   args: {
     stages: [
       {
         label: "Installing dependencies",
-        icon: [
-          <Packaged key="1" />,
-          <PackagedAdd key="2" />,
-          <CheckCircle key="3" />,
-        ],
+        icon: [<Packaged key="1" />, <PackagedAdd key="2" />, <CheckCircle key="3" />],
       },
       {
         label: "Compiling",
@@ -168,7 +163,7 @@ export const BuildProcess: Story = {
     ],
     duration: 5000,
   },
-};
+}
 
 export const FileUpload: Story = {
   args: {
@@ -179,11 +174,7 @@ export const FileUpload: Story = {
       },
       {
         label: "Uploading",
-        icon: [
-          <CloudUpload key="1" />,
-          <CloudUpload key="2" />,
-          <CloudCheck key="3" />,
-        ],
+        icon: [<CloudUpload key="1" />, <CloudUpload key="2" />, <CloudCheck key="3" />],
       },
       {
         label: "Processing",
@@ -196,43 +187,41 @@ export const FileUpload: Story = {
     ],
     duration: 3000,
   },
-};
+}
 
 export const WithCallback: Story = {
   args: {
     stages: [],
   },
   render: function WithCallback() {
-    const [log, setLog] = useState<string[]>([]);
+    const [log, setLog] = useState<string[]>([])
 
     const stages = [
       { label: "Start", icon: <PlayIcon /> },
       { label: "Middle", icon: <PauseIcon /> },
       { label: "End", icon: <FitScreen /> },
-    ];
+    ]
 
     const handleStageChange = (stage: number) => {
-      setLog((prev) => [
-        ...prev,
-        `Changed to stage ${stage}: ${stages[stage].label}`,
-      ]);
-    };
+      setLog((prev) => [...prev, `Changed to stage ${stage}: ${stages[stage].label}`])
+    }
 
     return (
       <div className="flex flex-col items-center gap-8">
-        <Loader stages={stages} onStageChange={handleStageChange} />
+        <Loader
+          stages={stages}
+          onStageChange={handleStageChange}
+        />
         <div className="bg-secondary/20 mt-4 max-h-32 w-80 overflow-auto rounded-lg p-4">
           <div className="font-mono text-xs">
             {log.length === 0 ? (
-              <span className="text-muted-foreground">
-                Stage changes will appear here...
-              </span>
+              <span className="text-muted-foreground">Stage changes will appear here...</span>
             ) : (
               log.map((entry, i) => <div key={i}>{entry}</div>)
             )}
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

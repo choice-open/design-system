@@ -80,8 +80,9 @@ interface ContextMenuTriggerProps extends HTMLProps<HTMLDivElement> {
   children: ReactNode
 }
 
-interface ContextMenuComponentProps
-  extends React.ForwardRefExoticComponent<ContextMenuProps & React.RefAttributes<HTMLDivElement>> {
+interface ContextMenuComponentProps extends React.ForwardRefExoticComponent<
+  ContextMenuProps & React.RefAttributes<HTMLDivElement>
+> {
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider

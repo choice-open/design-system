@@ -1,6 +1,6 @@
 "use client"
-import React from "react";
-import { SectionHero, SectionInstallation } from "../components/home";
+import React from "react"
+import { SectionHero, SectionInstallation } from "../components/home"
 
 // ============================================================================
 // Home Page
@@ -15,7 +15,7 @@ export const HomePage: React.FC = () => {
       {/* Installation & Quick Start */}
       <SectionInstallation />
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

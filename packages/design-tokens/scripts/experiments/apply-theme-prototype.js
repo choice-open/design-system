@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("fs")
+const path = require("path")
 
 // 模拟从 Web 下载的 JSON 配置
 const mockThemeConfig = {
@@ -17,7 +17,7 @@ const mockThemeConfig = {
       "background-selected": "brand-100",
     },
   },
-};
+}
 
 function generateColorsFile(config) {
   // 这里是一个简化的模板生成器
@@ -35,14 +35,14 @@ module.exports = {
   semanticColorsLight,
   // ...
 };
-`;
+`
 
-  return content;
+  return content
 }
 
 // 模拟写入
-const outputPath = path.join(__dirname, "colors-preview.cjs");
-fs.writeFileSync(outputPath, generateColorsFile(mockThemeConfig));
+const outputPath = path.join(__dirname, "colors-preview.cjs")
+fs.writeFileSync(outputPath, generateColorsFile(mockThemeConfig))
 
-console.log(`✅ Preview file generated at: ${outputPath}`);
-console.log("此脚本验证了从 JSON 配置生成 colors.cjs 源码的可行性。");
+console.log(`✅ Preview file generated at: ${outputPath}`)
+console.log("此脚本验证了从 JSON 配置生成 colors.cjs 源码的可行性。")

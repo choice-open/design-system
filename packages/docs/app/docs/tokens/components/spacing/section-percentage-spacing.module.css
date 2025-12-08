@@ -2,7 +2,8 @@
   display: flex;
   grid-column: 1 / -1;
   flex-wrap: wrap;
-  padding: calc(var(--cdt-spacing) * 4) calc(var(--cdt-spacing) * 2) var(--cdt-spacing) calc(var(--cdt-spacing) * 2);
+  padding: calc(var(--cdt-spacing) * 4) calc(var(--cdt-spacing) * 2) var(--cdt-spacing)
+    calc(var(--cdt-spacing) * 2);
 }
 
 .spacingValueBar {

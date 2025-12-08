@@ -3,8 +3,10 @@ import { forwardRef, HTMLProps, memo, ReactNode } from "react"
 import { useCheckboxContext } from "./context"
 import { checkboxTv } from "./tv"
 
-export interface CheckboxLabelProps
-  extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
+export interface CheckboxLabelProps extends Omit<
+  HTMLProps<HTMLLabelElement>,
+  "htmlFor" | "id" | "disabled"
+> {
   children: ReactNode
 }
 

@@ -86,8 +86,9 @@ export interface DropdownProps {
   variant?: "default" | "light" | "reset"
 }
 
-interface DropdownComponentType
-  extends React.ForwardRefExoticComponent<DropdownProps & React.RefAttributes<HTMLDivElement>> {
+interface DropdownComponentType extends React.ForwardRefExoticComponent<
+  DropdownProps & React.RefAttributes<HTMLDivElement>
+> {
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider

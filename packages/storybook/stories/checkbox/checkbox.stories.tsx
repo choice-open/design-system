@@ -1,17 +1,17 @@
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { Fragment, useState } from "react";
-import { Checkbox } from "@choice-ui/react";
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { Fragment, useState } from "react"
+import { Checkbox } from "@choice-ui/react"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Forms/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof Checkbox>
 
 /**
  * `Checkbox` is a flexible, accessible component for binary and mixed (indeterminate) selection states.
@@ -85,10 +85,7 @@ export const Basic: Story = {
                   {Object.values(Interaction).map((interaction) => (
                     <Fragment key={interaction}>
                       <Checkbox
-                        value={
-                          interaction === Interaction.On ||
-                          interaction === Interaction.Mixed
-                        }
+                        value={interaction === Interaction.On || interaction === Interaction.Mixed}
                         mixed={interaction === Interaction.Mixed}
                         disabled={state === State.Disabled}
                         focused={state === State.Focused}
@@ -101,15 +98,13 @@ export const Basic: Story = {
                 </Fragment>
               ))}
             </div>
-            {index !== Object.values(Variant).length - 1 && (
-              <hr className="w-full" />
-            )}
+            {index !== Object.values(Variant).length - 1 && <hr className="w-full" />}
           </Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Demonstrates a disabled Checkbox.
@@ -119,14 +114,18 @@ export const Basic: Story = {
 export const Disabled: Story = {
   args: {},
   render: function DisabledStory() {
-    const [value, setValue] = useState(false);
+    const [value, setValue] = useState(false)
     return (
-      <Checkbox value={value} onChange={(value) => setValue(value)} disabled>
+      <Checkbox
+        value={value}
+        onChange={(value) => setValue(value)}
+        disabled
+      >
         Disabled
       </Checkbox>
-    );
+    )
   },
-};
+}
 
 /**
  * Variant: Demonstrates the different visual variants of the Checkbox component.
@@ -139,7 +138,7 @@ export const Variant: Story = {
       default: false,
       accent: false,
       outline: false,
-    });
+    })
     return (
       <div className="flex flex-col gap-2">
         <Checkbox
@@ -163,9 +162,9 @@ export const Variant: Story = {
           Outline
         </Checkbox>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Group: Demonstrates a group of Checkboxes for multi-select scenarios.
@@ -178,9 +177,9 @@ export const Group: Story = {
       { id: "option1", label: "Option 1" },
       { id: "option2", label: "Option 2" },
       { id: "option3", label: "Option 3" },
-    ];
+    ]
 
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<string[]>([])
 
     return (
       <div className="flex flex-col gap-2">
@@ -190,19 +189,17 @@ export const Group: Story = {
             value={selectedIds.includes(option.id)}
             onChange={(checked) => {
               setSelectedIds((prev) =>
-                checked
-                  ? [...prev, option.id]
-                  : prev.filter((id) => id !== option.id)
-              );
+                checked ? [...prev, option.id] : prev.filter((id) => id !== option.id),
+              )
             }}
           >
             {option.label}
           </Checkbox>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Label Usage: Demonstrates two ways to use labels with Checkbox.
@@ -211,25 +208,27 @@ export const Group: Story = {
  */
 export const LabelUsage: Story = {
   render: function LabelUsageStory() {
-    const [simple, setSimple] = useState(false);
-    const [explicit, setExplicit] = useState(false);
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="font-strong mb-2">
-            Simple string label (auto-wrapped):
-          </h4>
-          <Checkbox value={simple} onChange={setSimple}>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
+          <Checkbox
+            value={simple}
+            onChange={setSimple}
+          >
             Simple text label
           </Checkbox>
         </div>
 
         <div>
-          <h4 className="font-strong mb-2">
-            Explicit Checkbox.Label (for complex content):
-          </h4>
-          <Checkbox value={explicit} onChange={setExplicit}>
+          <h4 className="font-strong mb-2">Explicit Checkbox.Label (for complex content):</h4>
+          <Checkbox
+            value={explicit}
+            onChange={setExplicit}
+          >
             <Checkbox.Label>
               <span className="text-accent-foreground">Complex</span> label with{" "}
               <strong>formatting</strong>
@@ -237,9 +236,9 @@ export const LabelUsage: Story = {
           </Checkbox>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Checkbox component in readOnly state.
@@ -251,49 +250,52 @@ export const LabelUsage: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState(false);
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState(false)
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: boolean) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value ? "true" : "false"}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value ? "true" : "false"}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <Checkbox readOnly value={value} onChange={handleChange}>
+          <Checkbox
+            readOnly
+            value={value}
+            onChange={handleChange}
+          >
             Readonly Checkbox
           </Checkbox>
-          <Checkbox readOnly value={!value} onChange={handleChange}>
+          <Checkbox
+            readOnly
+            value={!value}
+            onChange={handleChange}
+          >
             Readonly Checkbox (checked)
           </Checkbox>
-          <Checkbox value={value} onChange={handleChange}>
+          <Checkbox
+            value={value}
+            onChange={handleChange}
+          >
             Normal Checkbox (for comparison)
           </Checkbox>
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly checkboxes or pressing Space/Enter -
-          the value should not change and the change count should remain at 0.
-          Only the normal checkbox will change the value.
+          💡 Try clicking on the readonly checkboxes or pressing Space/Enter - the value should not
+          change and the change count should remain at 0. Only the normal checkbox will change the
+          value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

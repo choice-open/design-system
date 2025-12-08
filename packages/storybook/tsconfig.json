@@ -20,11 +20,6 @@
       "@choice-ui/react": ["../core/app/index.ts"]
     }
   },
-  "include": [
-    "stories/**/*.ts",
-    "stories/**/*.tsx",
-    ".storybook/**/*.ts",
-    ".storybook/**/*.tsx"
-  ],
+  "include": ["stories/**/*.ts", "stories/**/*.tsx", ".storybook/**/*.ts", ".storybook/**/*.tsx"],
   "exclude": ["node_modules", "dist", "storybook-static"]
 }

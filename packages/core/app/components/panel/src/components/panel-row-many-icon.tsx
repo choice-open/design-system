@@ -8,8 +8,10 @@ export type PanelRowManyIconItem = {
   id: string
 }
 
-export interface PanelRowManyIconProps
-  extends Omit<HTMLProps<HTMLDivElement>, "title" | "children"> {
+export interface PanelRowManyIconProps extends Omit<
+  HTMLProps<HTMLDivElement>,
+  "title" | "children"
+> {
   children?: React.ReactNode
   icons: Array<PanelRowManyIconItem>
   isEditing?: boolean

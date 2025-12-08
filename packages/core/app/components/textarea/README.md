@@ -109,7 +109,8 @@ import { Textarea } from "@choice-ui/react"
 
 ```ts
 interface TextareaProps
-  extends Omit<HTMLProps<HTMLTextAreaElement>, "value" | "onChange" | "size">,
+  extends
+    Omit<HTMLProps<HTMLTextAreaElement>, "value" | "onChange" | "size">,
     Pick<TextareaAutosizeProps, "minRows" | "maxRows"> {
   /** Additional CSS class names */
   className?: string

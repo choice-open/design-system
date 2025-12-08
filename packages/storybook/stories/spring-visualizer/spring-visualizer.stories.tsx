@@ -1,7 +1,7 @@
-import { Label, Range, SpringVisualizer } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Label, Range, SpringVisualizer } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { motion } from "framer-motion"
+import { useState } from "react"
 
 const meta: Meta<typeof SpringVisualizer> = {
   title: "Utilities/SpringVisualizer",
@@ -10,23 +10,23 @@ const meta: Meta<typeof SpringVisualizer> = {
     layout: "centered",
   },
   tags: ["autodocs", "beta"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof SpringVisualizer>;
+type Story = StoryObj<typeof SpringVisualizer>
 
 export const Basic: Story = {
   render: function Render() {
-    const [stiffness, setStiffness] = useState(300);
-    const [damping, setDamping] = useState(30);
-    const [mass, setMass] = useState(1);
-    const [delay, setDelay] = useState(0);
-    const [key, setKey] = useState(0);
+    const [stiffness, setStiffness] = useState(300)
+    const [damping, setDamping] = useState(30)
+    const [mass, setMass] = useState(1)
+    const [delay, setDelay] = useState(0)
+    const [key, setKey] = useState(0)
 
     const handleClick = () => {
-      setKey((prevKey) => prevKey + 1);
-    };
+      setKey((prevKey) => prevKey + 1)
+    }
 
     return (
       <div className="grid grid-cols-[1fr_2fr] gap-8">
@@ -91,21 +91,21 @@ export const Basic: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const TimeMode: Story = {
   name: "Time-based",
   render: function Render() {
-    const [duration, setDuration] = useState(0.8);
-    const [bounce, setBounce] = useState(0.3);
-    const [delay, setDelay] = useState(0);
-    const [key, setKey] = useState(0);
+    const [duration, setDuration] = useState(0.8)
+    const [bounce, setBounce] = useState(0.3)
+    const [delay, setDelay] = useState(0)
+    const [key, setKey] = useState(0)
 
     const handleClick = () => {
-      setKey((prevKey) => prevKey + 1);
-    };
+      setKey((prevKey) => prevKey + 1)
+    }
 
     return (
       <div className="grid grid-cols-[1fr_2fr] gap-8">
@@ -165,6 +165,6 @@ export const TimeMode: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

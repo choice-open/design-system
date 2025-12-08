@@ -1,16 +1,16 @@
-import { Checkbox, SearchInput } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Checkbox, SearchInput } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof SearchInput> = {
   title: "Forms/SearchInput",
   component: SearchInput,
   tags: ["new"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof SearchInput>;
+type Story = StoryObj<typeof SearchInput>
 
 /**
  * `SearchInput` is a specialized input component designed for search functionality with built-in
@@ -49,11 +49,16 @@ type Story = StoryObj<typeof SearchInput>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
-    return <SearchInput value={value} onChange={setValue} />;
+    return (
+      <SearchInput
+        value={value}
+        onChange={setValue}
+      />
+    )
   },
-};
+}
 
 /**
  * Size: Demonstrates the SearchInput with larger sizing.
@@ -66,11 +71,17 @@ export const Basic: Story = {
  */
 export const Size: Story = {
   render: function SizeStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
-    return <SearchInput value={value} onChange={setValue} size="large" />;
+    return (
+      <SearchInput
+        value={value}
+        onChange={setValue}
+        size="large"
+      />
+    )
   },
-};
+}
 
 /**
  * Disabled: Shows the SearchInput in its disabled state.
@@ -83,9 +94,9 @@ export const Size: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    return <SearchInput disabled />;
+    return <SearchInput disabled />
   },
-};
+}
 
 /**
  * NotClearable: Demonstrates SearchInput without the clear button.
@@ -99,11 +110,17 @@ export const Disabled: Story = {
  */
 export const NotClearable: Story = {
   render: function NotClearableStory() {
-    const [value, setValue] = useState("Search text without clear button");
+    const [value, setValue] = useState("Search text without clear button")
 
-    return <SearchInput value={value} onChange={setValue} clearable={false} />;
+    return (
+      <SearchInput
+        value={value}
+        onChange={setValue}
+        clearable={false}
+      />
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the numeric input component.
@@ -114,12 +131,15 @@ export const NotClearable: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [value, setValue] = useState("");
-    const [disabled, setDisabled] = useState(false);
+    const [value, setValue] = useState("")
+    const [disabled, setDisabled] = useState(false)
 
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
@@ -148,6 +168,6 @@ export const Variants: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

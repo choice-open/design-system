@@ -10,7 +10,7 @@ import {
   IconButton,
   Kbd,
   useCommandState,
-} from "@choice-ui/react";
+} from "@choice-ui/react"
 import {
   ChevronLeftSmall,
   ColorAlpha,
@@ -22,10 +22,10 @@ import {
   SearchSmall,
   Settings,
   UserSmall,
-} from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useEffect, useRef, useState } from "react";
+} from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useEffect, useRef, useState } from "react"
 
 const meta: Meta<typeof Command> = {
   title: "Collections/Command",
@@ -61,10 +61,10 @@ const meta: Meta<typeof Command> = {
       },
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Command>;
+export default meta
+type Story = StoryObj<typeof Command>
 
 /**
  * **Basic Command Menu**
@@ -95,9 +95,9 @@ export const Basic: Story = {
           <Command.Item>Profile</Command.Item>
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **With Prefix and Suffix**
@@ -108,7 +108,10 @@ export const Basic: Story = {
 export const WithPrefixAndSuffix: Story = {
   render: function WithPrefixAndSuffix() {
     return (
-      <Command loop className="w-96 overflow-hidden rounded-xl shadow-lg">
+      <Command
+        loop
+        className="w-96 overflow-hidden rounded-xl shadow-lg"
+      >
         <Command.Input placeholder="Search commands..." />
         <Command.List>
           <Command.Item
@@ -134,9 +137,9 @@ export const WithPrefixAndSuffix: Story = {
           </Command.Item>
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **With Shortcut**
@@ -153,7 +156,10 @@ export const WithPrefixAndSuffix: Story = {
 export const WithShortcut: Story = {
   render: function WithShortcut() {
     return (
-      <Command loop className="w-96 overflow-hidden rounded-xl shadow-lg">
+      <Command
+        loop
+        className="w-96 overflow-hidden rounded-xl shadow-lg"
+      >
         <Command.Input placeholder="Search commands..." />
         <Command.List>
           <Command.Item
@@ -182,9 +188,9 @@ export const WithShortcut: Story = {
           </Command.Item>
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **Grouped Commands**
@@ -263,7 +269,7 @@ export const WithGroups: Story = {
       </Command.List>
     </Command>
   ),
-};
+}
 
 export const Large: Story = {
   render: () => (
@@ -282,9 +288,7 @@ export const Large: Story = {
         <Command.Empty>
           <div className="py-6 text-center">
             <p>No results found.</p>
-            <p className="text-secondary-foreground mt-1">
-              Try adjusting your search terms.
-            </p>
+            <p className="text-secondary-foreground mt-1">Try adjusting your search terms.</p>
           </div>
         </Command.Empty>
         <Command.Group heading="Suggestions">
@@ -321,7 +325,7 @@ export const Large: Story = {
       </Command.List>
     </Command>
   ),
-};
+}
 
 /**
  * **With Empty State**
@@ -357,7 +361,7 @@ export const WithEmptyState: Story = {
       </Command.List>
     </Command>
   ),
-};
+}
 
 /**
  * **Dialog Mode**
@@ -394,49 +398,51 @@ const commandOptions = [
       value: (j + 4).toString(),
     })),
   },
-];
+]
 
 export const DialogMode: Story = {
   render: function DialogStory() {
-    const commandRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState("");
-    const [entered, setEntered] = useState("");
+    const commandRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
+    const [open, setOpen] = useState(false)
+    const [selected, setSelected] = useState("")
+    const [entered, setEntered] = useState("")
 
     useEffect(() => {
       if (open) {
         setTimeout(() => {
-          inputRef.current?.focus();
-        }, 200);
+          inputRef.current?.focus()
+        }, 200)
       }
-    }, [open]);
+    }, [open])
 
     useEffect(() => {
       const down = (e: KeyboardEvent) => {
         if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-          e.preventDefault();
-          setOpen((open) => !open);
+          e.preventDefault()
+          setOpen((open) => !open)
         }
-      };
+      }
 
-      document.addEventListener("keydown", down);
-      return () => document.removeEventListener("keydown", down);
-    }, []);
+      document.addEventListener("keydown", down)
+      return () => document.removeEventListener("keydown", down)
+    }, [])
 
     useEffect(() => {
       if (entered) {
-        setOpen(false);
+        setOpen(false)
       }
-    }, [entered]);
+    }, [entered])
 
     return (
       <div>
-        <Button onClick={() => setOpen(true)} variant="secondary">
+        <Button
+          onClick={() => setOpen(true)}
+          variant="secondary"
+        >
           {commandOptions
             .find((group) => group.items.some((item) => item.value === entered))
-            ?.items.find((item) => item.value === entered)?.label ||
-            "Open Command Palette"}
+            ?.items.find((item) => item.value === entered)?.label || "Open Command Palette"}
           <Kbd keys="command">K</Kbd>
         </Button>
 
@@ -479,11 +485,14 @@ export const DialogMode: Story = {
                         key={`${item.value}-${index}`}
                         value={item.value}
                         onSelect={() => {
-                          setSelected(item.value);
-                          setEntered(item.value);
+                          setSelected(item.value)
+                          setEntered(item.value)
                         }}
                         prefixElement={
-                          <Avatar photo={item.icon} name={item.label} />
+                          <Avatar
+                            photo={item.icon}
+                            name={item.label}
+                          />
                         }
                       >
                         <Command.Value>{item.label}</Command.Value>
@@ -496,9 +505,9 @@ export const DialogMode: Story = {
           </Dialog.Content>
         </Dialog>
       </div>
-    );
+    )
   },
-};
+}
 
 export const DarkMode: Story = {
   render: function DarkModeStory() {
@@ -541,9 +550,9 @@ export const DarkMode: Story = {
           </Command.Group>
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **Disabled Command**
@@ -573,9 +582,9 @@ export const DisabledCommand: Story = {
           </Command.Group>
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **Controlled State**
@@ -596,8 +605,8 @@ export const DisabledCommand: Story = {
  */
 export const ControlledState: Story = {
   render: function ControlledStory() {
-    const [value, setValue] = useState("profile");
-    const [search, setSearch] = useState("");
+    const [value, setValue] = useState("profile")
+    const [search, setSearch] = useState("")
 
     return (
       <div className="space-y-4">
@@ -645,9 +654,9 @@ export const ControlledState: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **With Custom Filtering**
@@ -668,19 +677,19 @@ export const ControlledState: Story = {
  */
 export const WithCustomFiltering: Story = {
   render: function CustomFilterStory() {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("")
 
     // Custom filter that prioritizes exact matches
     const customFilter = (value: string, search: string) => {
-      if (!search) return 1;
-      const normalizedValue = value.toLowerCase();
-      const normalizedSearch = search.toLowerCase();
+      if (!search) return 1
+      const normalizedValue = value.toLowerCase()
+      const normalizedSearch = search.toLowerCase()
 
-      if (normalizedValue === normalizedSearch) return 1;
-      if (normalizedValue.startsWith(normalizedSearch)) return 0.9;
-      if (normalizedValue.includes(normalizedSearch)) return 0.7;
-      return 0;
-    };
+      if (normalizedValue === normalizedSearch) return 1
+      if (normalizedValue.startsWith(normalizedSearch)) return 0.9
+      if (normalizedValue.includes(normalizedSearch)) return 0.7
+      return 0
+    }
 
     const items = [
       { value: "search", label: "Search", icon: SearchSmall },
@@ -688,14 +697,13 @@ export const WithCustomFiltering: Story = {
       { value: "user", label: "User Profile", icon: UserSmall },
       { value: "file", label: "File Manager", icon: File },
       { value: "folder", label: "Folder Structure", icon: Folder },
-    ];
+    ]
 
     return (
       <div className="space-y-4">
         <div className="">
           <p>
-            <strong>Custom Filter:</strong> Prioritizes exact matches, then
-            prefix matches
+            <strong>Custom Filter:</strong> Prioritizes exact matches, then prefix matches
           </p>
           <p>
             <strong>Current Search:</strong> &quot;{search}&quot;
@@ -720,9 +728,7 @@ export const WithCustomFiltering: Story = {
                   value={item.label}
                   prefixElement={<item.icon />}
                   suffixElement={
-                    <span className="text-secondary-foreground mr-1">
-                      {item.value}
-                    </span>
+                    <span className="text-secondary-foreground mr-1">{item.value}</span>
                   }
                 >
                   <Command.Value>{item.label}</Command.Value>
@@ -732,9 +738,9 @@ export const WithCustomFiltering: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Interactive Keyboard Navigation**
@@ -765,86 +771,86 @@ export const WithCustomFiltering: Story = {
  */
 export const KeyboardNavigation: Story = {
   render: function InteractiveKeyboardDemo() {
-    const [vimBindings, setVimBindings] = useState(true);
-    const [loop, setLoop] = useState(true);
-    const [selectedValue, setSelectedValue] = useState("");
+    const [vimBindings, setVimBindings] = useState(true)
+    const [loop, setLoop] = useState(true)
+    const [selectedValue, setSelectedValue] = useState("")
     const [lastAction, setLastAction] = useState<{
-      action: string;
-      key: string;
-      timestamp: string;
-    } | null>(null);
+      action: string
+      key: string
+      timestamp: string
+    } | null>(null)
     const [keyLog, setKeyLog] = useState<
       Array<{
-        action: string;
-        key: string;
-        timestamp: string;
+        action: string
+        key: string
+        timestamp: string
       }>
-    >([]);
+    >([])
 
     const logKeyAction = (key: string, action: string) => {
-      const timestamp = new Date().toLocaleTimeString();
-      setLastAction({ action, key, timestamp });
-      setKeyLog((prev) => [...prev.slice(-5), { key, action, timestamp }]);
-    };
+      const timestamp = new Date().toLocaleTimeString()
+      setLastAction({ action, key, timestamp })
+      setKeyLog((prev) => [...prev.slice(-5), { key, action, timestamp }])
+    }
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       // Log different types of key actions
       switch (e.key) {
         case "ArrowDown":
-          if (e.metaKey) logKeyAction("Cmd+↓", "Jump to last item");
-          else if (e.altKey) logKeyAction("Alt+↓", "Next group");
-          else logKeyAction("↓", "Next item");
-          break;
+          if (e.metaKey) logKeyAction("Cmd+↓", "Jump to last item")
+          else if (e.altKey) logKeyAction("Alt+↓", "Next group")
+          else logKeyAction("↓", "Next item")
+          break
         case "ArrowUp":
-          if (e.metaKey) logKeyAction("Cmd+↑", "Jump to first item");
-          else if (e.altKey) logKeyAction("Alt+↑", "Previous group");
-          else logKeyAction("↑", "Previous item");
-          break;
+          if (e.metaKey) logKeyAction("Cmd+↑", "Jump to first item")
+          else if (e.altKey) logKeyAction("Alt+↑", "Previous group")
+          else logKeyAction("↑", "Previous item")
+          break
         case "j":
-          if (vimBindings && e.ctrlKey)
-            logKeyAction("Ctrl+J", "Vim: Next item");
-          break;
+          if (vimBindings && e.ctrlKey) logKeyAction("Ctrl+J", "Vim: Next item")
+          break
         case "k":
-          if (vimBindings && e.ctrlKey)
-            logKeyAction("Ctrl+K", "Vim: Previous item");
-          break;
+          if (vimBindings && e.ctrlKey) logKeyAction("Ctrl+K", "Vim: Previous item")
+          break
         case "n":
-          if (vimBindings && e.ctrlKey)
-            logKeyAction("Ctrl+N", "Vim: Next item");
-          break;
+          if (vimBindings && e.ctrlKey) logKeyAction("Ctrl+N", "Vim: Next item")
+          break
         case "p":
-          if (vimBindings && e.ctrlKey)
-            logKeyAction("Ctrl+P", "Vim: Previous item");
-          break;
+          if (vimBindings && e.ctrlKey) logKeyAction("Ctrl+P", "Vim: Previous item")
+          break
         case "Home":
-          logKeyAction("Home", "Jump to first item");
-          break;
+          logKeyAction("Home", "Jump to first item")
+          break
         case "End":
-          logKeyAction("End", "Jump to last item");
-          break;
+          logKeyAction("End", "Jump to last item")
+          break
         case "Enter":
-          logKeyAction("Enter", `Select: ${selectedValue}`);
-          break;
+          logKeyAction("Enter", `Select: ${selectedValue}`)
+          break
       }
-    };
+    }
 
     return (
       <div className="w-96 space-y-6">
         {/* Control Panel */}
         <div className="flex flex-wrap gap-4 rounded-xl border p-4">
-          <Checkbox value={vimBindings} onChange={(v) => setVimBindings(v)}>
+          <Checkbox
+            value={vimBindings}
+            onChange={(v) => setVimBindings(v)}
+          >
             Enable Vim Bindings (Ctrl+J/K/N/P)
           </Checkbox>
-          <Checkbox value={loop} onChange={(v) => setLoop(v)}>
+          <Checkbox
+            value={loop}
+            onChange={(v) => setLoop(v)}
+          >
             Enable Loop Navigation
           </Checkbox>
         </div>
 
         {/* Keyboard Shortcuts Reference */}
         <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-3">
-            ⌨️ Complete Keyboard Shortcuts Reference
-          </h3>
+          <h3 className="font-strong mb-3">⌨️ Complete Keyboard Shortcuts Reference</h3>
           <div className="flex flex-col gap-4">
             <div>
               <h4 className="font-strong mb-2">Basic Navigation</h4>
@@ -872,9 +878,7 @@ export const KeyboardNavigation: Story = {
             </div>
 
             <div>
-              <h4 className="text-secondary-foreground font-strong mb-2">
-                Vim Bindings
-              </h4>
+              <h4 className="text-secondary-foreground font-strong mb-2">Vim Bindings</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <Kbd keys={["ctrl"]}>J</Kbd>
@@ -893,11 +897,7 @@ export const KeyboardNavigation: Story = {
                   <span>Previous item</span>
                 </div>
               </div>
-              {!vimBindings && (
-                <div className="mt-1 text-orange-600">
-                  ⚠️ Vim bindings disabled
-                </div>
-              )}
+              {!vimBindings && <div className="mt-1 text-orange-600">⚠️ Vim bindings disabled</div>}
             </div>
 
             <div>
@@ -919,11 +919,7 @@ export const KeyboardNavigation: Story = {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary-foreground">Loop:</span>
-                  <span
-                    className={
-                      loop ? "text-secondary-foreground" : "text-orange-600"
-                    }
-                  >
+                  <span className={loop ? "text-secondary-foreground" : "text-orange-600"}>
                     {loop ? "Enabled" : "Disabled"}
                   </span>
                 </div>
@@ -993,7 +989,10 @@ export const KeyboardNavigation: Story = {
               <Command.Item value="go-to-line">
                 <SearchSmall className="mr-2 h-4 w-4" />
                 <span>Go to Line</span>
-                <Kbd keys="ctrl" className="text-secondary-foreground ml-auto">
+                <Kbd
+                  keys="ctrl"
+                  className="text-secondary-foreground ml-auto"
+                >
                   G
                 </Kbd>
               </Command.Item>
@@ -1067,35 +1066,35 @@ export const KeyboardNavigation: Story = {
           <h4 className="font-strong mb-2 text-blue-800">💡 Pro Tips:</h4>
           <ul className="space-y-1 text-blue-700">
             <li>
-              • <strong>Focus the input first</strong> - Click in the search box
-              to activate keyboard navigation
+              • <strong>Focus the input first</strong> - Click in the search box to activate
+              keyboard navigation
             </li>
             <li>
-              • <strong>Group navigation</strong> - Use Alt+↑↓ to quickly jump
-              between different sections
+              • <strong>Group navigation</strong> - Use Alt+↑↓ to quickly jump between different
+              sections
             </li>
             <li>
-              • <strong>Vim users</strong> - Toggle vim bindings to use familiar
-              Ctrl+J/K/N/P shortcuts
+              • <strong>Vim users</strong> - Toggle vim bindings to use familiar Ctrl+J/K/N/P
+              shortcuts
             </li>
             <li>
-              • <strong>Loop navigation</strong> - When enabled, pressing ↑ at
-              the top goes to the bottom
+              • <strong>Loop navigation</strong> - When enabled, pressing ↑ at the top goes to the
+              bottom
             </li>
             <li>
-              • <strong>IME support</strong> - CJK input methods are properly
-              handled without triggering shortcuts
+              • <strong>IME support</strong> - CJK input methods are properly handled without
+              triggering shortcuts
             </li>
             <li>
-              • <strong>Visual feedback</strong> - Watch the activity monitor to
-              see which shortcuts are triggered
+              • <strong>Visual feedback</strong> - Watch the activity monitor to see which shortcuts
+              are triggered
             </li>
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Large Dataset**
@@ -1124,31 +1123,31 @@ export const LargeDataset: Story = {
       name: `Item ${i + 1}`,
       category: i < 33 ? "Files" : i < 66 ? "Actions" : "Settings",
       description: `Description for item ${i + 1}`,
-    }));
+    }))
 
-    const categories = ["Files", "Actions", "Settings"];
+    const categories = ["Files", "Actions", "Settings"]
 
     return (
       <div className="space-y-4">
         <div className="">
           <p>
-            <strong>Dataset Size:</strong> {items.length} items across{" "}
-            {categories.length} categories
+            <strong>Dataset Size:</strong> {items.length} items across {categories.length}{" "}
+            categories
           </p>
           <p>
-            <strong>Performance:</strong> Try searching to see fast filtering in
-            action
+            <strong>Performance:</strong> Try searching to see fast filtering in action
           </p>
         </div>
 
         <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
           <Command.Input placeholder="Search 100 items..." />
           <Command.List className="max-h-64">
-            <Command.Empty>
-              No results found in {items.length} items.
-            </Command.Empty>
+            <Command.Empty>No results found in {items.length} items.</Command.Empty>
             {categories.map((category) => (
-              <Command.Group key={category} heading={category}>
+              <Command.Group
+                key={category}
+                heading={category}
+              >
                 {items
                   .filter((item) => item.category === category)
                   .map((item) => (
@@ -1158,9 +1157,7 @@ export const LargeDataset: Story = {
                     >
                       <div className="flex flex-col items-start">
                         <span>{item.name}</span>
-                        <span className="text-secondary-foreground">
-                          {item.description}
-                        </span>
+                        <span className="text-secondary-foreground">{item.description}</span>
                       </div>
                     </Command.Item>
                   ))}
@@ -1169,9 +1166,9 @@ export const LargeDataset: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Complex Items**
@@ -1241,25 +1238,29 @@ export const ComplexItems: Story = {
           },
         ],
       },
-    ];
+    ]
     return (
       <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
         <Command.Input placeholder="Search files and users..." />
         <Command.List>
           <Command.Empty>No results found.</Command.Empty>
           {commandOptions.map((option) => (
-            <Command.Group key={option.label} heading={option.label}>
+            <Command.Group
+              key={option.label}
+              heading={option.label}
+            >
               {option.group.map((item) => (
-                <Command.Item key={item.value} value={item.value}>
+                <Command.Item
+                  key={item.value}
+                  value={item.value}
+                >
                   <div className="flex flex-1 flex-col gap-1">
                     <div className="flex items-center gap-1">
                       {item.prefixElement}
                       <div className="flex-1">{item.label}</div>
                       {item.suffixElement}
                     </div>
-                    <div className="text-secondary-foreground">
-                      {item.description}
-                    </div>
+                    <div className="text-secondary-foreground">{item.description}</div>
                   </div>
                 </Command.Item>
               ))}
@@ -1267,9 +1268,9 @@ export const ComplexItems: Story = {
           ))}
         </Command.List>
       </Command>
-    );
+    )
   },
-};
+}
 
 /**
  * **With Footer**
@@ -1289,16 +1290,16 @@ export const ComplexItems: Story = {
  */
 export const WithFooter: Story = {
   render: function WithFooter() {
-    const [open, setOpen] = useState(false);
-    const [selectedCommand, setSelectedCommand] = useState("");
-    const [selectedDropdown, setSelectedDropdown] = useState("");
-    const commandRef = useRef<HTMLDivElement>(null);
+    const [open, setOpen] = useState(false)
+    const [selectedCommand, setSelectedCommand] = useState("")
+    const [selectedDropdown, setSelectedDropdown] = useState("")
+    const commandRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
       if (!open) {
-        commandRef.current?.focus();
+        commandRef.current?.focus()
       }
-    }, [open]);
+    }, [open])
 
     const commandOptions = [
       {
@@ -1335,7 +1336,7 @@ export const WithFooter: Story = {
           },
         ],
       },
-    ];
+    ]
 
     const dropdownOptions = [
       {
@@ -1354,7 +1355,7 @@ export const WithFooter: Story = {
         label: "Add to Favorites",
         value: "add-to-favorites",
       },
-    ];
+    ]
 
     return (
       <div className="space-y-4">
@@ -1382,9 +1383,9 @@ export const WithFooter: Story = {
           onKeyDown={(e) => {
             // Handle global Command shortcuts
             if (e.key === "k" && e.metaKey) {
-              e.preventDefault();
-              setOpen((prev) => !prev);
-              return;
+              e.preventDefault()
+              setOpen((prev) => !prev)
+              return
             }
           }}
         >
@@ -1392,7 +1393,10 @@ export const WithFooter: Story = {
           <Command.List className="h-64">
             <Command.Empty>No results found.</Command.Empty>
             {commandOptions.map((option) => (
-              <Command.Group key={option.label} heading={option.label}>
+              <Command.Group
+                key={option.label}
+                heading={option.label}
+              >
                 {option.group.map((item) => (
                   <Command.Item
                     key={item.value}
@@ -1407,11 +1411,18 @@ export const WithFooter: Story = {
           </Command.List>
           <Command.Footer>
             <span className="text-secondary-foreground px-2">Choiceform</span>
-            <Dropdown open={open} onOpenChange={setOpen} placement="top-end">
+            <Dropdown
+              open={open}
+              onOpenChange={setOpen}
+              placement="top-end"
+            >
               <Dropdown.Trigger asChild>
                 <Button variant="ghost">
                   Actions{" "}
-                  <Kbd keys="command" className="text-secondary-foreground">
+                  <Kbd
+                    keys="command"
+                    className="text-secondary-foreground"
+                  >
                     K
                   </Kbd>
                 </Button>
@@ -1423,8 +1434,8 @@ export const WithFooter: Story = {
                     onClick={() => setSelectedDropdown(option.value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        setSelectedDropdown(option.value);
-                        setOpen(false);
+                        setSelectedDropdown(option.value)
+                        setOpen(false)
                       }
                     }}
                   >
@@ -1436,9 +1447,9 @@ export const WithFooter: Story = {
           </Command.Footer>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Core Mechanism: Store & State Management**
@@ -1467,7 +1478,7 @@ export const CoreMechanismStore: Story = {
       filteredItems: new Map(),
       filteredGroups: new Set(),
       updateCount: 0,
-    });
+    })
 
     return (
       <div className="w-96 space-y-6">
@@ -1487,8 +1498,7 @@ export const CoreMechanismStore: Story = {
               <strong>Update Count:</strong> {debugInfo.updateCount}
             </div>
             <div className="col-span-2">
-              <strong>Visible Groups:</strong> [
-              {Array.from(debugInfo.filteredGroups).join(", ")}]
+              <strong>Visible Groups:</strong> [{Array.from(debugInfo.filteredGroups).join(", ")}]
             </div>
           </div>
         </div>
@@ -1500,7 +1510,7 @@ export const CoreMechanismStore: Story = {
               ...prev,
               value,
               updateCount: prev.updateCount + 1,
-            }));
+            }))
           }}
         >
           <Command.Input
@@ -1510,7 +1520,7 @@ export const CoreMechanismStore: Story = {
                 ...prev,
                 search,
                 updateCount: prev.updateCount + 1,
-              }));
+              }))
             }}
           />
           <Command.List>
@@ -1539,14 +1549,13 @@ export const CoreMechanismStore: Story = {
         </Command>
 
         <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> The store uses a centralized state
-          with subscribe/emit pattern. Each component subscribes to state
-          changes and re-renders only when necessary.
+          💡 <strong>How it works:</strong> The store uses a centralized state with subscribe/emit
+          pattern. Each component subscribes to state changes and re-renders only when necessary.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Core Mechanism: Value Registration System**
@@ -1569,22 +1578,22 @@ export const CoreMechanismValueRegistration: Story = {
   render: function ValueRegistrationDemo() {
     const [registrationLog, setRegistrationLog] = useState<
       Array<{
-        action: string;
-        id: string;
-        keywords?: string[];
-        timestamp: string;
-        value: string;
+        action: string
+        id: string
+        keywords?: string[]
+        timestamp: string
+        value: string
       }>
-    >([]);
+    >([])
 
-    const [itemCount, setItemCount] = useState(3);
+    const [itemCount, setItemCount] = useState(3)
 
     const addLogEntry = (entry: {
-      action: string;
-      id: string;
-      keywords?: string[];
-      timestamp: string;
-      value: string;
+      action: string
+      id: string
+      keywords?: string[]
+      timestamp: string
+      value: string
     }) => {
       setRegistrationLog((prev) => [
         ...prev.slice(-10),
@@ -1592,8 +1601,8 @@ export const CoreMechanismValueRegistration: Story = {
           ...entry,
           timestamp: new Date().toLocaleTimeString(),
         },
-      ]);
-    };
+      ])
+    }
 
     return (
       <div className="w-96 space-y-6">
@@ -1601,19 +1610,18 @@ export const CoreMechanismValueRegistration: Story = {
           <h3 className="font-strong mb-3">📝 Value Registration Log</h3>
           <div className="max-h-32 overflow-y-auto">
             {registrationLog.length === 0 ? (
-              <div className="text-secondary-foreground">
-                Start typing to see registrations...
-              </div>
+              <div className="text-secondary-foreground">Start typing to see registrations...</div>
             ) : (
               registrationLog.map((entry, i) => (
-                <div key={i} className="flex justify-between py-1">
+                <div
+                  key={i}
+                  className="flex justify-between py-1"
+                >
                   <span>{entry.timestamp}</span>
                   <span className="font-mono">{entry.action}</span>
                   <span>ID: {entry.id}</span>
                   <span>Value: &quot;{entry.value}&quot;</span>
-                  {entry.keywords && (
-                    <span>Keywords: [{entry.keywords.join(", ")}]</span>
-                  )}
+                  {entry.keywords && <span>Keywords: [{entry.keywords.join(", ")}]</span>}
                 </div>
               ))
             )}
@@ -1648,9 +1656,7 @@ export const CoreMechanismValueRegistration: Story = {
                 >
                   <File className="mr-2 h-4 w-4" />
                   <span>Dynamic Item {i + 1}</span>
-                  <span className="text-secondary-foreground ml-auto">
-                    Keywords: test, item
-                  </span>
+                  <span className="text-secondary-foreground ml-auto">Keywords: test, item</span>
                 </Command.Item>
               ))}
             </Command.Group>
@@ -1661,9 +1667,7 @@ export const CoreMechanismValueRegistration: Story = {
               >
                 <File className="mr-2 h-4 w-4" />
                 <span>app.js</span>
-                <span className="text-secondary-foreground ml-auto">
-                  Try: js, script
-                </span>
+                <span className="text-secondary-foreground ml-auto">Try: js, script</span>
               </Command.Item>
               <Command.Item
                 value="stylesheet-file"
@@ -1671,23 +1675,20 @@ export const CoreMechanismValueRegistration: Story = {
               >
                 <File className="mr-2 h-4 w-4" />
                 <span>styles.css</span>
-                <span className="text-secondary-foreground ml-auto">
-                  Try: css, style
-                </span>
+                <span className="text-secondary-foreground ml-auto">Try: css, style</span>
               </Command.Item>
             </Command.Group>
           </Command.List>
         </Command>
 
         <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> useValue() runs on every render (no
-          deps array) to keep values synchronized. It only triggers updates when
-          values actually change.
+          💡 <strong>How it works:</strong> useValue() runs on every render (no deps array) to keep
+          values synchronized. It only triggers updates when values actually change.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Core Mechanism: Async Scheduling System**
@@ -1711,18 +1712,15 @@ export const CoreMechanismAsyncScheduling: Story = {
   render: function AsyncSchedulingDemo() {
     const [operationLog, setOperationLog] = useState<
       Array<{
-        operation: string;
-        priority: number;
-        status: "scheduled" | "executing" | "completed";
-        timestamp: string;
+        operation: string
+        priority: number
+        status: "scheduled" | "executing" | "completed"
+        timestamp: string
       }>
-    >([]);
+    >([])
 
-    const simulateScheduledOperation = (
-      priority: number,
-      operation: string
-    ) => {
-      const id = Date.now();
+    const simulateScheduledOperation = (priority: number, operation: string) => {
+      const id = Date.now()
 
       // Add to log as scheduled
       setOperationLog((prev) => [
@@ -1733,7 +1731,7 @@ export const CoreMechanismAsyncScheduling: Story = {
           operation,
           status: "scheduled" as const,
         },
-      ]);
+      ])
 
       // Simulate async execution
       setTimeout(() => {
@@ -1741,21 +1739,21 @@ export const CoreMechanismAsyncScheduling: Story = {
           prev.map((item) =>
             item.timestamp === new Date(id).toLocaleTimeString()
               ? { ...item, status: "executing" as const }
-              : item
-          )
-        );
+              : item,
+          ),
+        )
 
         setTimeout(() => {
           setOperationLog((prev) =>
             prev.map((item) =>
               item.timestamp === new Date(id).toLocaleTimeString()
                 ? { ...item, status: "completed" as const }
-                : item
-            )
-          );
-        }, 100);
-      }, priority * 10); // Higher priority = faster execution
-    };
+                : item,
+            ),
+          )
+        }, 100)
+      }, priority * 10) // Higher priority = faster execution
+    }
 
     return (
       <div className="w-96 space-y-6">
@@ -1763,12 +1761,13 @@ export const CoreMechanismAsyncScheduling: Story = {
           <h3 className="font-strong mb-3">⚡ Async Operation Scheduler</h3>
           <div className="max-h-40 overflow-y-auto">
             {operationLog.length === 0 ? (
-              <div className="text-secondary-foreground">
-                Operations will appear here...
-              </div>
+              <div className="text-secondary-foreground">Operations will appear here...</div>
             ) : (
               operationLog.map((entry, i) => (
-                <div key={i} className="flex items-center justify-between py-1">
+                <div
+                  key={i}
+                  className="flex items-center justify-between py-1"
+                >
                   <span>{entry.timestamp}</span>
                   <span className="font-mono">P{entry.priority}</span>
                   <span className="flex-1 px-2">{entry.operation}</span>
@@ -1820,12 +1819,9 @@ export const CoreMechanismAsyncScheduling: Story = {
           <Command.Input
             placeholder="Type to trigger real scheduling..."
             onChange={() => {
-              simulateScheduledOperation(
-                1,
-                "Search triggered: selectFirstItem()"
-              );
-              simulateScheduledOperation(2, "Search triggered: filterItems()");
-              simulateScheduledOperation(3, "Search triggered: sort()");
+              simulateScheduledOperation(1, "Search triggered: selectFirstItem()")
+              simulateScheduledOperation(2, "Search triggered: filterItems()")
+              simulateScheduledOperation(3, "Search triggered: sort()")
             }}
           />
           <Command.List className="h-40">
@@ -1848,14 +1844,13 @@ export const CoreMechanismAsyncScheduling: Story = {
         </Command>
 
         <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> schedule() queues operations by
-          priority in the next layoutEffect cycle. This prevents synchronous
-          recursion and optimizes DOM updates.
+          💡 <strong>How it works:</strong> schedule() queues operations by priority in the next
+          layoutEffect cycle. This prevents synchronous recursion and optimizes DOM updates.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Core Mechanism: Fuzzy Search Algorithm**
@@ -1877,15 +1872,15 @@ export const CoreMechanismAsyncScheduling: Story = {
  */
 export const CoreMechanismFuzzySearch: Story = {
   render: function FuzzySearchDemo() {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("")
     const [scores, setScores] = useState<
       Array<{
-        item: string;
-        keywords?: string[];
-        score: number;
-        value: string;
+        item: string
+        keywords?: string[]
+        score: number
+        value: string
       }>
-    >([]);
+    >([])
 
     const testItems = [
       { value: "New File", keywords: ["create", "add"] },
@@ -1896,55 +1891,47 @@ export const CoreMechanismFuzzySearch: Story = {
       { value: "System Settings", keywords: ["config", "preferences"] },
       { value: "JavaScript File", keywords: ["js", "script"] },
       { value: "CSS Stylesheet", keywords: ["css", "style"] },
-    ];
+    ]
 
     // Mock scoring function similar to commandScore
-    const mockScore = (
-      value: string,
-      search: string,
-      keywords: string[] = []
-    ) => {
-      if (!search) return 1;
+    const mockScore = (value: string, search: string, keywords: string[] = []) => {
+      if (!search) return 1
 
-      const normalizedValue = value.toLowerCase();
-      const normalizedSearch = search.toLowerCase();
+      const normalizedValue = value.toLowerCase()
+      const normalizedSearch = search.toLowerCase()
 
       // Exact match
-      if (normalizedValue === normalizedSearch) return 1.0;
+      if (normalizedValue === normalizedSearch) return 1.0
 
       // Prefix match
-      if (normalizedValue.startsWith(normalizedSearch)) return 0.9;
+      if (normalizedValue.startsWith(normalizedSearch)) return 0.9
 
       // Word boundary match
-      const words = normalizedValue.split(/\s+/);
+      const words = normalizedValue.split(/\s+/)
       for (const word of words) {
-        if (word.startsWith(normalizedSearch)) return 0.8;
+        if (word.startsWith(normalizedSearch)) return 0.8
       }
 
       // Keyword match
       for (const keyword of keywords) {
-        if (keyword.toLowerCase().includes(normalizedSearch)) return 0.7;
+        if (keyword.toLowerCase().includes(normalizedSearch)) return 0.7
       }
 
       // Substring match
-      if (normalizedValue.includes(normalizedSearch)) return 0.6;
+      if (normalizedValue.includes(normalizedSearch)) return 0.6
 
       // Fuzzy match (simplified)
-      let fuzzyScore = 0;
-      let searchIndex = 0;
-      for (
-        let i = 0;
-        i < normalizedValue.length && searchIndex < normalizedSearch.length;
-        i++
-      ) {
+      let fuzzyScore = 0
+      let searchIndex = 0
+      for (let i = 0; i < normalizedValue.length && searchIndex < normalizedSearch.length; i++) {
         if (normalizedValue[i] === normalizedSearch[searchIndex]) {
-          fuzzyScore += 1 / normalizedValue.length;
-          searchIndex++;
+          fuzzyScore += 1 / normalizedValue.length
+          searchIndex++
         }
       }
 
-      return searchIndex === normalizedSearch.length ? fuzzyScore * 0.5 : 0;
-    };
+      return searchIndex === normalizedSearch.length ? fuzzyScore * 0.5 : 0
+    }
 
     React.useEffect(() => {
       const newScores = testItems
@@ -1954,10 +1941,10 @@ export const CoreMechanismFuzzySearch: Story = {
           score: mockScore(item.value, search, item.keywords),
           keywords: item.keywords,
         }))
-        .sort((a, b) => b.score - a.score);
+        .sort((a, b) => b.score - a.score)
 
-      setScores(newScores);
-    }, [search]);
+      setScores(newScores)
+    }, [search])
 
     return (
       <div className="w-96 space-y-6">
@@ -1966,9 +1953,7 @@ export const CoreMechanismFuzzySearch: Story = {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="font-strong">Search Query:</span>
-              <code className="bg-background rounded px-2 py-1">
-                {search || "(empty)"}
-              </code>
+              <code className="bg-background rounded px-2 py-1">{search || "(empty)"}</code>
             </div>
             <div className="max-h-48 overflow-y-auto">
               {scores.map((item, i) => (
@@ -1990,9 +1975,7 @@ export const CoreMechanismFuzzySearch: Story = {
                           style={{ width: `${item.score * 100}%` }}
                         />
                       </div>
-                      <span className="w-12 font-mono">
-                        {item.score.toFixed(2)}
-                      </span>
+                      <span className="w-12 font-mono">{item.score.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -2017,13 +2000,14 @@ export const CoreMechanismFuzzySearch: Story = {
           <div>
             <h4 className="font-strong mb-2">💡 Try These Searches</h4>
             <div className="flex flex-wrap gap-1">
-              {["file", "js", "user", "set", "css", "new", "search"].map(
-                (term) => (
-                  <Chip key={term} onClick={() => setSearch(term)}>
-                    {term}
-                  </Chip>
-                )
-              )}
+              {["file", "js", "user", "set", "css", "new", "search"].map((term) => (
+                <Chip
+                  key={term}
+                  onClick={() => setSearch(term)}
+                >
+                  {term}
+                </Chip>
+              ))}
             </div>
           </div>
         </div>
@@ -2040,7 +2024,10 @@ export const CoreMechanismFuzzySearch: Story = {
               {scores
                 .filter((item) => item.score > 0)
                 .map((item) => (
-                  <Command.Item key={item.item} value={item.value}>
+                  <Command.Item
+                    key={item.item}
+                    value={item.value}
+                  >
                     <File className="mr-2 h-4 w-4" />
                     <span>{item.item}</span>
                     <span className="text-secondary-foreground ml-auto">
@@ -2053,14 +2040,14 @@ export const CoreMechanismFuzzySearch: Story = {
         </Command>
 
         <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> The scoring algorithm evaluates
-          match quality using multiple criteria and assigns higher scores to
-          better matches, enabling intelligent ranking.
+          💡 <strong>How it works:</strong> The scoring algorithm evaluates match quality using
+          multiple criteria and assigns higher scores to better matches, enabling intelligent
+          ranking.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Example: Nested Items / Pages**
@@ -2086,9 +2073,9 @@ export const CoreMechanismFuzzySearch: Story = {
  */
 export const NestedItems: Story = {
   render: function NestedItemsExample() {
-    const [search, setSearch] = useState("");
-    const [pages, setPages] = useState<string[]>([]);
-    const page = pages[pages.length - 1];
+    const [search, setSearch] = useState("")
+    const [pages, setPages] = useState<string[]>([])
+    const page = pages[pages.length - 1]
 
     return (
       <div className="space-y-4">
@@ -2097,12 +2084,9 @@ export const NestedItems: Story = {
           <ul className="space-y-1">
             <li>• Select items to navigate deeper into subcategories</li>
             <li>
-              • <Kbd keys="escape" /> or <Kbd keys="backspace" /> (when search
-              is empty) to go back
+              • <Kbd keys="escape" /> or <Kbd keys="backspace" /> (when search is empty) to go back
             </li>
-            <li>
-              • Current path: {pages.length === 0 ? "Home" : pages.join(" > ")}
-            </li>
+            <li>• Current path: {pages.length === 0 ? "Home" : pages.join(" > ")}</li>
           </ul>
         </div>
 
@@ -2112,15 +2096,13 @@ export const NestedItems: Story = {
             // Escape goes to previous page
             // Backspace goes to previous page when search is empty
             if (e.key === "Escape" || (e.key === "Backspace" && !search)) {
-              e.preventDefault();
-              setPages((pages) => pages.slice(0, -1));
+              e.preventDefault()
+              setPages((pages) => pages.slice(0, -1))
             }
           }}
         >
           <Command.Input
-            placeholder={
-              page ? `Search in ${page}...` : "Type a command or search..."
-            }
+            placeholder={page ? `Search in ${page}...` : "Type a command or search..."}
             value={search}
             onChange={setSearch}
             variant="reset"
@@ -2144,9 +2126,7 @@ export const NestedItems: Story = {
             {!page && (
               <>
                 <Command.Group heading="Categories">
-                  <Command.Item
-                    onSelect={() => setPages([...pages, "projects"])}
-                  >
+                  <Command.Item onSelect={() => setPages([...pages, "projects"])}>
                     <Folder className="mr-2 h-4 w-4" />
                     <span>Search projects…</span>
                   </Command.Item>
@@ -2154,9 +2134,7 @@ export const NestedItems: Story = {
                     <UserSmall className="mr-2 h-4 w-4" />
                     <span>Join a team…</span>
                   </Command.Item>
-                  <Command.Item
-                    onSelect={() => setPages([...pages, "settings"])}
-                  >
+                  <Command.Item onSelect={() => setPages([...pages, "settings"])}>
                     <Settings className="mr-2 h-4 w-4" />
                     <span>App settings…</span>
                   </Command.Item>
@@ -2226,9 +2204,9 @@ export const NestedItems: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Example: Conditional Sub-Items**
@@ -2253,17 +2231,11 @@ export const NestedItems: Story = {
 export const ConditionalSubItems: Story = {
   render: function ConditionalSubItemsExample() {
     // Custom SubItem component that only shows when searching
-    const SubItem = ({
-      children,
-      ...props
-    }: {
-      children: React.ReactNode;
-      value?: string;
-    }) => {
-      const search = useCommandState((state) => state.search);
-      if (!search) return null;
-      return <Command.Item {...props}>{children}</Command.Item>;
-    };
+    const SubItem = ({ children, ...props }: { children: React.ReactNode; value?: string }) => {
+      const search = useCommandState((state) => state.search)
+      if (!search) return null
+      return <Command.Item {...props}>{children}</Command.Item>
+    }
 
     return (
       <div className="w-96 space-y-4">
@@ -2277,8 +2249,8 @@ export const ConditionalSubItems: Story = {
               • <strong>When searching:</strong> Sub-items become visible
             </li>
             <li>
-              • Try searching for &quot;theme&quot;, &quot;dark&quot;, or
-              &quot;notification&quot; to see sub-items appear
+              • Try searching for &quot;theme&quot;, &quot;dark&quot;, or &quot;notification&quot;
+              to see sub-items appear
             </li>
           </ul>
         </div>
@@ -2289,7 +2261,10 @@ export const ConditionalSubItems: Story = {
             <Command.Empty>No results found.</Command.Empty>
 
             <Command.Group heading="Appearance">
-              <Command.Item value="change-theme" prefixElement={<Settings />}>
+              <Command.Item
+                value="change-theme"
+                prefixElement={<Settings />}
+              >
                 <Command.Value>Change theme…</Command.Value>
               </Command.Item>
               <SubItem value="change-theme-dark">
@@ -2362,9 +2337,9 @@ export const ConditionalSubItems: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Example: Asynchronous Results**
@@ -2395,19 +2370,19 @@ export const ConditionalSubItems: Story = {
  */
 export const AsyncResults: Story = {
   render: function AsyncResultsExample() {
-    const [loading, setLoading] = useState(false);
-    const [items, setItems] = useState<string[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false)
+    const [items, setItems] = useState<string[]>([])
+    const [error, setError] = useState<string | null>(null)
 
     // Simulate async data fetching
     const fetchItems = async () => {
-      setLoading(true);
-      setError(null);
-      setItems([]);
+      setLoading(true)
+      setError(null)
+      setItems([])
 
       try {
         // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000))
 
         // Simulate random data
         const mockItems = [
@@ -2431,24 +2406,24 @@ export const AsyncResults: Story = {
           "Tangerine",
           "Ugli",
           "Vanilla",
-        ];
+        ]
 
         // Randomly select 8-12 items
         const selectedItems = mockItems
           .sort(() => Math.random() - 0.5)
-          .slice(0, Math.floor(Math.random() * 5) + 8);
+          .slice(0, Math.floor(Math.random() * 5) + 8)
 
-        setItems(selectedItems);
+        setItems(selectedItems)
       } catch (err) {
-        setError("Failed to load items");
+        setError("Failed to load items")
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
     useEffect(() => {
-      fetchItems();
-    }, []);
+      fetchItems()
+    }, [])
 
     return (
       <div className="w-96 space-y-4">
@@ -2456,15 +2431,13 @@ export const AsyncResults: Story = {
           <div className="">
             <div className="font-strong">Async Data Loading</div>
             <div className="text-secondary-foreground">
-              Status:{" "}
-              {loading
-                ? "Loading..."
-                : error
-                  ? "Error"
-                  : `${items.length} items loaded`}
+              Status: {loading ? "Loading..." : error ? "Error" : `${items.length} items loaded`}
             </div>
           </div>
-          <Button onClick={fetchItems} disabled={loading}>
+          <Button
+            onClick={fetchItems}
+            disabled={loading}
+          >
             {loading ? "Loading..." : "Refresh Data"}
           </Button>
         </div>
@@ -2491,7 +2464,10 @@ export const AsyncResults: Story = {
             {!loading && !error && (
               <Command.Group heading={`Fresh Items (${items.length})`}>
                 {items.map((item) => (
-                  <Command.Item key={`fruit-${item}`} value={item}>
+                  <Command.Item
+                    key={`fruit-${item}`}
+                    value={item}
+                  >
                     <Command.Value>{item}</Command.Value>
                   </Command.Item>
                 ))}
@@ -2500,9 +2476,9 @@ export const AsyncResults: Story = {
           </Command.List>
         </Command>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Example: Command with Tabs Filter**
@@ -2527,8 +2503,8 @@ export const AsyncResults: Story = {
  */
 export const WithTabs: Story = {
   render: function WithTabsExample() {
-    const [activeTab, setActiveTab] = useState("all");
-    const [searchValue, setSearchValue] = useState("");
+    const [activeTab, setActiveTab] = useState("all")
+    const [searchValue, setSearchValue] = useState("")
 
     // Mock data with categories
     const allItems = [
@@ -2595,30 +2571,28 @@ export const WithTabs: Story = {
         icon: <File className="h-4 w-4" />,
         keywords: ["export", "download"],
       },
-    ];
+    ]
 
     // Filter items based on active tab
     const filteredItems =
-      activeTab === "all"
-        ? allItems
-        : allItems.filter((item) => item.category === activeTab);
+      activeTab === "all" ? allItems : allItems.filter((item) => item.category === activeTab)
 
     // Group items by category for display
     const groupedItems = filteredItems.reduce(
       (acc, item) => {
         if (!acc[item.category]) {
-          acc[item.category] = [];
+          acc[item.category] = []
         }
-        acc[item.category].push(item);
-        return acc;
+        acc[item.category].push(item)
+        return acc
       },
-      {} as Record<string, typeof allItems>
-    );
+      {} as Record<string, typeof allItems>,
+    )
 
     const categoryLabels = {
       files: "Files",
       actions: "Actions",
-    };
+    }
 
     return (
       <div className="w-96 space-y-4">
@@ -2634,8 +2608,7 @@ export const WithTabs: Story = {
               <strong>
                 {activeTab === "all"
                   ? "All Items"
-                  : categoryLabels[activeTab as keyof typeof categoryLabels] ||
-                    activeTab}
+                  : categoryLabels[activeTab as keyof typeof categoryLabels] || activeTab}
               </strong>
             </li>
             <li>
@@ -2651,20 +2624,12 @@ export const WithTabs: Story = {
             // 左右键循环切换tab
             if (e.key === "ArrowLeft") {
               setActiveTab(
-                activeTab === "all"
-                  ? "actions"
-                  : activeTab === "actions"
-                    ? "files"
-                    : "all"
-              );
+                activeTab === "all" ? "actions" : activeTab === "actions" ? "files" : "all",
+              )
             } else if (e.key === "ArrowRight") {
               setActiveTab(
-                activeTab === "all"
-                  ? "files"
-                  : activeTab === "files"
-                    ? "actions"
-                    : "all"
-              );
+                activeTab === "all" ? "files" : activeTab === "files" ? "actions" : "all",
+              )
             }
           }}
         >
@@ -2673,31 +2638,26 @@ export const WithTabs: Story = {
             value={searchValue}
             onChange={setSearchValue}
           />
-          <Command.Tabs value={activeTab} onChange={setActiveTab}>
-            <Command.TabItem value="all">
-              All ({allItems.length})
-            </Command.TabItem>
+          <Command.Tabs
+            value={activeTab}
+            onChange={setActiveTab}
+          >
+            <Command.TabItem value="all">All ({allItems.length})</Command.TabItem>
             <Command.TabItem value="files">
               Files ({allItems.filter((i) => i.category === "files").length})
             </Command.TabItem>
             <Command.TabItem value="actions">
-              Actions ({allItems.filter((i) => i.category === "actions").length}
-              )
+              Actions ({allItems.filter((i) => i.category === "actions").length})
             </Command.TabItem>
           </Command.Tabs>
 
           <Command.List className="h-64">
-            <Command.Empty>
-              No {activeTab === "all" ? "items" : activeTab} found.
-            </Command.Empty>
+            <Command.Empty>No {activeTab === "all" ? "items" : activeTab} found.</Command.Empty>
 
             {Object.entries(groupedItems).map(([category, items]) => (
               <Command.Group
                 key={category}
-                heading={
-                  categoryLabels[category as keyof typeof categoryLabels] ||
-                  category
-                }
+                heading={categoryLabels[category as keyof typeof categoryLabels] || category}
               >
                 {items.map((item) => (
                   <Command.Item
@@ -2715,22 +2675,17 @@ export const WithTabs: Story = {
 
           <Command.Footer>
             <div className="text-secondary-foreground">
-              {activeTab === "all"
-                ? "Showing all categories"
-                : `Filtered by: ${activeTab}`}
+              {activeTab === "all" ? "Showing all categories" : `Filtered by: ${activeTab}`}
             </div>
-            <div className="text-secondary-foreground">
-              {filteredItems.length} items
-            </div>
+            <div className="text-secondary-foreground">{filteredItems.length} items</div>
           </Command.Footer>
         </Command>
 
         <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> The tabs provide a quick way to
-          filter the command palette by category while preserving the search
-          functionality within each filter.
+          💡 <strong>How it works:</strong> The tabs provide a quick way to filter the command
+          palette by category while preserving the search functionality within each filter.
         </div>
       </div>
-    );
+    )
   },
-};
+}

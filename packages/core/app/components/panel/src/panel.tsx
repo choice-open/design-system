@@ -50,8 +50,9 @@ const PanelContent = function PanelContent({
   )
 }
 
-interface PanelComponentProps
-  extends React.ForwardRefExoticComponent<PanelProps & React.RefAttributes<HTMLDivElement>> {
+interface PanelComponentProps extends React.ForwardRefExoticComponent<
+  PanelProps & React.RefAttributes<HTMLDivElement>
+> {
   Content: typeof PanelContent
   Label: typeof PanelLabel
   Previewer: typeof PanelPreviewer

@@ -355,7 +355,8 @@ export type MultiSelectAdapterProps<T extends string = string> = Omit<
  * 布尔类适配器 (Checkbox, Switch)
  */
 export interface CheckboxAdapterProps<T extends boolean = boolean>
-  extends Omit<CheckboxProps, CommonExcludedPropsWithChildrenAndSize>,
+  extends
+    Omit<CheckboxProps, CommonExcludedPropsWithChildrenAndSize>,
     Omit<FormFieldAdapterProps<T>, "value"> {
   value: T | undefined
 }

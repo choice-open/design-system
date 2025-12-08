@@ -292,8 +292,8 @@ body {
   font-size: var(--text-body-medium) !important;
 }
 .css-1ihw6q8 {
-  background: transparent !important;
-  color: var(--color-default-foreground) !important;
   border-color: var(--color-default-boundary) !important;
   border-top-left-radius: var(--radius-lg) !important;
+  background: transparent !important;
+  color: var(--color-default-foreground) !important;
 }

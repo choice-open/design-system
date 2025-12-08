@@ -17,9 +17,7 @@ import { QuarterCalendarHeader } from "./quarter-calendar-header"
 import { QuarterCalendarTv } from "./tv"
 
 export interface QuarterCalendarProps
-  extends BaseQuarterProps,
-    QuarterNavigationProps,
-    QuarterLayoutProps {}
+  extends BaseQuarterProps, QuarterNavigationProps, QuarterLayoutProps {}
 
 export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>((props, ref) => {
   const {

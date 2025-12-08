@@ -1,17 +1,17 @@
-import { Avatar } from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useMemo } from "react";
+import { Avatar } from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useMemo } from "react"
 
 const meta: Meta<typeof Avatar> = {
   title: "Feedback/Avatar",
   component: Avatar,
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Avatar>;
+type Story = StoryObj<typeof Avatar>
 
 /**
  * Basic: Demonstrates the Avatar component with different names and random background colors.
@@ -24,27 +24,33 @@ export const Basic: Story = {
   render: function BasicStory() {
     const colors = useMemo(() => {
       return Array.from({ length: 4 }, () => {
-        const color = faker.color.rgb();
-        const name = faker.person.firstName();
+        const color = faker.color.rgb()
+        const name = faker.person.firstName()
         return {
           name,
           color,
-        };
-      });
-    }, []);
+        }
+      })
+    }, [])
 
     return (
       <div className="grid grid-cols-4 gap-4">
         {colors.map((color) => (
-          <div key={color.name} className="flex flex-col items-center gap-2">
-            <Avatar name={color.name} color={color.color} />
+          <div
+            key={color.name}
+            className="flex flex-col items-center gap-2"
+          >
+            <Avatar
+              name={color.name}
+              color={color.color}
+            />
             <p>{color.name}</p>
           </div>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Photo: Demonstrates the Avatar component with user photos.
@@ -57,27 +63,33 @@ export const Photo: Story = {
   render: function PhotoStory() {
     const photos = useMemo(() => {
       return Array.from({ length: 4 }, (_, index) => {
-        const photo = `https://api.dicebear.com/7.x/avataaars/svg?seed=${index}`;
-        const name = faker.person.firstName();
+        const photo = `https://api.dicebear.com/7.x/avataaars/svg?seed=${index}`
+        const name = faker.person.firstName()
         return {
           name,
           photo,
-        };
-      });
-    }, []);
+        }
+      })
+    }, [])
 
     return (
       <div className="grid grid-cols-4 gap-4">
         {photos.map((photo) => (
-          <div key={photo.name} className="flex flex-col items-center gap-2">
-            <Avatar name={photo.name} photo={photo.photo} />
+          <div
+            key={photo.name}
+            className="flex flex-col items-center gap-2"
+          >
+            <Avatar
+              name={photo.name}
+              photo={photo.photo}
+            />
             <p>{photo.name}</p>
           </div>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Sizes: Demonstrates the different size options for the Avatar component.
@@ -92,16 +104,14 @@ export const Sizes: Story = {
       { size: "small" as const, label: "small" },
       { size: "medium" as const, label: "medium" },
       { size: "large" as const, label: "large" },
-    ];
+    ]
 
-    const numericSizes = [20, 32, 48, 64];
+    const numericSizes = [20, 32, 48, 64]
 
     return (
       <div className="space-y-8">
         <div>
-          <h3 className="mb-4 text-sm font-medium text-gray-700">
-            Preset Sizes
-          </h3>
+          <h3 className="mb-4 text-sm font-medium text-gray-700">Preset Sizes</h3>
           <div className="grid grid-cols-3 gap-4">
             {presetSizes.map((item) => (
               <div
@@ -120,12 +130,13 @@ export const Sizes: Story = {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-medium text-gray-700">
-            Numeric Sizes
-          </h3>
+          <h3 className="mb-4 text-sm font-medium text-gray-700">Numeric Sizes</h3>
           <div className="grid grid-cols-4 gap-4">
             {numericSizes.map((size) => (
-              <div className="flex flex-col items-center gap-2" key={size}>
+              <div
+                className="flex flex-col items-center gap-2"
+                key={size}
+              >
                 <Avatar
                   name={`${size}px`}
                   size={size}
@@ -137,9 +148,9 @@ export const Sizes: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * States: Demonstrates the different visual states for the Avatar component.
@@ -159,15 +170,21 @@ export const States: Story = {
     return (
       <div className="grid grid-cols-4 gap-4">
         {Object.values(States).map((state) => (
-          <div className="flex flex-col items-center gap-2" key={state}>
-            <Avatar name={state} states={state} />
+          <div
+            className="flex flex-col items-center gap-2"
+            key={state}
+          >
+            <Avatar
+              name={state}
+              states={state}
+            />
             <p>{state}</p>
           </div>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Rounded: Demonstrates different border radius options for the Avatar component.
@@ -184,12 +201,15 @@ export const Rounded: Story = {
       { class: "rounded-lg", label: "rounded-lg" },
       { class: "rounded-xl", label: "rounded-xl" },
       { class: "rounded-full", label: "rounded-full" },
-    ];
+    ]
 
     return (
       <div className="grid grid-cols-5 gap-6">
         {roundedClasses.map((rounded) => (
-          <div className="flex flex-col items-center gap-2" key={rounded.class}>
+          <div
+            className="flex flex-col items-center gap-2"
+            key={rounded.class}
+          >
             <Avatar
               name="A"
               className={rounded.class}
@@ -200,6 +220,6 @@ export const Rounded: Story = {
           </div>
         ))}
       </div>
-    );
+    )
   },
-};
+}

@@ -25,7 +25,8 @@ import { NumericInputTv } from "./tv"
 import { NumericChangeDetail, NumericInputValue } from "./types"
 
 export interface NumericInputProps
-  extends NumericInputContextValue,
+  extends
+    NumericInputContextValue,
     Omit<
       HTMLProps<HTMLInputElement>,
       | "value"
@@ -51,10 +52,9 @@ export interface NumericInputProps
   triggerRef?: React.RefObject<HTMLDivElement> | ((el: HTMLDivElement | null) => void)
 }
 
-interface NumericInputComponent
-  extends React.ForwardRefExoticComponent<
-    NumericInputProps & React.RefAttributes<HTMLInputElement>
-  > {
+interface NumericInputComponent extends React.ForwardRefExoticComponent<
+  NumericInputProps & React.RefAttributes<HTMLInputElement>
+> {
   ActionPrompt: typeof NumericInputMenuActionPrompt
   MenuTrigger: typeof NumericInputMenuTrigger
   Prefix: typeof NumericInputElement

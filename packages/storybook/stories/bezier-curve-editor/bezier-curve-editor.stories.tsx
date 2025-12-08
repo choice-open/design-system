@@ -8,61 +8,58 @@ import {
   PRESET_EASINGS,
   PREVIEW_KEYFRAMES,
   tcx,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
-import React, { useCallback, useMemo, useState } from "react";
+} from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useCallback, useMemo, useState } from "react"
 
 // 生成表示贝塞尔曲线运动速率的渐变色
 function generateSpeedGradient(value: BezierCurveValueType): string {
-  const [x1, y1, x2, y2] = value;
+  const [x1, y1, x2, y2] = value
 
   // 计算曲线在不同时间点的速率
-  const colors: string[] = [];
-  const steps = 20;
+  const colors: string[] = []
+  const steps = 20
 
   for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
+    const t = i / steps
 
     // 贝塞尔曲线的导数（速度向量）
-    const dx =
-      3 * (1 - t) * (1 - t) * x1 +
-      6 * (1 - t) * t * (x2 - x1) +
-      3 * t * t * (1 - x2);
+    const dx = 3 * (1 - t) * (1 - t) * x1 + 6 * (1 - t) * t * (x2 - x1) + 3 * t * t * (1 - x2)
 
     // 速度大小（只关注 x 轴速度）
-    const speed = Math.abs(dx);
+    const speed = Math.abs(dx)
 
     // 简化的速度映射
-    const normalizedSpeed = Math.min(Math.max(speed, 0), 2) / 2;
+    const normalizedSpeed = Math.min(Math.max(speed, 0), 2) / 2
 
-    let color;
+    let color
     if (normalizedSpeed < 0.33) {
       // 慢速：蓝色到青色
-      const factor = normalizedSpeed / 0.33;
-      const r = Math.round(59 + factor * 20);
-      const g = Math.round(130 + factor * 50);
-      const b = 246;
-      color = `rgb(${r}, ${g}, ${b})`;
+      const factor = normalizedSpeed / 0.33
+      const r = Math.round(59 + factor * 20)
+      const g = Math.round(130 + factor * 50)
+      const b = 246
+      color = `rgb(${r}, ${g}, ${b})`
     } else if (normalizedSpeed < 0.66) {
       // 中速：青色到绿色
-      const factor = (normalizedSpeed - 0.33) / 0.33;
-      const r = Math.round(79 - factor * 45);
-      const g = Math.round(180 + factor * 17);
-      const b = Math.round(246 - factor * 152);
-      color = `rgb(${r}, ${g}, ${b})`;
+      const factor = (normalizedSpeed - 0.33) / 0.33
+      const r = Math.round(79 - factor * 45)
+      const g = Math.round(180 + factor * 17)
+      const b = Math.round(246 - factor * 152)
+      color = `rgb(${r}, ${g}, ${b})`
     } else {
       // 快速：绿色到红色
-      const factor = (normalizedSpeed - 0.66) / 0.34;
-      const r = Math.round(34 + factor * 205);
-      const g = Math.round(197 - factor * 129);
-      const b = Math.round(94 - factor * 26);
-      color = `rgb(${r}, ${g}, ${b})`;
+      const factor = (normalizedSpeed - 0.66) / 0.34
+      const r = Math.round(34 + factor * 205)
+      const g = Math.round(197 - factor * 129)
+      const b = Math.round(94 - factor * 26)
+      color = `rgb(${r}, ${g}, ${b})`
     }
 
-    colors.push(`${color} ${(t * 100).toFixed(1)}%`);
+    colors.push(`${color} ${(t * 100).toFixed(1)}%`)
   }
 
-  return `linear-gradient(to right, ${colors.join(", ")})`;
+  return `linear-gradient(to right, ${colors.join(", ")})`
 }
 
 const meta: Meta<typeof BezierCurveEditor> = {
@@ -81,11 +78,11 @@ const meta: Meta<typeof BezierCurveEditor> = {
   },
   tags: ["autodocs", "beta"],
   argTypes: {},
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof BezierCurveEditor>;
+type Story = StoryObj<typeof BezierCurveEditor>
 
 /**
  * To use the component in the basic way, pass an array with four numbers between 0 and 1 inclusive to the `value` prop.
@@ -96,11 +93,11 @@ type Story = StoryObj<typeof BezierCurveEditor>;
 export const Basic: Story = {
   render: function Render(args) {
     const [value, setValue] = useState<BezierCurveValueType>(
-      BEZIER_CURVE_EDITOR_DEFAULTS.defaultValue
-    );
+      BEZIER_CURVE_EDITOR_DEFAULTS.defaultValue,
+    )
 
-    const delay = 0;
-    const duration = 2;
+    const delay = 0
+    const duration = 2
 
     const previewAnimationStyle = useMemo(
       () => ({
@@ -111,8 +108,8 @@ export const Basic: Story = {
         animationDuration: `${duration}s`,
         animationTimingFunction: `cubic-bezier(${value})`,
       }),
-      [delay, duration, value]
-    );
+      [delay, duration, value],
+    )
 
     return (
       <div className="flex flex-col gap-4">
@@ -133,7 +130,7 @@ export const Basic: Story = {
             value={value}
             expression="{v1},{v2},{v3},{v4}"
             onChange={(_val, detail) => {
-              setValue(detail.array.slice(0, 4) as BezierCurveValueType);
+              setValue(detail.array.slice(0, 4) as BezierCurveValueType)
             }}
           />
         </div>
@@ -162,9 +159,9 @@ export const Basic: Story = {
           />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * To use the component in the advanced way, you must set the `allowNodeEditing` prop to `true`.
@@ -177,7 +174,7 @@ export const AdvancedBothAxes: Story = {
   render: function Render(args) {
     const [value, setValue] = useState<BezierCurveExpandedValueType>([
       0, 0, 0.5, 0.25, 0.5, 0.75, 1, 1,
-    ]);
+    ])
     return (
       <div className="flex flex-col gap-4">
         <div className="flex aspect-square w-80 items-center justify-center rounded-xl border">
@@ -197,29 +194,25 @@ export const AdvancedBothAxes: Story = {
             value={value}
             expression="{v1},{v2},{v3},{v4},{v5},{v6},{v7},{v8}"
             onChange={(_val, detail) => {
-              setValue(
-                detail.array.slice(0, 8) as BezierCurveExpandedValueType
-              );
+              setValue(detail.array.slice(0, 8) as BezierCurveExpandedValueType)
             }}
           />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const PresetEasings: Story = {
   render: function Render() {
-    const [isHovered, setIsHovered] = useState<number | null>(null);
+    const [isHovered, setIsHovered] = useState<number | null>(null)
     const [selectedValue, setSelectedValue] = useState<{
-      name: string;
-      value: BezierCurveValueType;
-    }>(PRESET_EASINGS[0]);
+      name: string
+      value: BezierCurveValueType
+    }>(PRESET_EASINGS[0])
 
-    const [duration, setDuration] = useState(
-      BEZIER_CURVE_EDITOR_DEFAULTS.duration
-    );
-    const [delay, setDelay] = useState(BEZIER_CURVE_EDITOR_DEFAULTS.delay);
+    const [duration, setDuration] = useState(BEZIER_CURVE_EDITOR_DEFAULTS.duration)
+    const [delay, setDelay] = useState(BEZIER_CURVE_EDITOR_DEFAULTS.delay)
 
     // 缓存预览动画样式
     const previewAnimationStyle = useMemo(
@@ -231,24 +224,21 @@ export const PresetEasings: Story = {
         animationDuration: `${duration}s`,
         animationTimingFunction: `cubic-bezier(${selectedValue.value})`,
       }),
-      [delay, duration, selectedValue.value]
-    );
+      [delay, duration, selectedValue.value],
+    )
 
     // 缓存主要变更处理器
     const handleValueChange = useCallback((value: BezierCurveValueType) => {
       setSelectedValue({
         name: `cubic-bezier(${value.map((v) => v.toFixed(2)).join(", ")})`,
         value,
-      });
-    }, []);
+      })
+    }, [])
 
     // 缓存预设项点击处理器
-    const handlePresetClick = useCallback(
-      (item: { name: string; value: BezierCurveValueType }) => {
-        setSelectedValue(item);
-      },
-      []
-    );
+    const handlePresetClick = useCallback((item: { name: string; value: BezierCurveValueType }) => {
+      setSelectedValue(item)
+    }, [])
 
     return (
       <div className="flex items-stretch gap-8">
@@ -268,7 +258,7 @@ export const PresetEasings: Story = {
               className={tcx(
                 PRESET_EASINGS.some((v) => v.name === selectedValue.name)
                   ? ""
-                  : "w-40 min-w-0 text-xs"
+                  : "w-40 min-w-0 text-xs",
               )}
             >
               {selectedValue.name}
@@ -302,20 +292,20 @@ export const PresetEasings: Story = {
           ))}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // 优化预设项组件，避免重复渲染
 const PresetEasingItem = React.memo<{
-  delay: number;
-  duration: number;
-  index: number;
-  isHovered: boolean;
-  isSelected: boolean;
-  item: { name: string; value: BezierCurveValueType };
-  onClick: (item: { name: string; value: BezierCurveValueType }) => void;
-  onHover: (index: number | null) => void;
+  delay: number
+  duration: number
+  index: number
+  isHovered: boolean
+  isSelected: boolean
+  item: { name: string; value: BezierCurveValueType }
+  onClick: (item: { name: string; value: BezierCurveValueType }) => void
+  onHover: (index: number | null) => void
   /* eslint-disable react/prop-types */
 }>(function PresetEasingItem({
   item,
@@ -327,9 +317,9 @@ const PresetEasingItem = React.memo<{
   onHover,
   onClick,
 }) {
-  const handleMouseEnter = useCallback(() => onHover(index), [onHover, index]);
-  const handleMouseLeave = useCallback(() => onHover(null), [onHover]);
-  const handleClick = useCallback(() => onClick(item), [onClick, item]);
+  const handleMouseEnter = useCallback(() => onHover(index), [onHover, index])
+  const handleMouseLeave = useCallback(() => onHover(null), [onHover])
+  const handleClick = useCallback(() => onClick(item), [onClick, item])
 
   // 缓存样式计算
   const containerClassName = useMemo(
@@ -337,10 +327,10 @@ const PresetEasingItem = React.memo<{
       tcx(
         "bg-default-background rounded-md border",
         isSelected ? "border-selected-boundary" : "",
-        isHovered ? "bg-selected-background text-accent-foreground" : ""
+        isHovered ? "bg-selected-background text-accent-foreground" : "",
       ),
-    [isSelected, isHovered]
-  );
+    [isSelected, isHovered],
+  )
 
   return (
     <div
@@ -363,6 +353,6 @@ const PresetEasingItem = React.memo<{
       />
       <span>{item.name}</span>
     </div>
-  );
-});
+  )
+})
 /* eslint-enable react/prop-types */

@@ -1,15 +1,9 @@
-import type { CustomElement, CustomText } from "@choice-ui/react";
-import {
-  Button,
-  CodeBlock,
-  MdRender,
-  RichInput,
-  slateToMarkdown,
-} from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
-import { Descendant } from "slate";
+import type { CustomElement, CustomText } from "@choice-ui/react"
+import { Button, CodeBlock, MdRender, RichInput, slateToMarkdown } from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useState } from "react"
+import { Descendant } from "slate"
 
 // Basic rich text editor with formatting capabilities
 export default {
@@ -37,7 +31,7 @@ export default {
       description: "Internationalization configuration for UI text",
     },
   },
-} as Meta<typeof RichInput>;
+} as Meta<typeof RichInput>
 
 const Template = () => {
   const initialValue: Descendant[] = [
@@ -45,8 +39,8 @@ const Template = () => {
       type: "paragraph",
       children: [{ text: "A line of text in a paragraph." }],
     } as CustomElement,
-  ];
-  const [value, setValue] = useState<Descendant[]>(initialValue);
+  ]
+  const [value, setValue] = useState<Descendant[]>(initialValue)
   return (
     <RichInput
       value={value}
@@ -55,13 +49,13 @@ const Template = () => {
       minHeight={120}
       className="max-h-96 w-96 border"
     />
-  );
-};
+  )
+}
 
 export const Standard: StoryObj<typeof RichInput> = {
   args: {},
   render: () => Template(),
-};
+}
 
 /**
  * MinHeight example showing custom minimum height with ScrollArea integration
@@ -77,8 +71,8 @@ export const MinHeight: StoryObj<typeof RichInput> = {
           },
         ],
       } as CustomElement,
-    ];
-    const [value, setValue] = useState<Descendant[]>(initialValue);
+    ]
+    const [value, setValue] = useState<Descendant[]>(initialValue)
     return (
       <RichInput
         value={value}
@@ -87,9 +81,9 @@ export const MinHeight: StoryObj<typeof RichInput> = {
         minHeight={200}
         className="max-h-96 w-80 border"
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Internationalization example with Chinese text
@@ -105,8 +99,8 @@ export const WithI18n: StoryObj<typeof RichInput> = {
           },
         ],
       } as CustomElement,
-    ];
-    const [value, setValue] = useState<Descendant[]>(initialValue);
+    ]
+    const [value, setValue] = useState<Descendant[]>(initialValue)
 
     // Custom Chinese i18n configuration
     const chineseI18n = {
@@ -114,7 +108,7 @@ export const WithI18n: StoryObj<typeof RichInput> = {
         placeholder: "请输入链接地址",
         doneButton: "完成",
       },
-    };
+    }
 
     return (
       <RichInput
@@ -125,9 +119,9 @@ export const WithI18n: StoryObj<typeof RichInput> = {
         minHeight={200}
         className="max-h-96 w-80 border"
       />
-    );
+    )
   },
-};
+}
 
 /**
  * ControlledValue: Rich input with external value control.
@@ -157,7 +151,7 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
   render: function ControlledValue() {
     const [value, setValue] = useState<Descendant[]>([
       { type: "paragraph", children: [{ text: "" }] } as CustomElement,
-    ]);
+    ])
 
     const presetValues = [
       {
@@ -233,9 +227,7 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
         value: [
           {
             type: "paragraph",
-            children: [
-              { text: "First paragraph with some content." } as CustomText,
-            ],
+            children: [{ text: "First paragraph with some content." } as CustomText],
           } as CustomElement,
           {
             type: "paragraph",
@@ -253,18 +245,15 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
           } as CustomElement,
         ],
       },
-    ];
+    ]
 
-    const appendText = (
-      text: string,
-      formatting?: Record<string, boolean | string>
-    ) => {
+    const appendText = (text: string, formatting?: Record<string, boolean | string>) => {
       setValue((prev) => {
-        const lastNode = prev[prev.length - 1] as CustomElement;
+        const lastNode = prev[prev.length - 1] as CustomElement
         if (lastNode && lastNode.type === "paragraph") {
           const currentText = lastNode.children
             ?.map((child) => (child as CustomText).text || "")
-            .join("");
+            .join("")
 
           return [
             ...prev.slice(0, -1),
@@ -278,7 +267,7 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
                 } as CustomText,
               ],
             } as CustomElement,
-          ];
+          ]
         }
         return [
           ...prev,
@@ -286,9 +275,9 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
             type: "paragraph",
             children: [{ text, ...formatting } as CustomText],
           } as CustomElement,
-        ];
-      });
-    };
+        ]
+      })
+    }
 
     const getWordCount = (value: Descendant[]) => {
       const text = value
@@ -296,12 +285,12 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
           (node) =>
             (node as CustomElement).children
               ?.map((child) => (child as CustomText).text || "")
-              .join("") || ""
+              .join("") || "",
         )
         .join(" ")
-        .trim();
-      return text ? text.split(/\s+/).length : 0;
-    };
+        .trim()
+      return text ? text.split(/\s+/).length : 0
+    }
 
     const getCharacterCount = (value: Descendant[]) => {
       return value
@@ -309,31 +298,26 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
           (node) =>
             (node as CustomElement).children
               ?.map((child) => (child as CustomText).text || "")
-              .join("") || ""
+              .join("") || "",
         )
-        .join("").length;
-    };
+        .join("").length
+    }
 
     const getFormattingCount = (value: Descendant[]) => {
-      let count = 0;
+      let count = 0
       value.forEach((node) => {
-        const element = node as CustomElement;
+        const element = node as CustomElement
         if (element.children) {
           element.children.forEach((child) => {
-            const text = child as CustomText;
-            if (
-              text.bold ||
-              text.italic ||
-              text.underline ||
-              text.strikethrough
-            ) {
-              count++;
+            const text = child as CustomText
+            if (text.bold || text.italic || text.underline || text.strikethrough) {
+              count++
             }
-          });
+          })
         }
-      });
-      return count;
-    };
+      })
+      return count
+    }
 
     return (
       <div className="w-80 space-y-4">
@@ -387,9 +371,7 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
             <Button
               variant="secondary"
               size="default"
-              onClick={() =>
-                appendText("Link text", { link: "https://example.com" })
-              }
+              onClick={() => appendText("Link text", { link: "https://example.com" })}
             >
               Add Link
             </Button>
@@ -443,9 +425,7 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
             <span className="text-secondary-foreground">
               Characters: {getCharacterCount(value)}
             </span>
-            <span className="text-secondary-foreground">
-              Words: {getWordCount(value)}
-            </span>
+            <span className="text-secondary-foreground">Words: {getWordCount(value)}</span>
             <span className="text-secondary-foreground">
               Formatted: {getFormattingCount(value)}
             </span>
@@ -465,20 +445,18 @@ export const ControlledValue: StoryObj<typeof RichInput> = {
             <li>• Preset rich text content examples</li>
             <li>• Full bidirectional data binding with Slate.js</li>
             <li>
-              • <strong>Auto-focus:</strong> Editor auto-focuses when autoFocus
-              is enabled
+              • <strong>Auto-focus:</strong> Editor auto-focuses when autoFocus is enabled
             </li>
             <li>
-              • <strong>Cursor positioning:</strong> Always moves to end after
-              value changes
+              • <strong>Cursor positioning:</strong> Always moves to end after value changes
             </li>
             <li>• Support for multi-paragraph content structures</li>
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * CompositeUsage: Demonstrates the new composite component API.
@@ -506,15 +484,14 @@ export const CompositeUsage: StoryObj<typeof RichInput> = {
           } as CustomText,
         ],
       } as CustomElement,
-    ]);
+    ])
 
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
           <h4 className="font-strong">Composite Component Usage</h4>
           <p className="text-secondary-foreground text-body-small">
-            This example uses the new RichInput.Viewport and RichInput.Editable
-            structure
+            This example uses the new RichInput.Viewport and RichInput.Editable structure
           </p>
         </div>
 
@@ -581,9 +558,9 @@ export const CompositeUsage: StoryObj<typeof RichInput> = {
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // Story demonstrating keyboard shortcuts
 export const KeyboardShortcuts: StoryObj<typeof RichInput> = {
@@ -678,14 +655,12 @@ export const KeyboardShortcuts: StoryObj<typeof RichInput> = {
     ],
   },
   render: function KeyboardShortcutsStory(args) {
-    const [value, setValue] = useState<Descendant[]>(args.value);
+    const [value, setValue] = useState<Descendant[]>(args.value)
 
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
-          <h3 className="text-body-large font-strong">
-            Rich Input with Keyboard Shortcuts
-          </h3>
+          <h3 className="text-body-large font-strong">Rich Input with Keyboard Shortcuts</h3>
           <p className="text-secondary-foreground">
             Focus the editor below and try the keyboard shortcuts
           </p>
@@ -700,14 +675,13 @@ export const KeyboardShortcuts: StoryObj<typeof RichInput> = {
 
         <div className="bg-secondary-background rounded-lg border p-3">
           <p className="text-secondary-foreground text-body-small">
-            <strong>Tip:</strong> Press ESC to close the paragraph menu if
-            it&apos;s open
+            <strong>Tip:</strong> Press ESC to close the paragraph menu if it&apos;s open
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // Story demonstrating Markdown export functionality
 export const MarkdownExport: StoryObj<typeof RichInput> = {
@@ -808,17 +782,15 @@ export const MarkdownExport: StoryObj<typeof RichInput> = {
     ],
   },
   render: function MarkdownExportStory(args) {
-    const [value, setValue] = useState<Descendant[]>(args.value);
-    const [showMarkdown, setShowMarkdown] = useState(false);
+    const [value, setValue] = useState<Descendant[]>(args.value)
+    const [showMarkdown, setShowMarkdown] = useState(false)
 
-    const markdown = slateToMarkdown(value);
+    const markdown = slateToMarkdown(value)
 
     return (
       <div className="w-[800px] space-y-4">
         <div className="space-y-2">
-          <h3 className="text-body-large font-strong">
-            Rich Input with Markdown Export
-          </h3>
+          <h3 className="text-body-large font-strong">Rich Input with Markdown Export</h3>
           <p className="text-secondary-foreground">
             Edit the content and toggle to see the markdown output
           </p>
@@ -851,16 +823,12 @@ export const MarkdownExport: StoryObj<typeof RichInput> = {
         ) : (
           <div className="space-y-4">
             <div className="bg-secondary-background rounded-lg border p-4">
-              <h4 className="text-body-medium font-strong mb-2">
-                Markdown Output:
-              </h4>
+              <h4 className="text-body-medium font-strong mb-2">Markdown Output:</h4>
               <MdRender content={markdown} />
             </div>
 
             <div className="rounded-lg border p-4">
-              <h4 className="text-body-medium font-strong mb-2">
-                Raw Markdown Text:
-              </h4>
+              <h4 className="text-body-medium font-strong mb-2">Raw Markdown Text:</h4>
               <pre className="text-body-small bg-tertiary-background rounded p-3 font-mono whitespace-pre-wrap">
                 {markdown}
               </pre>
@@ -870,12 +838,11 @@ export const MarkdownExport: StoryObj<typeof RichInput> = {
 
         <div className="bg-info-background border-info-border rounded-lg border p-3">
           <p className="text-info-foreground text-body-small">
-            <strong>Usage:</strong> Import {"`slateToMarkdown`"} from{" "}
-            {"`./utils`"} and pass your Slate value to convert it to Markdown
-            format.
+            <strong>Usage:</strong> Import {"`slateToMarkdown`"} from {"`./utils`"} and pass your
+            Slate value to convert it to Markdown format.
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}

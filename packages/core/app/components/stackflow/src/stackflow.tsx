@@ -21,8 +21,9 @@ export interface StackflowProps extends HTMLProps<HTMLDivElement> {
   initialId?: string
 }
 
-interface StackflowComponent
-  extends React.ForwardRefExoticComponent<StackflowProps & React.RefAttributes<HTMLDivElement>> {
+interface StackflowComponent extends React.ForwardRefExoticComponent<
+  StackflowProps & React.RefAttributes<HTMLDivElement>
+> {
   Item: typeof StackflowItem
   Prefix: typeof StackflowPrefix
   Suffix: typeof StackflowSuffix

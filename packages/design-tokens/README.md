@@ -33,28 +33,21 @@ yarn add @choice-ui/design-tokens
 ### JavaScript/TypeScript
 
 ```javascript
-import {
-  color,
-  spacing,
-  shadow,
-  typography,
-  radius,
-  breakpoint,
-} from "@choice-ui/design-tokens";
+import { color, spacing, shadow, typography, radius, breakpoint } from "@choice-ui/design-tokens"
 
 // 🎨 Colors with theme support
 const styles = {
   background: color("background.default"), // Auto theme
   color: color("text.secondary", "dark"), // Force dark theme
   border: color("border.strong", 0.5), // With opacity
-};
+}
 
 // 📏 Spacing system
 const layout = {
   padding: spacing(4), // → "1rem"
   margin: spacing("1/2"), // → "50%"
   gap: spacing("[10vh]"), // → "10vh"
-};
+}
 
 // ✨ Other tokens
 const components = {
@@ -62,10 +55,10 @@ const components = {
   boxShadow: shadow("lg"), // → theme-aware shadow
   fontFamily: typography("heading.large").fontFamily,
   zIndex: zIndex("modal"), // → 810
-};
+}
 
 // 📱 Responsive breakpoints
-const mediaQuery = breakpoint.up("md"); // → "@media screen and (min-width: 48rem)"
+const mediaQuery = breakpoint.up("md") // → "@media screen and (min-width: 48rem)"
 ```
 
 ### CSS Variables
@@ -75,11 +68,11 @@ const mediaQuery = breakpoint.up("md"); // → "@media screen and (min-width: 48
 @import "@choice-ui/design-tokens/tokens.css";
 
 .my-component {
-  background: var(--color-background-default);
-  color: var(--color-text-secondary);
-  padding: var(--spacing-4);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-background-default);
+  padding: var(--spacing-4);
+  color: var(--color-text-secondary);
 }
 ```
 
@@ -92,10 +85,10 @@ const mediaQuery = breakpoint.up("md"); // → "@media screen and (min-width: 48
 @import "@choice-ui/design-tokens/mixins";
 
 .component {
+  border-radius: radius("md");
   // 🎯 Individual values with functions
   background: color("background.default");
   padding: spacing(4);
-  border-radius: radius("md");
 
   // 🔥 Multi-property mixins
   @include typography-styles("heading.large");
@@ -114,65 +107,65 @@ const mediaQuery = breakpoint.up("md"); // → "@media screen and (min-width: 48
 
 ```javascript
 // Basic usage
-color("background.default"); // Auto theme
-color("text.accent", "dark"); // Force theme
-color("border.default", 0.8); // With opacity
+color("background.default") // Auto theme
+color("text.accent", "dark") // Force theme
+color("border.default", 0.8) // With opacity
 
 // Available aliases
-color("background.default"); // Background colors
-color("text.secondary"); // Text colors
-color("border.strong"); // Border colors
-color("icon.primary"); // Icon colors
+color("background.default") // Background colors
+color("text.secondary") // Text colors
+color("border.strong") // Border colors
+color("icon.primary") // Icon colors
 ```
 
 ### Spacing
 
 ```javascript
 // Numeric scale (0.25rem increments)
-spacing(4); // → "1rem"
-spacing(8); // → "2rem"
+spacing(4) // → "1rem"
+spacing(8) // → "2rem"
 
 // Percentage values
-spacing("1/2"); // → "50%"
-spacing("1/3"); // → "33.333333%"
+spacing("1/2") // → "50%"
+spacing("1/3") // → "33.333333%"
 
 // Custom values
-spacing("[10vh]"); // → "10vh"
-spacing("[calc(100% - 2rem)]"); // → "calc(100% - 2rem)"
+spacing("[10vh]") // → "10vh"
+spacing("[calc(100% - 2rem)]") // → "calc(100% - 2rem)"
 
 // Multiple values
-spacingList([2, 4]); // → "0.5rem 1rem"
+spacingList([2, 4]) // → "0.5rem 1rem"
 ```
 
 ### Typography
 
 ```javascript
 // Complete typography objects
-const heading = typography("heading.large");
+const heading = typography("heading.large")
 // Returns: { fontFamily, fontSize, fontWeight, lineHeight, letterSpacing }
 
 // CSS string for styled-components
-const cssString = typographyStyles("body.medium");
+const cssString = typographyStyles("body.medium")
 
 // Individual properties
-fontFamily("default"); // → "Inter, system-ui, sans-serif"
-fontSize("lg"); // → "1.125rem"
-fontWeight("semibold"); // → 600
+fontFamily("default") // → "Inter, system-ui, sans-serif"
+fontSize("lg") // → "1.125rem"
+fontWeight("semibold") // → 600
 ```
 
 ### Responsive Breakpoints
 
 ```javascript
 // Media queries
-breakpoint.up("md"); // → "@media screen and (min-width: 48rem)"
-breakpoint.down("lg"); // → "@media screen and (max-width: 63.98rem)"
-breakpoint.between("sm", "xl"); // → Between sm and xl
-breakpoint.only("md"); // → Only md breakpoint
+breakpoint.up("md") // → "@media screen and (min-width: 48rem)"
+breakpoint.down("lg") // → "@media screen and (max-width: 63.98rem)"
+breakpoint.between("sm", "xl") // → Between sm and xl
+breakpoint.only("md") // → Only md breakpoint
 
 // Device aliases
-breakpoint.mobile(); // → Tablet and up
-breakpoint.tablet(); // → Tablet only
-breakpoint.desktop(); // → Desktop and up
+breakpoint.mobile() // → Tablet and up
+breakpoint.tablet() // → Tablet only
+breakpoint.desktop() // → Desktop and up
 ```
 
 ## 🌟 Advanced Usage
@@ -184,18 +177,18 @@ breakpoint.desktop(); // → Desktop and up
 const autoStyles = {
   background: color("background.default"),
   color: color("text.default"),
-};
+}
 
 // Manual theme control
 const lightStyles = {
   background: color("background.default", "light"),
   color: color("text.default", "light"),
-};
+}
 
 const darkStyles = {
   background: color("background.default", "dark"),
   color: color("text.default", "dark"),
-};
+}
 ```
 
 ### SCSS Best Practices
@@ -207,9 +200,9 @@ const darkStyles = {
 
 // ✅ Use functions for individual properties
 .card {
+  border: 1px solid color("border.default");
   background: color("background.default");
   padding: spacing(4);
-  border: 1px solid color("border.default");
 }
 
 // ✅ Use mixins for complex operations
@@ -232,17 +225,17 @@ const darkStyles = {
 
 ```javascript
 // ✅ Tree shaking - import only what you need
-import { color } from "@choice-ui/design-tokens";
+import { color } from "@choice-ui/design-tokens"
 
 // ✅ Bulk operations
-const margins = spacingList([2, 4, 6, 8]);
-const shadows = shadowList(["sm", "md"]);
+const margins = spacingList([2, 4, 6, 8])
+const shadows = shadowList(["sm", "md"])
 
 // ✅ Static values are optimized at build time
 const styles = {
   padding: spacing(4), // Static → "1rem"
   margin: spacing(props.size), // Dynamic → runtime
-};
+}
 ```
 
 ## 📊 Token Overview

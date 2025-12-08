@@ -15,8 +15,10 @@ export const SwitchLabel = memo(function SwitchLabel({ children, className }: Sw
 
 SwitchLabel.displayName = "Switch.Label"
 
-export interface SwitchProps
-  extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange" | "children"> {
+export interface SwitchProps extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "size" | "value" | "onChange" | "children"
+> {
   children?: ReactNode
   className?: string
   focused?: boolean

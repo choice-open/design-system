@@ -17,8 +17,9 @@ interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
   title?: ReactNode
 }
 
-interface ModalComponent
-  extends React.ForwardRefExoticComponent<ModalProps & React.RefAttributes<HTMLDivElement>> {
+interface ModalComponent extends React.ForwardRefExoticComponent<
+  ModalProps & React.RefAttributes<HTMLDivElement>
+> {
   Backdrop: typeof ModalBackdrop
   Content: typeof ModalContent
   Footer: typeof ModalFooter

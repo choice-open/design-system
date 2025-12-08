@@ -1,49 +1,62 @@
-import {
-  Button,
-  SearchInput,
-  Stackflow,
-  useStackflowContext,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Button, SearchInput, Stackflow, useStackflowContext } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Stackflow> = {
   title: "Navigation/Stackflow",
   component: Stackflow,
   tags: ["new"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Stackflow>;
+export default meta
+type Story = StoryObj<typeof Stackflow>
 
 // 导航控制组件
 const NavigationControls = () => {
-  const { push, back, clearHistory, canGoBack, history, current } =
-    useStackflowContext();
+  const { push, back, clearHistory, canGoBack, history, current } = useStackflowContext()
 
   return (
     <div className="flex flex-col gap-4 border-b p-4">
       <div className="flex items-center gap-2">
         <span className="font-strong">Navigate to:</span>
-        <Button variant="secondary" onClick={() => push("home")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("home")}
+        >
           Home
         </Button>
-        <Button variant="secondary" onClick={() => push("about")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("about")}
+        >
           About
         </Button>
-        <Button variant="secondary" onClick={() => push("contact")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("contact")}
+        >
           Contact
         </Button>
-        <Button variant="secondary" onClick={() => push("settings")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("settings")}
+        >
           Settings
         </Button>
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="secondary" disabled={!canGoBack} onClick={back}>
+        <Button
+          variant="secondary"
+          disabled={!canGoBack}
+          onClick={back}
+        >
           Back
         </Button>
-        <Button variant="link-danger" onClick={clearHistory}>
+        <Button
+          variant="link-danger"
+          onClick={clearHistory}
+        >
           Clear History
         </Button>
       </div>
@@ -51,8 +64,8 @@ const NavigationControls = () => {
         Current: {current?.id || "None"} | History: [{history.join(" → ")}]
       </span>
     </div>
-  );
-};
+  )
+}
 
 // 页面内容组件
 const PageContent = ({
@@ -60,11 +73,11 @@ const PageContent = ({
   description,
   color = "blue",
 }: {
-  color?: string;
-  description: string;
-  title: string;
+  color?: string
+  description: string
+  title: string
 }) => {
-  const { push } = useStackflowContext();
+  const { push } = useStackflowContext()
 
   return (
     <div className="p-8">
@@ -72,40 +85,52 @@ const PageContent = ({
       <p className={`text-${color}-600 mb-6`}>{description}</p>
 
       <div className="flex flex-wrap gap-2">
-        <Button variant="secondary" onClick={() => push("home")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("home")}
+        >
           Go to Home
         </Button>
-        <Button variant="secondary" onClick={() => push("about")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("about")}
+        >
           Go to About
         </Button>
-        <Button variant="secondary" onClick={() => push("contact")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("contact")}
+        >
           Go to Contact
         </Button>
-        <Button variant="secondary" onClick={() => push("settings")}>
+        <Button
+          variant="secondary"
+          onClick={() => push("settings")}
+        >
           Go to Settings
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // 多层嵌套的节点分类数据
 type CategoryNode = {
-  children?: (CategoryNode | NodeItem)[];
-  color: string;
-  description: string;
-  id: string;
-  label: string;
-  type: "category";
-};
+  children?: (CategoryNode | NodeItem)[]
+  color: string
+  description: string
+  id: string
+  label: string
+  type: "category"
+}
 
 type NodeItem = {
-  color: string;
-  description: string;
-  id: string;
-  label: string;
-  type: "node";
-};
+  color: string
+  description: string
+  id: string
+  label: string
+  type: "node"
+}
 
 const NODE_CATEGORIES: CategoryNode[] = [
   {
@@ -225,35 +250,32 @@ const NODE_CATEGORIES: CategoryNode[] = [
       },
     ],
   },
-];
+]
 
 // 搜索结果类型
 type SearchResultItem = {
-  categoryId?: string;
-  categoryLabel?: string;
-  color: string;
-  description: string;
-  id: string;
-  label: string;
-  type: "category" | "node";
-};
+  categoryId?: string
+  categoryLabel?: string
+  color: string
+  description: string
+  id: string
+  label: string
+  type: "category" | "node"
+}
 
 // 递归搜索嵌套结构
 const searchInTree = (
   items: (CategoryNode | NodeItem)[],
-  query: string
+  query: string,
 ): { categories: SearchResultItem[]; nodes: SearchResultItem[] } => {
-  const categories: SearchResultItem[] = [];
-  const nodes: SearchResultItem[] = [];
+  const categories: SearchResultItem[] = []
+  const nodes: SearchResultItem[] = []
 
-  const searchRecursive = (
-    items: (CategoryNode | NodeItem)[],
-    currentPath: string[]
-  ) => {
+  const searchRecursive = (items: (CategoryNode | NodeItem)[], currentPath: string[]) => {
     items.forEach((item) => {
       const itemMatches =
         item.label.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase());
+        item.description.toLowerCase().includes(query.toLowerCase())
 
       if (item.type === "category") {
         // 只有分类本身匹配时才显示
@@ -264,44 +286,42 @@ const searchInTree = (
             label: item.label,
             description: item.description,
             color: item.color,
-          });
+          })
         }
 
         // 继续递归搜索子项（无论当前分类是否匹配）
         if (item.children) {
-          searchRecursive(item.children, [...currentPath, item.label]);
+          searchRecursive(item.children, [...currentPath, item.label])
         }
       } else {
         // 节点匹配
         if (itemMatches) {
-          const pathStr = currentPath.length > 0 ? currentPath.join(" > ") : "";
+          const pathStr = currentPath.length > 0 ? currentPath.join(" > ") : ""
           nodes.push({
             type: "node",
             id: item.id,
             label: item.label,
-            description: pathStr
-              ? `${pathStr} > ${item.label}`
-              : item.description,
+            description: pathStr ? `${pathStr} > ${item.label}` : item.description,
             color: item.color,
-          });
+          })
         }
       }
-    });
-  };
+    })
+  }
 
-  searchRecursive(items, []);
+  searchRecursive(items, [])
 
   // 去重（避免重复添加）
   const uniqueCategories = categories.filter(
-    (cat, index, self) => index === self.findIndex((c) => c.id === cat.id)
-  );
+    (cat, index, self) => index === self.findIndex((c) => c.id === cat.id),
+  )
 
-  return { categories: uniqueCategories, nodes };
-};
+  return { categories: uniqueCategories, nodes }
+}
 
 // 搜索逻辑：返回分组的搜索结果
 const getSearchResults = (
-  query: string
+  query: string,
 ): { categories: SearchResultItem[]; nodes: SearchResultItem[] } => {
   if (!query.trim()) {
     return {
@@ -313,16 +333,16 @@ const getSearchResults = (
         color: cat.color,
       })),
       nodes: [],
-    };
+    }
   }
 
-  return searchInTree(NODE_CATEGORIES, query);
-};
+  return searchInTree(NODE_CATEGORIES, query)
+}
 
 // 分类列表组件
 const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
-  const { push } = useStackflowContext();
-  const { categories, nodes } = getSearchResults(searchQuery);
+  const { push } = useStackflowContext()
+  const { categories, nodes } = getSearchResults(searchQuery)
 
   if (categories.length === 0 && nodes.length === 0) {
     return (
@@ -333,15 +353,13 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
           <p className="text-body-small mt-2">请尝试其他关键词</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (
     <div className="p-6">
       <h2 className="text-heading-large mb-6 text-gray-800">
-        {searchQuery
-          ? `搜索结果 (${categories.length + nodes.length})`
-          : "节点分类"}
+        {searchQuery ? `搜索结果 (${categories.length + nodes.length})` : "节点分类"}
       </h2>
 
       {/* 分类结果 */}
@@ -360,17 +378,11 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className={`font-strong text-${item.color}-800`}>
-                    {item.label}
-                  </h3>
+                  <h3 className={`font-strong text-${item.color}-800`}>{item.label}</h3>
                   <p className={`text-body-small text-${item.color}-600 mt-1`}>
                     {item.description}
                   </p>
-                  {!searchQuery && (
-                    <span className={`text-xs text-${item.color}-500`}>
-                      分类
-                    </span>
-                  )}
+                  {!searchQuery && <span className={`text-xs text-${item.color}-500`}>分类</span>}
                 </div>
                 <div className={`text-${item.color}-400`}>→</div>
               </div>
@@ -382,23 +394,19 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
       {/* 节点结果 */}
       {nodes.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-body-small-strong mb-3 text-gray-600">
-            节点 ({nodes.length})
-          </h3>
+          <h3 className="text-body-small-strong mb-3 text-gray-600">节点 ({nodes.length})</h3>
           {nodes.map((item) => (
             <div
               key={item.id}
               className={`p-4 bg-${item.color}-50 border border-${item.color}-200 cursor-pointer rounded-xl hover:bg-${item.color}-100 transition-colors`}
               onClick={() => {
                 // 节点点击后的行为 - 可以是选择节点或其他操作
-                alert(`选择了节点: ${item.label}`);
+                alert(`选择了节点: ${item.label}`)
               }}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className={`font-strong text-${item.color}-800`}>
-                    {item.label}
-                  </h3>
+                  <h3 className={`font-strong text-${item.color}-800`}>{item.label}</h3>
                 </div>
               </div>
             </div>
@@ -406,35 +414,34 @@ const CategoryList = ({ searchQuery = "" }: { searchQuery?: string }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 // 分类详情组件
 const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
-  const { push, back } = useStackflowContext();
-  const category = findCategoryById(NODE_CATEGORIES, categoryId);
+  const { push, back } = useStackflowContext()
+  const category = findCategoryById(NODE_CATEGORIES, categoryId)
 
   if (!category) {
     return (
       <div className="p-6">
         <div className="text-center text-gray-500">分类不存在</div>
       </div>
-    );
+    )
   }
 
   return (
     <div className="p-6">
       <div className="mb-6 flex items-center gap-3">
-        <button onClick={back} className="text-gray-500 hover:text-gray-700">
+        <button
+          onClick={back}
+          className="text-gray-500 hover:text-gray-700"
+        >
           ← 返回
         </button>
         <div>
-          <h2 className={`text-heading-large text-${category.color}-800`}>
-            {category.label}
-          </h2>
-          <p className={`text-body-small text-${category.color}-600`}>
-            {category.description}
-          </p>
+          <h2 className={`text-heading-large text-${category.color}-800`}>{category.label}</h2>
+          <p className={`text-body-small text-${category.color}-600`}>{category.description}</p>
         </div>
       </div>
 
@@ -446,22 +453,18 @@ const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
             onClick={() => {
               if (item.type === "category") {
                 // 导航到子分类
-                push(item.id);
+                push(item.id)
               } else {
                 // 选择节点
-                alert(`选择了节点: ${item.label}`);
+                alert(`选择了节点: ${item.label}`)
               }
             }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <span className={`font-strong text-${category.color}-800`}>
-                  {item.label}
-                </span>
+                <span className={`font-strong text-${category.color}-800`}>{item.label}</span>
                 {item.type === "category" && (
-                  <span className={`ml-2 text-xs text-${category.color}-500`}>
-                    分类
-                  </span>
+                  <span className={`ml-2 text-xs text-${category.color}-500`}>分类</span>
                 )}
               </div>
               <span className={`text-${category.color}-400 text-body-small`}>
@@ -472,12 +475,12 @@ const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // 带搜索功能的节点列表组件
 const NodesListWithSearch = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("")
 
   return (
     <>
@@ -496,52 +499,55 @@ const NodesListWithSearch = () => {
         </Stackflow.Item>
 
         {NODE_CATEGORIES.map((category) => (
-          <Stackflow.Item key={category.id} id={category.id}>
+          <Stackflow.Item
+            key={category.id}
+            id={category.id}
+          >
             <CategoryDetail categoryId={category.id} />
           </Stackflow.Item>
         ))}
       </>
     </>
-  );
-};
+  )
+}
 
 // 递归收集所有分类ID
 const getAllCategoryIds = (items: (CategoryNode | NodeItem)[]): string[] => {
-  const ids: string[] = [];
+  const ids: string[] = []
 
   items.forEach((item) => {
     if (item.type === "category") {
-      ids.push(item.id);
+      ids.push(item.id)
       if (item.children) {
-        ids.push(...getAllCategoryIds(item.children));
+        ids.push(...getAllCategoryIds(item.children))
       }
     }
-  });
+  })
 
-  return ids;
-};
+  return ids
+}
 
 // 递归查找分类
 const findCategoryById = (
   items: (CategoryNode | NodeItem)[],
-  id: string
+  id: string,
 ): CategoryNode | undefined => {
   for (const item of items) {
     if (item.type === "category" && item.id === id) {
-      return item;
+      return item
     }
     if (item.type === "category" && item.children) {
-      const found = findCategoryById(item.children, id);
-      if (found) return found;
+      const found = findCategoryById(item.children, id)
+      if (found) return found
     }
   }
-  return undefined;
-};
+  return undefined
+}
 
 // 完整的节点列表示例组件
 const CompleteNodesListExample = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const allCategoryIds = getAllCategoryIds(NODE_CATEGORIES);
+  const [searchValue, setSearchValue] = useState("")
+  const allCategoryIds = getAllCategoryIds(NODE_CATEGORIES)
 
   return (
     <Stackflow
@@ -562,21 +568,27 @@ const CompleteNodesListExample = () => {
       </Stackflow.Item>
 
       {allCategoryIds.map((categoryId) => (
-        <Stackflow.Item key={categoryId} id={categoryId}>
+        <Stackflow.Item
+          key={categoryId}
+          id={categoryId}
+        >
           <CategoryDetail categoryId={categoryId} />
         </Stackflow.Item>
       ))}
     </Stackflow>
-  );
-};
+  )
+}
 
 export const NodesListExample: Story = {
   render: () => <CompleteNodesListExample />,
-};
+}
 
 export const Basic: Story = {
   render: () => (
-    <Stackflow className="w-96 rounded-xl border shadow-lg" defaultId="about">
+    <Stackflow
+      className="w-96 rounded-xl border shadow-lg"
+      defaultId="about"
+    >
       <Stackflow.Prefix>
         <NavigationControls />
       </Stackflow.Prefix>
@@ -615,10 +627,9 @@ export const Basic: Story = {
 
       <Stackflow.Suffix>
         <div className="text-secondary-foreground bg-secondary-background border-t p-4">
-          Tip: This is a non-linear navigation - you can jump from any page to
-          any page
+          Tip: This is a non-linear navigation - you can jump from any page to any page
         </div>
       </Stackflow.Suffix>
     </Stackflow>
   ),
-};
+}

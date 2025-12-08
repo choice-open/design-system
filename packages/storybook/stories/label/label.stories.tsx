@@ -1,16 +1,16 @@
-import { IconButton, Input, Label } from "@choice-ui/react";
-import { QuestionCircle } from "@choiceform/icons-react";
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { IconButton, Input, Label } from "@choice-ui/react"
+import { QuestionCircle } from "@choiceform/icons-react"
+import { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Label> = {
   title: "Forms/Label",
   component: Label,
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Label>;
+type Story = StoryObj<typeof Label>
 
 /**
  * Basic label usage.
@@ -24,7 +24,7 @@ export const Basic: Story = {
       <Input id="name" />
     </div>
   ),
-};
+}
 
 /**
  * Label with description.
@@ -34,14 +34,17 @@ export const Basic: Story = {
 export const WithDescription: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
-      <Label htmlFor="description" description="Please enter your full name">
+      <Label
+        htmlFor="description"
+        description="Please enter your full name"
+      >
         Name
       </Label>
 
       <Input id="description" />
     </div>
   ),
-};
+}
 
 /**
  * Disabled label.
@@ -51,13 +54,19 @@ export const WithDescription: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
-      <Label htmlFor="disabled" disabled>
+      <Label
+        htmlFor="disabled"
+        disabled
+      >
         Name
       </Label>
-      <Input id="disabled" disabled />
+      <Input
+        id="disabled"
+        disabled
+      />
     </div>
   ),
-};
+}
 
 /**
  * Required label.
@@ -67,13 +76,16 @@ export const Disabled: Story = {
 export const Required: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
-      <Label htmlFor="required" required>
+      <Label
+        htmlFor="required"
+        required
+      >
         Name
       </Label>
       <Input id="required" />
     </div>
   ),
-};
+}
 
 /**
  * Label with action.
@@ -87,7 +99,10 @@ export const WithAction: Story = {
         htmlFor="action"
         description="This is a description"
         action={
-          <IconButton variant="ghost" className="size-4">
+          <IconButton
+            variant="ghost"
+            className="size-4"
+          >
             <QuestionCircle />
           </IconButton>
         }
@@ -97,4 +112,4 @@ export const WithAction: Story = {
       <Input id="action" />
     </div>
   ),
-};
+}

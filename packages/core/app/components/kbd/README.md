@@ -95,8 +95,8 @@ The component supports the following keys with their corresponding symbols:
 | `left`      | ←      | Left arrow                     |
 | `pageup`    | ⇞      | Page Up key                    |
 | `pagedown`  | ⇟      | Page Down key                  |
-| `home`      | ↖     | Home key                       |
-| `end`       | ↘     | End key                        |
+| `home`      | ↖      | Home key                       |
+| `end`       | ↘      | End key                        |
 | `help`      | ?      | Help key                       |
 | `space`     | ␣      | Space bar                      |
 
