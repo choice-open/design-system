@@ -3,8 +3,8 @@ dist
 
 /.cache
 /.wrangler
-/build
-/output
+build/
+output/
 .env
 .DS_Store
 
