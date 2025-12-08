@@ -10,7 +10,7 @@
 // tokens.js 包含了所有的 helper 函数和更准确的类型定义
 // ============================================================================
 
-import type { ColorPath, ColorAlpha } from "../types/helpers";
+import type { ColorPath, ColorAlpha } from "../types/helpers"
 
 /*
 ⚠️ 已弃用：此文件已被 Terrazzo 插件替代，函数现在直接生成到 tokens.js 中

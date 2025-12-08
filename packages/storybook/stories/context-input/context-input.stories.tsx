@@ -3,7 +3,7 @@ import type {
   ContextInputValue,
   ContextMentionElement,
   MentionItem,
-} from "@choice-ui/react";
+} from "@choice-ui/react"
 import {
   AlertDialogProvider,
   Avatar,
@@ -14,11 +14,11 @@ import {
   IconButton,
   tcx,
   useAlertDialog,
-} from "@choice-ui/react";
-import { AddSmall, ArrowUp, ExpandSmall, Image } from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react";
-import React, { useRef, useState } from "react";
+} from "@choice-ui/react"
+import { AddSmall, ArrowUp, ExpandSmall, Image } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useRef, useState } from "react"
 
 const meta: Meta<typeof ContextInput> = {
   title: "Forms/ContextInput",
@@ -27,10 +27,10 @@ const meta: Meta<typeof ContextInput> = {
     layout: "centered",
   },
   tags: ["autodocs", "beta"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ContextInput>;
+export default meta
+type Story = StoryObj<typeof ContextInput>
 
 // Mock data for testing
 const users: MentionItem[] = Array.from({ length: 12 }, (_, i) => ({
@@ -45,14 +45,14 @@ const users: MentionItem[] = Array.from({ length: 12 }, (_, i) => ({
     />
   ),
   description: faker.lorem.sentence(),
-}));
+}))
 
 const channels: MentionItem[] = Array.from({ length: 12 }, (_, i) => ({
   id: i.toString(),
   type: "channel",
   label: faker.lorem.word(),
   description: faker.lorem.sentence(),
-}));
+}))
 
 /**
  * Basic: Simple context input with user mentions using @ trigger.
@@ -87,7 +87,7 @@ export const Basic: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -100,14 +100,14 @@ export const Basic: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         />
 
@@ -115,9 +115,9 @@ export const Basic: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Shows context input in disabled state.
@@ -140,7 +140,7 @@ export const Disabled: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -154,14 +154,14 @@ export const Disabled: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         />
 
@@ -169,9 +169,9 @@ export const Disabled: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ReadOnly: Demonstrates the ContextInput component in readOnly mode.
@@ -197,35 +197,23 @@ export const ReadOnly: Story = {
           text: "bob",
         },
       ],
-    });
-    const [changeCount, setChangeCount] = useState(0);
+    })
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: ContextInputValue) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value.text || "(empty)"}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Mentions Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value.mentions.length}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value.text || "(empty)"}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Mentions Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{value.mentions.length}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
         <div className="w-full max-w-md">
           <ContextInput
@@ -238,14 +226,14 @@ export const ReadOnly: Story = {
                 char: "@",
                 onSearch: async (query) => {
                   return users.filter((user) =>
-                    user.label.toLowerCase().includes(query.toLowerCase())
-                  );
+                    user.label.toLowerCase().includes(query.toLowerCase()),
+                  )
                 },
               },
             ]}
             onChange={handleChange}
             onMentionSelect={(mention, trigger) => {
-              console.log("Mention selected:", mention, trigger);
+              console.log("Mention selected:", mention, trigger)
             }}
           />
           <CodeBlock language="tsx">
@@ -262,14 +250,14 @@ export const ReadOnly: Story = {
                 char: "@",
                 onSearch: async (query) => {
                   return users.filter((user) =>
-                    user.label.toLowerCase().includes(query.toLowerCase())
-                  );
+                    user.label.toLowerCase().includes(query.toLowerCase()),
+                  )
                 },
               },
             ]}
             onChange={handleChange}
             onMentionSelect={(mention, trigger) => {
-              console.log("Mention selected:", mention, trigger);
+              console.log("Mention selected:", mention, trigger)
             }}
           />
           <CodeBlock language="tsx">
@@ -277,14 +265,13 @@ export const ReadOnly: Story = {
           </CodeBlock>
         </div>
         <div className="text-body-small text-stone-600">
-          💡 Try editing the readonly context input - the value should not
-          change and the change count should remain at 0. Only the normal input
-          will change the value.
+          💡 Try editing the readonly context input - the value should not change and the change
+          count should remain at 0. Only the normal input will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the context input component.
@@ -308,19 +295,22 @@ export const Variants: Story = {
     const [defaultValue, setDefaultValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
     const [lightValue, setLightValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
     const [darkValue, setDarkValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
-    const [disabled, setDisabled] = useState(false);
+    })
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid w-160 grid-cols-3 overflow-hidden rounded-xl border">
@@ -336,14 +326,14 @@ export const Variants: Story = {
                   char: "@",
                   onSearch: async (query) => {
                     return users.filter((user) =>
-                      user.label.toLowerCase().includes(query.toLowerCase())
-                    );
+                      user.label.toLowerCase().includes(query.toLowerCase()),
+                    )
                   },
                 },
               ]}
               onChange={setDefaultValue}
               onMentionSelect={(mention, trigger) => {
-                console.log("Mention selected:", mention, trigger);
+                console.log("Mention selected:", mention, trigger)
               }}
             />
           </div>
@@ -359,14 +349,14 @@ export const Variants: Story = {
                   char: "@",
                   onSearch: async (query) => {
                     return users.filter((user) =>
-                      user.label.toLowerCase().includes(query.toLowerCase())
-                    );
+                      user.label.toLowerCase().includes(query.toLowerCase()),
+                    )
                   },
                 },
               ]}
               onChange={setLightValue}
               onMentionSelect={(mention, trigger) => {
-                console.log("Mention selected:", mention, trigger);
+                console.log("Mention selected:", mention, trigger)
               }}
             />
           </div>
@@ -382,22 +372,22 @@ export const Variants: Story = {
                   char: "@",
                   onSearch: async (query) => {
                     return users.filter((user) =>
-                      user.label.toLowerCase().includes(query.toLowerCase())
-                    );
+                      user.label.toLowerCase().includes(query.toLowerCase()),
+                    )
                   },
                 },
               ]}
               onChange={setDarkValue}
               onMentionSelect={(mention, trigger) => {
-                console.log("Mention selected:", mention, trigger);
+                console.log("Mention selected:", mention, trigger)
               }}
             />
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Large: Context input with large size variant.
@@ -420,7 +410,7 @@ export const Large: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -434,14 +424,14 @@ export const Large: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         />
 
@@ -449,9 +439,9 @@ export const Large: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MinHeight: Context input with custom minimum height.
@@ -475,7 +465,7 @@ export const MinHeight: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -490,14 +480,14 @@ export const MinHeight: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         />
 
@@ -505,9 +495,9 @@ export const MinHeight: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithHeader: Context input with custom header section.
@@ -531,7 +521,7 @@ export const WithHeader: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: faker.lorem.sentence(),
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -545,14 +535,14 @@ export const WithHeader: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         >
           <ContextInput.Header>
@@ -571,9 +561,9 @@ export const WithHeader: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithFooter: Context input with custom footer section.
@@ -598,8 +588,8 @@ export const WithFooter: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
-    const inputRef = useRef<HTMLDivElement>(null);
+    })
+    const inputRef = useRef<HTMLDivElement>(null)
 
     return (
       <ContextInput
@@ -612,16 +602,14 @@ export const WithFooter: Story = {
           {
             char: "@",
             onSearch: async (query) => {
-              await new Promise((resolve) => setTimeout(resolve, 10));
-              return users.filter((user) =>
-                user.label.toLowerCase().includes(query.toLowerCase())
-              );
+              await new Promise((resolve) => setTimeout(resolve, 10))
+              return users.filter((user) => user.label.toLowerCase().includes(query.toLowerCase()))
             },
           },
         ]}
         onChange={setValue}
         onMentionSelect={(mention, trigger) => {
-          console.log("Mention selected:", mention, trigger);
+          console.log("Mention selected:", mention, trigger)
         }}
       >
         <ContextInput.Footer>
@@ -654,9 +642,9 @@ export const WithFooter: Story = {
           </div>
         </ContextInput.Footer>
       </ContextInput>
-    );
+    )
   },
-};
+}
 
 /**
  * MaxLength: Context input with character limit enforcement.
@@ -684,8 +672,8 @@ export const MaxLength: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
-    const inputRef = useRef<HTMLDivElement>(null);
+    })
+    const inputRef = useRef<HTMLDivElement>(null)
 
     return (
       <ContextInput
@@ -699,16 +687,14 @@ export const MaxLength: Story = {
           {
             char: "@",
             onSearch: async (query) => {
-              await new Promise((resolve) => setTimeout(resolve, 10));
-              return users.filter((user) =>
-                user.label.toLowerCase().includes(query.toLowerCase())
-              );
+              await new Promise((resolve) => setTimeout(resolve, 10))
+              return users.filter((user) => user.label.toLowerCase().includes(query.toLowerCase()))
             },
           },
         ]}
         onChange={setValue}
         onMentionSelect={(mention, trigger) => {
-          console.log("Mention selected:", mention, trigger);
+          console.log("Mention selected:", mention, trigger)
         }}
       >
         <ContextInput.Footer>
@@ -731,9 +717,7 @@ export const MaxLength: Story = {
           <div className="flex items-center gap-2">
             <span
               className={tcx(
-                value.text.length === 100
-                  ? "text-danger-foreground"
-                  : "text-secondary-foreground"
+                value.text.length === 100 ? "text-danger-foreground" : "text-secondary-foreground",
               )}
             >
               {value.text.length}/100
@@ -741,9 +725,9 @@ export const MaxLength: Story = {
           </div>
         </ContextInput.Footer>
       </ContextInput>
-    );
+    )
   },
-};
+}
 
 /**
  * MaxSuggestions: Context input with limited suggestion count.
@@ -766,8 +750,8 @@ export const MaxSuggestions: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
-    const inputRef = useRef<HTMLDivElement>(null);
+    })
+    const inputRef = useRef<HTMLDivElement>(null)
 
     return (
       <ContextInput
@@ -781,21 +765,19 @@ export const MaxSuggestions: Story = {
           {
             char: "@",
             onSearch: async (query) => {
-              await new Promise((resolve) => setTimeout(resolve, 10));
-              return users.filter((user) =>
-                user.label.toLowerCase().includes(query.toLowerCase())
-              );
+              await new Promise((resolve) => setTimeout(resolve, 10))
+              return users.filter((user) => user.label.toLowerCase().includes(query.toLowerCase()))
             },
           },
         ]}
         onChange={setValue}
         onMentionSelect={(mention, trigger) => {
-          console.log("Mention selected:", mention, trigger);
+          console.log("Mention selected:", mention, trigger)
         }}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * WithHeaderAndFooter: Context input with both header and footer sections.
@@ -824,8 +806,8 @@ export const WithHeaderAndFooter: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
-    const inputRef = useRef<HTMLDivElement>(null);
+    })
+    const inputRef = useRef<HTMLDivElement>(null)
 
     return (
       <ContextInput
@@ -838,16 +820,14 @@ export const WithHeaderAndFooter: Story = {
           {
             char: "@",
             onSearch: async (query) => {
-              await new Promise((resolve) => setTimeout(resolve, 10));
-              return users.filter((user) =>
-                user.label.toLowerCase().includes(query.toLowerCase())
-              );
+              await new Promise((resolve) => setTimeout(resolve, 10))
+              return users.filter((user) => user.label.toLowerCase().includes(query.toLowerCase()))
             },
           },
         ]}
         onChange={setValue}
         onMentionSelect={(mention, trigger) => {
-          console.log("Mention selected:", mention, trigger);
+          console.log("Mention selected:", mention, trigger)
         }}
       >
         <ContextInput.Header>
@@ -864,7 +844,7 @@ export const WithHeaderAndFooter: Story = {
                 content: "Copy",
               }}
               onClick={(copiedText) => {
-                console.log("Copied text:", copiedText);
+                console.log("Copied text:", copiedText)
               }}
             />
             <IconButton
@@ -906,9 +886,9 @@ export const WithHeaderAndFooter: Story = {
           </div>
         </ContextInput.Footer>
       </ContextInput>
-    );
+    )
   },
-};
+}
 
 /**
  * WithPasteButton: Context input with copy button functionality.
@@ -955,7 +935,7 @@ export const WithPasteButton: Story = {
           { text: " and welcome!" },
         ],
       },
-    ];
+    ]
     const [value, setValue] = useState<ContextInputValue>({
       text: faker.lorem.paragraphs(),
       mentions: [
@@ -970,11 +950,11 @@ export const WithPasteButton: Story = {
           },
         },
       ],
-    });
+    })
 
-    const [copiedText, setCopiedText] = useState<string>("");
+    const [copiedText, setCopiedText] = useState<string>("")
 
-    const { confirm } = useAlertDialog();
+    const { confirm } = useAlertDialog()
 
     return (
       <div className="w-full max-w-md space-y-4">
@@ -987,8 +967,8 @@ export const WithPasteButton: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
@@ -1002,9 +982,9 @@ export const WithPasteButton: Story = {
                   const confirmed = await confirm({
                     title: "Paste",
                     description: copiedText,
-                  });
+                  })
                   if (confirmed) {
-                    setCopiedText(copiedText);
+                    setCopiedText(copiedText)
                   }
                 }}
               />
@@ -1012,9 +992,9 @@ export const WithPasteButton: Story = {
           </ContextInput.Header>
         </ContextInput>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MultipleTriggers: Context input with multiple mention triggers.
@@ -1046,7 +1026,7 @@ export const MultipleTriggers: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md">
@@ -1059,22 +1039,22 @@ export const MultipleTriggers: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
             {
               char: "/",
               onSearch: async (query) => {
                 return channels.filter((channel) =>
-                  channel.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  channel.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Selected:", mention.label, "via", trigger);
+            console.log("Selected:", mention.label, "via", trigger)
           }}
         />
 
@@ -1092,9 +1072,9 @@ export const MultipleTriggers: Story = {
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * CustomMentionPrefix: Demonstrates customizable mention prefix.
@@ -1121,7 +1101,7 @@ export const CustomMentionPrefix: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     return (
       <div className="w-full max-w-md space-y-4">
@@ -1135,8 +1115,8 @@ export const CustomMentionPrefix: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
@@ -1146,8 +1126,7 @@ export const CustomMentionPrefix: Story = {
         <div className="bg-secondary-background rounded-xl p-4">
           <p className="font-strong">Custom Prefix: #</p>
           <p className="text-secondary-foreground mt-2">
-            Mentions will appear as <code>#JohnDoe</code> instead of{" "}
-            <code>@JohnDoe</code>
+            Mentions will appear as <code>#JohnDoe</code> instead of <code>@JohnDoe</code>
           </p>
         </div>
 
@@ -1155,9 +1134,9 @@ export const CustomMentionPrefix: Story = {
           <CodeBlock.Content code={value.text} />
         </CodeBlock>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * **Clear Function Test**
@@ -1170,21 +1149,23 @@ export const ClearFunctionTest: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     const handleClear = () => {
-      setValue({ text: "", mentions: [] });
-    };
+      setValue({ text: "", mentions: [] })
+    }
 
     return (
       <div className="w-80 space-y-4">
-        <Button variant="secondary" onClick={handleClear}>
+        <Button
+          variant="secondary"
+          onClick={handleClear}
+        >
           Clear
         </Button>
 
         <div className="text-secondary-foreground">
-          Input some content and click the clear button to test the clear
-          function
+          Input some content and click the clear button to test the clear function
         </div>
 
         <ContextInput
@@ -1196,28 +1177,28 @@ export const ClearFunctionTest: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
             {
               char: "/",
               onSearch: async (query) => {
                 return channels.filter((channel) =>
-                  channel.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  channel.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Selected:", mention.label, "via", trigger);
+            console.log("Selected:", mention.label, "via", trigger)
           }}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ControlledValue: Context input with external value control.
@@ -1248,7 +1229,7 @@ export const ControlledValue: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     const presetValues = [
       {
@@ -1319,14 +1300,14 @@ export const ControlledValue: Story = {
           ],
         },
       },
-    ];
+    ]
 
     const appendText = (text: string) => {
       setValue((prev) => ({
         ...prev,
         text: prev.text + (prev.text ? " " : "") + text,
-      }));
-    };
+      }))
+    }
 
     return (
       <div className="w-full max-w-md space-y-4">
@@ -1410,9 +1391,7 @@ export const ControlledValue: Story = {
             <Button
               variant="secondary"
               size="default"
-              onClick={() =>
-                setValue({ text: faker.lorem.sentence(), mentions: [] })
-              }
+              onClick={() => setValue({ text: faker.lorem.sentence(), mentions: [] })}
             >
               Random Text
             </Button>
@@ -1427,10 +1406,10 @@ export const ControlledValue: Story = {
               variant="secondary"
               size="default"
               onClick={() => {
-                const text = "Simple text with @user at end";
-                const mentionText = "@user";
-                const startIndex = text.indexOf(mentionText);
-                const endIndex = startIndex + mentionText.length;
+                const text = "Simple text with @user at end"
+                const mentionText = "@user"
+                const startIndex = text.indexOf(mentionText)
+                const endIndex = startIndex + mentionText.length
 
                 setValue({
                   text: text,
@@ -1451,7 +1430,7 @@ export const ControlledValue: Story = {
                       },
                     },
                   ],
-                });
+                })
               }}
             >
               Test End @
@@ -1469,22 +1448,22 @@ export const ControlledValue: Story = {
               char: "@",
               onSearch: async (query) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
             {
               char: "/",
               onSearch: async (query) => {
                 return channels.filter((channel) =>
-                  channel.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  channel.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
           onChange={setValue}
           onMentionSelect={(mention, trigger) => {
-            console.log("Mention selected:", mention, trigger);
+            console.log("Mention selected:", mention, trigger)
           }}
         >
           <ContextInput.Footer>
@@ -1519,19 +1498,17 @@ export const ControlledValue: Story = {
             <li>• Preset content examples</li>
             <li>• Full bidirectional data binding</li>
             <li>
-              • <strong>Auto-focus:</strong> Editor auto-focuses when autoFocus
-              is enabled
+              • <strong>Auto-focus:</strong> Editor auto-focuses when autoFocus is enabled
             </li>
             <li>
-              • <strong>Cursor positioning:</strong> Always moves to end after
-              value changes
+              • <strong>Cursor positioning:</strong> Always moves to end after value changes
             </li>
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Mention Component example showing how to use ContextInput.Mention for customization
@@ -1541,20 +1518,12 @@ export const CustomMentionComponent: Story = {
     const [value, setValue] = useState<ContextInputValue>({
       text: "",
       mentions: [],
-    });
+    })
 
     // Create a custom Mention component with different styling
-    const CustomMention: React.FC<
-      React.ComponentProps<typeof ContextInput.Mention>
-    > = (props) => {
-      const {
-        attributes,
-        children,
-        element,
-        mentionPrefix = "@",
-        variant,
-      } = props;
-      const mentionElement = element as unknown as ContextMentionElement;
+    const CustomMention: React.FC<React.ComponentProps<typeof ContextInput.Mention>> = (props) => {
+      const { attributes, children, element, mentionPrefix = "@", variant } = props
+      const mentionElement = element as unknown as ContextMentionElement
 
       return (
         <span
@@ -1563,26 +1532,24 @@ export const CustomMentionComponent: Story = {
           className={tcx(
             "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
             "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
-            "border border-white/20 shadow-sm"
+            "border border-white/20 shadow-sm",
           )}
         >
           {children}
-          <span className="text-white/80">
-            {mentionElement.mentionPrefix || mentionPrefix}
-          </span>
+          <span className="text-white/80">{mentionElement.mentionPrefix || mentionPrefix}</span>
           <span className="font-semibold">{mentionElement.mentionLabel}</span>
           <span className="ml-1 text-white/60">✨</span>
         </span>
-      );
-    };
+      )
+    }
 
     return (
       <div className="w-96 space-y-4">
         <div className="space-y-2">
           <h3 className="text-sm font-medium">Custom Mention Styling</h3>
           <p className="text-xs text-gray-600">
-            This example shows how to create a custom Mention component with
-            gradient background and emoji.
+            This example shows how to create a custom Mention component with gradient background and
+            emoji.
           </p>
         </div>
 
@@ -1596,8 +1563,8 @@ export const CustomMentionComponent: Story = {
               char: "@",
               onSearch: async (query: string) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
@@ -1620,9 +1587,9 @@ export const CustomMentionComponent: Story = {
           </ul>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Imperative Focus: Demonstrates how to programmatically focus the input using ref.
@@ -1631,16 +1598,20 @@ export const CustomMentionComponent: Story = {
  */
 export const ImperativeFocus: Story = {
   render: function ImperativeFocus() {
-    const inputRef = useRef<ContextInputRef>(null);
+    const inputRef = useRef<ContextInputRef>(null)
 
     const handleFocusClick = () => {
-      inputRef.current?.focus();
-    };
+      inputRef.current?.focus()
+    }
 
     return (
       <div className="flex w-[500px] flex-col gap-4">
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="default" onClick={handleFocusClick}>
+          <Button
+            variant="secondary"
+            size="default"
+            onClick={handleFocusClick}
+          >
             Focus Input
           </Button>
           <span className="text-body-small text-fg-subtle">
@@ -1656,8 +1627,8 @@ export const ImperativeFocus: Story = {
               char: "@",
               onSearch: async (query: string) => {
                 return users.filter((user) =>
-                  user.label.toLowerCase().includes(query.toLowerCase())
-                );
+                  user.label.toLowerCase().includes(query.toLowerCase()),
+                )
               },
             },
           ]}
@@ -1671,6 +1642,6 @@ export const ImperativeFocus: Story = {
           </ContextInput.Footer>
         </ContextInput>
       </div>
-    );
+    )
   },
-};
+}

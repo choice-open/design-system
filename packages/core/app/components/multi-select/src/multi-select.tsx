@@ -95,8 +95,9 @@ export interface MultiSelectProps {
   variant?: "default" | "light" | "reset"
 }
 
-interface MultiSelectComponentType
-  extends React.ForwardRefExoticComponent<MultiSelectProps & React.RefAttributes<HTMLDivElement>> {
+interface MultiSelectComponentType extends React.ForwardRefExoticComponent<
+  MultiSelectProps & React.RefAttributes<HTMLDivElement>
+> {
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
   Item: typeof MenuContextItem

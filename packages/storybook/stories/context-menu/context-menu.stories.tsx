@@ -1,22 +1,16 @@
-import {
-  Button,
-  Checkbox,
-  ContextMenu,
-  Dropdown,
-  Popover,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useRef, useState } from "react";
+import { Button, Checkbox, ContextMenu, Dropdown, Popover } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useRef, useState } from "react"
 
 const meta: Meta<typeof ContextMenu> = {
   title: "Collections/ContextMenu",
   component: ContextMenu,
   tags: ["upgrade", "autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof ContextMenu>;
+type Story = StoryObj<typeof ContextMenu>
 
 /**
  * Basic: The simplest usage of ContextMenu.
@@ -59,9 +53,9 @@ export const Basic: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithSelection: Demonstrates selection functionality with visual indicators.
@@ -79,13 +73,13 @@ export const Basic: Story = {
  */
 export const WithSelection: Story = {
   render: function WithSelectionStory() {
-    const [selected, setSelected] = useState<string | null>("option1");
+    const [selected, setSelected] = useState<string | null>("option1")
 
     const options = [
       { id: "option1", label: "Option 1" },
       { id: "option2", label: "Option 2" },
       { id: "option3", label: "Option 3" },
-    ];
+    ]
 
     return (
       <div className="flex h-64 items-center justify-center">
@@ -109,9 +103,9 @@ export const WithSelection: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * SharedMenuContent: Demonstrates how to share menu content between Dropdown and ContextMenu.
@@ -148,7 +142,7 @@ export const SharedMenuContent: Story = {
           <Dropdown.Value>Export</Dropdown.Value>
         </Dropdown.Item>
       </Dropdown.Content>
-    );
+    )
 
     return (
       <div className="flex h-64 flex-col gap-8">
@@ -177,9 +171,9 @@ export const SharedMenuContent: Story = {
           </ContextMenu>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithDividers: Shows complex menu structure with dividers and labels.
@@ -231,9 +225,9 @@ export const WithDividers: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * FileManagerExample: Real-world example showing menu sharing in a file manager scenario.
@@ -257,7 +251,7 @@ export const FileManagerExample: Story = {
       { id: "copy", label: "Copy" },
       { id: "move", label: "Move" },
       { id: "delete", label: "Delete", variant: "danger" as const },
-    ];
+    ]
 
     // File operations menu - reusable in both dropdown and context menu
     const fileOperationsMenu = (
@@ -267,15 +261,13 @@ export const FileManagerExample: Story = {
           <Dropdown.Item
             key={operation.id}
             variant={operation.variant}
-            onClick={() =>
-              console.log(`Executing ${operation.label} operation`)
-            }
+            onClick={() => console.log(`Executing ${operation.label} operation`)}
           >
             <Dropdown.Value>{operation.label}</Dropdown.Value>
           </Dropdown.Item>
         ))}
       </Dropdown.Content>
-    );
+    )
 
     return (
       <div className="space-y-8 p-8">
@@ -306,14 +298,13 @@ export const FileManagerExample: Story = {
         </div>
 
         <div className="bg-secondary-background rounded-xl p-4">
-          <strong>Business Value:</strong> Same menu logic works in both toolbar
-          dropdown and right-click menu, reducing code duplication and ensuring
-          interaction consistency.
+          <strong>Business Value:</strong> Same menu logic works in both toolbar dropdown and
+          right-click menu, reducing code duplication and ensuring interaction consistency.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * NestedSubmenus: Demonstrates nested context menus with multiple levels.
@@ -446,9 +437,9 @@ export const NestedSubmenus: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithDisabledItems: Demonstrates disabled menu items.
@@ -486,9 +477,9 @@ export const WithDisabledItems: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ContextMenuNestedDropdown: Fixed implementation using triggerRef to avoid component conflicts.
@@ -506,7 +497,7 @@ export const WithDisabledItems: Story = {
  */
 export const ContextMenuNestedDropdown: Story = {
   render: function ContextMenuNestedDropdownStory() {
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null)
 
     const ContextMenuContent = () => (
       <>
@@ -525,7 +516,7 @@ export const ContextMenuNestedDropdown: Story = {
           <ContextMenu.Value>Another Available Action</ContextMenu.Value>
         </ContextMenu.Item>
       </>
-    );
+    )
 
     return (
       <div className="flex h-64 items-center justify-center">
@@ -535,9 +526,7 @@ export const ContextMenuNestedDropdown: Story = {
         >
           <Dropdown>
             <Dropdown.Trigger>
-              <Dropdown.Value>
-                Left/Right click for different menus
-              </Dropdown.Value>
+              <Dropdown.Value>Left/Right click for different menus</Dropdown.Value>
             </Dropdown.Trigger>
             <Dropdown.Content>
               <ContextMenuContent />
@@ -551,9 +540,9 @@ export const ContextMenuNestedDropdown: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithTriggerRef: Demonstrates using triggerRef to avoid component wrapping conflicts.
@@ -587,7 +576,7 @@ export const ContextMenuNestedDropdown: Story = {
  */
 export const WithTriggerRef: Story = {
   render: function WithTriggerRefStory() {
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null)
 
     const MenuContent = () => (
       <>
@@ -605,7 +594,7 @@ export const WithTriggerRef: Story = {
           <ContextMenu.Value>Delete</ContextMenu.Value>
         </ContextMenu.Item>
       </>
-    );
+    )
 
     return (
       <div className="flex h-64 items-center justify-center">
@@ -615,9 +604,7 @@ export const WithTriggerRef: Story = {
         >
           <Dropdown>
             <Dropdown.Trigger>
-              <Dropdown.Value>
-                Left click for Dropdown, Right click for ContextMenu
-              </Dropdown.Value>
+              <Dropdown.Value>Left click for Dropdown, Right click for ContextMenu</Dropdown.Value>
             </Dropdown.Trigger>
             <Dropdown.Content>
               <Dropdown.Label>Dropdown Menu</Dropdown.Label>
@@ -642,9 +629,9 @@ export const WithTriggerRef: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithTriggerSelector: Demonstrates using triggerSelector (CSS selector) instead of triggerRef.
@@ -707,9 +694,7 @@ export const WithTriggerSelector: Story = {
 
           {/* Using data attribute selector */}
           <div>
-            <p className="text-body-small-strong mb-2">
-              Using [data-*] selector
-            </p>
+            <p className="text-body-small-strong mb-2">Using [data-*] selector</p>
             <div
               data-context-trigger="custom"
               className="bg-secondary-background rounded-xl border border-dashed p-8"
@@ -731,13 +716,13 @@ export const WithTriggerSelector: Story = {
         </div>
 
         <div className="bg-secondary-background max-w-xl rounded-xl p-4 text-center">
-          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS
-          选择器，当无法使用 ref 时非常有用。
+          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS 选择器，当无法使用 ref
+          时非常有用。
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithDisabled: Demonstrates disabled ContextMenu functionality.
@@ -763,20 +748,21 @@ export const WithTriggerSelector: Story = {
  */
 export const WithDisabled: Story = {
   render: function WithDisabledStory() {
-    const [isDisabled, setIsDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false)
 
     return (
       <div className="space-y-8 p-8">
-        <Checkbox value={isDisabled} onChange={setIsDisabled}>
+        <Checkbox
+          value={isDisabled}
+          onChange={setIsDisabled}
+        >
           Disable context menu
         </Checkbox>
 
         <div className="flex gap-8">
           {/* Using ContextMenu.Trigger */}
           <div>
-            <p className="text-body-small-strong mb-2">
-              Using ContextMenu.Trigger
-            </p>
+            <p className="text-body-small-strong mb-2">Using ContextMenu.Trigger</p>
             <ContextMenu disabled={isDisabled}>
               <ContextMenu.Trigger>
                 <div className="bg-secondary-background rounded-xl border border-dashed p-8">
@@ -809,19 +795,18 @@ export const WithDisabled: Story = {
         </div>
 
         <div className="bg-secondary-background rounded-xl p-4">
-          <strong>Tip:</strong> When disabled=true, the context menu will not
-          open on right-click. You can style disabled states using CSS selectors
-          like <code>[data-disabled]</code> or
+          <strong>Tip:</strong> When disabled=true, the context menu will not open on right-click.
+          You can style disabled states using CSS selectors like <code>[data-disabled]</code> or
           <code>[data-context-menu-disabled]</code>.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // Helper component for triggerRef example
 function DisabledWithTriggerRef({ disabled }: { disabled: boolean }) {
-  const triggerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null)
 
   return (
     <>
@@ -832,7 +817,10 @@ function DisabledWithTriggerRef({ disabled }: { disabled: boolean }) {
         {disabled ? "Context menu disabled" : "Right click me"}
       </div>
 
-      <ContextMenu disabled={disabled} triggerRef={triggerRef}>
+      <ContextMenu
+        disabled={disabled}
+        triggerRef={triggerRef}
+      >
         <ContextMenu.Content>
           <ContextMenu.Item>
             <ContextMenu.Value>Copy</ContextMenu.Value>
@@ -850,7 +838,7 @@ function DisabledWithTriggerRef({ disabled }: { disabled: boolean }) {
         </ContextMenu.Content>
       </ContextMenu>
     </>
-  );
+  )
 }
 
 /**
@@ -869,7 +857,7 @@ function DisabledWithTriggerRef({ disabled }: { disabled: boolean }) {
  */
 export const SimpleDropdownNested: Story = {
   render: function SimpleDropdownNestedStory() {
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null)
 
     return (
       <div className="flex h-64 items-center justify-center">
@@ -879,9 +867,7 @@ export const SimpleDropdownNested: Story = {
         >
           <Dropdown>
             <Dropdown.Trigger>
-              <Dropdown.Value>
-                Click for Dropdown or Right-click for Context Menu
-              </Dropdown.Value>
+              <Dropdown.Value>Click for Dropdown or Right-click for Context Menu</Dropdown.Value>
             </Dropdown.Trigger>
             <Dropdown.Content>
               <Dropdown.Item>
@@ -919,9 +905,9 @@ export const SimpleDropdownNested: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested context menu in popover
@@ -930,15 +916,21 @@ export const SimpleDropdownNested: Story = {
 
 export const NestedContextMenuInPopover: Story = {
   render: function NestedContextMenuInPopoverStory() {
-    const triggerRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null)
 
     const Item = () => {
       return (
         <>
-          <div ref={triggerRef} className="p-8">
+          <div
+            ref={triggerRef}
+            className="p-8"
+          >
             Right click me for selection menu
           </div>
-          <ContextMenu disabledNested triggerRef={triggerRef}>
+          <ContextMenu
+            disabledNested
+            triggerRef={triggerRef}
+          >
             <ContextMenu.Content>
               <ContextMenu.Item>
                 <ContextMenu.Value>Copy</ContextMenu.Value>
@@ -956,8 +948,8 @@ export const NestedContextMenuInPopover: Story = {
             </ContextMenu.Content>
           </ContextMenu>
         </>
-      );
-    };
+      )
+    }
 
     return (
       <>
@@ -971,9 +963,9 @@ export const NestedContextMenuInPopover: Story = {
           </Popover.Content>
         </Popover>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * NestedSubmenuWithLongList: Tests scrolling functionality in nested submenus.
@@ -999,7 +991,7 @@ export const NestedSubmenuWithLongList: Story = {
     const longListItems = Array.from({ length: 30 }, (_, i) => ({
       id: `item-${i + 1}`,
       label: `Menu Item ${i + 1}`,
-    }));
+    }))
 
     return (
       <div className="flex h-screen items-center justify-center">
@@ -1065,9 +1057,9 @@ export const NestedSubmenuWithLongList: Story = {
           </ContextMenu.Content>
         </ContextMenu>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ContextMenu component in readOnly state.
@@ -1079,21 +1071,17 @@ export const NestedSubmenuWithLongList: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [clickCount, setClickCount] = useState(0);
+    const [clickCount, setClickCount] = useState(0)
 
     const handleClick = () => {
-      setClickCount((prev) => prev + 1);
-    };
+      setClickCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Click Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {clickCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Click Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{clickCount}</div>
         </div>
 
         <ContextMenu readOnly>
@@ -1118,13 +1106,13 @@ export const Readonly: Story = {
         </ContextMenu>
 
         <div className="text-body-small text-stone-600">
-          💡 Right-click and try clicking on menu items - the click count should
-          not change. The menu can still be opened and closed normally.
+          💡 Right-click and try clicking on menu items - the click count should not change. The
+          menu can still be opened and closed normally.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ContextMenu component in light variant.
@@ -1149,6 +1137,6 @@ export const Light: Story = {
           <ContextMenu.Value>Delete</ContextMenu.Value>
         </ContextMenu.Item>
       </ContextMenu>
-    );
+    )
   },
-};
+}

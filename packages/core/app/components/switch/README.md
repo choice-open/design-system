@@ -252,8 +252,10 @@ return (
 ### Switch
 
 ```tsx
-interface SwitchProps
-  extends Omit<HTMLProps<HTMLInputElement>, "size" | "value" | "onChange" | "children"> {
+interface SwitchProps extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "size" | "value" | "onChange" | "children"
+> {
   /** Child content (label text or Switch.Label component) */
   children?: ReactNode
 

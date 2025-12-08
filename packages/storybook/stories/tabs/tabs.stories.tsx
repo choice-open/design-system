@@ -1,20 +1,16 @@
-import { Checkbox, Tabs } from "@choice-ui/react";
-import {
-  ThemeMoonDark,
-  ThemeSunBright,
-  ThemeSystem,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Checkbox, Tabs } from "@choice-ui/react"
+import { ThemeMoonDark, ThemeSunBright, ThemeSystem } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Tabs> = {
   title: "Navigation/Tabs",
   component: Tabs,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Tabs>;
+type Story = StoryObj<typeof Tabs>
 
 /**
  * Basic tabs component with text labels.
@@ -27,21 +23,21 @@ type Story = StoryObj<typeof Tabs>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [selectedTab, setSelectedTab] = useState("tab1");
+    const [selectedTab, setSelectedTab] = useState("tab1")
     return (
       <Tabs
         value={selectedTab}
         onChange={(value) => {
-          setSelectedTab(value);
+          setSelectedTab(value)
         }}
       >
         <Tabs.Item value="tab1">Tab 1</Tabs.Item>
         <Tabs.Item value="tab2">Tab 2</Tabs.Item>
         <Tabs.Item value="tab3">Tab 3</Tabs.Item>
       </Tabs>
-    );
+    )
   },
-};
+}
 
 /**
  * Tabs with default selected value.
@@ -53,21 +49,21 @@ export const Basic: Story = {
  */
 export const DefaultValue: Story = {
   render: function DefaultValueStory() {
-    const [selectedTab, setSelectedTab] = useState("analytics");
+    const [selectedTab, setSelectedTab] = useState("analytics")
     return (
       <Tabs
         value={selectedTab}
         onChange={(value) => {
-          setSelectedTab(value);
+          setSelectedTab(value)
         }}
       >
         <Tabs.Item value="overview">Overview</Tabs.Item>
         <Tabs.Item value="settings">Settings</Tabs.Item>
         <Tabs.Item value="analytics">Analytics</Tabs.Item>
       </Tabs>
-    );
+    )
   },
-};
+}
 
 /**
  * Tabs with disabled state.
@@ -80,28 +76,37 @@ export const DefaultValue: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [selectedTab, setSelectedTab] = useState("settings");
+    const [selectedTab, setSelectedTab] = useState("settings")
 
     return (
       <Tabs
         value={selectedTab}
         onChange={(value) => {
-          setSelectedTab(value);
+          setSelectedTab(value)
         }}
       >
-        <Tabs.Item value="overview" disabled>
+        <Tabs.Item
+          value="overview"
+          disabled
+        >
           Overview
         </Tabs.Item>
-        <Tabs.Item value="settings" disabled>
+        <Tabs.Item
+          value="settings"
+          disabled
+        >
           Settings
         </Tabs.Item>
-        <Tabs.Item value="analytics" disabled>
+        <Tabs.Item
+          value="analytics"
+          disabled
+        >
           Analytics
         </Tabs.Item>
       </Tabs>
-    );
+    )
   },
-};
+}
 
 /**
  * Icon-only tabs for compact interfaces.
@@ -114,22 +119,34 @@ export const Disabled: Story = {
  */
 export const IconTabs: Story = {
   render: function IconTabsStory() {
-    const [selectedTab, setSelectedTab] = useState("sun");
+    const [selectedTab, setSelectedTab] = useState("sun")
     return (
-      <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
-        <Tabs.Item value="sun" aria-label="Sun">
+      <Tabs
+        value={selectedTab}
+        onChange={(value) => setSelectedTab(value)}
+      >
+        <Tabs.Item
+          value="sun"
+          aria-label="Sun"
+        >
           <ThemeSunBright />
         </Tabs.Item>
-        <Tabs.Item value="moon" aria-label="Moon">
+        <Tabs.Item
+          value="moon"
+          aria-label="Moon"
+        >
           <ThemeMoonDark />
         </Tabs.Item>
-        <Tabs.Item value="system" aria-label="System">
+        <Tabs.Item
+          value="system"
+          aria-label="System"
+        >
           <ThemeSystem />
         </Tabs.Item>
       </Tabs>
-    );
+    )
   },
-};
+}
 
 /**
  * Tabs with both icons and text labels.
@@ -142,31 +159,43 @@ export const IconTabs: Story = {
  */
 export const MixedTabs: Story = {
   render: function MixedTabsStory() {
-    const [selectedTab, setSelectedTab] = useState("sun");
+    const [selectedTab, setSelectedTab] = useState("sun")
     return (
-      <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
-        <Tabs.Item value="sun" aria-label="Sun">
+      <Tabs
+        value={selectedTab}
+        onChange={(value) => setSelectedTab(value)}
+      >
+        <Tabs.Item
+          value="sun"
+          aria-label="Sun"
+        >
           <div className="flex items-center gap-1">
             <ThemeSunBright />
             <span>Sun</span>
           </div>
         </Tabs.Item>
-        <Tabs.Item value="moon" aria-label="Moon">
+        <Tabs.Item
+          value="moon"
+          aria-label="Moon"
+        >
           <div className="flex items-center gap-1">
             <ThemeMoonDark />
             <span>Moon</span>
           </div>
         </Tabs.Item>
-        <Tabs.Item value="system" aria-label="System">
+        <Tabs.Item
+          value="system"
+          aria-label="System"
+        >
           <div className="flex items-center gap-1">
             <ThemeSystem />
             <span>System</span>
           </div>
         </Tabs.Item>
       </Tabs>
-    );
+    )
   },
-};
+}
 
 /**
  * Visual variants of the tabs component.
@@ -181,11 +210,14 @@ export const MixedTabs: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [selectedTab, setSelectedTab] = useState("tab1");
-    const [disabled, setDisabled] = useState(false);
+    const [selectedTab, setSelectedTab] = useState("tab1")
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
@@ -226,9 +258,9 @@ export const Variants: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Tabs component in readOnly state.
@@ -240,49 +272,47 @@ export const Variants: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState<string>("tab1");
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<string>("tab1")
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: string) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
-        <Tabs readOnly value={value} onChange={handleChange}>
+        <Tabs
+          readOnly
+          value={value}
+          onChange={handleChange}
+        >
           <Tabs.Item value="tab1">Tab 1</Tabs.Item>
           <Tabs.Item value="tab2">Tab 2</Tabs.Item>
           <Tabs.Item value="tab3">Tab 3</Tabs.Item>
         </Tabs>
 
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+        >
           <Tabs.Item value="tab1">Tab 1</Tabs.Item>
           <Tabs.Item value="tab2">Tab 2</Tabs.Item>
           <Tabs.Item value="tab3">Tab 3</Tabs.Item>
         </Tabs>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly tabs - the value should not change and
-          the change count should remain at 0. Only the normal tabs will change
-          the value.
+          💡 Try clicking on the readonly tabs - the value should not change and the change count
+          should remain at 0. Only the normal tabs will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

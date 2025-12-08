@@ -1,7 +1,7 @@
-import { CodeBlock, NumericInput as NI, useForm } from "@choice-ui/react";
-import { FillWidth } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useId, useState } from "react";
+import { CodeBlock, NumericInput as NI, useForm } from "@choice-ui/react"
+import { FillWidth } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useId, useState } from "react"
 
 const meta: Meta = {
   title: "Forms/Form/Adapters",
@@ -9,10 +9,10 @@ const meta: Meta = {
     layout: "centered",
   },
   tags: ["autodocs", "beta"],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * When is validation performed?
@@ -22,8 +22,8 @@ type Story = StoryObj;
  */
 export const Input: Story = {
   render: function BasicRender() {
-    const uuid = useId();
-    const [result, setResult] = useState<string>("");
+    const uuid = useId()
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
@@ -31,18 +31,18 @@ export const Input: Story = {
         email: "",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -50,7 +50,7 @@ export const Input: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as string).length < 3) {
-                  return "Username must be at least 3 characters";
+                  return "Username must be at least 3 characters"
                 }
               },
             }}
@@ -63,9 +63,7 @@ export const Input: Story = {
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
                 placeholder="Enter username"
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -75,7 +73,7 @@ export const Input: Story = {
             validators={{
               onBlur: ({ value }) => {
                 if ((value as string).length < 3) {
-                  return "Email must be at least 3 characters";
+                  return "Email must be at least 3 characters"
                 }
               },
             }}
@@ -88,9 +86,7 @@ export const Input: Story = {
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
                 placeholder="Enter email"
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -105,16 +101,16 @@ export const Input: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Textarea adapter
  */
 export const Textarea: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
@@ -122,18 +118,18 @@ export const Textarea: Story = {
         bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -141,7 +137,7 @@ export const Textarea: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as string).length > 100) {
-                  return "Message must be less than 100 characters";
+                  return "Message must be less than 100 characters"
                 }
               },
             }}
@@ -157,9 +153,7 @@ export const Textarea: Story = {
                 minRows={4}
                 maxRows={8}
                 description={`${(field.state.value as string).length}/100 characters`}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -169,7 +163,7 @@ export const Textarea: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as string).length > 200) {
-                  return "Message must be less than 100 characters";
+                  return "Message must be less than 100 characters"
                 }
               },
             }}
@@ -187,9 +181,7 @@ export const Textarea: Story = {
                 minRows={4}
                 resize="handle"
                 description={`${(field.state.value as string).length}/200 characters`}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -204,34 +196,34 @@ export const Textarea: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Select adapter
  */
 export const Select: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         role: "admin",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -239,7 +231,7 @@ export const Select: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (value !== "admin") {
-                  return "Role must be admin";
+                  return "Role must be admin"
                 }
               },
             }}
@@ -257,9 +249,7 @@ export const Select: Story = {
                   { label: "Admin", value: "admin" },
                   { label: "User", value: "user" },
                 ]}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -274,34 +264,34 @@ export const Select: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * MultiSelect adapter
  */
 export const MultiSelect: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         roles: ["admin", "user"],
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -309,7 +299,7 @@ export const MultiSelect: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as string[]).length < 1) {
-                  return "You must select at least one role";
+                  return "You must select at least one role"
                 }
               },
             }}
@@ -331,9 +321,7 @@ export const MultiSelect: Story = {
                   { label: "Manager", value: "manager" },
                   { label: "Viewer", value: "viewer" },
                 ]}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -348,34 +336,34 @@ export const MultiSelect: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Checkbox adapter
  */
 export const Checkbox: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         isAdmin: true,
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -383,7 +371,7 @@ export const Checkbox: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (!value) {
-                  return "You must be an admin";
+                  return "You must be an admin"
                 }
               },
             }}
@@ -395,9 +383,7 @@ export const Checkbox: Story = {
                 value={field.state.value as boolean}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -412,34 +398,34 @@ export const Checkbox: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * RadioGroup adapter
  */
 export const RadioGroup: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         role: "admin",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -447,7 +433,7 @@ export const RadioGroup: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (value !== "admin") {
-                  return "Role must be admin";
+                  return "Role must be admin"
                 }
               },
             }}
@@ -464,9 +450,7 @@ export const RadioGroup: Story = {
                   { label: "User", value: "user" },
                   { label: "Guest", value: "guest" },
                 ]}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -481,34 +465,34 @@ export const RadioGroup: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Switch adapter
  */
 export const Switch: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         isAdmin: true,
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -516,7 +500,7 @@ export const Switch: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (!value) {
-                  return "You must be an admin";
+                  return "You must be an admin"
                 }
               },
             }}
@@ -528,9 +512,7 @@ export const Switch: Story = {
                 value={field.state.value as boolean}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -545,34 +527,34 @@ export const Switch: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Range adapter
  */
 export const Range: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         age: 18,
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -580,7 +562,7 @@ export const Range: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as number) < 18) {
-                  return "You must be at least 18 years old";
+                  return "You must be at least 18 years old"
                 }
               },
             }}
@@ -594,9 +576,7 @@ export const Range: Story = {
                 step={1}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -611,34 +591,34 @@ export const Range: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * NumericInput adapter
  */
 export const NumericInput: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         age: 18,
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -646,9 +626,9 @@ export const NumericInput: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as number) < 18) {
-                  return "You must be at least 18 years old";
+                  return "You must be at least 18 years old"
                 } else if ((value as number) > 60) {
-                  return "You must be less than 60 years old";
+                  return "You must be less than 60 years old"
                 }
               },
             }}
@@ -661,9 +641,7 @@ export const NumericInput: Story = {
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
                 placeholder="Enter age"
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               >
                 <NI.Prefix>
                   <FillWidth />
@@ -682,34 +660,34 @@ export const NumericInput: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Segmented adapter
  */
 export const Segmented: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
         role: "admin" as const,
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -717,7 +695,7 @@ export const Segmented: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (value !== "admin") {
-                  return "Role must be admin";
+                  return "Role must be admin"
                 }
               },
             }}
@@ -734,9 +712,7 @@ export const Segmented: Story = {
                   { content: "User", value: "user" },
                   { content: "Guest", value: "guest" },
                 ]}
-                error={
-                  <em role="alert">{field.state.meta.errors.join(", ")}</em>
-                }
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
               />
             )}
           </form.Field>
@@ -751,6 +727,6 @@ export const Segmented: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}

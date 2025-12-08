@@ -17,8 +17,9 @@ export interface TextFieldProps extends Omit<InputProps, "children"> {
   children?: ReactNode
 }
 
-interface TextFieldComponent
-  extends React.ForwardRefExoticComponent<TextFieldProps & React.RefAttributes<HTMLInputElement>> {
+interface TextFieldComponent extends React.ForwardRefExoticComponent<
+  TextFieldProps & React.RefAttributes<HTMLInputElement>
+> {
   Description: typeof FieldDescription
   Label: typeof Label
   Prefix: typeof FieldAddon

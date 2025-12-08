@@ -11,42 +11,42 @@
 // ============================================================================
 
 // 使用 Terrazzo 生成的类型定义
-import type { FractionString, SpacingValue } from "../../dist/tokens";
+import type { FractionString, SpacingValue } from "../../dist/tokens"
 // 按照 Terrazzo 生成的实际导出方式导入
 // @ts-ignore - tokens.js 由 Terrazzo 在构建时生成
-import { token } from "../tokens.js";
+import { token } from "../tokens.js"
 
 // 直接从 tokens.js 获取 breakpoint 数据
 function getBreakpointValue(name: string): string {
-  const tokenValue = token(`breakpoints.${name}`);
+  const tokenValue = token(`breakpoints.${name}`)
   if (!tokenValue) {
-    return "0";
+    return "0"
   }
 
   // 如果是 dimension token，转换为 CSS 值
   if (typeof tokenValue === "object" && tokenValue.value && tokenValue.unit) {
-    return `${tokenValue.value}${tokenValue.unit}`;
+    return `${tokenValue.value}${tokenValue.unit}`
   }
 
-  return String(tokenValue);
+  return String(tokenValue)
 }
 
 function breakpointExists(name: string): boolean {
-  return !!token(`breakpoints.${name}`);
+  return !!token(`breakpoints.${name}`)
 }
 
 function listBreakpoints(): string[] {
   // 在浏览器环境中，直接返回已知的 breakpoint tokens
-  return ["xs", "sm", "md", "lg", "xl", "2xl"];
+  return ["xs", "sm", "md", "lg", "xl", "2xl"]
 }
 
 // 重新导出类型
-export type { SpacingValue, FractionString } from "../../dist/tokens";
+export type { SpacingValue, FractionString } from "../../dist/tokens"
 
 // 定义尺寸令牌的类型
 interface DimensionToken {
-  value: number;
-  unit: string;
+  value: number
+  unit: string
 }
 
 /**
@@ -60,7 +60,7 @@ function isDimensionToken(token: any): token is DimensionToken {
     typeof token === "object" &&
     typeof token.value === "number" &&
     typeof token.unit === "string"
-  );
+  )
 }
 
 /**
@@ -78,14 +78,14 @@ function isDimensionToken(token: any): token is DimensionToken {
  *   spacing("md")                 // "48rem" - 断点值
  *   spacing("lg")                 // "64rem" - 断点值
  */
-export function spacing(size: SpacingValue): string;
+export function spacing(size: SpacingValue): string
 
 /**
  * 获取间距值 (运行时动态值版本)
  * @param size - 间距大小，支持预设值、任意数值、分数、断点值或任意值
  * @returns 计算后的间距值
  */
-export function spacing(size: string | number): string;
+export function spacing(size: string | number): string
 
 /**
  * 获取间距值 (实现) - 使用 CSS 变量和 calc()
@@ -93,66 +93,66 @@ export function spacing(size: string | number): string;
 export function spacing(size: string | number): string {
   // 特殊值直接返回
   if (size === 0) {
-    return "0";
+    return "0"
   }
 
   // 处理任意值 [value]
   if (typeof size === "string" && size.startsWith("[") && size.endsWith("]")) {
-    const arbitraryValue = size.slice(1, -1);
-    return arbitraryValue;
+    const arbitraryValue = size.slice(1, -1)
+    return arbitraryValue
   }
 
   // 处理分数 1/2, 2/3 等
   if (typeof size === "string" && size.includes("/")) {
-    return parseFraction(size);
+    return parseFraction(size)
   }
 
   // 处理 "px" 特殊值 - 使用 CSS 变量
   if (size === "px") {
     // 验证 token 是否存在（仅在开发模式下）
     if (process.env.NODE_ENV !== "production") {
-      const tokenValue = token("spacing.px");
+      const tokenValue = token("spacing.px")
       if (!tokenValue) {
-        console.warn('Spacing token "spacing.px" not found');
-        return "1px";
+        console.warn('Spacing token "spacing.px" not found')
+        return "1px"
       }
     }
-    return "var(--cdt-spacing-px)";
+    return "var(--cdt-spacing-px)"
   }
 
   // 处理断点值
   if (typeof size === "string" && breakpointExists(size)) {
-    return getBreakpointValue(size);
+    return getBreakpointValue(size)
   }
 
   // 处理数字值 - 使用 CSS 变量和 calc()
   if (typeof size === "number") {
     // 验证基础 token 是否存在（仅在开发模式下）
     if (process.env.NODE_ENV !== "production") {
-      const baseToken = token("spacing.default");
+      const baseToken = token("spacing.default")
       if (!baseToken) {
-        console.warn('Base spacing token "spacing.default" not found');
+        console.warn('Base spacing token "spacing.default" not found')
       }
     }
 
     if (size === 1) {
       // 对于 spacing(1)，直接返回基础变量
-      return "var(--cdt-spacing)";
+      return "var(--cdt-spacing)"
     } else {
       // 对于其他数值，使用 calc() 计算
-      return `calc(var(--cdt-spacing) * ${size})`;
+      return `calc(var(--cdt-spacing) * ${size})`
     }
   }
 
   // 如果是字符串，尝试作为数字解析
   if (typeof size === "string") {
-    const numericValue = parseFloat(size);
+    const numericValue = parseFloat(size)
     if (!isNaN(numericValue)) {
-      return spacing(numericValue);
+      return spacing(numericValue)
     }
   }
 
-  const availableBreakpoints = listBreakpoints();
+  const availableBreakpoints = listBreakpoints()
   throw new Error(
     `spacing() 参数错误: '${size}' 不是有效的间距值。\n` +
       `支持的格式：\n` +
@@ -161,8 +161,8 @@ export function spacing(size: string | number): string {
       `• 任意值: "[10vh]", "[calc(100%-1rem)]" 等\n` +
       `• 特殊值: "px" (生成 var(--cdt-spacing-px))\n` +
       `• 断点值: ${availableBreakpoints.join(", ")}\n\n` +
-      `示例: spacing(4) → "calc(var(--cdt-spacing) * 4)"`
-  );
+      `示例: spacing(4) → "calc(var(--cdt-spacing) * 4)"`,
+  )
 }
 
 /**
@@ -176,7 +176,7 @@ export function spacing(size: string | number): string {
  *   spacingList(["md", 4])           // "48rem 1rem"
  */
 export function spacingList(sizes: SpacingValue[]): string {
-  return sizes.map((size) => spacing(size)).join(" ");
+  return sizes.map((size) => spacing(size)).join(" ")
 }
 
 /**
@@ -193,39 +193,39 @@ export function spacingList(sizes: SpacingValue[]): string {
 export function spacingExists(size: unknown): boolean {
   // 数值检查
   if (typeof size === "number") {
-    return true;
+    return true
   }
 
   // 字符串值检查
   if (typeof size === "string") {
     // 任意值检查
     if (size.startsWith("[") && size.endsWith("]")) {
-      return true;
+      return true
     }
 
     // 分数检查
     if (size.includes("/")) {
-      return /^\d+\/\d+$/.test(size);
+      return /^\d+\/\d+$/.test(size)
     }
 
     // 特殊值检查
     if (size === "px") {
-      return true;
+      return true
     }
 
     // 断点值检查
     if (breakpointExists(size)) {
-      return true;
+      return true
     }
 
     // 数字字符串检查
-    const numericValue = parseFloat(size);
+    const numericValue = parseFloat(size)
     if (!isNaN(numericValue)) {
-      return true;
+      return true
     }
   }
 
-  return false;
+  return false
 }
 
 /**
@@ -242,49 +242,49 @@ export function spacingExists(size: unknown): boolean {
  */
 export function spacingToPx(size: SpacingValue, basePx: number = 4): string {
   if (size === 0) {
-    return "0px";
+    return "0px"
   }
 
   // 任意值
   if (typeof size === "string" && size.startsWith("[") && size.endsWith("]")) {
-    return size.slice(1, -1);
+    return size.slice(1, -1)
   }
 
   // 分数值
   if (typeof size === "string" && size.includes("/")) {
-    return parseFraction(size);
+    return parseFraction(size)
   }
 
   // px 值
   if (size === "px") {
-    return "1px";
+    return "1px"
   }
 
   // 断点值
   if (typeof size === "string" && breakpointExists(size)) {
-    const breakpointValue = getBreakpointValue(size);
+    const breakpointValue = getBreakpointValue(size)
     // 尝试解析断点值为像素值（假设16px = 1rem）
-    const numericValue = parseFloat(breakpointValue);
+    const numericValue = parseFloat(breakpointValue)
     if (!isNaN(numericValue) && breakpointValue.includes("rem")) {
-      return `${numericValue * 16}px (breakpoint)`;
+      return `${numericValue * 16}px (breakpoint)`
     }
-    return `${breakpointValue} (breakpoint)`;
+    return `${breakpointValue} (breakpoint)`
   }
 
   // 数字值
   if (typeof size === "number") {
-    return `${size * basePx}px`;
+    return `${size * basePx}px`
   }
 
   // 数字字符串
   if (typeof size === "string") {
-    const numericValue = parseFloat(size);
+    const numericValue = parseFloat(size)
     if (!isNaN(numericValue)) {
-      return `${numericValue * basePx}px`;
+      return `${numericValue * basePx}px`
     }
   }
 
-  return "未知";
+  return "未知"
 }
 
 /**
@@ -293,7 +293,7 @@ export function spacingToPx(size: SpacingValue, basePx: number = 4): string {
  */
 export function listSpacingTokens(): string[] {
   // 在浏览器环境中，直接返回已知的 spacing tokens
-  return ["spacing.default", "spacing.px"];
+  return ["spacing.default", "spacing.px"]
 }
 
 /**
@@ -317,7 +317,7 @@ export function commonFractions(): FractionString[] {
     "5/12",
     "7/12",
     "11/12",
-  ];
+  ]
 }
 
 // ============================================================================
@@ -334,20 +334,20 @@ export function commonFractions(): FractionString[] {
  *   parseFraction("3/4")  // "75%"
  */
 function parseFraction(fraction: string): string {
-  const match = fraction.match(/^(\d+)\/(\d+)$/);
+  const match = fraction.match(/^(\d+)\/(\d+)$/)
   if (!match) {
-    throw new Error(`无效的分数格式: '${fraction}'. 正确格式如: "1/2", "2/3"`);
+    throw new Error(`无效的分数格式: '${fraction}'. 正确格式如: "1/2", "2/3"`)
   }
 
-  const numerator = parseInt(match[1], 10);
-  const denominator = parseInt(match[2], 10);
+  const numerator = parseInt(match[1], 10)
+  const denominator = parseInt(match[2], 10)
 
   if (denominator === 0) {
-    throw new Error(`分母不能为0: '${fraction}'`);
+    throw new Error(`分母不能为0: '${fraction}'`)
   }
 
-  const percentage = (numerator / denominator) * 100;
+  const percentage = (numerator / denominator) * 100
 
   // 保留6位小数，去除多余的0
-  return `${parseFloat(percentage.toFixed(6))}%`;
+  return `${parseFloat(percentage.toFixed(6))}%`
 }

@@ -8,26 +8,22 @@ import {
   Select,
   Tabs,
   TextField,
-} from "@choice-ui/react";
-import {
-  ChevronLeft,
-  LockAspectRatio,
-  ThemeSunBright,
-} from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+} from "@choice-ui/react"
+import { ChevronLeft, LockAspectRatio, ThemeSunBright } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Modal> = {
   title: "Overlays/Modal",
   component: Modal,
   tags: ["new"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Modal>;
+type Story = StoryObj<typeof Modal>
 
 /**
  * `Modal` is a versatile overlay component for displaying focused content and gathering user input.
@@ -71,12 +67,18 @@ type Story = StoryObj<typeof Modal>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [tab, setTab] = useState("tab-1");
-    const [select, setSelect] = useState("option-1");
+    const [tab, setTab] = useState("tab-1")
+    const [select, setSelect] = useState("option-1")
     return (
       <Modal className="w-md">
-        <Modal.Header title="Modal" onClose={() => {}} />
-        <Modal.Header title="Modal" onClose={() => {}}>
+        <Modal.Header
+          title="Modal"
+          onClose={() => {}}
+        />
+        <Modal.Header
+          title="Modal"
+          onClose={() => {}}
+        >
           <div className="px-2 pb-2 [grid-area:input]">
             <SearchInput />
           </div>
@@ -91,7 +93,10 @@ export const Basic: Story = {
             </div>
           }
         />
-        <Modal.Header title="Title" onClose={() => {}}>
+        <Modal.Header
+          title="Title"
+          onClose={() => {}}
+        >
           <div className="flex items-center justify-end">
             <LinkButton>
               <LockAspectRatio />
@@ -101,7 +106,10 @@ export const Basic: Story = {
         </Modal.Header>
         <Modal.Header
           title={
-            <Tabs value={tab} onChange={setTab}>
+            <Tabs
+              value={tab}
+              onChange={setTab}
+            >
               <Tabs.Item value="tab-1">Tab 1</Tabs.Item>
               <Tabs.Item value="tab-2">Tab 2</Tabs.Item>
               <Tabs.Item value="tab-3">Tab 3</Tabs.Item>
@@ -110,7 +118,11 @@ export const Basic: Story = {
         />
         <Modal.Header
           title={
-            <Select matchTriggerWidth value={select} onChange={setSelect}>
+            <Select
+              matchTriggerWidth
+              value={select}
+              onChange={setSelect}
+            >
               <Select.Trigger prefixElement={<ThemeSunBright />}>
                 {select || "Select"}
               </Select.Trigger>
@@ -125,8 +137,7 @@ export const Basic: Story = {
 
         <Modal.Content>
           <div className="p-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </div>
         </Modal.Content>
         <Modal.Footer className="justify-end">
@@ -134,9 +145,9 @@ export const Basic: Story = {
           <Button>Action</Button>
         </Modal.Footer>
       </Modal>
-    );
+    )
   },
-};
+}
 
 /**
  * ModalContent: Demonstrates specialized form elements designed for modals.
@@ -156,13 +167,13 @@ export const Basic: Story = {
  */
 export const ModalContent: Story = {
   render: function ModalContentStory() {
-    const [search, setSearch] = useState("");
-    const [select, setSelect] = useState("option-1");
-    const [input, setInput] = useState("");
-    const [textarea, setTextarea] = useState("");
-    const [multiLineInput, setMultiLineInput] = useState("");
-    const [dropdown, setDropdown] = useState("option-1");
-    const [open, setOpen] = useState(false);
+    const [search, setSearch] = useState("")
+    const [select, setSelect] = useState("option-1")
+    const [input, setInput] = useState("")
+    const [textarea, setTextarea] = useState("")
+    const [multiLineInput, setMultiLineInput] = useState("")
+    const [dropdown, setDropdown] = useState("option-1")
+    const [open, setOpen] = useState(false)
 
     return (
       <Modal>
@@ -189,7 +200,10 @@ export const ModalContent: Story = {
                   </Select.Trigger>
                   <Select.Content>
                     {["option-1", "option-2", "option-3"].map((option) => (
-                      <Select.Item key={option} value={option}>
+                      <Select.Item
+                        key={option}
+                        value={option}
+                      >
                         {option}
                       </Select.Item>
                     ))}
@@ -197,7 +211,10 @@ export const ModalContent: Story = {
                 </Select>
               </TextField.Suffix>
             </TextField>
-            <Button className="font-strong rounded-lg px-4" size="large">
+            <Button
+              className="font-strong rounded-lg px-4"
+              size="large"
+            >
               Share
             </Button>
           </div>
@@ -223,11 +240,12 @@ export const ModalContent: Story = {
             value={select}
             onChange={setSelect}
           >
-            <Select.Trigger size="large" className="gap-2">
+            <Select.Trigger
+              size="large"
+              className="gap-2"
+            >
               <Avatar
-                photo={
-                  "https://api.dicebear.com/7.x/avataaars/svg?seed=Jennifer%20Miller"
-                }
+                photo={"https://api.dicebear.com/7.x/avataaars/svg?seed=Jennifer%20Miller"}
                 name={faker.name.fullName()}
                 size="small"
               />
@@ -241,19 +259,17 @@ export const ModalContent: Story = {
           </Modal.Select>
         </Modal.Content>
       </Modal>
-    );
+    )
   },
-};
+}
 
 export const LongTitle: Story = {
   render: function LongTitleStory() {
     return (
       <Modal className="w-sm">
         <Modal.Header title={faker.lorem.sentence(10)} />
-        <Modal.Content className="p-4">
-          {faker.lorem.sentence(10)}
-        </Modal.Content>
+        <Modal.Content className="p-4">{faker.lorem.sentence(10)}</Modal.Content>
       </Modal>
-    );
+    )
   },
-};
+}

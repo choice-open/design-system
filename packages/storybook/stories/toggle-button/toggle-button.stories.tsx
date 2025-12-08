@@ -1,20 +1,16 @@
-import { Select, ToggleButton } from "@choice-ui/react";
-import {
-  FieldAdd,
-  FieldTypeAttachment,
-  FieldTypeCheckbox,
-} from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Fragment, useState } from "react";
+import { Select, ToggleButton } from "@choice-ui/react"
+import { FieldAdd, FieldTypeAttachment, FieldTypeCheckbox } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { Fragment, useState } from "react"
 
 const meta: Meta<typeof ToggleButton> = {
   title: "Buttons/ToggleButton",
   component: ToggleButton,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof ToggleButton>;
+type Story = StoryObj<typeof ToggleButton>
 
 /**
  * - The `aria-label` prop is required.
@@ -22,7 +18,7 @@ type Story = StoryObj<typeof ToggleButton>;
  */
 export const Basic: Story = {
   render: function ControlledStory() {
-    const [controlled, setControlled] = useState(false);
+    const [controlled, setControlled] = useState(false)
     return (
       <ToggleButton
         aria-label="Toggle button"
@@ -31,9 +27,9 @@ export const Basic: Story = {
       >
         {controlled ? <FieldTypeCheckbox /> : <FieldAdd />}
       </ToggleButton>
-    );
+    )
   },
-};
+}
 
 /**
  * The `variant` prop is used to set the variant of the toggle button.
@@ -66,10 +62,10 @@ export const Variants: Story = {
       Mousedown = "mousedown",
     }
 
-    const [variant, setVariant] = useState<Variant>(Variant.Default);
-    const [size, setSize] = useState<Size>(Size.Default);
-    const [controlled, setControlled] = useState(false);
-    const [event, setEvent] = useState<Event>(Event.Click);
+    const [variant, setVariant] = useState<Variant>(Variant.Default)
+    const [size, setSize] = useState<Size>(Size.Default)
+    const [controlled, setControlled] = useState(false)
+    const [event, setEvent] = useState<Event>(Event.Click)
     return (
       <div className="flex flex-col items-start gap-4">
         <div className="flex gap-4">
@@ -80,27 +76,42 @@ export const Variants: Story = {
             <Select.Trigger>{variant}</Select.Trigger>
             <Select.Content>
               {Object.values(Variant).map((variant) => (
-                <Select.Item key={variant} value={variant}>
+                <Select.Item
+                  key={variant}
+                  value={variant}
+                >
                   {variant}
                 </Select.Item>
               ))}
             </Select.Content>
           </Select>
-          <Select value={size} onChange={(value) => setSize(value as Size)}>
+          <Select
+            value={size}
+            onChange={(value) => setSize(value as Size)}
+          >
             <Select.Trigger>{size}</Select.Trigger>
             <Select.Content>
               {Object.values(Size).map((size) => (
-                <Select.Item key={size} value={size}>
+                <Select.Item
+                  key={size}
+                  value={size}
+                >
                   {size}
                 </Select.Item>
               ))}
             </Select.Content>
           </Select>
-          <Select value={event} onChange={(value) => setEvent(value as Event)}>
+          <Select
+            value={event}
+            onChange={(value) => setEvent(value as Event)}
+          >
             <Select.Trigger>{event}</Select.Trigger>
             <Select.Content>
               {Object.values(Event).map((event) => (
-                <Select.Item key={event} value={event}>
+                <Select.Item
+                  key={event}
+                  value={event}
+                >
                   {event}
                 </Select.Item>
               ))}
@@ -128,9 +139,9 @@ export const Variants: Story = {
           ))}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * The `tooltip` prop is used to show a tooltip when the toggle button is hovered.
@@ -138,22 +149,20 @@ export const Variants: Story = {
  */
 export const Tooltip: Story = {
   render: function TooltipStory() {
-    const [controlled, setControlled] = useState(false);
+    const [controlled, setControlled] = useState(false)
     return (
       <ToggleButton
         tooltip={{
-          content: controlled
-            ? "Current state is correct"
-            : "Current state is wrong",
+          content: controlled ? "Current state is correct" : "Current state is wrong",
         }}
         value={controlled}
         onChange={(value) => setControlled(value)}
       >
         {controlled ? <FieldTypeCheckbox /> : <FieldAdd />}
       </ToggleButton>
-    );
+    )
   },
-};
+}
 
 /**
  * ToggleButton component in readOnly state.
@@ -165,33 +174,29 @@ export const Tooltip: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState(false);
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState(false)
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: boolean) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value ? "true" : "false"}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value ? "true" : "false"}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <ToggleButton readOnly value={value} onChange={handleChange}>
+          <ToggleButton
+            readOnly
+            value={value}
+            onChange={handleChange}
+          >
             {value ? <FieldTypeCheckbox /> : <FieldAdd />}
           </ToggleButton>
           <ToggleButton
@@ -202,17 +207,19 @@ export const Readonly: Story = {
           >
             {!value ? <FieldTypeCheckbox /> : <FieldAdd />}
           </ToggleButton>
-          <ToggleButton value={value} onChange={handleChange}>
+          <ToggleButton
+            value={value}
+            onChange={handleChange}
+          >
             {value ? <FieldTypeCheckbox /> : <FieldAdd />}
           </ToggleButton>
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly toggle buttons - the value should not
-          change and the change count should remain at 0. Only the normal button
-          will change the value.
+          💡 Try clicking on the readonly toggle buttons - the value should not change and the
+          change count should remain at 0. Only the normal button will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

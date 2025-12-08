@@ -1,6 +1,6 @@
-import { ProgressBar, Range } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { Fragment, useState } from "react";
+import { ProgressBar, Range } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { Fragment, useState } from "react"
 
 const meta: Meta<typeof ProgressBar> = {
   title: "Feedback/ProgressBar",
@@ -13,11 +13,11 @@ const meta: Meta<typeof ProgressBar> = {
       </div>
     ),
   ],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof ProgressBar>;
+type Story = StoryObj<typeof ProgressBar>
 
 /**
  * Basic: Shows the default ProgressBar with label and value.
@@ -27,13 +27,16 @@ type Story = StoryObj<typeof ProgressBar>;
  */
 export const Basic: Story = {
   render: () => (
-    <ProgressBar value={45} showValue>
+    <ProgressBar
+      value={45}
+      showValue
+    >
       <ProgressBar.Track>
         <ProgressBar.Connects />
       </ProgressBar.Track>
     </ProgressBar>
   ),
-};
+}
 
 /**
  * Sizes: Demonstrates the two size options available.
@@ -46,7 +49,11 @@ export const Sizes: Story = {
     <div className="grid gap-4">
       <div className="grid gap-2">
         <span>Small</span>
-        <ProgressBar size="small" value={60} showValue>
+        <ProgressBar
+          size="small"
+          value={60}
+          showValue
+        >
           <ProgressBar.Label>Processing</ProgressBar.Label>
           <ProgressBar.Track>
             <ProgressBar.Connects />
@@ -55,7 +62,11 @@ export const Sizes: Story = {
       </div>
       <div className="grid gap-2">
         <span>Default</span>
-        <ProgressBar size="default" value={60} showValue>
+        <ProgressBar
+          size="default"
+          value={60}
+          showValue
+        >
           <ProgressBar.Label>Processing</ProgressBar.Label>
           <ProgressBar.Track>
             <ProgressBar.Connects />
@@ -64,7 +75,11 @@ export const Sizes: Story = {
       </div>
       <div className="grid gap-2">
         <span>Large</span>
-        <ProgressBar size="large" value={60} showValue>
+        <ProgressBar
+          size="large"
+          value={60}
+          showValue
+        >
           <ProgressBar.Label>Processing</ProgressBar.Label>
           <ProgressBar.Track>
             <ProgressBar.Connects />
@@ -73,7 +88,7 @@ export const Sizes: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * Variants: Demonstrates theme-driven color variants.
@@ -82,16 +97,21 @@ export const Sizes: Story = {
  */
 export const Variants: Story = {
   render: () => {
-    const variants: Array<
-      NonNullable<React.ComponentProps<typeof ProgressBar>["variant"]>
-    > = ["accent", "default"];
+    const variants: Array<NonNullable<React.ComponentProps<typeof ProgressBar>["variant"]>> = [
+      "accent",
+      "default",
+    ]
 
     return (
       <div className="grid gap-4">
         {variants.map((variant) => (
           <Fragment key={variant}>
             <span className="capitalize">{variant}</span>
-            <ProgressBar variant={variant} value={72} showValue>
+            <ProgressBar
+              variant={variant}
+              value={72}
+              showValue
+            >
               <ProgressBar.Label>Uploading</ProgressBar.Label>
               <ProgressBar.Track>
                 <ProgressBar.Connects />
@@ -100,9 +120,9 @@ export const Variants: Story = {
           </Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Striped & Indeterminate: Shows a striped progress and an indeterminate state.
@@ -114,7 +134,10 @@ export const StripedAndIndeterminate: Story = {
     <div className="grid gap-6">
       <div className="grid gap-2">
         <span>Striped</span>
-        <ProgressBar value={65} striped>
+        <ProgressBar
+          value={65}
+          striped
+        >
           <ProgressBar.Label>Transferring</ProgressBar.Label>
           <ProgressBar.Track>
             <ProgressBar.Connects />
@@ -133,7 +156,7 @@ export const StripedAndIndeterminate: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * Based-on-value: Demonstrates continuous color blending driven by `value`.
@@ -143,7 +166,7 @@ export const StripedAndIndeterminate: Story = {
  */
 export const BasedOnValue: Story = {
   render: function BasedOnValue() {
-    const [value, setValue] = useState(35);
+    const [value, setValue] = useState(35)
 
     return (
       <div className="grid gap-4">
@@ -193,6 +216,6 @@ export const BasedOnValue: Story = {
           <span>Value: {value}</span>
         </div>
       </div>
-    );
+    )
   },
-};
+}

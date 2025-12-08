@@ -5,7 +5,7 @@ A React hook that temporarily disables scrolling on parent containers when an el
 ## Import
 
 ```typescript
-import { useDisableScroll } from "@choice-ui/react/hooks";
+import { useDisableScroll } from "@choice-ui/react/hooks"
 ```
 
 ## Usage
@@ -50,21 +50,19 @@ function Select({ options }) {
 ### useDisableScroll
 
 ```typescript
-function useDisableScroll(
-  options: UseDisableScrollOptions
-): UseDisableScrollReturn;
+function useDisableScroll(options: UseDisableScrollOptions): UseDisableScrollReturn
 
 interface UseDisableScrollOptions {
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement>
 }
 
 interface UseDisableScrollReturn {
   disableScrollProps: {
-    onFocus: () => void;
-    onBlur: () => void;
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-  };
+    onFocus: () => void
+    onBlur: () => void
+    onMouseEnter: () => void
+    onMouseLeave: () => void
+  }
 }
 ```
 

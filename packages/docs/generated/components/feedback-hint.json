@@ -96,14 +96,14 @@
       "name": "Screenshot Match",
       "exportName": "ScreenshotMatch",
       "description": "",
-      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-strong\">Reason</span>\n      <Hint content=\"Optional reason\" placement=\"right-start\" />\n    </div>\n  );\n}"
+      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-strong\">Reason</span>\n      <Hint\n        content=\"Optional reason\"\n        placement=\"right-start\"\n      />\n    </div>\n  );\n}"
     },
     {
       "id": "feedback-hint--custom-icon",
       "name": "Custom Icon",
       "exportName": "CustomIcon",
       "description": "",
-      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-strong\">Reason</span>\n      <Hint icon={<CircleInfoLargeSolid />} content=\"Optional reason\" />\n    </div>\n  );\n}"
+      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-strong\">Reason</span>\n      <Hint\n        icon={<CircleInfoLargeSolid />}\n        content=\"Optional reason\"\n      />\n    </div>\n  );\n}"
     },
     {
       "id": "feedback-hint--default",
@@ -131,14 +131,14 @@
       "name": "Disabled",
       "exportName": "Disabled",
       "description": "Disabled - Shows hint component in disabled state\n\nFeatures:\n- Disabled interaction state\n- Visual indication of unavailable tooltip\n- Maintains layout consistency when disabled\n- Prevents hover/focus activation\n\nUsage:\n```tsx\n<Hint\n  content=\"Disabled tooltip content\"\n  disabled={true}\n/>\n```",
-      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span>Disabled field</span>\n      <Hint content=\"This information tooltip is disabled\" disabled={true} />\n    </div>\n  );\n}"
+      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span>Disabled field</span>\n      <Hint\n        content=\"This information tooltip is disabled\"\n        disabled={true}\n      />\n    </div>\n  );\n}"
     },
     {
       "id": "feedback-hint--dark-variant",
       "name": "Dark Variant",
       "exportName": "DarkVariant",
       "description": "",
-      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span>Dark variant</span>\n      <Hint content=\"Dark variant tooltip content\" variant=\"dark\" />\n    </div>\n  );\n}"
+      "source": "import { Hint } from \"@choice-ui/hint\"\n\nexport default function App() {\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span>Dark variant</span>\n      <Hint\n        content=\"Dark variant tooltip content\"\n        variant=\"dark\"\n      />\n    </div>\n  );\n}"
     }
   ]
 }

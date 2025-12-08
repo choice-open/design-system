@@ -139,8 +139,10 @@ interface CheckboxProps extends Omit<HTMLProps<HTMLInputElement>, "value" | "onC
 ### Checkbox.Label
 
 ```ts
-interface CheckboxLabelProps
-  extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
+interface CheckboxLabelProps extends Omit<
+  HTMLProps<HTMLLabelElement>,
+  "htmlFor" | "id" | "disabled"
+> {
   /** Label content */
   children: ReactNode
 }

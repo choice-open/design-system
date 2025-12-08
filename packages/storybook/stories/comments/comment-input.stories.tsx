@@ -1,16 +1,16 @@
-import type { User } from "@choice-ui/react";
-import { Avatar, CommentInput } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { Descendant } from "slate";
+import type { User } from "@choice-ui/react"
+import { Avatar, CommentInput } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
+import { Descendant } from "slate"
 
 const meta = {
   title: "Components/Comments/CommentInput",
   component: CommentInput,
-} satisfies Meta<typeof CommentInput>;
+} satisfies Meta<typeof CommentInput>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 const mockUsers: User[] = Array.from({ length: 10 }, (_, i) => ({
   id: `user-${i}`,
@@ -18,7 +18,7 @@ const mockUsers: User[] = Array.from({ length: 10 }, (_, i) => ({
   email: `user${i + 1}@example.com`,
   photo_url: `https://i.pravatar.cc/150?img=${i + 1}`,
   color: null,
-}));
+}))
 
 // 基本的评论输入组件
 const BasicCommentInput = ({
@@ -26,21 +26,21 @@ const BasicCommentInput = ({
   placeholder,
   variant,
 }: {
-  placeholder?: string;
-  users?: User[];
-  variant?: "default" | "solid";
+  placeholder?: string
+  users?: User[]
+  variant?: "default" | "solid"
 }) => {
-  const [value, setValue] = useState<Descendant[]>([]);
+  const [value, setValue] = useState<Descendant[]>([])
 
   const handleChange = (newValue: Descendant[]) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   const handleSubmit = (data: Descendant[]) => {
-    console.log("Submitted:", data);
+    console.log("Submitted:", data)
     // Clear editor content after submission
-    setValue([]);
-  };
+    setValue([])
+  }
 
   return (
     <div className="flex w-96 flex-col gap-4">
@@ -64,8 +64,8 @@ const BasicCommentInput = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const Default: Story = {
   render: () => (
@@ -74,7 +74,7 @@ export const Default: Story = {
       placeholder="Add a comment, use @ to mention users..."
     />
   ),
-};
+}
 
 export const Solid: Story = {
   render: () => (
@@ -84,10 +84,8 @@ export const Solid: Story = {
       variant="solid"
     />
   ),
-};
+}
 
 export const NoUsers: Story = {
-  render: () => (
-    <BasicCommentInput placeholder="This example has no users to @mention" />
-  ),
-};
+  render: () => <BasicCommentInput placeholder="This example has no users to @mention" />,
+}

@@ -1,14 +1,14 @@
-import { Switch, Tooltip } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Fragment, useState } from "react";
+import { Switch, Tooltip } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { Fragment, useState } from "react"
 
 const meta: Meta<typeof Switch> = {
   title: "Forms/Switch",
   component: Switch,
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Switch>;
+export default meta
+type Story = StoryObj<typeof Switch>
 
 /**
  * The `Switch` component is a toggle control for binary states like on/off or enabled/disabled.
@@ -91,9 +91,9 @@ export const Basic: Story = {
           </Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * The `size` prop is used to set the size of the switch.
@@ -102,21 +102,28 @@ export const Basic: Story = {
  */
 export const Sizes: Story = {
   render: function SizesStory() {
-    const [small, setSmall] = useState(false);
-    const [medium, setMedium] = useState(false);
+    const [small, setSmall] = useState(false)
+    const [medium, setMedium] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
-        <Switch value={small} onChange={setSmall} size="small">
+        <Switch
+          value={small}
+          onChange={setSmall}
+          size="small"
+        >
           Small size
         </Switch>
-        <Switch value={medium} onChange={setMedium}>
+        <Switch
+          value={medium}
+          onChange={setMedium}
+        >
           Medium size
         </Switch>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * The `variant` prop is used to set the variant of the switch.
@@ -126,9 +133,9 @@ export const Sizes: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [defaultVariant, setDefaultVariant] = useState(false);
-    const [accentVariant, setAccentVariant] = useState(false);
-    const [outlineVariant, setOutlineVariant] = useState(false);
+    const [defaultVariant, setDefaultVariant] = useState(false)
+    const [accentVariant, setAccentVariant] = useState(false)
+    const [outlineVariant, setOutlineVariant] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
@@ -154,9 +161,9 @@ export const Variants: Story = {
           Outline variant
         </Switch>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * The `disabled` prop is used to disable the switch.
@@ -165,21 +172,29 @@ export const Variants: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [disabled, setDisabled] = useState(false);
-    const [disabledChecked, setDisabledChecked] = useState(true);
+    const [disabled, setDisabled] = useState(false)
+    const [disabledChecked, setDisabledChecked] = useState(true)
 
     return (
       <div className="flex flex-col gap-4">
-        <Switch value={disabled} onChange={setDisabled} disabled>
+        <Switch
+          value={disabled}
+          onChange={setDisabled}
+          disabled
+        >
           Disabled unchecked
         </Switch>
-        <Switch value={disabledChecked} onChange={setDisabledChecked} disabled>
+        <Switch
+          value={disabledChecked}
+          onChange={setDisabledChecked}
+          disabled
+        >
           Disabled checked
         </Switch>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Label Usage: Demonstrates two ways to use labels with Switch.
@@ -188,25 +203,27 @@ export const Disabled: Story = {
  */
 export const LabelUsage: Story = {
   render: function LabelUsageStory() {
-    const [simple, setSimple] = useState(false);
-    const [explicit, setExplicit] = useState(false);
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="font-strong mb-2">
-            Simple string label (auto-wrapped):
-          </h4>
-          <Switch value={simple} onChange={setSimple}>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
+          <Switch
+            value={simple}
+            onChange={setSimple}
+          >
             Simple text label
           </Switch>
         </div>
 
         <div>
-          <h4 className="font-strong mb-2">
-            Explicit Switch.Label (for complex content):
-          </h4>
-          <Switch value={explicit} onChange={setExplicit}>
+          <h4 className="font-strong mb-2">Explicit Switch.Label (for complex content):</h4>
+          <Switch
+            value={explicit}
+            onChange={setExplicit}
+          >
             <Switch.Label>
               <span className="text-accent-foreground">Complex</span> label with{" "}
               <strong>formatting</strong>
@@ -214,9 +231,9 @@ export const LabelUsage: Story = {
           </Switch>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Legacy Label Prop: Shows backward compatibility with the label prop.
@@ -225,7 +242,7 @@ export const LabelUsage: Story = {
  */
 export const LegacyLabelProp: Story = {
   render: function LegacyLabelPropStory() {
-    const [value, setValue] = useState(false);
+    const [value, setValue] = useState(false)
 
     return (
       <Switch
@@ -233,25 +250,28 @@ export const LegacyLabelProp: Story = {
         onChange={setValue}
         label="Switch with legacy label prop"
       />
-    );
+    )
   },
-};
+}
 
 /**
  * The Switch component does not have a built-in tooltip interface and requires the use of the `Tooltip` component to implement it.
  */
 export const WithTooltip: Story = {
   render: function WithTooltipStory() {
-    const [tooltip, setTooltip] = useState(false);
+    const [tooltip, setTooltip] = useState(false)
     return (
       <Tooltip content="This is a tooltip">
-        <Switch value={tooltip} onChange={setTooltip}>
+        <Switch
+          value={tooltip}
+          onChange={setTooltip}
+        >
           Switch with tooltip
         </Switch>
       </Tooltip>
-    );
+    )
   },
-};
+}
 
 /**
  * Switch component in readOnly state.
@@ -263,49 +283,51 @@ export const WithTooltip: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState(false);
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState(false)
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: boolean) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value ? "true" : "false"}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value ? "true" : "false"}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <Switch readOnly value={value} onChange={handleChange}>
+          <Switch
+            readOnly
+            value={value}
+            onChange={handleChange}
+          >
             Readonly Switch
           </Switch>
-          <Switch readOnly value={!value} onChange={handleChange}>
+          <Switch
+            readOnly
+            value={!value}
+            onChange={handleChange}
+          >
             Readonly Switch (on)
           </Switch>
-          <Switch value={value} onChange={handleChange}>
+          <Switch
+            value={value}
+            onChange={handleChange}
+          >
             Normal Switch (for comparison)
           </Switch>
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly switches - the value should not change
-          and the change count should remain at 0. Only the normal switch will
-          change the value.
+          💡 Try clicking on the readonly switches - the value should not change and the change
+          count should remain at 0. Only the normal switch will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

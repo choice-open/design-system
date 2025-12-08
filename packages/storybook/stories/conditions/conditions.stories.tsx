@@ -6,18 +6,18 @@ import {
   LogicalOperator,
   type ConditionsRoot,
   type Field,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+} from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Conditions> = {
   title: "Components/Conditions",
   component: Conditions,
   tags: ["autodocs", "beta"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Conditions>;
+export default meta
+type Story = StoryObj<typeof Conditions>
 
 // Sample field definitions for all stories
 const sampleFields: Field[] = [
@@ -75,7 +75,7 @@ const sampleFields: Field[] = [
     multiple: true,
     colorized: true,
   },
-];
+]
 
 /**
  * Basic usage of the Conditions component with simple field configuration.
@@ -83,9 +83,7 @@ const sampleFields: Field[] = [
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [conditions, setConditions] = useState<ConditionsRoot>(
-      createEmptyConditions()
-    );
+    const [conditions, setConditions] = useState<ConditionsRoot>(createEmptyConditions())
 
     return (
       <div className="space-y-4">
@@ -96,17 +94,15 @@ export const Basic: Story = {
         />
 
         <div className="mt-6 rounded-xl bg-gray-50 p-4">
-          <h3 className="text-body-small-strong mb-2 text-gray-700">
-            Current Conditions:
-          </h3>
+          <h3 className="text-body-small-strong mb-2 text-gray-700">Current Conditions:</h3>
           <pre className="max-h-96 overflow-auto text-xs text-gray-600">
             {JSON.stringify(conditions, null, 2)}
           </pre>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates the Conditions component with pre-configured complex nested conditions.
@@ -136,14 +132,13 @@ export const PreConfigured: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3">
           <p className="text-body-small text-blue-800">
-            <strong>Pre-configured example:</strong> High priority AND not
-            completed
+            <strong>Pre-configured example:</strong> High priority AND not completed
           </p>
         </div>
 
@@ -153,9 +148,9 @@ export const PreConfigured: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows different field types and their corresponding operators.
@@ -197,14 +192,13 @@ export const FieldTypes: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-green-200 bg-green-50 p-3">
           <p className="text-body-small text-green-800">
-            <strong>Field Types Demo:</strong> Each field type shows different
-            available operators
+            <strong>Field Types Demo:</strong> Each field type shows different available operators
           </p>
         </div>
 
@@ -214,9 +208,9 @@ export const FieldTypes: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows the disabled state of the Conditions component.
@@ -246,22 +240,25 @@ export const Disabled: Story = {
           ],
         },
       ],
-    };
+    }
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3">
           <p className="text-body-small text-gray-600">
-            <strong>Disabled State:</strong> All controls are disabled but
-            conditions remain visible
+            <strong>Disabled State:</strong> All controls are disabled but conditions remain visible
           </p>
         </div>
 
-        <Conditions fields={sampleFields} value={conditions} disabled={true} />
+        <Conditions
+          fields={sampleFields}
+          value={conditions}
+          disabled={true}
+        />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates real-world usage with a task management scenario.
@@ -305,7 +302,7 @@ export const TaskManagement: Story = {
         label: "Is Blocked",
         type: FieldType.Boolean,
       },
-    ];
+    ]
 
     const [conditions, setConditions] = useState<ConditionsRoot>({
       id: "task_root",
@@ -335,14 +332,14 @@ export const TaskManagement: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-indigo-200 bg-indigo-50 p-3">
           <p className="text-body-small text-indigo-800">
-            <strong>Task Management:</strong> Filter tasks by priority, due
-            date, and blocking status
+            <strong>Task Management:</strong> Filter tasks by priority, due date, and blocking
+            status
           </p>
         </div>
 
@@ -353,23 +350,19 @@ export const TaskManagement: Story = {
         />
 
         <div className="mt-6 rounded-xl bg-gray-50 p-4">
-          <h4 className="text-body-small-strong mb-2 text-gray-700">
-            Filter Summary:
-          </h4>
+          <h4 className="text-body-small-strong mb-2 text-gray-700">Filter Summary:</h4>
           <div className="text-xs text-gray-600">
             {conditions.groups.length === 0 ? (
               <p>No filters applied</p>
             ) : (
-              <p>
-                {conditions.groups[0].conditions.length} condition(s) active
-              </p>
+              <p>{conditions.groups[0].conditions.length} condition(s) active</p>
             )}
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates advanced operators including exists/does not exist checks.
@@ -405,14 +398,13 @@ export const AdvancedOperators: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-purple-200 bg-purple-50 p-3">
           <p className="text-body-small text-purple-800">
-            <strong>Advanced Operators:</strong> Filter by field existence,
-            emptiness, and presence
+            <strong>Advanced Operators:</strong> Filter by field existence, emptiness, and presence
           </p>
         </div>
 
@@ -422,9 +414,9 @@ export const AdvancedOperators: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows regular expression pattern matching capabilities.
@@ -451,7 +443,7 @@ export const RegexPatterns: Story = {
         type: FieldType.Text,
         placeholder: "Enter user code...",
       },
-    ];
+    ]
 
     const [conditions, setConditions] = useState<ConditionsRoot>({
       id: "regex_root",
@@ -474,22 +466,20 @@ export const RegexPatterns: Story = {
               fieldKey: "phoneNumber",
               operator: ComparisonOperator.MatchesRegex,
               value: {
-                pattern:
-                  "\\+?\\d{1,4}[\\s.-]?\\(?\\d{1,3}\\)?[\\s.-]?\\d{1,4}[\\s.-]?\\d{1,4}",
+                pattern: "\\+?\\d{1,4}[\\s.-]?\\(?\\d{1,3}\\)?[\\s.-]?\\d{1,4}[\\s.-]?\\d{1,4}",
                 flags: "",
               },
             },
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-orange-200 bg-orange-50 p-3">
           <p className="text-body-small text-orange-800">
-            <strong>Regex Patterns:</strong> Use regular expressions for
-            advanced text matching
+            <strong>Regex Patterns:</strong> Use regular expressions for advanced text matching
           </p>
           <div className="mt-2 text-xs text-orange-700">
             <p>• Email pattern validates standard email formats</p>
@@ -503,9 +493,9 @@ export const RegexPatterns: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Demonstrates array and text length filtering capabilities.
@@ -537,7 +527,7 @@ export const ArrayLengthFilters: Story = {
         type: FieldType.User,
         multiple: true,
       },
-    ];
+    ]
 
     const [conditions, setConditions] = useState<ConditionsRoot>({
       id: "length_root",
@@ -567,14 +557,13 @@ export const ArrayLengthFilters: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-teal-200 bg-teal-50 p-3">
           <p className="text-body-small text-teal-800">
-            <strong>Length Filters:</strong> Filter by text length or array item
-            count
+            <strong>Length Filters:</strong> Filter by text length or array item count
           </p>
           <div className="mt-2 text-xs text-teal-700">
             <p>• Description must be longer than 50 characters</p>
@@ -589,9 +578,9 @@ export const ArrayLengthFilters: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Shows simplified boolean logic with dedicated true/false operators.
@@ -622,7 +611,7 @@ export const BooleanLogic: Story = {
         label: "Is Locked",
         type: FieldType.Boolean,
       },
-    ];
+    ]
 
     const [conditions, setConditions] = useState<ConditionsRoot>({
       id: "boolean_root",
@@ -664,14 +653,14 @@ export const BooleanLogic: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-3">
           <p className="text-body-small text-blue-800">
-            <strong>Boolean Logic:</strong> Simplified true/false operators for
-            cleaner boolean filtering
+            <strong>Boolean Logic:</strong> Simplified true/false operators for cleaner boolean
+            filtering
           </p>
           <div className="mt-2 text-xs text-blue-700">
             <p>• Uses dedicated IsTrue/IsFalse operators</p>
@@ -686,9 +675,9 @@ export const BooleanLogic: Story = {
           onChange={setConditions}
         />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Test drag and drop functionality with debugging information.
@@ -737,15 +726,14 @@ export const DragAndDropTest: Story = {
           ],
         },
       ],
-    });
+    })
 
     return (
       <div className="space-y-4">
         <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3">
           <p className="text-body-small text-red-800">
-            <strong>Drag & Drop Test:</strong> Test dragging conditions between
-            groups, within groups, and in/out of nested groups. Open browser
-            console to see debug logs.
+            <strong>Drag & Drop Test:</strong> Test dragging conditions between groups, within
+            groups, and in/out of nested groups. Open browser console to see debug logs.
           </p>
           <div className="mt-2 text-xs text-red-700">
             <p>• Try dragging conditions from main group to nested group</p>
@@ -769,6 +757,6 @@ export const DragAndDropTest: Story = {
           </pre>
         </div>
       </div>
-    );
+    )
   },
-};
+}

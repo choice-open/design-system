@@ -1,12 +1,6 @@
-import {
-  Button,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@choice-ui/react";
-import { Placement } from "@floating-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@choice-ui/react"
+import { Placement } from "@floating-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Tooltip> = {
   title: "Feedback/Tooltip",
@@ -15,10 +9,10 @@ const meta: Meta<typeof Tooltip> = {
     layout: "centered",
   },
   tags: ["upgrade"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // 使用新的简化 API
 export const SimpleAPI: Story = {
@@ -39,35 +33,53 @@ export const SimpleAPI: Story = {
           <Button>Tooltip with shortcut</Button>
         </Tooltip>
 
-        <Tooltip content="Tooltip without arrow" withArrow={false}>
+        <Tooltip
+          content="Tooltip without arrow"
+          withArrow={false}
+        >
           <Button>Tooltip without arrow</Button>
         </Tooltip>
 
-        <Tooltip content="Disabled tooltip" disabled={true}>
+        <Tooltip
+          content="Disabled tooltip"
+          disabled={true}
+        >
           <Button>Disabled tooltip</Button>
         </Tooltip>
       </div>
 
       <div className="flex gap-4">
-        <Tooltip content="Default style" variant="default">
+        <Tooltip
+          content="Default style"
+          variant="default"
+        >
           <Button>Default style</Button>
         </Tooltip>
 
-        <Tooltip content="Light style" variant="light">
+        <Tooltip
+          content="Light style"
+          variant="light"
+        >
           <Button>Light style</Button>
         </Tooltip>
 
-        <Tooltip content="Large offset" offset={20}>
+        <Tooltip
+          content="Large offset"
+          offset={20}
+        >
           <Button>Large offset</Button>
         </Tooltip>
 
-        <Tooltip content="Small offset" offset={2}>
+        <Tooltip
+          content="Small offset"
+          offset={2}
+        >
           <Button>Small offset</Button>
         </Tooltip>
       </div>
     </div>
   ),
-};
+}
 
 // Basic tooltip example using old API
 export const Default: Story = {
@@ -79,7 +91,7 @@ export const Default: Story = {
       <TooltipContent>This is a tooltip</TooltipContent>
     </Tooltip>
   ),
-};
+}
 
 // Tooltip with different placements
 export const Placements: Story = {
@@ -115,7 +127,10 @@ export const Placements: Story = {
         <div className="flex flex-col gap-4">
           <Tooltip placement="left-start">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Left Start
               </Button>
             </TooltipTrigger>
@@ -124,7 +139,10 @@ export const Placements: Story = {
 
           <Tooltip placement="left">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Left
               </Button>
             </TooltipTrigger>
@@ -133,7 +151,10 @@ export const Placements: Story = {
 
           <Tooltip placement="left-end">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Left End
               </Button>
             </TooltipTrigger>
@@ -144,9 +165,7 @@ export const Placements: Story = {
         {/* 中心元素 */}
         <div className="flex items-center justify-center">
           <div className="rounded-xl border-2 border-dashed border-gray-300 p-8">
-            <span className="text-gray-500">
-              Hover around buttons to see tooltips
-            </span>
+            <span className="text-gray-500">Hover around buttons to see tooltips</span>
           </div>
         </div>
 
@@ -154,7 +173,10 @@ export const Placements: Story = {
         <div className="flex flex-col gap-4">
           <Tooltip placement="right-start">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Right Start
               </Button>
             </TooltipTrigger>
@@ -163,7 +185,10 @@ export const Placements: Story = {
 
           <Tooltip placement="right">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Right
               </Button>
             </TooltipTrigger>
@@ -172,7 +197,10 @@ export const Placements: Story = {
 
           <Tooltip placement="right-end">
             <TooltipTrigger>
-              <Button variant="secondary" className="h-16">
+              <Button
+                variant="secondary"
+                className="h-16"
+              >
                 Right End
               </Button>
             </TooltipTrigger>
@@ -206,7 +234,7 @@ export const Placements: Story = {
       </div>
     </div>
   ),
-};
+}
 
 // DelayGroup example - the key feature that was causing issues
 export const DelayGroup: Story = {
@@ -230,32 +258,26 @@ export const DelayGroup: Story = {
               <TooltipTrigger>
                 <Button>First</Button>
               </TooltipTrigger>
-              <TooltipContent>
-                First tooltip - 200ms delay initially
-              </TooltipContent>
+              <TooltipContent>First tooltip - 200ms delay initially</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger>
                 <Button>Second</Button>
               </TooltipTrigger>
-              <TooltipContent>
-                Second tooltip - instant when moving from first
-              </TooltipContent>
+              <TooltipContent>Second tooltip - instant when moving from first</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger>
                 <Button>Third</Button>
               </TooltipTrigger>
-              <TooltipContent>
-                Third tooltip - instant when moving from others
-              </TooltipContent>
+              <TooltipContent>Third tooltip - instant when moving from others</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
       </div>
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -281,12 +303,12 @@ export const Variants: Story = {
                 {placement} / {variant}
               </TooltipContent>
             </Tooltip>
-          ))
+          )),
         )}
       </div>
     </TooltipProvider>
   ),
-};
+}
 
 /**
  * Shows how to use the `shortcut` prop to add keyboard shortcuts to a tooltip.
@@ -338,6 +360,6 @@ export const Shortcut: Story = {
           </Tooltip>
         </div>
       </TooltipProvider>
-    );
+    )
   },
-};
+}

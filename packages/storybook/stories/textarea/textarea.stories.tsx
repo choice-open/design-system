@@ -28,9 +28,9 @@
  * - High contrast support in all variants
  */
 
-import { Button, Checkbox, Popover, Switch, Textarea } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { Button, Checkbox, Popover, Switch, Textarea } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useState } from "react"
 
 const meta: Meta<typeof Textarea> = {
   title: "Forms/Textarea",
@@ -39,10 +39,10 @@ const meta: Meta<typeof Textarea> = {
     layout: "centered",
   },
   tags: ["autodocs", "new"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * Default: Basic textarea with auto-resize behavior and default styling.
@@ -62,7 +62,7 @@ export const Default: Story = {
     placeholder: "Enter your text here...",
     className: "w-80",
   },
-};
+}
 
 /**
  * Controlled: Demonstrates controlled textarea with state management.
@@ -91,9 +91,7 @@ export const Default: Story = {
  */
 export const WithValue: Story = {
   render: function WithValue() {
-    const [value, setValue] = useState(
-      "This is a textarea with some initial text content."
-    );
+    const [value, setValue] = useState("This is a textarea with some initial text content.")
     return (
       <Textarea
         value={value}
@@ -101,9 +99,9 @@ export const WithValue: Story = {
         placeholder="Enter your text here..."
         className="w-80"
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the textarea component.
@@ -129,10 +127,13 @@ export const WithValue: Story = {
  */
 export const Variants: Story = {
   render: function Variants() {
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
@@ -158,9 +159,9 @@ export const Variants: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Selected State: Textarea in selected/focused state with visual emphasis.
@@ -188,7 +189,7 @@ export const Selected: Story = {
     value: "This textarea is in selected state",
     className: "w-80",
   },
-};
+}
 
 /**
  * Disabled State: Non-interactive textarea for display-only content.
@@ -216,7 +217,7 @@ export const Disabled: Story = {
     value: "This textarea is disabled",
     className: "w-80",
   },
-};
+}
 
 /**
  * Read-Only: Interactive but non-editable textarea for content display.
@@ -244,7 +245,7 @@ export const ReadOnly: Story = {
     value: "This textarea is read-only",
     className: "w-80",
   },
-};
+}
 
 /**
  * Height Constraints: Textarea with minimum and maximum row limits.
@@ -275,7 +276,7 @@ export const WithMinMaxRows: Story = {
     placeholder: "This textarea has minRows=2 and maxRows=8",
     className: "w-80",
   },
-};
+}
 
 /**
  * Fixed Size: Textarea with fixed height that doesn't auto-resize.
@@ -306,7 +307,7 @@ export const WithoutAutosize: Story = {
     placeholder: "This textarea does not auto-resize",
     className: "w-80",
   },
-};
+}
 
 /**
  * Scrollable Content: Textarea with long content demonstrating scroll behavior.
@@ -340,8 +341,8 @@ export const LongContent: Story = {
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`;
-    const [value, setValue] = useState(longContent);
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`
+    const [value, setValue] = useState(longContent)
     return (
       <Textarea
         value={value}
@@ -350,9 +351,9 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
         className="w-80"
         maxRows={6}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Interactive Example: Textarea with real-time feedback and editing state tracking.
@@ -386,8 +387,8 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
  */
 export const Interactive: Story = {
   render: function Interactive() {
-    const [value, setValue] = useState("");
-    const [isEditing, setIsEditing] = useState(false);
+    const [value, setValue] = useState("")
+    const [isEditing, setIsEditing] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
@@ -403,9 +404,9 @@ export const Interactive: Story = {
           <p>Is editing: {isEditing ? "Yes" : "No"}</p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Manual Resize: Textarea with drag handle for manual height adjustment.
@@ -440,8 +441,8 @@ export const Interactive: Story = {
 export const ResizeHandle: Story = {
   render: function ResizeHandle() {
     const [value, setValue] = useState(
-      "This textarea can be resized by dragging the handle in the bottom right corner. The height is constrained by minRows and maxRows."
-    );
+      "This textarea can be resized by dragging the handle in the bottom right corner. The height is constrained by minRows and maxRows.",
+    )
 
     return (
       <Textarea
@@ -453,9 +454,9 @@ export const ResizeHandle: Story = {
         onChange={setValue}
         placeholder="Drag the resize handle to adjust height..."
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Simple Usage: Demonstrates the default simple usage pattern.
@@ -477,7 +478,7 @@ export const ResizeHandle: Story = {
  */
 export const SimpleUsage: Story = {
   render: function SimpleUsage() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     return (
       <div className="space-y-4">
@@ -491,13 +492,11 @@ export const SimpleUsage: Story = {
             maxRows={6}
           />
         </div>
-        <div className="text-body-small text-text-tertiary">
-          Character count: {value.length}
-        </div>
+        <div className="text-body-small text-text-tertiary">Character count: {value.length}</div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Compound Usage: Demonstrates the compound component pattern with Textarea.Content.
@@ -520,7 +519,7 @@ export const SimpleUsage: Story = {
  */
 export const CompoundUsage: Story = {
   render: function CompoundUsage() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     return (
       <div className="space-y-4">
@@ -540,9 +539,9 @@ export const CompoundUsage: Story = {
           Using Textarea.Content with custom font-mono class
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Focus Selection Modes: Demonstrates different focus selection behaviors.
@@ -563,13 +562,9 @@ export const CompoundUsage: Story = {
  */
 export const FocusSelectionModes: Story = {
   render: function FocusSelectionModes() {
-    const [value1, setValue1] = useState(
-      "This text will be fully selected on focus"
-    );
-    const [value2, setValue2] = useState(
-      "Cursor will move to the end on focus"
-    );
-    const [value3, setValue3] = useState("No selection change on focus");
+    const [value1, setValue1] = useState("This text will be fully selected on focus")
+    const [value2, setValue2] = useState("Cursor will move to the end on focus")
+    const [value3, setValue3] = useState("No selection change on focus")
 
     return (
       <div className="space-y-6">
@@ -621,9 +616,9 @@ export const FocusSelectionModes: Story = {
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * No Newline Mode: Demonstrates textarea that prevents newline on Enter.
@@ -644,7 +639,7 @@ export const FocusSelectionModes: Story = {
  */
 export const NoNewlineMode: Story = {
   render: function NoNewlineMode() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
     return (
       <div className="space-y-4">
@@ -680,9 +675,9 @@ export const NoNewlineMode: Story = {
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom Line Height: Demonstrates the customizable lineHeight prop.
@@ -705,9 +700,9 @@ export const NoNewlineMode: Story = {
 export const CustomLineHeight: Story = {
   render: function CustomLineHeight() {
     const [value, setValue] = useState(
-      "Default line height (16px)\nThis is line 2\nThis is line 3\nThis is line 4"
-    );
-    const [size, setSize] = useState<"default" | "large">("default");
+      "Default line height (16px)\nThis is line 2\nThis is line 3\nThis is line 4",
+    )
+    const [size, setSize] = useState<"default" | "large">("default")
 
     return (
       <div className="space-y-6">
@@ -727,16 +722,12 @@ export const CustomLineHeight: Story = {
           placeholder="Default line height..."
           lineHeight={size === "large" ? 22 : 16}
         >
-          <Textarea.Content
-            className={
-              size === "large" ? "text-body-large" : "text-body-medium"
-            }
-          />
+          <Textarea.Content className={size === "large" ? "text-body-large" : "text-body-medium"} />
         </Textarea>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * In Popover: Demonstrates textarea working correctly in a Popover.
@@ -769,20 +760,23 @@ export const CustomLineHeight: Story = {
  */
 export const InPopover: Story = {
   render: function InPopover() {
-    const [value, setValue] = useState("");
-    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("")
+    const [open, setOpen] = useState(false)
 
     return (
       <div className="flex items-center justify-center p-20">
-        <Popover open={open} onOpenChange={setOpen}>
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Popover.Trigger>
             <Button>Open Popover with Textarea</Button>
           </Popover.Trigger>
           <Popover.Header title="Add a comment" />
           <Popover.Content className="space-y-3 p-4">
             <div className="text-body-small text-text-secondary">
-              Type your comment below. The textarea should auto-size correctly
-              even though it starts hidden inside a popover.
+              Type your comment below. The textarea should auto-size correctly even though it starts
+              hidden inside a popover.
             </div>
             <Textarea
               value={value}
@@ -792,12 +786,10 @@ export const InPopover: Story = {
               maxRows={10}
               className="w-full"
             />
-            <div className="text-body-small text-text-tertiary">
-              Characters: {value.length}
-            </div>
+            <div className="text-body-small text-text-tertiary">Characters: {value.length}</div>
           </Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}

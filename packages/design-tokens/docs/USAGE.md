@@ -23,11 +23,11 @@ npm install @choice-ui/design-tokens-generator
 
 ```css
 .button {
-  background-color: rgb(var(--cdt-color-background-default));
-  color: rgb(var(--cdt-color-foreground-default));
-  border-radius: var(--cdt-radius-md);
-  padding: var(--cdt-spacing-default);
   box-shadow: var(--cdt-shadows-sm);
+  border-radius: var(--cdt-radius-md);
+  background-color: rgb(var(--cdt-color-background-default));
+  padding: var(--cdt-spacing-default);
+  color: rgb(var(--cdt-color-foreground-default));
 }
 ```
 
@@ -46,9 +46,9 @@ npm install @choice-ui/design-tokens-generator
 
 ```scss
 .card {
-  background: $cdt-color-background-default;
   border: 1px solid $cdt-color-boundary-default;
   border-radius: $cdt-radius-lg;
+  background: $cdt-color-background-default;
   padding: $cdt-spacing-default;
 }
 ```
@@ -58,7 +58,7 @@ npm install @choice-ui/design-tokens-generator
 导入 JavaScript 令牌：
 
 ```javascript
-import { tokens, token } from "@choice-ui/design-tokens-generator";
+import { tokens, token } from "@choice-ui/design-tokens-generator"
 
 // tokens 对象包含所有令牌
 // token() 函数用于获取特定令牌和模式
@@ -69,15 +69,15 @@ import { tokens, token } from "@choice-ui/design-tokens-generator";
 ```javascript
 // 辅助函数：转换颜色令牌为 CSS 值
 const getColorValue = (tokenPath, mode = ".") => {
-  const colorToken = token(tokenPath, mode);
-  return `rgb(${colorToken.components.map((c) => Math.round(c * 255)).join(", ")})`;
-};
+  const colorToken = token(tokenPath, mode)
+  return `rgb(${colorToken.components.map((c) => Math.round(c * 255)).join(", ")})`
+}
 
 // 辅助函数：转换尺寸令牌为 CSS 值
 const getDimensionValue = (tokenPath, mode = ".") => {
-  const dimToken = token(tokenPath, mode);
-  return `${dimToken.value}${dimToken.unit}`;
-};
+  const dimToken = token(tokenPath, mode)
+  return `${dimToken.value}${dimToken.unit}`
+}
 
 // React 组件示例
 const Button = ({ children, theme = "." }) => (
@@ -92,29 +92,29 @@ const Button = ({ children, theme = "." }) => (
   >
     {children}
   </button>
-);
+)
 
 // 获取特定主题的令牌
-const lightBg = getColorValue("color.background.default", "light");
-const darkBg = getColorValue("color.background.default", "dark");
+const lightBg = getColorValue("color.background.default", "light")
+const darkBg = getColorValue("color.background.default", "dark")
 ```
 
 ### 4. CSS-in-JS (styled-components)
 
 ```javascript
-import styled from "styled-components";
-import { token } from "@choice-ui/design-tokens-generator";
+import styled from "styled-components"
+import { token } from "@choice-ui/design-tokens-generator"
 
 // 辅助函数
 const getColorValue = (tokenPath, mode = ".") => {
-  const colorToken = token(tokenPath, mode);
-  return `rgb(${colorToken.components.map((c) => Math.round(c * 255)).join(", ")})`;
-};
+  const colorToken = token(tokenPath, mode)
+  return `rgb(${colorToken.components.map((c) => Math.round(c * 255)).join(", ")})`
+}
 
 const getDimensionValue = (tokenPath, mode = ".") => {
-  const dimToken = token(tokenPath, mode);
-  return `${dimToken.value}${dimToken.unit}`;
-};
+  const dimToken = token(tokenPath, mode)
+  return `${dimToken.value}${dimToken.unit}`
+}
 
 const StyledButton = styled.button`
   background-color: ${getColorValue("color.background.default")};
@@ -128,7 +128,7 @@ const StyledButton = styled.button`
     background-color: ${getColorValue("color.background.default", "dark")};
     color: ${getColorValue("color.foreground.default", "dark")};
   }
-`;
+`
 ```
 
 ## 🎨 可用的设计令牌
@@ -267,89 +267,81 @@ const Button: React.FC<ButtonProps> = ({ children, theme = "." }) => (
 #### 基本使用
 
 ```typescript
-import { color, initColorHelpers } from "@choice-ui/design-tokens/helpers";
+import { color, initColorHelpers } from "@choice-ui/design-tokens/helpers"
 
 // 推荐：在应用启动时预加载 tokens
-await initColorHelpers();
+await initColorHelpers()
 
 // 使用语义化别名
-const backgroundColor = color("bg.default"); // "rgba(var(--cdt-color-background-default))"
-const primaryColor = color("fg.accent"); // "rgba(var(--cdt-color-foreground-accent))"
+const backgroundColor = color("bg.default") // "rgba(var(--cdt-color-background-default))"
+const primaryColor = color("fg.accent") // "rgba(var(--cdt-color-foreground-accent))"
 
 // 使用完整路径
-const blueColor = color("blue.500"); // "rgba(var(--cdt-color-blue-500))"
-const customColor = color("color.background.hover"); // "rgba(var(--cdt-color-background-hover))"
+const blueColor = color("blue.500") // "rgba(var(--cdt-color-blue-500))"
+const customColor = color("color.background.hover") // "rgba(var(--cdt-color-background-hover))"
 
 // 带透明度
-const translucentBg = color("bg.default", 0.8); // "rgba(var(--cdt-color-background-default), 0.8)"
+const translucentBg = color("bg.default", 0.8) // "rgba(var(--cdt-color-background-default), 0.8)"
 ```
 
 #### 异步使用（确保 tokens 已加载）
 
 ```typescript
-import { colorAsync } from "@choice-ui/design-tokens/helpers";
+import { colorAsync } from "@choice-ui/design-tokens/helpers"
 
 // 异步版本会确保 tokens 已加载
-const backgroundColor = await colorAsync("bg.default");
+const backgroundColor = await colorAsync("bg.default")
 ```
 
 #### 获取原始颜色值
 
 ```typescript
-import {
-  colorHex,
-  colorRgb,
-  getColorToken,
-} from "@choice-ui/design-tokens/helpers";
+import { colorHex, colorRgb, getColorToken } from "@choice-ui/design-tokens/helpers"
 
 // 获取十六进制值
-const hexValue = colorHex("bg.default"); // "#ffffff"
-const darkHexValue = colorHex("bg.default", "dark"); // "#2c2c2c"
+const hexValue = colorHex("bg.default") // "#ffffff"
+const darkHexValue = colorHex("bg.default", "dark") // "#2c2c2c"
 
 // 获取 RGB 值
-const [r, g, b] = colorRgb("blue.500"); // [13, 153, 255]
+const [r, g, b] = colorRgb("blue.500") // [13, 153, 255]
 
 // 获取完整 token 数据
-const tokenData = getColorToken("bg.default");
-console.log(tokenData.hex); // "#ffffff"
-console.log(tokenData.components); // [1, 1, 1]
+const tokenData = getColorToken("bg.default")
+console.log(tokenData.hex) // "#ffffff"
+console.log(tokenData.components) // [1, 1, 1]
 ```
 
 #### 探索可用的颜色
 
 ```typescript
-import {
-  listColorTokens,
-  listColorAliases,
-  hasColor,
-} from "@choice-ui/design-tokens/helpers";
+import { listColorTokens, listColorAliases, hasColor } from "@choice-ui/design-tokens/helpers"
 
 // 获取所有颜色 tokens
-const allColors = listColorTokens();
-console.log(allColors); // ['color.blue.100', 'color.blue.200', ...]
+const allColors = listColorTokens()
+console.log(allColors) // ['color.blue.100', 'color.blue.200', ...]
 
 // 获取所有别名
-const aliases = listColorAliases();
-console.log(aliases); // ['bg.default', 'bg.secondary', 'fg.accent', ...]
+const aliases = listColorAliases()
+console.log(aliases) // ['bg.default', 'bg.secondary', 'fg.accent', ...]
 
 // 检查颜色是否存在
 if (hasColor("bg.custom")) {
-  const customBg = color("bg.custom");
+  const customBg = color("bg.custom")
 }
 ```
 
 #### 批量处理颜色
 
 ```typescript
-import { colorList } from "@choice-ui/design-tokens/helpers";
+import { colorList } from "@choice-ui/design-tokens/helpers"
 
 // 批量获取颜色
 const colors = colorList(
   "bg.default",
   "fg.accent",
   ["bg.hover", 0.8], // 带透明度
-  "blue.500"
-);
+  "blue.500",
+)
 // 返回: [
 //   "rgba(var(--cdt-color-background-default))",
 //   "rgba(var(--cdt-color-foreground-accent))",
@@ -361,16 +353,16 @@ const colors = colorList(
 #### 在测试中使用
 
 ```typescript
-import { setTokensData } from "@choice-ui/design-tokens/helpers";
+import { setTokensData } from "@choice-ui/design-tokens/helpers"
 
 // 在测试中设置模拟数据
 const mockTokens = {
   "color.background.default": {
     ".": { hex: "#ffffff", components: [1, 1, 1] },
   },
-};
+}
 
-setTokensData(mockTokens);
+setTokensData(mockTokens)
 ```
 
 ### 迁移指南
@@ -379,11 +371,11 @@ setTokensData(mockTokens);
 
 ```typescript
 // 旧方式 (仍然支持，但不推荐)
-const oldColor = color("bg.default");
+const oldColor = color("bg.default")
 
 // 新方式 (推荐 - 完全相同的API，但基于动态tokens)
-await initColorHelpers(); // 添加这一行初始化
-const newColor = color("bg.default"); // API完全相同
+await initColorHelpers() // 添加这一行初始化
+const newColor = color("bg.default") // API完全相同
 ```
 
 ### 性能优化

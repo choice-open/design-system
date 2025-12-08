@@ -30,7 +30,7 @@ export const InitialLetter = memo(function InitialLetter({
 
   return (
     <span
-      className="flex h-full w-full select-none items-center justify-center uppercase"
+      className="flex h-full w-full items-center justify-center uppercase select-none"
       style={{
         fontSize: `${fontSize}px`,
         lineHeight: 1,

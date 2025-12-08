@@ -5,21 +5,21 @@ import {
   ScrollArea,
   Tooltip,
   useScrollPerformanceMonitor,
-} from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import React, { useMemo, useState } from "react";
+} from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useVirtualizer } from "@tanstack/react-virtual"
+import React, { useMemo, useState } from "react"
 
 const meta: Meta<typeof ScrollArea> = {
   title: "Layouts/ScrollArea",
   component: ScrollArea,
   tags: ["new"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof ScrollArea>;
+type Story = StoryObj<typeof ScrollArea>
 
 /**
  * `ScrollArea` is a new scroll area component built with native DOM APIs instead of Radix UI.
@@ -74,18 +74,15 @@ type Story = StoryObj<typeof ScrollArea>;
 export const AutoScrollbars: Story = {
   render: function AutoScrollbarsStory() {
     const contents = useMemo(() => {
-      return faker.lorem.sentences(200);
-    }, []);
+      return faker.lorem.sentences(200)
+    }, [])
 
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="text-body-large-strong mb-2">
-            ✨ New Simplified Usage
-          </h3>
+          <h3 className="text-body-large-strong mb-2">✨ New Simplified Usage</h3>
           <p className="text-body-small mb-4 text-gray-600">
-            No need to manually add ScrollArea.Scrollbar, ScrollArea.Thumb, or
-            ScrollArea.Corner!
+            No need to manually add ScrollArea.Scrollbar, ScrollArea.Thumb, or ScrollArea.Corner!
           </p>
 
           <div className="grid grid-cols-2 gap-4">
@@ -104,9 +101,7 @@ export const AutoScrollbars: Story = {
             </div>
 
             <div>
-              <p className="text-body-small-strong mb-2">
-                Horizontal Scrolling:
-              </p>
+              <p className="text-body-small-strong mb-2">Horizontal Scrolling:</p>
               <ScrollArea
                 className="relative h-40 w-48 overflow-hidden rounded border"
                 orientation="horizontal"
@@ -128,9 +123,7 @@ export const AutoScrollbars: Story = {
           </div>
 
           <div className="mt-4">
-            <p className="text-body-small-strong mb-2">
-              Both Directions (with auto Corner):
-            </p>
+            <p className="text-body-small-strong mb-2">Both Directions (with auto Corner):</p>
             <ScrollArea
               className="relative h-40 w-64 overflow-hidden rounded border"
               orientation="both"
@@ -151,9 +144,9 @@ export const AutoScrollbars: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Basic: Demonstrates the simplest ScrollArea implementation.
@@ -170,8 +163,8 @@ export const AutoScrollbars: Story = {
 export const Basic: Story = {
   render: function BasicStory() {
     const contents = useMemo(() => {
-      return faker.lorem.sentences(200);
-    }, []);
+      return faker.lorem.sentences(200)
+    }, [])
 
     return (
       <ScrollArea
@@ -182,9 +175,9 @@ export const Basic: Story = {
           <ScrollArea.Content>{contents}</ScrollArea.Content>
         </ScrollArea.Viewport>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * InModal: Demonstrates using ScrollArea within a Modal component.
@@ -205,8 +198,8 @@ export const Basic: Story = {
 export const InModal: Story = {
   render: function InModalStory() {
     const contents = useMemo(() => {
-      return faker.lorem.sentences(200);
-    }, []);
+      return faker.lorem.sentences(200)
+    }, [])
 
     return (
       <Modal>
@@ -224,9 +217,9 @@ export const InModal: Story = {
           </ScrollArea>
         </Modal.Content>
       </Modal>
-    );
+    )
   },
-};
+}
 
 /**
  * InModalWithHeader: Demonstrates ScrollArea within a Modal that has a header.
@@ -247,8 +240,8 @@ export const InModal: Story = {
 export const InModalWithHeader: Story = {
   render: function InModalWithHeaderStory() {
     const contents = useMemo(() => {
-      return Array.from({ length: 100 }, (_, i) => <div key={i}>{i}</div>);
-    }, []);
+      return Array.from({ length: 100 }, (_, i) => <div key={i}>{i}</div>)
+    }, [])
 
     return (
       <Modal>
@@ -267,9 +260,9 @@ export const InModalWithHeader: Story = {
           </ScrollArea>
         </Modal.Content>
       </Modal>
-    );
+    )
   },
-};
+}
 
 /**
  * HorizontalScrolling: Demonstrates horizontal scrolling with ScrollArea.
@@ -295,8 +288,8 @@ export const HorizontalScrolling: Story = {
         >
           {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -304,14 +297,12 @@ export const HorizontalScrolling: Story = {
         orientation="horizontal"
       >
         <ScrollArea.Viewport className="h-full">
-          <ScrollArea.Content className="flex gap-2 p-4">
-            {contents}
-          </ScrollArea.Content>
+          <ScrollArea.Content className="flex gap-2 p-4">{contents}</ScrollArea.Content>
         </ScrollArea.Viewport>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * DualScrolling: Demonstrates both vertical and horizontal scrolling.
@@ -331,7 +322,10 @@ export const DualScrolling: Story = {
   render: function DualScrollingStory() {
     const grid = useMemo(() => {
       return Array.from({ length: 20 }, (_, row) => (
-        <div key={row} className="flex gap-1">
+        <div
+          key={row}
+          className="flex gap-1"
+        >
           {Array.from({ length: 20 }, (_, col) => (
             <div
               key={col}
@@ -341,8 +335,8 @@ export const DualScrolling: Story = {
             </div>
           ))}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -350,14 +344,12 @@ export const DualScrolling: Story = {
         orientation="both"
       >
         <ScrollArea.Viewport className="h-full">
-          <ScrollArea.Content className="flex flex-col gap-1 p-4">
-            {grid}
-          </ScrollArea.Content>
+          <ScrollArea.Content className="flex flex-col gap-1 p-4">{grid}</ScrollArea.Content>
         </ScrollArea.Viewport>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * DarkTheme: Demonstrates ScrollArea with dark theme variant.
@@ -371,11 +363,14 @@ export const DarkTheme: Story = {
   render: function DarkThemeStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="p-2 text-white">
+        <div
+          key={i}
+          className="p-2 text-white"
+        >
           Dark theme item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -389,9 +384,9 @@ export const DarkTheme: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * LightTheme: Demonstrates ScrollArea with light theme variant.
@@ -405,11 +400,14 @@ export const LightTheme: Story = {
   render: function LightThemeStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="p-2 text-gray-900">
+        <div
+          key={i}
+          className="p-2 text-gray-900"
+        >
           Light theme item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -423,9 +421,9 @@ export const LightTheme: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * ScrollbarTypeAuto: Demonstrates the "auto" scrollbar visibility type.
@@ -439,11 +437,14 @@ export const ScrollbarTypeAuto: Story = {
   render: function ScrollbarTypeAutoStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="border-b p-2">
+        <div
+          key={i}
+          className="border-b p-2"
+        >
           Auto visibility item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -457,9 +458,9 @@ export const ScrollbarTypeAuto: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * ScrollbarTypeAlways: Demonstrates the "always" scrollbar visibility type.
@@ -473,11 +474,14 @@ export const ScrollbarTypeAlways: Story = {
   render: function ScrollbarTypeAlwaysStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="border-b p-2">
+        <div
+          key={i}
+          className="border-b p-2"
+        >
           Always visible item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -491,9 +495,9 @@ export const ScrollbarTypeAlways: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * ScrollbarTypeScroll: Demonstrates the "scroll" scrollbar visibility type.
@@ -507,11 +511,14 @@ export const ScrollbarTypeScroll: Story = {
   render: function ScrollbarTypeScrollStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="border-b p-2">
+        <div
+          key={i}
+          className="border-b p-2"
+        >
           Scroll to see scrollbar - item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -525,9 +532,9 @@ export const ScrollbarTypeScroll: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * ScrollbarTypeHover: Demonstrates the "hover" scrollbar visibility type (default).
@@ -541,11 +548,14 @@ export const ScrollbarTypeHover: Story = {
   render: function ScrollbarTypeHoverStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="border-b p-2">
+        <div
+          key={i}
+          className="border-b p-2"
+        >
           Hover or scroll to see scrollbar - item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -559,9 +569,9 @@ export const ScrollbarTypeHover: Story = {
           <ScrollArea.Thumb orientation="vertical" />
         </ScrollArea.Scrollbar>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * RenderProp: Demonstrates the render prop pattern for accessing scroll position.
@@ -582,11 +592,14 @@ export const RenderProp: Story = {
   render: function RenderPropStory() {
     const contents = useMemo(() => {
       return Array.from({ length: 100 }, (_, i) => (
-        <div key={i} className="border-b p-2">
+        <div
+          key={i}
+          className="border-b p-2"
+        >
           Render prop item {i}
         </div>
-      ));
-    }, []);
+      ))
+    }, [])
 
     return (
       <ScrollArea
@@ -609,9 +622,9 @@ export const RenderProp: Story = {
           </>
         )}
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * VirtualList: Demonstrates ScrollArea with @tanstack/react-virtual for performance.
@@ -642,8 +655,8 @@ export const VirtualList: Story = {
         name: `Item ${i}`,
         description: `Description for item ${i}`,
         value: Math.floor(Math.random() * 1000),
-      }));
-    }, []);
+      }))
+    }, [])
 
     return (
       <div className="space-y-4">
@@ -652,9 +665,9 @@ export const VirtualList: Story = {
         </div>
         <VirtualScrollArea items={items} />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * DynamicContent: Tests ScrollArea with dynamically changing content.
@@ -671,16 +684,16 @@ export const VirtualList: Story = {
  */
 export const DynamicContent: Story = {
   render: function DynamicContentStory() {
-    const [itemCount, setItemCount] = useState(5);
-    const [itemHeight, setItemHeight] = useState(60);
+    const [itemCount, setItemCount] = useState(5)
+    const [itemHeight, setItemHeight] = useState(60)
 
     const items = useMemo(() => {
       return Array.from({ length: itemCount }, (_, i) => ({
         id: i,
         title: `Dynamic Item ${i + 1}`,
         content: `This is the content of the ${i + 1}th item, with a height of ${itemHeight}px`,
-      }));
-    }, [itemCount, itemHeight]);
+      }))
+    }, [itemCount, itemHeight])
 
     return (
       <div className="space-y-6">
@@ -689,9 +702,8 @@ export const DynamicContent: Story = {
             🔧 Test Dynamic Content Changes
           </h3>
           <p className="text-body-small text-blue-800">
-            This test case validates the correct behavior of scrollbars when
-            content changes dynamically, including length updates and
-            display/hide logic.
+            This test case validates the correct behavior of scrollbars when content changes
+            dynamically, including length updates and display/hide logic.
           </p>
         </div>
 
@@ -765,9 +777,9 @@ export const DynamicContent: Story = {
           </ScrollArea>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * PerformanceMonitoring: Demonstrates performance monitoring capabilities.
@@ -788,16 +800,16 @@ export const DynamicContent: Story = {
  */
 export const PerformanceMonitoring: Story = {
   render: function PerformanceMonitoringStory() {
-    const [monitoringEnabled, setMonitoringEnabled] = useState(false);
-    const [itemCount, setItemCount] = useState(1000);
-    const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
+    const [monitoringEnabled, setMonitoringEnabled] = useState(false)
+    const [itemCount, setItemCount] = useState(1000)
+    const [viewport, setViewport] = useState<HTMLDivElement | null>(null)
 
     // 🔍 启用性能监控
     const performanceMetrics = useScrollPerformanceMonitor(viewport, {
       enabled: monitoringEnabled,
       logInterval: 3000, // 3秒报告一次
       frameTimeThreshold: 16.67, // 60fps阈值
-    });
+    })
 
     const items = useMemo(() => {
       return Array.from({ length: itemCount }, (_, i) => ({
@@ -805,8 +817,8 @@ export const PerformanceMonitoring: Story = {
         title: `Performance Item ${i + 1}`,
         content: faker.lorem.sentence(),
         value: Math.floor(Math.random() * 1000),
-      }));
-    }, [itemCount]);
+      }))
+    }, [itemCount])
 
     return (
       <div className="space-y-6">
@@ -815,8 +827,8 @@ export const PerformanceMonitoring: Story = {
             🔍 Performance Monitoring Test
           </h3>
           <p className="text-body-small text-purple-800">
-            Enable performance monitoring to track scroll performance metrics.
-            Check the browser console for detailed performance reports.
+            Enable performance monitoring to track scroll performance metrics. Check the browser
+            console for detailed performance reports.
           </p>
         </div>
 
@@ -829,7 +841,10 @@ export const PerformanceMonitoring: Story = {
               onChange={(e) => setMonitoringEnabled(e.target.checked)}
               className="rounded"
             />
-            <label htmlFor="monitoring" className="text-body-small-strong">
+            <label
+              htmlFor="monitoring"
+              className="text-body-small-strong"
+            >
               Enable Performance Monitoring 📊
             </label>
           </div>
@@ -857,9 +872,7 @@ export const PerformanceMonitoring: Story = {
                   ? (1000 / performanceMetrics.averageFrameTime).toFixed(1)
                   : "0"}
               </span>
-              <span className="ml-2">
-                Dropped Frames: {performanceMetrics.droppedFrames}
-              </span>
+              <span className="ml-2">Dropped Frames: {performanceMetrics.droppedFrames}</span>
             </div>
           )}
         </div>
@@ -872,7 +885,10 @@ export const PerformanceMonitoring: Story = {
               orientation="vertical"
               type="auto"
             >
-              <ScrollArea.Viewport className="h-full" ref={setViewport}>
+              <ScrollArea.Viewport
+                className="h-full"
+                ref={setViewport}
+              >
                 <ScrollArea.Content className="p-4">
                   <div className="space-y-2">
                     {items.map((item) => (
@@ -880,15 +896,9 @@ export const PerformanceMonitoring: Story = {
                         key={item.id}
                         className="rounded border border-gray-200 bg-white p-3 shadow-sm"
                       >
-                        <div className="font-strong text-gray-900">
-                          {item.title}
-                        </div>
-                        <div className="text-body-small text-gray-500">
-                          {item.content}
-                        </div>
-                        <div className="mt-1 text-xs text-blue-600">
-                          Value: {item.value}
-                        </div>
+                        <div className="font-strong text-gray-900">{item.title}</div>
+                        <div className="text-body-small text-gray-500">{item.content}</div>
+                        <div className="mt-1 text-xs text-blue-600">Value: {item.value}</div>
                       </div>
                     ))}
                   </div>
@@ -916,9 +926,7 @@ export const PerformanceMonitoring: Story = {
                         className="rounded border border-gray-200 bg-gradient-to-br from-blue-50 to-purple-50 p-2 shadow-sm"
                         style={{ minHeight: "120px" }}
                       >
-                        <div className="font-strong text-xs text-gray-900">
-                          {item.title}
-                        </div>
+                        <div className="font-strong text-xs text-gray-900">{item.title}</div>
                         <div className="mt-1 text-xs text-gray-600">
                           {item.content.slice(0, 50)}...
                         </div>
@@ -940,50 +948,45 @@ export const PerformanceMonitoring: Story = {
           </h3>
           <div className="text-body-small space-y-2 text-green-800">
             <div>
-              <strong>Average Frame Time</strong>: Should be &lt; 16.67ms
-              (60fps)
+              <strong>Average Frame Time</strong>: Should be &lt; 16.67ms (60fps)
             </div>
             <div>
-              <strong>Dropped Frames</strong>: Should be as few as possible, too
-              many indicates performance issues
+              <strong>Dropped Frames</strong>: Should be as few as possible, too many indicates
+              performance issues
             </div>
             <div>
-              <strong>Scroll Event Frequency</strong>: Too high may need
-              throttling optimization
+              <strong>Scroll Event Frequency</strong>: Too high may need throttling optimization
             </div>
             <div>
               <strong>Update Frequency</strong>: Should match actual needs
             </div>
-            <div className="mt-3 text-xs">
-              💡 Tip: Open the browser developer tools
-            </div>
+            <div className="mt-3 text-xs">💡 Tip: Open the browser developer tools</div>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // Helper component that integrates ScrollArea with react-virtual
 function VirtualScrollArea({
   items,
 }: {
   items: Array<{
-    description: string;
-    id: number;
-    name: string;
-    value: number;
-  }>;
+    description: string
+    id: number
+    name: string
+    value: number
+  }>
 }) {
-  const [scrollElement, setScrollElement] =
-    React.useState<HTMLDivElement | null>(null);
+  const [scrollElement, setScrollElement] = React.useState<HTMLDivElement | null>(null)
 
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollElement,
     estimateSize: () => 60,
     overscan: 5,
-  });
+  })
 
   return (
     <ScrollArea
@@ -991,7 +994,10 @@ function VirtualScrollArea({
       type="hover"
       scrollbarMode="large-y"
     >
-      <ScrollArea.Viewport className="h-full" ref={setScrollElement}>
+      <ScrollArea.Viewport
+        className="h-full"
+        ref={setScrollElement}
+      >
         <ScrollArea.Content>
           <div
             style={{
@@ -1000,7 +1006,7 @@ function VirtualScrollArea({
             }}
           >
             {virtualizer.getVirtualItems().map((virtualItem) => {
-              const item = items[virtualItem.index];
+              const item = items[virtualItem.index]
               return (
                 <div
                   key={virtualItem.key}
@@ -1012,19 +1018,15 @@ function VirtualScrollArea({
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-strong text-gray-900">
-                        {item.name}
-                      </div>
-                      <div className="text-body-small text-gray-500">
-                        {item.description}
-                      </div>
+                      <div className="font-strong text-gray-900">{item.name}</div>
+                      <div className="text-body-small text-gray-500">{item.description}</div>
                     </div>
                     <div className="text-body-small rounded bg-gray-100 px-2 py-1 font-mono text-gray-600">
                       {item.value}
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </ScrollArea.Content>
@@ -1033,7 +1035,7 @@ function VirtualScrollArea({
         <ScrollArea.Thumb orientation="vertical" />
       </ScrollArea.Scrollbar>
     </ScrollArea>
-  );
+  )
 }
 
 /**
@@ -1052,8 +1054,8 @@ export const NestedScrollArea: Story = {
         title: `Item ${i + 1}`,
         content: faker.lorem.sentence(),
         value: Math.floor(Math.random() * 1000),
-      }));
-    }, []);
+      }))
+    }, [])
 
     return (
       <ScrollArea
@@ -1092,9 +1094,9 @@ export const NestedScrollArea: Story = {
           </ScrollArea.Content>
         </ScrollArea.Viewport>
       </ScrollArea>
-    );
+    )
   },
-};
+}
 
 /**
  * WithPopoverAndTooltip: Tests ScrollArea with Popover and Tooltip components inside.
@@ -1122,20 +1124,18 @@ export const WithPopoverAndTooltip: Story = {
         description: faker.lorem.sentence(),
         hasPopover: i % 5 === 0,
         hasTooltip: i % 3 === 0,
-      }));
-    }, []);
+      }))
+    }, [])
 
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
           <h3 className="text-body-large-strong mb-2">
-            🎯 ScrollArea with Popover and Tooltip (Testing z-index with
-            Scrollbar)
+            🎯 ScrollArea with Popover and Tooltip (Testing z-index with Scrollbar)
           </h3>
           <p className="text-body-small">
-            Tooltips are positioned on the right side to test z-index behavior
-            when overlapping with scrollbars. Every 5th item has a Popover, and
-            every 3rd item has a Tooltip.
+            Tooltips are positioned on the right side to test z-index behavior when overlapping with
+            scrollbars. Every 5th item has a Popover, and every 3rd item has a Tooltip.
           </p>
         </div>
 
@@ -1148,7 +1148,10 @@ export const WithPopoverAndTooltip: Story = {
             <ScrollArea.Content className="p-4 pr-8">
               <div className="space-y-3">
                 {items.map((item) => (
-                  <div key={item.id} className="rounded-lg p-4 shadow-sm">
+                  <div
+                    key={item.id}
+                    className="rounded-lg p-4 shadow-sm"
+                  >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex-1">
                         <h4 className="font-strong">{item.title}</h4>
@@ -1169,9 +1172,8 @@ export const WithPopoverAndTooltip: Story = {
                                   Detailed Information for {item.title}
                                 </h4>
                                 <p className="text-body-small text-secondary-foreground">
-                                  This is a popover content that appears when
-                                  you click the button. It demonstrates how
-                                  floating UI components work within a
+                                  This is a popover content that appears when you click the button.
+                                  It demonstrates how floating UI components work within a
                                   ScrollArea.
                                 </p>
                                 <div className="mt-3 flex gap-2">
@@ -1202,36 +1204,24 @@ export const WithPopoverAndTooltip: Story = {
         </ScrollArea>
 
         <div className="w-96 rounded-xl border p-4">
-          <h3 className="text-body-large-strong mb-2">
-            💡 Testing Instructions
-          </h3>
+          <h3 className="text-body-large-strong mb-2">💡 Testing Instructions</h3>
           <div className="text-body-small space-y-2">
+            <div>• Hover over the blue question marks on the RIGHT side to see tooltips</div>
             <div>
-              • Hover over the blue question marks on the RIGHT side to see
-              tooltips
-            </div>
-            <div>
-              • Notice that tooltips are positioned near the scrollbar to test
-              z-index stacking
+              • Notice that tooltips are positioned near the scrollbar to test z-index stacking
             </div>
             <div>• Click &quot;More Info&quot; buttons to open popovers</div>
+            <div>• Verify that tooltips appear ABOVE the scrollbar (proper z-index)</div>
+            <div>• Test that popovers and tooltips remain properly positioned while scrolling</div>
             <div>
-              • Verify that tooltips appear ABOVE the scrollbar (proper z-index)
-            </div>
-            <div>
-              • Test that popovers and tooltips remain properly positioned while
-              scrolling
-            </div>
-            <div>
-              • Check that scrolling with an open popover doesn&apos;t cause
-              positioning issues
+              • Check that scrolling with an open popover doesn&apos;t cause positioning issues
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * HoverBoundaryTest: Tests the hoverBoundary prop for controlling scrollbar hover behavior.
@@ -1248,28 +1238,23 @@ export const WithPopoverAndTooltip: Story = {
  */
 export const HoverBoundaryTest: Story = {
   render: function HoverBoundaryTestStory() {
-    const [selectedBoundary, setSelectedBoundary] = useState<"none" | "hover">(
-      "hover"
-    );
+    const [selectedBoundary, setSelectedBoundary] = useState<"none" | "hover">("hover")
 
     const items = useMemo(() => {
       return Array.from({ length: 30 }, (_, i) => ({
         id: i,
         title: `Item ${i + 1}`,
         description: faker.lorem.sentence(),
-      }));
-    }, []);
+      }))
+    }, [])
 
     return (
       <div className="w-96 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="text-body-large-strong mb-2">
-            🎯 ScrollArea Hover Boundary Testing
-          </h3>
+          <h3 className="text-body-large-strong mb-2">🎯 ScrollArea Hover Boundary Testing</h3>
           <p className="text-body-small">
-            Test how different hoverBoundary settings affect scrollbar
-            visibility on hover. The scrollbar will appear based on where you
-            hover.
+            Test how different hoverBoundary settings affect scrollbar visibility on hover. The
+            scrollbar will appear based on where you hover.
           </p>
         </div>
 
@@ -1301,7 +1286,10 @@ export const HoverBoundaryTest: Story = {
             <ScrollArea.Content className="p-4">
               <div className="space-y-2">
                 {items.map((item) => (
-                  <div key={item.id} className="rounded-lg border p-4">
+                  <div
+                    key={item.id}
+                    className="rounded-lg border p-4"
+                  >
                     <h5 className="font-strong">{item.title}</h5>
                     <p className="text-body-small text-secondary-foreground mt-1">
                       {item.description}
@@ -1313,6 +1301,6 @@ export const HoverBoundaryTest: Story = {
           </ScrollArea.Viewport>
         </ScrollArea>
       </div>
-    );
+    )
   },
-};
+}

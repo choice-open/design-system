@@ -1,7 +1,7 @@
-import type { PaginationRootProps } from "@choice-ui/react";
-import { Pagination } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import type { PaginationRootProps } from "@choice-ui/react"
+import { Pagination } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useState } from "react"
 
 const meta: Meta<typeof Pagination> = {
   title: "Navigation/Pagination",
@@ -16,17 +16,15 @@ const meta: Meta<typeof Pagination> = {
     },
   },
   tags: ["autodocs", "new"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Helper component for controlled stories - using default layout
-const PaginationWrapper = (
-  props: Partial<PaginationRootProps> & { totalItems: number }
-) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(props.itemsPerPage || 10);
+const PaginationWrapper = (props: Partial<PaginationRootProps> & { totalItems: number }) => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(props.itemsPerPage || 10)
 
   return (
     <Pagination
@@ -41,12 +39,12 @@ const PaginationWrapper = (
       <Pagination.Navigation />
       <Pagination.ItemsPerPage />
     </Pagination>
-  );
-};
+  )
+}
 
 export const Default: Story = {
   render: () => <PaginationWrapper totalItems={100} />,
-};
+}
 
 export const BasicPagination: Story = {
   args: {
@@ -55,21 +53,21 @@ export const BasicPagination: Story = {
     itemsPerPage: 10,
   },
   render: (args) => <PaginationWrapper {...args} />,
-};
+}
 
 export const RealWorldExample: Story = {
   render: function Render() {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(25);
-    const totalItems = 1337;
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(25)
+    const totalItems = 1337
 
     // Simulate data for current page
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = Math.min(startIndex + itemsPerPage, totalItems)
     const currentItems = Array.from(
       { length: endIndex - startIndex },
-      (_, i) => `Item ${startIndex + i + 1}`
-    );
+      (_, i) => `Item ${startIndex + i + 1}`,
+    )
 
     return (
       <div className="w-full space-y-4">
@@ -99,24 +97,22 @@ export const RealWorldExample: Story = {
           <Pagination.ItemsPerPage />
         </Pagination>
       </div>
-    );
+    )
   },
   parameters: {
     layout: "padded",
   },
-};
+}
 
 export const ResponsiveExample: Story = {
   render: function Render() {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(10)
 
     return (
       <div className="w-full space-y-8">
         <div>
-          <h3 className="mb-2 text-sm font-medium">
-            Desktop View (All Features)
-          </h3>
+          <h3 className="mb-2 text-sm font-medium">Desktop View (All Features)</h3>
           <Pagination
             currentPage={currentPage}
             totalItems={500}
@@ -145,39 +141,39 @@ export const ResponsiveExample: Story = {
           </Pagination>
         </div>
       </div>
-    );
+    )
   },
   parameters: {
     layout: "padded",
   },
-};
+}
 
 export const LoadingState: Story = {
   render: function Render() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(20);
+    const [isLoading, setIsLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(20)
 
     const handlePageChange = (page: number) => {
-      setIsLoading(true);
-      setCurrentPage(page);
+      setIsLoading(true)
+      setCurrentPage(page)
 
       // Simulate API delay
       setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
-    };
+        setIsLoading(false)
+      }, 1500)
+    }
 
     const handleItemsPerPageChange = (newItemsPerPage: number) => {
-      setIsLoading(true);
-      setItemsPerPage(newItemsPerPage);
-      setCurrentPage(1); // Reset to first page
+      setIsLoading(true)
+      setItemsPerPage(newItemsPerPage)
+      setCurrentPage(1) // Reset to first page
 
       // Simulate API delay
       setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
-    };
+        setIsLoading(false)
+      }, 1500)
+    }
 
     return (
       <div className="w-full space-y-4">
@@ -227,7 +223,7 @@ export const LoadingState: Story = {
           <Pagination.ItemsPerPage />
         </Pagination>
       </div>
-    );
+    )
   },
   parameters: {
     layout: "padded",
@@ -238,4 +234,4 @@ export const LoadingState: Story = {
       },
     },
   },
-};
+}

@@ -3,8 +3,10 @@ import { forwardRef, HTMLProps, useCallback } from "react"
 import { useUnmount } from "usehooks-ts"
 import { InputTv } from "./tv"
 
-export interface InputProps
-  extends Omit<HTMLProps<HTMLInputElement>, "value" | "onChange" | "size"> {
+export interface InputProps extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "value" | "onChange" | "size"
+> {
   className?: string
   focusSelection?: "all" | "end" | "none"
   onChange?: (value: string) => void

@@ -153,8 +153,9 @@ const MdInputRoot = memo(
 
 MdInputRoot.displayName = "MdInput"
 
-interface MdInputComponent
-  extends React.ForwardRefExoticComponent<MdInputProps & React.RefAttributes<HTMLDivElement>> {
+interface MdInputComponent extends React.ForwardRefExoticComponent<
+  MdInputProps & React.RefAttributes<HTMLDivElement>
+> {
   Container: typeof MdInputContainer
   Editor: typeof MdInputEditor
   Footer: typeof MdInputFooter

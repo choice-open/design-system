@@ -78,8 +78,9 @@ export interface ComboboxProps {
   variant?: "default" | "light" | "reset"
 }
 
-interface ComboboxComponentType
-  extends React.ForwardRefExoticComponent<ComboboxProps & React.RefAttributes<ComboboxRef>> {
+interface ComboboxComponentType extends React.ForwardRefExoticComponent<
+  ComboboxProps & React.RefAttributes<ComboboxRef>
+> {
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider

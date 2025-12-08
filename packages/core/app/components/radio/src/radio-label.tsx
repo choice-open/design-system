@@ -3,8 +3,10 @@ import { forwardRef, HTMLProps, memo, ReactNode } from "react"
 import { useRadioContext } from "./context"
 import { radioTv } from "./tv"
 
-export interface RadioLabelProps
-  extends Omit<HTMLProps<HTMLLabelElement>, "htmlFor" | "id" | "disabled"> {
+export interface RadioLabelProps extends Omit<
+  HTMLProps<HTMLLabelElement>,
+  "htmlFor" | "id" | "disabled"
+> {
   children: ReactNode
 }
 

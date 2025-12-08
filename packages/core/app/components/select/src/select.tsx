@@ -72,8 +72,9 @@ export interface SelectProps {
   variant?: "default" | "light" | "reset"
 }
 
-interface SelectComponentType
-  extends React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLButtonElement>> {
+interface SelectComponentType extends React.ForwardRefExoticComponent<
+  SelectProps & React.RefAttributes<HTMLButtonElement>
+> {
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
   Item: typeof MenuContextItem

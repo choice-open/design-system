@@ -1,28 +1,28 @@
-import { bells, Button, Chip, tcx } from "@choice-ui/react";
-import { LayoutWallpaper } from "@choiceform/icons-react";
-import type { StoryObj } from "@storybook/react-vite";
-import React, { useEffect, useState } from "react";
-import { toast as sonnerToast, Toaster } from "sonner";
+import { bells, Button, Chip, tcx } from "@choice-ui/react"
+import { LayoutWallpaper } from "@choiceform/icons-react"
+import type { StoryObj } from "@storybook/react-vite"
+import React, { useEffect, useState } from "react"
+import { toast as sonnerToast, Toaster } from "sonner"
 
 const meta = {
   title: "Status/Bells",
   component: bells,
   tags: ["new"],
-};
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<
   typeof meta & {
     args: {
       actions: (id: string | number) => {
-        action?: { label: string; onClick: () => void };
-        dismiss?: { label: string; onClick: () => void };
-      };
-      icon: React.ReactNode;
-      text: string;
-    };
+        action?: { label: string; onClick: () => void }
+        dismiss?: { label: string; onClick: () => void }
+      }
+      icon: React.ReactNode
+      text: string
+    }
   }
->;
+>
 
 /**
  * Bells (toasts/notifications) are used to provide timely feedback or status updates to users.
@@ -67,7 +67,7 @@ export const Basic: Story = {
           onClick={() => {
             bells({
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            });
+            })
           }}
         >
           Render bell
@@ -81,7 +81,7 @@ export const Basic: Story = {
               },
               html: "Successfully <b class='text-red-500'>duplicated</b> project to <em class='text-blue-500'>My New Project</em>! 🎉",
               icon: <LayoutWallpaper />,
-            });
+            })
           }}
         >
           Bell with HTML
@@ -92,7 +92,7 @@ export const Basic: Story = {
             bells({
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            });
+            })
           }}
         >
           With icon
@@ -104,9 +104,9 @@ export const Basic: Story = {
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               onClose: (id) => {
-                sonnerToast.dismiss(id);
+                sonnerToast.dismiss(id)
               },
-            });
+            })
           }}
         >
           With close button
@@ -118,20 +118,20 @@ export const Basic: Story = {
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               onClose: (id) => {
-                sonnerToast.dismiss(id);
+                sonnerToast.dismiss(id)
               },
               action: (id) => (
                 <Chip
                   size="medium"
                   className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
                   onClick={() => {
-                    sonnerToast.dismiss(id);
+                    sonnerToast.dismiss(id)
                   }}
                 >
                   Action
                 </Chip>
               ),
-            });
+            })
           }}
         >
           With close button and action
@@ -143,7 +143,7 @@ export const Basic: Story = {
               icon: <LayoutWallpaper />,
               text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               onClose: (id) => {
-                sonnerToast.dismiss(id);
+                sonnerToast.dismiss(id)
               },
               action: (id) => (
                 <>
@@ -151,7 +151,7 @@ export const Basic: Story = {
                     size="medium"
                     className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
                     onClick={() => {
-                      sonnerToast.dismiss(id);
+                      sonnerToast.dismiss(id)
                     }}
                   >
                     Action
@@ -160,7 +160,7 @@ export const Basic: Story = {
                     size="medium"
                     className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
                     onClick={() => {
-                      sonnerToast.dismiss(id);
+                      sonnerToast.dismiss(id)
                     }}
                   >
                     Dismiss
@@ -168,15 +168,15 @@ export const Basic: Story = {
                 </>
               ),
               progress: true,
-            });
+            })
           }}
         >
           With progress
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * UseEffect: Demonstrates using bells within useEffect, similar to real-world scenarios.
@@ -187,16 +187,14 @@ export const Basic: Story = {
  */
 export const UseEffect: Story = {
   render: function UseEffectStory() {
-    const [isVisible, setIsVisible] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
-    const [notificationId, setNotificationId] = useState<
-      string | number | null
-    >(null);
-    const [actionCount, setActionCount] = useState(0);
+    const [isVisible, setIsVisible] = useState(false)
+    const [showNotification, setShowNotification] = useState(false)
+    const [notificationId, setNotificationId] = useState<string | number | null>(null)
+    const [actionCount, setActionCount] = useState(0)
 
     // 模拟检测某种条件的 effect
     useEffect(() => {
-      if (!isVisible) return;
+      if (!isVisible) return
 
       const interval = setInterval(() => {
         // 模拟检测到需要显示通知的条件
@@ -211,9 +209,9 @@ export const UseEffect: Story = {
                 className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
                 onClick={() => {
                   // 测试闭包中的状态更新
-                  setActionCount((prev) => prev + 1);
-                  setIsVisible(false);
-                  sonnerToast.dismiss(id);
+                  setActionCount((prev) => prev + 1)
+                  setIsVisible(false)
+                  sonnerToast.dismiss(id)
                 }}
               >
                 Back to content ({actionCount})
@@ -221,27 +219,27 @@ export const UseEffect: Story = {
             ),
             duration: Infinity,
             onClose: (id) => {
-              setShowNotification(false);
-              setNotificationId(null);
+              setShowNotification(false)
+              setNotificationId(null)
             },
-          });
+          })
 
-          setNotificationId(bellId);
-          setShowNotification(true);
+          setNotificationId(bellId)
+          setShowNotification(true)
         }
-      }, 2000);
+      }, 2000)
 
-      return () => clearInterval(interval);
-    }, [isVisible, showNotification, actionCount]);
+      return () => clearInterval(interval)
+    }, [isVisible, showNotification, actionCount])
 
     // 清理 effect
     useEffect(() => {
       return () => {
         if (notificationId) {
-          sonnerToast.dismiss(notificationId);
+          sonnerToast.dismiss(notificationId)
         }
-      };
-    }, [notificationId]);
+      }
+    }, [notificationId])
 
     return (
       <div className="flex flex-col gap-4">
@@ -251,10 +249,10 @@ export const UseEffect: Story = {
           <Button
             variant={isVisible ? "primary" : "secondary"}
             onClick={() => {
-              setIsVisible(!isVisible);
+              setIsVisible(!isVisible)
               if (isVisible && notificationId) {
-                sonnerToast.dismiss(notificationId);
-                setShowNotification(false);
+                sonnerToast.dismiss(notificationId)
+                setShowNotification(false)
               }
             }}
           >
@@ -264,10 +262,10 @@ export const UseEffect: Story = {
           <Button
             variant="secondary"
             onClick={() => {
-              setActionCount(0);
-              setShowNotification(false);
+              setActionCount(0)
+              setShowNotification(false)
               if (notificationId) {
-                sonnerToast.dismiss(notificationId);
+                sonnerToast.dismiss(notificationId)
               }
             }}
           >
@@ -280,17 +278,17 @@ export const UseEffect: Story = {
           <p>Notification: {showNotification ? "Yes" : "No"}</p>
           <p>Action count: {actionCount}</p>
           <p className="mt-2">
-            Click &quot;Start detecting&quot; to automatically display a
-            notification within 2 seconds.
+            Click &quot;Start detecting&quot; to automatically display a notification within 2
+            seconds.
             <br />
-            Click the &quot;Back to content&quot; button in the notification to
-            test state updates and closure issues.
+            Click the &quot;Back to content&quot; button in the notification to test state updates
+            and closure issues.
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multiple Toasters: Demonstrates using multiple Toaster instances with different IDs and positions.
@@ -304,7 +302,10 @@ export const MultipleToasters: Story = {
     return (
       <div className="flex flex-col gap-4">
         <Toaster id="bells-main" />
-        <Toaster id="bells-secondary" offset={{ bottom: "128px" }} />
+        <Toaster
+          id="bells-secondary"
+          offset={{ bottom: "128px" }}
+        />
 
         <div className="flex flex-col gap-2">
           <h3 className="text-body-large-strong">Main Toaster</h3>
@@ -315,7 +316,7 @@ export const MultipleToasters: Story = {
                 bells({
                   toasterId: "bells-main",
                   text: "This bell appears in the main toaster at bottom-center.",
-                });
+                })
               }}
             >
               Main Toaster
@@ -328,9 +329,9 @@ export const MultipleToasters: Story = {
                   icon: <LayoutWallpaper />,
                   text: "Bell with icon and close button",
                   onClose: (id) => {
-                    sonnerToast.dismiss(id);
+                    sonnerToast.dismiss(id)
                   },
-                });
+                })
               }}
             >
               With Close
@@ -344,7 +345,7 @@ export const MultipleToasters: Story = {
                   icon: "✅",
                   text: "Success bell in main toaster",
                   progress: true,
-                });
+                })
               }}
             >
               With Progress
@@ -362,7 +363,7 @@ export const MultipleToasters: Story = {
                   toasterId: "bells-secondary",
                   icon: <LayoutWallpaper />,
                   text: "This bell appears in the secondary toaster at top-center.",
-                });
+                })
               }}
             >
               Secondary Toaster
@@ -376,9 +377,9 @@ export const MultipleToasters: Story = {
                   icon: "⚠️",
                   html: "Danger bell with <strong>HTML</strong> content",
                   onClose: (id) => {
-                    sonnerToast.dismiss(id);
+                    sonnerToast.dismiss(id)
                   },
-                });
+                })
               }}
             >
               Danger Variant
@@ -396,13 +397,13 @@ export const MultipleToasters: Story = {
                       size="medium"
                       className="border-menu-boundary flex-none bg-transparent hover:bg-white/5"
                       onClick={() => {
-                        sonnerToast.dismiss(id);
+                        sonnerToast.dismiss(id)
                       }}
                     >
                       Action
                     </Chip>
                   ),
-                });
+                })
               }}
             >
               With Action
@@ -413,16 +414,15 @@ export const MultipleToasters: Story = {
         <div className="text-secondary-foreground text-body-small">
           <p className="font-strong">Usage:</p>
           <p>
-            Multiple Toasters allow you to separate bells by context or
-            priority. Each Toaster can have its own position, offset, and
-            configuration. Use the <code>toasterId</code> prop to target a
-            specific Toaster when calling <code>bells()</code>.
+            Multiple Toasters allow you to separate bells by context or priority. Each Toaster can
+            have its own position, offset, and configuration. Use the <code>toasterId</code> prop to
+            target a specific Toaster when calling <code>bells()</code>.
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Color: Demonstrates the different color variants for the Bells component.
@@ -453,7 +453,7 @@ export const Color: Story = {
         color: "assistive",
         className: "bg-assistive-background",
       },
-    ];
+    ]
 
     return (
       <div className="flex gap-2 capitalize">
@@ -474,7 +474,7 @@ export const Color: Story = {
                 icon: <LayoutWallpaper />,
                 text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 onClose: (id) => {
-                  sonnerToast.dismiss(id);
+                  sonnerToast.dismiss(id)
                 },
                 action: (id) => (
                   <Chip
@@ -483,23 +483,23 @@ export const Color: Story = {
                       "flex-none",
                       color.color === "default"
                         ? "border-menu-boundary bg-transparent hover:bg-white/5"
-                        : "border-black/10 bg-black/40 shadow-sm hover:bg-black/50"
+                        : "border-black/10 bg-black/40 shadow-sm hover:bg-black/50",
                     )}
                     onClick={() => {
-                      sonnerToast.dismiss(id);
+                      sonnerToast.dismiss(id)
                     }}
                   >
                     {color.color}
                   </Chip>
                 ),
                 progress: true,
-              });
+              })
             }}
           >
             {color.color} color
           </Button>
         ))}
       </div>
-    );
+    )
   },
-};
+}

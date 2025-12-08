@@ -1,18 +1,18 @@
-import { Button, Select, tcx } from "@choice-ui/react";
-import { SearchSmall } from "@choiceform/icons-react";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Fragment, useState } from "react";
+import { Button, Select, tcx } from "@choice-ui/react"
+import { SearchSmall } from "@choiceform/icons-react"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { Fragment, useState } from "react"
 
 const meta: Meta<typeof Button> = {
   title: "Buttons/Button",
   component: Button,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Button>
 
 /**
  * `Button` is a versatile, accessible button component supporting multiple visual styles, states, and behaviors.
@@ -51,7 +51,7 @@ type Story = StoryObj<typeof Button>;
  */
 export const Basic: Story = {
   render: () => <Button>Button</Button>,
-};
+}
 
 /**
  * Sizes: Demonstrates the different size options for the Button component.
@@ -65,7 +65,7 @@ export const Sizes: Story = {
       <Button size="large">Large</Button>
     </>
   ),
-};
+}
 
 /**
  * Variants: Demonstrates all visual variants, sizes, and states for the Button component.
@@ -104,14 +104,14 @@ export const Variants: Story = {
       Rest = "rest",
     }
 
-    const [variant, setVariant] = useState<Variant>(Variant.Primary);
-    const [size, setSize] = useState<Size>(Size.Default);
+    const [variant, setVariant] = useState<Variant>(Variant.Primary)
+    const [size, setSize] = useState<Size>(Size.Default)
 
     return (
       <div
         className={tcx(
           "flex flex-col items-start gap-4 rounded-xl p-4",
-          variant === Variant.Dark && "bg-gray-800"
+          variant === Variant.Dark && "bg-gray-800",
         )}
       >
         <div className="flex gap-4">
@@ -122,17 +122,26 @@ export const Variants: Story = {
             <Select.Trigger>{variant}</Select.Trigger>
             <Select.Content>
               {Object.values(Variant).map((variant) => (
-                <Select.Item key={variant} value={variant}>
+                <Select.Item
+                  key={variant}
+                  value={variant}
+                >
                   {variant}
                 </Select.Item>
               ))}
             </Select.Content>
           </Select>
-          <Select value={size} onChange={(value) => setSize(value as Size)}>
+          <Select
+            value={size}
+            onChange={(value) => setSize(value as Size)}
+          >
             <Select.Trigger>{size}</Select.Trigger>
             <Select.Content>
               {Object.values(Size).map((size) => (
-                <Select.Item key={size} value={size}>
+                <Select.Item
+                  key={size}
+                  value={size}
+                >
                   {size}
                 </Select.Item>
               ))}
@@ -169,9 +178,9 @@ export const Variants: Story = {
           ))}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * AsChild: Demonstrates rendering the Button as another element using the `asChild` prop.
@@ -185,7 +194,7 @@ export const AsChild: Story = {
       </Button>
     </>
   ),
-};
+}
 
 /**
  * Tooltip: Demonstrates the Button with a tooltip.
@@ -194,7 +203,7 @@ export const AsChild: Story = {
  */
 export const Tooltip: Story = {
   render: () => <Button tooltip={{ content: "Tooltip" }}>Button</Button>,
-};
+}
 
 /**
  * Button component in readOnly state.
@@ -206,21 +215,20 @@ export const Tooltip: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [clickCount, setClickCount] = useState(0);
+    const [clickCount, setClickCount] = useState(0)
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Click Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {clickCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Click Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{clickCount}</div>
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <Button readOnly onClick={() => setClickCount((prev) => prev + 1)}>
+          <Button
+            readOnly
+            onClick={() => setClickCount((prev) => prev + 1)}
+          >
             Readonly Button
           </Button>
           <Button
@@ -236,10 +244,10 @@ export const Readonly: Story = {
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readOnly buttons - the click count should not
-          change. Only the normal button will increment the count.
+          💡 Try clicking on the readOnly buttons - the click count should not change. Only the
+          normal button will increment the count.
         </div>
       </div>
-    );
+    )
   },
-};
+}

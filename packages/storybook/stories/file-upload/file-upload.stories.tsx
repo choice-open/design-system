@@ -9,11 +9,11 @@ import {
   FileUploadList,
   FileUploadTrigger,
   IconButton,
-} from "@choice-ui/react";
-import { DataUpload, RemoveSmall } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useCallback, useState } from "react";
-import { toast } from "sonner";
+} from "@choice-ui/react"
+import { DataUpload, RemoveSmall } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useCallback, useState } from "react"
+import { toast } from "sonner"
 
 const meta: Meta = {
   title: "Forms/FileUpload",
@@ -21,25 +21,25 @@ const meta: Meta = {
     layout: "centered",
   },
   tags: ["autodocs", "beta"],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Basic FileUpload with compound component pattern
  */
 export const Basic: Story = {
   render: function FileUploadDemo() {
-    const [files, setFiles] = useState<File[]>([]);
+    const [files, setFiles] = useState<File[]>([])
 
     const onFileReject = useCallback((file: File, message: string) => {
       toast(message, {
         description: `"${
           file.name.length > 20 ? `${file.name.slice(0, 20)}...` : file.name
         }" has been rejected`,
-      });
-    }, []);
+      })
+    }, [])
 
     return (
       <FileUpload
@@ -65,14 +65,20 @@ export const Basic: Story = {
             </p>
           </div>
           <FileUpload.Trigger asChild>
-            <Button variant="secondary" className="mt-2 w-fit">
+            <Button
+              variant="secondary"
+              className="mt-2 w-fit"
+            >
               Browse files
             </Button>
           </FileUpload.Trigger>
         </FileUpload.Dropzone>
         <FileUpload.List>
           {files.map((file, index) => (
-            <FileUpload.Item key={index} value={file}>
+            <FileUpload.Item
+              key={index}
+              value={file}
+            >
               <FileUpload.ItemPreview />
               <FileUpload.ItemMetadata />
               <FileUpload.ItemDelete asChild>
@@ -84,24 +90,24 @@ export const Basic: Story = {
           ))}
         </FileUpload.List>
       </FileUpload>
-    );
+    )
   },
-};
+}
 
 /**
  * Backward compatible usage (still supported)
  */
 export const BackwardCompatible: Story = {
   render: function BackwardCompatibleDemo() {
-    const [files, setFiles] = useState<File[]>([]);
+    const [files, setFiles] = useState<File[]>([])
 
     const onFileReject = useCallback((file: File, message: string) => {
       toast(message, {
         description: `"${
           file.name.length > 20 ? `${file.name.slice(0, 20)}...` : file.name
         }" has been rejected`,
-      });
-    }, []);
+      })
+    }, [])
 
     return (
       <FileUpload
@@ -122,19 +128,23 @@ export const BackwardCompatible: Story = {
             />
 
             <p className="font-strong">Drag & drop files here</p>
-            <p className="text-secondary-foreground">
-              Legacy usage style (still works)
-            </p>
+            <p className="text-secondary-foreground">Legacy usage style (still works)</p>
           </div>
           <FileUploadTrigger asChild>
-            <Button variant="secondary" className="mt-2 w-fit">
+            <Button
+              variant="secondary"
+              className="mt-2 w-fit"
+            >
               Browse files
             </Button>
           </FileUploadTrigger>
         </FileUploadDropzone>
         <FileUploadList>
           {files.map((file, index) => (
-            <FileUploadItem key={index} value={file}>
+            <FileUploadItem
+              key={index}
+              value={file}
+            >
               <FileUploadItemPreview />
               <FileUploadItemMetadata />
               <FileUploadItemDelete asChild>
@@ -146,16 +156,16 @@ export const BackwardCompatible: Story = {
           ))}
         </FileUploadList>
       </FileUpload>
-    );
+    )
   },
-};
+}
 
 /**
  * FileUpload with progress indicators
  */
 export const WithProgress: Story = {
   render: function FileUploadWithProgressDemo() {
-    const [files, setFiles] = useState<File[]>([]);
+    const [files, setFiles] = useState<File[]>([])
 
     const simulateUpload = async (
       files: File[],
@@ -164,27 +174,24 @@ export const WithProgress: Story = {
         onSuccess,
         onError,
       }: {
-        onError: (file: File, error: Error) => void;
-        onProgress: (file: File, progress: number) => void;
-        onSuccess: (file: File) => void;
-      }
+        onError: (file: File, error: Error) => void
+        onProgress: (file: File, progress: number) => void
+        onSuccess: (file: File) => void
+      },
     ): Promise<void> => {
       for (const file of files) {
         try {
           // Simulate upload progress
           for (let progress = 0; progress <= 100; progress += 10) {
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            onProgress(file, progress);
+            await new Promise((resolve) => setTimeout(resolve, 100))
+            onProgress(file, progress)
           }
-          onSuccess(file);
+          onSuccess(file)
         } catch (error) {
-          onError(
-            file,
-            error instanceof Error ? error : new Error(String(error))
-          );
+          onError(file, error instanceof Error ? error : new Error(String(error)))
         }
       }
-    };
+    }
 
     return (
       <FileUpload
@@ -203,19 +210,23 @@ export const WithProgress: Story = {
               strokeWidth={(2 * 16) / 32}
             />
             <p className="font-strong">Drop files to upload</p>
-            <p className="text-secondary-foreground">
-              Upload will start automatically
-            </p>
+            <p className="text-secondary-foreground">Upload will start automatically</p>
           </div>
           <FileUpload.Trigger asChild>
-            <Button variant="secondary" className="mt-2 w-fit">
+            <Button
+              variant="secondary"
+              className="mt-2 w-fit"
+            >
               Select files
             </Button>
           </FileUpload.Trigger>
         </FileUpload.Dropzone>
         <FileUpload.List>
           {files.map((file, index) => (
-            <FileUpload.Item key={index} value={file}>
+            <FileUpload.Item
+              key={index}
+              value={file}
+            >
               <FileUpload.ItemPreview />
               <div className="flex-1">
                 <FileUpload.ItemMetadata />
@@ -230,6 +241,6 @@ export const WithProgress: Story = {
           ))}
         </FileUpload.List>
       </FileUpload>
-    );
+    )
   },
-};
+}

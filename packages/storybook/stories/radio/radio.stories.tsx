@@ -1,16 +1,16 @@
-import { Radio, RadioGroup } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Fragment, useState } from "react";
+import { Radio, RadioGroup } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { Fragment, useState } from "react"
 
 const meta: Meta<typeof Radio> = {
   title: "Forms/Radio",
   component: Radio,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Radio>;
+type Story = StoryObj<typeof Radio>
 
 /**
  * `Radio` is a form control component that allows users to select a single option from a set.
@@ -88,7 +88,7 @@ export const Basic: Story = {
                         focused={state === State.Focused}
                         variant={variant}
                         onChange={(value) => {
-                          console.log(value);
+                          console.log(value)
                         }}
                       >
                         {interaction}
@@ -98,15 +98,13 @@ export const Basic: Story = {
                 </Fragment>
               ))}
             </div>
-            {index !== Object.values(Variant).length - 1 && (
-              <hr className="w-full" />
-            )}
+            {index !== Object.values(Variant).length - 1 && <hr className="w-full" />}
           </Fragment>
         ))}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Demonstrates a radio button in the disabled state.
@@ -123,14 +121,18 @@ export const Basic: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [value, setValue] = useState(false);
+    const [value, setValue] = useState(false)
     return (
-      <Radio value={value} onChange={setValue} disabled>
+      <Radio
+        value={value}
+        onChange={setValue}
+        disabled
+      >
         Disabled
       </Radio>
-    );
+    )
   },
-};
+}
 
 /**
  * Variant: Demonstrates the different visual variants of the Radio component.
@@ -154,7 +156,7 @@ export const Variant: Story = {
       default: false,
       accent: false,
       outline: false,
-    });
+    })
 
     return (
       <>
@@ -182,9 +184,9 @@ export const Variant: Story = {
           Outline
         </Radio>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Label Usage: Demonstrates two ways to use labels with Radio.
@@ -193,25 +195,27 @@ export const Variant: Story = {
  */
 export const LabelUsage: Story = {
   render: function LabelUsageStory() {
-    const [simple, setSimple] = useState(false);
-    const [explicit, setExplicit] = useState(false);
+    const [simple, setSimple] = useState(false)
+    const [explicit, setExplicit] = useState(false)
 
     return (
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="font-strong mb-2">
-            Simple string label (auto-wrapped):
-          </h4>
-          <Radio value={simple} onChange={setSimple}>
+          <h4 className="font-strong mb-2">Simple string label (auto-wrapped):</h4>
+          <Radio
+            value={simple}
+            onChange={setSimple}
+          >
             Simple text label
           </Radio>
         </div>
 
         <div>
-          <h4 className="font-strong mb-2">
-            Explicit Radio.Label (for complex content):
-          </h4>
-          <Radio value={explicit} onChange={setExplicit}>
+          <h4 className="font-strong mb-2">Explicit Radio.Label (for complex content):</h4>
+          <Radio
+            value={explicit}
+            onChange={setExplicit}
+          >
             <Radio.Label>
               <span className="text-accent-foreground">Complex</span> label with{" "}
               <strong>formatting</strong>
@@ -219,9 +223,9 @@ export const LabelUsage: Story = {
           </Radio>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Group: Demonstrates the RadioGroup component for managing related radio options.
@@ -246,11 +250,9 @@ export const Group: Story = {
       { value: "option1", label: "Option 1" },
       { value: "option2", label: "Option 2" },
       { value: "option3", label: "Option 3" },
-    ];
+    ]
 
-    const [selectedIds, setSelectedIds] = useState<string>(
-      groupOptions[0].value
-    );
+    const [selectedIds, setSelectedIds] = useState<string>(groupOptions[0].value)
 
     return (
       <div className="flex flex-col gap-4">
@@ -270,16 +272,19 @@ export const Group: Story = {
             onChange={(value) => setSelectedIds(value)}
           >
             {groupOptions.map((option) => (
-              <RadioGroup.Item key={option.value} value={option.value}>
+              <RadioGroup.Item
+                key={option.value}
+                value={option.value}
+              >
                 {option.label}
               </RadioGroup.Item>
             ))}
           </RadioGroup>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * GroupVariant: Demonstrates applying visual variants to a RadioGroup.
@@ -304,9 +309,9 @@ export const GroupVariant: Story = {
       { value: "default", label: "Default" },
       { value: "accent", label: "Accent" },
       { value: "outline", label: "Outline" },
-    ];
+    ]
 
-    const [variant, setVariant] = useState("default");
+    const [variant, setVariant] = useState("default")
 
     return (
       <>
@@ -316,15 +321,18 @@ export const GroupVariant: Story = {
           onChange={(value) => setVariant(value)}
         >
           {groupOptions.map((option) => (
-            <RadioGroup.Item key={option.value} value={option.value}>
+            <RadioGroup.Item
+              key={option.value}
+              value={option.value}
+            >
               {option.label}
             </RadioGroup.Item>
           ))}
         </RadioGroup>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * GroupWithDisabledOptions: Demonstrates a RadioGroup with some options disabled.
@@ -352,17 +360,15 @@ export const GroupWithDisabledOptions: Story = {
       { value: "option2", label: "Disabled Option", disabled: true },
       { value: "option3", label: "Another Available", disabled: false },
       { value: "option4", label: "Also Disabled", disabled: true },
-    ];
+    ]
 
-    const [selectedValue1, setSelectedValue1] = useState("option1");
-    const [selectedValue2, setSelectedValue2] = useState("custom1");
+    const [selectedValue1, setSelectedValue1] = useState("option1")
+    const [selectedValue2, setSelectedValue2] = useState("custom1")
 
     return (
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h4 className="font-strong">
-            Using options prop with disabled property:
-          </h4>
+          <h4 className="font-strong">Using options prop with disabled property:</h4>
           <RadioGroup
             options={optionsWithDisabled}
             value={selectedValue1}
@@ -371,28 +377,31 @@ export const GroupWithDisabledOptions: Story = {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h4 className="font-strong">
-            Using RadioGroup.Item with individual disabled control:
-          </h4>
-          <RadioGroup value={selectedValue2} onChange={setSelectedValue2}>
-            <RadioGroup.Item value="custom1">
-              First Choice (Available)
-            </RadioGroup.Item>
-            <RadioGroup.Item value="custom2" disabled>
+          <h4 className="font-strong">Using RadioGroup.Item with individual disabled control:</h4>
+          <RadioGroup
+            value={selectedValue2}
+            onChange={setSelectedValue2}
+          >
+            <RadioGroup.Item value="custom1">First Choice (Available)</RadioGroup.Item>
+            <RadioGroup.Item
+              value="custom2"
+              disabled
+            >
               Second Choice (Disabled)
             </RadioGroup.Item>
-            <RadioGroup.Item value="custom3">
-              Third Choice (Available)
-            </RadioGroup.Item>
-            <RadioGroup.Item value="custom4" disabled>
+            <RadioGroup.Item value="custom3">Third Choice (Available)</RadioGroup.Item>
+            <RadioGroup.Item
+              value="custom4"
+              disabled
+            >
               Fourth Choice (Disabled)
             </RadioGroup.Item>
           </RadioGroup>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * RadioGroup component in readOnly state.
@@ -404,49 +413,47 @@ export const GroupWithDisabledOptions: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState<string>("option1");
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<string>("option1")
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: string) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
-        <RadioGroup readOnly value={value} onChange={handleChange}>
+        <RadioGroup
+          readOnly
+          value={value}
+          onChange={handleChange}
+        >
           <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
           <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
           <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
         </RadioGroup>
 
-        <RadioGroup value={value} onChange={handleChange}>
+        <RadioGroup
+          value={value}
+          onChange={handleChange}
+        >
           <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
           <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
           <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
         </RadioGroup>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on the readonly radio buttons - the value should not
-          change and the change count should remain at 0. Only the normal radio
-          group will change the value.
+          💡 Try clicking on the readonly radio buttons - the value should not change and the change
+          count should remain at 0. Only the normal radio group will change the value.
         </div>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,14 +1,9 @@
-import {
-  Menus,
-  MenuSearch,
-  MenuSearchEmpty,
-  NumericInput,
-} from "@choice-ui/react";
-import { Check, Search } from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useMemo, useState } from "react";
+import { Menus, MenuSearch, MenuSearchEmpty, NumericInput } from "@choice-ui/react"
+import { Check, Search } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useMemo, useState } from "react"
 
 const meta: Meta<typeof Menus> = {
   title: "Collections/Menus",
@@ -21,16 +16,16 @@ const meta: Meta<typeof Menus> = {
       </div>
     ),
   ],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Menus>;
+type Story = StoryObj<typeof Menus>
 
 const options = Array.from({ length: 6 }, () => ({
   label: faker.music.songName(),
   value: faker.string.uuid(),
-}));
+}))
 
 /**
  * `Menus` is a versatile component for displaying lists of options or actions in a consistent format.
@@ -69,7 +64,7 @@ const options = Array.from({ length: 6 }, () => ({
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
     return (
       <Menus className="w-64">
@@ -84,9 +79,9 @@ export const Basic: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * SearchStory: Demonstrates integrating search functionality into menus.
@@ -104,18 +99,19 @@ export const Basic: Story = {
  */
 export const SearchStory: Story = {
   render: function SearchStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [search, setSearch] = useState("");
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [search, setSearch] = useState("")
 
     const filteredOptions = useMemo(() => {
-      return options.filter((option) =>
-        option.label.toLowerCase().includes(search.toLowerCase())
-      );
-    }, [search]);
+      return options.filter((option) => option.label.toLowerCase().includes(search.toLowerCase()))
+    }, [search])
 
     return (
       <Menus className="w-64">
-        <MenuSearch value={search} onChange={setSearch} />
+        <MenuSearch
+          value={search}
+          onChange={setSearch}
+        />
 
         <Menus.Divider />
 
@@ -140,9 +136,9 @@ export const SearchStory: Story = {
           </MenuSearchEmpty>
         )}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * InputStory: Demonstrates using an input field within a menu.
@@ -159,7 +155,7 @@ export const SearchStory: Story = {
  */
 export const InputStory: Story = {
   render: function InputStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     return (
       <Menus className="w-64">
         <Menus.Input />
@@ -177,9 +173,9 @@ export const InputStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * ButtonStory: Demonstrates incorporating action buttons and selection in menus.
@@ -198,8 +194,8 @@ export const InputStory: Story = {
  */
 export const ButtonStory: Story = {
   render: function ButtonStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number[]>([])
     return (
       <Menus className="w-64">
         <Menus.Label>Menu</Menus.Label>
@@ -213,9 +209,7 @@ export const ButtonStory: Story = {
             prefixElement={selectedIndex.includes(index) ? <Check /> : <></>}
             onMouseDown={() =>
               setSelectedIndex((prev) =>
-                prev.includes(index)
-                  ? prev.filter((i) => i !== index)
-                  : [...prev, index]
+                prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
               )
             }
           >
@@ -225,15 +219,15 @@ export const ButtonStory: Story = {
         <Menus.Divider />
         <Menus.Button onClick={() => setSelectedIndex([])}>Button</Menus.Button>
       </Menus>
-    );
+    )
   },
-};
+}
 
 export const NumberInputStory: Story = {
   render: function NumberInputStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
-    const [value, setValue] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number[]>([])
+    const [value, setValue] = useState(0)
     return (
       <Menus className="w-64">
         <NumericInput
@@ -252,9 +246,7 @@ export const NumberInputStory: Story = {
             prefixElement={selectedIndex.includes(index) ? <Check /> : <></>}
             onMouseDown={() =>
               setSelectedIndex((prev) =>
-                prev.includes(index)
-                  ? prev.filter((i) => i !== index)
-                  : [...prev, index]
+                prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
               )
             }
           >
@@ -264,9 +256,9 @@ export const NumberInputStory: Story = {
         <Menus.Divider />
         <Menus.Button onClick={() => setSelectedIndex([])}>Button</Menus.Button>
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * variant: Demonstrates the different variants of the Menus component.
@@ -277,13 +269,9 @@ export const NumberInputStory: Story = {
  */
 export const Variant: Story = {
   render: function VariantStory() {
-    const [activeDefaultIndex, setActiveDefaultIndex] = useState<number | null>(
-      null
-    );
-    const [activeLightIndex, setActiveLightIndex] = useState<number | null>(
-      null
-    );
-    const [activeDarkIndex, setActiveDarkIndex] = useState<number | null>(null);
+    const [activeDefaultIndex, setActiveDefaultIndex] = useState<number | null>(null)
+    const [activeLightIndex, setActiveLightIndex] = useState<number | null>(null)
+    const [activeDarkIndex, setActiveDarkIndex] = useState<number | null>(null)
     return (
       <div className="grid grid-cols-3 gap-2">
         <Menus variant="default">
@@ -360,6 +348,6 @@ export const Variant: Story = {
           </Menus.Item>
         </Menus>
       </div>
-    );
+    )
   },
-};
+}

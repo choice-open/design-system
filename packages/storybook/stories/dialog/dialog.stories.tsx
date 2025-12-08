@@ -1,4 +1,4 @@
-import type { DialogPosition } from "@choice-ui/react";
+import type { DialogPosition } from "@choice-ui/react"
 import {
   Button,
   Checkbox,
@@ -9,21 +9,21 @@ import {
   Popover,
   ScrollArea,
   Select,
-} from "@choice-ui/react";
-import { FillWidth } from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+} from "@choice-ui/react"
+import { FillWidth } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useState } from "react"
 
 const meta: Meta<typeof Dialog> = {
   title: "Overlays/Dialog",
   component: Dialog,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Dialog>;
+type Story = StoryObj<typeof Dialog>
 
 /**
  * `Dialog` is a versatile overlay component for displaying modal or non-modal content.
@@ -58,21 +58,22 @@ type Story = StoryObj<typeof Dialog>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Draggable: Demonstrates a dialog that can be moved around the screen.
@@ -81,21 +82,23 @@ export const Basic: Story = {
  */
 export const Draggable: Story = {
   render: function DragStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog draggable open={open} onOpenChange={setOpen}>
+        <Dialog
+          draggable
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Draggable Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * InitialPosition: Demonstrates a dialog with preset initial positions.
@@ -104,12 +107,12 @@ export const Draggable: Story = {
  */
 export const InitialPosition: Story = {
   render: function InitialPositionStory() {
-    const [open, setOpen] = useState(false);
-    const [position, setPosition] = useState<DialogPosition>("left-top");
-    const [rememberPosition, setRememberPosition] = useState(false);
-    const [resizable, setResizable] = useState({ width: false, height: false });
-    const [rememberSize, setRememberSize] = useState(false);
-    const [positionPadding, setPositionPadding] = useState(32);
+    const [open, setOpen] = useState(false)
+    const [position, setPosition] = useState<DialogPosition>("left-top")
+    const [rememberPosition, setRememberPosition] = useState(false)
+    const [resizable, setResizable] = useState({ width: false, height: false })
+    const [rememberSize, setRememberSize] = useState(false)
+    const [positionPadding, setPositionPadding] = useState(32)
 
     return (
       <>
@@ -138,28 +141,30 @@ export const InitialPosition: Story = {
                 </Select.Content>
               </Select>
             </div>
-            <Checkbox value={rememberPosition} onChange={setRememberPosition}>
+            <Checkbox
+              value={rememberPosition}
+              onChange={setRememberPosition}
+            >
               <Checkbox.Label>Remember Position</Checkbox.Label>
             </Checkbox>
             <div className="flex items-center gap-2">
               <Checkbox
                 value={resizable.width}
-                onChange={() =>
-                  setResizable({ ...resizable, width: !resizable.width })
-                }
+                onChange={() => setResizable({ ...resizable, width: !resizable.width })}
               >
                 <Checkbox.Label>Resizable Width</Checkbox.Label>
               </Checkbox>
               <Checkbox
                 value={resizable.height}
-                onChange={() =>
-                  setResizable({ ...resizable, height: !resizable.height })
-                }
+                onChange={() => setResizable({ ...resizable, height: !resizable.height })}
               >
                 <Checkbox.Label>Resizable Height</Checkbox.Label>
               </Checkbox>
             </div>
-            <Checkbox value={rememberSize} onChange={setRememberSize}>
+            <Checkbox
+              value={rememberSize}
+              onChange={setRememberSize}
+            >
               <Checkbox.Label>Remember Size</Checkbox.Label>
             </Checkbox>
             <div className="flex items-center gap-2">
@@ -197,15 +202,15 @@ export const InitialPosition: Story = {
               This dialog starts at the <strong>{position}</strong> position.
             </p>
             <p className="text-secondary-foreground text-body-small break-words">
-              You can drag this dialog around. Change the position in the
-              dropdown and reopen to see different starting positions.
+              You can drag this dialog around. Change the position in the dropdown and reopen to see
+              different starting positions.
             </p>
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * RememberPosition: Demonstrates a dialog that remembers its position when closed.
@@ -213,7 +218,7 @@ export const InitialPosition: Story = {
  */
 export const RememberPosition: Story = {
   render: function RememberPositionStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
@@ -225,32 +230,33 @@ export const RememberPosition: Story = {
           outsidePress
         >
           <Dialog.Header title="Remember Position Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const Overlay: Story = {
   render: function OverlayStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog overlay draggable open={open} onOpenChange={setOpen}>
+        <Dialog
+          overlay
+          draggable
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Overlay Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * CustomBackdrop: Demonstrates how to customize the backdrop component.
@@ -259,21 +265,23 @@ export const Overlay: Story = {
  */
 export const CustomBackdrop: Story = {
   render: function CustomBackdropStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog overlay open={open} onOpenChange={setOpen}>
+        <Dialog
+          overlay
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Custom Backdrop Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * OutsidePress: Demonstrates a dialog that closes when clicking outside.
@@ -282,21 +290,23 @@ export const CustomBackdrop: Story = {
  */
 export const OutsidePress: Story = {
   render: function OutsidePressStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog outsidePress open={open} onOpenChange={setOpen}>
+        <Dialog
+          outsidePress
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Outside Press Dialog Title" />
-          <Dialog.Content className="w-96 p-3">
-            {faker.lorem.paragraphs(3)}
-          </Dialog.Content>
+          <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Resizable: Demonstrates a dialog that can be resized by the user.
@@ -311,7 +321,7 @@ export const OutsidePress: Story = {
  */
 export const Resizable: Story = {
   render: function ResizableStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -329,19 +339,20 @@ export const Resizable: Story = {
         >
           <Dialog.Header title="Resizable Dialog Title" />
           <Dialog.Content className="w-full min-w-0 overflow-hidden">
-            <ScrollArea className="h-full" scrollbarMode="large-b">
+            <ScrollArea
+              className="h-full"
+              scrollbarMode="large-b"
+            >
               <ScrollArea.Viewport className="h-full p-4">
-                <ScrollArea.Content>
-                  {faker.lorem.paragraphs(3)}
-                </ScrollArea.Content>
+                <ScrollArea.Content>{faker.lorem.paragraphs(3)}</ScrollArea.Content>
               </ScrollArea.Viewport>
             </ScrollArea>
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * RememberSize: Demonstrates a dialog that remembers its size when closed.
@@ -349,7 +360,7 @@ export const Resizable: Story = {
  */
 export const RememberSize: Story = {
   render: function RememberSizeStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
@@ -364,19 +375,20 @@ export const RememberSize: Story = {
         >
           <Dialog.Header title="Remember Size Dialog Title" />
           <Dialog.Content className="max-w-96 overflow-hidden">
-            <ScrollArea className="h-full" scrollbarMode="large-b">
+            <ScrollArea
+              className="h-full"
+              scrollbarMode="large-b"
+            >
               <ScrollArea.Viewport className="h-full p-4">
-                <ScrollArea.Content>
-                  {faker.lorem.paragraphs(3)}
-                </ScrollArea.Content>
+                <ScrollArea.Content>{faker.lorem.paragraphs(3)}</ScrollArea.Content>
               </ScrollArea.Viewport>
             </ScrollArea>
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * CornerResize: Demonstrates the corner resize handle for simultaneous width and height adjustment.
@@ -391,13 +403,11 @@ export const RememberSize: Story = {
  */
 export const CornerResize: Story = {
   render: function CornerResizeStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
-        <Button onClick={() => setOpen(!open)}>
-          Open Corner Resize Dialog
-        </Button>
+        <Button onClick={() => setOpen(!open)}>Open Corner Resize Dialog</Button>
         <Dialog
           draggable
           overlay
@@ -413,12 +423,15 @@ export const CornerResize: Story = {
         >
           <Dialog.Header title="Corner Resize Demo" />
           <Dialog.Content className="w-full min-w-0 overflow-hidden">
-            <ScrollArea className="h-full" scrollbarMode="large-b">
+            <ScrollArea
+              className="h-full"
+              scrollbarMode="large-b"
+            >
               <ScrollArea.Viewport className="h-full p-4">
                 <ScrollArea.Content className="space-y-2">
                   <p>
-                    Use the corner handle (bottom-right) to resize both width
-                    and height simultaneously.
+                    Use the corner handle (bottom-right) to resize both width and height
+                    simultaneously.
                   </p>
                   <p>You can also use the individual handles:</p>
                   <ul className="list-inside list-disc space-y-1">
@@ -433,9 +446,9 @@ export const CornerResize: Story = {
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested: Demonstrates how dialogs work with other overlay components.
@@ -444,15 +457,22 @@ export const CornerResize: Story = {
  */
 export const Nested: Story = {
   render: function NestedStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog open={open} outsidePress onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          outsidePress
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Nested Dialog Title" />
           <Dialog.Content className="flex w-96 gap-4 p-4">
-            <Select value="option-1" onChange={() => {}}>
+            <Select
+              value="option-1"
+              onChange={() => {}}
+            >
               <Select.Trigger>Open</Select.Trigger>
               <Select.Content>
                 <Select.Item value="option-1">Option 1</Select.Item>
@@ -464,9 +484,7 @@ export const Nested: Story = {
               <Popover.Trigger>
                 <Button>Open</Button>
               </Popover.Trigger>
-              <Popover.Content className="w-64 p-3">
-                {faker.lorem.paragraph(3)}
-              </Popover.Content>
+              <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
             </Popover>
             <Dropdown>
               <Dropdown.Trigger>Open</Dropdown.Trigger>
@@ -478,18 +496,21 @@ export const Nested: Story = {
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 export const Footer: Story = {
   render: function FooterStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Dialog Title" />
           <Dialog.Content className="flex flex-col gap-4 p-4">
             {faker.lorem.paragraphs(3)}
@@ -499,9 +520,9 @@ export const Footer: Story = {
           </Dialog.Footer>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * FocusManagerProps: Demonstrates how to customize the focus manager props.
@@ -509,21 +530,24 @@ export const Footer: Story = {
  */
 export const FocusManagerProps: Story = {
   render: function FocusManagerPropsStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     return (
       <>
         <Button onClick={() => setOpen(!open)}>Open Dialog</Button>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="Dialog Title" />
           <Dialog.Content className="flex flex-col gap-4 p-4">
             <Input placeholder="Input" />
           </Dialog.Content>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * CloseOnEscape: Demonstrates the closeOnEscape prop functionality.
@@ -532,27 +556,19 @@ export const FocusManagerProps: Story = {
  */
 export const CloseOnEscape: Story = {
   render: function CloseOnEscapeStory() {
-    const [escEnabledOpen, setEscEnabledOpen] = useState(false);
-    const [escDisabledOpen, setEscDisabledOpen] = useState(false);
+    const [escEnabledOpen, setEscEnabledOpen] = useState(false)
+    const [escDisabledOpen, setEscDisabledOpen] = useState(false)
 
     return (
       <div className="flex gap-4">
         <div className="flex flex-col gap-2">
-          <Button onClick={() => setEscEnabledOpen(true)}>
-            Dialog with ESC (Default)
-          </Button>
-          <p className="text-secondary-foreground text-body-small">
-            Press ESC to close
-          </p>
+          <Button onClick={() => setEscEnabledOpen(true)}>Dialog with ESC (Default)</Button>
+          <p className="text-secondary-foreground text-body-small">Press ESC to close</p>
         </div>
 
         <div className="flex flex-col gap-2">
-          <Button onClick={() => setEscDisabledOpen(true)}>
-            Dialog without ESC
-          </Button>
-          <p className="text-secondary-foreground text-body-small">
-            ESC key disabled
-          </p>
+          <Button onClick={() => setEscDisabledOpen(true)}>Dialog without ESC</Button>
+          <p className="text-secondary-foreground text-body-small">ESC key disabled</p>
         </div>
 
         {/* Dialog with ESC enabled (default behavior) */}
@@ -580,15 +596,14 @@ export const CloseOnEscape: Story = {
           <Dialog.Content className="w-96 p-3">
             <p>This dialog cannot be closed by pressing the ESC key.</p>
             <p className="text-secondary-foreground text-body-small mt-2">
-              You must use the close button or click outside (if enabled) to
-              close this dialog.
+              You must use the close button or click outside (if enabled) to close this dialog.
             </p>
           </Dialog.Content>
         </Dialog>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * EventPropagation: Verifies that ESC key events do not propagate to window.
@@ -597,19 +612,19 @@ export const CloseOnEscape: Story = {
  */
 export const EventPropagation: Story = {
   render: function EventPropagationStory() {
-    const [open, setOpen] = useState(false);
-    const [escCount, setEscCount] = useState(0);
+    const [open, setOpen] = useState(false)
+    const [escCount, setEscCount] = useState(0)
 
     React.useEffect(() => {
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
-          setEscCount((prev) => prev + 1);
+          setEscCount((prev) => prev + 1)
         }
-      };
+      }
 
-      window.addEventListener("keydown", handleEscape);
-      return () => window.removeEventListener("keydown", handleEscape);
-    }, []);
+      window.addEventListener("keydown", handleEscape)
+      return () => window.removeEventListener("keydown", handleEscape)
+    }, [])
 
     return (
       <div className="flex flex-col gap-4">
@@ -617,21 +632,23 @@ export const EventPropagation: Story = {
           Window ESC count: <strong>{escCount}</strong>
         </p>
         <p className="text-secondary-foreground text-body-small">
-          Press ESC to increment. Open dialog and press ESC - counter should NOT
-          change.
+          Press ESC to increment. Open dialog and press ESC - counter should NOT change.
         </p>
         <Button onClick={() => setOpen(true)}>Open Dialog</Button>
 
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Dialog.Header title="ESC Event Test" />
           <Dialog.Content className="w-96 p-4">
             Press ESC to close. The window counter should not increment.
           </Dialog.Content>
         </Dialog>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * WithInput: Demonstrates a dialog containing input fields for user data entry.
@@ -647,36 +664,40 @@ export const EventPropagation: Story = {
  */
 export const WithInput: Story = {
   render: function WithInputStory() {
-    const [open, setOpen] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [open, setOpen] = useState(false)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
 
     const handleSubmit = () => {
-      console.log("Form submitted:", { name, email });
-      setOpen(false);
-      setName("");
-      setEmail("");
-    };
+      console.log("Form submitted:", { name, email })
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
 
     const handleCancel = () => {
-      setOpen(false);
-      setName("");
-      setEmail("");
-    };
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Escape") {
         // Blur the input
-        e.currentTarget.blur();
+        e.currentTarget.blur()
         // Stop propagation to prevent Dialog from closing
-        e.stopPropagation();
+        e.stopPropagation()
       }
-    };
+    }
 
     return (
       <>
         <Button onClick={() => setOpen(true)}>Open Form Dialog</Button>
-        <Dialog open={open} onOpenChange={setOpen} outsidePress>
+        <Dialog
+          open={open}
+          onOpenChange={setOpen}
+          outsidePress
+        >
           <Dialog.Header title="User Information" />
           <Dialog.Content className="w-96 p-4">
             <div className="flex flex-col gap-4">
@@ -713,13 +734,15 @@ export const WithInput: Story = {
                 />
               </div>
               <p className="text-secondary-foreground text-body-small">
-                Press ESC in an input to blur it. Press ESC outside inputs to
-                close the dialog.
+                Press ESC in an input to blur it. Press ESC outside inputs to close the dialog.
               </p>
             </div>
           </Dialog.Content>
           <Dialog.Footer className="justify-end gap-2">
-            <Button variant="ghost" onClick={handleCancel}>
+            <Button
+              variant="ghost"
+              onClick={handleCancel}
+            >
               Cancel
             </Button>
             <Button
@@ -732,6 +755,6 @@ export const WithInput: Story = {
           </Dialog.Footer>
         </Dialog>
       </>
-    );
+    )
   },
-};
+}

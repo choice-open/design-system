@@ -20,8 +20,10 @@ import { createStore } from "./store"
 import { fileUploadStyles } from "./tv"
 import { Direction, FileState } from "./types"
 
-interface FileUploadRootProps
-  extends Omit<React.ComponentPropsWithoutRef<"div">, "defaultValue" | "onChange"> {
+interface FileUploadRootProps extends Omit<
+  React.ComponentPropsWithoutRef<"div">,
+  "defaultValue" | "onChange"
+> {
   accept?: string
   asChild?: boolean
   defaultValue?: File[]

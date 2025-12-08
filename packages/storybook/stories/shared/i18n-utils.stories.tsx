@@ -1,13 +1,9 @@
-import { useI18n } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { useI18n } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react"
+import { useState } from "react"
 
 // Demo component showing how easy it is to use the universal i18n system
-const I18nDemoComponent = ({
-  i18n: userI18n,
-}: {
-  i18n?: Record<string, unknown>;
-}) => {
+const I18nDemoComponent = ({ i18n: userI18n }: { i18n?: Record<string, unknown> }) => {
   // Default configuration
   const defaultConfig = {
     buttons: {
@@ -20,14 +16,12 @@ const I18nDemoComponent = ({
       success: "Operation completed successfully",
       error: "An error occurred",
     },
-  };
+  }
 
   // 🚀 Use the universal hook directly - no need to wrap!
-  const i18n = useI18n(defaultConfig, userI18n);
+  const i18n = useI18n(defaultConfig, userI18n)
 
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   return (
     <div className="rounded border p-4">
@@ -37,8 +31,8 @@ const I18nDemoComponent = ({
         <button
           className="rounded bg-blue-500 px-3 py-1 text-white"
           onClick={() => {
-            setStatus("loading");
-            setTimeout(() => setStatus("success"), 1000);
+            setStatus("loading")
+            setTimeout(() => setStatus("success"), 1000)
           }}
         >
           {i18n.buttons.save}
@@ -65,8 +59,8 @@ const I18nDemoComponent = ({
         {status === "idle" && "Ready"}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // Universal i18n utilities demonstration
 export default {
@@ -81,14 +75,14 @@ export default {
       description: "Internationalization configuration",
     },
   },
-} as Meta<typeof I18nDemoComponent>;
+} as Meta<typeof I18nDemoComponent>
 
 /**
  * Default English configuration
  */
 export const Default: StoryObj<typeof I18nDemoComponent> = {
   args: {},
-};
+}
 
 /**
  * Chinese configuration showing partial override
@@ -108,7 +102,7 @@ export const Chinese: StoryObj<typeof I18nDemoComponent> = {
       },
     },
   },
-};
+}
 
 /**
  * French configuration with partial override
@@ -126,7 +120,7 @@ export const PartialFrench: StoryObj<typeof I18nDemoComponent> = {
       },
     },
   },
-};
+}
 
 /**
  * Shows how easy it is - just import useI18n and use directly
@@ -158,4 +152,4 @@ const i18n = useI18n(defaultConfig, userI18n)
       </div>
     </div>
   ),
-};
+}

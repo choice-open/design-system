@@ -1,5 +1,5 @@
-import { PicturePreview } from "@choice-ui/react";
-import type { Meta } from "@storybook/react-vite";
+import { PicturePreview } from "@choice-ui/react"
+import type { Meta } from "@storybook/react-vite"
 
 // Sample image URLs
 const sampleImages = [
@@ -11,7 +11,7 @@ const sampleImages = [
     src: "https://images.unsplash.com/photo-1745659601865-1af86dec8bcd?q=80&w=3183&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     fileName: "IMG_0658.jpg",
   },
-];
+]
 
 const meta: Meta<typeof PicturePreview> = {
   title: "Data Display/PicturePreview",
@@ -24,9 +24,9 @@ const meta: Meta<typeof PicturePreview> = {
       </div>
     ),
   ],
-};
+}
 
-export default meta;
+export default meta
 
 /**
  * `PicturePreview` is a component for displaying image previews with additional metadata.
@@ -58,9 +58,9 @@ export const Default = {
         src={sampleImages[0].src}
         fileName={sampleImages[0].fileName}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * WithError: Demonstrates how the component handles image loading errors.
@@ -77,9 +77,9 @@ export const WithError = {
         src="https://example.com/non-existent-image.jpg"
         fileName="broken-image.jpg"
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Gallery: Demonstrates using multiple PicturePreview components together.
@@ -100,6 +100,6 @@ export const Gallery = {
           />
         ))}
       </div>
-    );
+    )
   },
-};
+}

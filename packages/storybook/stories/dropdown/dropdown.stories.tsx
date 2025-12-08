@@ -1,36 +1,19 @@
-import {
-  Button,
-  Checkbox,
-  Dropdown,
-  IconButton,
-  Popover,
-} from "@choice-ui/react";
-import {
-  Add,
-  FieldTypeAttachment,
-  Search,
-  Settings,
-} from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { createEditor, Descendant, Node, Transforms } from "slate";
-import { Editable, ReactEditor, Slate, withReact } from "slate-react";
+import { Button, Checkbox, Dropdown, IconButton, Popover } from "@choice-ui/react"
+import { Add, FieldTypeAttachment, Search, Settings } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { createEditor, Descendant, Node, Transforms } from "slate"
+import { Editable, ReactEditor, Slate, withReact } from "slate-react"
 
 const meta: Meta<typeof Dropdown> = {
   title: "Collections/Dropdown",
   component: Dropdown,
   tags: ["upgrade", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Dropdown>;
+export default meta
+type Story = StoryObj<typeof Dropdown>
 
 /**
  * Basic dropdown with simple menu items using the new MenuContext system.
@@ -64,9 +47,9 @@ export const Basic: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with prefix icons for better visual recognition.
@@ -94,9 +77,9 @@ export const WithPrefix: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom trigger using asChild pattern for complete control.
@@ -123,9 +106,9 @@ export const TriggerAsChild: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested dropdown menus showcasing the enhanced FloatingTree support.
@@ -185,9 +168,9 @@ export const Nested: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested dropdown in `Popover` or `Dialog`
@@ -204,9 +187,8 @@ export const NestedInPopover: Story = {
         </Popover.Trigger>
         <Popover.Content className="flex w-48 flex-col gap-2 p-4">
           <p>
-            Note: When using Dropdown nested inside a Popover or Dialog, you
-            must pass the `disabledNested={true}` prop to ensure proper
-            rendering.
+            Note: When using Dropdown nested inside a Popover or Dialog, you must pass the
+            `disabledNested={true}` prop to ensure proper rendering.
           </p>
           <Dropdown disabledNested>
             <Dropdown.Trigger>
@@ -226,17 +208,17 @@ export const NestedInPopover: Story = {
           </Dropdown>
         </Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Selection dropdown with visual indicators using the MenuContext system.
  */
 export const Selection: Story = {
   render: function SelectionStory() {
-    const [selected, setSelected] = useState<string | null>("option-2");
-    const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+    const [selected, setSelected] = useState<string | null>("option-2")
+    const options = ["Option 1", "Option 2", "Option 3", "Option 4"]
 
     return (
       <Dropdown selection={true}>
@@ -256,9 +238,9 @@ export const Selection: Story = {
           ))}
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested dropdown with selection functionality in submenus.
@@ -266,7 +248,7 @@ export const Selection: Story = {
 export const NestedSelection: Story = {
   render: function NestedSelectionStory() {
     // 使用统一的状态管理所有选项，确保互斥
-    const [selected, setSelected] = useState<string | null>(null);
+    const [selected, setSelected] = useState<string | null>(null)
 
     return (
       <Dropdown selection={true}>
@@ -307,9 +289,9 @@ export const NestedSelection: Story = {
           </Dropdown>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with keyboard shortcuts displayed.
@@ -365,9 +347,9 @@ export const WithShortcuts: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with disabled states for both trigger and items.
@@ -407,18 +389,18 @@ export const Disabled: Story = {
           </Dropdown.Content>
         </Dropdown>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with search functionality and empty states.
  */
 export const WithSearch: Story = {
   render: function WithSearchStory() {
-    const [search, setSearch] = useState("");
-    const [selected, setSelected] = useState<string[]>([]);
-    const [isOpen, setIsOpen] = useState(false);
+    const [search, setSearch] = useState("")
+    const [selected, setSelected] = useState<string[]>([])
+    const [isOpen, setIsOpen] = useState(false)
 
     const allOptions = useMemo(
       () =>
@@ -426,29 +408,29 @@ export const WithSearch: Story = {
           id: `option-${i + 1}`,
           label: faker.music.genre(),
         })),
-      []
-    );
+      [],
+    )
 
     const filteredOptions = useMemo(
       () =>
-        allOptions.filter((option) =>
-          option.label.toLowerCase().includes(search.toLowerCase())
-        ),
-      [allOptions, search]
-    );
+        allOptions.filter((option) => option.label.toLowerCase().includes(search.toLowerCase())),
+      [allOptions, search],
+    )
 
     useEffect(() => {
       if (!isOpen) {
-        setSearch("");
+        setSearch("")
       }
-    }, [isOpen]);
+    }, [isOpen])
 
     return (
-      <Dropdown selection={true} open={isOpen} onOpenChange={setIsOpen}>
+      <Dropdown
+        selection={true}
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
         <Dropdown.Trigger>
-          <Dropdown.Value>
-            Search Music ({selected.length} selected)
-          </Dropdown.Value>
+          <Dropdown.Value>Search Music ({selected.length} selected)</Dropdown.Value>
         </Dropdown.Trigger>
         <Dropdown.Content>
           <Dropdown.Search
@@ -469,8 +451,8 @@ export const WithSearch: Story = {
                     setSelected((prev) =>
                       prev.includes(option.id)
                         ? prev.filter((id) => id !== option.id)
-                        : [...prev, option.id]
-                    );
+                        : [...prev, option.id],
+                    )
                   }}
                 >
                   <Dropdown.Value>{option.label}</Dropdown.Value>
@@ -487,18 +469,24 @@ export const WithSearch: Story = {
             </>
           ) : (
             <div className="flex h-32 flex-col items-center justify-center gap-2 text-center text-white/40">
-              <Search width={24} height={24} />
+              <Search
+                width={24}
+                height={24}
+              />
               <span>No results found</span>
-              <Button variant="link" onClick={() => setSearch("")}>
+              <Button
+                variant="link"
+                onClick={() => setSearch("")}
+              >
                 Clear Search
               </Button>
             </div>
           )}
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with labels and organized sections.
@@ -543,9 +531,9 @@ export const WithLabels: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Long list demonstrating scrolling behavior and performance.
@@ -568,28 +556,26 @@ export const LongList: Story = {
           ))}
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Multiple dropdowns testing proper event handling and switching.
  */
 export const MultipleDropdowns: Story = {
   render: function MultipleDropdownsStory() {
-    const [dropdown1Open, setDropdown1Open] = useState(false);
-    const [dropdown2Open, setDropdown2Open] = useState(false);
-    const [dropdown3Open, setDropdown3Open] = useState(false);
+    const [dropdown1Open, setDropdown1Open] = useState(false)
+    const [dropdown2Open, setDropdown2Open] = useState(false)
+    const [dropdown3Open, setDropdown3Open] = useState(false)
 
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-2">
-            🔄 Multiple Dropdown Switching Test
-          </h3>
+          <h3 className="font-strong mb-2">🔄 Multiple Dropdown Switching Test</h3>
           <p className="text-secondary-foreground">
-            Test scenario: When one dropdown is open, clicking another should
-            close the first and open the second in one click.
+            Test scenario: When one dropdown is open, clicking another should close the first and
+            open the second in one click.
           </p>
         </div>
 
@@ -599,11 +585,12 @@ export const MultipleDropdowns: Story = {
             <div className="text-secondary-foreground">
               Status: {dropdown1Open ? "Open" : "Closed"}
             </div>
-            <Dropdown open={dropdown1Open} onOpenChange={setDropdown1Open}>
+            <Dropdown
+              open={dropdown1Open}
+              onOpenChange={setDropdown1Open}
+            >
               <Dropdown.Trigger>
-                <Dropdown.Value>
-                  Menu 1 {dropdown1Open ? "(Open)" : ""}
-                </Dropdown.Value>
+                <Dropdown.Value>Menu 1 {dropdown1Open ? "(Open)" : ""}</Dropdown.Value>
               </Dropdown.Trigger>
               <Dropdown.Content>
                 <Dropdown.Label>Menu 1 Content</Dropdown.Label>
@@ -623,11 +610,12 @@ export const MultipleDropdowns: Story = {
             <div className="text-secondary-foreground">
               Status: {dropdown2Open ? "Open" : "Closed"}
             </div>
-            <Dropdown open={dropdown2Open} onOpenChange={setDropdown2Open}>
+            <Dropdown
+              open={dropdown2Open}
+              onOpenChange={setDropdown2Open}
+            >
               <Dropdown.Trigger>
-                <Dropdown.Value>
-                  Menu 2 {dropdown2Open ? "(Open)" : ""}
-                </Dropdown.Value>
+                <Dropdown.Value>Menu 2 {dropdown2Open ? "(Open)" : ""}</Dropdown.Value>
               </Dropdown.Trigger>
               <Dropdown.Content>
                 <Dropdown.Label>Menu 2 Content</Dropdown.Label>
@@ -647,11 +635,12 @@ export const MultipleDropdowns: Story = {
             <div className="text-secondary-foreground">
               Status: {dropdown3Open ? "Open" : "Closed"}
             </div>
-            <Dropdown open={dropdown3Open} onOpenChange={setDropdown3Open}>
+            <Dropdown
+              open={dropdown3Open}
+              onOpenChange={setDropdown3Open}
+            >
               <Dropdown.Trigger>
-                <Dropdown.Value>
-                  Menu 3 {dropdown3Open ? "(Open)" : ""}
-                </Dropdown.Value>
+                <Dropdown.Value>Menu 3 {dropdown3Open ? "(Open)" : ""}</Dropdown.Value>
               </Dropdown.Trigger>
               <Dropdown.Content>
                 <Dropdown.Label>Menu 3 Content</Dropdown.Label>
@@ -677,9 +666,9 @@ export const MultipleDropdowns: Story = {
           </ol>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown with different placement options.
@@ -721,17 +710,17 @@ export const Placement: Story = {
           </Dropdown.Content>
         </Dropdown>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Advanced example showing complex menu structure with mixed features.
  */
 export const ComplexMenu: Story = {
   render: function ComplexMenuStory() {
-    const [theme, setTheme] = useState("light");
-    const [language, setLanguage] = useState("English");
+    const [theme, setTheme] = useState("light")
+    const [language, setLanguage] = useState("English")
 
     return (
       <Dropdown>
@@ -798,9 +787,9 @@ export const ComplexMenu: Story = {
           </Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 export const Large: Story = {
   render: function LargeStory() {
@@ -815,9 +804,9 @@ export const Large: Story = {
           <Dropdown.Item size="large">Option 3</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Match trigger width
@@ -835,9 +824,9 @@ export const MatchTriggerWidth: Story = {
           <Dropdown.Item>Option 3</Dropdown.Item>
         </Dropdown.Content>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Coordinate mode - Dropdown without trigger, positioned at specific coordinates
@@ -845,28 +834,25 @@ export const MatchTriggerWidth: Story = {
  */
 export const CoordinateMode: Story = {
   render: function CoordinateModeStory() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [position, setPosition] = useState<{ x: number; y: number } | null>(
-      null
-    );
-    const [autoSelectFirstItem, setAutoSelectFirstItem] = useState(true);
+    const [isOpen, setIsOpen] = useState(false)
+    const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
+    const [autoSelectFirstItem, setAutoSelectFirstItem] = useState(true)
 
     const handleClick = (event: React.MouseEvent) => {
       setPosition({
         x: event.clientX,
         y: event.clientY,
-      });
-      setIsOpen(true);
-    };
+      })
+      setIsOpen(true)
+    }
 
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
           <h3 className="font-strong mb-2">📍 Coordinate Positioning Mode</h3>
           <p className="text-secondary-foreground">
-            This demonstrates the Dropdown component in coordinate mode - no
-            trigger element, positioned at specific x/y coordinates. Perfect for
-            context menus, mentions, etc.
+            This demonstrates the Dropdown component in coordinate mode - no trigger element,
+            positioned at specific x/y coordinates. Perfect for context menus, mentions, etc.
           </p>
         </div>
 
@@ -919,30 +905,31 @@ export const CoordinateMode: Story = {
                 <Dropdown.Value>Paste</Dropdown.Value>
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item variant="danger" onClick={() => setIsOpen(false)}>
+              <Dropdown.Item
+                variant="danger"
+                onClick={() => setIsOpen(false)}
+              >
                 <Dropdown.Value>Delete</Dropdown.Value>
               </Dropdown.Item>
             </Dropdown.Content>
           </Dropdown>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Mentions example using coordinate mode with Slate.js editor
  */
 export const MentionsWithCoordinateMode: Story = {
   render: function MentionsStory() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [position, setPosition] = useState<{ x: number; y: number } | null>(
-      null
-    );
-    const editorRef = useRef<HTMLDivElement>(null);
+    const [isOpen, setIsOpen] = useState(false)
+    const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
+    const editorRef = useRef<HTMLDivElement>(null)
 
     // 创建 Slate 编辑器实例
-    const editor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withReact(createEditor()), [])
 
     // 初始值 - 使用类型断言来确保类型安全
     const initialValue: Descendant[] = [
@@ -950,8 +937,8 @@ export const MentionsWithCoordinateMode: Story = {
         type: "paragraph",
         children: [{ text: "" }],
       } as Descendant,
-    ];
-    const [value, setValue] = useState<Descendant[]>(initialValue);
+    ]
+    const [value, setValue] = useState<Descendant[]>(initialValue)
 
     const mentionUsers = [
       {
@@ -972,97 +959,97 @@ export const MentionsWithCoordinateMode: Story = {
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=bob",
         role: "Designer",
       },
-    ];
+    ]
 
     // 获取编辑器文本内容
     const getEditorText = useCallback(() => {
-      return value.map((n) => Node.string(n)).join("\n");
-    }, [value]);
+      return value.map((n) => Node.string(n)).join("\n")
+    }, [value])
 
     // 处理编辑器内容变化
     const handleChange = useCallback((newValue: Descendant[]) => {
-      setValue(newValue);
+      setValue(newValue)
 
-      const text = newValue.map((n) => Node.string(n)).join("\n");
-      const lastAtIndex = text.lastIndexOf("@");
+      const text = newValue.map((n) => Node.string(n)).join("\n")
+      const lastAtIndex = text.lastIndexOf("@")
 
       // 检查 @ 是否存在，并且 @ 后面没有空格或者是文本的末尾
       if (lastAtIndex !== -1) {
-        const afterAt = text.substring(lastAtIndex + 1);
-        const hasSpaceAfterAt = afterAt.includes(" ") || afterAt.includes("\n");
+        const afterAt = text.substring(lastAtIndex + 1)
+        const hasSpaceAfterAt = afterAt.includes(" ") || afterAt.includes("\n")
 
         if (!hasSpaceAfterAt) {
           // 获取编辑器位置
-          const domSelection = window.getSelection();
+          const domSelection = window.getSelection()
           if (domSelection && domSelection.rangeCount > 0) {
-            const range = domSelection.getRangeAt(0);
-            const rect = range.getBoundingClientRect();
+            const range = domSelection.getRangeAt(0)
+            const rect = range.getBoundingClientRect()
             setPosition({
               x: rect.left,
               y: rect.bottom + 4,
-            });
+            })
           } else if (editorRef.current) {
             // 备选方案：使用编辑器容器位置
-            const rect = editorRef.current.getBoundingClientRect();
+            const rect = editorRef.current.getBoundingClientRect()
             setPosition({
               x: rect.left,
               y: rect.bottom + 4,
-            });
+            })
           }
-          setIsOpen(true);
+          setIsOpen(true)
         } else {
-          setIsOpen(false);
+          setIsOpen(false)
         }
       } else {
-        setIsOpen(false);
+        setIsOpen(false)
       }
-    }, []);
+    }, [])
 
     // 处理用户选择
     const handleSelectUser = useCallback(
       (user: (typeof mentionUsers)[0]) => {
         // 使用 Slate 的 API 来正确插入提及内容
-        const { selection } = editor;
+        const { selection } = editor
 
         if (selection) {
           // 获取当前文本和光标位置
-          const text = getEditorText();
-          const lastAtIndex = text.lastIndexOf("@");
+          const text = getEditorText()
+          const lastAtIndex = text.lastIndexOf("@")
 
           if (lastAtIndex !== -1) {
             // 计算需要替换的范围
-            const afterAtText = text.substring(lastAtIndex + 1);
+            const afterAtText = text.substring(lastAtIndex + 1)
 
             // 创建选择范围，从 @ 开始到当前光标位置
-            const start = { path: [0, 0], offset: lastAtIndex };
+            const start = { path: [0, 0], offset: lastAtIndex }
             const end = {
               path: [0, 0],
               offset: lastAtIndex + 1 + afterAtText.length,
-            };
-            const range = { anchor: start, focus: end };
+            }
+            const range = { anchor: start, focus: end }
 
             // 选择要替换的文本范围
-            Transforms.select(editor, range);
+            Transforms.select(editor, range)
 
             // 插入提及文本
-            Transforms.insertText(editor, `@${user.name} `);
+            Transforms.insertText(editor, `@${user.name} `)
           }
         }
 
-        setIsOpen(false);
+        setIsOpen(false)
         // 保持编辑器焦点
-        ReactEditor.focus(editor);
+        ReactEditor.focus(editor)
       },
-      [editor, getEditorText]
-    );
+      [editor, getEditorText],
+    )
 
     return (
       <div className="w-80 space-y-4">
         <div className="rounded-xl border p-4">
           <h3 className="font-strong mb-2">@ Mentions with Slate.js</h3>
           <p className="text-secondary-foreground">
-            Type @ to trigger the mentions menu. This uses a simple Slate.js
-            editor with Dropdown in coordinate mode.
+            Type @ to trigger the mentions menu. This uses a simple Slate.js editor with Dropdown in
+            coordinate mode.
           </p>
         </div>
 
@@ -1118,74 +1105,65 @@ export const MentionsWithCoordinateMode: Story = {
           Current text: &ldquo;{getEditorText()}&rdquo;
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Interactive test for nested menu click behavior
  */
 export const NestedMenuClickTest: Story = {
   render: function DropdownNestedTest() {
-    const [clickLog, setClickLog] = useState<string[]>([]);
-    const [mainOpen, setMainOpen] = useState(false);
-    const [submenu1Open, setSubmenu1Open] = useState(false);
-    const [submenu2Open, setSubmenu2Open] = useState(false);
-    const [deepSubmenuOpen, setDeepSubmenuOpen] = useState(false);
+    const [clickLog, setClickLog] = useState<string[]>([])
+    const [mainOpen, setMainOpen] = useState(false)
+    const [submenu1Open, setSubmenu1Open] = useState(false)
+    const [submenu2Open, setSubmenu2Open] = useState(false)
+    const [deepSubmenuOpen, setDeepSubmenuOpen] = useState(false)
 
     const addLog = (message: string) => {
-      setClickLog((prev) => [
-        ...prev,
-        `${new Date().toLocaleTimeString()}: ${message}`,
-      ]);
-    };
+      setClickLog((prev) => [...prev, `${new Date().toLocaleTimeString()}: ${message}`])
+    }
 
     const handleMainOpenChange = (open: boolean) => {
-      setMainOpen(open);
-      addLog(`Main menu ${open ? "opened" : "closed"}`);
-    };
+      setMainOpen(open)
+      addLog(`Main menu ${open ? "opened" : "closed"}`)
+    }
 
     const handleSubmenu1OpenChange = (open: boolean) => {
-      setSubmenu1Open(open);
-      addLog(`Submenu 1 ${open ? "opened" : "closed"}`);
-    };
+      setSubmenu1Open(open)
+      addLog(`Submenu 1 ${open ? "opened" : "closed"}`)
+    }
 
     const handleSubmenu2OpenChange = (open: boolean) => {
-      setSubmenu2Open(open);
-      addLog(`Submenu 2 ${open ? "opened" : "closed"}`);
-    };
+      setSubmenu2Open(open)
+      addLog(`Submenu 2 ${open ? "opened" : "closed"}`)
+    }
 
     const handleDeepSubmenuOpenChange = (open: boolean) => {
-      setDeepSubmenuOpen(open);
-      addLog(`Deep submenu ${open ? "opened" : "closed"}`);
-    };
+      setDeepSubmenuOpen(open)
+      addLog(`Deep submenu ${open ? "opened" : "closed"}`)
+    }
 
     const handleItemClick = (itemName: string) => {
-      addLog(`Clicked: ${itemName}`);
-    };
+      addLog(`Clicked: ${itemName}`)
+    }
 
     const clearLog = () => {
-      setClickLog([]);
-    };
+      setClickLog([])
+    }
 
     return (
       <div className="space-y-4 p-8">
-        <h1 className="text-heading-display">
-          Dropdown Nested Menu Click Test
-        </h1>
+        <h1 className="text-heading-display">Dropdown Nested Menu Click Test</h1>
 
         <div className="rounded-lg bg-gray-100 p-4 dark:bg-gray-800">
           <h2 className="text-body-large-strong mb-2">Test Instructions:</h2>
           <ol className="text-body-small list-inside list-decimal space-y-1">
             <li>Click the main dropdown trigger to open the menu</li>
             <li>Hover over &quot;File&quot; to open the first submenu</li>
-            <li>
-              Hover over &quot;Recent Files&quot; to open the nested submenu
-            </li>
+            <li>Hover over &quot;Recent Files&quot; to open the nested submenu</li>
             <li>Click on any item in the nested submenu</li>
-            <li>
-              Observe if the entire menu closes or just the clicked submenu
-            </li>
+            <li>Observe if the entire menu closes or just the clicked submenu</li>
           </ol>
         </div>
 
@@ -1201,27 +1179,19 @@ export const NestedMenuClickTest: Story = {
               </div>
               <div>
                 Submenu 1:{" "}
-                <span
-                  className={submenu1Open ? "text-green-600" : "text-red-600"}
-                >
+                <span className={submenu1Open ? "text-green-600" : "text-red-600"}>
                   {submenu1Open ? "Open" : "Closed"}
                 </span>
               </div>
               <div>
                 Submenu 2:{" "}
-                <span
-                  className={submenu2Open ? "text-green-600" : "text-red-600"}
-                >
+                <span className={submenu2Open ? "text-green-600" : "text-red-600"}>
                   {submenu2Open ? "Open" : "Closed"}
                 </span>
               </div>
               <div>
                 Deep Submenu:{" "}
-                <span
-                  className={
-                    deepSubmenuOpen ? "text-green-600" : "text-red-600"
-                  }
-                >
+                <span className={deepSubmenuOpen ? "text-green-600" : "text-red-600"}>
                   {deepSubmenuOpen ? "Open" : "Closed"}
                 </span>
               </div>
@@ -1229,7 +1199,10 @@ export const NestedMenuClickTest: Story = {
           </div>
 
           <div className="flex-1">
-            <Dropdown open={mainOpen} onOpenChange={handleMainOpenChange}>
+            <Dropdown
+              open={mainOpen}
+              onOpenChange={handleMainOpenChange}
+            >
               <Dropdown.Trigger>
                 <Dropdown.Value>Nested Menu Test</Dropdown.Value>
               </Dropdown.Trigger>
@@ -1263,14 +1236,10 @@ export const NestedMenuClickTest: Story = {
                         <Dropdown.Value>Recent Files</Dropdown.Value>
                       </Dropdown.SubTrigger>
                       <Dropdown.Content>
-                        <Dropdown.Item
-                          onClick={() => handleItemClick("file1.txt")}
-                        >
+                        <Dropdown.Item onClick={() => handleItemClick("file1.txt")}>
                           <Dropdown.Value>file1.txt</Dropdown.Value>
                         </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => handleItemClick("file2.txt")}
-                        >
+                        <Dropdown.Item onClick={() => handleItemClick("file2.txt")}>
                           <Dropdown.Value>file2.txt</Dropdown.Value>
                         </Dropdown.Item>
 
@@ -1283,14 +1252,10 @@ export const NestedMenuClickTest: Story = {
                             <Dropdown.Value>More Files</Dropdown.Value>
                           </Dropdown.SubTrigger>
                           <Dropdown.Content>
-                            <Dropdown.Item
-                              onClick={() => handleItemClick("deepfile1.txt")}
-                            >
+                            <Dropdown.Item onClick={() => handleItemClick("deepfile1.txt")}>
                               <Dropdown.Value>deepfile1.txt</Dropdown.Value>
                             </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => handleItemClick("deepfile2.txt")}
-                            >
+                            <Dropdown.Item onClick={() => handleItemClick("deepfile2.txt")}>
                               <Dropdown.Value>deepfile2.txt</Dropdown.Value>
                             </Dropdown.Item>
                           </Dropdown.Content>
@@ -1325,7 +1290,10 @@ export const NestedMenuClickTest: Story = {
               <div className="text-gray-500">No events yet...</div>
             ) : (
               clickLog.map((log, index) => (
-                <div key={index} className="py-0.5">
+                <div
+                  key={index}
+                  className="py-0.5"
+                >
                   {log}
                 </div>
               ))
@@ -1338,33 +1306,27 @@ export const NestedMenuClickTest: Story = {
             Expected Behavior:
           </h3>
           <p className="text-body-small text-yellow-700 dark:text-yellow-300">
-            When clicking on any item in a nested menu, the ENTIRE menu
-            hierarchy should close. This is consistent with how the ContextMenu
-            component behaves and provides a better user experience.
+            When clicking on any item in a nested menu, the ENTIRE menu hierarchy should close. This
+            is consistent with how the ContextMenu component behaves and provides a better user
+            experience.
           </p>
         </div>
 
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/20">
-          <h3 className="font-strong mb-2 text-blue-800 dark:text-blue-200">
-            Technical Details:
-          </h3>
+          <h3 className="font-strong mb-2 text-blue-800 dark:text-blue-200">Technical Details:</h3>
           <div className="text-body-small space-y-1 text-blue-700 dark:text-blue-300">
             <p>• The Dropdown uses FloatingTree from @floating-ui/react</p>
             <p>
-              • Menu items emit a <code>click</code> event via{" "}
-              <code>tree.events.emit(click)</code>
+              • Menu items emit a <code>click</code> event via <code>tree.events.emit(click)</code>
             </p>
-            <p>
-              • The root Dropdown listens for this event and closes when
-              triggered
-            </p>
+            <p>• The root Dropdown listens for this event and closes when triggered</p>
             <p>• This ensures all nested menus close together</p>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * NestedSubmenuWithLongList: Tests scrolling functionality in nested submenus.
@@ -1390,7 +1352,7 @@ export const NestedSubmenuWithLongList: Story = {
     const longListItems = Array.from({ length: 30 }, (_, i) => ({
       id: `item-${i + 1}`,
       label: `Menu Item ${i + 1}`,
-    }));
+    }))
 
     return (
       <div className="flex h-screen items-center justify-center">
@@ -1450,9 +1412,9 @@ export const NestedSubmenuWithLongList: Story = {
           </Dropdown.Content>
         </Dropdown>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown component in readOnly state.
@@ -1464,25 +1426,25 @@ export const NestedSubmenuWithLongList: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [clickCount, setClickCount] = useState(0);
-    const [isOpen, setIsOpen] = useState(false);
+    const [clickCount, setClickCount] = useState(0)
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
-      setClickCount((prev) => prev + 1);
-    };
+      setClickCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Click Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {clickCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Click Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{clickCount}</div>
         </div>
 
-        <Dropdown readOnly open={isOpen} onOpenChange={setIsOpen}>
+        <Dropdown
+          readOnly
+          open={isOpen}
+          onOpenChange={setIsOpen}
+        >
           <Dropdown.Trigger>
             <Dropdown.Value>Click to open menu (readOnly mode)</Dropdown.Value>
           </Dropdown.Trigger>
@@ -1504,13 +1466,13 @@ export const Readonly: Story = {
         </Dropdown>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on menu items - the click count should not change. The
-          menu can still be opened and closed normally.
+          💡 Try clicking on menu items - the click count should not change. The menu can still be
+          opened and closed normally.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Dropdown component in light variant.
@@ -1535,9 +1497,9 @@ export const Light: Story = {
           <Dropdown.Value>Delete</Dropdown.Value>
         </Dropdown.Item>
       </Dropdown>
-    );
+    )
   },
-};
+}
 
 /**
  * Using triggerRef to bind dropdown to an external element.
@@ -1549,8 +1511,8 @@ export const Light: Story = {
  */
 export const WithTriggerRef: Story = {
   render: function WithTriggerRefStory() {
-    const triggerRef = useRef<HTMLButtonElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const triggerRef = useRef<HTMLButtonElement>(null)
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
       <div className="flex h-64 items-center justify-center gap-8">
@@ -1583,9 +1545,9 @@ export const WithTriggerRef: Story = {
           </Dropdown>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Using triggerSelector (CSS selector) to bind dropdown to an element.
@@ -1597,9 +1559,9 @@ export const WithTriggerRef: Story = {
  */
 export const WithTriggerSelector: Story = {
   render: function WithTriggerSelectorStory() {
-    const [isOpen1, setIsOpen1] = useState(false);
-    const [isOpen2, setIsOpen2] = useState(false);
-    const [isOpen3, setIsOpen3] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(false)
+    const [isOpen2, setIsOpen2] = useState(false)
+    const [isOpen3, setIsOpen3] = useState(false)
 
     return (
       <div className="flex h-64 flex-col items-center justify-center gap-8">
@@ -1655,9 +1617,7 @@ export const WithTriggerSelector: Story = {
 
           {/* Using data attribute selector */}
           <div>
-            <p className="text-body-small-strong mb-2">
-              Using [data-*] selector
-            </p>
+            <p className="text-body-small-strong mb-2">Using [data-*] selector</p>
             <button
               data-dropdown-trigger="custom"
               className="bg-secondary-background rounded-xl border border-dashed px-4 py-2"
@@ -1683,10 +1643,10 @@ export const WithTriggerSelector: Story = {
         </div>
 
         <div className="bg-secondary-background max-w-xl rounded-xl p-4 text-center">
-          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS
-          选择器，当无法使用 ref 时非常有用。
+          <strong>提示：</strong> triggerSelector 支持任何有效的 CSS 选择器，当无法使用 ref
+          时非常有用。
         </div>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,44 +1,38 @@
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, loadEnv } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import fs from "fs";
-import path from "path";
+import tailwindcss from "@tailwindcss/vite"
+import { defineConfig, loadEnv } from "vite"
+import tsconfigPaths from "vite-tsconfig-paths"
+import fs from "fs"
+import path from "path"
 
-const coreDir = path.resolve(__dirname, "../core");
+const coreDir = path.resolve(__dirname, "../core")
 
 const createWorkspaceAliases = (baseDir: string): Record<string, string> => {
-  const aliases: Record<string, string> = {};
-  if (!fs.existsSync(baseDir)) return aliases;
+  const aliases: Record<string, string> = {}
+  if (!fs.existsSync(baseDir)) return aliases
 
   for (const entry of fs.readdirSync(baseDir)) {
-    const pkgDir = path.join(baseDir, entry);
-    const pkgJsonPath = path.join(pkgDir, "package.json");
-    if (!fs.existsSync(pkgJsonPath)) continue;
+    const pkgDir = path.join(baseDir, entry)
+    const pkgJsonPath = path.join(pkgDir, "package.json")
+    if (!fs.existsSync(pkgJsonPath)) continue
 
     const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8")) as {
-      name?: string;
-    };
+      name?: string
+    }
     if (pkg.name) {
-      aliases[pkg.name] = path.join(pkgDir, "src");
+      aliases[pkg.name] = path.join(pkgDir, "src")
     }
   }
 
-  return aliases;
-};
+  return aliases
+}
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
-  process.env = { ...process.env, ...env };
+  const env = loadEnv(mode, process.cwd(), "")
+  process.env = { ...process.env, ...env }
 
-  const componentAliases = createWorkspaceAliases(
-    path.resolve(coreDir, "app/components")
-  );
-  const hookAliases = createWorkspaceAliases(
-    path.resolve(coreDir, "app/hooks")
-  );
-  const utilAliases = createWorkspaceAliases(
-    path.resolve(coreDir, "app/utils")
-  );
+  const componentAliases = createWorkspaceAliases(path.resolve(coreDir, "app/components"))
+  const hookAliases = createWorkspaceAliases(path.resolve(coreDir, "app/hooks"))
+  const utilAliases = createWorkspaceAliases(path.resolve(coreDir, "app/utils"))
 
   return {
     plugins: [
@@ -57,7 +51,7 @@ export default defineConfig(({ mode }) => {
             return {
               code: code.replace(/^['"]use client['"];?\s*/m, ""),
               map: null,
-            };
+            }
           }
         },
       },
@@ -66,13 +60,10 @@ export default defineConfig(({ mode }) => {
       target: ["esnext"],
       rollupOptions: {
         onwarn(warning, warn) {
-          if (
-            warning.code === "EVAL" ||
-            warning.message?.includes("Use of eval")
-          ) {
-            return;
+          if (warning.code === "EVAL" || warning.message?.includes("Use of eval")) {
+            return
           }
-          warn(warning);
+          warn(warning)
         },
         output: {
           manualChunks: {
@@ -104,5 +95,5 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-  };
-});
+  }
+})

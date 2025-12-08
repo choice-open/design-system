@@ -1,18 +1,18 @@
-import { Badge } from "@choice-ui/react";
-import { Dot } from "@choiceform/icons-react";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Fragment } from "react";
+import { Badge } from "@choice-ui/react"
+import { Dot } from "@choiceform/icons-react"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { Fragment } from "react"
 
 const meta: Meta<typeof Badge> = {
   title: "Feedback/Badge",
   component: Badge,
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Badge>;
+type Story = StoryObj<typeof Badge>
 
 /**
  * Badges are used to call attention to status, and come in a strong "filled" and light "outline" form.
@@ -63,10 +63,16 @@ export const Basic: Story = {
             <Fragment key={variant}>
               {Object.values(Strong).map((strong) => (
                 <Fragment key={strong}>
-                  <Badge variant={variant} strong={strong === Strong.True}>
+                  <Badge
+                    variant={variant}
+                    strong={strong === Strong.True}
+                  >
                     {variant}
                   </Badge>
-                  <Badge variant={variant} strong={strong === Strong.True}>
+                  <Badge
+                    variant={variant}
+                    strong={strong === Strong.True}
+                  >
                     <Dot />
                     {variant}
                   </Badge>
@@ -76,6 +82,6 @@ export const Basic: Story = {
           ))}
         </div>
       </div>
-    );
+    )
   },
-};
+}

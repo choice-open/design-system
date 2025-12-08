@@ -1,32 +1,29 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import React, { useState, useEffect } from "react";
+import type { Meta, StoryObj } from "@storybook/react"
+import React, { useState, useEffect } from "react"
 import {
   formatRelativeTime,
   createDateFormatter,
   formatSimpleDate,
   formatTime,
-} from "@choice-ui/react";
-import type {
-  FormatRelativeTimeOptions,
-  SupportedLanguage,
-} from "@choice-ui/react";
+} from "@choice-ui/react"
+import type { FormatRelativeTimeOptions, SupportedLanguage } from "@choice-ui/react"
 
 // Mock component to demonstrate the formatting utilities
 const DateFormattingDemo = ({
   date,
   options = {},
 }: {
-  date: Date;
-  options?: FormatRelativeTimeOptions;
+  date: Date
+  options?: FormatRelativeTimeOptions
 }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+      setCurrentTime(new Date())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   const relativeResult = formatRelativeTime(date, {
     ...options,
@@ -34,10 +31,10 @@ const DateFormattingDemo = ({
       ...options.timezone,
       referenceTime: currentTime,
     },
-  });
+  })
 
-  const simpleResult = formatSimpleDate(date, options);
-  const timeResult = formatTime(date, options);
+  const simpleResult = formatSimpleDate(date, options)
+  const timeResult = formatTime(date, options)
 
   return (
     <div className="bg-default-background space-y-4 rounded-lg border p-4">
@@ -65,8 +62,8 @@ const DateFormattingDemo = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // Language comparison component
 const LanguageComparison = ({ date }: { date: Date }) => {
@@ -81,7 +78,7 @@ const LanguageComparison = ({ date }: { date: Date }) => {
     "pt",
     "ru",
     "ar",
-  ];
+  ]
 
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
@@ -90,23 +87,17 @@ const LanguageComparison = ({ date }: { date: Date }) => {
           key={language}
           className="bg-secondary-background rounded-lg border p-4"
         >
-          <div className="text-secondary-foreground font-strong mb-2">
-            {language.toUpperCase()}
-          </div>
+          <div className="text-secondary-foreground font-strong mb-2">{language.toUpperCase()}</div>
           <div className="space-y-1">
             <div>{formatRelativeTime(date, { language })}</div>
-            <div className="text-secondary-foreground">
-              {formatSimpleDate(date, { language })}
-            </div>
-            <div className="text-secondary-foreground">
-              {formatTime(date, { language })}
-            </div>
+            <div className="text-secondary-foreground">{formatSimpleDate(date, { language })}</div>
+            <div className="text-secondary-foreground">{formatTime(date, { language })}</div>
           </div>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 // Demo of all formatting modes
 const FormattingModes = ({ date }: { date: Date }) => {
@@ -126,46 +117,39 @@ const FormattingModes = ({ date }: { date: Date }) => {
         },
       },
     },
-  ] as const;
+  ] as const
 
   return (
     <div className="space-y-4">
       {modes.map((mode) => (
-        <div key={mode.name} className="rounded-lg border p-4">
-          <div className="text-secondary-foreground font-strong mb-2">
-            {mode.name}
-          </div>
+        <div
+          key={mode.name}
+          className="rounded-lg border p-4"
+        >
+          <div className="text-secondary-foreground font-strong mb-2">{mode.name}</div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div>
               <div className="text-secondary-foreground">English</div>
-              <div>
-                {formatRelativeTime(date, { ...mode.options, language: "en" })}
-              </div>
+              <div>{formatRelativeTime(date, { ...mode.options, language: "en" })}</div>
             </div>
             <div>
               <div className="text-secondary-foreground">中文</div>
-              <div>
-                {formatRelativeTime(date, { ...mode.options, language: "cn" })}
-              </div>
+              <div>{formatRelativeTime(date, { ...mode.options, language: "cn" })}</div>
             </div>
             <div>
               <div className="text-secondary-foreground">日本語</div>
-              <div>
-                {formatRelativeTime(date, { ...mode.options, language: "ja" })}
-              </div>
+              <div>{formatRelativeTime(date, { ...mode.options, language: "ja" })}</div>
             </div>
             <div>
               <div className="text-secondary-foreground">한국어</div>
-              <div>
-                {formatRelativeTime(date, { ...mode.options, language: "ko" })}
-              </div>
+              <div>{formatRelativeTime(date, { ...mode.options, language: "ko" })}</div>
             </div>
           </div>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 // Custom formatter demo
 const CustomFormatterDemo = () => {
@@ -173,7 +157,7 @@ const CustomFormatterDemo = () => {
     language: "cn",
     daysThreshold: 14,
     showSpecificTime: true,
-  });
+  })
 
   const englishFormatter = createDateFormatter({
     language: "en",
@@ -181,14 +165,14 @@ const CustomFormatterDemo = () => {
       fullDate: "MMMM do, yyyy",
       time: "h:mm a",
     },
-  });
+  })
 
   const dates = [
     new Date(), // now
     new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
     new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
     new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-  ];
+  ]
 
   return (
     <div className="space-y-6">
@@ -198,10 +182,11 @@ const CustomFormatterDemo = () => {
         </h3>
         <div className="space-y-2">
           {dates.map((date, index) => (
-            <div key={index} className="bg-secondary-background rounded p-2">
-              <div className="text-secondary-foreground">
-                {date.toLocaleString()}
-              </div>
+            <div
+              key={index}
+              className="bg-secondary-background rounded p-2"
+            >
+              <div className="text-secondary-foreground">{date.toLocaleString()}</div>
               <div className="font-strong">{chineseFormatter(date)}</div>
             </div>
           ))}
@@ -209,23 +194,22 @@ const CustomFormatterDemo = () => {
       </div>
 
       <div>
-        <h3 className="text-body-large-strong mb-4">
-          English Formatter (custom formats)
-        </h3>
+        <h3 className="text-body-large-strong mb-4">English Formatter (custom formats)</h3>
         <div className="space-y-2">
           {dates.map((date, index) => (
-            <div key={index} className="bg-secondary-background rounded p-2">
-              <div className="text-secondary-foreground">
-                {date.toLocaleString()}
-              </div>
+            <div
+              key={index}
+              className="bg-secondary-background rounded p-2"
+            >
+              <div className="text-secondary-foreground">{date.toLocaleString()}</div>
               <div className="font-strong">{englishFormatter(date)}</div>
             </div>
           ))}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const meta: Meta<typeof DateFormattingDemo> = {
   title: "Utils/Date Formatting",
@@ -288,10 +272,10 @@ formatter(date) // Uses Chinese by default
       description: "Formatting options",
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof DateFormattingDemo>;
+export default meta
+type Story = StoryObj<typeof DateFormattingDemo>
 
 // Basic story with current time
 export const LiveDemo: Story = {
@@ -309,7 +293,7 @@ export const LiveDemo: Story = {
       },
     },
   },
-};
+}
 
 // Different time periods
 export const FiveMinutesAgo: Story = {
@@ -317,42 +301,42 @@ export const FiveMinutesAgo: Story = {
     date: new Date(Date.now() - 5 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 export const TwoHoursAgo: Story = {
   args: {
     date: new Date(Date.now() - 2 * 60 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 export const Yesterday: Story = {
   args: {
     date: new Date(Date.now() - 24 * 60 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 export const OneWeekAgo: Story = {
   args: {
     date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 export const OneMonthAgo: Story = {
   args: {
     date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 export const OneYearAgo: Story = {
   args: {
     date: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
     options: { language: "en" },
   },
-};
+}
 
 // Language examples
 export const ChineseLocale: Story = {
@@ -363,26 +347,25 @@ export const ChineseLocale: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Demonstrates Chinese locale formatting with appropriate cultural conventions.",
+        story: "Demonstrates Chinese locale formatting with appropriate cultural conventions.",
       },
     },
   },
-};
+}
 
 export const JapaneseLocale: Story = {
   args: {
     date: new Date(Date.now() - 2 * 60 * 60 * 1000),
     options: { language: "ja" },
   },
-};
+}
 
 export const SpanishLocale: Story = {
   args: {
     date: new Date(Date.now() - 2 * 60 * 60 * 1000),
     options: { language: "es" },
   },
-};
+}
 
 // Feature demonstrations
 export const SpecificTimeMode: Story = {
@@ -401,7 +384,7 @@ export const SpecificTimeMode: Story = {
       },
     },
   },
-};
+}
 
 export const CustomThresholds: Story = {
   args: {
@@ -415,12 +398,11 @@ export const CustomThresholds: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Custom thresholds control when to switch from relative time to absolute dates.",
+        story: "Custom thresholds control when to switch from relative time to absolute dates.",
       },
     },
   },
-};
+}
 
 export const ForceNumericFormat: Story = {
   args: {
@@ -433,12 +415,11 @@ export const ForceNumericFormat: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Forces numeric date formats (MM/dd) instead of text-based formats (January 15).",
+        story: "Forces numeric date formats (MM/dd) instead of text-based formats (January 15).",
       },
     },
   },
-};
+}
 
 export const CustomFormats: Story = {
   args: {
@@ -455,12 +436,11 @@ export const CustomFormats: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Custom format strings allow complete control over date/time display patterns.",
+        story: "Custom format strings allow complete control over date/time display patterns.",
       },
     },
   },
-};
+}
 
 export const TimezoneHandling: Story = {
   args: {
@@ -476,32 +456,26 @@ export const TimezoneHandling: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Timezone options allow for UTC calculations and custom reference times.",
+        story: "Timezone options allow for UTC calculations and custom reference times.",
       },
     },
   },
-};
+}
 
 // Comprehensive comparison stories
 export const AllLanguagesComparison: Story = {
-  render: () => (
-    <LanguageComparison date={new Date(Date.now() - 2 * 60 * 60 * 1000)} />
-  ),
+  render: () => <LanguageComparison date={new Date(Date.now() - 2 * 60 * 60 * 1000)} />,
   parameters: {
     docs: {
       description: {
-        story:
-          "Side-by-side comparison of all 10 supported languages formatting the same date.",
+        story: "Side-by-side comparison of all 10 supported languages formatting the same date.",
       },
     },
   },
-};
+}
 
 export const AllFormattingModes: Story = {
-  render: () => (
-    <FormattingModes date={new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)} />
-  ),
+  render: () => <FormattingModes date={new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)} />,
   parameters: {
     docs: {
       description: {
@@ -509,19 +483,18 @@ export const AllFormattingModes: Story = {
       },
     },
   },
-};
+}
 
 export const CustomFormatterExamples: Story = {
   render: () => <CustomFormatterDemo />,
   parameters: {
     docs: {
       description: {
-        story:
-          "Examples of creating reusable formatters with predefined configurations.",
+        story: "Examples of creating reusable formatters with predefined configurations.",
       },
     },
   },
-};
+}
 
 // Edge cases and error handling
 export const InvalidDate: Story = {
@@ -529,15 +502,11 @@ export const InvalidDate: Story = {
     <div className="space-y-4">
       <div className="rounded-lg border bg-red-50 p-4">
         <strong>Invalid Date Input:</strong>
-        <div className="mt-2">
-          {formatRelativeTime(new Date("invalid date"))}
-        </div>
+        <div className="mt-2">{formatRelativeTime(new Date("invalid date"))}</div>
       </div>
       <div className="rounded-lg border bg-red-50 p-4">
         <strong>Null Input:</strong>
-        <div className="mt-2">
-          {formatRelativeTime(null as unknown as Date)}
-        </div>
+        <div className="mt-2">{formatRelativeTime(null as unknown as Date)}</div>
       </div>
     </div>
   ),
@@ -548,7 +517,7 @@ export const InvalidDate: Story = {
       },
     },
   },
-};
+}
 
 export const FutureDates: Story = {
   render: () => (
@@ -562,7 +531,10 @@ export const FutureDates: Story = {
           date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         },
       ].map((item) => (
-        <div key={item.name} className="rounded-lg border bg-blue-50 p-4">
+        <div
+          key={item.name}
+          className="rounded-lg border bg-blue-50 p-4"
+        >
           <strong>{item.name}:</strong>
           <div className="mt-2 grid grid-cols-2 gap-4">
             <div>
@@ -585,4 +557,4 @@ export const FutureDates: Story = {
       },
     },
   },
-};
+}

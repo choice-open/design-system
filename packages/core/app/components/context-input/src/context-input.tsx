@@ -15,10 +15,9 @@ import { ContextInputEditorContext, useContextInput, useMentions, useSlateEditor
 import { contextInputTv } from "./tv"
 import type { ContextInputProps, ContextInputRef, MentionItem } from "./types"
 
-interface ContextInputComponent
-  extends React.ForwardRefExoticComponent<
-    ContextInputProps & React.RefAttributes<ContextInputRef>
-  > {
+interface ContextInputComponent extends React.ForwardRefExoticComponent<
+  ContextInputProps & React.RefAttributes<ContextInputRef>
+> {
   CopyButton: typeof CopyButton
   Footer: typeof ContextInputFooter
   Header: typeof ContextInputHeader

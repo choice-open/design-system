@@ -1,17 +1,17 @@
-import { Badge, Checkbox, Select, TextField } from "@choice-ui/react";
-import { ArrowRight, Search } from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Badge, Checkbox, Select, TextField } from "@choice-ui/react"
+import { ArrowRight, Search } from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta = {
   title: "Forms/TextField",
   component: TextField,
   tags: ["new"],
-} satisfies Meta<typeof TextField>;
+} satisfies Meta<typeof TextField>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * Basic text field without any additional features.
@@ -19,9 +19,9 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    return <TextField placeholder="Enter text" />;
+    return <TextField placeholder="Enter text" />
   },
-};
+}
 
 /**
  * Text field with a prefix icon.
@@ -36,9 +36,9 @@ export const WithPrefix: Story = {
           <Search />
         </TextField.Prefix>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Text field with a suffix element.
@@ -53,9 +53,9 @@ export const WithSuffix: Story = {
           <Badge>Suffix</Badge>
         </TextField.Suffix>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Text field with both prefix and suffix elements.
@@ -73,9 +73,9 @@ export const WithPrefixAndSuffix: Story = {
           <Badge>Suffix</Badge>
         </TextField.Suffix>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Text field with a label.
@@ -88,9 +88,9 @@ export const WithLabel: Story = {
       <TextField placeholder="Enter text">
         <TextField.Label>Label</TextField.Label>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Text field with a description.
@@ -103,9 +103,9 @@ export const WithDescription: Story = {
       <TextField placeholder="Enter text">
         <TextField.Description>{faker.lorem.words()}</TextField.Description>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Large size variant of the text field.
@@ -114,9 +114,14 @@ export const WithDescription: Story = {
  */
 export const Size: Story = {
   render: function SizeStory() {
-    return <TextField placeholder="Enter text" size="large" />;
+    return (
+      <TextField
+        placeholder="Enter text"
+        size="large"
+      />
+    )
   },
-};
+}
 
 /**
  * Disabled text field with label and description.
@@ -126,13 +131,16 @@ export const Size: Story = {
 export const Disabled: Story = {
   render: function DisabledStory() {
     return (
-      <TextField placeholder="Enter text" disabled>
+      <TextField
+        placeholder="Enter text"
+        disabled
+      >
         <TextField.Label>Label</TextField.Label>
         <TextField.Description>Description</TextField.Description>
       </TextField>
-    );
+    )
   },
-};
+}
 
 /**
  * Read-only text field.
@@ -141,9 +149,14 @@ export const Disabled: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    return <TextField readOnly value="Read Only" />;
+    return (
+      <TextField
+        readOnly
+        value="Read Only"
+      />
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the text field component.
@@ -154,18 +167,22 @@ export const ReadOnly: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
           <div className="bg-default-background flex aspect-square items-center justify-center p-8">
-            <TextField disabled={disabled} placeholder="Enter text">
-              <TextField.Label description="This is a description">
-                Label
-              </TextField.Label>
+            <TextField
+              disabled={disabled}
+              placeholder="Enter text"
+            >
+              <TextField.Label description="This is a description">Label</TextField.Label>
               <TextField.Description>Description</TextField.Description>
             </TextField>
           </div>
@@ -175,9 +192,7 @@ export const Variants: Story = {
               variant="light"
               placeholder="Enter text"
             >
-              <TextField.Label description="This is a description">
-                Label
-              </TextField.Label>
+              <TextField.Label description="This is a description">Label</TextField.Label>
               <TextField.Description>Description</TextField.Description>
             </TextField>
           </div>
@@ -187,17 +202,15 @@ export const Variants: Story = {
               variant="dark"
               placeholder="Enter text"
             >
-              <TextField.Label description="This is a description">
-                Label
-              </TextField.Label>
+              <TextField.Label description="This is a description">Label</TextField.Label>
               <TextField.Description>Description</TextField.Description>
             </TextField>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Controlled text field with value display.
@@ -206,15 +219,18 @@ export const Variants: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
     return (
       <div className="flex flex-col gap-2">
-        <TextField value={value} onChange={setValue} />
+        <TextField
+          value={value}
+          onChange={setValue}
+        />
         <p className="text-secondary-foreground h-6">{value}</p>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TextField with arrow icon prefix and dropdown menu suffix
@@ -222,7 +238,7 @@ export const Controlled: Story = {
  */
 export const WithArrowAndDropdown: Story = {
   render: function WithArrowAndDropdownStory() {
-    const [dropdownValue, setDropdownValue] = useState<string>("recent");
+    const [dropdownValue, setDropdownValue] = useState<string>("recent")
 
     return (
       <TextField placeholder="Page or URL">
@@ -230,7 +246,10 @@ export const WithArrowAndDropdown: Story = {
           <ArrowRight />
         </TextField.Prefix>
         <TextField.Suffix className="">
-          <Select value={dropdownValue} onChange={setDropdownValue}>
+          <Select
+            value={dropdownValue}
+            onChange={setDropdownValue}
+          >
             <Select.Trigger className="h-6 w-6 border-0 bg-transparent p-0 hover:bg-transparent"></Select.Trigger>
             <Select.Content>
               <Select.Item value="recent">
@@ -250,6 +269,6 @@ export const WithArrowAndDropdown: Story = {
           </Select>
         </TextField.Suffix>
       </TextField>
-    );
+    )
   },
-};
+}

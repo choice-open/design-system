@@ -5,8 +5,10 @@ import React, { forwardRef, ReactNode, useState, type HTMLProps } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { comboboxTriggerTv } from "./tv"
 
-export interface ComboboxTriggerProps
-  extends Omit<HTMLProps<HTMLInputElement>, "size" | "onChange"> {
+export interface ComboboxTriggerProps extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "size" | "onChange"
+> {
   active?: boolean
   disabled?: boolean
   i18n?: {

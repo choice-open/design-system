@@ -1,4 +1,4 @@
-import type { User } from "@choice-ui/react";
+import type { User } from "@choice-ui/react"
 import {
   CommentItem,
   CustomElement,
@@ -6,11 +6,11 @@ import {
   ImageElement,
   Modal,
   PicturePreview,
-} from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useMemo, useState } from "react";
-import { Descendant } from "slate";
+} from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useMemo, useState } from "react"
+import { Descendant } from "slate"
 
 const meta = {
   title: "Components/Comments/CommentItem",
@@ -24,10 +24,10 @@ const meta = {
       </Modal>
     ),
   ],
-} satisfies Meta<typeof CommentItem>;
+} satisfies Meta<typeof CommentItem>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // 创建一个 mock user
 const mockUser: User = {
@@ -36,7 +36,7 @@ const mockUser: User = {
   email: "jane@example.com",
   photo_url: "https://i.pravatar.cc/150?img=1",
   color: null,
-};
+}
 
 // 基本评论示例
 export const Basic: Story = {
@@ -52,7 +52,7 @@ export const Basic: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 带格式的评论示例（1天前）- 中文
 export const WithFormattingChinese: Story = {
@@ -84,7 +84,7 @@ export const WithFormattingChinese: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 带格式的评论示例（1天前）- 英文
 export const WithFormattingEnglish: Story = {
@@ -116,7 +116,7 @@ export const WithFormattingEnglish: Story = {
     reactions: null,
     locale: "en-us",
   },
-};
+}
 
 // 今日内评论示例（2小时前）- 中文
 export const RecentCommentChinese: Story = {
@@ -138,7 +138,7 @@ export const RecentCommentChinese: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 今日内评论示例（2小时前）- 英文
 export const RecentCommentEnglish: Story = {
@@ -164,7 +164,7 @@ export const RecentCommentEnglish: Story = {
     reactions: null,
     locale: "en-us",
   },
-};
+}
 
 // 本年内评论示例（3个月前）- 中文
 export const ThisYearCommentChinese: Story = {
@@ -186,7 +186,7 @@ export const ThisYearCommentChinese: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 本年内评论示例（3个月前）- 英文
 export const ThisYearCommentEnglish: Story = {
@@ -212,7 +212,7 @@ export const ThisYearCommentEnglish: Story = {
     reactions: null,
     locale: "en-us",
   },
-};
+}
 
 // 去年评论示例 - 中文
 export const LastYearCommentChinese: Story = {
@@ -234,7 +234,7 @@ export const LastYearCommentChinese: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 去年评论示例 - 英文
 export const LastYearCommentEnglish: Story = {
@@ -260,7 +260,7 @@ export const LastYearCommentEnglish: Story = {
     reactions: null,
     locale: "en-us",
   },
-};
+}
 
 // 带提及和图片的评论示例
 export const WithMentionAndImage: Story = {
@@ -324,7 +324,7 @@ export const WithMentionAndImage: Story = {
     reactions: null,
     locale: "zh-cn",
   },
-};
+}
 
 // 带列表的评论示例
 export const WithLists: Story = {
@@ -351,10 +351,7 @@ export const WithLists: Story = {
           } as CustomElement,
           {
             type: "list-item",
-            children: [
-              { text: "Second bullet point with " },
-              { text: "formatting", bold: true },
-            ],
+            children: [{ text: "Second bullet point with " }, { text: "formatting", bold: true }],
           } as CustomElement,
           {
             type: "list-item",
@@ -386,13 +383,13 @@ export const WithLists: Story = {
     ],
     reactions: null,
   },
-};
+}
 
 // 多图片评论示例
 export const MultipleImages = {
   render: function RenderStory() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [imageIndex, setImageIndex] = useState<number | undefined>(undefined);
+    const [isOpen, setIsOpen] = useState(false)
+    const [imageIndex, setImageIndex] = useState<number | undefined>(undefined)
 
     const message_meta: Descendant[] = useMemo(
       () => [
@@ -427,18 +424,18 @@ export const MultipleImages = {
           children: [{ text: "It was an amazing experience!" }],
         } as CustomElement,
       ],
-      []
-    );
+      [],
+    )
 
     const currentImage = useMemo(() => {
       const image = message_meta.find((item) => {
         // 检查是否为 CustomElement 并且是 image 类型
-        return (item as CustomElement).type === "image";
-      }) as ImageElement | undefined;
+        return (item as CustomElement).type === "image"
+      }) as ImageElement | undefined
 
-      if (!image || !image.attachments) return null;
-      return image.attachments[imageIndex ?? 0];
-    }, [message_meta, imageIndex]);
+      if (!image || !image.attachments) return null
+      return image.attachments[imageIndex ?? 0]
+    }, [message_meta, imageIndex])
 
     const author = useMemo(() => {
       return {
@@ -447,8 +444,8 @@ export const MultipleImages = {
         email: faker.internet.email(),
         photo_url: faker.image.avatar(),
         color: null,
-      };
-    }, []);
+      }
+    }, [])
 
     return (
       <>
@@ -458,8 +455,8 @@ export const MultipleImages = {
           message_meta={message_meta}
           reactions={null}
           handleOnImageClick={(index) => {
-            setImageIndex(index);
-            setIsOpen(true);
+            setImageIndex(index)
+            setIsOpen(true)
           }}
         />
         {imageIndex !== undefined && (
@@ -479,6 +476,6 @@ export const MultipleImages = {
           </Dialog>
         )}
       </>
-    );
+    )
   },
-};
+}

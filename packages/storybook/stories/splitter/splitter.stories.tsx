@@ -1,12 +1,7 @@
-import {
-  Button,
-  IconButton,
-  Splitter,
-  type SplitterHandle,
-} from "@choice-ui/react";
-import { RemoveSmall } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useRef, useState } from "react";
+import { Button, IconButton, Splitter, type SplitterHandle } from "@choice-ui/react"
+import { RemoveSmall } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useRef, useState } from "react"
 
 const meta = {
   title: "Layouts/Splitter",
@@ -15,10 +10,10 @@ const meta = {
     layout: "fullscreen",
   },
   tags: ["new"],
-} satisfies Meta<typeof Splitter>;
+} satisfies Meta<typeof Splitter>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `Splitter` is a resizable split view component that allows content areas to be resized by users.
@@ -60,9 +55,9 @@ export const Basic = {
         <div className="grid h-full place-content-center">Pane 1</div>
         <div className="grid h-full place-content-center">Pane 2</div>
       </Splitter>
-    );
+    )
   },
-};
+}
 
 /**
  * Pane: Demonstrates using the Splitter.Pane component for explicit pane control.
@@ -84,9 +79,9 @@ export const Pane = {
           <div className="grid h-full place-content-center">Pane 2</div>
         </Splitter.Pane>
       </Splitter>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested: Shows how to create complex layouts with nested splitters.
@@ -103,7 +98,10 @@ export const Pane = {
 export const Nested = {
   render: function NestedStory() {
     return (
-      <Splitter minSize={100} className="h-screen w-screen">
+      <Splitter
+        minSize={100}
+        className="h-screen w-screen"
+      >
         <Splitter.Pane maxSize={400}>
           <Splitter vertical>
             <Splitter.Pane minSize={100}>
@@ -121,9 +119,9 @@ export const Nested = {
           <div className="grid h-full place-content-center">Pane 4</div>
         </Splitter.Pane>
       </Splitter>
-    );
+    )
   },
-};
+}
 
 /**
  * Close: Demonstrates dynamic pane management with the ability to remove panes.
@@ -139,24 +137,26 @@ export const Nested = {
  */
 export const Close = {
   render: function CloseStory() {
-    const [panes, setPanes] = useState([0, 1, 2]);
+    const [panes, setPanes] = useState([0, 1, 2])
     return (
-      <Splitter vertical minSize={100} className="h-screen w-screen">
+      <Splitter
+        vertical
+        minSize={100}
+        className="h-screen w-screen"
+      >
         <Splitter.Pane maxSize={400}>
           <Splitter>
             {panes.map((pane, index) => (
               <Splitter.Pane key={pane}>
-                <div className="grid h-full place-content-center">
-                  Pane {index + 1}
-                </div>
+                <div className="grid h-full place-content-center">Pane {index + 1}</div>
                 <div className="absolute top-0 h-full w-full">
                   <IconButton
                     className="absolute top-2 right-2"
                     onClick={() =>
                       setPanes((panes) => {
-                        const newPanes = [...panes];
-                        newPanes.splice(pane, 1);
-                        return newPanes;
+                        const newPanes = [...panes]
+                        newPanes.splice(pane, 1)
+                        return newPanes
                       })
                     }
                   >
@@ -171,9 +171,9 @@ export const Close = {
           <div className="grid h-full place-content-center">Pane 4</div>
         </Splitter.Pane>
       </Splitter>
-    );
+    )
   },
-};
+}
 
 /**
  * Visible: Demonstrates toggling pane visibility.
@@ -189,12 +189,12 @@ export const Close = {
  */
 export const Visible = {
   render: function VisibleStory() {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(true)
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-4">
         <Button
           onClick={() => {
-            setVisible((visible) => !visible);
+            setVisible((visible) => !visible)
           }}
         >
           {visible ? "Hide" : "Show"}
@@ -203,7 +203,7 @@ export const Visible = {
           <Splitter
             snap
             onVisibleChange={(_index, value) => {
-              setVisible(value);
+              setVisible(value)
             }}
           >
             <div className="grid h-full place-content-center">Pane 1</div>
@@ -213,9 +213,9 @@ export const Visible = {
           </Splitter>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Reset: Demonstrates programmatic control using the splitter ref.
@@ -232,13 +232,13 @@ export const Visible = {
  */
 export const Reset = {
   render: function ResetStory() {
-    const ref = useRef<SplitterHandle>(null);
+    const ref = useRef<SplitterHandle>(null)
 
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-4">
         <Button
           onClick={() => {
-            ref.current?.reset();
+            ref.current?.reset()
           }}
         >
           Reset
@@ -250,6 +250,6 @@ export const Reset = {
           </Splitter>
         </div>
       </div>
-    );
+    )
   },
-};
+}

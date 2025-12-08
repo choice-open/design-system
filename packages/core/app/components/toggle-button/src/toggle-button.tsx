@@ -3,8 +3,10 @@ import { Tooltip, type TooltipProps } from "@choice-ui/tooltip"
 import { forwardRef, HTMLProps, useId } from "react"
 import { toggleButtonTv } from "./tv"
 
-export interface ToggleButtonProps
-  extends Omit<HTMLProps<HTMLInputElement>, "value" | "onChange" | "size"> {
+export interface ToggleButtonProps extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "value" | "onChange" | "size"
+> {
   active?: boolean
   children?: React.ReactNode
   className?: string

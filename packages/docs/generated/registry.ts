@@ -77,9 +77,9 @@ import * as StoryModule75 from "../../storybook/stories/tree-list/tree-list.stor
 import * as StoryModule76 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
 import * as StoryModule77 from "../../storybook/stories/skeleton/skeleton.stories"
 import * as StoryModule78 from "../../storybook/stories/avatar/avatar.stories"
-import * as StoryModule79 from "../../storybook/stories/tabs/tabs.stories"
-import * as StoryModule80 from "../../storybook/stories/label/label.stories"
-import * as StoryModule81 from "../../storybook/stories/input/input.stories"
+import * as StoryModule79 from "../../storybook/stories/label/label.stories"
+import * as StoryModule80 from "../../storybook/stories/input/input.stories"
+import * as StoryModule81 from "../../storybook/stories/tabs/tabs.stories"
 
 export const storyRegistry: Record<string, Record<string, unknown>> = {
   "overlays/alert-dialog": StoryModule0,
@@ -161,7 +161,7 @@ export const storyRegistry: Record<string, Record<string, unknown>> = {
   "utilities/virtualized-grid": StoryModule76,
   "components/skeleton": StoryModule77,
   "feedback/avatar": StoryModule78,
-  "navigation/tabs": StoryModule79,
-  "forms/label": StoryModule80,
-  "forms/input": StoryModule81,
+  "forms/label": StoryModule79,
+  "forms/input": StoryModule80,
+  "navigation/tabs": StoryModule81,
 }

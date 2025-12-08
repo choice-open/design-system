@@ -1,34 +1,29 @@
-import {
-  Button,
-  Dropdown,
-  IconButton,
-  Panel,
-  ScrollArea,
-  Splitter,
-  tcx,
-} from "@choice-ui/react";
-import { Styles, Target } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+import { Button, Dropdown, IconButton, Panel, ScrollArea, Splitter, tcx } from "@choice-ui/react"
+import { Styles, Target } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useState } from "react"
 
 const meta: Meta<typeof Panel> = {
   title: "Layouts/Panel/Title",
   component: Panel,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Panel>;
+type Story = StoryObj<typeof Panel>
 
 const AllotmentContainer = ({
   children,
   header,
 }: {
-  children: React.ReactNode;
-  header: React.ReactNode;
+  children: React.ReactNode
+  header: React.ReactNode
 }) => {
   return (
-    <Splitter defaultSizes={[800, 240]} className="absolute! inset-0">
+    <Splitter
+      defaultSizes={[800, 240]}
+      className="absolute! inset-0"
+    >
       <Splitter.Pane minSize={320}>
         <div className="bg-secondary-background flex h-screen min-h-0 w-full flex-1 flex-col"></div>
       </Splitter.Pane>
@@ -45,8 +40,8 @@ const AllotmentContainer = ({
         </ScrollArea>
       </Splitter.Pane>
     </Splitter>
-  );
-};
+  )
+}
 
 /**
  * `IfPanelTitle` is a versatile panel header component that provides consistent styling and behavior
@@ -78,8 +73,8 @@ const AllotmentContainer = ({
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [collapsible, setCollapsible] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [collapsible, setCollapsible] = useState(false)
+    const [open, setOpen] = useState(false)
     return (
       <AllotmentContainer header="Panel title">
         {/* Basic panel title */}
@@ -121,7 +116,10 @@ export const Basic: Story = {
           </Panel.Title>
           <div className="px-4">
             <div className="bg-secondary-background grid place-items-center rounded-md py-4 text-center">
-              <Button variant="secondary" onClick={() => setCollapsible(true)}>
+              <Button
+                variant="secondary"
+                onClick={() => setCollapsible(true)}
+              >
                 Close
               </Button>
             </div>
@@ -136,12 +134,16 @@ export const Basic: Story = {
               title: tcx(
                 open
                   ? "text-default-foreground"
-                  : "text-secondary-foreground hover:text-default-foreground"
+                  : "text-secondary-foreground hover:text-default-foreground",
               ),
             }}
             onClick={() => setOpen(!open)}
           >
-            <Dropdown open={open} onOpenChange={setOpen} placement="bottom-end">
+            <Dropdown
+              open={open}
+              onOpenChange={setOpen}
+              placement="bottom-end"
+            >
               <Dropdown.Trigger asChild>
                 <IconButton
                   variant="highlight"
@@ -159,6 +161,6 @@ export const Basic: Story = {
           </Panel.Title>
         </Panel>
       </AllotmentContainer>
-    );
+    )
   },
-};
+}

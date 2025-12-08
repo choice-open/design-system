@@ -1,23 +1,23 @@
-import { ChipProps, MultiSelect, Select, tcx } from "@choice-ui/react";
+import { ChipProps, MultiSelect, Select, tcx } from "@choice-ui/react"
 import {
   FieldTypeAttachment,
   FieldTypeCheckbox,
   FieldTypeCount,
   RemoveTiny,
   Settings,
-} from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useCallback, useMemo, useState } from "react";
+} from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useCallback, useMemo, useState } from "react"
 
 const meta: Meta<typeof MultiSelect> = {
   title: "Collections/MultiSelect",
   component: MultiSelect,
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof MultiSelect>;
+export default meta
+type Story = StoryObj<typeof MultiSelect>
 
 /**
  * Basic multiple selection component.
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof MultiSelect>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [values, setValues] = useState<string[]>(["option-2", "option-4"]);
+    const [values, setValues] = useState<string[]>(["option-2", "option-4"])
 
     const options = useMemo(
       () =>
@@ -38,21 +38,24 @@ export const Basic: Story = {
           value: `option-${i + 1}`,
           label: `Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Basic Multi-Select</label>
-          <MultiSelect values={values} onChange={setValues}>
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+          >
             <MultiSelect.Trigger
               placeholder="Select options..."
               getDisplayValue={getDisplayValue}
@@ -61,7 +64,10 @@ export const Basic: Story = {
             <MultiSelect.Content>
               <MultiSelect.Label>Available Options</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
@@ -81,16 +87,16 @@ export const Basic: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multi-select with maximum and minimum selection limits.
  */
 export const WithLimits: Story = {
   render: function WithLimitsStory() {
-    const [values, setValues] = useState<string[]>(["option-2"]);
+    const [values, setValues] = useState<string[]>(["option-2"])
 
     const options = useMemo(
       () =>
@@ -98,22 +104,20 @@ export const WithLimits: Story = {
           value: `option-${i + 1}`,
           label: `Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-strong">
-            Multi-Select with Limits (Max 3, Min 1)
-          </label>
+          <label className="font-strong">Multi-Select with Limits (Max 3, Min 1)</label>
           <MultiSelect
             values={values}
             onChange={setValues}
@@ -128,7 +132,10 @@ export const WithLimits: Story = {
             <MultiSelect.Content>
               <MultiSelect.Label>Available Options</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
@@ -143,30 +150,24 @@ export const WithLimits: Story = {
               Count: <span className="font-mono">{values.length}</span>
             </div>
             <div>
-              Can add more:{" "}
-              <span className="font-mono">
-                {values.length < 3 ? "Yes" : "No"}
-              </span>
+              Can add more: <span className="font-mono">{values.length < 3 ? "Yes" : "No"}</span>
             </div>
             <div>
-              Can remove:{" "}
-              <span className="font-mono">
-                {values.length > 1 ? "Yes" : "No"}
-              </span>
+              Can remove: <span className="font-mono">{values.length > 1 ? "Yes" : "No"}</span>
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multi-select with icons and complex data.
  */
 export const WithIcons: Story = {
   render: function WithIconsStory() {
-    const [values, setValues] = useState<string[]>(["attachment", "count"]);
+    const [values, setValues] = useState<string[]>(["attachment", "count"])
 
     const options = useMemo(
       () => [
@@ -183,21 +184,25 @@ export const WithIcons: Story = {
         { value: "count", label: "Count Field", icon: <FieldTypeCount /> },
         { value: "settings", label: "Settings Field", icon: <Settings /> },
       ],
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Field Types Selection</label>
-          <MultiSelect values={values} onChange={setValues} maxSelection={3}>
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+            maxSelection={3}
+          >
             <MultiSelect.Trigger
               placeholder="Select field types..."
               getDisplayValue={getDisplayValue}
@@ -206,7 +211,10 @@ export const WithIcons: Story = {
             <MultiSelect.Content>
               <MultiSelect.Label>Field Types</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.icon}
                   {option.label}
                 </MultiSelect.Item>
@@ -219,7 +227,7 @@ export const WithIcons: Story = {
           <h3 className="font-strong mb-2">Selected Field Types</h3>
           <div className="space-y-2">
             {values.map((value) => {
-              const option = options.find((opt) => opt.value === value);
+              const option = options.find((opt) => opt.value === value)
               return (
                 <div
                   key={value}
@@ -227,30 +235,26 @@ export const WithIcons: Story = {
                 >
                   {option?.icon}
                   <span>{option?.label}</span>
-                  <span className="text-secondary-foreground font-mono">
-                    ({value})
-                  </span>
+                  <span className="text-secondary-foreground font-mono">({value})</span>
                 </div>
-              );
+              )
             })}
             {values.length === 0 && (
-              <div className="text-secondary-foreground font-mono">
-                No field types selected
-              </div>
+              <div className="text-secondary-foreground font-mono">No field types selected</div>
             )}
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multi-select with dividers and labels for better organization.
  */
 export const WithDividers: Story = {
   render: function WithDividersStory() {
-    const [values, setValues] = useState<string[]>(["basic-1", "premium-1"]);
+    const [values, setValues] = useState<string[]>(["basic-1", "premium-1"])
 
     const getDisplayValue = useCallback((value: string) => {
       const labelMap: Record<string, string> = {
@@ -259,15 +263,18 @@ export const WithDividers: Story = {
         "premium-1": "Premium - Business",
         "premium-2": "Premium - Enterprise",
         "custom-1": "Custom - Tailored",
-      };
-      return labelMap[value] || value;
-    }, []);
+      }
+      return labelMap[value] || value
+    }, [])
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Plan Selection</label>
-          <MultiSelect values={values} onChange={setValues}>
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+          >
             <MultiSelect.Trigger
               placeholder="Select plans..."
               getDisplayValue={getDisplayValue}
@@ -275,29 +282,19 @@ export const WithDividers: Story = {
             />
             <MultiSelect.Content>
               <MultiSelect.Label>Basic Plans</MultiSelect.Label>
-              <MultiSelect.Item value="basic-1">
-                Basic - Starter
-              </MultiSelect.Item>
-              <MultiSelect.Item value="basic-2">
-                Basic - Professional
-              </MultiSelect.Item>
+              <MultiSelect.Item value="basic-1">Basic - Starter</MultiSelect.Item>
+              <MultiSelect.Item value="basic-2">Basic - Professional</MultiSelect.Item>
 
               <MultiSelect.Divider />
 
               <MultiSelect.Label>Premium Plans</MultiSelect.Label>
-              <MultiSelect.Item value="premium-1">
-                Premium - Business
-              </MultiSelect.Item>
-              <MultiSelect.Item value="premium-2">
-                Premium - Enterprise
-              </MultiSelect.Item>
+              <MultiSelect.Item value="premium-1">Premium - Business</MultiSelect.Item>
+              <MultiSelect.Item value="premium-2">Premium - Enterprise</MultiSelect.Item>
 
               <MultiSelect.Divider />
 
               <MultiSelect.Label>Custom Solutions</MultiSelect.Label>
-              <MultiSelect.Item value="custom-1">
-                Custom - Tailored
-              </MultiSelect.Item>
+              <MultiSelect.Item value="custom-1">Custom - Tailored</MultiSelect.Item>
             </MultiSelect.Content>
           </MultiSelect>
         </div>
@@ -307,35 +304,27 @@ export const WithDividers: Story = {
           <div className="space-y-1">
             {values.map((value) => (
               <div key={value}>
-                <span className="text-secondary-foreground font-mono">
-                  {value}
-                </span>
+                <span className="text-secondary-foreground font-mono">{value}</span>
                 {" → "}
                 <span>{getDisplayValue(value)}</span>
               </div>
             ))}
             {values.length === 0 && (
-              <div className="text-secondary-foreground font-mono">
-                No plans selected
-              </div>
+              <div className="text-secondary-foreground font-mono">No plans selected</div>
             )}
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Multi-select with long list of options for performance testing.
  */
 export const LongList: Story = {
   render: function LongListStory() {
-    const [values, setValues] = useState<string[]>([
-      "city-25",
-      "city-50",
-      "city-75",
-    ]);
+    const [values, setValues] = useState<string[]>(["city-25", "city-50", "city-75"])
 
     const options = useMemo(
       () =>
@@ -343,34 +332,37 @@ export const LongList: Story = {
           value: `city-${i + 1}`,
           label: `${faker.location.city()} ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="font-strong">
-            City Selection ({options.length} cities)
-          </label>
-          <MultiSelect values={values} onChange={setValues} maxSelection={10}>
+          <label className="font-strong">City Selection ({options.length} cities)</label>
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+            maxSelection={10}
+          >
             <MultiSelect.Trigger
               placeholder="Select cities..."
               getDisplayValue={getDisplayValue}
               className="w-80"
             />
             <MultiSelect.Content>
-              <MultiSelect.Label>
-                Cities ({options.length} total)
-              </MultiSelect.Label>
+              <MultiSelect.Label>Cities ({options.length} total)</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
@@ -386,10 +378,11 @@ export const LongList: Story = {
             </div>
             <div className="max-h-32 overflow-y-auto">
               {values.map((value) => (
-                <div key={value} className="flex items-center gap-2">
-                  <span className="text-secondary-foreground font-mono">
-                    {value}
-                  </span>
+                <div
+                  key={value}
+                  className="flex items-center gap-2"
+                >
+                  <span className="text-secondary-foreground font-mono">{value}</span>
                   <span>→</span>
                   <span>{getDisplayValue(value)}</span>
                 </div>
@@ -398,16 +391,16 @@ export const LongList: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled multi-select component.
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [values] = useState<string[]>(["option-2", "option-4"]);
+    const [values] = useState<string[]>(["option-2", "option-4"])
 
     const options = useMemo(
       () =>
@@ -415,21 +408,24 @@ export const Disabled: Story = {
           value: `option-${i + 1}`,
           label: `Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Disabled Multi-Select</label>
-          <MultiSelect values={values} disabled>
+          <MultiSelect
+            values={values}
+            disabled
+          >
             <MultiSelect.Trigger
               placeholder="Select options..."
               getDisplayValue={getDisplayValue}
@@ -438,7 +434,10 @@ export const Disabled: Story = {
             <MultiSelect.Content>
               <MultiSelect.Label>Available Options</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
@@ -458,16 +457,16 @@ export const Disabled: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled items
  */
 export const DisabledItems: Story = {
   render: function DisabledItemsStory() {
-    const [values, setValues] = useState<string[]>(["option-1", "option-3"]);
+    const [values, setValues] = useState<string[]>(["option-1", "option-3"])
 
     const options = useMemo(
       () =>
@@ -476,21 +475,24 @@ export const DisabledItems: Story = {
           label: `Option ${i + 1}`,
           disabled: i === 2,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Disabled Items</label>
-          <MultiSelect values={values} onChange={setValues}>
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+          >
             <MultiSelect.Trigger
               placeholder="Select options..."
               getDisplayValue={getDisplayValue}
@@ -510,16 +512,16 @@ export const DisabledItems: Story = {
           </MultiSelect>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Large size multi-select component.
  */
 export const Large: Story = {
   render: function LargeStory() {
-    const [values, setValues] = useState<string[]>(["option-1", "option-3"]);
+    const [values, setValues] = useState<string[]>(["option-1", "option-3"])
 
     const options = useMemo(
       () =>
@@ -527,21 +529,25 @@ export const Large: Story = {
           value: `option-${i + 1}`,
           label: `Large Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-2">
           <label className="font-strong">Large Multi-Select</label>
-          <MultiSelect values={values} onChange={setValues} size="large">
+          <MultiSelect
+            values={values}
+            onChange={setValues}
+            size="large"
+          >
             <MultiSelect.Trigger
               placeholder="Select options..."
               getDisplayValue={getDisplayValue}
@@ -550,7 +556,10 @@ export const Large: Story = {
             <MultiSelect.Content>
               <MultiSelect.Label>Available Options</MultiSelect.Label>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
@@ -573,9 +582,9 @@ export const Large: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Exclusive options demonstration.
@@ -587,7 +596,7 @@ export const Large: Story = {
  */
 export const ExclusiveOptions: Story = {
   render: function ExclusiveOptionsStory() {
-    const [values, setValues] = useState<string[]>([]);
+    const [values, setValues] = useState<string[]>([])
 
     const options = useMemo(
       () => [
@@ -613,15 +622,15 @@ export const ExclusiveOptions: Story = {
           exclusiveIndex: undefined,
         },
       ],
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
@@ -630,14 +639,9 @@ export const ExclusiveOptions: Story = {
           <ul className="mt-2 ml-4 space-y-1">
             <li>• Group 1 (A, B, C): Can select multiple within group</li>
             <li>• Group 2 (D, E, F): Can select multiple within group</li>
-            <li>
-              • Groups are mutually exclusive (selecting Group 2 clears Group 1)
-            </li>
+            <li>• Groups are mutually exclusive (selecting Group 2 clears Group 1)</li>
             <li>• Option G: Global exclusive (clears all others)</li>
-            <li>
-              • Options H, I: No constraints (but cleared when selecting
-              constrained options)
-            </li>
+            <li>• Options H, I: No constraints (but cleared when selecting constrained options)</li>
           </ul>
         </div>
 
@@ -680,7 +684,10 @@ export const ExclusiveOptions: Story = {
             <MultiSelect.Divider />
 
             <MultiSelect.Label>Special Options</MultiSelect.Label>
-            <MultiSelect.Item value="g" exclusiveIndex={-1}>
+            <MultiSelect.Item
+              value="g"
+              exclusiveIndex={-1}
+            >
               Option G (Global Exclusive)
             </MultiSelect.Item>
 
@@ -699,13 +706,11 @@ export const ExclusiveOptions: Story = {
           </MultiSelect.Content>
         </MultiSelect>
 
-        <div className="text-secondary-foreground">
-          Selected: {values.join(", ") || "None"}
-        </div>
+        <div className="text-secondary-foreground">Selected: {values.join(", ") || "None"}</div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Control whether the menu closes when selecting options.
@@ -716,8 +721,8 @@ export const ExclusiveOptions: Story = {
  */
 export const CloseOnSelect: Story = {
   render: function CloseOnSelectStory() {
-    const [values1, setValues1] = useState<string[]>([]);
-    const [values2, setValues2] = useState<string[]>([]);
+    const [values1, setValues1] = useState<string[]>([])
+    const [values2, setValues2] = useState<string[]>([])
 
     const options = useMemo(
       () =>
@@ -725,26 +730,22 @@ export const CloseOnSelect: Story = {
           value: `option-${i + 1}`,
           label: `Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
         <div className="space-y-4">
           <div className="space-y-2">
-            <h3 className="text-body-small-strong">
-              closeOnSelect=false (Default)
-            </h3>
-            <p className="text-secondary-foreground">
-              Menu stays open after selecting options
-            </p>
+            <h3 className="text-body-small-strong">closeOnSelect=false (Default)</h3>
+            <p className="text-secondary-foreground">Menu stays open after selecting options</p>
           </div>
 
           <MultiSelect
@@ -760,24 +761,23 @@ export const CloseOnSelect: Story = {
             />
             <MultiSelect.Content>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
             </MultiSelect.Content>
           </MultiSelect>
 
-          <div className="text-secondary-foreground">
-            Selected: {values1.join(", ") || "None"}
-          </div>
+          <div className="text-secondary-foreground">Selected: {values1.join(", ") || "None"}</div>
         </div>
 
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="font-strong">closeOnSelect=true</h3>
-            <p className="text-secondary-foreground">
-              Menu closes after each selection
-            </p>
+            <p className="text-secondary-foreground">Menu closes after each selection</p>
           </div>
 
           <MultiSelect
@@ -793,21 +793,22 @@ export const CloseOnSelect: Story = {
             />
             <MultiSelect.Content>
               {options.map((option) => (
-                <MultiSelect.Item key={option.value} value={option.value}>
+                <MultiSelect.Item
+                  key={option.value}
+                  value={option.value}
+                >
                   {option.label}
                 </MultiSelect.Item>
               ))}
             </MultiSelect.Content>
           </MultiSelect>
 
-          <div className="text-secondary-foreground">
-            Selected: {values2.join(", ") || "None"}
-          </div>
+          <div className="text-secondary-foreground">Selected: {values2.join(", ") || "None"}</div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Validation messages for constraints.
@@ -820,7 +821,7 @@ export const CloseOnSelect: Story = {
  */
 export const ValidationMessages: Story = {
   render: function ValidationMessagesStory() {
-    const [values, setValues] = useState<string[]>([]);
+    const [values, setValues] = useState<string[]>([])
 
     const options = useMemo(
       () =>
@@ -828,15 +829,15 @@ export const ValidationMessages: Story = {
           value: `option-${i + 1}`,
           label: `Option ${i + 1}`,
         })),
-      []
-    );
+      [],
+    )
 
     const getDisplayValue = useCallback(
       (value: string) => {
-        return options.find((opt) => opt.value === value)?.label || value;
+        return options.find((opt) => opt.value === value)?.label || value
       },
-      [options]
-    );
+      [options],
+    )
 
     return (
       <div className="space-y-4">
@@ -859,7 +860,10 @@ export const ValidationMessages: Story = {
               <MultiSelect.Trigger getDisplayValue={getDisplayValue} />
               <MultiSelect.Content>
                 {options.map((option) => (
-                  <MultiSelect.Item key={option.value} value={option.value}>
+                  <MultiSelect.Item
+                    key={option.value}
+                    value={option.value}
+                  >
                     {option.label}
                   </MultiSelect.Item>
                 ))}
@@ -879,7 +883,10 @@ export const ValidationMessages: Story = {
               <MultiSelect.Trigger getDisplayValue={getDisplayValue} />
               <MultiSelect.Content>
                 {options.slice(0, 5).map((option) => (
-                  <MultiSelect.Item key={option.value} value={option.value}>
+                  <MultiSelect.Item
+                    key={option.value}
+                    value={option.value}
+                  >
                     {option.label}
                   </MultiSelect.Item>
                 ))}
@@ -898,7 +905,10 @@ export const ValidationMessages: Story = {
               <MultiSelect.Trigger getDisplayValue={getDisplayValue} />
               <MultiSelect.Content>
                 {options.slice(0, 4).map((option) => (
-                  <MultiSelect.Item key={option.value} value={option.value}>
+                  <MultiSelect.Item
+                    key={option.value}
+                    value={option.value}
+                  >
                     {option.label}
                   </MultiSelect.Item>
                 ))}
@@ -929,9 +939,9 @@ export const ValidationMessages: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MaxChips
@@ -939,7 +949,7 @@ export const ValidationMessages: Story = {
  */
 export const MaxChips: Story = {
   render: function MaxChipsStory() {
-    const [values, setValues] = useState<string[]>([]);
+    const [values, setValues] = useState<string[]>([])
 
     return (
       <div>
@@ -960,17 +970,17 @@ export const MaxChips: Story = {
           </MultiSelect.Content>
         </MultiSelect>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * ChipVariant
  */
 export const ChipVariant: Story = {
   render: function VariantStory() {
-    const [values, setValues] = useState<string[]>([]);
-    const [variant, setVariant] = useState<ChipProps["variant"]>("default");
+    const [values, setValues] = useState<string[]>([])
+    const [variant, setVariant] = useState<ChipProps["variant"]>("default")
 
     return (
       <div className="space-y-4">
@@ -987,7 +997,11 @@ export const ChipVariant: Story = {
             <Select.Item value="success">Success</Select.Item>
           </Select.Content>
         </Select>
-        <MultiSelect values={values} onChange={setValues} chipVariant={variant}>
+        <MultiSelect
+          values={values}
+          onChange={setValues}
+          chipVariant={variant}
+        >
           <MultiSelect.Trigger className="w-80" />
           <MultiSelect.Content>
             <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -999,9 +1013,9 @@ export const ChipVariant: Story = {
           </MultiSelect.Content>
         </MultiSelect>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Custom chip rendering example.
@@ -1013,11 +1027,11 @@ export const ChipVariant: Story = {
  */
 export const CustomChip: Story = {
   render: function CustomChipExample() {
-    const [values, setValues] = useState<string[]>(["apple", "banana"]);
+    const [values, setValues] = useState<string[]>(["apple", "banana"])
 
     const handleChange = useCallback((newValues: string[]) => {
-      setValues(newValues);
-    }, []);
+      setValues(newValues)
+    }, [])
 
     const renderCustomChip = useCallback(
       ({
@@ -1027,11 +1041,11 @@ export const CustomChip: Story = {
         onRemove,
         disabled,
       }: {
-        disabled?: boolean;
-        displayValue: string;
-        index: number;
-        onRemove?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-        value: string;
+        disabled?: boolean
+        displayValue: string
+        index: number
+        onRemove?: (e: React.MouseEvent<HTMLButtonElement>) => void
+        value: string
       }) => {
         const colors = [
           "bg-red-100 text-red-800 border-red-500",
@@ -1040,15 +1054,15 @@ export const CustomChip: Story = {
           "bg-yellow-100 text-yellow-800 border-yellow-500",
           "bg-purple-100 text-purple-800 border-purple-500",
           "bg-pink-100 text-pink-800 border-pink-500",
-        ];
+        ]
 
-        const colorClass = colors[index % colors.length];
+        const colorClass = colors[index % colors.length]
 
         return (
           <div
             className={tcx(
               "inline-flex h-4 items-center gap-1 rounded-md border pl-1",
-              disabled ? "bg-disabled-background" : colorClass
+              disabled ? "bg-disabled-background" : colorClass,
             )}
           >
             <span>🍎</span>
@@ -1064,10 +1078,10 @@ export const CustomChip: Story = {
               </button>
             )}
           </div>
-        );
+        )
       },
-      []
-    );
+      [],
+    )
 
     return (
       <div className="space-y-4">
@@ -1088,13 +1102,11 @@ export const CustomChip: Story = {
           </MultiSelect.Content>
         </MultiSelect>
 
-        <div className="text-body-small text-gray-600">
-          Selected: {values.length} items
-        </div>
+        <div className="text-body-small text-gray-600">Selected: {values.length} items</div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MultiSelect component in readOnly state.
@@ -1109,36 +1121,32 @@ export const CustomChip: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [values, setValues] = useState<string[]>(["apple", "banana"]);
-    const [changeCount, setChangeCount] = useState(0);
+    const [values, setValues] = useState<string[]>(["apple", "banana"])
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValues: string[]) => {
-      setValues(newValues);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValues(newValues)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Selection:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Selection:</div>
           <div className="text-body-small font-mono text-stone-600">
             {values.length > 0 ? values.join(", ") : "None"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
-        <MultiSelect readOnly values={values} onChange={handleChange}>
+        <MultiSelect
+          readOnly
+          values={values}
+          onChange={handleChange}
+        >
           <MultiSelect.Trigger placeholder="Select fruits...">
-            {values.length > 0
-              ? `${values.length} selected`
-              : "Select fruits..."}
+            {values.length > 0 ? `${values.length} selected` : "Select fruits..."}
           </MultiSelect.Trigger>
           <MultiSelect.Content>
             <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -1151,24 +1159,28 @@ export const Readonly: Story = {
         </MultiSelect>
 
         <div className="text-body-small text-stone-600">
-          💡 Try clicking on different options - the selection should not change
-          and the change count should remain at 0. The menu can still be opened
-          and closed normally. Also try clicking the remove button on chips or
-          pressing Backspace - chips should not be removable in readonly mode.
+          💡 Try clicking on different options - the selection should not change and the change
+          count should remain at 0. The menu can still be opened and closed normally. Also try
+          clicking the remove button on chips or pressing Backspace - chips should not be removable
+          in readonly mode.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MultiSelect component in light variant.
  */
 export const Light: Story = {
   render: function LightStory() {
-    const [values, setValues] = useState<string[]>([]);
+    const [values, setValues] = useState<string[]>([])
     return (
-      <MultiSelect values={values} onChange={setValues} variant="light">
+      <MultiSelect
+        values={values}
+        onChange={setValues}
+        variant="light"
+      >
         <MultiSelect.Trigger className="w-80" />
         <MultiSelect.Content>
           <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -1179,6 +1191,6 @@ export const Light: Story = {
           <MultiSelect.Item value="kiwi">Kiwi</MultiSelect.Item>
         </MultiSelect.Content>
       </MultiSelect>
-    );
+    )
   },
-};
+}

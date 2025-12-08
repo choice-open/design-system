@@ -7,8 +7,10 @@ import { useInputInteractions } from "./use-input-interactions"
 import { useNumericValueProcessing } from "./use-numeric-value-processing"
 import { useStepCalculation } from "./use-step-calculation"
 
-interface UseNumericInputProps<T extends NumericInputValue>
-  extends Omit<HTMLProps<HTMLInputElement>, "value" | "defaultValue" | "onChange" | "onWheel"> {
+interface UseNumericInputProps<T extends NumericInputValue> extends Omit<
+  HTMLProps<HTMLInputElement>,
+  "value" | "defaultValue" | "onChange" | "onWheel"
+> {
   containerRef?: React.RefObject<HTMLElement>
   decimal?: number
   defaultValue?: T

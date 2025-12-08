@@ -1,7 +1,9 @@
 import type { HTMLProps, ReactNode, TextareaHTMLAttributes } from "react"
 
-export interface TextareaProps
-  extends Omit<HTMLProps<HTMLTextAreaElement>, "value" | "onChange" | "size"> {
+export interface TextareaProps extends Omit<
+  HTMLProps<HTMLTextAreaElement>,
+  "value" | "onChange" | "size"
+> {
   /** Whether to allow newline characters when pressing Enter. Default is true */
   allowNewline?: boolean
   children?: ReactNode
@@ -23,8 +25,10 @@ export interface TextareaProps
   variant?: "default" | "light" | "dark" | "reset"
 }
 
-export interface TextareaContentProps
-  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "style"> {
+export interface TextareaContentProps extends Omit<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "onChange" | "style"
+> {
   cacheMeasurements?: boolean
   className?: string
   /** 防抖延迟（毫秒），默认为 0（无防抖） */

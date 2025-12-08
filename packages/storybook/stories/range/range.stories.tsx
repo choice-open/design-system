@@ -1,22 +1,16 @@
-import {
-  Button,
-  NumericInput,
-  Popover,
-  Range,
-  RangeTuple,
-} from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Button, NumericInput, Popover, Range, RangeTuple } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Range> = {
   title: "Forms/Range",
   component: Range,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Range>;
+type Story = StoryObj<typeof Range>
 
 /**
  * `Range` is a slider component that allows users to select a numeric value within a specified range.
@@ -59,19 +53,22 @@ type Story = StoryObj<typeof Range>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <>
-        <Range value={value} onChange={setValue} />
+        <Range
+          value={value}
+          onChange={setValue}
+        />
       </>
-    );
+    )
   },
-};
+}
 
 export const Negative: Story = {
   render: function NegativeStory() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <Range
@@ -81,9 +78,9 @@ export const Negative: Story = {
         max={100}
         defaultValue={0}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Step: Demonstrates Range with discrete steps and tick marks.
@@ -100,16 +97,22 @@ export const Negative: Story = {
  */
 export const Step: Story = {
   render: function StepStory() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <>
-        <Range value={value} onChange={setValue} min={0} max={100} step={10} />
+        <Range
+          value={value}
+          onChange={setValue}
+          min={0}
+          max={100}
+          step={10}
+        />
         <div className="w-10 text-right">{value}%</div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * DefaultValue: Demonstrates the defaultValue feature for indicating recommended settings.
@@ -128,7 +131,7 @@ export const Step: Story = {
  */
 export const DefaultValue: Story = {
   render: function DefaultValueStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
 
     return (
       <>
@@ -141,9 +144,9 @@ export const DefaultValue: Story = {
         />
         <div className="w-10 text-right">{value}%</div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * DefaultValueAndStep: Demonstrates combining defaultValue with step marks.
@@ -160,7 +163,7 @@ export const DefaultValue: Story = {
  */
 export const DefaultValueAndStep: Story = {
   render: function DefaultValueAndStepStory() {
-    const [value, setValue] = useState(10);
+    const [value, setValue] = useState(10)
 
     return (
       <>
@@ -174,9 +177,9 @@ export const DefaultValueAndStep: Story = {
         />
         <div className="w-10 text-right">{value}%</div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Disabled: Demonstrates the Range component in a disabled state.
@@ -193,16 +196,22 @@ export const DefaultValueAndStep: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [value, setValue] = useState(50);
+    const [value, setValue] = useState(50)
 
     return (
       <>
-        <Range value={value} onChange={setValue} min={0} max={100} disabled />
+        <Range
+          value={value}
+          onChange={setValue}
+          min={0}
+          max={100}
+          disabled
+        />
         <div className="w-10 text-right">{value}%</div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * CustomSize: Demonstrates configuring the Range component dimensions.
@@ -222,7 +231,7 @@ export const Disabled: Story = {
  */
 export const CustomSize: Story = {
   render: function CustomSizeStory() {
-    const [value, setValue] = useState(50);
+    const [value, setValue] = useState(50)
 
     return (
       <>
@@ -239,9 +248,9 @@ export const CustomSize: Story = {
         />
         <div className="w-10 text-right">{value}%</div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * DraggableRangePopover: Demonstrates Range inside a draggable Popover component.
@@ -259,7 +268,7 @@ export const CustomSize: Story = {
  */
 export const DraggableRangePopover: Story = {
   render: function DraggableRangePopoverStory() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <Popover draggable>
@@ -283,9 +292,9 @@ export const DraggableRangePopover: Story = {
           <div className="w-10 flex-1 text-right">{value}%</div>
         </Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Auto width: Demonstrates the Range component with automatic width calculation.
@@ -311,7 +320,7 @@ export const DraggableRangePopover: Story = {
  */
 export const AutoWidth: Story = {
   render: function AutoWidthStory() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(0)
 
     return (
       <div className="grid w-40 grid-cols-[1fr_2.5rem] gap-px">
@@ -340,9 +349,9 @@ export const AutoWidth: Story = {
           <NumericInput.Prefix className="w-2 rounded-l-none" />
         </NumericInput>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * BasicTuple: Demonstrates the simplest RangeTuple implementation for selecting a range.
@@ -358,18 +367,21 @@ export const AutoWidth: Story = {
  */
 export const BasicTuple: Story = {
   render: function BasicTupleStory() {
-    const [value, setValue] = useState<[number, number]>([25, 75]);
+    const [value, setValue] = useState<[number, number]>([25, 75])
 
     return (
       <div className="flex items-center gap-4">
-        <RangeTuple value={value} onChange={setValue} />
+        <RangeTuple
+          value={value}
+          onChange={setValue}
+        />
         <div className="text-body-medium w-20 text-right">
           {value[0]} - {value[1]}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleWithStep: Demonstrates RangeTuple with discrete steps and tick marks.
@@ -387,7 +399,7 @@ export const BasicTuple: Story = {
  */
 export const TupleWithStep: Story = {
   render: function TupleWithStepStory() {
-    const [value, setValue] = useState<[number, number]>([20, 80]);
+    const [value, setValue] = useState<[number, number]>([20, 80])
 
     return (
       <div className="flex items-center gap-4">
@@ -402,9 +414,9 @@ export const TupleWithStep: Story = {
           {value[0]} - {value[1]}%
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleWithDefaultValue: Demonstrates RangeTuple with default value indicators.
@@ -422,7 +434,7 @@ export const TupleWithStep: Story = {
  */
 export const TupleWithDefaultValue: Story = {
   render: function TupleWithDefaultValueStory() {
-    const [value, setValue] = useState<[number, number]>([10, 90]);
+    const [value, setValue] = useState<[number, number]>([10, 90])
 
     return (
       <div className="flex items-center gap-4">
@@ -437,9 +449,9 @@ export const TupleWithDefaultValue: Story = {
           {value[0]} - {value[1]}%
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleNegativeRange: Demonstrates RangeTuple with negative min/max values.
@@ -457,7 +469,7 @@ export const TupleWithDefaultValue: Story = {
  */
 export const TupleNegativeRange: Story = {
   render: function TupleNegativeRangeStory() {
-    const [value, setValue] = useState<[number, number]>([-50, 50]);
+    const [value, setValue] = useState<[number, number]>([-50, 50])
 
     return (
       <div className="flex items-center gap-4">
@@ -472,9 +484,9 @@ export const TupleNegativeRange: Story = {
           {value[0]} - {value[1]}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleDisabled: Demonstrates the RangeTuple component in a disabled state.
@@ -491,7 +503,7 @@ export const TupleNegativeRange: Story = {
  */
 export const TupleDisabled: Story = {
   render: function TupleDisabledStory() {
-    const [value, setValue] = useState<[number, number]>([30, 70]);
+    const [value, setValue] = useState<[number, number]>([30, 70])
 
     return (
       <div className="flex items-center gap-4">
@@ -506,9 +518,9 @@ export const TupleDisabled: Story = {
           {value[0]} - {value[1]}%
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleCustomSize: Demonstrates configuring the RangeTuple component dimensions.
@@ -525,7 +537,7 @@ export const TupleDisabled: Story = {
  */
 export const TupleCustomSize: Story = {
   render: function TupleCustomSizeStory() {
-    const [value, setValue] = useState<[number, number]>([20, 80]);
+    const [value, setValue] = useState<[number, number]>([20, 80])
 
     return (
       <div className="flex items-center gap-4">
@@ -544,9 +556,9 @@ export const TupleCustomSize: Story = {
           {value[0]} - {value[1]}%
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleInPopover: Demonstrates RangeTuple inside a draggable Popover component.
@@ -564,7 +576,7 @@ export const TupleCustomSize: Story = {
  */
 export const TupleInPopover: Story = {
   render: function TupleInPopoverStory() {
-    const [value, setValue] = useState<[number, number]>([25, 75]);
+    const [value, setValue] = useState<[number, number]>([25, 75])
 
     return (
       <Popover draggable>
@@ -590,9 +602,9 @@ export const TupleInPopover: Story = {
           </div>
         </Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * TupleSentimentNeutralRange: Demonstrates RangeTuple for sentiment analysis neutral range.
@@ -611,7 +623,7 @@ export const TupleInPopover: Story = {
  */
 export const TupleSentimentNeutralRange: Story = {
   render: function TupleSentimentNeutralRangeStory() {
-    const [value, setValue] = useState<[number, number]>([-0.2, 0.2]);
+    const [value, setValue] = useState<[number, number]>([-0.2, 0.2])
 
     return (
       <div className="flex items-center gap-4">
@@ -619,8 +631,8 @@ export const TupleSentimentNeutralRange: Story = {
           value={value}
           step={0.0001}
           onChange={(value) => {
-            console.log("value", value);
-            setValue(value);
+            console.log("value", value)
+            setValue(value)
           }}
           min={-1}
           max={1}
@@ -630,9 +642,9 @@ export const TupleSentimentNeutralRange: Story = {
           {value[0]} - {value[1]}
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Range component in readOnly state.
@@ -644,29 +656,21 @@ export const TupleSentimentNeutralRange: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [value, setValue] = useState(50);
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState(50)
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: number) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Value:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {value}
-          </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Value:</div>
+          <div className="text-body-small font-mono text-stone-600">{value}</div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <Range
@@ -677,17 +681,22 @@ export const Readonly: Story = {
           max={100}
         />
 
-        <Range value={value} onChange={handleChange} min={0} max={100} />
+        <Range
+          value={value}
+          onChange={handleChange}
+          min={0}
+          max={100}
+        />
 
         <div className="text-body-small text-stone-600">
-          💡 Try dragging the readonly range slider or using arrow keys - the
-          value should not change and the change count should remain at 0. Only
-          the normal slider will change the value.
+          💡 Try dragging the readonly range slider or using arrow keys - the value should not
+          change and the change count should remain at 0. Only the normal slider will change the
+          value.
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * RangeTuple component in readOnly state.
@@ -699,29 +708,23 @@ export const Readonly: Story = {
  */
 export const TupleReadonly: Story = {
   render: function TupleReadonlyStory() {
-    const [value, setValue] = useState<[number, number]>([30, 70]);
-    const [changeCount, setChangeCount] = useState(0);
+    const [value, setValue] = useState<[number, number]>([30, 70])
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newValue: [number, number]) => {
-      setValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Range:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Range:</div>
           <div className="text-body-small font-mono text-stone-600">
             {value[0]} - {value[1]}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -738,18 +741,23 @@ export const TupleReadonly: Story = {
         </div>
 
         <div className="flex items-center gap-4">
-          <RangeTuple value={value} onChange={handleChange} min={0} max={100} />
+          <RangeTuple
+            value={value}
+            onChange={handleChange}
+            min={0}
+            max={100}
+          />
           <div className="text-body-medium w-20 text-right">
             {value[0]} - {value[1]}%
           </div>
         </div>
 
         <div className="text-body-small text-stone-600">
-          💡 Try dragging the thumbs or using arrow keys on both range tuples -
-          only the normal one should change the values and increment the count.
-          The readonly one should not respond to any interactions.
+          💡 Try dragging the thumbs or using arrow keys on both range tuples - only the normal one
+          should change the values and increment the count. The readonly one should not respond to
+          any interactions.
         </div>
       </div>
-    );
+    )
   },
-};
+}

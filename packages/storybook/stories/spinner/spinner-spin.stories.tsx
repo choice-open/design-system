@@ -1,5 +1,5 @@
-import { SpinnerSpin, tcx } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { SpinnerSpin, tcx } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof SpinnerSpin> = {
   title: "Status/Spinner/SpinnerSpin",
@@ -7,15 +7,15 @@ const meta: Meta<typeof SpinnerSpin> = {
   parameters: {
     layout: "centered",
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof SpinnerSpin>;
+type Story = StoryObj<typeof SpinnerSpin>
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const Size: Story = {
   render: () => (
@@ -25,7 +25,7 @@ export const Size: Story = {
       <SpinnerSpin size="large" />
     </div>
   ),
-};
+}
 
 /** The shapeOpacity slots will not append classes, but instead replace the original classes as a whole. */
 export const Opacity: StoryObj<typeof SpinnerSpin> = {
@@ -35,11 +35,11 @@ export const Opacity: StoryObj<typeof SpinnerSpin> = {
         "[&:nth-of-type(1)]:opacity-100",
         "[&:nth-of-type(2)]:opacity-10",
         "[&:nth-of-type(3)]:opacity-10",
-        "[&:nth-of-type(4)]:opacity-100"
+        "[&:nth-of-type(4)]:opacity-100",
       ),
     },
   },
-};
+}
 
 /** Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`. */
 export const Variants: StoryObj<typeof SpinnerSpin> = {
@@ -49,7 +49,7 @@ export const Variants: StoryObj<typeof SpinnerSpin> = {
       <SpinnerSpin variant="primary" />
     </div>
   ),
-};
+}
 
 export const CustomColor: StoryObj<typeof SpinnerSpin> = {
   args: {
@@ -59,14 +59,14 @@ export const CustomColor: StoryObj<typeof SpinnerSpin> = {
         "[&:nth-of-type(1)]:bg-warning-background",
         "[&:nth-of-type(2)]:bg-success-background",
         "[&:nth-of-type(3)]:bg-accent-background",
-        "[&:nth-of-type(4)]:bg-danger-background"
+        "[&:nth-of-type(4)]:bg-danger-background",
       ),
     },
   },
-};
+}
 
 export const Label: StoryObj<typeof SpinnerSpin> = {
   args: {
     label: "Loading...",
   },
-};
+}

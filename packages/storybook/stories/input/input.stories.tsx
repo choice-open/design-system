@@ -1,15 +1,15 @@
-import { Checkbox, Input } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { Checkbox, Input } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta: Meta<typeof Input> = {
   title: "Forms/Input",
   component: Input,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Input>
 
 /**
  * `Input` is a versatile text input component that supports various states and styling options.
@@ -43,7 +43,7 @@ type Story = StoryObj<typeof Input>;
  */
 export const Basic: Story = {
   render: () => <Input />,
-};
+}
 
 /**
  * Disabled: Demonstrates the input in a disabled state.
@@ -60,12 +60,16 @@ export const Basic: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    const [value, setValue] = useState("Disabled");
+    const [value, setValue] = useState("Disabled")
     return (
-      <Input value={value} onChange={(value) => setValue(value)} disabled />
-    );
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        disabled
+      />
+    )
   },
-};
+}
 
 /**
  * ReadOnly: Demonstrates the input in a read-only state.
@@ -82,12 +86,16 @@ export const Disabled: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [value, setValue] = useState("Read Only");
+    const [value, setValue] = useState("Read Only")
     return (
-      <Input readOnly value={value} onChange={(value) => setValue(value)} />
-    );
+      <Input
+        readOnly
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
+    )
   },
-};
+}
 
 /**
  * Selected: Demonstrates the input in a selected state.
@@ -104,12 +112,16 @@ export const ReadOnly: Story = {
  */
 export const Selected: Story = {
   render: function SelectedStory() {
-    const [value, setValue] = useState("Selected");
+    const [value, setValue] = useState("Selected")
     return (
-      <Input value={value} onChange={(value) => setValue(value)} selected />
-    );
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+        selected
+      />
+    )
   },
-};
+}
 
 /**
  * Placeholder: Demonstrates using placeholder text in the input.
@@ -127,16 +139,16 @@ export const Selected: Story = {
  */
 export const Placeholder: Story = {
   render: function PlaceholderStory() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
     return (
       <Input
         placeholder="Placeholder"
         value={value}
         onChange={(value) => setValue(value)}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * Variants: Demonstrates different visual variants of the input component.
@@ -153,27 +165,41 @@ export const Placeholder: Story = {
  */
 export const Variants: Story = {
   render: function VariantsStory() {
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(false)
     return (
       <div className="flex flex-col gap-2">
-        <Checkbox value={disabled} onChange={(value) => setDisabled(value)}>
+        <Checkbox
+          value={disabled}
+          onChange={(value) => setDisabled(value)}
+        >
           Disabled
         </Checkbox>
         <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
           <div className="bg-default-background flex aspect-square items-center justify-center p-8">
-            <Input placeholder="Default" disabled={disabled} />
+            <Input
+              placeholder="Default"
+              disabled={disabled}
+            />
           </div>
           <div className="flex aspect-square items-center justify-center bg-white p-8">
-            <Input variant="light" placeholder="Light" disabled={disabled} />
+            <Input
+              variant="light"
+              placeholder="Light"
+              disabled={disabled}
+            />
           </div>
           <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
-            <Input variant="dark" placeholder="Dark" disabled={disabled} />
+            <Input
+              variant="dark"
+              placeholder="Dark"
+              disabled={disabled}
+            />
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Controlled: Demonstrates using the Input component in controlled mode.
@@ -205,10 +231,15 @@ export const Variants: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledStory() {
-    const [value, setValue] = useState("Controlled");
-    return <Input value={value} onChange={(value) => setValue(value)} />;
+    const [value, setValue] = useState("Controlled")
+    return (
+      <Input
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
+    )
   },
-};
+}
 
 /**
  * FocusSelectionModes: Demonstrates different focus selection behaviors.
@@ -237,20 +268,14 @@ export const Controlled: Story = {
  */
 export const FocusSelectionModes: Story = {
   render: function FocusSelectionModesStory() {
-    const [value1, setValue1] = useState(
-      "This text will be fully selected on focus"
-    );
-    const [value2, setValue2] = useState(
-      "Cursor will move to the end on focus"
-    );
-    const [value3, setValue3] = useState("No selection change on focus");
+    const [value1, setValue1] = useState("This text will be fully selected on focus")
+    const [value2, setValue2] = useState("Cursor will move to the end on focus")
+    const [value3, setValue3] = useState("No selection change on focus")
 
     return (
       <div className="space-y-6">
         <div>
-          <h3 className="text-body-small text-text-secondary mb-2">
-            Select All (Default)
-          </h3>
+          <h3 className="text-body-small text-text-secondary mb-2">Select All (Default)</h3>
           <Input
             value={value1}
             onChange={setValue1}
@@ -264,9 +289,7 @@ export const FocusSelectionModes: Story = {
         </div>
 
         <div>
-          <h3 className="text-body-small text-text-secondary mb-2">
-            Move to End
-          </h3>
+          <h3 className="text-body-small text-text-secondary mb-2">Move to End</h3>
           <Input
             value={value2}
             onChange={setValue2}
@@ -280,9 +303,7 @@ export const FocusSelectionModes: Story = {
         </div>
 
         <div>
-          <h3 className="text-body-small text-text-secondary mb-2">
-            No Selection
-          </h3>
+          <h3 className="text-body-small text-text-secondary mb-2">No Selection</h3>
           <Input
             value={value3}
             onChange={setValue3}
@@ -295,6 +316,6 @@ export const FocusSelectionModes: Story = {
           </p>
         </div>
       </div>
-    );
+    )
   },
-};
+}

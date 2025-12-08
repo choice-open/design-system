@@ -11,7 +11,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@choice-ui/react": "^1.3.10"
+    "@choice-ui/react": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

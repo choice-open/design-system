@@ -16,8 +16,9 @@ interface MenusProps extends HTMLProps<HTMLDivElement> {
   variant?: "default" | "light" | "reset"
 }
 
-interface MenusComponentProps
-  extends React.ForwardRefExoticComponent<MenusProps & React.RefAttributes<HTMLDivElement>> {
+interface MenusComponentProps extends React.ForwardRefExoticComponent<
+  MenusProps & React.RefAttributes<HTMLDivElement>
+> {
   Button: typeof MenuButton
   Checkbox: typeof MenuCheckbox
   Divider: typeof MenuDivider

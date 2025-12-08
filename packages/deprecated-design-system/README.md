@@ -17,13 +17,13 @@ npm install @choice-ui/react
 **Before:**
 
 ```tsx
-import { Button, Input } from "@choiceform/design-system";
+import { Button, Input } from "@choiceform/design-system"
 ```
 
 **After:**
 
 ```tsx
-import { Button, Input } from "@choice-ui/react";
+import { Button, Input } from "@choice-ui/react"
 ```
 
 ### Step 3: Remove the old package

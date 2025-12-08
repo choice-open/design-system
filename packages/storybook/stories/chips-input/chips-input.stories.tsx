@@ -1,16 +1,16 @@
-import { ChipsInput, RenderChipProps } from "@choice-ui/react";
-import { RemoveSmall } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { ChipsInput, RenderChipProps } from "@choice-ui/react"
+import { RemoveSmall } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { useState } from "react"
 
 const meta = {
   title: "Forms/ChipsInput",
   component: ChipsInput,
   tags: ["beta", "autodocs"],
-} satisfies Meta<typeof ChipsInput>;
+} satisfies Meta<typeof ChipsInput>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `ChipsInput` is a multi-value input component for entering, displaying, and managing a list of chips (tags).
@@ -39,9 +39,14 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    return <ChipsInput placeholder="Add tags..." className="w-32" />;
+    return (
+      <ChipsInput
+        placeholder="Add tags..."
+        className="w-32"
+      />
+    )
   },
-};
+}
 
 /**
  * Disabled: Demonstrates a disabled ChipsInput.
@@ -50,9 +55,15 @@ export const Basic: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    return <ChipsInput placeholder="Add tags..." className="w-32" disabled />;
+    return (
+      <ChipsInput
+        placeholder="Add tags..."
+        className="w-32"
+        disabled
+      />
+    )
   },
-};
+}
 
 /**
  * Controlled: Demonstrates controlled usage of ChipsInput.
@@ -62,26 +73,24 @@ export const Disabled: Story = {
 export const Controlled: Story = {
   render: function ControlledStory() {
     const ControlledComponent = () => {
-      const [tags, setTags] = useState(["Initial", "Controlled"]);
+      const [tags, setTags] = useState(["Initial", "Controlled"])
       return (
         <div className="flex flex-col gap-2">
           <ChipsInput
             className="w-32"
             value={tags}
             onChange={(newTags: string[]) => {
-              setTags(newTags);
+              setTags(newTags)
             }}
             placeholder="Controlled tags input..."
           />
-          <div className="text-secondary-foreground">
-            Current Tags: {JSON.stringify(tags)}
-          </div>
+          <div className="text-secondary-foreground">Current Tags: {JSON.stringify(tags)}</div>
         </div>
-      );
-    };
-    return <ControlledComponent />;
+      )
+    }
+    return <ControlledComponent />
   },
-};
+}
 
 /**
  * Empty: Shows ChipsInput with no initial chips.
@@ -89,9 +98,14 @@ export const Controlled: Story = {
  */
 export const Empty: Story = {
   render: function EmptyStory() {
-    return <ChipsInput placeholder="Add tags..." className="w-32" />;
+    return (
+      <ChipsInput
+        placeholder="Add tags..."
+        className="w-32"
+      />
+    )
   },
-};
+}
 
 /**
  * AllowDuplicates: Demonstrates ChipsInput with duplicate values allowed.
@@ -104,9 +118,9 @@ export const AllowDuplicates: Story = {
         placeholder="Add tags (duplicates allowed)..."
         allowDuplicates
       />
-    );
+    )
   },
-};
+}
 
 // Example custom render function
 const customRenderChip = ({
@@ -140,8 +154,8 @@ const customRenderChip = ({
       {!disabled && (
         <button
           onClick={(e) => {
-            e.stopPropagation(); // Important!
-            handleChipRemoveClick(index);
+            e.stopPropagation() // Important!
+            handleChipRemoveClick(index)
           }}
           style={{
             marginLeft: "4px",
@@ -158,8 +172,8 @@ const customRenderChip = ({
         </button>
       )}
     </div>
-  );
-};
+  )
+}
 
 /**
  * CustomRenderChip: Demonstrates custom chip rendering using the renderChip prop.
@@ -173,9 +187,9 @@ export const CustomRenderChip: Story = {
         placeholder="Add custom chips..."
         renderChip={customRenderChip}
       />
-    );
+    )
   },
-};
+}
 
 /**
  * ChipsInput component in readOnly state.
@@ -188,29 +202,23 @@ export const CustomRenderChip: Story = {
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
-    const [chips, setChips] = useState<string[]>(["apple", "banana", "orange"]);
-    const [changeCount, setChangeCount] = useState(0);
+    const [chips, setChips] = useState<string[]>(["apple", "banana", "orange"])
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleChange = (newChips: string[]) => {
-      setChips(newChips);
-      setChangeCount((prev) => prev + 1);
-    };
+      setChips(newChips)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Chips:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Chips:</div>
           <div className="text-body-small font-mono text-stone-600">
             {chips.length > 0 ? chips.join(", ") : "None"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
 
         <ChipsInput
@@ -222,11 +230,11 @@ export const Readonly: Story = {
         />
 
         <div className="text-body-small text-stone-600">
-          💡 Try typing and pressing Enter, clicking chip remove buttons, or
-          pressing Backspace/Delete - chips should not change and the change
-          count should remain at 0. The input field is read-only.
+          💡 Try typing and pressing Enter, clicking chip remove buttons, or pressing
+          Backspace/Delete - chips should not change and the change count should remain at 0. The
+          input field is read-only.
         </div>
       </div>
-    );
+    )
   },
-};
+}

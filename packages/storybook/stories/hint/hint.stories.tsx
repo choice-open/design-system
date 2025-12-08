@@ -1,6 +1,6 @@
-import { Hint } from "@choice-ui/react";
-import { CircleInfoLargeSolid } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Hint } from "@choice-ui/react"
+import { CircleInfoLargeSolid } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Hint> = {
   title: "Feedback/Hint",
@@ -9,10 +9,10 @@ const meta: Meta<typeof Hint> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * Screenshot Match - Reference implementation matching the design specification
@@ -31,10 +31,13 @@ export const ScreenshotMatch: Story = {
   render: () => (
     <div className="flex items-center gap-2">
       <span className="font-strong">Reason</span>
-      <Hint content="Optional reason" placement="right-start" />
+      <Hint
+        content="Optional reason"
+        placement="right-start"
+      />
     </div>
   ),
-};
+}
 
 /**
  * Custom Icon - Demonstrates how to use custom icons in hint tooltips
@@ -56,10 +59,13 @@ export const CustomIcon: Story = {
   render: () => (
     <div className="flex items-center gap-2">
       <span className="font-strong">Reason</span>
-      <Hint icon={<CircleInfoLargeSolid />} content="Optional reason" />
+      <Hint
+        icon={<CircleInfoLargeSolid />}
+        content="Optional reason"
+      />
     </div>
   ),
-};
+}
 /**
  * Default - Basic hint implementation with minimal configuration
  *
@@ -81,7 +87,7 @@ export const Default: Story = {
       <Hint content="Optional reason" />
     </div>
   ),
-};
+}
 
 /**
  * Placements - Demonstrates different tooltip positioning options
@@ -118,7 +124,7 @@ export const Placements: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * Long Content - Tests hint behavior with extensive text content
@@ -147,7 +153,7 @@ export const LongContent: Story = {
       />
     </div>
   ),
-};
+}
 
 /**
  * Disabled - Shows hint component in disabled state
@@ -170,10 +176,13 @@ export const Disabled: Story = {
   render: () => (
     <div className="flex items-center gap-2">
       <span>Disabled field</span>
-      <Hint content="This information tooltip is disabled" disabled={true} />
+      <Hint
+        content="This information tooltip is disabled"
+        disabled={true}
+      />
     </div>
   ),
-};
+}
 
 /**
  * Dark Variant - Shows hint component in dark variant
@@ -195,7 +204,10 @@ export const DarkVariant: Story = {
   render: () => (
     <div className="flex items-center gap-2">
       <span>Dark variant</span>
-      <Hint content="Dark variant tooltip content" variant="dark" />
+      <Hint
+        content="Dark variant tooltip content"
+        variant="dark"
+      />
     </div>
   ),
-};
+}

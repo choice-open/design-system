@@ -1,15 +1,15 @@
-import { Kbd } from "@choice-ui/react";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Kbd } from "@choice-ui/react"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Kbd> = {
   title: "Data Display/Kbd",
   component: Kbd,
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Kbd>;
+type Story = StoryObj<typeof Kbd>
 
 /**
  * Basic usage of the Kbd component.
@@ -62,6 +62,6 @@ export const Basic: Story = {
         <Kbd keys={["command", "shift", "option"]}>K</Kbd>
         <Kbd keys={["command", "shift", "option", "ctrl"]}>K</Kbd>
       </div>
-    );
+    )
   },
-};
+}

@@ -1,8 +1,9 @@
 import React, { memo } from "react"
 import { labelTv } from "./tv"
 
-export interface LabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement | HTMLLegendElement> {
+export interface LabelProps extends React.LabelHTMLAttributes<
+  HTMLLabelElement | HTMLLegendElement
+> {
   action?: React.ReactNode
   as?: "label" | "legend"
   children: React.ReactNode

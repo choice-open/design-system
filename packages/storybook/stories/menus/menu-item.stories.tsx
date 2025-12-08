@@ -1,15 +1,15 @@
-import { Avatar, KbdKey, MenuItem, Menus, tcx } from "@choice-ui/react";
+import { Avatar, KbdKey, MenuItem, Menus, tcx } from "@choice-ui/react"
 import {
   Check,
   ChevronRightSmall,
   ThemeMoonDark,
   ThemeSunBright,
   ThemeSystem,
-} from "@choiceform/icons-react";
-import { faker } from "@faker-js/faker";
-import { Story } from "@storybook/addon-docs/blocks";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ReactNode, useMemo, useState } from "react";
+} from "@choiceform/icons-react"
+import { faker } from "@faker-js/faker"
+import { Story } from "@storybook/addon-docs/blocks"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { ReactNode, useMemo, useState } from "react"
 
 const meta: Meta<typeof MenuItem> = {
   title: "Collections/MenuItem",
@@ -22,11 +22,11 @@ const meta: Meta<typeof MenuItem> = {
       </div>
     ),
   ],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof MenuItem>;
+type Story = StoryObj<typeof MenuItem>
 
 /**
  * `MenuItem` is a flexible component for rendering individual options within menu structures.
@@ -65,7 +65,7 @@ type Story = StoryObj<typeof MenuItem>;
  */
 export const Basic: Story = {
   render: function BasicStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     return (
       <Menus>
         <Menus.Item
@@ -76,9 +76,9 @@ export const Basic: Story = {
           <span>Item</span>
         </Menus.Item>
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithPrefixStory: Demonstrates menu items with icons or elements before the text.
@@ -96,7 +96,7 @@ export const Basic: Story = {
  */
 export const WithPrefixStory: Story = {
   render: function WithPrefixStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
     const Options = [
       {
@@ -111,7 +111,7 @@ export const WithPrefixStory: Story = {
         label: "System",
         icon: <ThemeSystem />,
       },
-    ];
+    ]
 
     return (
       <Menus>
@@ -127,9 +127,9 @@ export const WithPrefixStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithSuffixStory: Demonstrates menu items with elements after the text.
@@ -146,7 +146,7 @@ export const WithPrefixStory: Story = {
  */
 export const WithSuffixStory: Story = {
   render: function WithSuffixStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     return (
       <Menus>
         {Array.from({ length: 4 }).map((_, index) => (
@@ -161,9 +161,9 @@ export const WithSuffixStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithShortcutStory: Demonstrates menu items with keyboard shortcuts.
@@ -181,7 +181,7 @@ export const WithSuffixStory: Story = {
  */
 export const WithShortcutStory: Story = {
   render: function WithShortcutStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     const Options = [
       {
         label: "Option 1",
@@ -199,7 +199,7 @@ export const WithShortcutStory: Story = {
         label: "Option 4",
         shortcut: { modifier: "command", keys: "N" },
       },
-    ];
+    ]
     return (
       <Menus>
         {Options.map((option, index) => (
@@ -214,9 +214,9 @@ export const WithShortcutStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithSelectionIconStory: Demonstrates menu items with selection indicators.
@@ -234,8 +234,8 @@ export const WithShortcutStory: Story = {
  */
 export const WithSelectionIconStory: Story = {
   render: function WithSelectionIconStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
     return (
       <Menus>
         {Array.from({ length: 4 }).map((_, index) => (
@@ -251,9 +251,9 @@ export const WithSelectionIconStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithRightSelectionIconStory: Demonstrates menu items with selection checkboxes at the right.
@@ -271,8 +271,8 @@ export const WithSelectionIconStory: Story = {
  */
 export const WithRightSelectionIconStory: Story = {
   render: function WithRightSelectionIconStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number[]>([])
     return (
       <Menus>
         {Array.from({ length: 4 }).map((_, index) => (
@@ -289,9 +289,7 @@ export const WithRightSelectionIconStory: Story = {
             }
             onMouseDown={() =>
               setSelectedIndex((prev) =>
-                prev.includes(index)
-                  ? prev.filter((i) => i !== index)
-                  : [...prev, index]
+                prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
               )
             }
           >
@@ -299,9 +297,9 @@ export const WithRightSelectionIconStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithAvatarStory: Demonstrates menu items with avatars.
@@ -327,10 +325,10 @@ export const WithAvatarStory: Story = {
           name: faker.person.fullName(),
           picture: faker.image.avatar(),
         })),
-      []
-    );
+      [],
+    )
 
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
     return (
       <Menus>
@@ -351,9 +349,9 @@ export const WithAvatarStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 /**
  * WithBadgeStory: Demonstrates menu items with badges or status indicators.
@@ -372,16 +370,16 @@ export const WithAvatarStory: Story = {
  */
 export const WithBadgeStory: Story = {
   render: function WithBadgeStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number[]>([])
 
     const Options = useMemo(
       () =>
         Array.from({ length: 4 }, (_, index) => ({
           label: faker.music.songName(),
         })),
-      []
-    );
+      [],
+    )
 
     return (
       <Menus>
@@ -393,9 +391,7 @@ export const WithBadgeStory: Story = {
             onMouseLeave={() => setActiveIndex(null)}
             onMouseDown={() =>
               setSelectedIndex((prev) =>
-                prev.includes(index)
-                  ? prev.filter((i) => i !== index)
-                  : [...prev, index]
+                prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
               )
             }
             prefixElement={selectedIndex.includes(index) ? <Check /> : <></>}
@@ -406,7 +402,7 @@ export const WithBadgeStory: Story = {
                   activeIndex === index && "bg-menu-background",
                   selectedIndex.includes(index) && activeIndex !== index
                     ? "border-white/20"
-                    : "border-transparent"
+                    : "border-transparent",
                 )}
               >
                 Badge
@@ -417,13 +413,13 @@ export const WithBadgeStory: Story = {
           </Menus.Item>
         ))}
       </Menus>
-    );
+    )
   },
-};
+}
 
 export const Variant: Story = {
   render: function VariantStory() {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     return (
       <Menus>
         <Menus.Item
@@ -443,6 +439,6 @@ export const Variant: Story = {
           Danger
         </Menus.Item>
       </Menus>
-    );
+    )
   },
-};
+}

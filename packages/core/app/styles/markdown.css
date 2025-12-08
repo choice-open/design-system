@@ -686,8 +686,8 @@
 
   .markdown-body .octicon {
     display: inline-block;
-    fill: currentColor;
     vertical-align: text-bottom;
+    fill: currentColor;
   }
 
   .markdown-body h1:hover .anchor .octicon-link:before,
@@ -1055,8 +1055,8 @@
   .markdown-body .octicon {
     display: inline-block;
     vertical-align: text-bottom;
-    overflow: visible !important;
     fill: currentColor;
+    overflow: visible !important;
   }
 
   .markdown-body input::-webkit-outer-spin-button,

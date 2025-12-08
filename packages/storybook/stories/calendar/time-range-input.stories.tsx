@@ -1,8 +1,8 @@
-import { Panel, TimeRangeInput, timeStringToDate } from "@choice-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { enUS, ja, zhCN } from "date-fns/locale";
-import React, { useState } from "react";
-import { useEventCallback } from "usehooks-ts";
+import { Panel, TimeRangeInput, timeStringToDate } from "@choice-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import { enUS, ja, zhCN } from "date-fns/locale"
+import React, { useState } from "react"
+import { useEventCallback } from "usehooks-ts"
 
 const meta: Meta<typeof TimeRangeInput> = {
   title: "DateAndTime/TimeRangeInput",
@@ -11,10 +11,10 @@ const meta: Meta<typeof TimeRangeInput> = {
     layout: "centered",
   },
   tags: ["new", "autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 /**
  * `TimeRangeInput` is a sophisticated component for selecting time ranges with intelligent synchronization and validation.
@@ -52,13 +52,14 @@ type Story = StoryObj<typeof meta>;
 
 // 演示组件
 const TimeRangeDemo = (args: React.ComponentProps<typeof TimeRangeInput>) => {
-  const [startValue, setStartValue] = useState<Date | null>(
-    args.startValue || null
-  );
-  const [endValue, setEndValue] = useState<Date | null>(args.endValue || null);
+  const [startValue, setStartValue] = useState<Date | null>(args.startValue || null)
+  const [endValue, setEndValue] = useState<Date | null>(args.endValue || null)
 
   return (
-    <Panel.Row type="two-input-two-icon" className="w-96 px-0">
+    <Panel.Row
+      type="two-input-two-icon"
+      className="w-96 px-0"
+    >
       <TimeRangeInput
         {...args}
         startValue={startValue}
@@ -67,45 +68,42 @@ const TimeRangeDemo = (args: React.ComponentProps<typeof TimeRangeInput>) => {
         onEndChange={setEndValue}
       />
     </Panel.Row>
-  );
-};
+  )
+}
 
 // 范围同步演示组件
 const RangeSyncDemo = () => {
-  const [startValue, setStartValue] = useState<Date | null>(
-    timeStringToDate("09:00")
-  );
-  const [endValue, setEndValue] = useState<Date | null>(
-    timeStringToDate("17:00")
-  );
+  const [startValue, setStartValue] = useState<Date | null>(timeStringToDate("09:00"))
+  const [endValue, setEndValue] = useState<Date | null>(timeStringToDate("17:00"))
 
   const handleStartChange = useEventCallback((newStart: Date | null) => {
     if (newStart) {
       // 计算当前range长度（毫秒），fallback为8小时
       const currentRange =
-        startValue && endValue
-          ? endValue.getTime() - startValue.getTime()
-          : 8 * 60 * 60 * 1000;
+        startValue && endValue ? endValue.getTime() - startValue.getTime() : 8 * 60 * 60 * 1000
       // 保持range长度
-      const newEnd = new Date(newStart.getTime() + currentRange);
-      setStartValue(newStart);
-      setEndValue(newEnd);
+      const newEnd = new Date(newStart.getTime() + currentRange)
+      setStartValue(newStart)
+      setEndValue(newEnd)
     } else {
-      setStartValue(newStart);
+      setStartValue(newStart)
     }
-  });
+  })
 
   const handleEndChange = useEventCallback((newEnd: Date | null) => {
     if (newEnd && startValue && newEnd <= startValue) {
       // end <= start 时推动start
-      setStartValue(newEnd);
+      setStartValue(newEnd)
     }
-    setEndValue(newEnd);
-  });
+    setEndValue(newEnd)
+  })
 
   return (
     <div className="space-y-6">
-      <Panel.Row type="two-input-two-icon" className="px-0">
+      <Panel.Row
+        type="two-input-two-icon"
+        className="px-0"
+      >
         <TimeRangeInput
           startValue={startValue}
           endValue={endValue}
@@ -121,45 +119,39 @@ const RangeSyncDemo = () => {
         <div className="font-strong">🎯 Time Range Synchronization Logic</div>
         <div className="text-secondary-foreground space-y-2">
           <div>
-            • <strong>Start Time Change</strong>：Automatically adjust the end
-            time to maintain the original range length
+            • <strong>Start Time Change</strong>：Automatically adjust the end time to maintain the
+            original range length
           </div>
           <div>
-            • <strong>End Time Change</strong>：If the end time is less than or
-            equal to the start time, the start time is pushed to the end
-            position
+            • <strong>End Time Change</strong>：If the end time is less than or equal to the start
+            time, the start time is pushed to the end position
           </div>
           <div>
             • <strong>Dynamic Range</strong>
-            ：First adjust the end time to set the desired range length, then
-            any changes to the start time will maintain this length
+            ：First adjust the end time to set the desired range length, then any changes to the
+            start time will maintain this length
           </div>
         </div>
 
         <div className="rounded-md border p-4">
           <div className="font-strong">🧪 Test Steps</div>
           <div className="mt-2 space-y-1">
+            <div>1. Adjust the end time to 19:00 → the range becomes 10 hours</div>
             <div>
-              1. Adjust the end time to 19:00 → the range becomes 10 hours
+              2. Modify the start time to 10:00 → the end time is automatically adjusted to 20:00 to
+              maintain a 10-hour distance
             </div>
             <div>
-              2. Modify the start time to 10:00 → the end time is automatically
-              adjusted to 20:00 to maintain a 10-hour distance
+              3. Set the end time to be earlier than the start time (e.g., 08:00) → the start time
+              is pushed to 08:00
             </div>
-            <div>
-              3. Set the end time to be earlier than the start time (e.g.,
-              08:00) → the start time is pushed to 08:00
-            </div>
-            <div>
-              4. Support cross-day range: start time 22:00, end time the next
-              day 06:00
-            </div>
+            <div>4. Support cross-day range: start time 22:00, end time the next day 06:00</div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * Default: Shows the basic TimeRangeInput usage with standard configuration.
@@ -174,7 +166,7 @@ export const Default: Story = {
     format: "HH:mm",
   },
   render: (args) => <TimeRangeDemo {...args} />,
-};
+}
 
 /**
  * Size: Demonstrates the large size variant of TimeRangeInput.
@@ -187,9 +179,9 @@ export const Size: Story = {
       <div className="space-y-4">
         <TimeRangeDemo size="large" />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Variable: Demonstrates the dark theme variant of TimeRangeInput.
@@ -202,9 +194,9 @@ export const Variable: Story = {
       <div className="rounded-xl bg-gray-800 p-8">
         <TimeRangeDemo variant="dark" />
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * RangeSynchronization: Demonstrates the intelligent time range synchronization feature.
@@ -214,7 +206,7 @@ export const Variable: Story = {
  */
 export const RangeSynchronization: Story = {
   render: () => <RangeSyncDemo />,
-};
+}
 
 /**
  * WithPresetRange: Demonstrates TimeRangeInput with pre-filled time values.
@@ -231,7 +223,7 @@ export const WithPresetRange: Story = {
     format: "HH:mm",
   },
   render: (args) => <TimeRangeDemo {...args} />,
-};
+}
 
 /**
  * CrossMidnight: Demonstrates cross-midnight time range support.
@@ -251,12 +243,11 @@ export const CrossMidnight: Story = {
     <div className="space-y-4">
       <TimeRangeDemo {...args} />
       <div className="text-secondary-foreground">
-        💡 Support cross-day time range (e.g., night shift from 22:00 to the
-        next day 06:00)
+        💡 Support cross-day time range (e.g., night shift from 22:00 to the next day 06:00)
       </div>
     </div>
   ),
-};
+}
 
 /**
  * DifferentFormats: Demonstrates various time format options and their visual representation.
@@ -302,7 +293,7 @@ export const DifferentFormats: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * Internationalization: Demonstrates comprehensive multi-language support.
@@ -322,9 +313,7 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="text-body-small mt-2 text-gray-500">
-          Duration display: 8h 30m
-        </div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
 
       <div>
@@ -337,9 +326,7 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="text-body-small mt-2 text-gray-500">
-          Duration display: 8h 30m
-        </div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
 
       <div>
@@ -351,13 +338,11 @@ export const Internationalization: Story = {
           startValue={timeStringToDate("09:00")}
           endValue={timeStringToDate("17:30")}
         />
-        <div className="text-body-small mt-2 text-gray-500">
-          Duration display: 8h 30m
-        </div>
+        <div className="text-body-small mt-2 text-gray-500">Duration display: 8h 30m</div>
       </div>
     </div>
   ),
-};
+}
 
 /**
  * CommonScenarios: Demonstrates real-world usage scenarios for TimeRangeInput.
@@ -406,13 +391,11 @@ export const CommonScenarios: Story = {
           startPlaceholder="Start Time"
           endPlaceholder="End Time"
         />
-        <div className="text-body-small mt-2 text-gray-500">
-          💡 Cross-day work, 8 hours
-        </div>
+        <div className="text-body-small mt-2 text-gray-500">💡 Cross-day work, 8 hours</div>
       </div>
     </div>
   ),
-};
+}
 
 /**
  * DurationOnly: Demonstrates time range duration calculation and display.
@@ -454,7 +437,7 @@ export const DurationOnly: Story = {
       </div>
     </div>
   ),
-};
+}
 
 /**
  * ReadOnly: Demonstrates the TimeRangeInput component in readOnly mode.
@@ -464,47 +447,38 @@ export const DurationOnly: Story = {
  */
 export const ReadOnly: Story = {
   render: function ReadOnlyStory() {
-    const [startValue, setStartValue] = useState<Date | null>(
-      timeStringToDate("09:00")
-    );
-    const [endValue, setEndValue] = useState<Date | null>(
-      timeStringToDate("17:00")
-    );
-    const [changeCount, setChangeCount] = useState(0);
+    const [startValue, setStartValue] = useState<Date | null>(timeStringToDate("09:00"))
+    const [endValue, setEndValue] = useState<Date | null>(timeStringToDate("17:00"))
+    const [changeCount, setChangeCount] = useState(0)
 
     const handleStartChange = (newValue: Date | null) => {
-      setStartValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setStartValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     const handleEndChange = (newValue: Date | null) => {
-      setEndValue(newValue);
-      setChangeCount((prev) => prev + 1);
-    };
+      setEndValue(newValue)
+      setChangeCount((prev) => prev + 1)
+    }
 
     return (
       <div className="flex flex-col gap-4">
         <div className="rounded-xl border bg-stone-50 p-4">
-          <div className="text-body-small-strong mb-2 text-stone-700">
-            Current Start:
-          </div>
+          <div className="text-body-small-strong mb-2 text-stone-700">Current Start:</div>
           <div className="text-body-small font-mono text-stone-600">
             {startValue ? startValue.toLocaleTimeString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Current End:
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Current End:</div>
           <div className="text-body-small font-mono text-stone-600">
             {endValue ? endValue.toLocaleTimeString() : "null"}
           </div>
-          <div className="text-body-small-strong mt-2 text-stone-700">
-            Change Count:
-          </div>
-          <div className="text-body-small font-mono text-stone-600">
-            {changeCount}
-          </div>
+          <div className="text-body-small-strong mt-2 text-stone-700">Change Count:</div>
+          <div className="text-body-small font-mono text-stone-600">{changeCount}</div>
         </div>
-        <Panel.Row type="two-input-two-icon" className="w-96 px-0">
+        <Panel.Row
+          type="two-input-two-icon"
+          className="w-96 px-0"
+        >
           <TimeRangeInput
             readOnly
             startValue={startValue}
@@ -513,7 +487,10 @@ export const ReadOnly: Story = {
             onEndChange={handleEndChange}
           />
         </Panel.Row>
-        <Panel.Row type="two-input-two-icon" className="w-96 px-0">
+        <Panel.Row
+          type="two-input-two-icon"
+          className="w-96 px-0"
+        >
           <TimeRangeInput
             startValue={startValue}
             endValue={endValue}
@@ -522,11 +499,10 @@ export const ReadOnly: Story = {
           />
         </Panel.Row>
         <div className="text-body-small text-stone-600">
-          💡 Try changing the readonly time range input - the values should not
-          change and the change count should remain at 0. Only the normal input
-          will change the values.
+          💡 Try changing the readonly time range input - the values should not change and the
+          change count should remain at 0. Only the normal input will change the values.
         </div>
       </div>
-    );
+    )
   },
-};
+}

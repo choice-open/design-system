@@ -8,19 +8,14 @@ import {
   Tabs,
   tcx,
   useForm,
-} from "@choice-ui/react";
-import { TrashSmall } from "@choiceform/icons-react";
-import type { Meta, StoryObj } from "@storybook/react";
-import type { AnyFieldApi } from "@tanstack/react-form";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-} from "@tanstack/react-query";
-import { useStore } from "@tanstack/react-store";
-import { ReactNode, useEffect, useState } from "react";
-import { z } from "zod";
+} from "@choice-ui/react"
+import { TrashSmall } from "@choiceform/icons-react"
+import type { Meta, StoryObj } from "@storybook/react"
+import type { AnyFieldApi } from "@tanstack/react-form"
+import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query"
+import { useStore } from "@tanstack/react-store"
+import { ReactNode, useEffect, useState } from "react"
+import { z } from "zod"
 
 const meta: Meta = {
   title: "Forms/Form/Examples",
@@ -28,17 +23,17 @@ const meta: Meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-};
+}
 
-export default meta;
-type Story = StoryObj;
+export default meta
+type Story = StoryObj
 
 /**
  * Basic form example with Input and Select fields using TanStack Form
  */
 export const Basic: Story = {
   render: function BasicRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
@@ -47,18 +42,18 @@ export const Basic: Story = {
         role: "admin",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field name="username">
@@ -117,9 +112,9 @@ export const Basic: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Form example with description
@@ -128,7 +123,7 @@ export const Basic: Story = {
  */
 export const WithDescription: Story = {
   render: function WithDescriptionRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
@@ -137,18 +132,18 @@ export const WithDescription: Story = {
         role: "admin",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field name="username">
@@ -215,16 +210,16 @@ export const WithDescription: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with validation rules and error handling
  */
 export const WithValidation: Story = {
   render: function WithValidationRender() {
-    const [result, setResult] = useState<string>("");
+    const [result, setResult] = useState<string>("")
 
     const form = useForm({
       defaultValues: {
@@ -233,18 +228,18 @@ export const WithValidation: Story = {
         age: "",
       },
       onSubmit: async ({ value }) => {
-        setResult(JSON.stringify(value, null, 2));
+        setResult(JSON.stringify(value, null, 2))
       },
-    });
+    })
 
     return (
       <>
         <form
           className="w-80 space-y-4"
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
         >
           <form.Field
@@ -252,7 +247,7 @@ export const WithValidation: Story = {
             validators={{
               onChange: ({ value }) => {
                 if ((value as string).length < 6) {
-                  return "Password must be at least 6 characters";
+                  return "Password must be at least 6 characters"
                 }
               },
             }}
@@ -276,7 +271,7 @@ export const WithValidation: Story = {
             validators={{
               onChange: ({ value }) => {
                 if (value !== form.state.values.password) {
-                  return "Passwords do not match";
+                  return "Passwords do not match"
                 }
               },
             }}
@@ -299,12 +294,12 @@ export const WithValidation: Story = {
             name="age"
             validators={{
               onChange: ({ value }) => {
-                const age = parseInt(value as string);
+                const age = parseInt(value as string)
                 if (isNaN(age) || age < 1) {
-                  return "Please enter a valid age";
+                  return "Please enter a valid age"
                 }
                 if (age < 18 || age > 80) {
-                  return "Must be 18 or older and less than 80";
+                  return "Must be 18 or older and less than 80"
                 }
               },
             }}
@@ -333,64 +328,54 @@ export const WithValidation: Story = {
           </CodeBlock>
         </div>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with Zod schema validation
  */
 export const WithSchemaValidation: Story = {
   render: function WithSchemaValidationRender() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     // Define constraint constants
-    const NAME_MIN_LENGTH = 2;
-    const AGE_MIN_VALUE = 18;
-    const AGE_MAX_VALUE = 100;
-    const BIO_MAX_LENGTH = 200;
+    const NAME_MIN_LENGTH = 2
+    const AGE_MIN_VALUE = 18
+    const AGE_MAX_VALUE = 100
+    const BIO_MAX_LENGTH = 200
 
     // Define Zod schema
     const userSchema = z.object({
       name: z
         .string()
-        .min(
-          NAME_MIN_LENGTH,
-          `Name must be at least ${NAME_MIN_LENGTH} characters`
-        )
+        .min(NAME_MIN_LENGTH, `Name must be at least ${NAME_MIN_LENGTH} characters`)
         .refine((value) => value.length > 0, "Name is required"),
       email: z.string().email("Please enter a valid email address"),
       age: z
         .number()
         .min(AGE_MIN_VALUE, `Must be at least ${AGE_MIN_VALUE} years old`)
         .max(AGE_MAX_VALUE, `Age must be less than ${AGE_MAX_VALUE}`),
-      website: z
-        .string()
-        .url("Please enter a valid website")
-        .optional()
-        .or(z.literal("")),
+      website: z.string().url("Please enter a valid website").optional().or(z.literal("")),
       bio: z
         .string()
-        .max(
-          BIO_MAX_LENGTH,
-          `Bio must be less than ${BIO_MAX_LENGTH} characters`
-        )
+        .max(BIO_MAX_LENGTH, `Bio must be less than ${BIO_MAX_LENGTH} characters`)
         .optional(),
-    });
+    })
 
     const form = useForm({
       defaultValues: {
@@ -406,21 +391,21 @@ export const WithSchemaValidation: Story = {
         onBlur: userSchema,
       },
       onSubmit: async ({ value }) => {
-        setIsSubmitting(true);
-        setSubmitResult(null);
+        setIsSubmitting(true)
+        setSubmitResult(null)
 
         try {
           // Here you can call API to submit data
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          setSubmitResult("Form submitted successfully!");
-          console.log("Submitted data:", value);
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          setSubmitResult("Form submitted successfully!")
+          console.log("Submitted data:", value)
         } catch (error) {
-          setSubmitResult("Form submission failed, please try again");
+          setSubmitResult("Form submission failed, please try again")
         } finally {
-          setIsSubmitting(false);
+          setIsSubmitting(false)
         }
       },
-    });
+    })
 
     return (
       <div className="w-80">
@@ -431,8 +416,8 @@ export const WithSchemaValidation: Story = {
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="mt-4 space-y-4"
         >
@@ -526,7 +511,7 @@ export const WithSchemaValidation: Story = {
               "mt-4 rounded-xl p-4",
               submitResult.includes("success")
                 ? "bg-success-background text-success-foreground"
-                : "bg-danger-background text-danger-foreground"
+                : "bg-danger-background text-danger-foreground",
             )}
           >
             {submitResult}
@@ -535,20 +520,16 @@ export const WithSchemaValidation: Story = {
 
         <div className="bg-secondary-background mt-4 grid grid-cols-[auto_1fr] place-items-start gap-2 rounded-xl p-4">
           <div className="font-strong col-span-2">Form state:</div>
-          <span>Can submit:</span>{" "}
-          <Badge>{form.state.canSubmit ? "Yes" : "No"}</Badge>
-          <span>Is dirty:</span>{" "}
-          <Badge>{form.state.isDirty ? "Yes" : "No"}</Badge>
-          <span>Validating:</span>{" "}
-          <Badge>{form.state.isValidating ? "Yes" : "No"}</Badge>
-          <span>Submitting:</span>{" "}
-          <Badge>{form.state.isSubmitting ? "Yes" : "No"}</Badge>
+          <span>Can submit:</span> <Badge>{form.state.canSubmit ? "Yes" : "No"}</Badge>
+          <span>Is dirty:</span> <Badge>{form.state.isDirty ? "Yes" : "No"}</Badge>
+          <span>Validating:</span> <Badge>{form.state.isValidating ? "Yes" : "No"}</Badge>
+          <span>Submitting:</span> <Badge>{form.state.isSubmitting ? "Yes" : "No"}</Badge>
           <span>Valid:</span> <Badge>{form.state.isValid ? "Yes" : "No"}</Badge>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // FieldInfo component for displaying field validation information
 function FieldInfo({ field }: { field: AnyFieldApi }) {
@@ -559,7 +540,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
       ) : null}
       {field.state.meta.isValidating ? <em>Validating...</em> : null}
     </>
-  );
+  )
 }
 
 /**
@@ -575,59 +556,59 @@ export const QueryIntegration: Story = {
             refetchOnWindowFocus: false,
           },
         },
-      });
+      })
       return (
         <QueryClientProvider client={queryClient}>
           <Story />
         </QueryClientProvider>
-      );
+      )
     },
   ],
   render: function QueryIntegrationRender() {
     // Mock database class
     class MockUserDB {
-      private data: { email: string; firstName: string; lastName: string };
+      private data: { email: string; firstName: string; lastName: string }
 
       constructor() {
         this.data = {
           firstName: "Wester",
           lastName: "Xi",
           email: "wester@gmail.com",
-        };
+        }
       }
 
       async getData(): Promise<{
-        email: string;
-        firstName: string;
-        lastName: string;
+        email: string
+        firstName: string
+        lastName: string
       }> {
         // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return { ...this.data };
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        return { ...this.data }
       }
 
       async saveUser(value: {
-        email: string;
-        firstName: string;
-        lastName: string;
+        email: string
+        firstName: string
+        lastName: string
       }): Promise<{ email: string; firstName: string; lastName: string }> {
         // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500))
 
         // Simulate server validation error
         if (value.firstName.includes("error")) {
-          throw new Error("Server error: name cannot contain 'error'");
+          throw new Error("Server error: name cannot contain 'error'")
         }
 
-        this.data = value;
-        return value;
+        this.data = value
+        return value
       }
     }
 
     // Mock database instance
-    const mockDB = new MockUserDB();
+    const mockDB = new MockUserDB()
 
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
 
     // Use TanStack Query to fetch data
     const {
@@ -637,30 +618,26 @@ export const QueryIntegration: Story = {
     } = useQuery({
       queryKey: ["userData"],
       queryFn: async () => {
-        const result = await mockDB.getData();
-        return result;
+        const result = await mockDB.getData()
+        return result
       },
       staleTime: 5000, // Data is considered fresh within 5 seconds
-    });
+    })
 
     // Use TanStack Query mutation for data updates
     const saveUserMutation = useMutation({
-      mutationFn: async (value: {
-        email: string;
-        firstName: string;
-        lastName: string;
-      }) => {
-        return await mockDB.saveUser(value);
+      mutationFn: async (value: { email: string; firstName: string; lastName: string }) => {
+        return await mockDB.saveUser(value)
       },
       onSuccess: (data) => {
         setSubmitResult(
-          `User information saved successfully! Name: ${data.firstName} ${data.lastName}`
-        );
+          `User information saved successfully! Name: ${data.firstName} ${data.lastName}`,
+        )
       },
       onError: (error: Error) => {
-        setSubmitResult(`Save failed: ${error.message}`);
+        setSubmitResult(`Save failed: ${error.message}`)
       },
-    });
+    })
 
     const form = useForm({
       defaultValues: {
@@ -669,62 +646,58 @@ export const QueryIntegration: Story = {
         email: userData?.email ?? "",
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
+        setSubmitResult(null)
 
         try {
           // Use mutation to save data
           await saveUserMutation.mutateAsync(
-            value as { email: string; firstName: string; lastName: string }
-          );
+            value as { email: string; firstName: string; lastName: string },
+          )
 
           // Refetch data to ensure synchronization
-          await refetch();
+          await refetch()
 
           // Reset form
-          form.reset();
+          form.reset()
         } catch (error) {
           // Error is already handled in mutation's onError
-          console.error("Form submission error:", error);
+          console.error("Form submission error:", error)
         }
       },
-    });
+    })
 
     // When data is loaded, update form default values
     useEffect(() => {
       if (userData) {
-        form.setFieldValue("firstName", userData.firstName);
-        form.setFieldValue("lastName", userData.lastName);
-        form.setFieldValue("email", userData.email);
+        form.setFieldValue("firstName", userData.firstName)
+        form.setFieldValue("lastName", userData.lastName)
+        form.setFieldValue("email", userData.email)
       }
-    }, [userData, form]);
+    }, [userData, form])
 
     if (isLoading) {
       return (
         <div className="flex items-center justify-center p-8">
-          <div className="text-default-foreground text-body-large">
-            Loading user data...
-          </div>
+          <div className="text-default-foreground text-body-large">Loading user data...</div>
         </div>
-      );
+      )
     }
 
     return (
       <div className="w-80 space-y-4">
         <div>
-          <h3 className="text-body-large-strong">
-            TanStack Query Integration Example
-          </h3>
+          <h3 className="text-body-large-strong">TanStack Query Integration Example</h3>
           <p className="text-secondary-foreground">
-            Demonstrate the integration of the form with TanStack Query,
-            supporting data acquisition, update, and re-validation
+            Demonstrate the integration of the form with TanStack Query, supporting data
+            acquisition, update, and re-validation
           </p>
         </div>
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
           }}
           className="space-y-4"
         >
@@ -732,20 +705,18 @@ export const QueryIntegration: Story = {
             name="firstName"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
+                const stringValue = String(value || "")
                 return !stringValue
                   ? "Name cannot be empty"
                   : stringValue.length < 2
                     ? "Name must be at least 2 characters"
-                    : undefined;
+                    : undefined
               },
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value }) => {
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                const stringValue = String(value || "");
-                return (
-                  stringValue.includes("error") && "Name cannot contain 'error'"
-                );
+                await new Promise((resolve) => setTimeout(resolve, 1000))
+                const stringValue = String(value || "")
+                return stringValue.includes("error") && "Name cannot contain 'error'"
               },
             }}
           >
@@ -767,12 +738,12 @@ export const QueryIntegration: Story = {
             name="lastName"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
+                const stringValue = String(value || "")
                 return !stringValue
                   ? "Last name cannot be empty"
                   : stringValue.length < 2
                     ? "Last name must be at least 2 characters"
-                    : undefined;
+                    : undefined
               },
             }}
           >
@@ -794,12 +765,12 @@ export const QueryIntegration: Story = {
             name="email"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                if (!stringValue) return "Email cannot be empty";
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const stringValue = String(value || "")
+                if (!stringValue) return "Email cannot be empty"
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                 return !emailRegex.test(stringValue)
                   ? "Please enter a valid email address"
-                  : undefined;
+                  : undefined
               },
             }}
           >
@@ -863,9 +834,9 @@ export const QueryIntegration: Story = {
           <pre className="mt-2">{JSON.stringify(userData, null, 2)}</pre>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with async initial values
@@ -896,94 +867,94 @@ export const WithAsyncInitialValues: Story = {
           age: 25,
           department: "Design",
         },
-      ];
+      ]
 
       async getUserById(id: number): Promise<{
-        age: number;
-        department: string;
-        email: string;
-        id: number;
-        name: string;
+        age: number
+        department: string
+        email: string
+        id: number
+        name: string
       }> {
         // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500))
 
         // Simulate occasional network errors
         if (Math.random() < 0.1) {
-          throw new Error("Network error: Unable to fetch user information");
+          throw new Error("Network error: Unable to fetch user information")
         }
 
-        const user = this.users.find((u) => u.id === id);
+        const user = this.users.find((u) => u.id === id)
         if (!user) {
-          throw new Error(`用户 ID ${id} 不存在`);
+          throw new Error(`用户 ID ${id} 不存在`)
         }
 
-        return { ...user };
+        return { ...user }
       }
 
       async updateUser(
         id: number,
         data: Partial<{
-          age: number;
-          department: string;
-          email: string;
-          name: string;
-        }>
+          age: number
+          department: string
+          email: string
+          name: string
+        }>,
       ): Promise<{
-        age: number;
-        department: string;
-        email: string;
-        id: number;
-        name: string;
+        age: number
+        department: string
+        email: string
+        id: number
+        name: string
       }> {
         // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000))
 
-        const userIndex = this.users.findIndex((u) => u.id === id);
+        const userIndex = this.users.findIndex((u) => u.id === id)
         if (userIndex === -1) {
-          throw new Error(`用户 ID ${id} 不存在`);
+          throw new Error(`用户 ID ${id} 不存在`)
         }
 
-        this.users[userIndex] = { ...this.users[userIndex], ...data };
-        return { ...this.users[userIndex] };
+        this.users[userIndex] = { ...this.users[userIndex], ...data }
+        return { ...this.users[userIndex] }
       }
     }
 
-    const userAPI = new UserAPIService();
+    const userAPI = new UserAPIService()
 
-    const [selectedUserId, setSelectedUserId] = useState<number>(1);
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
-    const [isInitialLoading, setIsInitialLoading] = useState(true);
-    const [loadError, setLoadError] = useState<string | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<number>(1)
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
+    const [isInitialLoading, setIsInitialLoading] = useState(true)
+    const [loadError, setLoadError] = useState<string | null>(null)
     const [initialData, setInitialData] = useState<{
-      age: number;
-      department: string;
-      email: string;
-      name: string;
-    } | null>(null);
+      age: number
+      department: string
+      email: string
+      name: string
+    } | null>(null)
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     // Async load initial values
     const loadInitialValues = async (userId: number) => {
-      setIsInitialLoading(true);
-      setLoadError(null);
-      setSubmitResult(null);
-      setInitialData(null);
+      setIsInitialLoading(true)
+      setLoadError(null)
+      setSubmitResult(null)
+      setInitialData(null)
 
       try {
-        const userData = await userAPI.getUserById(userId);
+        const userData = await userAPI.getUserById(userId)
 
         // Set initial data, this will trigger form re-render
         setInitialData({
@@ -991,15 +962,14 @@ export const WithAsyncInitialValues: Story = {
           email: userData.email,
           age: userData.age,
           department: userData.department,
-        });
+        })
       } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : "Load failed";
-        setLoadError(errorMessage);
+        const errorMessage = error instanceof Error ? error.message : "Load failed"
+        setLoadError(errorMessage)
       } finally {
-        setIsInitialLoading(false);
+        setIsInitialLoading(false)
       }
-    };
+    }
 
     // Only create form when initial data is available
     const form = useForm({
@@ -1010,58 +980,56 @@ export const WithAsyncInitialValues: Story = {
         department: "",
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
+        setSubmitResult(null)
         try {
           const result = await userAPI.updateUser(
             selectedUserId,
             value as {
-              age: number;
-              department: string;
-              email: string;
-              name: string;
-            }
-          );
-          setSubmitResult(
-            `User information updated successfully! Name: ${result.name}`
-          );
+              age: number
+              department: string
+              email: string
+              name: string
+            },
+          )
+          setSubmitResult(`User information updated successfully! Name: ${result.name}`)
         } catch (error) {
           setSubmitResult(
-            `Update failed: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
+            `Update failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+          )
         }
       },
-    });
+    })
 
     // Load data on initialization
     useEffect(() => {
-      loadInitialValues(selectedUserId);
-    }, [selectedUserId]);
+      loadInitialValues(selectedUserId)
+    }, [selectedUserId])
 
     // When initial data changes, update form values
     useEffect(() => {
       if (initialData) {
-        form.setFieldValue("name", initialData.name);
-        form.setFieldValue("email", initialData.email);
-        form.setFieldValue("age", initialData.age);
-        form.setFieldValue("department", initialData.department);
+        form.setFieldValue("name", initialData.name)
+        form.setFieldValue("email", initialData.email)
+        form.setFieldValue("age", initialData.age)
+        form.setFieldValue("department", initialData.department)
       }
-    }, [initialData, form]);
+    }, [initialData, form])
 
     const handleUserChange = (userId: number) => {
-      setSelectedUserId(userId);
-    };
+      setSelectedUserId(userId)
+    }
 
     const handleReload = () => {
-      loadInitialValues(selectedUserId);
-    };
+      loadInitialValues(selectedUserId)
+    }
 
     return (
       <div className="w-full max-w-md space-y-4">
         <div className="w-80">
           <h3 className="font-strong">Async Initial Values Example</h3>
           <p className="text-secondary-foreground">
-            Demonstrate how to asynchronously load the initial values of the
-            form, commonly used in editing existing data scenarios
+            Demonstrate how to asynchronously load the initial values of the form, commonly used in
+            editing existing data scenarios
           </p>
         </div>
 
@@ -1095,7 +1063,10 @@ export const WithAsyncInitialValues: Story = {
               <div className="font-strong">Load failed</div>
               <div className="mt-1">{loadError}</div>
             </div>
-            <Button onClick={handleReload} className="mt-2">
+            <Button
+              onClick={handleReload}
+              className="mt-2"
+            >
               Reload
             </Button>
           </div>
@@ -1106,8 +1077,8 @@ export const WithAsyncInitialValues: Story = {
           <form
             key={`form-${selectedUserId}`}
             onSubmit={(e) => {
-              e.preventDefault();
-              form.handleSubmit();
+              e.preventDefault()
+              form.handleSubmit()
             }}
             className="w-80 space-y-4"
           >
@@ -1115,12 +1086,12 @@ export const WithAsyncInitialValues: Story = {
               name="name"
               validators={{
                 onChange: ({ value }) => {
-                  const stringValue = String(value || "");
+                  const stringValue = String(value || "")
                   return !stringValue
                     ? "Name cannot be empty"
                     : stringValue.length < 2
                       ? "Name must be at least 2 characters"
-                      : undefined;
+                      : undefined
                 },
               }}
             >
@@ -1141,12 +1112,12 @@ export const WithAsyncInitialValues: Story = {
               name="email"
               validators={{
                 onChange: ({ value }) => {
-                  const stringValue = String(value || "");
-                  if (!stringValue) return "Email cannot be empty";
-                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  const stringValue = String(value || "")
+                  if (!stringValue) return "Email cannot be empty"
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                   return !emailRegex.test(stringValue)
                     ? "Please enter a valid email address"
-                    : undefined;
+                    : undefined
                 },
               }}
             >
@@ -1168,12 +1139,11 @@ export const WithAsyncInitialValues: Story = {
               name="age"
               validators={{
                 onChange: ({ value }) => {
-                  const numValue = Number(value);
-                  if (isNaN(numValue) || numValue <= 0)
-                    return "Please enter a valid age";
-                  if (numValue < 18) return "Age must be greater than 18";
-                  if (numValue > 100) return "Age must be less than 100";
-                  return undefined;
+                  const numValue = Number(value)
+                  if (isNaN(numValue) || numValue <= 0) return "Please enter a valid age"
+                  if (numValue < 18) return "Age must be greater than 18"
+                  if (numValue > 100) return "Age must be less than 100"
+                  return undefined
                 },
               }}
             >
@@ -1195,10 +1165,8 @@ export const WithAsyncInitialValues: Story = {
               name="department"
               validators={{
                 onChange: ({ value }) => {
-                  const stringValue = String(value || "");
-                  return !stringValue
-                    ? "Department cannot be empty"
-                    : undefined;
+                  const stringValue = String(value || "")
+                  return !stringValue ? "Department cannot be empty" : undefined
                 },
               }}
             >
@@ -1245,7 +1213,7 @@ export const WithAsyncInitialValues: Story = {
               "w-80 rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -1265,95 +1233,93 @@ export const WithAsyncInitialValues: Story = {
           </div>
         )}
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with array fields
  */
 export const WithArrayFields: Story = {
   render: function WithArrayFieldsRender() {
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     const form = useForm({
       defaultValues: {
         name: "",
         skills: [] as string[],
-        hobbies: [
-          { name: "", description: "", yearsOfExperience: 0 },
-        ] as Array<{
-          description: string;
-          name: string;
-          yearsOfExperience: number;
+        hobbies: [{ name: "", description: "", yearsOfExperience: 0 }] as Array<{
+          description: string
+          name: string
+          yearsOfExperience: number
         }>,
         contacts: [
           { type: "email", value: "", isPrimary: true },
           { type: "phone", value: "", isPrimary: false },
         ] as Array<{
-          isPrimary: boolean;
-          type: string;
-          value: string;
+          isPrimary: boolean
+          type: string
+          value: string
         }>,
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
+        setSubmitResult(null)
         try {
           // 模拟提交延迟
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log("Form submitted:", value);
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          console.log("Form submitted:", value)
           const formData = value as {
             contacts: Array<{
-              isPrimary: boolean;
-              type: string;
-              value: string;
-            }>;
+              isPrimary: boolean
+              type: string
+              value: string
+            }>
             hobbies: Array<{
-              description: string;
-              name: string;
-              yearsOfExperience: number;
-            }>;
-            name: string;
-            skills: string[];
-          };
+              description: string
+              name: string
+              yearsOfExperience: number
+            }>
+            name: string
+            skills: string[]
+          }
           setSubmitResult(
-            `Form submitted successfully! ${formData.skills.length} skills, ${formData.hobbies.length} hobbies, ${formData.contacts.length} contacts`
-          );
+            `Form submitted successfully! ${formData.skills.length} skills, ${formData.hobbies.length} hobbies, ${formData.contacts.length} contacts`,
+          )
         } catch (error) {
           setSubmitResult(
-            `Submit failed: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
+            `Submit failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+          )
         }
       },
-    });
+    })
 
     return (
       <div className="w-80 space-y-6">
         <div className="flex w-80 flex-col gap-2">
           <h3 className="font-strong">Array Form Example</h3>
           <p className="text-secondary-foreground">
-            Demonstrate how to handle array-type form fields, including simple
-            arrays and object arrays
+            Demonstrate how to handle array-type form fields, including simple arrays and object
+            arrays
           </p>
         </div>
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="space-y-4"
         >
@@ -1362,8 +1328,8 @@ export const WithArrayFields: Story = {
             name="name"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                return !stringValue ? "Name cannot be empty" : undefined;
+                const stringValue = String(value || "")
+                return !stringValue ? "Name cannot be empty" : undefined
               },
             }}
           >
@@ -1381,14 +1347,17 @@ export const WithArrayFields: Story = {
           </form.Field>
 
           {/* 简单数组 - 技能列表 */}
-          <form.Field name="skills" mode="array">
+          <form.Field
+            name="skills"
+            mode="array"
+          >
             {(skillsField) => (
               <fieldset className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <Label>Skills List</Label>
                   <Button
                     onClick={() => {
-                      skillsField.pushValue("" as never);
+                      skillsField.pushValue("" as never)
                     }}
                   >
                     Add skill
@@ -1407,10 +1376,8 @@ export const WithArrayFields: Story = {
                         name={`skills[${index}]`}
                         validators={{
                           onChange: ({ value }) => {
-                            const stringValue = String(value || "");
-                            return !stringValue
-                              ? "Skill cannot be empty"
-                              : undefined;
+                            const stringValue = String(value || "")
+                            return !stringValue ? "Skill cannot be empty" : undefined
                           },
                         }}
                       >
@@ -1424,16 +1391,12 @@ export const WithArrayFields: Story = {
                               placeholder={`Skill ${index + 1}`}
                               className="flex-1"
                             />
-                            <IconButton
-                              onClick={() => skillsField.removeValue(index)}
-                            >
+                            <IconButton onClick={() => skillsField.removeValue(index)}>
                               <TrashSmall />
                             </IconButton>
                             {skillField.state.meta.errors.length > 0 && (
                               <div className="text-danger-foreground col-span-2">
-                                {formatErrors(
-                                  skillField.state.meta.errors
-                                ).join(", ")}
+                                {formatErrors(skillField.state.meta.errors).join(", ")}
                               </div>
                             )}
                           </div>
@@ -1447,7 +1410,10 @@ export const WithArrayFields: Story = {
           </form.Field>
 
           {/* 对象数组 - 爱好列表 */}
-          <form.Field name="hobbies" mode="array">
+          <form.Field
+            name="hobbies"
+            mode="array"
+          >
             {(hobbiesField) => (
               <fieldset className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -1458,7 +1424,7 @@ export const WithArrayFields: Story = {
                         name: "",
                         description: "",
                         yearsOfExperience: 0,
-                      } as never);
+                      } as never)
                     }}
                   >
                     Add hobby
@@ -1468,9 +1434,9 @@ export const WithArrayFields: Story = {
                 <div className="space-y-4">
                   {(
                     hobbiesField.state.value as Array<{
-                      description: string;
-                      name: string;
-                      yearsOfExperience: number;
+                      description: string
+                      name: string
+                      yearsOfExperience: number
                     }>
                   ).length === 0 ? (
                     <div className="text-secondary-foreground">
@@ -1479,17 +1445,18 @@ export const WithArrayFields: Story = {
                   ) : (
                     (
                       hobbiesField.state.value as Array<{
-                        description: string;
-                        name: string;
-                        yearsOfExperience: number;
+                        description: string
+                        name: string
+                        yearsOfExperience: number
                       }>
                     ).map((_, index) => (
-                      <div key={index} className="rounded-xl border p-4">
+                      <div
+                        key={index}
+                        className="rounded-xl border p-4"
+                      >
                         <div className="mb-2 flex items-center justify-between">
                           <Label>Hobby {index + 1}</Label>
-                          <IconButton
-                            onClick={() => hobbiesField.removeValue(index)}
-                          >
+                          <IconButton onClick={() => hobbiesField.removeValue(index)}>
                             <TrashSmall />
                           </IconButton>
                         </div>
@@ -1499,10 +1466,8 @@ export const WithArrayFields: Story = {
                             name={`hobbies[${index}].name`}
                             validators={{
                               onChange: ({ value }) => {
-                                const stringValue = String(value || "");
-                                return !stringValue
-                                  ? "爱好名称不能为空"
-                                  : undefined;
+                                const stringValue = String(value || "")
+                                return !stringValue ? "爱好名称不能为空" : undefined
                               },
                             }}
                           >
@@ -1514,9 +1479,7 @@ export const WithArrayFields: Story = {
                                 onChange={field.handleChange}
                                 onBlur={field.handleBlur}
                                 placeholder="e.g. Basketball, Reading"
-                                error={formatErrors(
-                                  field.state.meta.errors
-                                ).join(", ")}
+                                error={formatErrors(field.state.meta.errors).join(", ")}
                               />
                             )}
                           </form.Field>
@@ -1525,10 +1488,10 @@ export const WithArrayFields: Story = {
                             name={`hobbies[${index}].yearsOfExperience`}
                             validators={{
                               onChange: ({ value }) => {
-                                const numValue = Number(value);
+                                const numValue = Number(value)
                                 if (isNaN(numValue) || numValue < 0)
-                                  return "Please enter a valid number";
-                                return undefined;
+                                  return "Please enter a valid number"
+                                return undefined
                               },
                             }}
                           >
@@ -1537,14 +1500,10 @@ export const WithArrayFields: Story = {
                                 label="Years of experience"
                                 name={field.name}
                                 value={Number(field.state.value || 0)}
-                                onChange={(value) =>
-                                  field.handleChange(value || 0)
-                                }
+                                onChange={(value) => field.handleChange(value || 0)}
                                 onBlur={field.handleBlur}
                                 placeholder="0"
-                                error={formatErrors(
-                                  field.state.meta.errors
-                                ).join(", ")}
+                                error={formatErrors(field.state.meta.errors).join(", ")}
                               />
                             )}
                           </form.Field>
@@ -1560,9 +1519,7 @@ export const WithArrayFields: Story = {
                                 onBlur={field.handleBlur}
                                 placeholder="Describe your hobby..."
                                 rows={4}
-                                error={formatErrors(
-                                  field.state.meta.errors
-                                ).join(", ")}
+                                error={formatErrors(field.state.meta.errors).join(", ")}
                               />
                             )}
                           </form.Field>
@@ -1576,7 +1533,10 @@ export const WithArrayFields: Story = {
           </form.Field>
 
           {/* 复杂对象数组 - 联系方式 */}
-          <form.Field name="contacts" mode="array">
+          <form.Field
+            name="contacts"
+            mode="array"
+          >
             {(contactsField) => (
               <fieldset className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
@@ -1587,7 +1547,7 @@ export const WithArrayFields: Story = {
                         type: "email",
                         value: "",
                         isPrimary: false,
-                      } as never);
+                      } as never)
                     }}
                   >
                     Add contact
@@ -1597,17 +1557,18 @@ export const WithArrayFields: Story = {
                 <div className="space-y-3">
                   {(
                     contactsField.state.value as Array<{
-                      isPrimary: boolean;
-                      type: string;
-                      value: string;
+                      isPrimary: boolean
+                      type: string
+                      value: string
                     }>
                   ).map((_, index) => (
-                    <div key={index} className="rounded-xl border p-4">
+                    <div
+                      key={index}
+                      className="rounded-xl border p-4"
+                    >
                       <div className="mb-2 flex items-center justify-between">
                         <Label>Contact {index + 1}</Label>
-                        <IconButton
-                          onClick={() => contactsField.removeValue(index)}
-                        >
+                        <IconButton onClick={() => contactsField.removeValue(index)}>
                           <TrashSmall />
                         </IconButton>
                       </div>
@@ -1627,9 +1588,7 @@ export const WithArrayFields: Story = {
                                 { label: "Wechat", value: "wechat" },
                                 { label: "QQ", value: "qq" },
                               ]}
-                              error={formatErrors(field.state.meta.errors).join(
-                                ", "
-                              )}
+                              error={formatErrors(field.state.meta.errors).join(", ")}
                             />
                           )}
                         </form.Field>
@@ -1638,10 +1597,8 @@ export const WithArrayFields: Story = {
                           name={`contacts[${index}].value`}
                           validators={{
                             onChange: ({ value }) => {
-                              const stringValue = String(value || "");
-                              return !stringValue
-                                ? "Contact value cannot be empty"
-                                : undefined;
+                              const stringValue = String(value || "")
+                              return !stringValue ? "Contact value cannot be empty" : undefined
                             },
                           }}
                         >
@@ -1653,9 +1610,7 @@ export const WithArrayFields: Story = {
                               onChange={field.handleChange}
                               onBlur={field.handleBlur}
                               placeholder="Enter contact value"
-                              error={formatErrors(field.state.meta.errors).join(
-                                ", "
-                              )}
+                              error={formatErrors(field.state.meta.errors).join(", ")}
                             />
                           )}
                         </form.Field>
@@ -1704,7 +1659,7 @@ export const WithArrayFields: Story = {
               "rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -1725,35 +1680,33 @@ export const WithArrayFields: Story = {
 
           <div className="rounded-xl border p-4">
             <div className="font-strong mb-2">Current form data:</div>
-            <pre className="overflow-auto">
-              {JSON.stringify(form.state.values, null, 2)}
-            </pre>
+            <pre className="overflow-auto">{JSON.stringify(form.state.values, null, 2)}</pre>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with linked fields
  */
 export const WithLinkedFields: Story = {
   render: function WithLinkedFieldsRender() {
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     const form = useForm({
       defaultValues: {
@@ -1765,34 +1718,34 @@ export const WithLinkedFields: Story = {
         confirmNewEmail: "",
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
+        setSubmitResult(null)
         try {
           // 模拟提交延迟
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log("Form submitted:", value);
-          setSubmitResult("User registered successfully!");
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          console.log("Form submitted:", value)
+          setSubmitResult("User registered successfully!")
         } catch (error) {
           setSubmitResult(
-            `Register failed: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
+            `Register failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+          )
         }
       },
-    });
+    })
 
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
           <h3 className="font-strong">Linked fields example</h3>
           <p className="text-secondary-foreground">
-            Demonstrates how to link two fields, when one field value changes,
-            the validation of the other field will be re-run
+            Demonstrates how to link two fields, when one field value changes, the validation of the
+            other field will be re-run
           </p>
         </div>
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="space-y-4"
         >
@@ -1801,11 +1754,10 @@ export const WithLinkedFields: Story = {
             name="username"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                if (!stringValue) return "Username cannot be empty";
-                if (stringValue.length < 3)
-                  return "Username must be at least 3 characters";
-                return undefined;
+                const stringValue = String(value || "")
+                if (!stringValue) return "Username cannot be empty"
+                if (stringValue.length < 3) return "Username must be at least 3 characters"
+                return undefined
               },
             }}
           >
@@ -1827,12 +1779,12 @@ export const WithLinkedFields: Story = {
             name="email"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                if (!stringValue) return "Email cannot be empty";
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const stringValue = String(value || "")
+                if (!stringValue) return "Email cannot be empty"
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                 return !emailRegex.test(stringValue)
                   ? "Please enter a valid email address"
-                  : undefined;
+                  : undefined
               },
             }}
           >
@@ -1855,8 +1807,8 @@ export const WithLinkedFields: Story = {
               Password validation example
             </h4>
             <p className="text-warning-foreground mb-3">
-              Try this flow: 1) input confirm password → 2) modify password →
-              confirm password will be automatically re-validated
+              Try this flow: 1) input confirm password → 2) modify password → confirm password will
+              be automatically re-validated
             </p>
 
             {/* 密码字段 */}
@@ -1865,14 +1817,13 @@ export const WithLinkedFields: Story = {
                 name="password"
                 validators={{
                   onChange: ({ value }) => {
-                    const stringValue = String(value || "");
-                    if (!stringValue) return "Password cannot be empty";
-                    if (stringValue.length < 6)
-                      return "Password must be at least 6 characters";
+                    const stringValue = String(value || "")
+                    if (!stringValue) return "Password cannot be empty"
+                    if (stringValue.length < 6) return "Password must be at least 6 characters"
                     if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(stringValue)) {
-                      return "Password must contain uppercase and lowercase letters and numbers";
+                      return "Password must contain uppercase and lowercase letters and numbers"
                     }
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -1897,16 +1848,14 @@ export const WithLinkedFields: Story = {
                 validators={{
                   onChangeListenTo: ["password"], // 监听密码字段的变化
                   onChange: ({ value, fieldApi }) => {
-                    const stringValue = String(value || "");
-                    const password = String(
-                      fieldApi.form.getFieldValue("password") || ""
-                    );
+                    const stringValue = String(value || "")
+                    const password = String(fieldApi.form.getFieldValue("password") || "")
 
-                    if (!stringValue) return "Confirm password cannot be empty";
+                    if (!stringValue) return "Confirm password cannot be empty"
                     if (stringValue !== password)
-                      return "The two passwords entered are inconsistent";
+                      return "The two passwords entered are inconsistent"
 
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -1923,9 +1872,7 @@ export const WithLinkedFields: Story = {
                     description={
                       field.state.meta.errors.length === 0 &&
                       String(field.state.value) && (
-                        <div className="text-success-foreground">
-                          ✓ Password matched
-                        </div>
+                        <div className="text-success-foreground">✓ Password matched</div>
                       )
                     }
                   />
@@ -1935,13 +1882,10 @@ export const WithLinkedFields: Story = {
           </div>
 
           <div className="rounded-xl border p-4">
-            <h4 className="text-accent-foreground font-strong mb-2">
-              Email validation example
-            </h4>
+            <h4 className="text-accent-foreground font-strong mb-2">Email validation example</h4>
             <p className="text-accent-foreground mb-3">
-              Demonstrates a more complex linking scenario: the new email cannot
-              be the same as the current email, and the confirm new email must
-              match
+              Demonstrates a more complex linking scenario: the new email cannot be the same as the
+              current email, and the confirm new email must match
             </p>
 
             <div className="space-y-4">
@@ -1951,21 +1895,18 @@ export const WithLinkedFields: Story = {
                 validators={{
                   onChangeListenTo: ["email"], // 监听原邮箱字段
                   onChange: ({ value, fieldApi }) => {
-                    const stringValue = String(value || "");
-                    const currentEmail = String(
-                      fieldApi.form.getFieldValue("email") || ""
-                    );
+                    const stringValue = String(value || "")
+                    const currentEmail = String(fieldApi.form.getFieldValue("email") || "")
 
-                    if (!stringValue) return undefined; // 新邮箱可以为空
+                    if (!stringValue) return undefined // 新邮箱可以为空
 
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(stringValue))
-                      return "Please enter a valid email address";
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    if (!emailRegex.test(stringValue)) return "Please enter a valid email address"
 
                     if (stringValue === currentEmail)
-                      return "New email cannot be the same as the current email";
+                      return "New email cannot be the same as the current email"
 
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -1989,22 +1930,17 @@ export const WithLinkedFields: Story = {
                 validators={{
                   onChangeListenTo: ["newEmail"], // 监听新邮箱字段
                   onChange: ({ value, fieldApi }) => {
-                    const stringValue = String(value || "");
-                    const newEmail = String(
-                      fieldApi.form.getFieldValue("newEmail") || ""
-                    );
+                    const stringValue = String(value || "")
+                    const newEmail = String(fieldApi.form.getFieldValue("newEmail") || "")
 
                     // 如果新邮箱为空，确认邮箱也应该为空
-                    if (!newEmail && !stringValue) return undefined;
-                    if (!newEmail && stringValue)
-                      return "Please enter a new email first";
-                    if (newEmail && !stringValue)
-                      return "Please confirm the new email";
+                    if (!newEmail && !stringValue) return undefined
+                    if (!newEmail && stringValue) return "Please enter a new email first"
+                    if (newEmail && !stringValue) return "Please confirm the new email"
 
-                    if (stringValue !== newEmail)
-                      return "The two entered emails do not match";
+                    if (stringValue !== newEmail) return "The two entered emails do not match"
 
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -2021,9 +1957,7 @@ export const WithLinkedFields: Story = {
                     description={
                       field.state.meta.errors.length === 0 &&
                       String(field.state.value) && (
-                        <div className="text-success-foreground">
-                          ✓ Email matched
-                        </div>
+                        <div className="text-success-foreground">✓ Email matched</div>
                       )
                     }
                   />
@@ -2056,7 +1990,7 @@ export const WithLinkedFields: Story = {
               "rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -2086,35 +2020,33 @@ export const WithLinkedFields: Story = {
 
           <div className="rounded-xl border p-4">
             <div className="font-strong mb-2">Current form data:</div>
-            <pre className="overflow-auto">
-              {JSON.stringify(form.state.values, null, 2)}
-            </pre>
+            <pre className="overflow-auto">{JSON.stringify(form.state.values, null, 2)}</pre>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with reactivity patterns
  */
 export const WithReactivity: Story = {
   render: function WithReactivityRender() {
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     const form = useForm({
       defaultValues: {
@@ -2133,43 +2065,40 @@ export const WithReactivity: Story = {
         budget: 1000,
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
+        setSubmitResult(null)
         try {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log("Form submitted:", value);
-          setSubmitResult("Form submitted successfully!");
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          console.log("Form submitted:", value)
+          setSubmitResult("Form submitted successfully!")
         } catch (error) {
           setSubmitResult(
-            `Submit failed: ${error instanceof Error ? error.message : "Unknown error"}`
-          );
+            `Submit failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+          )
         }
       },
-    });
+    })
 
     // 使用 useStore 订阅特定的表单值
-    const userType = useStore(form.store, (state) => state.values.userType);
-    const formValues = useStore(form.store, (state) => state.values);
-    const canSubmit = useStore(form.store, (state) => state.canSubmit);
-    const isDirty = useStore(form.store, (state) => state.isDirty);
-    const isValid = useStore(form.store, (state) => state.isValid);
+    const userType = useStore(form.store, (state) => state.values.userType)
+    const formValues = useStore(form.store, (state) => state.values)
+    const canSubmit = useStore(form.store, (state) => state.canSubmit)
+    const isDirty = useStore(form.store, (state) => state.isDirty)
+    const isValid = useStore(form.store, (state) => state.isValid)
 
     // 根据用户类型计算价格
     const calculatePrice = () => {
-      const basePrices = { basic: 10, pro: 50, enterprise: 200 };
-      const multiplier = userType === "business" ? 2 : 1;
-      const plan = String(
-        formValues.plan || "basic"
-      ) as keyof typeof basePrices;
-      return basePrices[plan] * multiplier;
-    };
+      const basePrices = { basic: 10, pro: 50, enterprise: 200 }
+      const multiplier = userType === "business" ? 2 : 1
+      const plan = String(formValues.plan || "basic") as keyof typeof basePrices
+      return basePrices[plan] * multiplier
+    }
 
     return (
       <div className="w-80 space-y-4">
         <div>
           <h3 className="font-strong">Reactive subscription example</h3>
           <p className="text-secondary-foreground">
-            Demonstrates how to use useStore and form.Subscribe to access
-            reactive form values
+            Demonstrates how to use useStore and form.Subscribe to access reactive form values
           </p>
         </div>
 
@@ -2186,12 +2115,14 @@ export const WithReactivity: Story = {
               </span>
             </div>
             <div>
-              • Calculate price:{" "}
-              <span className="font-strong">${calculatePrice()}/month</span>
+              • Calculate price: <span className="font-strong">${calculatePrice()}/month</span>
             </div>
             <div>
               • Form status:
-              <Badge variant={canSubmit ? "success" : "error"} className="ml-1">
+              <Badge
+                variant={canSubmit ? "success" : "error"}
+                className="ml-1"
+              >
                 {canSubmit ? "Can submit" : "Cannot submit"}
               </Badge>
             </div>
@@ -2200,8 +2131,8 @@ export const WithReactivity: Story = {
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="space-y-4"
         >
@@ -2225,8 +2156,8 @@ export const WithReactivity: Story = {
             name="name"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                return !stringValue ? "Name cannot be empty" : undefined;
+                const stringValue = String(value || "")
+                return !stringValue ? "Name cannot be empty" : undefined
               },
             }}
           >
@@ -2237,11 +2168,7 @@ export const WithReactivity: Story = {
                 value={String(field.state.value || "")}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                placeholder={
-                  userType === "personal"
-                    ? "Enter your name"
-                    : "Enter contact name"
-                }
+                placeholder={userType === "personal" ? "Enter your name" : "Enter contact name"}
                 error={formatErrors(field.state.meta.errors).join(", ")}
               />
             )}
@@ -2251,12 +2178,12 @@ export const WithReactivity: Story = {
             name="email"
             validators={{
               onChange: ({ value }) => {
-                const stringValue = String(value || "");
-                if (!stringValue) return "Email cannot be empty";
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const stringValue = String(value || "")
+                if (!stringValue) return "Email cannot be empty"
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                 return !emailRegex.test(stringValue)
                   ? "Please enter a valid email address"
-                  : undefined;
+                  : undefined
               },
             }}
           >
@@ -2277,9 +2204,7 @@ export const WithReactivity: Story = {
           {/* 条件渲染 - 企业用户额外字段 */}
           {userType === "business" && (
             <div className="space-y-4 rounded-xl border p-4">
-              <h4 className="text-accent-foreground font-strong">
-                Business information
-              </h4>
+              <h4 className="text-accent-foreground font-strong">Business information</h4>
 
               <form.Field
                 name="company"
@@ -2287,12 +2212,10 @@ export const WithReactivity: Story = {
                   onChange: ({ value }) => {
                     // 只有在企业用户时才验证公司名称
                     if (userType === "business") {
-                      const stringValue = String(value || "");
-                      return !stringValue
-                        ? "Company name cannot be empty"
-                        : undefined;
+                      const stringValue = String(value || "")
+                      return !stringValue ? "Company name cannot be empty" : undefined
                     }
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -2343,9 +2266,7 @@ export const WithReactivity: Story = {
           </form.Field>
 
           {/* 使用 form.Subscribe 的响应式组件 */}
-          <form.Subscribe
-            selector={(state) => [state.values.plan, state.values.userType]}
-          >
+          <form.Subscribe selector={(state) => [state.values.plan, state.values.userType]}>
             {([plan, userType]) => (
               <div className="rounded-xl border p-4">
                 <h4 className="text-accent-foreground font-strong mb-2">
@@ -2353,27 +2274,23 @@ export const WithReactivity: Story = {
                 </h4>
                 <div className="text-secondary-foreground">
                   <div>
-                    • Selected plan:{" "}
-                    <span className="font-strong">{String(plan)}</span>
+                    • Selected plan: <span className="font-strong">{String(plan)}</span>
                   </div>
                   <div>
-                    • User type:{" "}
-                    <span className="font-strong">{String(userType)}</span>
+                    • User type: <span className="font-strong">{String(userType)}</span>
                   </div>
                   <div>
                     • Actual price:{" "}
                     <span className="text-body-large-strong">
                       $
-                      {({ basic: 10, pro: 50, enterprise: 200 }[
-                        plan as keyof typeof plan
-                      ] || 0) * (userType === "business" ? 2 : 1)}
+                      {({ basic: 10, pro: 50, enterprise: 200 }[plan as keyof typeof plan] || 0) *
+                        (userType === "business" ? 2 : 1)}
                       /month
                     </span>
                   </div>
                   {userType === "business" && (
                     <div className="mt-2">
-                      Business users get 2x features, with corresponding price
-                      adjustments
+                      Business users get 2x features, with corresponding price adjustments
                     </div>
                   )}
                 </div>
@@ -2446,11 +2363,7 @@ export const WithReactivity: Story = {
 
           {/* 响应式提交按钮 */}
           <form.Subscribe
-            selector={(state) => [
-              state.canSubmit,
-              state.isSubmitting,
-              state.isDirty,
-            ]}
+            selector={(state) => [state.canSubmit, state.isSubmitting, state.isDirty]}
           >
             {([canSubmit, isSubmitting, isDirty]) => (
               <div className="flex gap-2">
@@ -2480,7 +2393,7 @@ export const WithReactivity: Story = {
               "rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -2500,13 +2413,9 @@ export const WithReactivity: Story = {
           >
             {([canSubmit, isDirty, isValid, isSubmitting, errorMap]) => (
               <div className="rounded-xl border p-4">
-                <div className="font-strong mb-2">
-                  Real-time form status (form.Subscribe):
-                </div>
+                <div className="font-strong mb-2">Real-time form status (form.Subscribe):</div>
                 <div className="grid grid-cols-2 gap-2">
-                  <div
-                    className={canSubmit ? "text-green-600" : "text-red-600"}
-                  >
+                  <div className={canSubmit ? "text-green-600" : "text-red-600"}>
                     Can submit: {canSubmit ? "Yes" : "No"}
                   </div>
                   <div className={isDirty ? "text-blue-600" : "text-gray-600"}>
@@ -2515,11 +2424,7 @@ export const WithReactivity: Story = {
                   <div className={isValid ? "text-green-600" : "text-red-600"}>
                     Is valid: {isValid ? "Yes" : "No"}
                   </div>
-                  <div
-                    className={
-                      isSubmitting ? "text-orange-600" : "text-gray-600"
-                    }
-                  >
+                  <div className={isSubmitting ? "text-orange-600" : "text-gray-600"}>
                     Is submitting: {isSubmitting ? "Yes" : "No"}
                   </div>
                 </div>
@@ -2535,12 +2440,8 @@ export const WithReactivity: Story = {
           <form.Subscribe selector={(state) => state.values}>
             {(values) => (
               <div className="rounded-xl border p-4">
-                <div className="font-strong mb-2">
-                  Real-time form data (form.Subscribe):
-                </div>
-                <pre className="max-h-40 overflow-auto">
-                  {JSON.stringify(values, null, 2)}
-                </pre>
+                <div className="font-strong mb-2">Real-time form data (form.Subscribe):</div>
+                <pre className="max-h-40 overflow-auto">{JSON.stringify(values, null, 2)}</pre>
               </div>
             )}
           </form.Subscribe>
@@ -2549,53 +2450,49 @@ export const WithReactivity: Story = {
           <div className="rounded-xl border p-4">
             <div className="font-strong mb-2">Performance optimization:</div>
             <div>
-              • <strong>form.Subscribe</strong>: Suitable for responsive
-              rendering, only re-rendering when the subscribed value changes
+              • <strong>form.Subscribe</strong>: Suitable for responsive rendering, only
+              re-rendering when the subscribed value changes
             </div>
             <div>
-              • <strong>Selector</strong>: Use precise selectors to avoid
-              unnecessary re-rendering
+              • <strong>Selector</strong>: Use precise selectors to avoid unnecessary re-rendering
             </div>
             <div>
-              • <strong>Multiple value subscription</strong>: Can subscribe to
-              multiple values, reducing subscription count
+              • <strong>Multiple value subscription</strong>: Can subscribe to multiple values,
+              reducing subscription count
             </div>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Form with listeners API
  */
 export const WithListeners: Story = {
   render: function WithListeners() {
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
-    const [activityLog, setActivityLog] = useState<string[]>([]);
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
+    const [activityLog, setActivityLog] = useState<string[]>([])
 
     // Helper function: format error messages
     const formatErrors = (errors: unknown[]): string[] => {
       const formatted = errors.map((error) => {
-        if (typeof error === "string") return error;
+        if (typeof error === "string") return error
         if (error && typeof error === "object" && "message" in error) {
-          return String(error.message);
+          return String(error.message)
         }
-        return String(error);
-      });
+        return String(error)
+      })
       // Remove duplicates
-      return [...new Set(formatted)];
-    };
+      return [...new Set(formatted)]
+    }
 
     // 添加活动日志
     const addLog = (message: string) => {
-      const timestamp = new Date().toLocaleTimeString();
-      setActivityLog((prev) => [
-        `[${timestamp}] ${message}`,
-        ...prev.slice(0, 9),
-      ]); // 保留最近10条
-    };
+      const timestamp = new Date().toLocaleTimeString()
+      setActivityLog((prev) => [`[${timestamp}] ${message}`, ...prev.slice(0, 9)]) // 保留最近10条
+    }
 
     // 模拟国家-省份数据
     const countryProvinceData = {
@@ -2617,7 +2514,7 @@ export const WithListeners: Story = {
         { label: "Kanagawa", value: "kanagawa" },
         { label: "Aichi", value: "aichi" },
       ],
-    };
+    }
 
     const form = useForm({
       defaultValues: {
@@ -2654,28 +2551,28 @@ export const WithListeners: Story = {
         },
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
-        addLog("Form submission started");
+        setSubmitResult(null)
+        addLog("Form submission started")
         try {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log("Form submitted:", value);
-          setSubmitResult("Form submitted successfully!");
-          addLog("Form submitted successfully");
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          console.log("Form submitted:", value)
+          setSubmitResult("Form submitted successfully!")
+          addLog("Form submitted successfully")
         } catch (error) {
-          const errorMsg = `Submission failed: ${error instanceof Error ? error.message : "Unknown error"}`;
-          setSubmitResult(errorMsg);
-          addLog(errorMsg);
+          const errorMsg = `Submission failed: ${error instanceof Error ? error.message : "Unknown error"}`
+          setSubmitResult(errorMsg)
+          addLog(errorMsg)
         }
       },
-    });
+    })
 
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
           <h3 className="font-strong">Listeners API example</h3>
           <p className="text-secondary-foreground">
-            Demonstrates how to use Listeners API to handle side effects and
-            cascading logic between fields
+            Demonstrates how to use Listeners API to handle side effects and cascading logic between
+            fields
           </p>
         </div>
 
@@ -2687,7 +2584,10 @@ export const WithListeners: Story = {
               <div className="text-secondary-foreground">No activity</div>
             ) : (
               activityLog.map((log, index) => (
-                <div key={index} className="text-gray-700">
+                <div
+                  key={index}
+                  className="text-gray-700"
+                >
                   {log}
                 </div>
               ))
@@ -2697,8 +2597,8 @@ export const WithListeners: Story = {
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="space-y-6"
         >
@@ -2706,8 +2606,8 @@ export const WithListeners: Story = {
           <div className="space-y-4 rounded-xl border p-4">
             <h4 className="font-strong">Cascading select example</h4>
             <p className="text-secondary-foreground">
-              Demonstrates classic country-province cascading select, resetting
-              province when country changes
+              Demonstrates classic country-province cascading select, resetting province when
+              country changes
             </p>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -2717,20 +2617,18 @@ export const WithListeners: Story = {
                 listeners={{
                   onChange: ({ value }) => {
                     // 当国家改变时，重置省份和城市
-                    form.setFieldValue("province", "");
-                    form.setFieldValue("city", "");
-                    addLog(
-                      `Country changed to: ${value || "empty"}, reset province and city`
-                    );
+                    form.setFieldValue("province", "")
+                    form.setFieldValue("city", "")
+                    addLog(`Country changed to: ${value || "empty"}, reset province and city`)
                   },
                   onMount: () => {
-                    addLog("Country field mounted");
+                    addLog("Country field mounted")
                   },
                 }}
                 validators={{
                   onChange: ({ value }) => {
-                    const stringValue = String(value || "");
-                    return !stringValue ? "Please select a country" : undefined;
+                    const stringValue = String(value || "")
+                    return !stringValue ? "Please select a country" : undefined
                   },
                 }}
               >
@@ -2761,34 +2659,28 @@ export const WithListeners: Story = {
                 listeners={{
                   onChange: ({ value }) => {
                     // 当省份改变时，重置城市
-                    form.setFieldValue("city", "");
-                    addLog(
-                      `Province changed to: ${value || "empty"}, reset city`
-                    );
+                    form.setFieldValue("city", "")
+                    addLog(`Province changed to: ${value || "empty"}, reset city`)
                   },
                   onBlur: ({ value }) => {
                     if (value) {
-                      addLog(`Province field blurred, current value: ${value}`);
+                      addLog(`Province field blurred, current value: ${value}`)
                     }
                   },
                 }}
                 validators={{
                   onChange: ({ value }) => {
-                    const country = form.getFieldValue("country");
-                    if (country && !value) return "Please select a province";
-                    return undefined;
+                    const country = form.getFieldValue("country")
+                    if (country && !value) return "Please select a province"
+                    return undefined
                   },
                 }}
               >
                 {(field) => {
-                  const currentCountry = String(
-                    form.getFieldValue("country") || ""
-                  );
+                  const currentCountry = String(form.getFieldValue("country") || "")
                   const provinces = currentCountry
-                    ? countryProvinceData[
-                        currentCountry as keyof typeof countryProvinceData
-                      ] || []
-                    : [];
+                    ? countryProvinceData[currentCountry as keyof typeof countryProvinceData] || []
+                    : []
 
                   return (
                     <form.Select
@@ -2807,7 +2699,7 @@ export const WithListeners: Story = {
                       }
                       description="Please select a province"
                     />
-                  );
+                  )
                 }}
               </form.Field>
 
@@ -2817,15 +2709,13 @@ export const WithListeners: Story = {
                 listeners={{
                   onChange: ({ value }) => {
                     if (value) {
-                      addLog(`City input: ${value}`);
+                      addLog(`City input: ${value}`)
                     }
                   },
                 }}
               >
                 {(field) => {
-                  const currentProvince = String(
-                    form.getFieldValue("province") || ""
-                  );
+                  const currentProvince = String(form.getFieldValue("province") || "")
 
                   return (
                     <form.Input
@@ -2839,7 +2729,7 @@ export const WithListeners: Story = {
                       disabled={!currentProvince}
                       description="Please select a province"
                     />
-                  );
+                  )
                 }}
               </form.Field>
             </div>
@@ -2849,8 +2739,7 @@ export const WithListeners: Story = {
           <div className="space-y-4 rounded-xl border p-4">
             <h4 className="font-strong">User type switch example</h4>
             <p className="text-secondary-foreground">
-              Demonstrates when user type changes, reset related information
-              fields
+              Demonstrates when user type changes, reset related information fields
             </p>
 
             {/* 用户类型选择 */}
@@ -2863,20 +2752,18 @@ export const WithListeners: Story = {
                     firstName: "",
                     lastName: "",
                     idNumber: "",
-                  });
+                  })
                   form.setFieldValue("companyInfo", {
                     companyName: "",
                     taxId: "",
                     industry: "",
-                  });
+                  })
                   form.setFieldValue("organizationInfo", {
                     orgName: "",
                     orgType: "",
                     registrationNumber: "",
-                  });
-                  addLog(
-                    `User type changed to: ${value}, reset all related information`
-                  );
+                  })
+                  addLog(`User type changed to: ${value}, reset all related information`)
                 },
               }}
             >
@@ -2903,15 +2790,10 @@ export const WithListeners: Story = {
                   <form.Field
                     name="personalInfo.firstName"
                     listeners={{
-                      onMount: () =>
-                        addLog(
-                          "Personal information - first name field mounted"
-                        ),
+                      onMount: () => addLog("Personal information - first name field mounted"),
                       onBlur: ({ value }) => {
                         if (value)
-                          addLog(
-                            `Personal information - first name input completed: ${value}`
-                          );
+                          addLog(`Personal information - first name input completed: ${value}`)
                       },
                     }}
                   >
@@ -2946,9 +2828,7 @@ export const WithListeners: Story = {
                       onChange: ({ value }) => {
                         // 身份证号变化时的格式化或验证
                         if (value && String(value).length === 18) {
-                          addLog(
-                            "ID number input completed, format validation in progress..."
-                          );
+                          addLog("ID number input completed, format validation in progress...")
                         }
                       },
                     }}
@@ -2975,13 +2855,10 @@ export const WithListeners: Story = {
                   <form.Field
                     name="companyInfo.companyName"
                     listeners={{
-                      onMount: () =>
-                        addLog(
-                          "Company information - company name field mounted"
-                        ),
+                      onMount: () => addLog("Company information - company name field mounted"),
                       onChange: ({ value }) => {
                         if (value && String(value).length >= 3) {
-                          addLog(`Company name updated: ${value}`);
+                          addLog(`Company name updated: ${value}`)
                         }
                       },
                     }}
@@ -3104,12 +2981,10 @@ export const WithListeners: Story = {
                   onChange: ({ value }) => {
                     if (!value) {
                       // 如果取消订阅新闻通讯，也取消邮件通知
-                      form.setFieldValue("notifications.email", false);
-                      addLog(
-                        "Unsubscribe from newsletter, also cancel email notification"
-                      );
+                      form.setFieldValue("notifications.email", false)
+                      addLog("Unsubscribe from newsletter, also cancel email notification")
                     } else {
-                      addLog("Subscribe to newsletter");
+                      addLog("Subscribe to newsletter")
                     }
                   },
                 }}
@@ -3130,12 +3005,10 @@ export const WithListeners: Story = {
                   onChange: ({ value }) => {
                     if (value) {
                       // 如果开启邮件通知，自动订阅新闻通讯
-                      form.setFieldValue("newsletter", true);
-                      addLog(
-                        "Enable email notification, automatically subscribe to newsletter"
-                      );
+                      form.setFieldValue("newsletter", true)
+                      addLog("Enable email notification, automatically subscribe to newsletter")
                     } else {
-                      addLog("Disable email notification");
+                      addLog("Disable email notification")
                     }
                   },
                 }}
@@ -3154,9 +3027,7 @@ export const WithListeners: Story = {
                 name="notifications.sms"
                 listeners={{
                   onChange: ({ value }) => {
-                    addLog(
-                      `SMS notification ${value ? "enabled" : "disabled"}`
-                    );
+                    addLog(`SMS notification ${value ? "enabled" : "disabled"}`)
                   },
                 }}
               >
@@ -3182,18 +3053,18 @@ export const WithListeners: Story = {
                 listeners={{
                   onBlur: ({ value }) => {
                     if (value && String(value).includes("@")) {
-                      addLog(`Email input completed: ${value}`);
+                      addLog(`Email input completed: ${value}`)
                     }
                   },
                 }}
                 validators={{
                   onChange: ({ value }) => {
-                    const stringValue = String(value || "");
-                    if (!stringValue) return "Email cannot be empty";
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    const stringValue = String(value || "")
+                    if (!stringValue) return "Email cannot be empty"
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                     return !emailRegex.test(stringValue)
                       ? "Please enter a valid email address"
-                      : undefined;
+                      : undefined
                   },
                 }}
               >
@@ -3219,9 +3090,9 @@ export const WithListeners: Story = {
                 name="phone"
                 listeners={{
                   onChange: ({ value }) => {
-                    const phone = String(value || "");
+                    const phone = String(value || "")
                     if (phone.length === 11) {
-                      addLog(`Phone number input completed: ${phone}`);
+                      addLog(`Phone number input completed: ${phone}`)
                     }
                   },
                 }}
@@ -3254,9 +3125,9 @@ export const WithListeners: Story = {
               type="button"
               variant="secondary"
               onClick={() => {
-                form.reset();
-                addLog("Form has been reset");
-                setActivityLog([]);
+                form.reset()
+                addLog("Form has been reset")
+                setActivityLog([])
               }}
             >
               Reset form
@@ -3270,7 +3141,7 @@ export const WithListeners: Story = {
               "rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -3290,15 +3161,14 @@ export const WithListeners: Story = {
           <div className="font-strong mb-2">Listener events description:</div>
           <div className="text-secondary-foreground space-y-1">
             <div>
-              • <strong>onChange</strong>: Triggered when the field value
-              changes (most commonly used)
+              • <strong>onChange</strong>: Triggered when the field value changes (most commonly
+              used)
             </div>
             <div>
               • <strong>onBlur</strong>: Triggered when the field loses focus
             </div>
             <div>
-              • <strong>onMount</strong>: Triggered when the field is first
-              mounted
+              • <strong>onMount</strong>: Triggered when the field is first mounted
             </div>
             <div>
               • <strong>onSubmit</strong>: Triggered when the form is submitted
@@ -3306,61 +3176,56 @@ export const WithListeners: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 // 自定义错误类型定义
 interface ValidationError {
-  code?: string;
-  details?: Record<string, unknown>;
-  field?: string;
-  message: string;
-  severity?: "error" | "warning" | "info";
-  type: "required" | "format" | "length" | "custom" | "server";
+  code?: string
+  details?: Record<string, unknown>
+  field?: string
+  message: string
+  severity?: "error" | "warning" | "info"
+  type: "required" | "format" | "length" | "custom" | "server"
 }
 
 interface PasswordStrengthError {
-  message: string;
+  message: string
   requirements: {
-    length: boolean;
-    lowercase: boolean;
-    numbers: boolean;
-    symbols: boolean;
-    uppercase: boolean;
-  };
-  score: number;
-  suggestions: string[];
-  type: "password_strength";
+    length: boolean
+    lowercase: boolean
+    numbers: boolean
+    symbols: boolean
+    uppercase: boolean
+  }
+  score: number
+  suggestions: string[]
+  type: "password_strength"
 }
 
 interface FileValidationError {
-  file: string;
+  file: string
   issues: Array<{
-    current?: string | number;
-    limit?: string | number;
-    message: string;
-    type: "size" | "format" | "name" | "content";
-  }>;
-  message: string;
-  type: "file_validation";
+    current?: string | number
+    limit?: string | number
+    message: string
+    type: "size" | "format" | "name" | "content"
+  }>
+  message: string
+  type: "file_validation"
 }
 
 // 联合错误类型
-type CustomError =
-  | ValidationError
-  | PasswordStrengthError
-  | FileValidationError;
+type CustomError = ValidationError | PasswordStrengthError | FileValidationError
 
 /**
  * Form with custom errors
  */
 export const WithCustomErrors: Story = {
   render: function WithCustomErrorsRender() {
-    const [submitResult, setSubmitResult] = useState<string | null>(null);
-    const [serverErrors, setServerErrors] = useState<
-      Record<string, ValidationError[]>
-    >({});
+    const [submitResult, setSubmitResult] = useState<string | null>(null)
+    const [serverErrors, setServerErrors] = useState<Record<string, ValidationError[]>>({})
 
     // 辅助函数：格式化不同类型的错误
     const formatCustomErrors = (errors: unknown[]): ReactNode[] => {
@@ -3368,28 +3233,30 @@ export const WithCustomErrors: Story = {
         // 字符串错误
         if (typeof error === "string") {
           return (
-            <div key={index} className="text-danger-foreground">
+            <div
+              key={index}
+              className="text-danger-foreground"
+            >
               {error}
             </div>
-          );
+          )
         }
 
         // 验证错误对象
         if (error && typeof error === "object" && "type" in error) {
-          const validationError = error as CustomError;
+          const validationError = error as CustomError
 
           if (validationError.type === "password_strength") {
-            const pwdError = error as PasswordStrengthError;
+            const pwdError = error as PasswordStrengthError
             return (
-              <div key={index} className="space-y-2">
-                <div className="text-danger-foreground font-strong">
-                  {pwdError.message}
-                </div>
+              <div
+                key={index}
+                className="space-y-2"
+              >
+                <div className="text-danger-foreground font-strong">{pwdError.message}</div>
                 <div className="space-y-1">
                   <div className="flex items-center gap-1">
-                    <span className="text-secondary-foreground">
-                      Strength score:
-                    </span>
+                    <span className="text-secondary-foreground">Strength score:</span>
                     <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((level) => (
                         <div
@@ -3406,31 +3273,22 @@ export const WithCustomErrors: Story = {
                         />
                       ))}
                     </div>
-                    <span className="text-secondary-foreground">
-                      ({pwdError.score}/5)
-                    </span>
+                    <span className="text-secondary-foreground">({pwdError.score}/5)</span>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-secondary-foreground">
-                      Requirements:
-                    </div>
+                    <div className="text-secondary-foreground">Requirements:</div>
                     {Object.entries(pwdError.requirements).map(([key, met]) => (
-                      <div key={key} className="flex items-center gap-1">
+                      <div
+                        key={key}
+                        className="flex items-center gap-1"
+                      >
                         <span
-                          className={
-                            met
-                              ? "text-success-foreground"
-                              : "text-danger-foreground"
-                          }
+                          className={met ? "text-success-foreground" : "text-danger-foreground"}
                         >
                           {met ? "✓" : "✗"}
                         </span>
                         <span
-                          className={
-                            met
-                              ? "text-success-foreground"
-                              : "text-danger-foreground"
-                          }
+                          className={met ? "text-success-foreground" : "text-danger-foreground"}
                         >
                           {key === "length" && "At least 8 characters"}
                           {key === "uppercase" && "Contains uppercase letters"}
@@ -3443,11 +3301,12 @@ export const WithCustomErrors: Story = {
                   </div>
                   {pwdError.suggestions.length > 0 && (
                     <div className="space-y-1">
-                      <div className="text-secondary-foreground">
-                        Suggestions:
-                      </div>
+                      <div className="text-secondary-foreground">Suggestions:</div>
                       {pwdError.suggestions.map((suggestion, i) => (
-                        <div key={i} className="text-accent-foreground">
+                        <div
+                          key={i}
+                          className="text-accent-foreground"
+                        >
                           • {suggestion}
                         </div>
                       ))}
@@ -3455,23 +3314,25 @@ export const WithCustomErrors: Story = {
                   )}
                 </div>
               </div>
-            );
+            )
           }
 
           if (validationError.type === "file_validation") {
-            const fileError = error as FileValidationError;
+            const fileError = error as FileValidationError
             return (
-              <div key={index} className="space-y-2">
-                <div className="text-danger-foreground font-strong">
-                  {fileError.message}
-                </div>
+              <div
+                key={index}
+                className="space-y-2"
+              >
+                <div className="text-danger-foreground font-strong">{fileError.message}</div>
                 <div className="space-y-1">
-                  <div className="text-secondary-foreground">
-                    File: {fileError.file}
-                  </div>
+                  <div className="text-secondary-foreground">File: {fileError.file}</div>
                   <div className="space-y-1">
                     {fileError.issues.map((issue, i) => (
-                      <div key={i} className="flex items-start gap-1">
+                      <div
+                        key={i}
+                        className="flex items-start gap-1"
+                      >
                         <span className="text-danger-foreground">•</span>
                         <div className="text-danger-foreground">
                           <div>{issue.message}</div>
@@ -3486,12 +3347,15 @@ export const WithCustomErrors: Story = {
                   </div>
                 </div>
               </div>
-            );
+            )
           }
 
           // 普通验证错误
           return (
-            <div key={index} className="space-y-1">
+            <div
+              key={index}
+              className="space-y-1"
+            >
               <div
                 className={` ${
                   validationError.severity === "warning"
@@ -3504,9 +3368,7 @@ export const WithCustomErrors: Story = {
                 {validationError.message}
               </div>
               {validationError.code && (
-                <div className="text-secondary-foreground">
-                  Error code: {validationError.code}
-                </div>
+                <div className="text-secondary-foreground">Error code: {validationError.code}</div>
               )}
               {validationError.details && (
                 <div className="text-secondary-foreground">
@@ -3514,36 +3376,43 @@ export const WithCustomErrors: Story = {
                 </div>
               )}
             </div>
-          );
+          )
         }
 
         // 数组错误
         if (Array.isArray(error)) {
           return (
-            <div key={index} className="space-y-1">
+            <div
+              key={index}
+              className="space-y-1"
+            >
               {error.map((err, i) => (
-                <div key={i} className="text-danger-foreground">
+                <div
+                  key={i}
+                  className="text-danger-foreground"
+                >
                   • {typeof err === "string" ? err : JSON.stringify(err)}
                 </div>
               ))}
             </div>
-          );
+          )
         }
 
         // 其他类型错误
         return (
-          <div key={index} className="text-danger-foreground">
+          <div
+            key={index}
+            className="text-danger-foreground"
+          >
             {JSON.stringify(error)}
           </div>
-        );
-      });
-    };
+        )
+      })
+    }
 
     // 密码强度验证器
-    const validatePasswordStrength = (
-      password: string
-    ): PasswordStrengthError | undefined => {
-      if (!password) return undefined;
+    const validatePasswordStrength = (password: string): PasswordStrengthError | undefined => {
+      if (!password) return undefined
 
       const requirements = {
         length: password.length >= 8,
@@ -3551,20 +3420,20 @@ export const WithCustomErrors: Story = {
         lowercase: /[a-z]/.test(password),
         numbers: /\d/.test(password),
         symbols: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-      };
+      }
 
-      const score = Object.values(requirements).filter(Boolean).length;
-      const suggestions: string[] = [];
+      const score = Object.values(requirements).filter(Boolean).length
+      const suggestions: string[] = []
 
       if (!requirements.length)
-        suggestions.push("Increase password length to at least 8 characters");
-      if (!requirements.uppercase) suggestions.push("Add uppercase letters");
-      if (!requirements.lowercase) suggestions.push("Add lowercase letters");
-      if (!requirements.numbers) suggestions.push("Add numbers");
-      if (!requirements.symbols) suggestions.push("Add special characters");
+        suggestions.push("Increase password length to at least 8 characters")
+      if (!requirements.uppercase) suggestions.push("Add uppercase letters")
+      if (!requirements.lowercase) suggestions.push("Add lowercase letters")
+      if (!requirements.numbers) suggestions.push("Add numbers")
+      if (!requirements.symbols) suggestions.push("Add special characters")
 
       // 如果所有要求都满足，返回 undefined (无错误)
-      if (score === 5) return undefined;
+      if (score === 5) return undefined
 
       return {
         type: "password_strength",
@@ -3572,36 +3441,25 @@ export const WithCustomErrors: Story = {
         requirements,
         score,
         suggestions,
-      };
-    };
+      }
+    }
 
     // 文件验证器
-    const validateFile = (
-      filename: string
-    ): FileValidationError | undefined => {
-      if (!filename) return undefined;
+    const validateFile = (filename: string): FileValidationError | undefined => {
+      if (!filename) return undefined
 
-      const issues: FileValidationError["issues"] = [];
+      const issues: FileValidationError["issues"] = []
 
       // 检查文件扩展名
-      const allowedExtensions = [
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".pdf",
-        ".doc",
-        ".docx",
-      ];
-      const extension = filename
-        .toLowerCase()
-        .substring(filename.lastIndexOf("."));
+      const allowedExtensions = [".jpg", ".jpeg", ".png", ".pdf", ".doc", ".docx"]
+      const extension = filename.toLowerCase().substring(filename.lastIndexOf("."))
       if (!allowedExtensions.includes(extension)) {
         issues.push({
           type: "format",
           message: `Unsupported file format: ${extension}`,
           current: extension,
           limit: allowedExtensions.join(", "),
-        });
+        })
       }
 
       // 检查文件名长度
@@ -3611,11 +3469,11 @@ export const WithCustomErrors: Story = {
           message: "File name is too long",
           current: filename.length,
           limit: 100,
-        });
+        })
       }
 
       // 模拟文件大小检查
-      const mockFileSize = filename.length * 1024; // 模拟文件大小
+      const mockFileSize = filename.length * 1024 // 模拟文件大小
       if (mockFileSize > 5 * 1024 * 1024) {
         // 5MB
         issues.push({
@@ -3623,26 +3481,26 @@ export const WithCustomErrors: Story = {
           message: "File size exceeds the limit",
           current: `${(mockFileSize / 1024 / 1024).toFixed(1)}MB`,
           limit: "5MB",
-        });
+        })
       }
 
-      if (issues.length === 0) return undefined;
+      if (issues.length === 0) return undefined
 
       return {
         type: "file_validation",
         message: "File validation failed",
         file: filename,
         issues,
-      };
-    };
+      }
+    }
 
     // 模拟服务器验证
     const simulateServerValidation = async (
       field: string,
-      value: string
+      value: string,
     ): Promise<ValidationError | undefined> => {
       // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
       if (field === "username" && value === "admin") {
         return {
@@ -3652,7 +3510,7 @@ export const WithCustomErrors: Story = {
           field: "username",
           severity: "error",
           details: { suggestions: ["admin123", "admin2024", "user_admin"] },
-        };
+        }
       }
 
       if (field === "email" && value === "test@example.com") {
@@ -3663,16 +3521,16 @@ export const WithCustomErrors: Story = {
           field: "email",
           severity: "error",
           details: { registeredAt: "2024-01-01" },
-        };
+        }
       }
 
-      return undefined;
-    };
+      return undefined
+    }
 
     // 复合验证器 - 返回多种错误类型
     const validateComplex = (
       value: string,
-      field: string
+      field: string,
     ): ValidationError[] | string | undefined => {
       if (!value) {
         return [
@@ -3682,10 +3540,10 @@ export const WithCustomErrors: Story = {
             code: "REQUIRED_FIELD",
             severity: "error",
           } as ValidationError,
-        ];
+        ]
       }
 
-      const errors: ValidationError[] = [];
+      const errors: ValidationError[] = []
 
       // 长度检查
       if (value.length < 3) {
@@ -3695,7 +3553,7 @@ export const WithCustomErrors: Story = {
           code: "MIN_LENGTH",
           severity: "error",
           details: { minLength: 3, currentLength: value.length },
-        });
+        })
       }
 
       // 格式检查
@@ -3705,23 +3563,22 @@ export const WithCustomErrors: Story = {
           message: "Username can only contain letters, numbers and underscores",
           code: "INVALID_FORMAT",
           severity: "error",
-        });
+        })
       }
 
       // 警告级别的检查
       if (field === "Username" && value.length > 20) {
         errors.push({
           type: "length",
-          message:
-            "Username is too long, it is recommended to keep it within 20 characters",
+          message: "Username is too long, it is recommended to keep it within 20 characters",
           code: "LONG_USERNAME",
           severity: "warning",
           details: { maxRecommended: 20, currentLength: value.length },
-        });
+        })
       }
 
-      return errors.length > 0 ? errors : undefined;
-    };
+      return errors.length > 0 ? errors : undefined
+    }
 
     const form = useForm({
       defaultValues: {
@@ -3736,64 +3593,61 @@ export const WithCustomErrors: Story = {
         agreement: false,
       },
       onSubmit: async ({ value }) => {
-        setSubmitResult(null);
-        setServerErrors({});
+        setSubmitResult(null)
+        setServerErrors({})
 
         try {
           // 模拟服务器端验证
-          const serverValidationErrors: Record<string, ValidationError[]> = {};
+          const serverValidationErrors: Record<string, ValidationError[]> = {}
 
           // 检查用户名
           const usernameError = await simulateServerValidation(
             "username",
-            (value as unknown as { username: string }).username
-          );
+            (value as unknown as { username: string }).username,
+          )
           if (usernameError) {
-            serverValidationErrors.username = [usernameError];
+            serverValidationErrors.username = [usernameError]
           }
 
           // 检查邮箱
           const emailError = await simulateServerValidation(
             "email",
-            (value as unknown as { email: string }).email
-          );
+            (value as unknown as { email: string }).email,
+          )
           if (emailError) {
-            serverValidationErrors.email = [emailError];
+            serverValidationErrors.email = [emailError]
           }
 
           if (Object.keys(serverValidationErrors).length > 0) {
-            setServerErrors(serverValidationErrors);
-            setSubmitResult(
-              "Server validation failed, please check the error information"
-            );
-            return;
+            setServerErrors(serverValidationErrors)
+            setSubmitResult("Server validation failed, please check the error information")
+            return
           }
 
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log("Form submitted:", value);
-          setSubmitResult("Form submitted successfully!");
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          console.log("Form submitted:", value)
+          setSubmitResult("Form submitted successfully!")
         } catch (error) {
-          const errorMsg =
-            error instanceof Error ? error.message : "Unknown error";
-          setSubmitResult(`Submission failed: ${errorMsg}`);
+          const errorMsg = error instanceof Error ? error.message : "Unknown error"
+          setSubmitResult(`Submission failed: ${errorMsg}`)
         }
       },
-    });
+    })
 
     return (
       <div className="w-80 space-y-4">
         <div className="space-y-2">
           <h3 className="font-strong">Custom error handling example</h3>
           <p className="text-secondary-foreground">
-            Demonstrates how to use TanStack Form&apos;s flexible error handling
-            mechanism, supporting multiple error types and custom error display
+            Demonstrates how to use TanStack Form&apos;s flexible error handling mechanism,
+            supporting multiple error types and custom error display
           </p>
         </div>
 
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
+            e.preventDefault()
+            form.handleSubmit()
           }}
           className="space-y-6"
         >
@@ -3801,23 +3655,19 @@ export const WithCustomErrors: Story = {
           <div className="space-y-4 rounded-xl border p-4">
             <h4 className="font-strong">Composite validation example</h4>
             <p className="text-secondary-foreground">
-              Demonstrates returning multiple error types: objects, arrays, and
-              different severity levels
+              Demonstrates returning multiple error types: objects, arrays, and different severity
+              levels
             </p>
 
             <div className="grid grid-cols-2 gap-4">
               <form.Field
                 name="username"
                 validators={{
-                  onChange: ({ value }) =>
-                    validateComplex(String(value), "Username"),
+                  onChange: ({ value }) => validateComplex(String(value), "Username"),
                   onBlurAsync: async ({ value }) => {
-                    if (!value) return undefined;
-                    const serverError = await simulateServerValidation(
-                      "username",
-                      String(value)
-                    );
-                    return serverError;
+                    if (!value) return undefined
+                    const serverError = await simulateServerValidation("username", String(value))
+                    return serverError
                   },
                 }}
               >
@@ -3846,9 +3696,7 @@ export const WithCustomErrors: Story = {
                     description={
                       <>
                         {field.state.meta.isValidating && (
-                          <div className="text-accent-foreground">
-                            Validating...
-                          </div>
+                          <div className="text-accent-foreground">Validating...</div>
                         )}
                       </>
                     }
@@ -3860,14 +3708,14 @@ export const WithCustomErrors: Story = {
                 name="email"
                 validators={{
                   onChange: ({ value }) => {
-                    const email = String(value || "");
+                    const email = String(value || "")
                     if (!email)
                       return {
                         type: "required",
                         message: "Email is required",
                         severity: "error",
-                      };
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                      }
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
                     if (!emailRegex.test(email)) {
                       return {
                         type: "format",
@@ -3875,16 +3723,13 @@ export const WithCustomErrors: Story = {
                         code: "INVALID_EMAIL_FORMAT",
                         severity: "error",
                         details: { pattern: emailRegex.source },
-                      };
+                      }
                     }
-                    return undefined;
+                    return undefined
                   },
                   onBlurAsync: async ({ value }) => {
-                    if (!value) return undefined;
-                    return await simulateServerValidation(
-                      "email",
-                      String(value)
-                    );
+                    if (!value) return undefined
+                    return await simulateServerValidation("email", String(value))
                   },
                 }}
               >
@@ -3905,18 +3750,14 @@ export const WithCustomErrors: Story = {
                           </div>
                         )}
                         {serverErrors.email && (
-                          <div className="space-y-1">
-                            {formatCustomErrors(serverErrors.email)}
-                          </div>
+                          <div className="space-y-1">{formatCustomErrors(serverErrors.email)}</div>
                         )}
                       </>
                     }
                     description={
                       <>
                         {field.state.meta.isValidating && (
-                          <div className="text-accent-foreground">
-                            Validating...
-                          </div>
+                          <div className="text-accent-foreground">Validating...</div>
                         )}
                       </>
                     }
@@ -3928,20 +3769,16 @@ export const WithCustomErrors: Story = {
 
           {/* 密码强度验证示例 */}
           <div className="space-y-4 rounded-xl border p-4">
-            <h4 className="font-strong">
-              Password strength validation example
-            </h4>
+            <h4 className="font-strong">Password strength validation example</h4>
             <p className="text-secondary-foreground">
-              Demonstrates complex password strength validation, returning
-              detailed error objects
+              Demonstrates complex password strength validation, returning detailed error objects
             </p>
 
             <div className="grid grid-cols-2 gap-4">
               <form.Field
                 name="password"
                 validators={{
-                  onChange: ({ value }) =>
-                    validatePasswordStrength(String(value || "")),
+                  onChange: ({ value }) => validatePasswordStrength(String(value || "")),
                 }}
               >
                 {(field) => (
@@ -3970,15 +3807,15 @@ export const WithCustomErrors: Story = {
                 name="confirmPassword"
                 validators={{
                   onChange: ({ value }) => {
-                    const password = form.getFieldValue("password");
-                    const confirmPassword = String(value || "");
+                    const password = form.getFieldValue("password")
+                    const confirmPassword = String(value || "")
 
                     if (!confirmPassword) {
                       return {
                         type: "required",
                         message: "Please confirm the password",
                         severity: "error",
-                      };
+                      }
                     }
 
                     if (password !== confirmPassword) {
@@ -3991,10 +3828,10 @@ export const WithCustomErrors: Story = {
                           originalLength: String(password).length,
                           confirmLength: confirmPassword.length,
                         },
-                      };
+                      }
                     }
 
-                    return undefined;
+                    return undefined
                   },
                 }}
               >
@@ -4026,8 +3863,7 @@ export const WithCustomErrors: Story = {
           <div className="space-y-4 rounded-xl border p-4">
             <h4 className="font-strong">File validation example</h4>
             <p className="text-secondary-foreground">
-              Demonstrates complex file validation logic, including multiple
-              validation rules
+              Demonstrates complex file validation logic, including multiple validation rules
             </p>
 
             <form.Field
@@ -4070,40 +3906,36 @@ export const WithCustomErrors: Story = {
               name="tags"
               validators={{
                 onChange: ({ value }) => {
-                  const tags = String(value || "");
-                  if (!tags) return undefined;
+                  const tags = String(value || "")
+                  if (!tags) return undefined
 
-                  const errors: string[] = [];
-                  const tagList = tags.split(",").map((tag) => tag.trim());
+                  const errors: string[] = []
+                  const tagList = tags.split(",").map((tag) => tag.trim())
 
                   // 检查标签数量
                   if (tagList.length > 5) {
-                    errors.push("The number of tags cannot exceed 5");
+                    errors.push("The number of tags cannot exceed 5")
                   }
 
                   // 检查标签长度
-                  const longTags = tagList.filter((tag) => tag.length > 10);
+                  const longTags = tagList.filter((tag) => tag.length > 10)
                   if (longTags.length > 0) {
-                    errors.push(`Tags are too long: ${longTags.join(", ")}`);
+                    errors.push(`Tags are too long: ${longTags.join(", ")}`)
                   }
 
                   // 检查重复标签
-                  const uniqueTags = new Set(tagList);
+                  const uniqueTags = new Set(tagList)
                   if (uniqueTags.size !== tagList.length) {
-                    errors.push("There are duplicate tags");
+                    errors.push("There are duplicate tags")
                   }
 
                   // 检查特殊字符
-                  const invalidTags = tagList.filter((tag) =>
-                    /[!@#$%^&*(),.?":{}|<>]/.test(tag)
-                  );
+                  const invalidTags = tagList.filter((tag) => /[!@#$%^&*(),.?":{}|<>]/.test(tag))
                   if (invalidTags.length > 0) {
-                    errors.push(
-                      `Tags contain special characters: ${invalidTags.join(", ")}`
-                    );
+                    errors.push(`Tags contain special characters: ${invalidTags.join(", ")}`)
                   }
 
-                  return errors.length > 0 ? errors : undefined;
+                  return errors.length > 0 ? errors : undefined
                 },
               }}
             >
@@ -4141,17 +3973,17 @@ export const WithCustomErrors: Story = {
               name="score"
               validators={{
                 onChange: ({ value }) => {
-                  const score = Number(value);
+                  const score = Number(value)
 
                   // 返回布尔值 - true 表示错误
-                  if (isNaN(score)) return true;
+                  if (isNaN(score)) return true
 
                   // 返回数字 - 非零表示错误
-                  if (score < 0) return -1;
-                  if (score > 100) return 1;
+                  if (score < 0) return -1
+                  if (score > 100) return 1
 
                   // 返回 undefined 表示无错误
-                  return undefined;
+                  return undefined
                 },
               }}
             >
@@ -4187,16 +4019,16 @@ export const WithCustomErrors: Story = {
             name="description"
             validators={{
               onChange: ({ value }) => {
-                const desc = String(value || "");
+                const desc = String(value || "")
                 if (desc.length > 200) {
                   return {
                     type: "length",
                     message: "Description cannot exceed 200 characters",
                     severity: "warning",
                     details: { maxLength: 200, currentLength: desc.length },
-                  };
+                  }
                 }
-                return undefined;
+                return undefined
               },
             }}
           >
@@ -4211,9 +4043,7 @@ export const WithCustomErrors: Story = {
                 placeholder="Enter description"
                 error={
                   field.state.meta.errors.length > 0 && (
-                    <div className="space-y-1">
-                      {formatCustomErrors(field.state.meta.errors)}
-                    </div>
+                    <div className="space-y-1">{formatCustomErrors(field.state.meta.errors)}</div>
                   )
                 }
                 description={`Current characters: ${String(field.state.value || "").length}/200`}
@@ -4231,9 +4061,9 @@ export const WithCustomErrors: Story = {
                     type: "required",
                     message: "Please agree to the user agreement",
                     severity: "error",
-                  };
+                  }
                 }
-                return undefined;
+                return undefined
               },
             }}
           >
@@ -4246,9 +4076,7 @@ export const WithCustomErrors: Story = {
                 onBlur={field.handleBlur}
                 error={
                   field.state.meta.errors.length > 0 && (
-                    <div className="space-y-1">
-                      {formatCustomErrors(field.state.meta.errors)}
-                    </div>
+                    <div className="space-y-1">{formatCustomErrors(field.state.meta.errors)}</div>
                   )
                 }
               />
@@ -4268,8 +4096,8 @@ export const WithCustomErrors: Story = {
               type="button"
               variant="secondary"
               onClick={() => {
-                form.reset();
-                setServerErrors({});
+                form.reset()
+                setServerErrors({})
               }}
             >
               Reset form
@@ -4283,7 +4111,7 @@ export const WithCustomErrors: Story = {
               "rounded-xl p-4",
               submitResult.includes("success")
                 ? "text-success-foreground bg-green-100"
-                : "text-danger-foreground bg-red-100"
+                : "text-danger-foreground bg-red-100",
             )}
           >
             {submitResult}
@@ -4298,8 +4126,8 @@ export const WithCustomErrors: Story = {
               • <strong>String</strong>: The most common error type
             </div>
             <div>
-              • <strong>Object</strong>: Contains type, message, severity, and
-              other detailed information
+              • <strong>Object</strong>: Contains type, message, severity, and other detailed
+              information
             </div>
             <div>
               • <strong>Array</strong>: A collection of multiple errors
@@ -4316,6 +4144,6 @@ export const WithCustomErrors: Story = {
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}

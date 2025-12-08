@@ -26,8 +26,9 @@ import type { RichInputProps } from "./types"
 import { defaultI18n } from "./types"
 import { charactersOptions, paragraphOptions } from "./utils"
 
-export interface RichInputComponent
-  extends React.ForwardRefExoticComponent<RichInputProps & React.RefAttributes<HTMLDivElement>> {
+export interface RichInputComponent extends React.ForwardRefExoticComponent<
+  RichInputProps & React.RefAttributes<HTMLDivElement>
+> {
   Editable: typeof import("./components/rich-input-editable-component").RichInputEditableComponent
   Viewport: typeof import("./components/rich-input-viewport").RichInputViewport
 }

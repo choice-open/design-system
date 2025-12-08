@@ -15,8 +15,10 @@ export interface UseMentionsOptions {
   readOnly?: boolean
 }
 
-export interface MdInputProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "children"> {
+export interface MdInputProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "onChange" | "children"
+> {
   children: React.ReactNode
   disabled?: boolean
   mentionItems?: MentionItemProps[]

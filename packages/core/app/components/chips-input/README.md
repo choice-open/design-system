@@ -128,8 +128,10 @@ const [tags, setTags] = useState<string[]>([])
 ## Props
 
 ```ts
-interface ChipsInputProps
-  extends Omit<HTMLProps<HTMLDivElement>, "value" | "onChange" | "defaultValue" | "size"> {
+interface ChipsInputProps extends Omit<
+  HTMLProps<HTMLDivElement>,
+  "value" | "onChange" | "defaultValue" | "size"
+> {
   /** Whether to allow duplicate values */
   allowDuplicates?: boolean
 

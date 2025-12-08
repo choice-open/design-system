@@ -9,21 +9,21 @@ import {
   Select,
   Tabs,
   tcx,
-} from "@choice-ui/react";
-import { faker } from "@faker-js/faker";
-import type { Placement as FloatingPlacement } from "@floating-ui/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useMemo, useRef, useState } from "react";
+} from "@choice-ui/react"
+import { faker } from "@faker-js/faker"
+import type { Placement as FloatingPlacement } from "@floating-ui/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
+import React, { useMemo, useRef, useState } from "react"
 
 const meta: Meta<typeof Popover> = {
   title: "Overlays/Popover",
   component: Popover,
   tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Popover>;
+type Story = StoryObj<typeof Popover>
 
 /**
  * `Popover` is a versatile floating overlay component for displaying contextual content.
@@ -70,13 +70,11 @@ export const Basic: Story = {
         <Popover.Trigger>
           <Button>Open</Button>
         </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * DefaultOpen: Demonstrates a popover that starts in the open state.
@@ -97,13 +95,11 @@ export const DefaultOpen: Story = {
         <Popover.Trigger>
           <Button>Open</Button>
         </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Offset: Demonstrates customizing the distance between trigger and popover.
@@ -124,13 +120,11 @@ export const Offset: Story = {
         <Popover.Trigger>
           <Button>Open</Button>
         </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Interactions: Demonstrates different ways to trigger the popover.
@@ -148,7 +142,7 @@ export const Offset: Story = {
  */
 export const Interactions: Story = {
   render: function InteractionsStory() {
-    const [manualOpen, setManualOpen] = useState(false);
+    const [manualOpen, setManualOpen] = useState(false)
 
     return (
       <div className="grid grid-cols-2 gap-8">
@@ -158,9 +152,7 @@ export const Interactions: Story = {
             <Popover.Trigger>
               <Button>Click to open</Button>
             </Popover.Trigger>
-            <Popover.Content className="w-64 p-3">
-              {faker.lorem.paragraph(2)}
-            </Popover.Content>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
           </Popover>
 
           <h3>Hover</h3>
@@ -168,9 +160,7 @@ export const Interactions: Story = {
             <Popover.Trigger>
               <Button>Hover to open</Button>
             </Popover.Trigger>
-            <Popover.Content className="w-64 p-3">
-              {faker.lorem.paragraph(2)}
-            </Popover.Content>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
           </Popover>
         </div>
 
@@ -180,9 +170,7 @@ export const Interactions: Story = {
             <Popover.Trigger>
               <Button>Focus to open</Button>
             </Popover.Trigger>
-            <Popover.Content className="w-64 p-3">
-              {faker.lorem.paragraph(2)}
-            </Popover.Content>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
           </Popover>
 
           <h3>Manual Control</h3>
@@ -201,16 +189,14 @@ export const Interactions: Story = {
               <Popover.Trigger>
                 <Button disabled>Manual trigger</Button>
               </Popover.Trigger>
-              <Popover.Content className="w-64 p-3">
-                {faker.lorem.paragraph(2)}
-              </Popover.Content>
+              <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(2)}</Popover.Content>
             </Popover>
           </div>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Controlled: Demonstrates managing the popover's open state externally.
@@ -227,19 +213,20 @@ export const Interactions: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button active={open}>Click: {open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * ControlledFixed: Demonstrates a controlled popover with fixed position.
@@ -260,29 +247,28 @@ export const Controlled: Story = {
  */
 export const ControlledFixed: Story = {
   render: function ControlledFixedStory() {
-    const [open, setOpen] = useState(false);
-    const [toggleCount, setToggleCount] = useState(0);
+    const [open, setOpen] = useState(false)
+    const [toggleCount, setToggleCount] = useState(0)
 
     const handleToggle = () => {
-      setOpen(!open);
-      setToggleCount((prev) => prev + 1);
-    };
+      setOpen(!open)
+      setToggleCount((prev) => prev + 1)
+    }
 
     const handleOpenChange = (isOpen: boolean) => {
-      setOpen(isOpen);
+      setOpen(isOpen)
       if (isOpen) {
-        setToggleCount((prev) => prev + 1);
+        setToggleCount((prev) => prev + 1)
       }
-    };
+    }
 
     return (
       <div className="w-md space-y-6">
         <div className="rounded-xl border p-4">
           <h3 className="font-strong mb-2">Controlled</h3>
           <p>
-            Based on the correct implementation in the Floating UI official
-            documentation, it solves the problem of not being able to display
-            again after closing once
+            Based on the correct implementation in the Floating UI official documentation, it solves
+            the problem of not being able to display again after closing once
           </p>
         </div>
 
@@ -290,11 +276,7 @@ export const ControlledFixed: Story = {
           <div className="mb-4 space-y-2">
             <div className="font-strong">
               Current state:
-              <span
-                className={tcx(
-                  open ? "text-success-foreground" : "text-danger-foreground"
-                )}
-              >
+              <span className={tcx(open ? "text-success-foreground" : "text-danger-foreground")}>
                 {open ? " OPEN" : " CLOSED"}
               </span>
             </div>
@@ -329,7 +311,10 @@ export const ControlledFixed: Story = {
           </div>
         </div>
 
-        <Popover open={open} onOpenChange={handleOpenChange}>
+        <Popover
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
           <Popover.Trigger>
             <Button>Popover trigger</Button>
           </Popover.Trigger>
@@ -337,20 +322,18 @@ export const ControlledFixed: Story = {
             <div className="space-y-3">
               <h4 className="font-strong">Controlled</h4>
               <p className="text-secondary-foreground">
-                This Popover uses controlled mode, based on the correct
-                implementation in the Floating UI official documentation.
+                This Popover uses controlled mode, based on the correct implementation in the
+                Floating UI official documentation.
               </p>
 
-              <div className="text-secondary-foreground">
-                Toggle count: {toggleCount}
-              </div>
+              <div className="text-secondary-foreground">Toggle count: {toggleCount}</div>
             </div>
           </Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * TriggerRef: Demonstrates using an external trigger element.
@@ -367,23 +350,29 @@ export const ControlledFixed: Story = {
  */
 export const TriggerRef: Story = {
   render: function TriggerRefStory() {
-    const [open, setOpen] = useState(false);
-    const triggerRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(false)
+    const triggerRef = useRef<HTMLButtonElement>(null)
     return (
       <>
-        <Button ref={triggerRef} active={open} onClick={() => setOpen(!open)}>
+        <Button
+          ref={triggerRef}
+          active={open}
+          onClick={() => setOpen(!open)}
+        >
           {open ? "Close" : "Open"}
         </Button>
 
-        <Popover triggerRef={triggerRef} open={open} onOpenChange={setOpen}>
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+        <Popover
+          triggerRef={triggerRef}
+          open={open}
+          onOpenChange={setOpen}
+        >
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Placement: Demonstrates different positioning options for the popover.
@@ -413,18 +402,17 @@ export const Placement: Story = {
       { label: "Right", value: "right" },
       { label: "Right Start", value: "right-start" },
       { label: "Right End", value: "right-end" },
-    ];
-    const triggerRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
-    const [placement, setPlacement] =
-      useState<FloatingPlacement>("bottom-start");
-    const [open, setOpen] = useState(false);
+    ]
+    const triggerRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
+    const [placement, setPlacement] = useState<FloatingPlacement>("bottom-start")
+    const [open, setOpen] = useState(false)
 
     const handleButtonClick = (newPlacement: FloatingPlacement) => {
       React.startTransition(() => {
-        setPlacement(newPlacement);
-        setOpen(true);
-      });
-    };
+        setPlacement(newPlacement)
+        setOpen(true)
+      })
+    }
 
     return (
       <>
@@ -436,17 +424,15 @@ export const Placement: Story = {
                 variant="secondary"
                 ref={(node) => {
                   if (node) {
-                    triggerRefs.current.set(option.value, node);
+                    triggerRefs.current.set(option.value, node)
                   }
                 }}
                 key={option.value}
-                onMouseDown={() =>
-                  handleButtonClick(option.value as FloatingPlacement)
-                }
+                onMouseDown={() => handleButtonClick(option.value as FloatingPlacement)}
               >
                 {option.label}
               </Button>
-            );
+            )
           })}
         </div>
 
@@ -456,14 +442,12 @@ export const Placement: Story = {
           open={open}
           onOpenChange={setOpen}
         >
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
       </>
-    );
+    )
   },
-};
+}
 
 /**
  * Draggable: Demonstrates a draggable popover with header.
@@ -480,21 +464,23 @@ export const Placement: Story = {
  */
 export const Draggable: Story = {
   render: function DraggableStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
-      <Popover draggable open={open} onOpenChange={setOpen}>
+      <Popover
+        draggable
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button active={open}>Drag: {open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
 
         <Popover.Header title="Drag" />
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * RememberPosition: Demonstrates a popover that remembers its position when closed.
@@ -509,20 +495,23 @@ export const Draggable: Story = {
  */
 export const RememberPosition: Story = {
   render: function RememberPositionStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
-      <Popover draggable rememberPosition open={open} onOpenChange={setOpen}>
+      <Popover
+        draggable
+        rememberPosition
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button>Remember Position</Button>
         </Popover.Trigger>
         <Popover.Header title="Remember Position" />
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * OutsidePressIgnore: Demonstrates excluding elements from outside click dismissal.
@@ -539,7 +528,7 @@ export const RememberPosition: Story = {
  */
 export const OutsidePressIgnore: Story = {
   render: function OutsidePressIgnoreStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <div className="outside-press-ignore rounded-xl border p-16">
         <Popover
@@ -550,14 +539,12 @@ export const OutsidePressIgnore: Story = {
           <Popover.Trigger>
             <Button>{open ? "Close" : "Open"}</Button>
           </Popover.Trigger>
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * OutsidePressIgnoreArray: Demonstrates excluding specific elements from outside click dismissal.
@@ -574,36 +561,27 @@ export const OutsidePressIgnore: Story = {
  */
 export const OutsidePressIgnoreArray: Story = {
   render: function OutsidePressIgnoreArrayStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
       <div className="flex items-center gap-4">
-        <div className="outside-press-ignore-1 rounded-xl border p-16">
-          Outside Press Ignore 1
-        </div>
+        <div className="outside-press-ignore-1 rounded-xl border p-16">Outside Press Ignore 1</div>
 
         <Popover
           open={open}
           onOpenChange={setOpen}
-          outsidePressIgnore={[
-            "outside-press-ignore-1",
-            "outside-press-ignore-2",
-          ]}
+          outsidePressIgnore={["outside-press-ignore-1", "outside-press-ignore-2"]}
         >
           <Popover.Trigger>
             <Button>{open ? "Close" : "Open"}</Button>
           </Popover.Trigger>
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
 
-        <div className="outside-press-ignore-2 rounded-xl border p-16">
-          Outside Press Ignore 2
-        </div>
+        <div className="outside-press-ignore-2 rounded-xl border p-16">Outside Press Ignore 2</div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * OutsidePressIgnoreBoolean: Demonstrates excluding all elements from outside click dismissal.
@@ -621,20 +599,22 @@ export const OutsidePressIgnoreArray: Story = {
 
 export const OutsidePressIgnoreBoolean: Story = {
   render: function OutsidePressIgnoreBooleanStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
-      <Popover open={open} onOpenChange={setOpen} outsidePressIgnore={true}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+        outsidePressIgnore={true}
+      >
         <Popover.Header title="Outside Press Ignore Boolean" />
         <Popover.Trigger>
           <Button>{open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Header: Demonstrates adding complex UI to the popover header.
@@ -651,35 +631,39 @@ export const OutsidePressIgnoreBoolean: Story = {
  */
 export const Header: Story = {
   render: function HeaderStory() {
-    const [open, setOpen] = useState(false);
-    const [tab, setTab] = useState("tab-1");
+    const [open, setOpen] = useState(false)
+    const [tab, setTab] = useState("tab-1")
 
     const header = useMemo(
       () => (
         <div className="flex h-10 items-center justify-between px-3">
-          <Tabs value={tab} onChange={setTab}>
+          <Tabs
+            value={tab}
+            onChange={setTab}
+          >
             <Tabs.Item value="tab-1">Tab 1</Tabs.Item>
             <Tabs.Item value="tab-2">Tab 2</Tabs.Item>
             <Tabs.Item value="tab-3">Tab 3</Tabs.Item>
           </Tabs>
         </div>
       ),
-      [tab, setTab]
-    );
+      [tab, setTab],
+    )
 
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button>{open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
         <Popover.Header>{header}</Popover.Header>
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * Nested: Demonstrates popovers containing other interactive components.
@@ -696,14 +680,20 @@ export const Header: Story = {
  */
 export const Nested: Story = {
   render: function NestedStory() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button>{open ? "Close" : "Open"}</Button>
         </Popover.Trigger>
         <Popover.Content className="flex gap-4 p-4">
-          <Select value="option-1" onChange={() => {}}>
+          <Select
+            value="option-1"
+            onChange={() => {}}
+          >
             <Select.Trigger>Select</Select.Trigger>
             <Select.Content>
               <Select.Item value="option-1">Option 1</Select.Item>
@@ -715,9 +705,7 @@ export const Nested: Story = {
             <Popover.Trigger>
               <Button>Popover</Button>
             </Popover.Trigger>
-            <Popover.Content className="w-64 p-3">
-              {faker.lorem.paragraph(3)}
-            </Popover.Content>
+            <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
           </Popover>
 
           <Dropdown disabledNested>
@@ -729,9 +717,9 @@ export const Nested: Story = {
           </Dropdown>
         </Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * AlwaysOpen: Demonstrates a popover that is always open.
@@ -743,18 +731,20 @@ export const Nested: Story = {
 export const AlwaysOpen: Story = {
   render: function AlwaysOpenStory() {
     return (
-      <Popover open draggable rememberPosition>
+      <Popover
+        open
+        draggable
+        rememberPosition
+      >
         <Popover.Trigger>
           <Button>Open</Button>
         </Popover.Trigger>
         <Popover.Header title="Always Open" />
-        <Popover.Content className="w-64 p-3">
-          {faker.lorem.paragraph(3)}
-        </Popover.Content>
+        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * AutoHeight: Demonstrates a popover with auto height.
@@ -765,8 +755,8 @@ export const AlwaysOpen: Story = {
  */
 export const AutoHeight: Story = {
   render: function AutoHeightStory() {
-    const [open, setOpen] = useState(false);
-    const [autoSize, setAutoSize] = useState(true);
+    const [open, setOpen] = useState(false)
+    const [autoSize, setAutoSize] = useState(true)
     return (
       <div className="flex gap-4">
         <Popover
@@ -783,42 +773,41 @@ export const AutoHeight: Story = {
           <Popover.Content className="flex w-64 flex-col overflow-hidden">
             <ScrollArea className="flex flex-col">
               <ScrollArea.Viewport className="p-3">
-                <ScrollArea.Content>
-                  {faker.lorem.sentences(50)}
-                </ScrollArea.Content>
+                <ScrollArea.Content>{faker.lorem.sentences(50)}</ScrollArea.Content>
               </ScrollArea.Viewport>
             </ScrollArea>
           </Popover.Content>
         </Popover>
 
-        <Button variant="secondary" onClick={() => setAutoSize(!autoSize)}>
+        <Button
+          variant="secondary"
+          onClick={() => setAutoSize(!autoSize)}
+        >
           {autoSize ? "Disable Auto Size" : "Enable Auto Size"}
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 export const MultiTrigger: Story = {
   render: function MultiTriggerStory() {
-    const [leftValue, setLeftValue] = useState(0);
-    const [rightValue, setRightValue] = useState(0);
+    const [leftValue, setLeftValue] = useState(0)
+    const [rightValue, setRightValue] = useState(0)
 
-    const leftTriggerRef = useRef<HTMLButtonElement>(null);
-    const rightTriggerRef = useRef<HTMLButtonElement>(null);
+    const leftTriggerRef = useRef<HTMLButtonElement>(null)
+    const rightTriggerRef = useRef<HTMLButtonElement>(null)
 
-    const [currentTrigger, setCurrentTrigger] = useState<
-      "left" | "right" | null
-    >(null);
+    const [currentTrigger, setCurrentTrigger] = useState<"left" | "right" | null>(null)
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const handleTriggerClick = (trigger: "left" | "right") => {
       React.startTransition(() => {
-        setCurrentTrigger(trigger);
-        setOpen(true);
-      });
-    };
+        setCurrentTrigger(trigger)
+        setOpen(true)
+      })
+    }
 
     return (
       <div className="grid grid-cols-2 gap-4">
@@ -828,7 +817,10 @@ export const MultiTrigger: Story = {
         >
           <NumericInput.Suffix type="action">
             <Dropdown>
-              <Dropdown.Trigger asChild ref={leftTriggerRef}>
+              <Dropdown.Trigger
+                asChild
+                ref={leftTriggerRef}
+              >
                 <NumericInputMenuTrigger type="action" />
               </Dropdown.Trigger>
               <Dropdown.Content>
@@ -848,7 +840,10 @@ export const MultiTrigger: Story = {
         >
           <NumericInput.Suffix type="action">
             <Dropdown>
-              <Dropdown.Trigger asChild ref={rightTriggerRef}>
+              <Dropdown.Trigger
+                asChild
+                ref={rightTriggerRef}
+              >
                 <NumericInputMenuTrigger type="action" />
               </Dropdown.Trigger>
               <Dropdown.Content>
@@ -863,23 +858,19 @@ export const MultiTrigger: Story = {
         </NumericInput>
 
         <Popover
-          triggerRef={
-            currentTrigger === "left" ? leftTriggerRef : rightTriggerRef
-          }
+          triggerRef={currentTrigger === "left" ? leftTriggerRef : rightTriggerRef}
           placement="bottom-end"
           open={open}
           onOpenChange={setOpen}
           draggable
         >
           <Popover.Header title="Action" />
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Test: Story = {
   parameters: {
@@ -893,8 +884,8 @@ export const Test: Story = {
     ),
   ],
   render: function TestStory() {
-    const [open, setOpen] = useState(false);
-    const triggerRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(false)
+    const triggerRef = useRef<HTMLButtonElement>(null)
     return (
       <div>
         <Popover
@@ -903,17 +894,18 @@ export const Test: Story = {
           open={open}
           onOpenChange={setOpen}
         >
-          <Popover.Content className="w-64 p-3">
-            {faker.lorem.paragraph(3)}
-          </Popover.Content>
+          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
         </Popover>
-        <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+        <Button
+          ref={triggerRef}
+          onClick={() => setOpen(!open)}
+        >
           Open
         </Button>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MultiplePopovers: 测试多个 Popover 同时存在的情况
@@ -930,24 +922,24 @@ export const Test: Story = {
  */
 export const MultiplePopovers: Story = {
   render: function MultiplePopoversStory() {
-    const [popover1Open, setPopover1Open] = useState(false);
-    const [popover2Open, setPopover2Open] = useState(false);
-    const [popover3Open, setPopover3Open] = useState(false);
+    const [popover1Open, setPopover1Open] = useState(false)
+    const [popover2Open, setPopover2Open] = useState(false)
+    const [popover3Open, setPopover3Open] = useState(false)
 
     return (
       <div className="w-md space-y-6">
         <div className="rounded-xl border p-4">
           <h3 className="font-strong mb-2">Test</h3>
           <p>
-            Test scenario: There are multiple Popovers on a canvas, when the
-            first Popover is opened, click the second Popover button
+            Test scenario: There are multiple Popovers on a canvas, when the first Popover is
+            opened, click the second Popover button
           </p>
           <div className="mt-2">
-            <strong>Expected behavior:</strong> The first Popover closes, and
-            the second opens immediately
+            <strong>Expected behavior:</strong> The first Popover closes, and the second opens
+            immediately
             <br />
-            <strong>Actual behavior:</strong> The first Popover closes, and the
-            second needs to be clicked again to open
+            <strong>Actual behavior:</strong> The first Popover closes, and the second needs to be
+            clicked again to open
           </div>
         </div>
 
@@ -957,18 +949,19 @@ export const MultiplePopovers: Story = {
             <div className="text-body-small text-gray-600">
               Status: {popover1Open ? "Open" : "Close"}
             </div>
-            <Popover open={popover1Open} onOpenChange={setPopover1Open}>
+            <Popover
+              open={popover1Open}
+              onOpenChange={setPopover1Open}
+            >
               <Popover.Trigger>
-                <Button variant={popover1Open ? "secondary" : "primary"}>
-                  Popover 1
-                </Button>
+                <Button variant={popover1Open ? "secondary" : "primary"}>Popover 1</Button>
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
                   <h5 className="font-strong">Popover 1 content</h5>
                   <p className="text-body-small text-gray-600">
-                    This is the content of the first Popover. Now keep it open,
-                    then click the Popover 2 button to test.
+                    This is the content of the first Popover. Now keep it open, then click the
+                    Popover 2 button to test.
                   </p>
                   <Button
                     variant="secondary"
@@ -986,18 +979,19 @@ export const MultiplePopovers: Story = {
             <div className="text-body-small text-gray-600">
               Status: {popover2Open ? "Open" : "Close"}
             </div>
-            <Popover open={popover2Open} onOpenChange={setPopover2Open}>
+            <Popover
+              open={popover2Open}
+              onOpenChange={setPopover2Open}
+            >
               <Popover.Trigger>
-                <Button variant={popover2Open ? "secondary" : "primary"}>
-                  Popover 2
-                </Button>
+                <Button variant={popover2Open ? "secondary" : "primary"}>Popover 2</Button>
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
                   <h5 className="font-strong">Popover 2 content</h5>
                   <p className="text-body-small text-gray-600">
-                    This is the content of the second Popover. If it opens with
-                    one click, the problem has been fixed.
+                    This is the content of the second Popover. If it opens with one click, the
+                    problem has been fixed.
                   </p>
                   <Button
                     variant="secondary"
@@ -1015,11 +1009,12 @@ export const MultiplePopovers: Story = {
             <div className="text-body-small text-gray-600">
               Status: {popover3Open ? "Open" : "Close"}
             </div>
-            <Popover open={popover3Open} onOpenChange={setPopover3Open}>
+            <Popover
+              open={popover3Open}
+              onOpenChange={setPopover3Open}
+            >
               <Popover.Trigger>
-                <Button variant={popover3Open ? "secondary" : "primary"}>
-                  Popover 3
-                </Button>
+                <Button variant={popover3Open ? "secondary" : "primary"}>Popover 3</Button>
               </Popover.Trigger>
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
@@ -1042,12 +1037,8 @@ export const MultiplePopovers: Story = {
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
           <h4 className="font-strong mb-2">Test steps:</h4>
           <ol className="text-body-small list-inside list-decimal space-y-1 text-gray-700">
-            <li>
-              Click the &quot;Popover 1&quot; button to open the first Popover
-            </li>
-            <li>
-              Keep the Popover 1 open, click the &quot;Popover 2&quot; button
-            </li>
+            <li>Click the &quot;Popover 1&quot; button to open the first Popover</li>
+            <li>Keep the Popover 1 open, click the &quot;Popover 2&quot; button</li>
             <li>Observe if you need to click twice to open Popover 2</li>
             <li>Test the switch from Popover 2 to Popover 3</li>
             <li>Test the switch from Popover 3 to Popover 1</li>
@@ -1058,9 +1049,9 @@ export const MultiplePopovers: Story = {
           <Button
             variant="secondary"
             onClick={() => {
-              setPopover1Open(false);
-              setPopover2Open(false);
-              setPopover3Open(false);
+              setPopover1Open(false)
+              setPopover2Open(false)
+              setPopover3Open(false)
             }}
           >
             Close all Popovers
@@ -1069,22 +1060,22 @@ export const MultiplePopovers: Story = {
           <Button
             variant="secondary"
             onClick={() => {
-              setPopover1Open(true);
-              setPopover2Open(true);
-              setPopover3Open(true);
+              setPopover1Open(true)
+              setPopover2Open(true)
+              setPopover3Open(true)
             }}
           >
             Open all Popovers (test overlapping)
           </Button>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const MaxWidth: Story = {
   render: function MaxWidthStory() {
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(1)
     return (
       <div>
         <Popover maxWidth={640}>
@@ -1100,9 +1091,9 @@ export const MaxWidth: Story = {
           </Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * CloseOnEscape: Demonstrates the closeOnEscape prop functionality.
@@ -1111,8 +1102,8 @@ export const MaxWidth: Story = {
  */
 export const CloseOnEscape: Story = {
   render: function CloseOnEscapeStory() {
-    const [escEnabledOpen, setEscEnabledOpen] = useState(false);
-    const [escDisabledOpen, setEscDisabledOpen] = useState(false);
+    const [escEnabledOpen, setEscEnabledOpen] = useState(false)
+    const [escDisabledOpen, setEscDisabledOpen] = useState(false)
 
     return (
       <div className="flex gap-8">
@@ -1120,9 +1111,7 @@ export const CloseOnEscape: Story = {
           <Button onClick={() => setEscEnabledOpen(!escEnabledOpen)}>
             Popover with ESC (Default)
           </Button>
-          <p className="text-secondary-foreground text-body-small">
-            Press ESC to close
-          </p>
+          <p className="text-secondary-foreground text-body-small">Press ESC to close</p>
 
           <Popover
             open={escEnabledOpen}
@@ -1142,12 +1131,8 @@ export const CloseOnEscape: Story = {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Button onClick={() => setEscDisabledOpen(!escDisabledOpen)}>
-            Popover without ESC
-          </Button>
-          <p className="text-secondary-foreground text-body-small">
-            ESC key disabled
-          </p>
+          <Button onClick={() => setEscDisabledOpen(!escDisabledOpen)}>Popover without ESC</Button>
+          <p className="text-secondary-foreground text-body-small">ESC key disabled</p>
 
           <Popover
             open={escDisabledOpen}
@@ -1166,9 +1151,9 @@ export const CloseOnEscape: Story = {
           </Popover>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * EventPropagation: Verifies that ESC key events do not propagate to window.
@@ -1177,19 +1162,19 @@ export const CloseOnEscape: Story = {
  */
 export const EventPropagation: Story = {
   render: function EventPropagationStory() {
-    const [open, setOpen] = useState(false);
-    const [escCount, setEscCount] = useState(0);
+    const [open, setOpen] = useState(false)
+    const [escCount, setEscCount] = useState(0)
 
     React.useEffect(() => {
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
-          setEscCount((prev) => prev + 1);
+          setEscCount((prev) => prev + 1)
         }
-      };
+      }
 
-      window.addEventListener("keydown", handleEscape);
-      return () => window.removeEventListener("keydown", handleEscape);
-    }, []);
+      window.addEventListener("keydown", handleEscape)
+      return () => window.removeEventListener("keydown", handleEscape)
+    }, [])
 
     return (
       <div className="flex flex-col gap-4">
@@ -1197,11 +1182,13 @@ export const EventPropagation: Story = {
           Window ESC count: <strong>{escCount}</strong>
         </p>
         <p className="text-secondary-foreground text-body-small">
-          Press ESC to increment. Open popover and press ESC - counter should
-          NOT change.
+          Press ESC to increment. Open popover and press ESC - counter should NOT change.
         </p>
 
-        <Popover open={open} onOpenChange={setOpen}>
+        <Popover
+          open={open}
+          onOpenChange={setOpen}
+        >
           <Popover.Trigger>
             <Button>Open Popover</Button>
           </Popover.Trigger>
@@ -1210,9 +1197,9 @@ export const EventPropagation: Story = {
           </Popover.Content>
         </Popover>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * MatchTriggerWidth: Demonstrates the matchTriggerWidth prop functionality.
@@ -1221,8 +1208,8 @@ export const EventPropagation: Story = {
  */
 export const MatchTriggerWidth: Story = {
   render: function MatchTriggerWidthStory() {
-    const [matchTriggerWidthOpen, setMatchTriggerWidthOpen] = useState(false);
-    const triggerRef = useRef<HTMLButtonElement>(null);
+    const [matchTriggerWidthOpen, setMatchTriggerWidthOpen] = useState(false)
+    const triggerRef = useRef<HTMLButtonElement>(null)
     return (
       <div className="flex gap-8">
         <div className="flex flex-col gap-2">
@@ -1245,40 +1232,42 @@ export const MatchTriggerWidth: Story = {
           </Popover>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 /**
  * Popover footer
  */
 export const PopoverFooter: Story = {
   render: function PopoverFooterStory() {
-    const [popoverOpen, setPopoverOpen] = useState(false);
+    const [popoverOpen, setPopoverOpen] = useState(false)
     return (
-      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+      <Popover
+        open={popoverOpen}
+        onOpenChange={setPopoverOpen}
+      >
         <Popover.Trigger>
-          <Button variant={popoverOpen ? "secondary" : "primary"}>
-            Popover
-          </Button>
+          <Button variant={popoverOpen ? "secondary" : "primary"}>Popover</Button>
         </Popover.Trigger>
         <Popover.Content className="w-64 p-3">
           <div className="space-y-2">
             <h5 className="font-strong">Popover content</h5>
-            <p className="text-body-small text-gray-600">
-              This is the content of the Popover.
-            </p>
+            <p className="text-body-small text-gray-600">This is the content of the Popover.</p>
           </div>
         </Popover.Content>
         <Popover.Footer>
-          <Button variant="secondary" onClick={() => setPopoverOpen(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setPopoverOpen(false)}
+          >
             Close
           </Button>
         </Popover.Footer>
       </Popover>
-    );
+    )
   },
-};
+}
 
 /**
  * WithInput: Demonstrates a popover containing input fields for user data entry.
@@ -1293,34 +1282,37 @@ export const PopoverFooter: Story = {
  */
 export const WithInput: Story = {
   render: function WithInputStory() {
-    const [open, setOpen] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [open, setOpen] = useState(false)
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
 
     const handleSubmit = () => {
-      console.log("Form submitted:", { name, email });
-      setOpen(false);
-      setName("");
-      setEmail("");
-    };
+      console.log("Form submitted:", { name, email })
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
 
     const handleCancel = () => {
-      setOpen(false);
-      setName("");
-      setEmail("");
-    };
+      setOpen(false)
+      setName("")
+      setEmail("")
+    }
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Escape") {
         // Blur the input
-        e.currentTarget.blur();
+        e.currentTarget.blur()
         // Stop propagation to prevent Popover from closing
-        e.stopPropagation();
+        e.stopPropagation()
       }
-    };
+    }
 
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={setOpen}
+      >
         <Popover.Trigger>
           <Button>Open Form Popover</Button>
         </Popover.Trigger>
@@ -1360,13 +1352,15 @@ export const WithInput: Story = {
               />
             </div>
             <p className="text-secondary-foreground text-body-small">
-              Press ESC in an input to blur it. Press ESC outside inputs to
-              close the popover.
+              Press ESC in an input to blur it. Press ESC outside inputs to close the popover.
             </p>
           </div>
         </Popover.Content>
         <Popover.Footer className="flex justify-end gap-2 p-3">
-          <Button variant="ghost" onClick={handleCancel}>
+          <Button
+            variant="ghost"
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
           <Button
@@ -1378,6 +1372,6 @@ export const WithInput: Story = {
           </Button>
         </Popover.Footer>
       </Popover>
-    );
+    )
   },
-};
+}
