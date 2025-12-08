@@ -2,8 +2,9 @@ node_modules
 dist
 
 /.cache
-/build
 /.wrangler
+/build
+/output
 .env
 .DS_Store
 
