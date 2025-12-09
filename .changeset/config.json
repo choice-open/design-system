@@ -1,11 +1,11 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": "@changesets/changelog-github",
+  "changelog": ["@changesets/changelog-github", { "repo": "choice-open/choice-ui" }],
   "commit": false,
   "fixed": [],
   "linked": [["@choice-ui/react", "@choice-ui/shared", "@choice-ui/design-tokens"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@choice-ui/design-docs", "@choice-ui/storybook", "@choice-ui/react-monorepo"]
+  "ignore": ["@choice-ui/design-docs", "@choice-ui/storybook"]
 }
