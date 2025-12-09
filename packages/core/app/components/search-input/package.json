@@ -1,6 +1,6 @@
 {
   "name": "@choice-ui/search-input",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Search Input component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

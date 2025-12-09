@@ -1,6 +1,6 @@
 {
   "name": "@choice-ui/select",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Select component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

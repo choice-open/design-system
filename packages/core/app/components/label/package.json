@@ -1,6 +1,6 @@
 {
   "name": "@choice-ui/label",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Label component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

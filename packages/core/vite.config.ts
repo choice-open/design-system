@@ -7,6 +7,7 @@ import tsconfigPaths from "vite-tsconfig-paths"
 import tailwindcss from "@tailwindcss/vite"
 import fs from "fs/promises"
 import path from "path"
+import pkg from "./package.json"
 
 // ============================================================================
 // 常量配置
@@ -17,38 +18,10 @@ const APP_DIR = resolve(ROOT_DIR, "app")
 const DIST_DIR = resolve(ROOT_DIR, "dist")
 const SHARED_DIR = resolve(ROOT_DIR, "../shared/src")
 
-// React 相关的外部依赖
-const REACT_DEPS = ["react", "react-dom", "react/jsx-runtime"]
-
-// 需要外部化的依赖包（不打包进 bundle）
-const EXTERNAL_DEPENDENCIES = [
-  "@choiceform/icons-react",
-  "@choice-ui/design-tokens",
-  "@codemirror",
-  "@date-fns",
-  "@floating-ui",
-  "@legendapp",
-  "@lezer",
-  "@replit",
-  "@tanstack",
-  "@typescript",
-  "ahooks",
-  "allotment",
-  "comlink",
-  "date-fns",
-  "es-toolkit",
-  "framer-motion",
-  "is-hotkey",
-  "lodash-es",
-  "nanoid",
-  "prettier",
-  "slate",
-  "sonner",
-  "tinycolor2",
-  "usehooks-ts",
-  "xss",
-  "zod",
-  "shiki",
+// 从 package.json 自动获取所有外部依赖
+const externalDeps = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {}),
 ]
 
 // ============================================================================
@@ -91,37 +64,32 @@ async function safeCopyFile(src: string, dest: string, description: string): Pro
 }
 
 /**
- * 生成文件名（处理 node_modules 和 shared 包的特殊路径）
+ * 生成文件名
  */
 function generateFileName(fileName: string, extension: string): string {
-  // 处理 node_modules 中的文件
-  if (fileName.includes("node_modules")) {
-    const parts = fileName.split("node_modules/").pop()!.split("/")
-    const pkgName = parts[0]!.startsWith("@") ? `${parts[0]}/${parts[1]}` : parts[0]!
-    const restPath = parts.slice(pkgName.startsWith("@") ? 2 : 1).join("-")
-    return `_vendor/${pkgName}/${restPath}.${extension}`
-  }
-
   // 处理 shared 包的文件
   if (fileName.includes("shared/src")) {
     return `shared/${fileName.replace(/.*shared\/src\//, "").replace(/\.tsx?$/, "")}.${extension}`
   }
-
   // 处理 app 目录的文件
   return `${fileName.replace("app/", "")}.${extension}`
 }
 
 /**
  * 检查依赖是否应该外部化
+ * 所有 dependencies 和 peerDependencies 都不打包
  */
 function isExternal(id: string): boolean {
-  // React 相关依赖始终外部化
-  if (REACT_DEPS.some((dep) => id === dep || id.startsWith(`${dep}/`))) {
-    return true
+  // 内部路径不外部化
+  if (id.startsWith(".") || id.startsWith("/") || id.startsWith("~")) {
+    return false
   }
-
-  // 检查是否匹配外部依赖列表
-  return EXTERNAL_DEPENDENCIES.some((dep) => id.startsWith(dep))
+  // @choice-ui/shared 打包进来（因为我们用 alias 指向源码）
+  if (id === "@choice-ui/shared") {
+    return false
+  }
+  // 检查是否是外部依赖
+  return externalDeps.some((dep) => id === dep || id.startsWith(`${dep}/`))
 }
 
 // ============================================================================
@@ -166,28 +134,25 @@ function createCopyAssetsPlugin(): PluginOption {
  */
 function createDtsPlugin(): PluginOption {
   return dts({
-    include: ["app", "../shared/src"],
-    exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx"],
+    include: ["app/**/*.ts", "app/**/*.tsx", "../shared/src/**/*.ts", "../shared/src/**/*.tsx"],
+    exclude: ["app/routes", "**/*.stories.tsx", "**/*.test.tsx", "**/__tests__/**"],
+    outDir: "dist",
+    root: ROOT_DIR,
+    entryRoot: "app",
     rollupTypes: false,
     copyDtsFiles: true,
-    compilerOptions: {
-      paths: {
-        "@choice-ui/shared": ["../shared/src/index.ts"],
-        "~/*": ["./app/*"],
-      },
-    },
+    tsconfigPath: resolve(ROOT_DIR, "tsconfig.json"),
     beforeWriteFile: (filePath, content) => {
-      // 在类型定义中将 @choice-ui/shared 导入替换为相对路径
-      if (filePath.endsWith("index.d.ts") && content.includes("@choice-ui/shared")) {
-        const newContent = content.replace(
-          /export \* from ["']@choice-ui\/design-shared["'];?/g,
-          'export * from "../../shared/src/hooks";\nexport * from "../../shared/src/utils";',
-        )
-        return {
-          filePath,
-          content: newContent,
-        }
+      // 修正 shared 包的类型路径
+      if (filePath.includes("shared/src")) {
+        const newPath = filePath.replace(/.*shared\/src/, "dist/shared")
+        return { filePath: newPath, content }
       }
+      // 修正 index.d.ts 中对 shared 的引用路径
+      let newContent = content
+      newContent = newContent.replace(/from ['"]\.\.\/\.\.\/shared\/src\//g, "from './shared/")
+      newContent = newContent.replace(/from ['"]@choice-ui\/shared['"]/g, "from './shared'")
+      return { filePath, content: newContent }
     },
   })
 }
@@ -215,32 +180,23 @@ export default defineConfig(({ mode: _mode }: ConfigEnv): UserConfig => {
       tailwindcss(),
       createCopyAssetsPlugin(),
     ],
+    publicDir: false,
     build: {
       lib: {
         entry: resolve(APP_DIR, "index.ts"),
         name: "ChoiceformDesignSystem",
-        formats: ["es", "cjs"],
-        fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
+        formats: ["es"],
+        fileName: () => "index.js",
       },
       rollupOptions: {
         external: isExternal,
-        output: [
-          {
-            format: "es",
-            dir: "dist/esm",
-            preserveModules: true,
-            preserveModulesRoot: "app",
-            entryFileNames: ({ name: fileName }) => generateFileName(fileName, "js"),
-          },
-          {
-            format: "cjs",
-            dir: "dist/cjs",
-            preserveModules: true,
-            preserveModulesRoot: "app",
-            exports: "named",
-            entryFileNames: ({ name: fileName }) => generateFileName(fileName, "cjs"),
-          },
-        ],
+        output: {
+          format: "es",
+          dir: "dist",
+          preserveModules: true,
+          preserveModulesRoot: "app",
+          entryFileNames: ({ name: fileName }) => generateFileName(fileName, "js"),
+        },
       },
       sourcemap: false,
       minify: false,

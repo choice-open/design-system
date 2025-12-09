@@ -1,6 +1,6 @@
 {
   "name": "@choice-ui/menus",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Menus component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

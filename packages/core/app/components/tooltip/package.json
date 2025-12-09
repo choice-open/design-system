@@ -1,6 +1,6 @@
 {
   "name": "@choice-ui/tooltip",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Tooltip component for Choiceform Design System",
   "sideEffects": false,
   "type": "module",

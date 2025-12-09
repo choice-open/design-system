@@ -1,12 +1,11 @@
 {
   "name": "@choice-ui/react",
-  "version": "1.3.10",
+  "version": "1.3.13",
   "description": "A desktop-first React UI component library built for professional desktop applications with comprehensive documentation",
   "sideEffects": false,
   "type": "module",
   "source": "./app/index.ts",
-  "main": "./dist/cjs/index.cjs",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "types": "./app/index.ts",
   "files": [
     "dist",
@@ -16,9 +15,7 @@
   "exports": {
     ".": {
       "types": "./app/index.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.js"
+      "import": "./dist/index.js"
     },
     "./styles/*": "./dist/styles/*",
     "./tailwind.css": "./dist/tailwind.css",
@@ -27,12 +24,11 @@
   "publishConfig": {
     "access": "public",
     "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "import": "./dist/esm/index.js",
-        "require": "./dist/cjs/index.cjs",
-        "default": "./dist/esm/index.js"
+        "import": "./dist/index.js"
       },
       "./styles/*": "./dist/styles/*",
       "./tailwind.css": "./dist/tailwind.css",
@@ -40,7 +36,7 @@
     }
   },
   "scripts": {
-    "build": "pnpm run clean && vite build && tsc --emitDeclarationOnly",
+    "build": "pnpm run clean && vite build",
     "build:watch": "vite build --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
@@ -56,6 +52,9 @@
   "dependencies": {
     "@choiceform/icons-react": "^1.3.8",
     "@choice-ui/design-tokens": "workspace:*",
+    "classnames": "^2.5.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^3.1.0",
     "@date-fns/tz": "^1.2.0",
     "@floating-ui/react": "0.27.15",
     "@legendapp/state": "v3.0.0-beta.26",
@@ -77,6 +76,8 @@
     "slate-react": "^0.117.4",
     "sonner": "^2.0.7",
     "tinycolor2": "1.6.0",
+    "ts-pattern": "^5.6.0",
+    "use-stick-to-bottom": "^1.0.43",
     "usehooks-ts": "^3.1.0",
     "zod": "^4.0.5",
     "react-markdown": "^9.0.3",
@@ -133,7 +134,7 @@
     "vitest": "^3.1.2"
   },
   "peerDependencies": {
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
