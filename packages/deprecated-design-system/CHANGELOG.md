@@ -1,5 +1,12 @@
 # @choiceform/design-system
 
+## 999.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @choice-ui/react@1.4.2
+
 ## 999.0.1
 
 ### Patch Changes

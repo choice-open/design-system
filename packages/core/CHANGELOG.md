@@ -1,5 +1,11 @@
 # @choice-ui/react
 
+## 1.4.2
+
+### Patch Changes
+
+- Fix type declarations: include shared utility types and convert internal imports to relative paths
+
 ## 1.4.1
 
 ### Patch Changes
