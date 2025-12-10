@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from "react"
 import { useAlertDialogContext } from "../context/alert-dialog-context"
-import {
+import type {
   AlertDialogAlertConfig,
   AlertDialogConfirmConfig,
   AlertDialogCustomConfig,
@@ -24,9 +24,12 @@ export const useAlertDialog = (): UseAlertDialogReturn => {
 export const useAlertDialogProvider = () => {
   const [state, dispatch] = useReducer(alertDialogReducer, initialState)
 
-  const handleAction = useCallback((action: Parameters<typeof alertDialogReducer>[1]) => {
-    dispatch(action)
-  }, [])
+  const handleAction = useCallback(
+    (action: Parameters<typeof alertDialogReducer>[1]) => {
+      dispatch(action)
+    },
+    [],
+  )
 
   const confirm = useCallback(
     (config: string | AlertDialogConfirmConfig): Promise<boolean> => {

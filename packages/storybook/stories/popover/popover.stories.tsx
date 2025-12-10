@@ -138,32 +138,6 @@ export const Offset: Story = {
 }
 
 /**
- * TransitionStylesProps: Demonstrates customizing the transition styles of the popover.
- *
- * Features:
- * - Custom transition styles
- * - Custom transition duration
- * - Custom transition timing function
- * - Custom transition delay
- */
-export const TransitionStylesProps: Story = {
-  render: function TransitionStylesPropsStory() {
-    return (
-      <Popover
-        transitionStylesProps={{
-          duration: 1000,
-        }}
-      >
-        <Popover.Trigger>
-          <Button>Transition Styles Props</Button>
-        </Popover.Trigger>
-        <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-      </Popover>
-    )
-  },
-}
-
-/**
  * Interactions: Demonstrates different ways to trigger the popover.
  *
  * Features:

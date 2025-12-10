@@ -137,13 +137,6 @@
       "exportName": "WithTooltip",
       "description": "The Switch component does not have a built-in tooltip interface and requires the use of the `Tooltip` component to implement it.",
       "source": "import { Switch } from \"@choice-ui/switch\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [tooltip, setTooltip] = useState(false)\n  return (\n    <Tooltip content=\"This is a tooltip\">\n      <Switch\n        value={tooltip}\n        onChange={setTooltip}\n      >\n        Switch with tooltip\n      </Switch>\n    </Tooltip>\n  )\n\n}"
-    },
-    {
-      "id": "forms-switch--readonly",
-      "name": "Readonly",
-      "exportName": "Readonly",
-      "description": "Switch component in readOnly state.\n\nIn readOnly mode:\n- The switch does not respond to click or change events\n- The value cannot be changed\n- Useful for displaying switch state without allowing changes",
-      "source": "import { Switch } from \"@choice-ui/switch\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [value, setValue] = useState(false)\n  const [changeCount, setChangeCount] = useState(0)\n\n  const handleChange = (newValue: boolean) => {\n    setValue(newValue)\n    setChangeCount((prev) => prev + 1)\n  }\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"rounded-xl border bg-stone-50 p-4\">\n        <div className=\"text-body-small-strong mb-2 text-stone-700\">Current Value:</div>\n        <div className=\"text-body-small font-mono text-stone-600\">{value ? \"true\" : \"false\"}</div>\n        <div className=\"text-body-small-strong mt-2 text-stone-700\">Change Count:</div>\n        <div className=\"text-body-small font-mono text-stone-600\">{changeCount}</div>\n      </div>\n\n      <div className=\"flex flex-wrap gap-4\">\n        <Switch\n          readOnly\n          value={value}\n          onChange={handleChange}\n        >\n          Readonly Switch\n        </Switch>\n        <Switch\n          readOnly\n          value={!value}\n          onChange={handleChange}\n        >\n          Readonly Switch (on)\n        </Switch>\n        <Switch\n          value={value}\n          onChange={handleChange}\n        >\n          Normal Switch (for comparison)\n        </Switch>\n      </div>\n\n      <div className=\"text-body-small text-stone-600\">\n        💡 Try clicking on the readonly switches - the value should not change and the change\n        count should remain at 0. Only the normal switch will change the value.\n      </div>\n    </div>\n  )\n\n}"
     }
   ]
 }

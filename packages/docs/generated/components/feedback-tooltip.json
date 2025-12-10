@@ -17,115 +17,20 @@
     }
   },
   "exports": [
-    "TooltipTrigger",
-    "TooltipContent",
-    "TooltipArrow",
-    "useTooltip",
-    "TooltipProvider",
     "Tooltip",
-    "type TooltipOptions",
-    "type TooltipContextValue",
+    "TooltipContent",
+    "TooltipTrigger",
+    "TooltipArrow",
     "type TooltipProps",
     "type TooltipContentProps",
-    "type TooltipArrowProps"
+    "type TooltipArrowProps",
+    "TooltipContext",
+    "useTooltip",
+    "TooltipProvider"
   ],
   "props": [
     {
-      "displayName": "TooltipTrigger",
-      "description": "",
-      "props": []
-    },
-    {
-      "displayName": "TooltipContent",
-      "description": "",
-      "props": [
-        {
-          "name": "portalId",
-          "type": "string | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "variant",
-          "type": "undefined | \"default\" | \"light\"",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "withArrow",
-          "type": "boolean | undefined",
-          "required": false,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "TooltipArrow",
-      "description": "",
-      "props": [
-        {
-          "name": "className",
-          "type": "string | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "variant",
-          "type": "undefined | \"default\" | \"light\"",
-          "required": false,
-          "defaultValue": "default",
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "useTooltip",
-      "description": "",
-      "props": [
-        {
-          "name": "disabled",
-          "type": "boolean | undefined",
-          "required": false,
-          "defaultValue": "false",
-          "description": ""
-        },
-        {
-          "name": "initialOpen",
-          "type": "boolean | undefined",
-          "required": false,
-          "defaultValue": "false",
-          "description": ""
-        },
-        {
-          "name": "offset",
-          "type": "number | undefined",
-          "required": false,
-          "defaultValue": "5",
-          "description": ""
-        },
-        {
-          "name": "onOpenChange",
-          "type": "((open: boolean) => void) | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "open",
-          "type": "boolean | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "placement",
-          "type": "undefined | \"top\" | \"right\" | \"bottom\" | \"left\" | \"top-start\" | \"top-end\" | \"right-start\" | \"right-end\" | \"bottom-start\" | \"bottom-end\" | \"left-start\" | \"left-end\"",
-          "required": false,
-          "defaultValue": "top",
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "Tooltip",
+      "displayName": "TooltipProps",
       "description": "",
       "props": [
         {
@@ -195,50 +100,163 @@
           "description": ""
         }
       ]
+    },
+    {
+      "displayName": "TooltipTrigger",
+      "description": "",
+      "props": []
+    },
+    {
+      "displayName": "TooltipContentProps",
+      "description": "",
+      "props": [
+        {
+          "name": "portalId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"light\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "withArrow",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "TooltipArrowProps",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"light\"",
+          "required": false,
+          "defaultValue": "default",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "Context",
+      "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
+      "props": []
+    },
+    {
+      "displayName": "useTooltip",
+      "description": "",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "initialOpen",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "offset",
+          "type": "number | undefined",
+          "required": false,
+          "defaultValue": "5",
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "((open: boolean) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "placement",
+          "type": "undefined | \"top\" | \"right\" | \"bottom\" | \"left\" | \"top-start\" | \"top-end\" | \"right-start\" | \"right-end\" | \"bottom-start\" | \"bottom-end\" | \"left-start\" | \"left-end\"",
+          "required": false,
+          "defaultValue": "top",
+          "description": ""
+        }
+      ]
     }
   ],
   "stories": [
     {
-      "id": "feedback-tooltip--simple-api",
-      "name": "Simple API",
-      "exportName": "SimpleApi",
-      "description": "",
-      "source": ""
-    },
-    {
-      "id": "feedback-tooltip--default",
-      "name": "Default",
-      "exportName": "Default",
-      "description": "",
-      "source": "import { TooltipTrigger, TooltipContent, Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <Tooltip>\n      <TooltipTrigger>\n        <Button>Hover me</Button>\n      </TooltipTrigger>\n      <TooltipContent>This is a tooltip</TooltipContent>\n    </Tooltip>\n\n  );\n}"
+      "id": "feedback-tooltip--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "`Tooltip` is a floating label that appears on hover or focus to provide additional context.\n\n### Features\n- **Simple API**: Use `content` prop for quick tooltip creation\n- **Compound API**: Use `TooltipTrigger` + `TooltipContent` for full control\n- **12 Placements**: Support all positions around the trigger element\n- **2 Variants**: `default` (dark) and `light` styles\n- **Keyboard Shortcut**: Display shortcuts with `shortcut` prop\n- **Delay Group**: Smooth transitions via `TooltipProvider`\n\n### Simple API\n```tsx\n<Tooltip content=\"Helpful tip\">\n  <Button>Hover me</Button>\n</Tooltip>\n```\n\n### Compound API\n```tsx\n<Tooltip>\n  <TooltipTrigger>\n    <Button>Hover me</Button>\n  </TooltipTrigger>\n  <TooltipContent>Helpful tip</TooltipContent>\n</Tooltip>\n```\n\n### TooltipProvider\nEnables delay grouping - after first tooltip appears, subsequent tooltips show instantly.\n```tsx\n<TooltipProvider delay={{ open: 400, close: 200 }}>\n  <Tooltip content=\"Bold\"><Button>B</Button></Tooltip>\n  <Tooltip content=\"Italic\"><Button>I</Button></Tooltip>\n</TooltipProvider>\n```\nBasic: Simple API with `content` prop vs Compound API with separate components.",
+      "source": "import { Tooltip, TooltipContent, TooltipTrigger } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-8\">\n      <Tooltip content=\"Simple API tooltip\">\n        <Button>Simple API</Button>\n      </Tooltip>\n\n      <Tooltip>\n        <TooltipTrigger>\n          <Button variant=\"secondary\">Compound API</Button>\n        </TooltipTrigger>\n        <TooltipContent>Compound API tooltip</TooltipContent>\n      </Tooltip>\n    </div>\n\n  );\n}"
     },
     {
       "id": "feedback-tooltip--placements",
       "name": "Placements",
       "exportName": "Placements",
-      "description": "",
-      "source": "import { TooltipTrigger, TooltipContent, Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"space-y-8\">\n      {/* 顶部排列 */}\n      <div className=\"flex items-center justify-center gap-4\">\n        <Tooltip placement=\"top-start\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Top Start</Button>\n          </TooltipTrigger>\n          <TooltipContent>Top start placement</TooltipContent>\n        </Tooltip>\n\n        <Tooltip placement=\"top\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Top</Button>\n          </TooltipTrigger>\n          <TooltipContent>Top placement</TooltipContent>\n        </Tooltip>\n\n        <Tooltip placement=\"top-end\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Top End</Button>\n          </TooltipTrigger>\n          <TooltipContent>Top end placement</TooltipContent>\n        </Tooltip>\n      </div>\n\n      {/* 中间排列 */}\n      <div className=\"flex items-center justify-between\">\n        {/* 左侧 */}\n        <div className=\"flex flex-col gap-4\">\n          <Tooltip placement=\"left-start\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Left Start\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Left start placement</TooltipContent>\n          </Tooltip>\n\n          <Tooltip placement=\"left\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Left\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Left placement</TooltipContent>\n          </Tooltip>\n\n          <Tooltip placement=\"left-end\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Left End\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Left end placement</TooltipContent>\n          </Tooltip>\n        </div>\n\n        {/* 中心元素 */}\n        <div className=\"flex items-center justify-center\">\n          <div className=\"rounded-xl border-2 border-dashed border-gray-300 p-8\">\n            <span className=\"text-gray-500\">Hover around buttons to see tooltips</span>\n          </div>\n        </div>\n\n        {/* 右侧 */}\n        <div className=\"flex flex-col gap-4\">\n          <Tooltip placement=\"right-start\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Right Start\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Right start placement</TooltipContent>\n          </Tooltip>\n\n          <Tooltip placement=\"right\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Right\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Right placement</TooltipContent>\n          </Tooltip>\n\n          <Tooltip placement=\"right-end\">\n            <TooltipTrigger>\n              <Button\n                variant=\"secondary\"\n                className=\"h-16\"\n              >\n                Right End\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent>Right end placement</TooltipContent>\n          </Tooltip>\n        </div>\n      </div>\n\n      {/* 底部排列 */}\n      <div className=\"flex items-center justify-center gap-4\">\n        <Tooltip placement=\"bottom-start\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Bottom Start</Button>\n          </TooltipTrigger>\n          <TooltipContent>Bottom start placement</TooltipContent>\n        </Tooltip>\n\n        <Tooltip placement=\"bottom\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Bottom</Button>\n          </TooltipTrigger>\n          <TooltipContent>Bottom placement</TooltipContent>\n        </Tooltip>\n\n        <Tooltip placement=\"bottom-end\">\n          <TooltipTrigger>\n            <Button variant=\"secondary\">Bottom End</Button>\n          </TooltipTrigger>\n          <TooltipContent>Bottom end placement</TooltipContent>\n        </Tooltip>\n      </div>\n    </div>\n\n  );\n}"
-    },
-    {
-      "id": "feedback-tooltip--delay-group",
-      "name": "Delay Group",
-      "exportName": "DelayGroup",
-      "description": "",
-      "source": "import { TooltipTrigger, TooltipContent, TooltipProvider, Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"space-y-8\">\n      <div>\n        <h3 className=\"font-strong mb-4\">With DelayGroup</h3>\n        <p className=\"text-body-small mb-4 text-gray-600\">\n          Hover over the first button and wait 200ms for tooltip to appear.\n          <br />\n          Then quickly move to other buttons - they should appear instantly!\n        </p>\n        <div className=\"flex gap-4\">\n          <TooltipProvider\n            delay={{\n              open: 400,\n              close: 200,\n            }}\n          >\n            <Tooltip>\n              <TooltipTrigger>\n                <Button>First</Button>\n              </TooltipTrigger>\n              <TooltipContent>First tooltip - 200ms delay initially</TooltipContent>\n            </Tooltip>\n            <Tooltip>\n              <TooltipTrigger>\n                <Button>Second</Button>\n              </TooltipTrigger>\n              <TooltipContent>Second tooltip - instant when moving from first</TooltipContent>\n            </Tooltip>\n            <Tooltip>\n              <TooltipTrigger>\n                <Button>Third</Button>\n              </TooltipTrigger>\n              <TooltipContent>Third tooltip - instant when moving from others</TooltipContent>\n            </Tooltip>\n          </TooltipProvider>\n        </div>\n      </div>\n    </div>\n\n  );\n}"
+      "description": "Placements: 12 positions - top/right/bottom/left with start/end variants.",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"grid grid-cols-5 gap-2\">\n      {/* Row 1 */}\n      <div />\n      <Tooltip\n        content=\"top-start\"\n        placement=\"top-start\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          top-start\n        </Button>\n      </Tooltip>\n      <Tooltip\n        content=\"top\"\n        placement=\"top\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          top\n        </Button>\n      </Tooltip>\n      <Tooltip\n        content=\"top-end\"\n        placement=\"top-end\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          top-end\n        </Button>\n      </Tooltip>\n      <div />\n\n      {/* Row 2 */}\n      <Tooltip\n        content=\"left-start\"\n        placement=\"left-start\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          left-start\n        </Button>\n      </Tooltip>\n      <div />\n      <div />\n      <div />\n      <Tooltip\n        content=\"right-start\"\n        placement=\"right-start\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          right-start\n        </Button>\n      </Tooltip>\n\n      {/* Row 3 */}\n      <Tooltip\n        content=\"left\"\n        placement=\"left\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          left\n        </Button>\n      </Tooltip>\n      <div />\n      <div />\n      <div />\n      <Tooltip\n        content=\"right\"\n        placement=\"right\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          right\n        </Button>\n      </Tooltip>\n\n      {/* Row 4 */}\n      <Tooltip\n        content=\"left-end\"\n        placement=\"left-end\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          left-end\n        </Button>\n      </Tooltip>\n      <div />\n      <div />\n      <div />\n      <Tooltip\n        content=\"right-end\"\n        placement=\"right-end\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          right-end\n        </Button>\n      </Tooltip>\n\n      {/* Row 5 */}\n      <div />\n      <Tooltip\n        content=\"bottom-start\"\n        placement=\"bottom-start\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          bottom-start\n        </Button>\n      </Tooltip>\n      <Tooltip\n        content=\"bottom\"\n        placement=\"bottom\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          bottom\n        </Button>\n      </Tooltip>\n      <Tooltip\n        content=\"bottom-end\"\n        placement=\"bottom-end\"\n      >\n        <Button\n          variant=\"secondary\"\n          className=\"w-full\"\n        >\n          bottom-end\n        </Button>\n      </Tooltip>\n      <div />\n    </div>\n\n  );\n}"
     },
     {
       "id": "feedback-tooltip--variants",
       "name": "Variants",
       "exportName": "Variants",
-      "description": "",
-      "source": "import { TooltipTrigger, TooltipContent, TooltipProvider, Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <TooltipProvider\n      delay={{\n        open: 400,\n        close: 200,\n      }}\n    >\n      <div className=\"grid grid-cols-4 gap-4\">\n        {[\"default\", \"light\"].map((variant) =>\n          [\"right\", \"left\", \"top\", \"bottom\"].map((placement) => (\n            <Tooltip\n              key={`${placement}-${variant}`}\n              placement={placement as Placement}\n            >\n              <TooltipTrigger>\n                <Button variant=\"secondary\">\n                  {placement} / {variant}\n                </Button>\n              </TooltipTrigger>\n              <TooltipContent variant={variant as \"default\" | \"light\"}>\n                {placement} / {variant}\n              </TooltipContent>\n            </Tooltip>\n          )),\n        )}\n      </div>\n    </TooltipProvider>\n\n  );\n}"
+      "description": "Variants: `default` (dark) and `light` visual styles.",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-8\">\n      <Tooltip\n        content=\"Dark background\"\n        variant=\"default\"\n      >\n        <Button variant=\"secondary\">Default</Button>\n      </Tooltip>\n      <Tooltip\n        content=\"Light with border\"\n        variant=\"light\"\n      >\n        <Button variant=\"secondary\">Light</Button>\n      </Tooltip>\n    </div>\n\n  );\n}"
+    },
+    {
+      "id": "feedback-tooltip--options",
+      "name": "Options",
+      "exportName": "Options",
+      "description": "Options: Arrow visibility (`withArrow`) and distance (`offset`).",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"space-y-6\">\n      <div className=\"flex gap-4\">\n        <Tooltip\n          content=\"With arrow (default)\"\n          withArrow\n        >\n          <Button variant=\"secondary\">Arrow</Button>\n        </Tooltip>\n        <Tooltip\n          content=\"No arrow\"\n          withArrow={false}\n        >\n          <Button variant=\"secondary\">No Arrow</Button>\n        </Tooltip>\n      </div>\n\n      <div className=\"flex gap-4\">\n        <Tooltip\n          content=\"offset: 4\"\n          offset={4}\n        >\n          <Button variant=\"secondary\">Offset 4</Button>\n        </Tooltip>\n        <Tooltip\n          content=\"offset: 8 (default)\"\n          offset={8}\n        >\n          <Button variant=\"secondary\">Offset 8</Button>\n        </Tooltip>\n        <Tooltip\n          content=\"offset: 16\"\n          offset={16}\n        >\n          <Button variant=\"secondary\">Offset 16</Button>\n        </Tooltip>\n      </div>\n    </div>\n\n  );\n}"
+    },
+    {
+      "id": "feedback-tooltip--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled: Prevent tooltip from appearing with `disabled` prop.",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-4\">\n      <Tooltip\n        content=\"Visible\"\n        disabled={false}\n      >\n        <Button variant=\"secondary\">Enabled</Button>\n      </Tooltip>\n      <Tooltip\n        content=\"Hidden\"\n        disabled\n      >\n        <Button variant=\"secondary\">Disabled</Button>\n      </Tooltip>\n    </div>\n\n  );\n}"
+    },
+    {
+      "id": "feedback-tooltip--controlled",
+      "name": "Controlled",
+      "exportName": "Controlled",
+      "description": "Controlled: Manage open state externally with `open` and `onOpenChange`.",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [open, setOpen] = useState(false)\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Tooltip\n        content=\"Controlled tooltip\"\n        open={open}\n        onOpenChange={setOpen}\n      >\n        <Button variant=\"secondary\">Hover or click buttons below</Button>\n      </Tooltip>\n      <div className=\"flex gap-2\">\n        <Button\n          variant=\"primary\"\n          onClick={() => setOpen(true)}\n        >\n          Open\n        </Button>\n        <Button\n          variant=\"secondary\"\n          onClick={() => setOpen(false)}\n        >\n          Close\n        </Button>\n      </div>\n    </div>\n  )\n\n}"
     },
     {
       "id": "feedback-tooltip--shortcut",
       "name": "Shortcut",
       "exportName": "Shortcut",
-      "description": "Shows how to use the `shortcut` prop to add keyboard shortcuts to a tooltip.\n\n### Features\n- Display keyboard shortcuts\n- Support for modifier keys\n\n### Usage\n```tsx\n<Tooltip\n  content=\"This is a tooltip\"\n  shortcut={{ modifier: [\"command\"], keys: \"K\" }}\n>\n  <Button>Tooltip</Button>\n</Tooltip>\n```",
-      "source": "import { TooltipProvider, Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n\n  return (\n    <TooltipProvider\n      delay={{\n        open: 400,\n        close: 200,\n      }}\n    >\n      <div className=\"flex gap-4\">\n        <Tooltip\n          content=\"Save file\"\n          shortcut={{ modifier: [\"command\"], keys: \"K\" }}\n        >\n          <Button variant=\"secondary\">Command + K</Button>\n        </Tooltip>\n\n        <Tooltip\n          content=\"Select all\"\n          shortcut={{ modifier: [\"ctrl\"], keys: \"A\" }}\n        >\n          <Button variant=\"secondary\">Ctrl + A</Button>\n        </Tooltip>\n\n        <Tooltip\n          content=\"Shift\"\n          shortcut={{ modifier: [\"shift\"], keys: \"A\" }}\n        >\n          <Button variant=\"secondary\">Shift + A</Button>\n        </Tooltip>\n      </div>\n    </TooltipProvider>\n  )\n\n}"
+      "description": "Shortcut: Display keyboard shortcuts with `shortcut` prop.\nSupports modifiers: `command`, `ctrl`, `shift`, `alt`, `option`.",
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-4\">\n      <Tooltip\n        content=\"Save\"\n        shortcut={{ modifier: [\"command\"], keys: \"S\" }}\n      >\n        <Button variant=\"secondary\">⌘S</Button>\n      </Tooltip>\n      <Tooltip\n        content=\"Copy\"\n        shortcut={{ modifier: [\"command\"], keys: \"C\" }}\n      >\n        <Button variant=\"secondary\">⌘C</Button>\n      </Tooltip>\n      <Tooltip\n        content=\"Undo\"\n        shortcut={{ modifier: [\"command\", \"shift\"], keys: \"Z\" }}\n      >\n        <Button variant=\"secondary\">⇧⌘Z</Button>\n      </Tooltip>\n    </div>\n\n  );\n}"
+    },
+    {
+      "id": "feedback-tooltip--delay-group",
+      "name": "Delay Group",
+      "exportName": "DelayGroup",
+      "description": "DelayGroup: Use `TooltipProvider` for smooth transitions between tooltips.\nFirst tooltip has delay, subsequent ones appear instantly while moving quickly.",
+      "source": "import { Tooltip, TooltipProvider } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"space-y-8\">\n      <div>\n        <p className=\"text-body-small mb-4 text-gray-500\">\n          With TooltipProvider: hover first, wait 400ms, then move quickly between buttons.\n        </p>\n        <TooltipProvider delay={{ open: 400, close: 200 }}>\n          <div className=\"flex gap-4\">\n            <Tooltip content=\"First - 400ms delay\">\n              <Button>First</Button>\n            </Tooltip>\n            <Tooltip content=\"Second - instant\">\n              <Button>Second</Button>\n            </Tooltip>\n            <Tooltip content=\"Third - instant\">\n              <Button>Third</Button>\n            </Tooltip>\n          </div>\n        </TooltipProvider>\n      </div>\n\n      <div>\n        <p className=\"text-body-small mb-4 text-gray-500\">\n          Without TooltipProvider: independent tooltips.\n        </p>\n        <div className=\"flex gap-4\">\n          <Tooltip content=\"Independent 1\">\n            <Button variant=\"secondary\">First</Button>\n          </Tooltip>\n          <Tooltip content=\"Independent 2\">\n            <Button variant=\"secondary\">Second</Button>\n          </Tooltip>\n        </div>\n      </div>\n    </div>\n\n  );\n}"
     }
   ]
 }

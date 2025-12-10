@@ -1,12 +1,7 @@
-import { Modal, ModalContent, ModalFooter } from "@choice-ui/modal"
 import { findChildByType, mergeRefs, tcx } from "@choice-ui/shared"
 import { Slot } from "@choice-ui/slot"
-import type {
-  FloatingFocusManagerProps,
-  OffsetOptions,
-  Placement,
-  UseTransitionStylesProps,
-} from "@floating-ui/react"
+import { Modal, ModalContent, ModalFooter } from "@choice-ui/modal"
+import type { FloatingFocusManagerProps, Placement, OffsetOptions } from "@floating-ui/react"
 import {
   FloatingFocusManager,
   FloatingNode,
@@ -21,7 +16,7 @@ import { useDrag, useFloatingPopover } from "./hooks"
 import { PopoverContext } from "./popover-context"
 
 const PORTAL_ROOT_ID = "floating-popover-root"
-const DEFAULT_OFFSET = 8
+const DEFAULT_OFFSET = { mainAxis: 8, crossAxis: 0 }
 
 export interface PopoverProps {
   autoSize?: boolean
@@ -34,6 +29,10 @@ export interface PopoverProps {
   delay?: { close?: number; open?: number }
   draggable?: boolean
   focusManagerProps?: Partial<FloatingFocusManagerProps>
+  /**
+   * @deprecated use focusManagerProps.initialFocus instead
+   */
+  initialFocus?: number | React.MutableRefObject<HTMLElement | null>
   interactions?: "hover" | "click" | "focus" | "none"
   matchTriggerWidth?: boolean
   maxWidth?: number
@@ -51,7 +50,6 @@ export interface PopoverProps {
    */
   root?: HTMLElement | null
   triggerRef?: React.RefObject<HTMLElement>
-  transitionStylesProps?: UseTransitionStylesProps
 }
 
 // Popover 组件实现
@@ -62,7 +60,7 @@ export const DragPopover = memo(function DragPopover({
   draggable = false,
   placement = "bottom",
   interactions = "click",
-  offset: offsetDistance = { mainAxis: DEFAULT_OFFSET, crossAxis: 0 },
+  offset: offsetDistance = DEFAULT_OFFSET,
   open,
   onOpenChange,
   defaultOpen,
@@ -70,6 +68,7 @@ export const DragPopover = memo(function DragPopover({
   closeOnEscape = true,
   contentRef,
   delay,
+  initialFocus,
   focusManagerProps = {
     returnFocus: true,
     guards: false,
@@ -82,7 +81,6 @@ export const DragPopover = memo(function DragPopover({
   rememberPosition = false,
   maxWidth,
   matchTriggerWidth = false,
-  transitionStylesProps,
 }: PopoverProps) {
   const titleId = useId()
   const descriptionId = useId()
@@ -122,7 +120,6 @@ export const DragPopover = memo(function DragPopover({
     rememberPosition,
     resetDragState,
     resetPosition,
-    transitionStylesProps,
   })
 
   useEffect(() => {
@@ -135,20 +132,6 @@ export const DragPopover = memo(function DragPopover({
   const combinedStyles = useMemo(() => {
     return floating.getStyles(dragState.position, dragState.isDragging)
   }, [floating, dragState.position, dragState.isDragging])
-
-  // 🔧 缓存过渡样式
-  const transitionStyles = useMemo(() => {
-    // 如果拖拽，禁用过渡
-    if (draggable && dragState.isDragging) {
-      return { ...floating.styles, transition: "none" }
-    }
-
-    if (floating.styles.transition) {
-      return { ...floating.styles, transition: floating.styles.transition }
-    }
-
-    return floating.styles
-  }, [floating.styles, draggable, dragState.isDragging])
 
   // 🔧 缓存内联函数，避免每次渲染重新创建
   const handleFloatingRef = useCallback(
@@ -232,6 +215,7 @@ export const DragPopover = memo(function DragPopover({
       externalTriggerRef,
       draggable,
       handleDragStart,
+      // titleId, descriptionId, dragContentRef 是稳定的，移除
     ],
   )
 
@@ -240,6 +224,7 @@ export const DragPopover = memo(function DragPopover({
       <PopoverContext.Provider value={contextValue}>
         {triggerContent}
         <FloatingFocusManager
+          initialFocus={initialFocus}
           {...focusManagerProps}
           context={floating.context}
         >
@@ -247,27 +232,25 @@ export const DragPopover = memo(function DragPopover({
             id={portalId}
             root={root}
           >
-            {floating.innerOpen && floating.isMounted && (
-              <div style={transitionStyles}>
-                <Modal
-                  ref={handleFloatingRef}
-                  style={combinedStyles}
-                  className={tcx(matchTriggerWidth && "max-w-none", className)}
-                  data-state={floating.positionReady ? "open" : "opening"}
-                  data-dragging={dragState.isDragging ? "true" : undefined}
-                  data-draggable={draggable ? "true" : undefined}
-                  data-closing={floating.isClosing ? "true" : undefined}
-                  {...floating.getFloatingProps()}
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby={titleId}
-                  aria-describedby={descriptionId}
-                >
-                  {headerContent}
-                  {floating.positionReady && contentContent}
-                  {footerContent}
-                </Modal>
-              </div>
+            {floating.innerOpen && (
+              <Modal
+                ref={handleFloatingRef}
+                style={combinedStyles}
+                className={tcx(matchTriggerWidth && "max-w-none", className)}
+                data-state={floating.positionReady ? "open" : "opening"}
+                data-dragging={dragState.isDragging ? "true" : undefined}
+                data-draggable={draggable ? "true" : undefined}
+                data-closing={floating.isClosing ? "true" : undefined}
+                {...floating.getFloatingProps()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={titleId}
+                aria-describedby={descriptionId}
+              >
+                {headerContent}
+                {floating.positionReady && contentContent}
+                {footerContent}
+              </Modal>
             )}
           </FloatingPortal>
         </FloatingFocusManager>

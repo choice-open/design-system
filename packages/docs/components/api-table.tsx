@@ -76,8 +76,6 @@ function cleanDescription(text?: string): string {
 
 export function ApiTable({ props }: ApiTableProps) {
   if (!props || props.length === 0) return null
-  const { theme } = useTheme()
-  const highlightTheme = theme === "dark" ? themes.vsDark : themes.vsLight
 
   return (
     <section
@@ -89,54 +87,61 @@ export function ApiTable({ props }: ApiTableProps) {
         <div className="space-y-2">
           <div className="overflow-hidden rounded-xl border">
             <table className="w-full min-w-0 text-left">
-              {props.map((group, idx) => (
-                <Fragment key={`${group.displayName ?? idx}-${idx}`}>
-                  <thead className="bg-secondary-background">
-                    <tr className="text-secondary-foreground">
-                      <th className="font-strong text-default-foreground px-4 py-2">
-                        {group.displayName}
-                      </th>
-                      <th className="px-4 py-2 font-semibold">Type</th>
-                      <th className="px-4 py-2 font-semibold">Default</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(group.props ?? []).map((prop) => (
-                      <tr key={prop.name}>
-                        <td className="px-4 py-2">
-                          <div className="flex items-center gap-2">
-                            <span>{prop.name}</span>
-                            {prop.description && (
-                              <IconButton
-                                variant="ghost"
-                                tooltip={{ content: cleanDescription(prop.description) || "—" }}
-                              >
-                                <InfoCircle />
-                              </IconButton>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-4 py-2 whitespace-pre-wrap">
-                          <CodeBlock
-                            code={prop.type}
-                            language="typescript"
-                          />
-                        </td>
-                        <td className="px-4 py-2">
-                          {prop.defaultValue ? (
+              {props.map((group, idx) => {
+                // 过滤掉 type 为空的 props
+                const validProps = (group.props ?? []).filter((prop) => prop.type?.trim())
+                // 如果没有有效的 props，不渲染这个 group
+                if (validProps.length === 0) return null
+
+                return (
+                  <Fragment key={`${group.displayName ?? idx}-${idx}`}>
+                    <thead className="bg-secondary-background">
+                      <tr className="text-secondary-foreground">
+                        <th className="font-strong text-default-foreground px-4 py-2">
+                          {group.displayName}
+                        </th>
+                        <th className="px-4 py-2 font-semibold">Type</th>
+                        <th className="px-4 py-2 font-semibold">Default</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {validProps.map((prop) => (
+                        <tr key={prop.name}>
+                          <td className="px-4 py-2">
+                            <div className="flex items-center gap-2">
+                              <span>{prop.name}</span>
+                              {prop.description && (
+                                <IconButton
+                                  variant="ghost"
+                                  tooltip={{ content: cleanDescription(prop.description) || "—" }}
+                                >
+                                  <InfoCircle />
+                                </IconButton>
+                              )}
+                            </div>
+                          </td>
+                          <td className="px-4 py-2 whitespace-pre-wrap">
                             <CodeBlock
-                              code={prop.defaultValue}
+                              code={prop.type}
                               language="typescript"
                             />
-                          ) : (
-                            <span className="text-secondary-foreground"> - </span>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Fragment>
-              ))}
+                          </td>
+                          <td className="px-4 py-2">
+                            {prop.defaultValue ? (
+                              <CodeBlock
+                                code={prop.defaultValue}
+                                language="typescript"
+                              />
+                            ) : (
+                              <span className="text-secondary-foreground"> - </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Fragment>
+                )
+              })}
             </table>
           </div>
         </div>

@@ -78,7 +78,7 @@ export const Basic: Story = {
             <div className="grid grid-cols-3 gap-2">
               {Object.values(State).map((state) => (
                 <Fragment key={state}>
-                  <span className="text-pink-500 capitalize">{state}</span>
+                  <span className="capitalize text-pink-500">{state}</span>
 
                   {Object.values(Interaction).map((interaction) => (
                     <Fragment key={interaction}>
@@ -252,24 +252,25 @@ export const Group: Story = {
       { value: "option3", label: "Option 3" },
     ]
 
-    const [selectedIds, setSelectedIds] = useState<string>(groupOptions[0].value)
+    const [optionsValue, setOptionsValue] = useState("option1")
+    const [itemsValue, setItemsValue] = useState("option1")
 
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <span>Using options prop:</span>
+      <div className="grid grid-cols-2 gap-8">
+        <div className="space-y-2">
+          <p className="text-secondary-foreground">Using options prop</p>
           <RadioGroup
             options={groupOptions}
-            value={selectedIds}
-            onChange={(value) => setSelectedIds(value)}
+            value={optionsValue}
+            onChange={setOptionsValue}
           />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <span>Using RadioGroup.Item:</span>
+        <div className="space-y-2">
+          <p className="text-secondary-foreground">Using RadioGroup.Item</p>
           <RadioGroup
-            value={selectedIds}
-            onChange={(value) => setSelectedIds(value)}
+            value={itemsValue}
+            onChange={setItemsValue}
           >
             {groupOptions.map((option) => (
               <RadioGroup.Item
@@ -305,31 +306,72 @@ export const Group: Story = {
  */
 export const GroupVariant: Story = {
   render: function GroupVariantStory() {
-    const groupOptions = [
-      { value: "default", label: "Default" },
-      { value: "accent", label: "Accent" },
-      { value: "outline", label: "Outline" },
+    const [defaultValue, setDefaultValue] = useState("option1")
+    const [accentValue, setAccentValue] = useState("option1")
+    const [outlineValue, setOutlineValue] = useState("option1")
+
+    const options = [
+      { value: "option1", label: "Option 1" },
+      { value: "option2", label: "Option 2" },
+      { value: "option3", label: "Option 3" },
     ]
 
-    const [variant, setVariant] = useState("default")
-
     return (
-      <>
-        <RadioGroup
-          variant={variant as "default" | "accent" | "outline"}
-          value={variant}
-          onChange={(value) => setVariant(value)}
-        >
-          {groupOptions.map((option) => (
-            <RadioGroup.Item
-              key={option.value}
-              value={option.value}
-            >
-              {option.label}
-            </RadioGroup.Item>
-          ))}
-        </RadioGroup>
-      </>
+      <div className="grid grid-cols-3 gap-8">
+        <div className="space-y-2">
+          <p className="text-secondary-foreground">Default</p>
+          <RadioGroup
+            variant="default"
+            value={defaultValue}
+            onChange={setDefaultValue}
+          >
+            {options.map((option) => (
+              <RadioGroup.Item
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-secondary-foreground">Accent</p>
+          <RadioGroup
+            variant="accent"
+            value={accentValue}
+            onChange={setAccentValue}
+          >
+            {options.map((option) => (
+              <RadioGroup.Item
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-secondary-foreground">Outline</p>
+          <RadioGroup
+            variant="outline"
+            value={outlineValue}
+            onChange={setOutlineValue}
+          >
+            {options.map((option) => (
+              <RadioGroup.Item
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </RadioGroup.Item>
+            ))}
+          </RadioGroup>
+        </div>
+      </div>
     )
   },
 }
@@ -404,7 +446,7 @@ export const GroupWithDisabledOptions: Story = {
 }
 
 /**
- * RadioGroup component in readOnly state.
+ * [TEST] RadioGroup component in readOnly state.
  *
  * In readOnly mode:
  * - Radio buttons do not respond to click or keyboard events

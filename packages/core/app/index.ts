@@ -1,4 +1,5 @@
 export * from "./components"
+export * from "./context"
 
 // Re-export shared utilities from @choice-ui/shared
 // This allows users to import utilities directly from @choice-ui/react

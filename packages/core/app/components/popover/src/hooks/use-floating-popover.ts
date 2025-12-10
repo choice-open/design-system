@@ -20,7 +20,6 @@ import {
   useHover,
   useInteractions,
   useRole,
-  useTransitionStyles,
 } from "@floating-ui/react"
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react"
 import { useEventCallback } from "usehooks-ts"
@@ -37,7 +36,6 @@ interface UseFloatingPopoverReturn {
   handleTriggerRef: (triggerRef: RefObject<HTMLElement | null>) => void
   innerOpen: boolean
   isClosing: boolean
-  isMounted: boolean
   positionReady: boolean
   refs: {
     floating: React.MutableRefObject<HTMLElement | null>
@@ -52,7 +50,6 @@ interface UseFloatingPopoverReturn {
   }>
   x: number | null
   y: number | null
-  styles: React.CSSProperties
 }
 
 interface UseFloatingPopoverParams {
@@ -172,8 +169,6 @@ export function useFloatingPopover({
     middleware,
     whileElementsMounted: autoUpdate ? floatingAutoUpdate : undefined,
   })
-
-  const { isMounted, styles } = useTransitionStyles(context, transitionStylesProps)
 
   // 🔧 使用官方推荐的 isPositioned 来管理位置状态
   useEffect(() => {
@@ -323,7 +318,5 @@ export function useFloatingPopover({
     handleClose,
     handleTriggerRef,
     isClosing,
-    isMounted,
-    styles,
   }
 }

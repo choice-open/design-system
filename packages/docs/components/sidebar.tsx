@@ -3,7 +3,7 @@
 import { Badge, List, ScrollArea, tcx } from "@choice-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Fragment } from "react"
+import { Fragment, useEffect, useRef } from "react"
 
 type NavItem = {
   title: string
@@ -32,6 +32,7 @@ function renderTree(
   items: NavItem[],
   parentId: string | null,
   activeHref: string,
+  activeRef: React.RefObject<HTMLAnchorElement | null>,
   level = 0,
 ): { node: React.ReactNode; containsActive: boolean } {
   let anyActive = false
@@ -46,6 +47,7 @@ function renderTree(
         item.items ?? [],
         nodeId,
         activeHref,
+        activeRef,
         level + 1,
       )
       const active = selfActive || childActive
@@ -73,6 +75,7 @@ function renderTree(
 
     return item.href ? (
       <Link
+        ref={active ? activeRef : undefined}
         href={item.href}
         key={nodeId}
       >
@@ -111,6 +114,13 @@ function renderTree(
 
 export function Sidebar({ items, className, ...props }: SidebarNavProps) {
   const pathname = usePathname()
+  const activeRef = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      activeRef.current?.scrollIntoView({ block: "center" })
+    })
+  }, [])
 
   return (
     <ScrollArea {...props}>
@@ -122,7 +132,7 @@ export function Sidebar({ items, className, ...props }: SidebarNavProps) {
             size="large"
             className="py-0 pr-4 pl-0"
           >
-            <List.Content>{renderTree(items, null, pathname).node}</List.Content>
+            <List.Content>{renderTree(items, null, pathname, activeRef).node}</List.Content>
           </List>
         </ScrollArea.Content>
       </ScrollArea.Viewport>

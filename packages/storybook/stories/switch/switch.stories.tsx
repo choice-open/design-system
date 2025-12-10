@@ -274,7 +274,7 @@ export const WithTooltip: Story = {
 }
 
 /**
- * Switch component in readOnly state.
+ * [TEST] Switch component in readOnly state.
  *
  * In readOnly mode:
  * - The switch does not respond to click or change events

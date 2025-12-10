@@ -80,7 +80,7 @@ export const Basic: Story = {
             <div className="grid grid-cols-4 gap-2">
               {Object.values(State).map((state) => (
                 <Fragment key={state}>
-                  <span className="text-pink-500 capitalize">{state}</span>
+                  <span className="capitalize text-pink-500">{state}</span>
 
                   {Object.values(Interaction).map((interaction) => (
                     <Fragment key={interaction}>
@@ -241,7 +241,7 @@ export const LabelUsage: Story = {
 }
 
 /**
- * Checkbox component in readOnly state.
+ * [TEST] Checkbox component in readOnly state.
  *
  * In readOnly mode:
  * - The checkbox does not respond to click or keyboard events

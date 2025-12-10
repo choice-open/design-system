@@ -66,6 +66,15 @@ export const Basic: Story = {
   },
 }
 
+/**
+ * Negative: Demonstrates the Range component with negative values.
+ *
+ * Features:
+ * - Support for negative value ranges
+ * - Proper handling of ranges crossing zero
+ * - Default value at zero point
+ * - Symmetrical range selection
+ */
 export const Negative: Story = {
   render: function NegativeStory() {
     const [value, setValue] = useState(0)
@@ -584,7 +593,7 @@ export const TupleInPopover: Story = {
           <Button>Open Range Filter</Button>
         </Popover.Trigger>
         <Popover.Header title="Select Range" />
-        <Popover.Content className="grid w-64 grid-cols-[180px_auto] gap-2 p-3">
+        <Popover.Content className="grid grid-cols-[180px_auto] gap-2 p-3">
           <RangeTuple
             className="flex-1"
             value={value}
@@ -636,10 +645,10 @@ export const TupleSentimentNeutralRange: Story = {
           }}
           min={-1}
           max={1}
-          defaultValue={[-0.23333, 0.2]}
+          defaultValue={[-0.25, 0.25]}
         />
         <div className="text-body-medium w-28 text-right">
-          {value[0]} - {value[1]}
+          {value[0].toFixed(3)} - {value[1].toFixed(3)}
         </div>
       </div>
     )
@@ -647,7 +656,7 @@ export const TupleSentimentNeutralRange: Story = {
 }
 
 /**
- * Range component in readOnly state.
+ * [TEST] Range component in readOnly state.
  *
  * In readOnly mode:
  * - The range slider does not respond to pointer or keyboard events
@@ -699,7 +708,7 @@ export const Readonly: Story = {
 }
 
 /**
- * RangeTuple component in readOnly state.
+ * [TEST] RangeTuple component in readOnly state.
  *
  * In readOnly mode:
  * - The range tuple slider does not respond to pointer or keyboard events

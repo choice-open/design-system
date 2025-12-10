@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { GlobalSearch } from "@/components/global-search"
 import { IconButton, Tabs } from "@/components/ui"
 import { useState } from "react"
 import { Github } from "@choiceform/icons-react"
@@ -49,6 +50,7 @@ export function SiteHeader() {
           </Tabs>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <GlobalSearch />
           <nav className="flex items-center gap-2">
             <ThemeToggle />
             <IconButton

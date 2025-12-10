@@ -51,16 +51,15 @@ type Story = StoryObj<typeof meta>
  * - Auto-sizing based on content
  * - Default visual styling
  * - Basic placeholder text
- *
- * Usage:
- * ```tsx
- * <Textarea placeholder="Enter your text here..." />
- * ```
  */
 export const Default: Story = {
-  args: {
-    placeholder: "Enter your text here...",
-    className: "w-80",
+  render: function Default() {
+    return (
+      <Textarea
+        placeholder="Enter your text here..."
+        className="w-80"
+      />
+    )
   },
 }
 
@@ -71,19 +70,6 @@ export const Default: Story = {
  * - Controlled input with React state
  * - Real-time value updates
  * - Programmatic value control
- *
- * Usage:
- * ```tsx
- * const [value, setValue] = useState("Initial text")
- *
- * return (
- *   <Textarea
- *     value={value}
- *     onChange={setValue}
- *     placeholder="Enter your text..."
- *   />
- * )
- * ```
  *
  * Best Practices:
  * - Use controlled mode when you need to validate, format, or sync with other components
@@ -111,14 +97,6 @@ export const WithValue: Story = {
  * - light: Fixed light appearance regardless of theme
  * - dark: Fixed dark appearance regardless of theme
  * - reset: Removes variant styling, no variant settings applied
- *
- * Usage:
- * ```tsx
- * <Textarea
- *   variant="default" // Adapts to current theme
- *   placeholder="Enter text..."
- * />
- * ```
  *
  * Best Practices:
  * - Use default variant for inputs that adapt to the current theme
@@ -171,23 +149,19 @@ export const Variants: Story = {
  * - Enhanced border styling
  * - Clear state differentiation
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   selected={true}
- *   value="Selected content"
- * />
- * ```
- *
  * Best Practices:
  * - Use to highlight important or active textareas in complex forms
  * - Combine with focus management for better UX
  */
 export const Selected: Story = {
-  args: {
-    selected: true,
-    value: "This textarea is in selected state",
-    className: "w-80",
+  render: function Selected() {
+    return (
+      <Textarea
+        selected={true}
+        value="This textarea is in selected state"
+        className="w-80"
+      />
+    )
   },
 }
 
@@ -199,23 +173,19 @@ export const Selected: Story = {
  * - Prevents user interaction
  * - Maintains content visibility
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   disabled={true}
- *   value="Read-only content"
- * />
- * ```
- *
  * Accessibility:
  * - Properly communicated to screen readers
  * - Skipped in keyboard navigation
  */
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-    value: "This textarea is disabled",
-    className: "w-80",
+  render: function Disabled() {
+    return (
+      <Textarea
+        disabled={true}
+        value="This textarea is disabled"
+        className="w-80"
+      />
+    )
   },
 }
 
@@ -227,23 +197,19 @@ export const Disabled: Story = {
  * - Supports text selection and copying
  * - Visual indication of read-only state
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   readOnly={true}
- *   value="Display content"
- * />
- * ```
- *
  * Best Practices:
  * - Use when users need to view/copy content but not edit it
  * - Prefer over disabled when selection/copying is needed
  */
 export const ReadOnly: Story = {
-  args: {
-    readOnly: true,
-    value: "This textarea is read-only",
-    className: "w-80",
+  render: function ReadOnly() {
+    return (
+      <Textarea
+        readOnly={true}
+        value="This textarea is read-only"
+        className="w-80"
+      />
+    )
   },
 }
 
@@ -255,26 +221,21 @@ export const ReadOnly: Story = {
  * - Auto-sizing within defined limits
  * - Scrolling when content exceeds maxRows
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   minRows={2}
- *   maxRows={8}
- *   placeholder="Constrained height textarea"
- * />
- * ```
- *
  * Best Practices:
  * - Set minRows to ensure adequate initial space
  * - Set maxRows to prevent excessive height in layouts
  * - Consider content length when setting limits
  */
 export const WithMinMaxRows: Story = {
-  args: {
-    minRows: 2,
-    maxRows: 8,
-    placeholder: "This textarea has minRows=2 and maxRows=8",
-    className: "w-80",
+  render: function WithMinMaxRows() {
+    return (
+      <Textarea
+        minRows={2}
+        maxRows={8}
+        placeholder="This textarea has minRows=2 and maxRows=8"
+        className="w-80"
+      />
+    )
   },
 }
 
@@ -286,26 +247,21 @@ export const WithMinMaxRows: Story = {
  * - No automatic resizing
  * - Scrollable content when overflow occurs
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   resize={false}
- *   rows={4}
- *   placeholder="Fixed height textarea"
- * />
- * ```
- *
  * Best Practices:
  * - Use in grid layouts or when consistent height is required
  * - Ensure sufficient rows for expected content
  * - Consider UX impact of fixed sizing
  */
 export const WithoutAutosize: Story = {
-  args: {
-    resize: false,
-    rows: 4,
-    placeholder: "This textarea does not auto-resize",
-    className: "w-80",
+  render: function WithoutAutosize() {
+    return (
+      <Textarea
+        className="w-80"
+        resize={false}
+        rows={4}
+        placeholder="This textarea does not auto-resize"
+      />
+    )
   },
 }
 
@@ -316,19 +272,6 @@ export const WithoutAutosize: Story = {
  * - Custom scrollbar styling via ScrollArea
  * - Smooth scrolling experience
  * - Height limits with maxRows causing overflow
- *
- * Usage:
- * ```tsx
- * const [longText, setLongText] = useState("Very long content...")
- *
- * return (
- *   <Textarea
- *     value={longText}
- *     onChange={setLongText}
- *     maxRows={6}
- *   />
- * )
- * ```
  *
  * Best Practices:
  * - Set appropriate maxRows for your layout
@@ -362,23 +305,6 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
  * - Real-time character counting
  * - Editing state detection
  * - Live feedback display
- *
- * Usage:
- * ```tsx
- * const [value, setValue] = useState("")
- * const [isEditing, setIsEditing] = useState(false)
- *
- * return (
- *   <>
- *     <Textarea
- *       value={value}
- *       onChange={setValue}
- *       onIsEditingChange={setIsEditing}
- *     />
- *     <div>Characters: {value.length}</div>
- *   </>
- * )
- * ```
  *
  * Best Practices:
  * - Use onIsEditingChange for form validation timing
@@ -416,16 +342,6 @@ export const Interactive: Story = {
  * - Manual height control with mouse/touch
  * - Height constraints respected during resize
  * - Visual feedback during drag operation
- *
- * Usage:
- * ```tsx
- * <Textarea
- *   resize="handle"
- *   minRows={3}
- *   maxRows={10}
- *   placeholder="Drag to resize..."
- * />
- * ```
  *
  * Best Practices:
  * - Set appropriate minRows/maxRows for your layout
@@ -466,15 +382,6 @@ export const ResizeHandle: Story = {
  * - Auto-sizing with maxRows constraint
  * - Clean, minimal API
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   value={value}
- *   onChange={setValue}
- *   placeholder="Enter text..."
- *   maxRows={6}
- * />
- * ```
  */
 export const SimpleUsage: Story = {
   render: function SimpleUsage() {
@@ -506,16 +413,6 @@ export const SimpleUsage: Story = {
  * - Additional className on content
  * - Full control over TextareaAutosize props
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   value={value}
- *   onChange={setValue}
- *   maxRows={6}
- * >
- *   <Textarea.Content className="custom-class" />
- * </Textarea>
- * ```
  */
 export const CompoundUsage: Story = {
   render: function CompoundUsage() {
@@ -551,14 +448,6 @@ export const CompoundUsage: Story = {
  * - "end": Moves cursor to end of text
  * - "none": No selection change
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   focusSelection="end"
- *   value={value}
- *   onChange={setValue}
- * />
- * ```
  */
 export const FocusSelectionModes: Story = {
   render: function FocusSelectionModes() {
@@ -628,14 +517,6 @@ export const FocusSelectionModes: Story = {
  * - Useful for single-line input scenarios
  * - Still allows text wrapping visually
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   allowNewline={false}
- *   value={value}
- *   onChange={setValue}
- * />
- * ```
  */
 export const NoNewlineMode: Story = {
   render: function NoNewlineMode() {
@@ -687,15 +568,6 @@ export const NoNewlineMode: Story = {
  * - Automatic height calculation based on custom line height
  * - Works with minRows and maxRows
  *
- * Usage:
- * ```tsx
- * <Textarea
- *   lineHeight={24}
- *   minRows={3}
- *   value={value}
- *   onChange={setValue}
- * />
- * ```
  */
 export const CustomLineHeight: Story = {
   render: function CustomLineHeight() {
@@ -746,17 +618,6 @@ export const CustomLineHeight: Story = {
  * - Implements requestAnimationFrame retry for sizing data
  * - Checks element connectivity and visibility before calculating height
  *
- * Usage:
- * ```tsx
- * <Popover>
- *   <Popover.Trigger>
- *     <Button>Open</Button>
- *   </Popover.Trigger>
- *   <Popover.Content>
- *     <Textarea placeholder="Enter text..." />
- *   </Popover.Content>
- * </Popover>
- * ```
  */
 export const InPopover: Story = {
   render: function InPopover() {

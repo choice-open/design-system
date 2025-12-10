@@ -14,12 +14,12 @@
     }
   },
   "exports": [
-    "type BadgeProps",
-    "Badge"
+    "Badge",
+    "type BadgeProps"
   ],
   "props": [
     {
-      "displayName": "Badge",
+      "displayName": "BadgeProps",
       "description": "",
       "props": [
         {

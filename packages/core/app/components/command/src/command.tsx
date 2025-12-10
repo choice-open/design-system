@@ -237,8 +237,11 @@ export const Command = forwardRef<HTMLDivElement, CommandProps>((props, forwarde
 
     // Check which items should be included
     for (const id of allItems.current) {
-      const value = ids.current.get(id)?.value ?? ""
-      const keywords = ids.current.get(id)?.keywords ?? []
+      const itemData = ids.current.get(id)
+      // Skip items that haven't registered their value yet
+      if (!itemData) continue
+      const value = itemData.value ?? ""
+      const keywords = itemData.keywords ?? []
       const rank = score(value, keywords)
       state.current.filtered.items.set(id, rank)
       if (rank > 0) itemCount++

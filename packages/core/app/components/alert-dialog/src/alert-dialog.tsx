@@ -241,12 +241,12 @@ export const AlertDialog = memo(function AlertDialog(props: AlertDialogProps) {
         </>
       ) : (
         dialogContent && (
-          <div
+          <FloatingOverlay
             className={tcx(tv.overlay())}
             onClick={handleOverlayClick}
           >
             {dialogContent}
-          </div>
+          </FloatingOverlay>
         )
       )}
     </FloatingPortal>

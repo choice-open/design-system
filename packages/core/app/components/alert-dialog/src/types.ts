@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 
 // 按钮变体类型
 export type AlertDialogButtonVariant =
@@ -139,6 +139,10 @@ export interface AlertDialogContextType extends UseAlertDialogReturn {
 }
 
 // 简化的 confirm 和 alert 函数类型
-export type ConfirmFunction = (config: string | AlertDialogConfirmConfig) => Promise<boolean>
-export type AlertFunction = (config: string | AlertDialogAlertConfig) => Promise<void>
+export type ConfirmFunction = (
+  config: string | AlertDialogConfirmConfig,
+) => Promise<boolean>
+export type AlertFunction = (
+  config: string | AlertDialogAlertConfig,
+) => Promise<void>
 export type ShowFunction = (config: AlertDialogCustomConfig) => Promise<string>

@@ -26,11 +26,11 @@ export const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>((pro
     }
   }, [value, store])
 
-  const handleChange = useEventCallback((value: string) => {
+  const handleChange = useEventCallback((newValue: string) => {
     if (!isControlled) {
-      store.setState("search", value)
+      store.setState("search", newValue)
     }
-    onChange?.(value)
+    onChange?.(newValue)
   })
 
   const tv = commandInputTv({ size: context.size })
