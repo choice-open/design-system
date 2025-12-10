@@ -26,7 +26,8 @@ type ApiTableProps = {
 
 const CodeBlock = ({ code, language }: { code: string; language: Language }) => {
   const { theme } = useTheme()
-  const highlightTheme = theme === "dark" ? themes.vsDark : themes.vsLight
+  const highlightTheme = theme === "dark" ? themes.vsDark : themes.github
+
   return (
     <Highlight
       theme={highlightTheme}
@@ -51,6 +52,7 @@ const CodeBlock = ({ code, language }: { code: string; language: Language }) => 
                     <span
                       key={tokenKey}
                       {...tokenProps}
+                      className="text-body-medium"
                     />
                   )
                 })}

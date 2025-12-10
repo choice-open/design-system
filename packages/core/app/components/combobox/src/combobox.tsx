@@ -58,23 +58,41 @@ export interface ComboboxRef {
 }
 
 export interface ComboboxProps {
+  /**
+   * @default true
+   */
   autoSelection?: boolean
   children?: React.ReactNode
   disabled?: boolean
+  /**
+   * @default { returnFocus: true, modal: false }
+   */
   focusManagerProps?: FloatingFocusManagerProps
+  /**
+   * @default true
+   */
   matchTriggerWidth?: boolean
   onBlur?: (value: string) => void
   onChange?: (value: string) => void
   onOpenChange?: (open: boolean, trigger?: "click" | "focus" | "input") => void
   open?: boolean
+  /**
+   * @default "bottom-start"
+   */
   placement?: Placement
   portalId?: string
   position?: { x: number; y: number } | null
   readOnly?: boolean
   root?: HTMLElement | null
+  /**
+   * @default "input"
+   */
   trigger?: "input" | "coordinate"
   // 新增：明确指定触发器类型
   value?: string
+  /**
+   * @default "default"
+   */
   variant?: "default" | "light" | "reset"
 }
 
@@ -243,12 +261,16 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
         padding: 4,
         apply(args) {
           const { elements, availableHeight, rects } = args
-          // 使用 scrollHeight 获取内容的实际高度，而不是 clientHeight
-          // scrollHeight 会随着内容变化自动更新，而 clientHeight 可能被 maxHeight 限制
-          const contentHeight = scrollRef.current?.scrollHeight || elements.floating.scrollHeight
+          // 优先使用 floating 元素的 scrollHeight，因为 scrollRef 在内容重新渲染时可能还没更新
+          // 这样可以避免从无匹配状态恢复到有匹配状态时高度计算错误的问题
+          const floatingScrollHeight = elements.floating.scrollHeight
+          const scrollRefHeight = scrollRef.current?.scrollHeight || 0
+          const contentHeight = Math.max(floatingScrollHeight, scrollRefHeight)
 
           // 根据内容实际高度和可用空间计算合适的高度
-          const maxHeight = Math.min(contentHeight, availableHeight)
+          // 当 contentHeight 为 0 时（内容还没渲染），使用 availableHeight 避免设置 maxHeight: 0
+          const maxHeight =
+            contentHeight > 0 ? Math.min(contentHeight, availableHeight) : availableHeight
 
           Object.assign(elements.floating.style, {
             maxHeight: `${maxHeight}px`,

@@ -211,7 +211,7 @@ export const MenuButtonTv = tcv({
 export const MenuScrollArrowTv = tcv({
   base: [
     "absolute flex h-6 w-full items-center justify-center overflow-hidden",
-    "z-menu pointer-events-auto border-white/10 bg-gray-900 text-white hover:bg-gray-800",
+    "z-menu pointer-events-auto border-white/10 bg-gray-900/50 text-white hover:bg-gray-800 backdrop-blur-sm",
   ],
   variants: {
     dir: {

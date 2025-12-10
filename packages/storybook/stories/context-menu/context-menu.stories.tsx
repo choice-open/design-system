@@ -22,37 +22,36 @@ type Story = StoryObj<typeof ContextMenu>
  * - Automatic dismissal on click outside
  *
  * Implementation notes:
- * - Uses @floating-ui/react for positioning and interactions
+ * - Uses floating-ui/react for positioning and interactions
  * - Fully reuses Dropdown sub-components (Content, Item, etc.)
  * - Supports all standard menu features like dividers and variants
+ *
  */
 export const Basic: Story = {
   render: function BasicStory() {
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8">
-              Right click me to open context menu
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Copy</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Cut</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Paste</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
-            <ContextMenu.Item>
-              <ContextMenu.Value>Delete</ContextMenu.Value>
-            </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background select-none rounded-xl border border-dashed p-8">
+            Right click me to open context menu
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Copy</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Cut</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Paste</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
+          <ContextMenu.Item>
+            <ContextMenu.Value>Delete</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }
@@ -82,27 +81,25 @@ export const WithSelection: Story = {
     ]
 
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu selection={true}>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8">
-              Right click me for selection menu
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Label>Select an option</ContextMenu.Label>
-            {options.map((option) => (
-              <ContextMenu.Item
-                key={option.id}
-                selected={selected === option.id}
-                onMouseUp={() => setSelected(option.id)}
-              >
-                <ContextMenu.Value>{option.label}</ContextMenu.Value>
-              </ContextMenu.Item>
-            ))}
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+      <ContextMenu selection={true}>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background select-none rounded-xl border border-dashed p-8">
+            Right click me for selection menu
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Label>Select an option</ContextMenu.Label>
+          {options.map((option) => (
+            <ContextMenu.Item
+              key={option.id}
+              selected={selected === option.id}
+              onMouseUp={() => setSelected(option.id)}
+            >
+              <ContextMenu.Value>{option.label}</ContextMenu.Value>
+            </ContextMenu.Item>
+          ))}
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }
@@ -119,30 +116,28 @@ export const WithSelection: Story = {
 export const WithDisabledItems: Story = {
   render: function WithDisabledItemsStory() {
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8">
-              Right click for menu with disabled items
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Available Action</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item disabled>
-              <ContextMenu.Value>Disabled Action</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Another Available Action</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
-            <ContextMenu.Item disabled>
-              <ContextMenu.Value>Also Disabled</ContextMenu.Value>
-            </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background rounded-xl border border-dashed p-8">
+            Right click for menu with disabled items
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Available Action</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item disabled>
+            <ContextMenu.Value>Disabled Action</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Another Available Action</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
+          <ContextMenu.Item disabled>
+            <ContextMenu.Value>Also Disabled</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }
@@ -232,39 +227,37 @@ export const SharedMenuContent: Story = {
 export const WithDividers: Story = {
   render: function WithDividersStory() {
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
-              Right click for complex menu
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Label>File Operations</ContextMenu.Label>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Open</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Open in New Tab</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
-            <ContextMenu.Label>Edit Operations</ContextMenu.Label>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Cut</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Copy</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Paste</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
-            <ContextMenu.Item variant="danger">
-              <ContextMenu.Value>Delete</ContextMenu.Value>
-            </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
+            Right click for complex menu
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Label>File Operations</ContextMenu.Label>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Open</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Open in New Tab</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
+          <ContextMenu.Label>Edit Operations</ContextMenu.Label>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Cut</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Copy</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Paste</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
+          <ContextMenu.Item variant="danger">
+            <ContextMenu.Value>Delete</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }
@@ -371,112 +364,110 @@ export const FileManagerExample: Story = {
 export const NestedSubmenus: Story = {
   render: function NestedSubmenusStory() {
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
-              Right click for nested menus
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Cut</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Copy</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Paste</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
+            Right click for nested menus
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Cut</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Copy</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Paste</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
 
-            {/* First level submenu - Share (no Target needed for nested) */}
-            <ContextMenu>
-              <ContextMenu.SubTrigger>
-                <ContextMenu.Value>Share</ContextMenu.Value>
-              </ContextMenu.SubTrigger>
-              <ContextMenu.Content>
-                <ContextMenu.Item>
-                  <ContextMenu.Value>Copy Link</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Item>
-                  <ContextMenu.Value>Email</ContextMenu.Value>
-                </ContextMenu.Item>
+          {/* First level submenu - Share (no Target needed for nested) */}
+          <ContextMenu>
+            <ContextMenu.SubTrigger>
+              <ContextMenu.Value>Share</ContextMenu.Value>
+            </ContextMenu.SubTrigger>
+            <ContextMenu.Content>
+              <ContextMenu.Item>
+                <ContextMenu.Value>Copy Link</ContextMenu.Value>
+              </ContextMenu.Item>
+              <ContextMenu.Item>
+                <ContextMenu.Value>Email</ContextMenu.Value>
+              </ContextMenu.Item>
 
-                {/* Second level submenu - Social Media (also no Target) */}
-                <ContextMenu>
-                  <ContextMenu.SubTrigger>
-                    <ContextMenu.Value>Social Media</ContextMenu.Value>
-                  </ContextMenu.SubTrigger>
-                  <ContextMenu.Content>
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>Twitter</ContextMenu.Value>
-                    </ContextMenu.Item>
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>Facebook</ContextMenu.Value>
-                    </ContextMenu.Item>
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>LinkedIn</ContextMenu.Value>
-                    </ContextMenu.Item>
-                  </ContextMenu.Content>
-                </ContextMenu>
+              {/* Second level submenu - Social Media (also no Target) */}
+              <ContextMenu>
+                <ContextMenu.SubTrigger>
+                  <ContextMenu.Value>Social Media</ContextMenu.Value>
+                </ContextMenu.SubTrigger>
+                <ContextMenu.Content>
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>Twitter</ContextMenu.Value>
+                  </ContextMenu.Item>
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>Facebook</ContextMenu.Value>
+                  </ContextMenu.Item>
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>LinkedIn</ContextMenu.Value>
+                  </ContextMenu.Item>
+                </ContextMenu.Content>
+              </ContextMenu>
 
-                <ContextMenu.Divider />
-                <ContextMenu.Item>
-                  <ContextMenu.Value>Generate QR Code</ContextMenu.Value>
-                </ContextMenu.Item>
-              </ContextMenu.Content>
-            </ContextMenu>
+              <ContextMenu.Divider />
+              <ContextMenu.Item>
+                <ContextMenu.Value>Generate QR Code</ContextMenu.Value>
+              </ContextMenu.Item>
+            </ContextMenu.Content>
+          </ContextMenu>
 
-            {/* First level submenu - Export */}
-            <ContextMenu>
-              <ContextMenu.SubTrigger>
-                <ContextMenu.Value>Export</ContextMenu.Value>
-              </ContextMenu.SubTrigger>
-              <ContextMenu.Content>
-                <ContextMenu.Label>File Formats</ContextMenu.Label>
-                <ContextMenu.Item>
-                  <ContextMenu.Value>PDF</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Item>
-                  <ContextMenu.Value>PNG</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Item>
-                  <ContextMenu.Value>SVG</ContextMenu.Value>
-                </ContextMenu.Item>
-                <ContextMenu.Divider />
+          {/* First level submenu - Export */}
+          <ContextMenu>
+            <ContextMenu.SubTrigger>
+              <ContextMenu.Value>Export</ContextMenu.Value>
+            </ContextMenu.SubTrigger>
+            <ContextMenu.Content>
+              <ContextMenu.Label>File Formats</ContextMenu.Label>
+              <ContextMenu.Item>
+                <ContextMenu.Value>PDF</ContextMenu.Value>
+              </ContextMenu.Item>
+              <ContextMenu.Item>
+                <ContextMenu.Value>PNG</ContextMenu.Value>
+              </ContextMenu.Item>
+              <ContextMenu.Item>
+                <ContextMenu.Value>SVG</ContextMenu.Value>
+              </ContextMenu.Item>
+              <ContextMenu.Divider />
 
-                {/* Second level submenu - Advanced Options */}
-                <ContextMenu>
-                  <ContextMenu.SubTrigger>
-                    <ContextMenu.Value>Advanced Options</ContextMenu.Value>
-                  </ContextMenu.SubTrigger>
-                  <ContextMenu.Content>
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>High Quality</ContextMenu.Value>
-                    </ContextMenu.Item>
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>Compressed</ContextMenu.Value>
-                    </ContextMenu.Item>
-                    <ContextMenu.Divider />
-                    <ContextMenu.Item>
-                      <ContextMenu.Value>Custom Settings</ContextMenu.Value>
-                    </ContextMenu.Item>
-                  </ContextMenu.Content>
-                </ContextMenu>
-              </ContextMenu.Content>
-            </ContextMenu>
+              {/* Second level submenu - Advanced Options */}
+              <ContextMenu>
+                <ContextMenu.SubTrigger>
+                  <ContextMenu.Value>Advanced Options</ContextMenu.Value>
+                </ContextMenu.SubTrigger>
+                <ContextMenu.Content>
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>High Quality</ContextMenu.Value>
+                  </ContextMenu.Item>
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>Compressed</ContextMenu.Value>
+                  </ContextMenu.Item>
+                  <ContextMenu.Divider />
+                  <ContextMenu.Item>
+                    <ContextMenu.Value>Custom Settings</ContextMenu.Value>
+                  </ContextMenu.Item>
+                </ContextMenu.Content>
+              </ContextMenu>
+            </ContextMenu.Content>
+          </ContextMenu>
 
-            <ContextMenu.Divider />
-            <ContextMenu.Item>
-              <ContextMenu.Value>Properties</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item variant="danger">
-              <ContextMenu.Value>Delete</ContextMenu.Value>
-            </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+          <ContextMenu.Divider />
+          <ContextMenu.Item>
+            <ContextMenu.Value>Properties</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item variant="danger">
+            <ContextMenu.Value>Delete</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }
@@ -571,69 +562,67 @@ export const NestedSubmenuWithLongList: Story = {
     }))
 
     return (
-      <div className="flex items-center justify-center">
-        <ContextMenu>
-          <ContextMenu.Trigger>
-            <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
-              Right click for menu with long nested submenu
-              <br />
-              <span className="text-body-small text-gray-500">
-                Hover over &quot;Long List&quot; to see scrolling submenu
-              </span>
-            </div>
-          </ContextMenu.Trigger>
-          <ContextMenu.Content>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Cut</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Copy</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item>
-              <ContextMenu.Value>Paste</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Divider />
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background rounded-xl border border-dashed p-8 text-center">
+            Right click for menu with long nested submenu
+            <br />
+            <span className="text-body-small text-gray-500">
+              Hover over &quot;Long List&quot; to see scrolling submenu
+            </span>
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Cut</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Copy</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ContextMenu.Value>Paste</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Divider />
 
-            {/* Nested submenu with long list - this should scroll */}
-            <ContextMenu>
-              <ContextMenu.SubTrigger>
-                <ContextMenu.Value>Long List</ContextMenu.Value>
-              </ContextMenu.SubTrigger>
-              <ContextMenu.Content>
-                <ContextMenu.Label>Scrollable Items</ContextMenu.Label>
-                {longListItems.map((item) => (
-                  <ContextMenu.Item key={item.id}>
-                    <ContextMenu.Value>{item.label}</ContextMenu.Value>
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Content>
-            </ContextMenu>
+          {/* Nested submenu with long list - this should scroll */}
+          <ContextMenu>
+            <ContextMenu.SubTrigger>
+              <ContextMenu.Value>Long List</ContextMenu.Value>
+            </ContextMenu.SubTrigger>
+            <ContextMenu.Content>
+              <ContextMenu.Label>Scrollable Items</ContextMenu.Label>
+              {longListItems.map((item) => (
+                <ContextMenu.Item key={item.id}>
+                  <ContextMenu.Value>{item.label}</ContextMenu.Value>
+                </ContextMenu.Item>
+              ))}
+            </ContextMenu.Content>
+          </ContextMenu>
 
-            {/* Another nested submenu with long list for comparison */}
-            <ContextMenu>
-              <ContextMenu.SubTrigger>
-                <ContextMenu.Value>Another Long List</ContextMenu.Value>
-              </ContextMenu.SubTrigger>
-              <ContextMenu.Content>
-                <ContextMenu.Label>Another Scrollable List</ContextMenu.Label>
-                {longListItems.slice(0, 25).map((item) => (
-                  <ContextMenu.Item key={item.id}>
-                    <ContextMenu.Value>{item.label}</ContextMenu.Value>
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Content>
-            </ContextMenu>
+          {/* Another nested submenu with long list for comparison */}
+          <ContextMenu>
+            <ContextMenu.SubTrigger>
+              <ContextMenu.Value>Another Long List</ContextMenu.Value>
+            </ContextMenu.SubTrigger>
+            <ContextMenu.Content>
+              <ContextMenu.Label>Another Scrollable List</ContextMenu.Label>
+              {longListItems.slice(0, 25).map((item) => (
+                <ContextMenu.Item key={item.id}>
+                  <ContextMenu.Value>{item.label}</ContextMenu.Value>
+                </ContextMenu.Item>
+              ))}
+            </ContextMenu.Content>
+          </ContextMenu>
 
-            <ContextMenu.Divider />
-            <ContextMenu.Item>
-              <ContextMenu.Value>Properties</ContextMenu.Value>
-            </ContextMenu.Item>
-            <ContextMenu.Item variant="danger">
-              <ContextMenu.Value>Delete</ContextMenu.Value>
-            </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu>
-      </div>
+          <ContextMenu.Divider />
+          <ContextMenu.Item>
+            <ContextMenu.Value>Properties</ContextMenu.Value>
+          </ContextMenu.Item>
+          <ContextMenu.Item variant="danger">
+            <ContextMenu.Value>Delete</ContextMenu.Value>
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }

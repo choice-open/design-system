@@ -482,9 +482,7 @@ export const CoordinateMode: Story = {
             <div
               className="text-secondary-foreground fixed z-10 size-4"
               style={{ left: position.x - 8, top: position.y - 8 }}
-            >
-              📍
-            </div>
+            />
           )}
         </div>
 
@@ -842,7 +840,7 @@ export const MentionsWithSlate: Story = {
 }
 
 /**
- * Combobox component in readOnly state.
+ * [TEST] Combobox component in readOnly state.
  *
  * In readOnly mode:
  * - The input field is read-only and cannot be edited

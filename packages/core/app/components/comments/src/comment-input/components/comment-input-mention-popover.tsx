@@ -163,11 +163,15 @@ export const CommentInputMentionPopover = ({
       size({
         padding: 4,
         apply({ elements, availableHeight, rects }) {
-          // 检测内容实际高度
-          const contentHeight = scrollRef.current?.scrollHeight || elements.floating.scrollHeight
+          // 优先使用 floating 元素的 scrollHeight，因为 scrollRef 在内容重新渲染时可能还没更新
+          const floatingScrollHeight = elements.floating.scrollHeight
+          const scrollRefHeight = scrollRef.current?.scrollHeight || 0
+          const contentHeight = Math.max(floatingScrollHeight, scrollRefHeight)
 
           // 根据内容实际高度和可用空间计算合适的高度
-          const calculatedHeight = Math.min(contentHeight, availableHeight - 8)
+          // 当 contentHeight 为 0 时（内容还没渲染），使用 availableHeight 避免设置 maxHeight: 0
+          const calculatedHeight =
+            contentHeight > 0 ? Math.min(contentHeight, availableHeight - 8) : availableHeight - 8
 
           // 应用计算的高度
           Object.assign(elements.floating.style, {
