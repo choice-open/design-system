@@ -28,7 +28,7 @@
  * - High contrast support in all variants
  */
 
-import { Button, Checkbox, Popover, Switch, Textarea } from "@choice-ui/react"
+import { Button, Checkbox, Label, Popover, Switch, Textarea } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
 
@@ -114,21 +114,21 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background rounded-lg border p-4">
             <Textarea
               disabled={disabled}
               placeholder="Default variant - follows theme..."
             />
           </div>
-          <div className="bg-white p-8">
+          <div className="rounded-lg border bg-white p-4">
             <Textarea
               disabled={disabled}
               variant="light"
               placeholder="Light variant - fixed light..."
             />
           </div>
-          <div className="bg-gray-800 p-8">
+          <div className="rounded-lg border bg-gray-800 p-4">
             <Textarea
               disabled={disabled}
               variant="dark"
@@ -389,8 +389,8 @@ export const SimpleUsage: Story = {
 
     return (
       <div className="space-y-4">
-        <div>
-          <h3 className="text-body-small mb-2">Simple Usage Pattern</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Simple Usage Pattern</Label>
           <Textarea
             value={value}
             onChange={setValue}
@@ -399,7 +399,7 @@ export const SimpleUsage: Story = {
             maxRows={6}
           />
         </div>
-        <div className="text-body-small text-text-tertiary">Character count: {value.length}</div>
+        <div className="text-secondary-foreground">Character count: {value.length}</div>
       </div>
     )
   },
@@ -420,8 +420,8 @@ export const CompoundUsage: Story = {
 
     return (
       <div className="space-y-4">
-        <div>
-          <h3 className="text-body-small mb-2">Compound Component Pattern</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Compound Component Pattern</Label>
           <Textarea
             value={value}
             onChange={setValue}
@@ -432,7 +432,7 @@ export const CompoundUsage: Story = {
             <Textarea.Content className="font-mono" />
           </Textarea>
         </div>
-        <div className="text-body-small text-text-tertiary">
+        <div className="text-secondary-foreground">
           Using Textarea.Content with custom font-mono class
         </div>
       </div>
@@ -457,8 +457,8 @@ export const FocusSelectionModes: Story = {
 
     return (
       <div className="space-y-6">
-        <div>
-          <h3 className="text-body-small mb-2">Select All (Default)</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Select All (Default)</Label>
           <Textarea
             value={value1}
             onChange={setValue1}
@@ -468,13 +468,13 @@ export const FocusSelectionModes: Story = {
             minRows={2}
             maxRows={4}
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;all&quot; - Selects all text when focused
           </p>
         </div>
 
-        <div>
-          <h3 className="text-body-small mb-2">Move to End</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Move to End</Label>
           <Textarea
             value={value2}
             onChange={setValue2}
@@ -484,13 +484,13 @@ export const FocusSelectionModes: Story = {
             minRows={2}
             maxRows={4}
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;end&quot; - Moves cursor to end of text
           </p>
         </div>
 
-        <div>
-          <h3 className="text-body-small mb-2">No Selection</h3>
+        <div className="flex flex-col gap-2">
+          <Label>No Selection</Label>
           <Textarea
             value={value3}
             onChange={setValue3}
@@ -500,7 +500,7 @@ export const FocusSelectionModes: Story = {
             minRows={2}
             maxRows={4}
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;none&quot; - Maintains cursor position
           </p>
         </div>
@@ -524,8 +524,8 @@ export const NoNewlineMode: Story = {
 
     return (
       <div className="space-y-4">
-        <div>
-          <h3 className="text-body-small mb-2">No Newline Allowed</h3>
+        <div className="flex flex-col gap-2">
+          <Label>No Newline Allowed</Label>
           <Textarea
             value={value}
             onChange={setValue}
@@ -535,13 +535,11 @@ export const NoNewlineMode: Story = {
             minRows={2}
             maxRows={4}
           />
-          <p className="text-body-small text-text-tertiary mt-1">
-            allowNewline=false - Enter key is disabled
-          </p>
+          <p className="text-secondary-foreground">allowNewline=false - Enter key is disabled</p>
         </div>
 
-        <div>
-          <h3 className="text-body-small mb-2">Normal Mode (for comparison)</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Normal Mode (for comparison)</Label>
           <Textarea
             value={value}
             onChange={setValue}
@@ -551,7 +549,7 @@ export const NoNewlineMode: Story = {
             minRows={2}
             maxRows={4}
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             allowNewline=true (default) - Enter key works normally
           </p>
         </div>
@@ -635,7 +633,7 @@ export const InPopover: Story = {
           </Popover.Trigger>
           <Popover.Header title="Add a comment" />
           <Popover.Content className="space-y-3 p-4">
-            <div className="text-body-small text-text-secondary">
+            <div className="text-secondary-foreground">
               Type your comment below. The textarea should auto-size correctly even though it starts
               hidden inside a popover.
             </div>
@@ -647,7 +645,7 @@ export const InPopover: Story = {
               maxRows={10}
               className="w-full"
             />
-            <div className="text-body-small text-text-tertiary">Characters: {value.length}</div>
+            <div className="text-secondary-foreground">Characters: {value.length}</div>
           </Popover.Content>
         </Popover>
       </div>

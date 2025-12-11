@@ -96,7 +96,7 @@
       "slug": "collections/combobox",
       "name": "@choice-ui/combobox",
       "title": "Combobox",
-      "description": "",
+      "description": "@default true",
       "version": "0.0.4",
       "tags": [
         "beta"
@@ -204,7 +204,7 @@
       "slug": "collections/dropdown",
       "name": "@choice-ui/dropdown",
       "title": "Dropdown",
-      "description": "CoordinateMode, first item auto select",
+      "description": "Whether to automatically select the first item in coordinate mode.",
       "version": "0.0.9",
       "tags": [
         "upgrade"
@@ -244,7 +244,7 @@
       "description": "",
       "version": "0.0.3",
       "tags": [
-        "new"
+        "upgrade"
       ]
     },
     {
@@ -319,13 +319,6 @@
       "title": "MdRender",
       "description": "",
       "version": "0.0.3"
-    },
-    {
-      "slug": "collections/menu-item",
-      "name": "@choice-ui/menus",
-      "title": "MenuItem",
-      "description": "",
-      "version": "0.1.1"
     },
     {
       "slug": "collections/menus",
@@ -408,22 +401,22 @@
       "slug": "overlays/popover",
       "name": "@choice-ui/popover",
       "title": "Popover",
-      "description": "Portal root element. When specified, the popover will be rendered into this element.",
+      "description": "@deprecated use focusManagerProps.initialFocus instead",
       "version": "0.0.7"
     },
     {
       "slug": "feedback/progress-bar",
-      "name": "@choice-ui/progress",
+      "name": "@choice-ui/progress-bar",
       "title": "ProgressBar",
       "description": "",
-      "version": "0.0.2"
+      "version": "0.0.0"
     },
     {
       "slug": "feedback/progress-circle",
-      "name": "@choice-ui/progress",
+      "name": "@choice-ui/progress-circle",
       "title": "ProgressCircle",
       "description": "",
-      "version": "0.0.2"
+      "version": "0.0.0"
     },
     {
       "slug": "date-and-time/quarter-calendar",
@@ -669,13 +662,6 @@
       "tags": [
         "beta"
       ]
-    },
-    {
-      "slug": "forms/use-numeric-input",
-      "name": "@choice-ui/numeric-input",
-      "title": "useNumericInput",
-      "description": "",
-      "version": "0.0.7"
     },
     {
       "slug": "utilities/virtualized-grid",

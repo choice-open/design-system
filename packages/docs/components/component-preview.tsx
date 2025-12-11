@@ -44,7 +44,7 @@ export function ComponentPreview({
       {tab === "preview" ? (
         <div
           className={tcx(
-            "flex w-full items-center rounded-xl border px-4 py-8",
+            "flex w-full items-center justify-center rounded-xl border px-4 py-8",
             // "bg-[radial-gradient(var(--color-secondary-background)_1px,transparent_1px)] [background-size:8px_8px]",
             align === "start" && "items-start",
             align === "end" && "items-end",
@@ -60,8 +60,12 @@ export function ComponentPreview({
           className="rounded-xl border"
           lineThreshold={32}
           filename={filename}
+          expandable={false}
         >
-          <CodeBlock.Header />
+          <CodeBlock.Header
+            showLineCount={false}
+            className="border-b"
+          />
           <CodeBlock.Content
             code={code ?? ""}
             language={language}

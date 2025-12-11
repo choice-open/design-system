@@ -53,6 +53,7 @@ export const Basic: Story = {
 
     return (
       <SearchInput
+        className="w-64"
         value={value}
         onChange={setValue}
       />
@@ -75,6 +76,7 @@ export const Size: Story = {
 
     return (
       <SearchInput
+        className="w-64"
         value={value}
         onChange={setValue}
         size="large"
@@ -94,7 +96,12 @@ export const Size: Story = {
  */
 export const Disabled: Story = {
   render: function DisabledStory() {
-    return <SearchInput disabled />
+    return (
+      <SearchInput
+        className="w-64"
+        disabled
+      />
+    )
   },
 }
 
@@ -114,6 +121,7 @@ export const NotClearable: Story = {
 
     return (
       <SearchInput
+        className="w-64"
         value={value}
         onChange={setValue}
         clearable={false}
@@ -142,15 +150,15 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background flex aspect-square items-center justify-center p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background rounded-lg border p-4">
             <SearchInput
               disabled={disabled}
               value={value}
               onChange={setValue}
             />
           </div>
-          <div className="flex aspect-square items-center justify-center bg-white p-8">
+          <div className="rounded-lg border bg-white p-4">
             <SearchInput
               disabled={disabled}
               value={value}
@@ -158,7 +166,7 @@ export const Variants: Story = {
               variant="light"
             />
           </div>
-          <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+          <div className="rounded-lg border bg-gray-800 p-4">
             <SearchInput
               disabled={disabled}
               value={value}

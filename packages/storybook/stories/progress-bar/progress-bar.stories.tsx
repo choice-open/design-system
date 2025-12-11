@@ -46,7 +46,7 @@ export const Basic: Story = {
  */
 export const Sizes: Story = {
   render: () => (
-    <div className="grid gap-4">
+    <div className="grid w-80 gap-4">
       <div className="grid gap-2">
         <span>Small</span>
         <ProgressBar
@@ -103,7 +103,7 @@ export const Variants: Story = {
     ]
 
     return (
-      <div className="grid gap-4">
+      <div className="grid w-80 gap-4">
         {variants.map((variant) => (
           <Fragment key={variant}>
             <span className="capitalize">{variant}</span>
@@ -131,7 +131,7 @@ export const Variants: Story = {
  */
 export const StripedAndIndeterminate: Story = {
   render: () => (
-    <div className="grid gap-6">
+    <div className="grid w-80 gap-6">
       <div className="grid gap-2">
         <span>Striped</span>
         <ProgressBar
@@ -169,7 +169,7 @@ export const BasedOnValue: Story = {
     const [value, setValue] = useState(35)
 
     return (
-      <div className="grid gap-4">
+      <div className="grid w-80 gap-4">
         <div className="grid gap-2">
           <span>Evenly spaced colors</span>
           <ProgressBar
@@ -190,9 +190,9 @@ export const BasedOnValue: Story = {
             value={value}
             variant="based-on-value"
             dynamicColors={[
-              { at: 0, color: "#ef4444" },
-              { at: 0.5, color: "#f59e0b" },
-              { at: 1, color: "#22c55e" },
+              { at: 0, color: "#ff0000" },
+              { at: 0.5, color: "#ffa500" },
+              { at: 1, color: "#ffff00" },
             ]}
           >
             <ProgressBar.Label showValue>Health</ProgressBar.Label>

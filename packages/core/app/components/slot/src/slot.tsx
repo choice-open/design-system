@@ -25,7 +25,10 @@ export const Slot = forwardRef<HTMLElement, SlotProps>(
         return children
       }
 
-      const childRef = (children as React.ReactElement & { ref?: React.Ref<unknown> }).ref
+      // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
+      // Prefer reading ref from children.props to avoid accessing element.ref.
+      const childProps = (children as React.ReactElement<Record<string, unknown>>).props
+      const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
       const mergedProps = mergeProps(slotProps, children.props)
 
       return React.cloneElement(children, {
@@ -51,7 +54,9 @@ export const SlotClone = forwardRef<HTMLElement, SlotCloneProps>(
         return children
       }
 
-      const childRef = (children as React.ReactElement & { ref?: React.Ref<unknown> }).ref
+      // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
+      const childProps = (children as React.ReactElement<Record<string, unknown>>).props
+      const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
       const mergedProps = mergeProps(slotProps, children.props)
 
       return React.cloneElement(children, {
@@ -140,7 +145,9 @@ export function useSlot(
       return children
     }
 
-    const childRef = (children as React.ReactElement & { ref?: React.Ref<unknown> }).ref
+    // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
+    const childProps = (children as React.ReactElement<Record<string, unknown>>).props
+    const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
     const mergedProps = mergeProps(slotProps, children.props)
 
     return React.cloneElement(children, {

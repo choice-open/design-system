@@ -1,4 +1,3 @@
-import { tcx } from "@choice-ui/shared"
 import { Kbd, type KbdKey } from "@choice-ui/kbd"
 import React, { forwardRef, HTMLProps, ReactNode, useEffect, useMemo, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
@@ -121,10 +120,11 @@ export const CommandItem = forwardRef<HTMLDivElement, CommandItemProps>((props, 
     hasPrefix: !!prefixElement,
     hasSuffix: !!suffixElement,
     variant: context.variant,
+    hidden: !render,
   })
 
-  if (!render) return null
-
+  // 使用 CSS 隐藏而不是返回 null，保持 item 始终注册在 allItems 中
+  // 这样搜索词变化时可以正确重新过滤
   return (
     <div
       ref={(el) => {
@@ -134,10 +134,11 @@ export const CommandItem = forwardRef<HTMLDivElement, CommandItemProps>((props, 
       }}
       {...rest}
       id={id}
-      className={tcx(tv.root({ className }))}
+      className={tv.root({ className })}
       role="option"
       aria-disabled={disabled}
       aria-selected={selected || undefined}
+      data-hidden={!render || undefined}
       data-disabled={disabled}
       data-selected={selected}
       data-value={valueRef.current}

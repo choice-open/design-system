@@ -247,17 +247,22 @@ export function useFloatingPopover({
 
   const getStyles = useCallback(
     (dragPosition: { x: number; y: number } | null, isDragging: boolean) => {
-      // 如果存在拖拽位置且拖拽功能开启，优先使用拖拽位置
-      const transform =
-        dragPosition && draggable
-          ? `translate(${dragPosition.x}px, ${dragPosition.y}px)`
-          : `translate(${x}px, ${y}px)`
+      // 如果存在拖拽位置且拖拽功能开启，使用 fixed 定位（与 Dialog 一致）
+      if (dragPosition && draggable) {
+        return {
+          ...floatingStyles,
+          position: "fixed",
+          top: `${dragPosition.y}px`,
+          left: `${dragPosition.x}px`,
+          transform: "none",
+          transition: isDragging ? "none" : floatingStyles.transition,
+        } as React.CSSProperties
+      }
 
+      // 默认使用 floating-ui 的 transform 定位
       return {
         ...floatingStyles,
-        transform,
-        // 仅在拖拽功能开启且正在拖拽时禁用过渡动画
-        transition: draggable && isDragging ? "none" : floatingStyles.transition,
+        transform: `translate(${x}px, ${y}px)`,
       } as React.CSSProperties
     },
     [floatingStyles, x, y, draggable],

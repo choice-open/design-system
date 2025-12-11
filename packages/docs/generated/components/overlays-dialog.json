@@ -18,13 +18,13 @@
     }
   },
   "exports": [
-    "type DialogProps",
     "Dialog",
+    "type DialogProps",
     "type DialogPosition"
   ],
   "props": [
     {
-      "displayName": "Dialog",
+      "displayName": "DialogProps",
       "description": "",
       "props": [
         {
@@ -203,7 +203,7 @@
       "name": "Custom Backdrop",
       "exportName": "CustomBackdrop",
       "description": "CustomBackdrop: Demonstrates how to customize the backdrop component.\nUse Dialog.Backdrop to explicitly include and customize the backdrop element.\nThis provides more control over the appearance and behavior of the overlay.",
-      "source": "import { Dialog } from \"@choice-ui/dialog\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [open, setOpen] = useState(false)\n\n  return (\n    <>\n      <Button onClick={() => setOpen(!open)}>Open Dialog</Button>\n      <Dialog\n        overlay\n        open={open}\n        onOpenChange={setOpen}\n      >\n        <Dialog.Header title=\"Custom Backdrop Dialog Title\" />\n        <Dialog.Content className=\"w-96 p-3\">{faker.lorem.paragraphs(3)}</Dialog.Content>\n      </Dialog>\n    </>\n  )\n\n}"
+      "source": "import { Dialog } from \"@choice-ui/dialog\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [open, setOpen] = useState(false)\n\n  return (\n    <>\n      <Button onClick={() => setOpen(!open)}>Open Dialog</Button>\n      <Dialog\n        overlay\n        open={open}\n        onOpenChange={setOpen}\n      >\n        <Dialog.Backdrop className=\"bg-red-500/50 backdrop-blur-sm\" />\n        <Dialog.Header title=\"Custom Backdrop Dialog Title\" />\n        <Dialog.Content className=\"w-96 p-3\">{faker.lorem.paragraphs(3)}</Dialog.Content>\n      </Dialog>\n    </>\n  )\n\n}"
     },
     {
       "id": "overlays-dialog--outside-press",
@@ -260,13 +260,6 @@
       "exportName": "CloseOnEscape",
       "description": "CloseOnEscape: Demonstrates the closeOnEscape prop functionality.\nBy default, dialogs can be closed with the ESC key. This story shows\ntwo dialogs - one with ESC key enabled (default) and one with it disabled.",
       "source": "import { Dialog } from \"@choice-ui/dialog\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [escEnabledOpen, setEscEnabledOpen] = useState(false)\n  const [escDisabledOpen, setEscDisabledOpen] = useState(false)\n\n  return (\n    <div className=\"flex gap-4\">\n      <div className=\"flex flex-col gap-2\">\n        <Button onClick={() => setEscEnabledOpen(true)}>Dialog with ESC (Default)</Button>\n        <p className=\"text-secondary-foreground text-body-small\">Press ESC to close</p>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <Button onClick={() => setEscDisabledOpen(true)}>Dialog without ESC</Button>\n        <p className=\"text-secondary-foreground text-body-small\">ESC key disabled</p>\n      </div>\n\n      {/* Dialog with ESC enabled (default behavior) */}\n      <Dialog\n        open={escEnabledOpen}\n        onOpenChange={setEscEnabledOpen}\n        closeOnEscape={true}\n      >\n        <Dialog.Header title=\"ESC Key Enabled\" />\n        <Dialog.Content className=\"w-96 p-3\">\n          <p>This dialog can be closed by pressing the ESC key.</p>\n          <p className=\"text-secondary-foreground text-body-small mt-2\">\n            Try pressing ESC to close this dialog.\n          </p>\n        </Dialog.Content>\n      </Dialog>\n\n      {/* Dialog with ESC disabled */}\n      <Dialog\n        open={escDisabledOpen}\n        onOpenChange={setEscDisabledOpen}\n        closeOnEscape={false}\n      >\n        <Dialog.Header title=\"ESC Key Disabled\" />\n        <Dialog.Content className=\"w-96 p-3\">\n          <p>This dialog cannot be closed by pressing the ESC key.</p>\n          <p className=\"text-secondary-foreground text-body-small mt-2\">\n            You must use the close button or click outside (if enabled) to close this dialog.\n          </p>\n        </Dialog.Content>\n      </Dialog>\n    </div>\n  )\n\n}"
-    },
-    {
-      "id": "overlays-dialog--event-propagation",
-      "name": "Event Propagation",
-      "exportName": "EventPropagation",
-      "description": "EventPropagation: Verifies that ESC key events do not propagate to window.\nPress ESC outside dialog to increment counter, then press ESC inside dialog\nto close it without incrementing the counter.",
-      "source": "import { Dialog } from \"@choice-ui/dialog\"\nimport { useState, useEffect } from \"react\"\n\nexport default function App() {\n\n  const [open, setOpen] = useState(false)\n  const [escCount, setEscCount] = useState(0)\n\n  React.useEffect(() => {\n    const handleEscape = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") {\n        setEscCount((prev) => prev + 1)\n      }\n    }\n\n    window.addEventListener(\"keydown\", handleEscape)\n    return () => window.removeEventListener(\"keydown\", handleEscape)\n  }, [])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <p>\n        Window ESC count: <strong>{escCount}</strong>\n      </p>\n      <p className=\"text-secondary-foreground text-body-small\">\n        Press ESC to increment. Open dialog and press ESC - counter should NOT change.\n      </p>\n      <Button onClick={() => setOpen(true)}>Open Dialog</Button>\n\n      <Dialog\n        open={open}\n        onOpenChange={setOpen}\n      >\n        <Dialog.Header title=\"ESC Event Test\" />\n        <Dialog.Content className=\"w-96 p-4\">\n          Press ESC to close. The window counter should not increment.\n        </Dialog.Content>\n      </Dialog>\n    </div>\n  )\n\n}"
     },
     {
       "id": "overlays-dialog--with-input",

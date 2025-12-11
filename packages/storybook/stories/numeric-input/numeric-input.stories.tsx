@@ -1,5 +1,13 @@
 import type { NumberResult, NumericInputValue } from "@choice-ui/react"
-import { Checkbox, Dropdown, IconButton, NumericInput, Select } from "@choice-ui/react"
+import {
+  Button,
+  Checkbox,
+  Dropdown,
+  IconButton,
+  Label,
+  NumericInput,
+  Select,
+} from "@choice-ui/react"
 import {
   ChevronDownSmall,
   ColorTypeSolid,
@@ -101,6 +109,7 @@ export const Basic: Story = {
 
     return (
       <NumericInput
+        className="w-64"
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
       />
@@ -117,6 +126,7 @@ export const Prefix: Story = {
     const [value, setValue] = useState(10)
     return (
       <NumericInput
+        className="w-64"
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
       >
@@ -137,6 +147,7 @@ export const Suffix: Story = {
     const [value, setValue] = useState(10)
     return (
       <NumericInput
+        className="w-64"
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
       >
@@ -157,6 +168,7 @@ export const PrefixAndSuffix: Story = {
     const [value, setValue] = useState(10)
     return (
       <NumericInput
+        className="w-64"
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
       >
@@ -182,6 +194,7 @@ export const SuffixMenu: Story = {
     const [menuOpen, setMenuOpen] = useState(false)
     return (
       <NumericInput
+        className="w-64"
         focused={menuOpen}
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
@@ -236,6 +249,7 @@ export const SuffixAction: Story = {
 
     return (
       <NumericInput
+        className="w-64"
         focused={menuOpen}
         value={value}
         onChange={(newValue) => setValue(newValue as number)}
@@ -301,6 +315,7 @@ export const AddVariable: Story = {
 
     return (
       <NumericInput
+        className="w-64"
         value={value}
         onChange={handleChange}
       >
@@ -348,6 +363,7 @@ export const Expression: Story = {
 
     return (
       <NumericInput
+        className="w-64"
         expression="{width}px, {height}px"
         value={value}
         onChange={(newValue) => setValue(newValue as { height: number; width: number })}
@@ -368,8 +384,9 @@ export const Expression: Story = {
 export const Disabled: Story = {
   render: function DisabledStory() {
     return (
-      <div className="grid w-64 grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         <NumericInput
+          className="w-64"
           disabled
           value={10}
           onChange={(newValue) => console.log(newValue)}
@@ -378,7 +395,9 @@ export const Disabled: Story = {
             <ColorTypeSolid />
           </NumericInput.Prefix>
         </NumericInput>
+
         <NumericInput
+          className="w-64"
           disabled
           value={10}
           onChange={(newValue) => console.log(newValue)}
@@ -437,8 +456,8 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background flex aspect-square flex-col items-start justify-center gap-4 p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background flex flex-col gap-4 rounded-lg border p-4">
             <NumericInput
               disabled={disabled}
               value={value}
@@ -474,7 +493,7 @@ export const Variants: Story = {
               </NumericInput.Suffix>
             </NumericInput>
           </div>
-          <div className="flex aspect-square flex-col items-start justify-center gap-4 bg-white p-8">
+          <div className="flex flex-col gap-4 rounded-lg border bg-white p-4">
             <NumericInput
               disabled={disabled}
               variant="light"
@@ -512,7 +531,7 @@ export const Variants: Story = {
               </NumericInput.Suffix>
             </NumericInput>
           </div>
-          <div className="flex aspect-square flex-col items-start justify-center gap-4 bg-gray-800 p-8">
+          <div className="flex flex-col gap-4 rounded-lg border bg-gray-800 p-4">
             <NumericInput
               disabled={disabled}
               variant="dark"
@@ -560,6 +579,7 @@ export const Tooltip: Story = {
   render: function TooltipStory() {
     return (
       <NumericInput
+        className="w-64"
         value={10}
         tooltip={{
           content: "This is a tooltip",
@@ -580,6 +600,13 @@ export const Tooltip: Story = {
  * - When value is 2, entering "2" won't trigger onChange
  * - When value is 2, entering "1+1" won't trigger onChange (same result)
  * - When value is 2, entering "3" or "1+2" will trigger onChange (different result)
+ *
+ * Usage:
+ * - Try entering different values and expressions to observe onChange event behavior
+ * - Current value won't trigger onChange when entered again
+ * - Expressions that result in the same value won't trigger onChange
+ * - Entering other values or expressions will trigger onChange
+ * - Try expressions like "1+1", "2*1", "4/2" that result in the current value
  */
 export const ExpressionCalculation: Story = {
   render: function ExpressionCalculationStory() {
@@ -595,47 +622,25 @@ export const ExpressionCalculation: Story = {
     }
 
     return (
-      <div className="grid w-96 gap-4">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-body-large-strong">Mathematical Expression Test</h3>
+      <div className="flex flex-col gap-4">
+        <NumericInput
+          className="w-64"
+          value={value}
+          onChange={handleChange}
+        />
+
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
           <p className="text-secondary-foreground">
-            Try entering different values and expressions to observe onChange event behavior:
+            <b>Current value:</b> {value}
           </p>
-          <ul className="text-secondary-foreground list-disc pl-5">
-            <li>
-              Current value is {value}, entering {value} won&apos;t trigger onChange
-            </li>
-            <li>
-              Current value is {value}, entering expressions that result in {value} (like{" "}
-              {value - 1}+1) won&apos;t trigger onChange
-            </li>
-            <li>Entering other values or expressions will trigger onChange</li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col items-start gap-2">
-          <NumericInput
-            value={value}
-            onChange={handleChange}
-          />
-
-          <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-body-small">
-              <b>Current value:</b> {value}
+          <p className="text-secondary-foreground">
+            <b>onChange trigger count:</b> {changeCount}
+          </p>
+          {lastInputText && (
+            <p className="text-secondary-foreground">
+              <b>Last input text:</b> {lastInputText}
             </p>
-            <p className="text-body-small">
-              <b>onChange trigger count:</b> {changeCount}
-            </p>
-            {lastInputText && (
-              <p className="text-body-small">
-                <b>Last input text:</b> {lastInputText}
-              </p>
-            )}
-            <p className="text-secondary-foreground mt-2">
-              Tip: Try entering &ldquo;1+1&rdquo;, &ldquo;2*1&rdquo;, &ldquo;4/2&rdquo; or other
-              expressions that result in the current value
-            </p>
-          </div>
+          )}
         </div>
       </div>
     )
@@ -652,6 +657,13 @@ export const ExpressionCalculation: Story = {
  * For example:
  * - When value is "24px", entering "24" or "12+12" won't trigger onChange
  * - When value is "24px", entering "25" or "12+13" will trigger onChange
+ *
+ * Usage:
+ * - Try entering values and expressions with a pixel unit pattern
+ * - Current value won't trigger onChange when entered again
+ * - Expressions that result in the same numerical value won't trigger onChange
+ * - Entering different values or expressions will trigger onChange
+ * - Try expressions like "12+12", "24*1" that result in the current numerical value
  */
 export const UnitExpressionCalculation: Story = {
   render: function UnitExpressionCalculationStory() {
@@ -667,48 +679,26 @@ export const UnitExpressionCalculation: Story = {
     }
 
     return (
-      <div className="grid w-96 gap-4">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-body-large-strong">Unit Expression Test</h3>
+      <div className="flex flex-col gap-4">
+        <NumericInput
+          className="w-64"
+          value={value}
+          onChange={handleChange}
+          expression="{value}px"
+        />
+
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
           <p className="text-secondary-foreground">
-            Try entering values and expressions with a pixel unit pattern:
+            <b>Current value:</b> {value}px
           </p>
-          <ul className="text-secondary-foreground list-disc pl-5">
-            <li>
-              Current value is {value}px, entering {value} won&apos;t trigger onChange
-            </li>
-            <li>
-              Entering expressions like &ldquo;{value / 2}+{value / 2}&rdquo; won&apos;t trigger
-              onChange
-            </li>
-            <li>Entering different values or expressions will trigger onChange</li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col items-start gap-2">
-          <NumericInput
-            value={value}
-            onChange={handleChange}
-            expression="{value}px"
-          />
-
-          <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-body-small">
-              <b>Current value:</b> {value}px
+          <p className="text-secondary-foreground">
+            <b>onChange trigger count:</b> {changeCount}
+          </p>
+          {lastInputText && (
+            <p className="text-secondary-foreground">
+              <b>Last input text:</b> {lastInputText}
             </p>
-            <p className="text-body-small">
-              <b>onChange trigger count:</b> {changeCount}
-            </p>
-            {lastInputText && (
-              <p className="text-body-small">
-                <b>Last input text:</b> {lastInputText}
-              </p>
-            )}
-            <p className="text-secondary-foreground mt-2">
-              Tip: Try entering &ldquo;12+12&rdquo;, &ldquo;24*1&rdquo;, or other expressions that
-              result in the current numerical value
-            </p>
-          </div>
+          )}
         </div>
       </div>
     )
@@ -716,9 +706,19 @@ export const UnitExpressionCalculation: Story = {
 }
 
 /**
- * 这个示例专门用于测试和展示修复后的多值表达式更新行为。
- * 在之前的版本中，当只修改第二个值（如height）而不修改第一个值（如width）时，
- * 组件无法正确更新。这个修复确保了即使只修改一个属性，整个对象也能正确更新。
+ * Example demonstrating multi-value expression update behavior.
+ * In previous versions, when only modifying the second value (e.g., height) without modifying the first value (e.g., width),
+ * the component could not update correctly. This fix ensures that even when only one property is modified, the entire object updates correctly.
+ *
+ * Usage:
+ * - Modify the first value (width)
+ * - Modify the second value (height)
+ * - Modify both values simultaneously
+ * After the fix, all three scenarios should correctly trigger updates.
+ *
+ * Tips:
+ * - Enter comma-separated values (e.g., "15, 20") to update both properties
+ * - Keep the value before the comma unchanged and only modify the value after (e.g., ", 25") to update only height
  */
 export const MultiValueExpressionUpdate: Story = {
   render: function MultiValueExpressionUpdateStory() {
@@ -733,7 +733,6 @@ export const MultiValueExpressionUpdate: Story = {
       setValue(newValue as { height: number; width: number })
       setUpdateCount((prev) => prev + 1)
 
-      // 确定哪个属性被更新了
       const newObj = newValue as { height: number; width: number }
       if (newObj.width !== value.width && newObj.height !== value.height) {
         setLastUpdatedProperty("width & height")
@@ -745,42 +744,26 @@ export const MultiValueExpressionUpdate: Story = {
     }
 
     return (
-      <div className="grid w-96 gap-4">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-body-large-strong">多值表达式更新测试</h3>
-          <p className="text-secondary-foreground">这个示例测试修复后的多值表达式更新行为：</p>
-          <ul className="text-secondary-foreground list-disc pl-5">
-            <li>修改首个值（width）</li>
-            <li>修改第二个值（height）</li>
-            <li>同时修改两个值</li>
-          </ul>
-          <p className="text-secondary-foreground">修复后，所有三种情况都应该正确触发更新。</p>
-        </div>
+      <div className="flex flex-col gap-4">
+        <NumericInput
+          className="w-64"
+          expression="{width}, {height}"
+          value={value}
+          onChange={handleChange}
+        />
 
-        <div className="flex flex-col items-start gap-2">
-          <NumericInput
-            expression="{width}, {height}"
-            value={value}
-            onChange={handleChange}
-          />
-
-          <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-body-small">
-              <b>当前值:</b> {value.width}, {value.height}
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
+          <p className="text-secondary-foreground">
+            <b>Current value:</b> {value.width}, {value.height}
+          </p>
+          <p className="text-secondary-foreground">
+            <b>Update count:</b> {updateCount}
+          </p>
+          {lastUpdatedProperty && (
+            <p className="text-secondary-foreground">
+              <b>Last updated property:</b> {lastUpdatedProperty}
             </p>
-            <p className="text-body-small">
-              <b>更新次数:</b> {updateCount}
-            </p>
-            {lastUpdatedProperty && (
-              <p className="text-body-small">
-                <b>最近更新的属性:</b> {lastUpdatedProperty}
-              </p>
-            )}
-            <p className="text-secondary-foreground mt-2">
-              提示: 输入逗号分隔的两个值（例如 &quot;15, 20&quot;）来更新两个属性，
-              或者保留逗号前的值不变只修改后面的值（例如 &quot;, 25&quot;）来只更新height。
-            </p>
-          </div>
+          )}
         </div>
       </div>
     )
@@ -794,44 +777,222 @@ export const MultiValueExpressionUpdate: Story = {
  * - Default: 1 step
  * - Shift: 10 steps (larger increments)
  * - Meta/Ctrl: 0.1 steps (finer control)
+ *
+ * Usage:
+ * - Focus the input and use arrow keys with modifier keys to see different step values
+ * - ↑/↓: Default step (1)
+ * - Shift + ↑/↓: Large step (10)
+ * - Try holding Shift while using arrow keys to see different step sizes
  */
 export const StepAndShiftStep: Story = {
   render: function StepAndShiftStepStory() {
     const [value, setValue] = useState(100)
 
     return (
-      <div className="grid w-96 gap-4">
-        <div className="flex flex-col gap-2">
-          <h3 className="text-body-large-strong">Step and Shift Step</h3>
-          <p className="text-secondary-foreground">
-            Focus the input and use arrow keys with modifier keys to see different step values:
-          </p>
-          <ul className="text-secondary-foreground list-disc pl-5">
-            <li>↑/↓: Default step (1)</li>
-            <li>Shift + ↑/↓: Large step (10)</li>
-          </ul>
-        </div>
+      <div className="flex flex-col gap-4">
+        <NumericInput
+          className="w-64"
+          value={value}
+          onChange={(newValue) => setValue(newValue as number)}
+          step={1}
+          min={0}
+          max={1000}
+        >
+          <NumericInput.Prefix>
+            <HugWidth />
+          </NumericInput.Prefix>
+        </NumericInput>
 
-        <div className="flex flex-col items-start gap-2">
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
+          <p className="text-secondary-foreground">
+            <b>Current value:</b> {value}
+          </p>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * ArrayValues: Demonstrates support for array values.
+ *
+ * Features:
+ * - Array input/output
+ * - Comma-separated value parsing
+ * - Multiple value management
+ * - Useful for multi-value scenarios like coordinates or dimensions
+ *
+ * Usage:
+ * - NumericInput supports array values for multi-value inputs
+ * - Array values require an expression pattern to format display
+ * - Expression uses {value1}, {value2}, {value3} etc. (1-based indexing)
+ * - Enter comma-separated values like "10, 20, 30"
+ */
+export const ArrayValues: Story = {
+  render: function ArrayValuesStory() {
+    const [value, setValue] = useState<number[]>([10, 20, 30])
+
+    return (
+      <div className="flex flex-col gap-4">
+        <NumericInput
+          className="w-64"
+          value={value}
+          expression="{value1}, {value2}, {value3}"
+          onChange={(newValue) => setValue(newValue as number[])}
+        >
+          <NumericInput.Prefix>
+            <HugWidth />
+          </NumericInput.Prefix>
+        </NumericInput>
+
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
+          <p className="text-secondary-foreground">
+            <b>Current values:</b> {value.join(", ")}
+          </p>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * EmptyValue: Demonstrates empty value handling.
+ *
+ * Features:
+ * - Support for undefined/null values
+ * - Value clearing functionality
+ * - Default value management
+ * - Useful for optional numeric inputs
+ *
+ * Usage:
+ * - NumericInput supports undefined values for optional inputs
+ * - Clear the input to see empty value handling
+ */
+export const EmptyValue: Story = {
+  render: function EmptyValueStory() {
+    const [value, setValue] = useState<number | undefined>(100)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-2">
           <NumericInput
             value={value}
-            onChange={(newValue) => setValue(newValue as number)}
-            step={1}
-            min={0}
-            max={1000}
+            onChange={(newValue) => {
+              if (typeof newValue === "number" || newValue === undefined) {
+                setValue(newValue)
+              }
+            }}
           >
             <NumericInput.Prefix>
               <HugWidth />
             </NumericInput.Prefix>
           </NumericInput>
 
-          <div className="mt-2 rounded border bg-gray-50 p-3">
-            <p className="text-body-small">
-              <b>Current value:</b> {value}
-            </p>
-            <p className="text-secondary-foreground mt-2">
-              Tip: Try holding Shift while using arrow keys to see different step sizes
-            </p>
+          <Button
+            variant="secondary"
+            onClick={() => setValue(undefined)}
+          >
+            Clear
+          </Button>
+        </div>
+
+        <div className="bg-secondary-background flex flex-col gap-2 rounded-lg p-4">
+          <p className="text-secondary-foreground">
+            <b>Current value:</b> {value === undefined ? "empty" : value}
+          </p>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * LinkedInputs: Demonstrates coordinated multiple inputs with shared state.
+ *
+ * Features:
+ * - Coordinated multiple inputs
+ * - Shared state management
+ * - Visual result feedback
+ * - Practical example: RGB color picker
+ *
+ * Usage:
+ * - Example of coordinated multiple NumericInput components
+ * - Each input controls a different color channel (R, G, B)
+ * - Changes are reflected in real-time visual preview
+ */
+export const LinkedInputs: Story = {
+  render: function LinkedInputsStory() {
+    const [color, setColor] = useState({ r: 255, g: 100, b: 50 })
+
+    const rgbToHex = (r: number, g: number, b: number) => {
+      return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`
+    }
+
+    const hexColor = rgbToHex(color.r, color.g, color.b)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="grid max-w-md grid-cols-3 gap-4">
+          <div className="flex flex-col gap-2">
+            <Label className="text-red-600">Red</Label>
+            <NumericInput
+              value={color.r}
+              min={0}
+              max={255}
+              step={1}
+              onChange={(value) => setColor((prev) => ({ ...prev, r: value as number }))}
+            >
+              <NumericInput.Prefix>
+                <ColorTypeSolid />
+              </NumericInput.Prefix>
+            </NumericInput>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label className="text-green-600">Green</Label>
+            <NumericInput
+              value={color.g}
+              min={0}
+              max={255}
+              step={1}
+              onChange={(value) => setColor((prev) => ({ ...prev, g: value as number }))}
+            >
+              <NumericInput.Prefix>
+                <ColorTypeSolid />
+              </NumericInput.Prefix>
+            </NumericInput>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label className="text-blue-600">Blue</Label>
+            <NumericInput
+              value={color.b}
+              min={0}
+              max={255}
+              step={1}
+              onChange={(value) => setColor((prev) => ({ ...prev, b: value as number }))}
+            >
+              <NumericInput.Prefix>
+                <ColorTypeSolid />
+              </NumericInput.Prefix>
+            </NumericInput>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div
+            style={{
+              backgroundColor: hexColor,
+              width: "100px",
+              height: "50px",
+              borderRadius: "6px",
+            }}
+          />
+          <div className="flex flex-col">
+            <div className="text-body-large font-mono">{hexColor}</div>
+            <div className="text-secondary-foreground">
+              rgb({color.r}, {color.g}, {color.b})
+            </div>
           </div>
         </div>
       </div>

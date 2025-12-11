@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Label>
  */
 export const Basic: Story = {
   render: () => (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-64 flex-col gap-2">
       <Label htmlFor="name">Name</Label>
       <Input id="name" />
     </div>
@@ -33,7 +33,7 @@ export const Basic: Story = {
  */
 export const WithDescription: Story = {
   render: () => (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-64 flex-col gap-2">
       <Label
         htmlFor="description"
         description="Please enter your full name"
@@ -53,7 +53,7 @@ export const WithDescription: Story = {
  */
 export const Disabled: Story = {
   render: () => (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-64 flex-col gap-2">
       <Label
         htmlFor="disabled"
         disabled
@@ -94,7 +94,7 @@ export const Required: Story = {
  */
 export const WithAction: Story = {
   render: () => (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-64 flex-col gap-2">
       <Label
         htmlFor="action"
         description="This is a description"

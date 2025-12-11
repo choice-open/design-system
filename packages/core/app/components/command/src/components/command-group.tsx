@@ -4,9 +4,24 @@ import { GroupContext, useCommand, useCommandState, useValue } from "../hooks"
 import { commandGroupTv } from "../tv"
 
 export interface CommandGroupProps extends HTMLProps<HTMLDivElement> {
+  /**
+   * Whether to force mount the group.
+   * @default false
+   */
   forceMount?: boolean
+  /**
+   * The heading of the group.
+   */
   heading?: React.ReactNode
+  /**
+   * The value of the group.
+   */
   value?: string
+  /**
+   * Whether the group is hidden.
+   * @default false
+   */
+  hidden?: boolean
 }
 
 export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>((props, forwardedRef) => {
@@ -37,10 +52,10 @@ export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>((props
 
   const contextValue = useMemo(() => ({ id, forceMount }), [id, forceMount])
 
-  const tv = commandGroupTv({ variant: context.variant })
+  const tv = commandGroupTv({ variant: context.variant, hidden: !render })
 
-  if (!render) return null
-
+  // 使用 CSS 隐藏而不是返回 null，保持 group 和其中的 item 始终注册
+  // 这样搜索词变化时可以正确重新过滤
   return (
     <div
       ref={(el) => {
@@ -49,9 +64,10 @@ export const CommandGroup = forwardRef<HTMLDivElement, CommandGroupProps>((props
         else if (forwardedRef) forwardedRef.current = el
       }}
       {...rest}
-      className={tcx(tv.root({ className }))}
+      className={tv.root({ className })}
       role="presentation"
       data-value={value}
+      data-hidden={!render || undefined}
     >
       {heading && (
         <div

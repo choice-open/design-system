@@ -4,7 +4,7 @@ import { forwardRef } from "react"
 import { useNumericInputContext } from "../context"
 import { NumericInputVariableTv } from "../tv"
 
-interface NumericInputVariableProps {
+export interface NumericInputVariableProps {
   className?: string
   hasPrefixElement?: boolean
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void

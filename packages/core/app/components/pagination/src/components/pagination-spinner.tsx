@@ -38,17 +38,22 @@ export const PaginationSpinner = forwardRef<HTMLDivElement, PaginationSpinnerPro
     useEffect(() => {
       if (isEditing && inputRef.current) {
         inputRef.current.focus()
-        // Safely try to select text, ignore if not supported in test environment
-        try {
-          const timer = setTimeout(() => {
-            if (inputRef.current && inputRef.current.setSelectionRange) {
-              inputRef.current.setSelectionRange(0, inputRef.current.value.length)
-            }
-          }, 0)
-          return () => clearTimeout(timer)
-        } catch (e) {
-          // Ignore selection errors in test environment
-        }
+        // type="number" does not support selection APIs (setSelectionRange/select)
+        if (inputRef.current.type === "number") return
+
+        const timer = setTimeout(() => {
+          const el = inputRef.current
+          if (!el) return
+          if (el.type === "number") return
+
+          try {
+            el.setSelectionRange(0, el.value.length)
+          } catch {
+            // Ignore selection errors (e.g. unsupported environments)
+          }
+        }, 0)
+
+        return () => clearTimeout(timer)
       }
     }, [isEditing])
 
@@ -123,7 +128,6 @@ export const PaginationSpinner = forwardRef<HTMLDivElement, PaginationSpinnerPro
               onChange={handleInputChange}
               onBlur={handleInputBlur}
               onKeyDown={handleInputKeyDown}
-              onFocus={(e) => e.target.select()}
               type="number"
               min={1}
               max={totalPages}

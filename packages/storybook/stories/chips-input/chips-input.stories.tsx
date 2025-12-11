@@ -58,7 +58,7 @@ export const Disabled: Story = {
     return (
       <ChipsInput
         placeholder="Add tags..."
-        className="w-32"
+        className="w-80"
         disabled
       />
     )
@@ -77,7 +77,7 @@ export const Controlled: Story = {
       return (
         <div className="flex flex-col gap-2">
           <ChipsInput
-            className="w-32"
+            className="w-80"
             value={tags}
             onChange={(newTags: string[]) => {
               setTags(newTags)
@@ -101,7 +101,7 @@ export const Empty: Story = {
     return (
       <ChipsInput
         placeholder="Add tags..."
-        className="w-32"
+        className="w-80"
       />
     )
   },
@@ -117,62 +117,10 @@ export const AllowDuplicates: Story = {
       <ChipsInput
         placeholder="Add tags (duplicates allowed)..."
         allowDuplicates
+        className="w-80"
       />
     )
   },
-}
-
-// Example custom render function
-const customRenderChip = ({
-  chip,
-  index,
-  isSelected,
-  disabled,
-  handleChipClick,
-  handleChipRemoveClick,
-}: RenderChipProps) => {
-  return (
-    <div
-      style={{
-        padding: "2px 8px",
-        margin: "2px",
-        border: isSelected ? "2px solid #007bff" : "1px solid #ced4da",
-        borderRadius: "12px",
-        display: "inline-flex",
-        alignItems: "center",
-        opacity: disabled ? 0.5 : 1,
-        cursor: disabled ? "not-allowed" : "pointer",
-        backgroundColor: isSelected ? "#cfe2ff" : "#f8f9fa",
-        fontSize: "0.875rem",
-        transition: "all 0.2s ease-in-out",
-      }}
-      onClick={disabled ? undefined : () => handleChipClick(index)}
-    >
-      <span style={{ marginRight: "4px" }}>
-        {isSelected ? "🌟" : "🏷️"} {chip}
-      </span>
-      {!disabled && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation() // Important!
-            handleChipRemoveClick(index)
-          }}
-          style={{
-            marginLeft: "4px",
-            border: "none",
-            background: "none",
-            cursor: "pointer",
-            padding: 0,
-            lineHeight: 1,
-          }}
-          aria-label={`Remove ${chip}`}
-          disabled={disabled}
-        >
-          <RemoveSmall />
-        </button>
-      )}
-    </div>
-  )
 }
 
 /**
@@ -182,17 +130,70 @@ const customRenderChip = ({
  */
 export const CustomRenderChip: Story = {
   render: function CustomRenderChipStory() {
+    const customRenderChip = ({
+      chip,
+      index,
+      isSelected,
+      disabled,
+      handleChipClick,
+      handleChipRemoveClick,
+    }: RenderChipProps) => {
+      return (
+        <div
+          style={{
+            padding: "2px 8px",
+            margin: "2px",
+            border: isSelected ? "2px solid #007bff" : "1px solid #ced4da",
+            borderRadius: "12px",
+            display: "inline-flex",
+            alignItems: "center",
+            opacity: disabled ? 0.5 : 1,
+            cursor: disabled ? "not-allowed" : "pointer",
+            backgroundColor: isSelected ? "#cfe2ff" : "#f8f9fa",
+            fontSize: "0.875rem",
+            transition: "all 0.2s ease-in-out",
+          }}
+          onClick={disabled ? undefined : () => handleChipClick(index)}
+        >
+          <span style={{ marginRight: "4px" }}>
+            {isSelected ? "🌟" : "🏷️"} {chip}
+          </span>
+          {!disabled && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation() // Important!
+                handleChipRemoveClick(index)
+              }}
+              style={{
+                marginLeft: "4px",
+                border: "none",
+                background: "none",
+                cursor: "pointer",
+                padding: 0,
+                lineHeight: 1,
+              }}
+              aria-label={`Remove ${chip}`}
+              disabled={disabled}
+            >
+              <RemoveSmall />
+            </button>
+          )}
+        </div>
+      )
+    }
+
     return (
       <ChipsInput
         placeholder="Add custom chips..."
         renderChip={customRenderChip}
+        className="w-80"
       />
     )
   },
 }
 
 /**
- * ChipsInput component in readOnly state.
+ * [TEST] ChipsInput component in readOnly state.
  *
  * In readOnly mode:
  * - The input field is disabled and read-only

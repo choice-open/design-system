@@ -25,7 +25,7 @@ const shouldShowArrow = (
   return false
 }
 
-interface MenuScrollArrowProps {
+export interface MenuScrollArrowProps {
   className?: string
   dir: "up" | "down"
   innerOffset: number
@@ -34,11 +34,21 @@ interface MenuScrollArrowProps {
   onScroll: (amount: number) => void
   scrollRef: React.MutableRefObject<HTMLDivElement | null>
   scrollTop: number
+  variant?: "default" | "light" | "reset"
 }
 
 export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowProps) {
-  const { isPositioned, dir, scrollRef, scrollTop, onScroll, innerOffset, onHide, className } =
-    props
+  const {
+    isPositioned,
+    dir,
+    scrollRef,
+    scrollTop,
+    onScroll,
+    innerOffset,
+    onHide,
+    className,
+    variant = "default",
+  } = props
 
   const [show, setShow] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -56,7 +66,7 @@ export const MenuScrollArrow = function MenuScrollArrow(props: MenuScrollArrowPr
     dirRef.current = dir
   }, [isPositioned, dir])
 
-  const styles = MenuScrollArrowTv({ dir, visible: show })
+  const styles = MenuScrollArrowTv({ dir, visible: show, variant })
 
   // 初始化时检查
   useIsomorphicLayoutEffect(() => {

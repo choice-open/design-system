@@ -35,4 +35,9 @@ export {
 } from "./context"
 
 export type { MenusProps } from "./menus"
+export type { MenuItemProps } from "./components/menu-item"
+export type { MenuTriggerProps } from "./components/menu-trigger"
+export type { MenuScrollArrowProps } from "./components/menu-scroll-arrow"
+export type { MenuLabelProps } from "./components/menu-label"
+export type { MenuCheckboxProps } from "./components/menu-checkbox"
 export type { MenuContextItemProps, MenuContextType } from "./context"

@@ -1,4 +1,4 @@
-import { Checkbox, Input } from "@choice-ui/react"
+import { Checkbox, Input, Label } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { useState } from "react"
 
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof Input>
  * Use this as a starting point for customization.
  */
 export const Basic: Story = {
-  render: () => <Input />,
+  render: () => <Input className="w-64" />,
 }
 
 /**
@@ -63,6 +63,7 @@ export const Disabled: Story = {
     const [value, setValue] = useState("Disabled")
     return (
       <Input
+        className="w-64"
         value={value}
         onChange={(value) => setValue(value)}
         disabled
@@ -89,6 +90,7 @@ export const ReadOnly: Story = {
     const [value, setValue] = useState("Read Only")
     return (
       <Input
+        className="w-64"
         readOnly
         value={value}
         onChange={(value) => setValue(value)}
@@ -115,6 +117,7 @@ export const Selected: Story = {
     const [value, setValue] = useState("Selected")
     return (
       <Input
+        className="w-64"
         value={value}
         onChange={(value) => setValue(value)}
         selected
@@ -142,6 +145,7 @@ export const Placeholder: Story = {
     const [value, setValue] = useState("")
     return (
       <Input
+        className="w-64"
         placeholder="Placeholder"
         value={value}
         onChange={(value) => setValue(value)}
@@ -174,21 +178,21 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background flex aspect-square items-center justify-center p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background rounded-lg border p-4">
             <Input
               placeholder="Default"
               disabled={disabled}
             />
           </div>
-          <div className="flex aspect-square items-center justify-center bg-white p-8">
+          <div className="rounded-lg border bg-white p-4">
             <Input
               variant="light"
               placeholder="Light"
               disabled={disabled}
             />
           </div>
-          <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+          <div className="rounded-lg border bg-gray-800 p-4">
             <Input
               variant="dark"
               placeholder="Dark"
@@ -234,6 +238,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState("Controlled")
     return (
       <Input
+        className="w-64"
         value={value}
         onChange={(value) => setValue(value)}
       />
@@ -274,8 +279,8 @@ export const FocusSelectionModes: Story = {
 
     return (
       <div className="space-y-6">
-        <div>
-          <h3 className="text-body-small text-text-secondary mb-2">Select All (Default)</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Select All (Default)</Label>
           <Input
             value={value1}
             onChange={setValue1}
@@ -283,13 +288,13 @@ export const FocusSelectionModes: Story = {
             placeholder="Click to select all text..."
             className="w-80"
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;all&quot; - Selects all text when focused
           </p>
         </div>
 
-        <div>
-          <h3 className="text-body-small text-text-secondary mb-2">Move to End</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Move to End</Label>
           <Input
             value={value2}
             onChange={setValue2}
@@ -297,13 +302,13 @@ export const FocusSelectionModes: Story = {
             placeholder="Click to move cursor to end..."
             className="w-80"
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;end&quot; - Moves cursor to end of text
           </p>
         </div>
 
-        <div>
-          <h3 className="text-body-small text-text-secondary mb-2">No Selection</h3>
+        <div className="flex flex-col gap-2">
+          <Label>No Selection</Label>
           <Input
             value={value3}
             onChange={setValue3}
@@ -311,7 +316,7 @@ export const FocusSelectionModes: Story = {
             placeholder="Click anywhere to focus..."
             className="w-80"
           />
-          <p className="text-body-small text-text-tertiary mt-1">
+          <p className="text-secondary-foreground">
             focusSelection=&quot;none&quot; - Maintains cursor position
           </p>
         </div>

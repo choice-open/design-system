@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { List } from "~/components"
 import Link from "next/link"
@@ -17,6 +17,7 @@ export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([])
   const [activeId, setActiveId] = useState<string>("")
   const pathname = usePathname()
+  const cleanupRef = useRef<(() => void) | null>(null)
 
   // 计算当前应该高亮的标题
   const updateActiveHeading = useCallback((headingsList: Heading[]) => {
@@ -43,15 +44,21 @@ export function TableOfContents() {
   }, [])
 
   useEffect(() => {
-    // 路由变化时重置状态
-    setHeadings([])
-    setActiveId("")
+    // 清理上一次的监听器
+    if (cleanupRef.current) {
+      cleanupRef.current()
+      cleanupRef.current = null
+    }
 
     // 等待 DOM 更新
     const timer = setTimeout(() => {
       // 查找所有标题和带有 id 的 section
       const mainContent = document.querySelector("main")
-      if (!mainContent) return
+      if (!mainContent) {
+        setHeadings([])
+        setActiveId("")
+        return
+      }
 
       const headingElements: Heading[] = []
       const processedIds = new Set<string>()
@@ -98,18 +105,17 @@ export function TableOfContents() {
 
       window.addEventListener("scroll", handleScroll, { passive: true })
 
-      // 保存清理函数
-      ;(mainContent as any).__tocCleanup = () => {
+      // 保存清理函数到 ref
+      cleanupRef.current = () => {
         window.removeEventListener("scroll", handleScroll)
       }
     }, 100)
 
     return () => {
       clearTimeout(timer)
-      const mainContent = document.querySelector("main")
-      if (mainContent && (mainContent as any).__tocCleanup) {
-        ;(mainContent as any).__tocCleanup()
-        ;(mainContent as any).__tocCleanup = null
+      if (cleanupRef.current) {
+        cleanupRef.current()
+        cleanupRef.current = null
       }
     }
   }, [pathname, updateActiveHeading])

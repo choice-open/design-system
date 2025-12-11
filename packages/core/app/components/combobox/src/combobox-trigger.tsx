@@ -107,6 +107,7 @@ export const ComboboxTrigger = forwardRef<HTMLInputElement, ComboboxTriggerProps
             variant="ghost"
             tooltip={{ content: i18n.clear }}
             onClick={handleClear}
+            disabled={disabled}
           >
             <RemoveSmall />
           </IconButton>
@@ -114,6 +115,7 @@ export const ComboboxTrigger = forwardRef<HTMLInputElement, ComboboxTriggerProps
           suffixElement && (
             <IconButton
               className={tv.icon()}
+              disabled={disabled}
               variant="solid"
               active={active}
               onClick={(e) => {

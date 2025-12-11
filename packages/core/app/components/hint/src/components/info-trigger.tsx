@@ -4,17 +4,16 @@ import { cloneElement, forwardRef, HTMLProps, ReactElement, ReactNode } from "re
 import { useHintState } from "../context/hint-context"
 import { hintVariants } from "../tv"
 
-interface HintTriggerProps extends HTMLProps<HTMLButtonElement> {
+export interface HintTriggerProps extends HTMLProps<HTMLButtonElement> {
   asChild?: boolean
-  icon?: ReactNode
+  children?: ReactNode
 }
 
-export const HintTrigger = forwardRef<HTMLButtonElement, HintTriggerProps>(function HintTrigger(
-  { children, className, asChild = false, icon, ...props },
+const HintTriggerInner = forwardRef<HTMLButtonElement, HintTriggerProps>(function HintTrigger(
+  { children, className, asChild = false, ...props },
   propRef,
 ) {
   const state = useHintState()
-
   const ref = useMergeRefs([state.refs.setReference, propRef])
 
   // 如果使用自定义子元素
@@ -25,6 +24,7 @@ export const HintTrigger = forwardRef<HTMLButtonElement, HintTriggerProps>(funct
       ...(state.disabled && { disabled: true }),
     })
   }
+
   const tv = hintVariants({ disabled: state.disabled })
 
   return (
@@ -35,7 +35,11 @@ export const HintTrigger = forwardRef<HTMLButtonElement, HintTriggerProps>(funct
       {...(state.disabled && { disabled: true })}
       {...state.getReferenceProps(props)}
     >
-      {icon}
+      {state.icon}
     </button>
   )
 })
+
+HintTriggerInner.displayName = "HintTrigger"
+
+export const HintTrigger = HintTriggerInner

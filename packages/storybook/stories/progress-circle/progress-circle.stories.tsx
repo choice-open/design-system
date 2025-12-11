@@ -153,16 +153,16 @@ export const BasedOnValue: Story = {
             value={value}
             variant="based-on-value"
             dynamicColors={[
-              { at: 0, color: "#ef4444" },
-              { at: 0.5, color: "#f59e0b" },
-              { at: 1, color: "#22c55e" },
+              { at: 0, color: "#ff0000" },
+              { at: 0.5, color: "#ffa500" },
+              { at: 1, color: "#ffff00" },
             ]}
           >
             <ProgressCircle.Value />
           </ProgressCircle>
         </div>
 
-        <div className="col-span-2 grid w-full">
+        <div className="col-span-2 grid w-full gap-2">
           <Range
             min={0}
             max={100}

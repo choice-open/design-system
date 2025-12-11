@@ -84,7 +84,7 @@ export function ApiTable({ props }: ApiTableProps) {
       id="api"
       className="space-y-4"
     >
-      <h2 className="md-h2">API</h2>
+      <h2 className="md-h2">API reference</h2>
       <div className="flex flex-col gap-8">
         <div className="space-y-2">
           <div className="overflow-hidden rounded-xl border">

@@ -1,5 +1,5 @@
 import { Button, Checkbox, Dropdown, IconButton, Popover } from "@choice-ui/react"
-import { Add, FieldTypeAttachment, Search, Settings } from "@choiceform/icons-react"
+import { Add, File, Search, Settings } from "@choiceform/icons-react"
 import { faker } from "@faker-js/faker"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -23,6 +23,7 @@ type Story = StoryObj<typeof Dropdown>
  * - Unified interaction handling
  * - Improved keyboard navigation
  * - Better event handling with useEventCallback
+ *
  */
 export const Basic: Story = {
   render: function BasicStory() {
@@ -58,21 +59,18 @@ export const WithPrefix: Story = {
   render: function WithPrefixStory() {
     return (
       <Dropdown>
-        <Dropdown.Trigger prefixElement={<FieldTypeAttachment />}>
+        <Dropdown.Trigger prefixElement={<File />}>
           <Dropdown.Value>File Actions</Dropdown.Value>
         </Dropdown.Trigger>
         <Dropdown.Content>
-          <Dropdown.Item>
-            <FieldTypeAttachment />
+          <Dropdown.Item prefixElement={<File />}>
             <Dropdown.Value>Attach File</Dropdown.Value>
           </Dropdown.Item>
-          <Dropdown.Item>
-            <Search />
+          <Dropdown.Item prefixElement={<Search />}>
             <Dropdown.Value>Search Files</Dropdown.Value>
           </Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>
-            <Settings />
+          <Dropdown.Item prefixElement={<Settings />}>
             <Dropdown.Value>File Settings</Dropdown.Value>
           </Dropdown.Item>
         </Dropdown.Content>
@@ -83,13 +81,14 @@ export const WithPrefix: Story = {
 
 /**
  * Custom trigger using asChild pattern for complete control.
+ *
  */
 export const TriggerAsChild: Story = {
   render: function TriggerAsChildStory() {
     return (
       <Dropdown>
         <Dropdown.Trigger asChild>
-          <IconButton variant="default">
+          <IconButton>
             <Settings />
           </IconButton>
         </Dropdown.Trigger>
@@ -118,6 +117,7 @@ export const TriggerAsChild: Story = {
  * - Automatic submenu positioning
  * - Hover-based submenu activation
  * - Tree event management for proper closing
+ *
  */
 export const Nested: Story = {
   render: function NestedStory() {
@@ -177,6 +177,7 @@ export const Nested: Story = {
  *
  * Note: When using Dropdown nested inside a Popover or Dialog, you must pass the
  * `disabledNested={true}` prop to ensure proper rendering.
+ *
  */
 export const NestedInPopover: Story = {
   render: function NestedInPopoverStory() {

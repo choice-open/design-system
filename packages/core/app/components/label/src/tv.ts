@@ -3,10 +3,10 @@ import { tcv } from "@choice-ui/shared"
 export const labelTv = tcv({
   slots: {
     root: "text-body-medium cursor-default self-start px-0.5",
-    content: "font-strong",
+    content: "font-strong align-middle",
     required: "",
-    description: "ml-1",
-    action: "relative ml-1 inline-flex align-middle",
+    description: "ml-1 align-middle",
+    action: "relative ml-1 inline-flex align-middle h-4 items-center justify-center",
   },
   variants: {
     disabled: {

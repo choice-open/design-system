@@ -16,14 +16,14 @@
     }
   },
   "exports": [
-    "type RangeProps",
     "Range",
-    "type RangeTupleProps",
-    "RangeTuple"
+    "RangeTuple",
+    "type RangeProps",
+    "type RangeTupleProps"
   ],
   "props": [
     {
-      "displayName": "Range",
+      "displayName": "RangeProps",
       "description": "",
       "props": [
         {
@@ -113,7 +113,7 @@
       ]
     },
     {
-      "displayName": "RangeTuple",
+      "displayName": "RangeTupleProps",
       "description": "",
       "props": [
         {

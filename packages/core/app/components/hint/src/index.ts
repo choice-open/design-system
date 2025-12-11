@@ -1,3 +1,3 @@
-export * from "./components"
-export * from "./hooks"
-export * from "./hint"
+export { Hint } from "./hint"
+export type { HintProps } from "./hint"
+export type { HintContentProps, HintTriggerProps } from "./components"

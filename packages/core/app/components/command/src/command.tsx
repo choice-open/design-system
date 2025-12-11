@@ -1,13 +1,12 @@
-import { tcx } from "@choice-ui/shared"
+import { tcx, useLazyRef } from "@choice-ui/shared"
 import React, { forwardRef, useCallback, useId, useMemo, useRef } from "react"
 import { useEventCallback, useIsomorphicLayoutEffect } from "usehooks-ts"
-import { useLazyRef } from "@choice-ui/shared"
-import { commandScore } from "./command-score"
 import { CommandContext, createCommandContext, StoreContext } from "./context"
 import { useAsRef, useScheduleLayoutEffect } from "./hooks"
 import { commandTv } from "./tv"
 import { CommandFilter, CommandProps, State, Store } from "./types"
 import {
+  commandScore,
   findNextSibling,
   findPreviousSibling,
   GROUP_HEADING_SELECTOR,

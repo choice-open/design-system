@@ -7,7 +7,7 @@ export const InputTv = tcv({
     variant: {
       default: ["bg-secondary-background", "placeholder:text-secondary-foreground"],
       light: ["bg-gray-100 text-gray-900", "placeholder:text-black/50"],
-      dark: ["bg-gray-700 text-white", "placeholder:text-white/40"],
+      dark: ["bg-gray-700 text-white", "placeholder:text-white/50"],
       reset: "",
     },
     selected: {

@@ -1,6 +1,6 @@
 import React from "react"
-import { commandScore } from "../command-score"
 import type { CommandProps, Context, State, Store } from "../types"
+import { commandScore } from "../utils"
 
 interface CreateCommandContextOptions {
   allGroups: React.MutableRefObject<Map<string, Set<string>>>

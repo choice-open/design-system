@@ -1,18 +1,17 @@
 import { tcx } from "@choice-ui/shared"
 import { FloatingPortal, useMergeRefs, useTransitionStyles } from "@floating-ui/react"
-import { forwardRef, HTMLProps, ReactNode, useMemo } from "react"
+import { forwardRef, HTMLProps, useMemo } from "react"
 import { useHintState } from "../context/hint-context"
 import { hintVariants } from "../tv"
 
-interface HintContentProps extends HTMLProps<HTMLDivElement> {
-  icon?: ReactNode
+export interface HintContentProps extends HTMLProps<HTMLDivElement> {
   portalId?: string
-  variant?: "default" | "dark"
+  variant?: "default" | "dark" | "accent"
 }
 
 export const HintContent = forwardRef<HTMLDivElement, HintContentProps>(
   function HintContent(props, propRef) {
-    const { className, children, icon, portalId, variant = "default", ...rest } = props
+    const { className, children, portalId, variant = "default", ...rest } = props
     const state = useHintState()
     const ref = useMergeRefs([state.refs.setFloating, propRef])
 
@@ -40,18 +39,28 @@ export const HintContent = forwardRef<HTMLDivElement, HintContentProps>(
       <FloatingPortal id={portalId}>
         <div
           ref={ref}
-          className="z-tooltip pointer-events-none"
+          className="z-tooltip"
           style={state.floatingStyles}
           {...state.getFloatingProps(rest)}
         >
           <div
-            className={tcx(tv.content({ className, variant }))}
+            className={tcx(tv.content({ variant }))}
             data-state={state.open ? "open" : "closed"}
             style={styles}
           >
-            <div className={tv.icon()}>{icon}</div>
+            <div
+              className={tv.icon({
+                placement: state.placement as
+                  | "left-start"
+                  | "right-start"
+                  | "left-end"
+                  | "right-end",
+              })}
+            >
+              {state.icon}
+            </div>
 
-            <div className={tv.text()}>{children}</div>
+            <div className={tcx(tv.text(), className)}>{children}</div>
           </div>
         </div>
       </FloatingPortal>

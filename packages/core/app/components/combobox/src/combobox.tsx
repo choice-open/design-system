@@ -586,6 +586,7 @@ const ComboboxComponent = memo(function ComboboxComponent(props: ComboboxProps) 
                       isPositioned={isPositioned}
                       onScroll={handleArrowScroll}
                       onHide={handleArrowHide}
+                      variant={variant}
                     />
                   ))}
                 </div>

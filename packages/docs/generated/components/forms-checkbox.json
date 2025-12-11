@@ -17,10 +17,7 @@
   },
   "exports": [
     "Checkbox",
-    "type CheckboxProps",
-    "type CheckboxLabelProps",
-    "useCheckboxContext",
-    "type CheckboxContextValue"
+    "type CheckboxProps"
   ],
   "props": [
     {
@@ -66,18 +63,6 @@
         {
           "name": "variant",
           "type": "undefined | \"default\" | \"accent\" | \"outline\"",
-          "required": false,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "Checkbox.Label",
-      "description": "",
-      "props": [
-        {
-          "name": "ref",
-          "type": "((instance: HTMLLabelElement | null) => void) | RefObject<HTMLLabelElement> | null | undefined",
           "required": false,
           "description": ""
         }

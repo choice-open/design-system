@@ -1,5 +1,5 @@
 import { Placement, UseFloatingReturn } from "@floating-ui/react"
-import { createContext, useContext } from "react"
+import { createContext, ReactNode, useContext } from "react"
 
 // 拆分 Context 定义以解决循环依赖
 export interface HintContextValue {
@@ -12,6 +12,7 @@ export interface HintContextValue {
   getReferenceProps: (
     userProps?: React.HTMLProps<HTMLElement> | undefined,
   ) => Record<string, unknown>
+  icon?: ReactNode
   open: boolean
   placement: Placement
   refs: UseFloatingReturn["refs"]

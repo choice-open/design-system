@@ -31,7 +31,7 @@
           "type": "boolean | undefined",
           "required": false,
           "defaultValue": "true",
-          "description": "CoordinateMode, first item auto select\n坐标模式下，是否自动选中第一个选项"
+          "description": "Whether to automatically select the first item in coordinate mode."
         },
         {
           "name": "disabledNested",
@@ -139,14 +139,14 @@
       "name": "With Prefix",
       "exportName": "WithPrefix",
       "description": "Dropdown with prefix icons for better visual recognition.",
-      "source": "import { Dropdown } from \"@choice-ui/dropdown\"\n\nexport default function App() {\n\n  return (\n    <Dropdown>\n      <Dropdown.Trigger prefixElement={<FieldTypeAttachment />}>\n        <Dropdown.Value>File Actions</Dropdown.Value>\n      </Dropdown.Trigger>\n      <Dropdown.Content>\n        <Dropdown.Item>\n          <FieldTypeAttachment />\n          <Dropdown.Value>Attach File</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Item>\n          <Search />\n          <Dropdown.Value>Search Files</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Divider />\n        <Dropdown.Item>\n          <Settings />\n          <Dropdown.Value>File Settings</Dropdown.Value>\n        </Dropdown.Item>\n      </Dropdown.Content>\n    </Dropdown>\n  )\n\n}"
+      "source": "import { Dropdown } from \"@choice-ui/dropdown\"\n\nexport default function App() {\n\n  return (\n    <Dropdown>\n      <Dropdown.Trigger prefixElement={<File />}>\n        <Dropdown.Value>File Actions</Dropdown.Value>\n      </Dropdown.Trigger>\n      <Dropdown.Content>\n        <Dropdown.Item prefixElement={<File />}>\n          <Dropdown.Value>Attach File</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Item prefixElement={<Search />}>\n          <Dropdown.Value>Search Files</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Divider />\n        <Dropdown.Item prefixElement={<Settings />}>\n          <Dropdown.Value>File Settings</Dropdown.Value>\n        </Dropdown.Item>\n      </Dropdown.Content>\n    </Dropdown>\n  )\n\n}"
     },
     {
       "id": "collections-dropdown--trigger-as-child",
       "name": "Trigger As Child",
       "exportName": "TriggerAsChild",
       "description": "Custom trigger using asChild pattern for complete control.",
-      "source": "import { Dropdown } from \"@choice-ui/dropdown\"\n\nexport default function App() {\n\n  return (\n    <Dropdown>\n      <Dropdown.Trigger asChild>\n        <IconButton variant=\"default\">\n          <Settings />\n        </IconButton>\n      </Dropdown.Trigger>\n      <Dropdown.Content>\n        <Dropdown.Item>\n          <Dropdown.Value>Settings</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Item>\n          <Dropdown.Value>Preferences</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Divider />\n        <Dropdown.Item>\n          <Dropdown.Value>Help</Dropdown.Value>\n        </Dropdown.Item>\n      </Dropdown.Content>\n    </Dropdown>\n  )\n\n}"
+      "source": "import { Dropdown } from \"@choice-ui/dropdown\"\n\nexport default function App() {\n\n  return (\n    <Dropdown>\n      <Dropdown.Trigger asChild>\n        <IconButton>\n          <Settings />\n        </IconButton>\n      </Dropdown.Trigger>\n      <Dropdown.Content>\n        <Dropdown.Item>\n          <Dropdown.Value>Settings</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Item>\n          <Dropdown.Value>Preferences</Dropdown.Value>\n        </Dropdown.Item>\n        <Dropdown.Divider />\n        <Dropdown.Item>\n          <Dropdown.Value>Help</Dropdown.Value>\n        </Dropdown.Item>\n      </Dropdown.Content>\n    </Dropdown>\n  )\n\n}"
     },
     {
       "id": "collections-dropdown--nested",

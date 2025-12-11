@@ -58,9 +58,10 @@ export const Basic: Story = {
 
     return (
       <div className="flex flex-col items-start gap-4">
-        <div className="grid grid-cols-4 place-items-start gap-4 capitalize">
+        <div className="grid grid-cols-5 place-items-start gap-4 capitalize">
           {Object.values(Variant).map((variant) => (
             <Fragment key={variant}>
+              <span className="capitalize text-pink-500">{variant}</span>
               {Object.values(Strong).map((strong) => (
                 <Fragment key={strong}>
                   <Badge

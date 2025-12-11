@@ -1,7 +1,7 @@
+import { Checkbox } from "@choice-ui/react"
 import { Story } from "@storybook/addon-docs/blocks"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React, { Fragment, useState } from "react"
-import { Checkbox } from "@choice-ui/react"
+import { Fragment, useState } from "react"
 
 const meta: Meta<typeof Checkbox> = {
   title: "Forms/Checkbox",

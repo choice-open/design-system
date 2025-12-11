@@ -18,14 +18,8 @@
   "exports": [
     "Radio",
     "RadioGroup",
-    "RadioLabel",
-    "useRadioContext",
-    "useRadioGroupContext",
     "type RadioProps",
-    "type RadioGroupProps",
-    "type RadioLabelProps",
-    "type RadioContextType",
-    "type RadioGroupContextType"
+    "type RadioGroupProps"
   ],
   "props": [
     {
@@ -101,18 +95,6 @@
         {
           "name": "variant",
           "type": "undefined | \"default\" | \"accent\" | \"outline\"",
-          "required": false,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "Radio.Label",
-      "description": "",
-      "props": [
-        {
-          "name": "ref",
-          "type": "((instance: HTMLLabelElement | null) => void) | RefObject<HTMLLabelElement> | null | undefined",
           "required": false,
           "description": ""
         }

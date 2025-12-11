@@ -275,6 +275,7 @@ export const CustomBackdrop: Story = {
           open={open}
           onOpenChange={setOpen}
         >
+          <Dialog.Backdrop className="bg-red-500/50 backdrop-blur-sm" />
           <Dialog.Header title="Custom Backdrop Dialog Title" />
           <Dialog.Content className="w-96 p-3">{faker.lorem.paragraphs(3)}</Dialog.Content>
         </Dialog>
@@ -606,7 +607,7 @@ export const CloseOnEscape: Story = {
 }
 
 /**
- * EventPropagation: Verifies that ESC key events do not propagate to window.
+ * [TEST] EventPropagation: Verifies that ESC key events do not propagate to window.
  * Press ESC outside dialog to increment counter, then press ESC inside dialog
  * to close it without incrementing the counter.
  */

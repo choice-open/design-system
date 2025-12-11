@@ -1,8 +1,5 @@
 import React from "react"
 
-export const useLayoutEffect =
-  typeof window === "undefined" ? React.useEffect : React.useLayoutEffect
-
 export function renderChildren(children: React.ReactElement): React.ReactNode {
   const childrenType = children.type
 

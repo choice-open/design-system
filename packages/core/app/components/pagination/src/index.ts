@@ -1,4 +1,5 @@
 export { Pagination } from "./pagination"
+
 export type {
   PaginationItemsPerPageProps,
   PaginationLabels,

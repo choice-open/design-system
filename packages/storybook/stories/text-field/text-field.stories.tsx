@@ -31,7 +31,10 @@ export const Basic: Story = {
 export const WithPrefix: Story = {
   render: function WithPrefixStory() {
     return (
-      <TextField placeholder="Enter text">
+      <TextField
+        placeholder="Enter text"
+        className="w-64"
+      >
         <TextField.Prefix className="text-secondary-foreground group-hover/text-field:text-default-foreground group-focus-within/text-field:text-default-foreground">
           <Search />
         </TextField.Prefix>
@@ -48,7 +51,10 @@ export const WithPrefix: Story = {
 export const WithSuffix: Story = {
   render: function WithSuffixStory() {
     return (
-      <TextField placeholder="Enter text">
+      <TextField
+        placeholder="Enter text"
+        className="w-64"
+      >
         <TextField.Suffix className="px-1">
           <Badge>Suffix</Badge>
         </TextField.Suffix>
@@ -65,7 +71,10 @@ export const WithSuffix: Story = {
 export const WithPrefixAndSuffix: Story = {
   render: function WithPrefixAndSuffixStory() {
     return (
-      <TextField placeholder="Enter text">
+      <TextField
+        placeholder="Enter text"
+        className="w-64"
+      >
         <TextField.Prefix className="text-secondary-foreground group-hover/text-field:text-default-foreground group-focus-within/text-field:text-default-foreground">
           <Search />
         </TextField.Prefix>
@@ -85,7 +94,10 @@ export const WithPrefixAndSuffix: Story = {
 export const WithLabel: Story = {
   render: function WithLabelStory() {
     return (
-      <TextField placeholder="Enter text">
+      <TextField
+        placeholder="Enter text"
+        className="w-64"
+      >
         <TextField.Label>Label</TextField.Label>
       </TextField>
     )
@@ -100,7 +112,10 @@ export const WithLabel: Story = {
 export const WithDescription: Story = {
   render: function WithDescriptionStory() {
     return (
-      <TextField placeholder="Enter text">
+      <TextField
+        placeholder="Enter text"
+        className="w-64"
+      >
         <TextField.Description>{faker.lorem.words()}</TextField.Description>
       </TextField>
     )
@@ -117,6 +132,7 @@ export const Size: Story = {
     return (
       <TextField
         placeholder="Enter text"
+        className="w-64"
         size="large"
       />
     )
@@ -133,6 +149,7 @@ export const Disabled: Story = {
     return (
       <TextField
         placeholder="Enter text"
+        className="w-64"
         disabled
       >
         <TextField.Label>Label</TextField.Label>
@@ -153,6 +170,7 @@ export const ReadOnly: Story = {
       <TextField
         readOnly
         value="Read Only"
+        className="w-64"
       />
     )
   },
@@ -176,8 +194,8 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background flex aspect-square items-center justify-center p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background rounded-lg border p-4">
             <TextField
               disabled={disabled}
               placeholder="Enter text"
@@ -186,7 +204,7 @@ export const Variants: Story = {
               <TextField.Description>Description</TextField.Description>
             </TextField>
           </div>
-          <div className="flex aspect-square items-center justify-center bg-white p-8">
+          <div className="rounded-lg border bg-white p-4">
             <TextField
               disabled={disabled}
               variant="light"
@@ -196,7 +214,7 @@ export const Variants: Story = {
               <TextField.Description>Description</TextField.Description>
             </TextField>
           </div>
-          <div className="flex aspect-square items-center justify-center bg-gray-800 p-8">
+          <div className="rounded-lg border bg-gray-800 p-4">
             <TextField
               disabled={disabled}
               variant="dark"
@@ -225,6 +243,7 @@ export const Controlled: Story = {
         <TextField
           value={value}
           onChange={setValue}
+          className="w-64"
         />
         <p className="text-secondary-foreground h-6">{value}</p>
       </div>
@@ -241,7 +260,10 @@ export const WithArrowAndDropdown: Story = {
     const [dropdownValue, setDropdownValue] = useState<string>("recent")
 
     return (
-      <TextField placeholder="Page or URL">
+      <TextField
+        placeholder="Page or URL"
+        className="w-64"
+      >
         <TextField.Prefix className="text-secondary-foreground group-hover/text-field:text-default-foreground group-focus-within/text-field:text-default-foreground">
           <ArrowRight />
         </TextField.Prefix>

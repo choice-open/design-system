@@ -16,12 +16,12 @@
     }
   },
   "exports": [
-    "type ChipProps",
-    "Chip"
+    "Chip",
+    "type ChipProps"
   ],
   "props": [
     {
-      "displayName": "Chip",
+      "displayName": "ChipProps",
       "description": "",
       "props": [
         {

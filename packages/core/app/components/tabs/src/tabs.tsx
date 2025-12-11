@@ -75,7 +75,6 @@ const TabsRoot = forwardRef<HTMLElement, TabsProps>(function Tabs(props, ref) {
 
 TabsRoot.displayName = "Tabs"
 
-const Tabs = TabsRoot as TabsComponent
-Tabs.Item = TabItem
-
-export { Tabs }
+export const Tabs = Object.assign(TabsRoot, {
+  Item: TabItem,
+}) as TabsComponent

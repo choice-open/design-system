@@ -63,8 +63,7 @@ const DEFAULT_OFFSET = 4
 
 export interface DropdownProps {
   /**
-   * CoordinateMode, first item auto select
-   * 坐标模式下，是否自动选中第一个选项
+   * Whether to automatically select the first item in coordinate mode.
    * @default true
    */
   autoSelectFirstItem?: boolean

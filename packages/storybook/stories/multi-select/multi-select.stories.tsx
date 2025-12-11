@@ -708,6 +708,13 @@ export const Large: Story = {
  * - exclusiveIndex > 0: Group exclusive (groups mutually exclusive, multiple within group allowed)
  * - exclusiveIndex = -1: Global exclusive (clears all other options)
  * - exclusiveIndex = undefined: No exclusive constraint (but cleared when selecting constrained options)
+ *
+ * **Exclusive Options Rules:**
+ * - Group 1 (A, B, C): Can select multiple within group
+ * - Group 2 (D, E, F): Can select multiple within group
+ * - Groups are mutually exclusive (selecting Group 2 clears Group 1)
+ * - Option G: Global exclusive (clears all others)
+ * - Options H, I: No constraints (but cleared when selecting constrained options)
  */
 export const ExclusiveOptions: Story = {
   render: function ExclusiveOptionsStory() {
@@ -748,81 +755,66 @@ export const ExclusiveOptions: Story = {
     )
 
     return (
-      <div className="space-y-4">
-        <div className="text-secondary-foreground">
-          <p>Exclusive Options Rules:</p>
-          <ul className="ml-4 mt-2 space-y-1">
-            <li>• Group 1 (A, B, C): Can select multiple within group</li>
-            <li>• Group 2 (D, E, F): Can select multiple within group</li>
-            <li>• Groups are mutually exclusive (selecting Group 2 clears Group 1)</li>
-            <li>• Option G: Global exclusive (clears all others)</li>
-            <li>• Options H, I: No constraints (but cleared when selecting constrained options)</li>
-          </ul>
-        </div>
-
-        <MultiSelect
-          values={values}
-          onChange={setValues}
-          placement="bottom-start"
-          matchTriggerWidth
-        >
-          <MultiSelect.Trigger
-            placeholder="Select options..."
-            getDisplayValue={getDisplayValue}
-            className="w-80"
-          />
-          <MultiSelect.Content>
-            <MultiSelect.Label>Group 1</MultiSelect.Label>
-            {options.slice(0, 3).map((option) => (
-              <MultiSelect.Item
-                key={option.value}
-                value={option.value}
-                exclusiveIndex={option.exclusiveIndex}
-              >
-                {option.label}
-              </MultiSelect.Item>
-            ))}
-
-            <MultiSelect.Divider />
-
-            <MultiSelect.Label>Group 2</MultiSelect.Label>
-            {options.slice(3, 6).map((option) => (
-              <MultiSelect.Item
-                key={option.value}
-                value={option.value}
-                exclusiveIndex={option.exclusiveIndex}
-              >
-                {option.label}
-              </MultiSelect.Item>
-            ))}
-
-            <MultiSelect.Divider />
-
-            <MultiSelect.Label>Special Options</MultiSelect.Label>
+      <MultiSelect
+        values={values}
+        onChange={setValues}
+        placement="bottom-start"
+        matchTriggerWidth
+      >
+        <MultiSelect.Trigger
+          placeholder="Select options..."
+          getDisplayValue={getDisplayValue}
+          className="w-80"
+        />
+        <MultiSelect.Content>
+          <MultiSelect.Label>Group 1</MultiSelect.Label>
+          {options.slice(0, 3).map((option) => (
             <MultiSelect.Item
-              value="g"
-              exclusiveIndex={-1}
+              key={option.value}
+              value={option.value}
+              exclusiveIndex={option.exclusiveIndex}
             >
-              Option G (Global Exclusive)
+              {option.label}
             </MultiSelect.Item>
+          ))}
 
-            <MultiSelect.Divider />
+          <MultiSelect.Divider />
 
-            <MultiSelect.Label>No Constraints</MultiSelect.Label>
-            {options.slice(7).map((option) => (
-              <MultiSelect.Item
-                key={option.value}
-                value={option.value}
-                exclusiveIndex={option.exclusiveIndex}
-              >
-                {option.label}
-              </MultiSelect.Item>
-            ))}
-          </MultiSelect.Content>
-        </MultiSelect>
+          <MultiSelect.Label>Group 2</MultiSelect.Label>
+          {options.slice(3, 6).map((option) => (
+            <MultiSelect.Item
+              key={option.value}
+              value={option.value}
+              exclusiveIndex={option.exclusiveIndex}
+            >
+              {option.label}
+            </MultiSelect.Item>
+          ))}
 
-        <div className="text-secondary-foreground">Selected: {values.join(", ") || "None"}</div>
-      </div>
+          <MultiSelect.Divider />
+
+          <MultiSelect.Label>Special Options</MultiSelect.Label>
+          <MultiSelect.Item
+            value="g"
+            exclusiveIndex={-1}
+          >
+            Option G (Global Exclusive)
+          </MultiSelect.Item>
+
+          <MultiSelect.Divider />
+
+          <MultiSelect.Label>No Constraints</MultiSelect.Label>
+          {options.slice(7).map((option) => (
+            <MultiSelect.Item
+              key={option.value}
+              value={option.value}
+              exclusiveIndex={option.exclusiveIndex}
+            >
+              {option.label}
+            </MultiSelect.Item>
+          ))}
+        </MultiSelect.Content>
+      </MultiSelect>
     )
   },
 }
@@ -831,7 +823,7 @@ export const ExclusiveOptions: Story = {
  * Control whether the menu closes when selecting options.
  *
  * Features:
- * - closeOnSelect=false: Menu stays open (default behavior)
+ * - closeOnSelect=false: Menu stays open (default behavior) - Menu stays open after selecting options
  * - closeOnSelect=true: Menu closes after each selection
  */
 export const CloseOnSelect: Story = {
@@ -857,11 +849,8 @@ export const CloseOnSelect: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="text-body-small-strong">closeOnSelect=false (Default)</h3>
-            <p className="text-secondary-foreground">Menu stays open after selecting options</p>
-          </div>
+        <div className="flex flex-col gap-2">
+          <Label>closeOnSelect=false (Default)</Label>
 
           <MultiSelect
             values={values1}
@@ -885,15 +874,10 @@ export const CloseOnSelect: Story = {
               ))}
             </MultiSelect.Content>
           </MultiSelect>
-
-          <div className="text-secondary-foreground">Selected: {values1.join(", ") || "None"}</div>
         </div>
 
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="font-strong">closeOnSelect=true</h3>
-            <p className="text-secondary-foreground">Menu closes after each selection</p>
-          </div>
+        <div className="flex flex-col gap-2">
+          <Label>closeOnSelect=true</Label>
 
           <MultiSelect
             values={values2}
@@ -917,8 +901,6 @@ export const CloseOnSelect: Story = {
               ))}
             </MultiSelect.Content>
           </MultiSelect>
-
-          <div className="text-secondary-foreground">Selected: {values2.join(", ") || "None"}</div>
         </div>
       </div>
     )
@@ -933,6 +915,12 @@ export const CloseOnSelect: Story = {
  * - Customizable messages via i18n prop
  * - Auto-dismiss after 3 seconds
  * - showValidationMessage prop to control display
+ *
+ * **Instructions:**
+ * - Try selecting more than the maximum allowed items
+ * - Try removing items below the minimum required
+ * - Notice how messages auto-dismiss after 3 seconds
+ * - Compare custom vs default messages
  */
 export const ValidationMessages: Story = {
   render: function ValidationMessagesStory() {
@@ -957,8 +945,8 @@ export const ValidationMessages: Story = {
     return (
       <div className="space-y-4">
         <div className="space-y-4">
-          <div>
-            <h3 className="font-strong mb-2">With Custom Messages</h3>
+          <div className="flex flex-col gap-2">
+            <Label>With Custom Messages</Label>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -986,8 +974,8 @@ export const ValidationMessages: Story = {
             </MultiSelect>
           </div>
 
-          <div>
-            <h3 className="font-strong mb-2">Default Messages</h3>
+          <div className="flex flex-col gap-2">
+            <Label>Default Messages</Label>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -1009,8 +997,8 @@ export const ValidationMessages: Story = {
             </MultiSelect>
           </div>
 
-          <div>
-            <h3 className="font-strong mb-2">Messages Disabled</h3>
+          <div className="flex flex-col gap-2">
+            <Label>Messages Disabled</Label>
             <MultiSelect
               values={values}
               onChange={setValues}
@@ -1029,16 +1017,6 @@ export const ValidationMessages: Story = {
                 ))}
               </MultiSelect.Content>
             </MultiSelect>
-          </div>
-        </div>
-
-        <div className="w-80 rounded-xl border p-4">
-          <h3 className="font-strong mb-2">Instructions</h3>
-          <div className="text-secondary-foreground space-y-1">
-            <p>• Try selecting more than the maximum allowed items</p>
-            <p>• Try removing items below the minimum required</p>
-            <p>• Notice how messages auto-dismiss after 3 seconds</p>
-            <p>• Compare custom vs default messages</p>
           </div>
         </div>
 
@@ -1096,7 +1074,7 @@ export const ChipVariant: Story = {
     const [variant, setVariant] = useState<ChipProps["variant"]>("default")
 
     return (
-      <div className="space-y-4">
+      <>
         <Select
           value={variant}
           onChange={(value) => setVariant(value as ChipProps["variant"])}
@@ -1125,7 +1103,7 @@ export const ChipVariant: Story = {
             <MultiSelect.Item value="kiwi">Kiwi</MultiSelect.Item>
           </MultiSelect.Content>
         </MultiSelect>
-      </div>
+      </>
     )
   },
 }
@@ -1213,7 +1191,7 @@ export const CustomChip: Story = {
           </MultiSelect.Content>
         </MultiSelect>
 
-        <div className="text-body-small text-gray-600">Selected: {values.length} items</div>
+        <div className="text-secondary-foreground">Selected: {values.length} items</div>
       </div>
     )
   },
@@ -1229,6 +1207,11 @@ export const CustomChip: Story = {
  * - Chip remove buttons are disabled and cannot remove chips
  * - Backspace key cannot remove chips
  * - Useful for displaying options without allowing changes
+ *
+ * **How to test:**
+ * - Try clicking on different options - the selection should not change and the change count should remain at 0
+ * - The menu can still be opened and closed normally
+ * - Try clicking the remove button on chips or pressing Backspace - chips should not be removable in readonly mode
  */
 export const Readonly: Story = {
   render: function ReadonlyStory() {
@@ -1268,13 +1251,6 @@ export const Readonly: Story = {
             <MultiSelect.Item value="kiwi">Kiwi</MultiSelect.Item>
           </MultiSelect.Content>
         </MultiSelect>
-
-        <div className="text-body-small text-stone-600">
-          💡 Try clicking on different options - the selection should not change and the change
-          count should remain at 0. The menu can still be opened and closed normally. Also try
-          clicking the remove button on chips or pressing Backspace - chips should not be removable
-          in readonly mode.
-        </div>
       </div>
     )
   },

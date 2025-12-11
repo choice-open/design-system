@@ -220,8 +220,8 @@ export const Variants: Story = {
         >
           Disabled
         </Checkbox>
-        <div className="grid grid-cols-3 overflow-hidden rounded-xl border">
-          <div className="bg-default-background p-8">
+        <div className="flex flex-wrap gap-4">
+          <div className="bg-default-background rounded-lg border p-4">
             <Tabs
               value={selectedTab}
               onChange={(value) => setSelectedTab(value)}
@@ -232,7 +232,7 @@ export const Variants: Story = {
               <Tabs.Item value="tab3">Tab 3</Tabs.Item>
             </Tabs>
           </div>
-          <div className="bg-white p-8">
+          <div className="rounded-lg border bg-white p-4">
             <Tabs
               value={selectedTab}
               onChange={(value) => setSelectedTab(value)}
@@ -244,7 +244,7 @@ export const Variants: Story = {
               <Tabs.Item value="tab3">Tab 3</Tabs.Item>
             </Tabs>
           </div>
-          <div className="bg-gray-800 p-8">
+          <div className="rounded-lg border bg-gray-800 p-4">
             <Tabs
               value={selectedTab}
               onChange={(value) => setSelectedTab(value)}
@@ -263,7 +263,7 @@ export const Variants: Story = {
 }
 
 /**
- * Tabs component in readOnly state.
+ * [TEST] Tabs component in readOnly state.
  *
  * In readOnly mode:
  * - Tabs do not respond to click or keyboard events

@@ -1,5 +1,4 @@
 export { Command as CommandRoot, defaultFilter } from "./command"
-export { useCommandState } from "./hooks"
 
 import { Command as CommandRoot } from "./command"
 import { TabItem } from "@choice-ui/tabs"
@@ -29,3 +28,14 @@ export const Command = Object.assign(CommandRoot, {
   Tabs: CommandTabs,
   TabItem: TabItem,
 })
+
+export { useCommandState, useCommand, useValue } from "./hooks"
+export { commandScore } from "./utils"
+
+export type { CommandProps } from "./types"
+export type { CommandGroupProps } from "./components/command-group"
+export type { CommandItemProps } from "./components/command-item"
+export type { CommandListProps } from "./components/command-list"
+export type { CommandLoadingProps } from "./components/command-loading"
+export type { CommandDividerProps } from "./components/command-divider"
+export type { CommandInputProps } from "./components/command-input"

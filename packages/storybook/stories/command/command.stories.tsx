@@ -5,10 +5,13 @@ import {
   Checkbox,
   Chip,
   Command,
+  commandScore,
   Dialog,
   Dropdown,
   IconButton,
+  Input,
   Kbd,
+  Label,
   useCommandState,
 } from "@choice-ui/react"
 import {
@@ -116,7 +119,7 @@ export const WithPrefixAndSuffix: Story = {
         <Command.List>
           <Command.Item
             prefixElement={<ColorAlpha />}
-            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            suffixElement={<Badge className="mr-1">New</Badge>}
           >
             <Command.Value>Photoshop</Command.Value>
           </Command.Item>
@@ -125,13 +128,13 @@ export const WithPrefixAndSuffix: Story = {
           </Command.Item>
           <Command.Item
             prefixElement={<ColorTypeGradient />}
-            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            suffixElement={<Badge className="mr-1">New</Badge>}
           >
             <Command.Value>Lightroom</Command.Value>
           </Command.Item>
           <Command.Item
             prefixElement={<ColorTypeSolid />}
-            suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+            suffixElement={<Badge className="mr-1">New</Badge>}
           >
             <Command.Value>InDesign</Command.Value>
           </Command.Item>
@@ -418,7 +421,7 @@ export const DialogMode: Story = {
 
     useEffect(() => {
       const down = (e: KeyboardEvent) => {
-        if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
           e.preventDefault()
           setOpen((open) => !open)
         }
@@ -443,7 +446,7 @@ export const DialogMode: Story = {
           {commandOptions
             .find((group) => group.items.some((item) => item.value === entered))
             ?.items.find((item) => item.value === entered)?.label || "Open Command Palette"}
-          <Kbd keys="command">K</Kbd>
+          <Kbd keys="command">J</Kbd>
         </Button>
 
         <Dialog
@@ -466,7 +469,7 @@ export const DialogMode: Story = {
               <Command.Input
                 ref={inputRef}
                 variant="reset"
-                className="mx-0 mb-0 rounded-none"
+                className="mx-0 mb-0 rounded-none before:border-none"
                 placeholder="Search commands..."
               />
               <Command.Divider alwaysRender />
@@ -528,7 +531,7 @@ export const DarkMode: Story = {
           <Command.Group heading="Files">
             <Command.Item
               prefixElement={<ColorAlpha />}
-              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+              suffixElement={<Badge className="mr-1 bg-transparent">New</Badge>}
             >
               <Command.Value>Photoshop</Command.Value>
             </Command.Item>
@@ -537,13 +540,13 @@ export const DarkMode: Story = {
             </Command.Item>
             <Command.Item
               prefixElement={<ColorTypeGradient />}
-              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+              suffixElement={<Badge className="mr-1 bg-transparent">New</Badge>}
             >
               <Command.Value>Lightroom</Command.Value>
             </Command.Item>
             <Command.Item
               prefixElement={<ColorTypeSolid />}
-              suffixElement={<Badge className="mr-4 bg-transparent">New</Badge>}
+              suffixElement={<Badge className="mr-1 bg-transparent">New</Badge>}
             >
               <Command.Value>InDesign</Command.Value>
             </Command.Item>
@@ -609,8 +612,8 @@ export const ControlledState: Story = {
     const [search, setSearch] = useState("")
 
     return (
-      <div className="space-y-4">
-        <div className="">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
           <p>
             <strong>Selected:</strong> {value || "None"}
           </p>
@@ -700,8 +703,8 @@ export const WithCustomFiltering: Story = {
     ]
 
     return (
-      <div className="space-y-4">
-        <div className="">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
           <p>
             <strong>Custom Filter:</strong> Prioritizes exact matches, then prefix matches
           </p>
@@ -748,15 +751,34 @@ export const WithCustomFiltering: Story = {
  * A comprehensive demonstration of cmdk's keyboard navigation system with real-time feedback.
  * This interactive story shows all keyboard shortcuts and provides visual feedback for each action.
  *
- * **Complete Keyboard System:**
- * - **Basic Navigation**: ↑↓ arrow keys for item navigation
- * - **Vim Bindings**: Ctrl+J/K/N/P for vim-style navigation (toggleable)
- * - **Group Navigation**: Alt+↑↓ for jumping between groups
- * - **Quick Jump**: Home/End for first/last item
- * - **Meta Shortcuts**: Cmd+↑↓ (Mac) for instant first/last
- * - **Selection**: Enter to select items
- * - **IME Support**: Proper handling of CJK input methods
- * - **Loop Navigation**: Optional circular navigation at boundaries
+ * **Keyboard Shortcuts:**
+ *
+ * Basic Navigation:
+ * - ↑↓ - Navigate between items
+ * - Enter - Select current item
+ * - Home - Jump to first item
+ * - End - Jump to last item
+ *
+ * Vim Bindings (toggleable):
+ * - Ctrl+J - Next item
+ * - Ctrl+K - Previous item
+ * - Ctrl+N - Next item
+ * - Ctrl+P - Previous item
+ *
+ * Advanced Navigation:
+ * - Alt+↑↓ - Jump between groups
+ * - Cmd+↑↓ (Mac) - Jump to first/last item
+ * - Loop navigation - When enabled, circular navigation at boundaries (↑ at top goes to bottom)
+ *
+ * **Features:**
+ * - IME Support: Proper handling of CJK input methods without triggering shortcuts
+ * - Visual Feedback: Real-time activity monitor showing triggered shortcuts
+ *
+ * **Usage Tips:**
+ * - Focus the input first to activate keyboard navigation
+ * - Use Alt+↑↓ to quickly jump between different sections
+ * - Toggle vim bindings for familiar Ctrl+J/K/N/P shortcuts
+ * - Enable loop navigation for circular item navigation
  *
  * ```tsx
  * <Command vimBindings={true} loop={true}>
@@ -831,7 +853,7 @@ export const KeyboardNavigation: Story = {
     }
 
     return (
-      <div className="w-96 space-y-6">
+      <div className="flex w-96 flex-col gap-6">
         {/* Control Panel */}
         <div className="flex flex-wrap gap-4 rounded-xl border p-4">
           <Checkbox
@@ -848,86 +870,6 @@ export const KeyboardNavigation: Story = {
           </Checkbox>
         </div>
 
-        {/* Keyboard Shortcuts Reference */}
-        <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-3">⌨️ Complete Keyboard Shortcuts Reference</h3>
-          <div className="flex flex-col gap-4">
-            <div>
-              <h4 className="font-strong mb-2">Basic Navigation</h4>
-              <div className="space-y-1">
-                <div className="flex justify-between">
-                  <div className="flex gap-1">
-                    <Kbd keys="up" />
-                    <Kbd keys="down" />
-                  </div>
-                  <span>Navigate items</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd keys="enter" />
-                  <span>Select item</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd>Home</Kbd>
-                  <span>First item</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd>End</Kbd>
-                  <span>Last item</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-secondary-foreground font-strong mb-2">Vim Bindings</h4>
-              <div className="space-y-1">
-                <div className="flex justify-between">
-                  <Kbd keys={["ctrl"]}>J</Kbd>
-                  <span>Next item</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd keys={["ctrl"]}>K</Kbd>
-                  <span>Previous item</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd keys={["ctrl"]}>N</Kbd>
-                  <span>Next item</span>
-                </div>
-                <div className="flex justify-between">
-                  <Kbd keys={["ctrl"]}>P</Kbd>
-                  <span>Previous item</span>
-                </div>
-              </div>
-              {!vimBindings && <div className="mt-1 text-orange-600">⚠️ Vim bindings disabled</div>}
-            </div>
-
-            <div>
-              <h4 className="font-strong mb-2 text-purple-600">Advanced</h4>
-              <div className="space-y-1">
-                <div className="flex justify-between">
-                  <div className="flex gap-1">
-                    <Kbd keys={["alt", "up"]} />
-                    <Kbd keys={["alt", "down"]} />
-                  </div>
-                  <span>Group navigation</span>
-                </div>
-                <div className="flex justify-between">
-                  <div className="flex gap-1">
-                    <Kbd keys={["command", "up"]} />
-                    <Kbd keys={["command", "down"]} />
-                  </div>
-                  <span>First/Last (Mac)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-secondary-foreground">Loop:</span>
-                  <span className={loop ? "text-secondary-foreground" : "text-orange-600"}>
-                    {loop ? "Enabled" : "Disabled"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Interactive Command Component */}
 
         <Command
@@ -938,7 +880,7 @@ export const KeyboardNavigation: Story = {
           onChange={setSelectedValue}
           onKeyDown={handleKeyDown}
         >
-          <Command.Input placeholder="🎯 Focus here and try the keyboard shortcuts above..." />
+          <Command.Input placeholder="Focus here and try the keyboard shortcuts above..." />
           <Command.List className="h-64">
             <Command.Empty>No results found.</Command.Empty>
 
@@ -1056,41 +998,10 @@ export const KeyboardNavigation: Story = {
               <span>
                 Selected: <strong>{selectedValue || "None"}</strong>
               </span>
-              <span>Try all keyboard shortcuts above! 🎹</span>
+              <span>Try all keyboard shortcuts! 🎹</span>
             </div>
           </Command.Footer>
         </Command>
-
-        {/* Usage Tips */}
-        <div className="rounded-lg border bg-blue-50 p-4">
-          <h4 className="font-strong mb-2 text-blue-800">💡 Pro Tips:</h4>
-          <ul className="space-y-1 text-blue-700">
-            <li>
-              • <strong>Focus the input first</strong> - Click in the search box to activate
-              keyboard navigation
-            </li>
-            <li>
-              • <strong>Group navigation</strong> - Use Alt+↑↓ to quickly jump between different
-              sections
-            </li>
-            <li>
-              • <strong>Vim users</strong> - Toggle vim bindings to use familiar Ctrl+J/K/N/P
-              shortcuts
-            </li>
-            <li>
-              • <strong>Loop navigation</strong> - When enabled, pressing ↑ at the top goes to the
-              bottom
-            </li>
-            <li>
-              • <strong>IME support</strong> - CJK input methods are properly handled without
-              triggering shortcuts
-            </li>
-            <li>
-              • <strong>Visual feedback</strong> - Watch the activity monitor to see which shortcuts
-              are triggered
-            </li>
-          </ul>
-        </div>
       </div>
     )
   },
@@ -1128,8 +1039,8 @@ export const LargeDataset: Story = {
     const categories = ["Files", "Actions", "Settings"]
 
     return (
-      <div className="space-y-4">
-        <div className="">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
           <p>
             <strong>Dataset Size:</strong> {items.length} items across {categories.length}{" "}
             categories
@@ -1282,9 +1193,7 @@ export const ComplexItems: Story = {
  * <Command>
  *   <Command.Input />
  *   <Command.List>...</Command.List>
- *   <Command.Footer>
- *     Press ↵ to select • ↑↓ to navigate
- *   </Command.Footer>
+ *   <Command.Footer>...</Command.Footer>
  * </Command>
  * ```
  */
@@ -1358,8 +1267,8 @@ export const WithFooter: Story = {
     ]
 
     return (
-      <div className="space-y-4">
-        <div className="flex flex-col gap-2 rounded-xl border p-4">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1 rounded-xl border p-4">
           <strong className="text-secondary-foreground">Selected:</strong>
           <div className="flex items-center gap-2">
             <span>Command: </span>
@@ -1382,7 +1291,7 @@ export const WithFooter: Story = {
           onChange={setSelectedCommand}
           onKeyDown={(e) => {
             // Handle global Command shortcuts
-            if (e.key === "k" && e.metaKey) {
+            if (e.key === "i" && e.metaKey) {
               e.preventDefault()
               setOpen((prev) => !prev)
               return
@@ -1423,7 +1332,7 @@ export const WithFooter: Story = {
                     keys="command"
                     className="text-secondary-foreground"
                   >
-                    K
+                    I
                   </Kbd>
                 </Button>
               </Dropdown.Trigger>
@@ -1463,67 +1372,142 @@ export const WithFooter: Story = {
  * - Optimized updates with value comparison guards
  * - Async scheduling to prevent infinite loops
  *
+ * **How it works:**
+ * The store uses a centralized state with subscribe/emit pattern. Each component subscribes to state changes and re-renders only when necessary.
+ *
+ * **Try it:**
+ * - Type in the input to see search query and filtered count change
+ * - Use arrow keys to navigate - watch selectedItemId update
+ * - Press Enter to select - watch value update
+ * - Filter items - watch visible groups change
+ *
  * ```tsx
- * const [state, setState] = useCommandState()
- * // state: { search, value, selectedItemId, filtered: { count, items, groups } }
+ * // Access specific state values using selectors
+ * const search = useCommandState((state) => state.search)
+ * const value = useCommandState((state) => state.value)
+ * const filteredCount = useCommandState((state) => state.filtered.count)
+ * const filteredGroups = useCommandState((state) => state.filtered.groups)
+ *
+ * // State structure:
+ * // { search, value, selectedItemId, filtered: { count, items, groups } }
  * ```
  */
 export const CoreMechanismStore: Story = {
   render: function StoreMechanismDemo() {
-    const [debugInfo, setDebugInfo] = useState({
-      search: "",
-      value: "",
-      selectedItemId: "",
-      filteredCount: 0,
-      filteredItems: new Map(),
-      filteredGroups: new Set(),
-      updateCount: 0,
-    })
+    const listRef = React.useRef<HTMLDivElement>(null)
 
-    return (
-      <div className="w-96 space-y-6">
-        <div className="rounded-lg border p-4">
-          <h3 className="font-strong mb-3">🏗️ Internal State Monitor</h3>
+    function StateMonitor() {
+      const search = useCommandState((state) => state.search)
+      const value = useCommandState((state) => state.value)
+      const selectedItemId = useCommandState((state) => state.selectedItemId)
+      const filteredCount = useCommandState((state) => state.filtered.count)
+      const filteredGroups = useCommandState((state) => state.filtered.groups)
+
+      // Use useRef to track update count, avoid triggering re-renders
+      const updateCountRef = React.useRef(0)
+      const prevStateRef = React.useRef({
+        search: "",
+        value: "",
+        selectedItemId: "",
+        filteredCount: 0,
+        filteredGroupsStr: "",
+      })
+
+      // Convert Set to string for comparison
+      const filteredGroupsStr = Array.from(filteredGroups).sort().join(",")
+
+      // Query DOM to get visible group headings for better display
+      const [visibleGroupNames, setVisibleGroupNames] = React.useState<string[]>([])
+
+      React.useLayoutEffect(() => {
+        if (!listRef.current || filteredGroups.size === 0) {
+          setVisibleGroupNames([])
+          return
+        }
+        const names: string[] = []
+        // Find all visible groups (elements with role="group")
+        const groupElements = listRef.current.querySelectorAll('[role="group"]')
+        groupElements.forEach((groupEl) => {
+          // Group heading is in the sibling element before the group element
+          let sibling = groupEl.previousElementSibling
+          while (sibling) {
+            // Find element containing heading (usually a div with specific class)
+            const headingText = sibling.textContent?.trim()
+            if (headingText && headingText.length > 0 && headingText.length < 50) {
+              names.push(headingText)
+              break
+            }
+            sibling = sibling.previousElementSibling
+          }
+        })
+        setVisibleGroupNames(names)
+      }, [filteredGroups.size, filteredGroupsStr])
+
+      // Check if state has actually changed
+      const currentState = {
+        search,
+        value,
+        selectedItemId: selectedItemId || "",
+        filteredCount,
+        filteredGroupsStr,
+      }
+
+      const hasChanged =
+        prevStateRef.current.search !== currentState.search ||
+        prevStateRef.current.value !== currentState.value ||
+        prevStateRef.current.selectedItemId !== currentState.selectedItemId ||
+        prevStateRef.current.filteredCount !== currentState.filteredCount ||
+        prevStateRef.current.filteredGroupsStr !== currentState.filteredGroupsStr
+
+      if (hasChanged) {
+        updateCountRef.current += 1
+        prevStateRef.current = currentState
+      }
+
+      return (
+        <div className="flex flex-col gap-2">
+          <h3 className="font-strong mb-3">Internal State Monitor</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <strong>Search Query:</strong> &quot;{debugInfo.search}&quot;
+              <strong>Search Query:</strong> &quot;{search}&quot;
             </div>
             <div>
-              <strong>Selected Value:</strong> &quot;{debugInfo.value}&quot;
+              <strong>Selected Value:</strong> &quot;{value || "(none)"}&quot;
             </div>
             <div>
-              <strong>Filtered Count:</strong> {debugInfo.filteredCount}
+              <strong>Selected Item ID:</strong> {selectedItemId || "(none)"}
             </div>
             <div>
-              <strong>Update Count:</strong> {debugInfo.updateCount}
+              <strong>Filtered Count:</strong> {filteredCount}
+            </div>
+            <div>
+              <strong>Update Count:</strong> {updateCountRef.current}
             </div>
             <div className="col-span-2">
-              <strong>Visible Groups:</strong> [{Array.from(debugInfo.filteredGroups).join(", ")}]
+              <strong>Visible Groups:</strong>{" "}
+              {visibleGroupNames.length > 0 ? (
+                <span>[{visibleGroupNames.join(", ")}]</span>
+              ) : filteredGroups.size > 0 ? (
+                <span>
+                  <span className="text-secondary-foreground">[{filteredGroupsStr}]</span>{" "}
+                  <span className="text-secondary-foreground text-xs">
+                    (React useId() generated IDs)
+                  </span>
+                </span>
+              ) : (
+                <span>[none]</span>
+              )}
             </div>
           </div>
         </div>
+      )
+    }
 
-        <Command
-          className="w-96 overflow-hidden rounded-xl shadow-lg"
-          onChange={(value) => {
-            setDebugInfo((prev) => ({
-              ...prev,
-              value,
-              updateCount: prev.updateCount + 1,
-            }))
-          }}
-        >
-          <Command.Input
-            placeholder="Type to see state changes..."
-            onChange={(search) => {
-              setDebugInfo((prev) => ({
-                ...prev,
-                search,
-                updateCount: prev.updateCount + 1,
-              }))
-            }}
-          />
-          <Command.List>
+    return (
+      <div className="flex w-96 flex-col gap-6">
+        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+          <Command.Input placeholder="Type to see state changes..." />
+          <Command.List ref={listRef}>
             <Command.Empty>No results found.</Command.Empty>
             <Command.Group heading="Files">
               <Command.Item value="new-file">
@@ -1546,12 +1530,11 @@ export const CoreMechanismStore: Story = {
               </Command.Item>
             </Command.Group>
           </Command.List>
-        </Command>
 
-        <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> The store uses a centralized state with subscribe/emit
-          pattern. Each component subscribes to state changes and re-renders only when necessary.
-        </div>
+          <Command.Footer className="h-auto px-4 py-2">
+            <StateMonitor />
+          </Command.Footer>
+        </Command>
       </div>
     )
   },
@@ -1560,95 +1543,69 @@ export const CoreMechanismStore: Story = {
 /**
  * **Core Mechanism: Value Registration System**
  *
- * Shows how items register their values and keywords with the global state.
- * Demonstrates the useValue hook's lifecycle and automatic synchronization.
+ * Demonstrates how Command.Item and Command.Group automatically extract and register values
+ * using the useValue hook internally. Shows value extraction from props, children, and DOM content.
  *
  * **Key Features:**
  * - Automatic value extraction from content or props
  * - Real-time registration without dependency arrays
  * - Keyword aliases for enhanced search matching
- * - DOM attribute synchronization for CSS selectors
+ * - DOM attribute synchronization (data-value) for CSS selectors
  *
+ * **How it works:**
+ * - Command.Item and Command.Group internally call useValue() hook
+ * - useValue() runs on every render (no deps array) to keep values synchronized
+ * - It extracts value from: 1) value prop, 2) children text content, 3) DOM textContent
+ * - Values are registered with the global store for search and filtering
+ * - DOM elements get a data-value attribute for CSS selector targeting
+ *
+ * **Internal implementation:**
  * ```tsx
- * // Each item automatically registers its value:
- * useValue(id, ref, [children, value], aliases)
+ * // Inside Command.Item component:
+ * const valueDeps = useMemo(() => [value, children, ref], [value, children])
+ * const valueRef = useValue(id, ref, valueDeps, keywords)
+ * ```
+ *
+ * **Usage:**
+ * ```tsx
+ * // You don't need to call useValue directly - it's used internally:
+ * <Command.Item value="explicit-value">Content</Command.Item>
+ * <Command.Item>Content from children</Command.Item>
+ * <Command.Item value="file" keywords={["doc", "document"]}>File</Command.Item>
  * ```
  */
 export const CoreMechanismValueRegistration: Story = {
   render: function ValueRegistrationDemo() {
-    const [registrationLog, setRegistrationLog] = useState<
-      Array<{
-        action: string
-        id: string
-        keywords?: string[]
-        timestamp: string
-        value: string
-      }>
-    >([])
-
     const [itemCount, setItemCount] = useState(3)
-
-    const addLogEntry = (entry: {
-      action: string
-      id: string
-      keywords?: string[]
-      timestamp: string
-      value: string
-    }) => {
-      setRegistrationLog((prev) => [
-        ...prev.slice(-10),
-        {
-          ...entry,
-          timestamp: new Date().toLocaleTimeString(),
-        },
-      ])
-    }
+    const [dynamicContent, setDynamicContent] = useState("Dynamic Content")
 
     return (
-      <div className="w-96 space-y-6">
-        <div className="rounded-lg border p-4">
-          <h3 className="font-strong mb-3">📝 Value Registration Log</h3>
-          <div className="max-h-32 overflow-y-auto">
-            {registrationLog.length === 0 ? (
-              <div className="text-secondary-foreground">Start typing to see registrations...</div>
-            ) : (
-              registrationLog.map((entry, i) => (
-                <div
-                  key={i}
-                  className="flex justify-between py-1"
-                >
-                  <span>{entry.timestamp}</span>
-                  <span className="font-mono">{entry.action}</span>
-                  <span>ID: {entry.id}</span>
-                  <span>Value: &quot;{entry.value}&quot;</span>
-                  {entry.keywords && <span>Keywords: [{entry.keywords.join(", ")}]</span>}
-                </div>
-              ))
-            )}
+      <div className="flex w-96 flex-col gap-6">
+        <div className="flex flex-col gap-2 rounded-lg border p-4">
+          <div className="flex gap-4">
+            <Button onClick={() => setItemCount((prev) => Math.max(1, prev - 1))}>
+              Remove Item
+            </Button>
+            <Button onClick={() => setItemCount((prev) => prev + 1)}>Add Item</Button>
+            <span className="flex items-center">Items: {itemCount}</span>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Dynamic Content:</Label>
+            <Input
+              value={dynamicContent}
+              onChange={(value) => setDynamicContent(value)}
+            />
           </div>
         </div>
 
-        <div className="flex gap-4">
-          <button
-            onClick={() => setItemCount((prev) => Math.max(1, prev - 1))}
-            className="rounded bg-red-100 px-3 py-1 text-red-800"
-          >
-            Remove Item
-          </button>
-          <button
-            onClick={() => setItemCount((prev) => prev + 1)}
-            className="rounded bg-green-100 px-3 py-1"
-          >
-            Add Item
-          </button>
-          <span className="flex items-center">Items: {itemCount}</span>
-        </div>
-
         <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
-          <Command.Input placeholder="Search to trigger value matching..." />
+          <Command.Input placeholder="Search to see value matching..." />
           <Command.List className="h-40">
             <Command.Empty>No matches found.</Command.Empty>
-            <Command.Group heading="Dynamic Items">
+            <Command.Group heading="Value from Props">
+              <div className="text-secondary-foreground mb-2 text-xs">
+                Items with explicit value prop - value is extracted from prop
+              </div>
               {Array.from({ length: itemCount }, (_, i) => (
                 <Command.Item
                   key={i}
@@ -1656,11 +1613,26 @@ export const CoreMechanismValueRegistration: Story = {
                 >
                   <File className="mr-2 h-4 w-4" />
                   <span>Dynamic Item {i + 1}</span>
-                  <span className="text-secondary-foreground ml-auto">Keywords: test, item</span>
                 </Command.Item>
               ))}
             </Command.Group>
-            <Command.Group heading="Aliased Items">
+            <Command.Group heading="Value from Children">
+              <div className="text-secondary-foreground mb-2 text-xs">
+                Items without value prop - value is extracted from children text content
+              </div>
+              <Command.Item>
+                <File className="mr-2 h-4 w-4" />
+                <span>{dynamicContent}</span>
+              </Command.Item>
+              <Command.Item>
+                <File className="mr-2 h-4 w-4" />
+                <span>Static Content Item</span>
+              </Command.Item>
+            </Command.Group>
+            <Command.Group heading="With Keyword Aliases">
+              <div className="text-secondary-foreground mb-2 text-xs">
+                Items with keywords - search matches both value and keywords
+              </div>
               <Command.Item
                 value="javascript-file"
                 keywords={["js", "script", "code"]}
@@ -1680,11 +1652,6 @@ export const CoreMechanismValueRegistration: Story = {
             </Command.Group>
           </Command.List>
         </Command>
-
-        <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> useValue() runs on every render (no deps array) to keep
-          values synchronized. It only triggers updates when values actually change.
-        </div>
       </div>
     )
   },
@@ -1694,160 +1661,78 @@ export const CoreMechanismValueRegistration: Story = {
  * **Core Mechanism: Async Scheduling System**
  *
  * Demonstrates the scheduling system that prevents infinite loops and optimizes updates.
- * Shows how operations are batched and prioritized for optimal performance.
+ * Command uses `useScheduleLayoutEffect` to batch operations and execute them in the next layout effect cycle.
  *
- * **Key Features:**
- * - Priority-based task scheduling
- * - Batch processing to avoid layout thrashing
- * - Async operations to break recursive cycles
- * - Layout effect coordination for DOM updates
+ * **Why scheduling is needed:**
+ * - Prevents infinite loops: When operations trigger state changes that trigger more operations
+ * - Batches updates: Multiple operations scheduled with the same ID are deduplicated
+ * - Optimizes DOM updates: All operations execute together in one layout effect cycle
+ * - Breaks recursive cycles: Defers execution to avoid synchronous recursion
+ *
+ * **How it works:**
+ * - `schedule(id, callback)` stores callbacks in a Map keyed by ID
+ * - Operations with the same ID replace previous ones (deduplication)
+ * - All scheduled callbacks execute together in the next `useIsomorphicLayoutEffect`
+ * - After execution, the Map is cleared
+ *
+ * **Common scheduling priorities:**
+ * - Priority 1: `selectFirstItem()` - High priority, runs first
+ * - Priority 2: `sort()` + `store.emit()` - Value registration
+ * - Priority 3: `filterItems()` + `sort()` - Item mount/unmount
+ * - Priority 4: `filterItems()` - Item removal
+ * - Priority 5: `scrollIntoView()` - Scroll operations
+ * - Priority 7: `updateSelection()` - Selection updates
+ *
+ * **What happens when you type:**
+ * 1. Search state updates synchronously
+ * 2. `schedule(1, selectFirstItem)` - Queued
+ * 3. `filterItems()` - Runs immediately
+ * 4. `sort()` - Runs immediately
+ * 5. All scheduled operations execute in next layout effect
+ *
+ * **What happens when item mounts:**
+ * 1. Item registers with store
+ * 2. `schedule(3, filterItems + sort)` - Queued
+ * 3. If no value selected, `selectFirstItem()` runs
+ * 4. All operations batch together in layout effect
+ *
+ * **Benefits:**
+ * - Prevents infinite loops from recursive updates
+ * - Batches multiple operations into one DOM update cycle
+ * - Deduplicates operations with same priority ID
+ * - Optimizes performance by reducing layout thrashing
  *
  * ```tsx
+ * // Operations are scheduled and batched:
  * schedule(1, selectFirstItem)    // High priority
- * schedule(5, scrollIntoView)     // Medium priority
+ * schedule(5, scrollIntoView)      // Medium priority
  * schedule(7, updateSelection)    // Low priority
+ * // All execute together in next layout effect
  * ```
  */
 export const CoreMechanismAsyncScheduling: Story = {
   render: function AsyncSchedulingDemo() {
-    const [operationLog, setOperationLog] = useState<
-      Array<{
-        operation: string
-        priority: number
-        status: "scheduled" | "executing" | "completed"
-        timestamp: string
-      }>
-    >([])
-
-    const simulateScheduledOperation = (priority: number, operation: string) => {
-      const id = Date.now()
-
-      // Add to log as scheduled
-      setOperationLog((prev) => [
-        ...prev.slice(-8),
-        {
-          timestamp: new Date().toLocaleTimeString(),
-          priority,
-          operation,
-          status: "scheduled" as const,
-        },
-      ])
-
-      // Simulate async execution
-      setTimeout(() => {
-        setOperationLog((prev) =>
-          prev.map((item) =>
-            item.timestamp === new Date(id).toLocaleTimeString()
-              ? { ...item, status: "executing" as const }
-              : item,
-          ),
-        )
-
-        setTimeout(() => {
-          setOperationLog((prev) =>
-            prev.map((item) =>
-              item.timestamp === new Date(id).toLocaleTimeString()
-                ? { ...item, status: "completed" as const }
-                : item,
-            ),
-          )
-        }, 100)
-      }, priority * 10) // Higher priority = faster execution
-    }
-
     return (
-      <div className="w-96 space-y-6">
-        <div className="rounded-lg border p-4">
-          <h3 className="font-strong mb-3">⚡ Async Operation Scheduler</h3>
-          <div className="max-h-40 overflow-y-auto">
-            {operationLog.length === 0 ? (
-              <div className="text-secondary-foreground">Operations will appear here...</div>
-            ) : (
-              operationLog.map((entry, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between py-1"
-                >
-                  <span>{entry.timestamp}</span>
-                  <span className="font-mono">P{entry.priority}</span>
-                  <span className="flex-1 px-2">{entry.operation}</span>
-                  <span
-                    className={`rounded px-2 py-0.5 ${
-                      entry.status === "scheduled"
-                        ? "bg-yellow-100 text-yellow-800"
-                        : entry.status === "executing"
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-green-100"
-                    }`}
-                  >
-                    {entry.status}
-                  </span>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => simulateScheduledOperation(1, "selectFirstItem()")}
-            className="rounded bg-red-100 px-3 py-1 text-red-800"
-          >
-            Schedule P1: Select First
-          </button>
-          <button
-            onClick={() => simulateScheduledOperation(3, "filterItems()")}
-            className="rounded bg-orange-100 px-3 py-1 text-orange-800"
-          >
-            Schedule P3: Filter Items
-          </button>
-          <button
-            onClick={() => simulateScheduledOperation(5, "scrollIntoView()")}
-            className="rounded bg-blue-100 px-3 py-1 text-blue-800"
-          >
-            Schedule P5: Scroll View
-          </button>
-          <button
-            onClick={() => simulateScheduledOperation(7, "updateSelection()")}
-            className="rounded bg-green-100 px-3 py-1"
-          >
-            Schedule P7: Update Selection
-          </button>
-        </div>
-
-        <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
-          <Command.Input
-            placeholder="Type to trigger real scheduling..."
-            onChange={() => {
-              simulateScheduledOperation(1, "Search triggered: selectFirstItem()")
-              simulateScheduledOperation(2, "Search triggered: filterItems()")
-              simulateScheduledOperation(3, "Search triggered: sort()")
-            }}
-          />
-          <Command.List className="h-40">
-            <Command.Empty>No results found.</Command.Empty>
-            <Command.Group heading="Test Items">
-              <Command.Item value="item-1">
-                <SearchSmall className="mr-2 h-4 w-4" />
-                <span>Search Item 1</span>
-              </Command.Item>
-              <Command.Item value="item-2">
-                <File className="mr-2 h-4 w-4" />
-                <span>File Item 2</span>
-              </Command.Item>
-              <Command.Item value="item-3">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings Item 3</span>
-              </Command.Item>
-            </Command.Group>
-          </Command.List>
-        </Command>
-
-        <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> schedule() queues operations by priority in the next
-          layoutEffect cycle. This prevents synchronous recursion and optimizes DOM updates.
-        </div>
-      </div>
+      <Command className="w-96 overflow-hidden rounded-xl shadow-lg">
+        <Command.Input placeholder="Type to see scheduling in action..." />
+        <Command.List className="h-40">
+          <Command.Empty>No results found.</Command.Empty>
+          <Command.Group heading="Test Items">
+            <Command.Item value="search-item">
+              <SearchSmall className="mr-2 h-4 w-4" />
+              <span>Search Item</span>
+            </Command.Item>
+            <Command.Item value="file-item">
+              <File className="mr-2 h-4 w-4" />
+              <span>File Item</span>
+            </Command.Item>
+            <Command.Item value="settings-item">
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings Item</span>
+            </Command.Item>
+          </Command.Group>
+        </Command.List>
+      </Command>
     )
   },
 }
@@ -1893,52 +1778,12 @@ export const CoreMechanismFuzzySearch: Story = {
       { value: "CSS Stylesheet", keywords: ["css", "style"] },
     ]
 
-    // Mock scoring function similar to commandScore
-    const mockScore = (value: string, search: string, keywords: string[] = []) => {
-      if (!search) return 1
-
-      const normalizedValue = value.toLowerCase()
-      const normalizedSearch = search.toLowerCase()
-
-      // Exact match
-      if (normalizedValue === normalizedSearch) return 1.0
-
-      // Prefix match
-      if (normalizedValue.startsWith(normalizedSearch)) return 0.9
-
-      // Word boundary match
-      const words = normalizedValue.split(/\s+/)
-      for (const word of words) {
-        if (word.startsWith(normalizedSearch)) return 0.8
-      }
-
-      // Keyword match
-      for (const keyword of keywords) {
-        if (keyword.toLowerCase().includes(normalizedSearch)) return 0.7
-      }
-
-      // Substring match
-      if (normalizedValue.includes(normalizedSearch)) return 0.6
-
-      // Fuzzy match (simplified)
-      let fuzzyScore = 0
-      let searchIndex = 0
-      for (let i = 0; i < normalizedValue.length && searchIndex < normalizedSearch.length; i++) {
-        if (normalizedValue[i] === normalizedSearch[searchIndex]) {
-          fuzzyScore += 1 / normalizedValue.length
-          searchIndex++
-        }
-      }
-
-      return searchIndex === normalizedSearch.length ? fuzzyScore * 0.5 : 0
-    }
-
     React.useEffect(() => {
       const newScores = testItems
         .map((item) => ({
           item: item.value,
           value: item.value,
-          score: mockScore(item.value, search, item.keywords),
+          score: search ? commandScore(item.value, search, item.keywords) : 1,
           keywords: item.keywords,
         }))
         .sort((a, b) => b.score - a.score)
@@ -1947,9 +1792,9 @@ export const CoreMechanismFuzzySearch: Story = {
     }, [search])
 
     return (
-      <div className="w-96 space-y-6">
+      <div className="flex w-96 flex-col gap-6">
         <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-3">🔍 Search Score Visualization</h3>
+          <h3 className="font-strong mb-3">Search Score Visualization</h3>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="font-strong">Search Query:</span>
@@ -2078,7 +1923,7 @@ export const NestedItems: Story = {
     const page = pages[pages.length - 1]
 
     return (
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         <div className="rounded-xl border p-4">
           <div className="font-strong mb-2">Navigation Guide:</div>
           <ul className="space-y-1">
@@ -2238,7 +2083,7 @@ export const ConditionalSubItems: Story = {
     }
 
     return (
-      <div className="w-96 space-y-4">
+      <div className="flex w-96 flex-col gap-4">
         <div className="rounded-xl border p-4">
           <div className="font-strong mb-2">Search Behavior:</div>
           <ul className="space-y-1">
@@ -2426,7 +2271,7 @@ export const AsyncResults: Story = {
     }, [])
 
     return (
-      <div className="w-96 space-y-4">
+      <div className="flex w-96 flex-col gap-4">
         <div className="flex items-center justify-between rounded-xl border p-4">
           <div className="">
             <div className="font-strong">Async Data Loading</div>
@@ -2595,7 +2440,7 @@ export const WithTabs: Story = {
     }
 
     return (
-      <div className="w-96 space-y-4">
+      <div className="flex w-96 flex-col gap-4">
         <div className="rounded-xl border p-4">
           <div className="font-strong mb-2">Tabbed Filtering:</div>
           <ul className="space-y-1">
@@ -2621,7 +2466,7 @@ export const WithTabs: Story = {
           loop
           className="w-96 overflow-hidden rounded-xl shadow-lg"
           onKeyDown={(e) => {
-            // 左右键循环切换tab
+            // Cycle through tabs with left/right arrow keys
             if (e.key === "ArrowLeft") {
               setActiveTab(
                 activeTab === "all" ? "actions" : activeTab === "actions" ? "files" : "all",
@@ -2680,11 +2525,6 @@ export const WithTabs: Story = {
             <div className="text-secondary-foreground">{filteredItems.length} items</div>
           </Command.Footer>
         </Command>
-
-        <div className="text-secondary-foreground">
-          💡 <strong>How it works:</strong> The tabs provide a quick way to filter the command
-          palette by category while preserving the search functionality within each filter.
-        </div>
       </div>
     )
   },

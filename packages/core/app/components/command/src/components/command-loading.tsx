@@ -3,7 +3,15 @@ import React, { forwardRef } from "react"
 import { commandLoadingTv } from "../tv"
 
 export interface CommandLoadingProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * The label of the loading.
+   * @default "Loading..."
+   */
   label?: string
+  /**
+   * The progress of the loading.
+   * @default undefined
+   */
   progress?: number
 }
 

@@ -20,6 +20,9 @@ export const hintVariants = tcv({
       dark: {
         content: "bg-menu-background text-white",
       },
+      accent: {
+        content: "bg-accent-background text-on-accent-foreground",
+      },
     },
     placement: {
       "left-start": {
@@ -27,6 +30,14 @@ export const hintVariants = tcv({
       },
       "right-start": {
         content: "flex-row pr-2",
+      },
+      "left-end": {
+        content: "flex-row-reverse pl-2",
+        icon: "self-end",
+      },
+      "right-end": {
+        content: "flex-row pr-2",
+        icon: "self-end",
       },
     },
     disabled: {

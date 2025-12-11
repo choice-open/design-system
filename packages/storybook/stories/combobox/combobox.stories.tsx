@@ -907,32 +907,60 @@ export const Readonly: Story = {
  */
 export const Light: Story = {
   render: function LightStory() {
-    const [value, setValue] = useState<string>("apple")
-    const options = [
-      { value: "apple", label: "Apple" },
-      { value: "banana", label: "Banana" },
-      { value: "orange", label: "Orange" },
-      { value: "grape", label: "Grape" },
-      { value: "strawberry", label: "Strawberry" },
-    ]
+    const [value, setValue] = useState("")
+    const [triggerType, setTriggerType] = useState<"click" | "focus" | "input">("input")
+
+    const itemsToShow = useMemo(() => {
+      if (triggerType === "click") {
+        // 点击trigger时显示所有items
+        return fruits
+      }
+      if (!value.trim()) {
+        return []
+      }
+      // 输入或focus时显示过滤后的items
+      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
+    }, [value, triggerType])
+
+    const handleChange = useEventCallback((newValue: string) => {
+      setValue(newValue)
+      setTriggerType("input")
+    })
+
+    const handleOpenChange = useEventCallback(
+      (open: boolean, trigger: "click" | "focus" | "input" = "input") => {
+        if (open) {
+          setTriggerType(trigger)
+        }
+      },
+    )
+
     return (
-      <Combobox
-        variant="light"
-        value={value}
-        onChange={setValue}
-      >
-        <Combobox.Trigger placeholder="Select a fruit..." />
-        <Combobox.Content>
-          {options.map((option) => (
-            <Combobox.Item
-              key={option.value}
-              value={option.value}
-            >
-              <Combobox.Value>{option.label}</Combobox.Value>
-            </Combobox.Item>
-          ))}
-        </Combobox.Content>
-      </Combobox>
+      <div className="w-64">
+        <Combobox
+          value={value}
+          onChange={handleChange}
+          onOpenChange={handleOpenChange}
+          variant="light"
+        >
+          <Combobox.Trigger placeholder="Search fruits..." />
+          {itemsToShow.length > 0 && (
+            <Combobox.Content>
+              <>
+                <Combobox.Label>Fruits</Combobox.Label>
+                {itemsToShow.map((fruit) => (
+                  <Combobox.Item
+                    key={fruit}
+                    onClick={() => setValue(fruit)}
+                  >
+                    <Combobox.Value>{fruit}</Combobox.Value>
+                  </Combobox.Item>
+                ))}
+              </>
+            </Combobox.Content>
+          )}
+        </Combobox>
+      </div>
     )
   },
 }

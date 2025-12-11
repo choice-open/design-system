@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
-import { VALUE_ATTR, useLayoutEffect } from "../utils"
+import { VALUE_ATTR } from "../utils"
 import { useCommand } from "./use-command"
+import { useIsomorphicLayoutEffect } from "usehooks-ts"
 
 export function useValue(
   id: string,
@@ -11,7 +12,7 @@ export function useValue(
   const valueRef = useRef<string>()
   const context = useCommand()
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const value = (() => {
       for (const part of deps) {
         if (typeof part === "string") {

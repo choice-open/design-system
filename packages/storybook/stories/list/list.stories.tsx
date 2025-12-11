@@ -8,6 +8,9 @@ import {
   FieldTypeSingleSelect,
   File,
   Folder,
+  House,
+  Settings,
+  ViewCalendar,
 } from "@choiceform/icons-react"
 import { Meta, StoryObj } from "@storybook/react-vite"
 import React, { useState } from "react"
@@ -30,8 +33,8 @@ type Story = StoryObj<typeof List>
  * Use the `List` component with `List.Content` and `List.Item` for a simple list.
  */
 export const Basic: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
         <List.Item>
           <List.Value>Home</List.Value>
@@ -53,16 +56,16 @@ export const Basic: Story = {
  * Use the `prefixElement` prop to add icons or other elements at the beginning of list items.
  */
 export const WithIcons: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
-        <List.Item prefixElement={<FieldTypeCheckbox />}>
+        <List.Item prefixElement={<House />}>
           <List.Value>Home</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeSingleSelect />}>
+        <List.Item prefixElement={<File />}>
           <List.Value>Documents</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeAttachment />}>
+        <List.Item prefixElement={<Settings />}>
           <List.Value>Settings</List.Value>
         </List.Item>
       </List.Content>
@@ -74,21 +77,25 @@ export const WithIcons: Story = {
  * A list with primary variant.
  *
  * Use the `variant` prop to make the list items primary.
+ *
+ * ```tsx
+ * <List variant="primary">...</List>
+ * ```
  */
 export const Variant: Story = {
-  render: (args) => (
+  render: () => (
     <List
-      {...args}
+      className="w-80"
       variant="primary"
     >
       <List.Content>
-        <List.Item prefixElement={<FieldTypeCheckbox />}>
+        <List.Item prefixElement={<House />}>
           <List.Value>Home</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeSingleSelect />}>
+        <List.Item prefixElement={<File />}>
           <List.Value>Documents</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeAttachment />}>
+        <List.Item prefixElement={<Settings />}>
           <List.Value>Settings</List.Value>
         </List.Item>
       </List.Content>
@@ -100,23 +107,33 @@ export const Variant: Story = {
  * A list with sections and dividers.
  *
  * Use `List.Label` to add section titles and `List.Divider` to separate sections.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Label>Navigation</List.Label>
+ *   <List.Content>...</List.Content>
+ *   <List.Divider />
+ *   <List.Label>System</List.Label>
+ *   <List.Content>...</List.Content>
+ * </List>
+ * ```
  */
 export const WithLabelsAndDividers: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Label>Navigation</List.Label>
       <List.Content>
-        <List.Item prefixElement={<FieldTypeCheckbox />}>
+        <List.Item prefixElement={<House />}>
           <List.Value>Home</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeSingleSelect />}>
+        <List.Item prefixElement={<File />}>
           <List.Value>Documents</List.Value>
         </List.Item>
       </List.Content>
       <List.Divider />
       <List.Label>System</List.Label>
       <List.Content>
-        <List.Item prefixElement={<FieldTypeAttachment />}>
+        <List.Item prefixElement={<Settings />}>
           <List.Value>Settings</List.Value>
         </List.Item>
       </List.Content>
@@ -128,12 +145,31 @@ export const WithLabelsAndDividers: Story = {
  * A list with collapsible nested items.
  *
  * Use `List.SubTrigger` to create a collapsible section and `parentId` on nested content to link them together.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.Item>
+ *       <List.Value>Home</List.Value>
+ *     </List.Item>
+ *     <List.SubTrigger id="docs">
+ *       <List.Value>Documents</List.Value>
+ *     </List.SubTrigger>
+ *     <List.Content parentId="docs">...</List.Content>
+ *     <List.Item>
+ *       <List.Value>Calendar</List.Value>
+ *     </List.Item>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const NestedList: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
-        <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
+        <List.Item prefixElement={<House />}>
+          <List.Value>Home</List.Value>
+        </List.Item>
         <List.SubTrigger
           id="docs"
           prefixElement={<Folder />}
@@ -154,7 +190,7 @@ export const NestedList: Story = {
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
-        <List.Item prefixElement={<FieldTypeDate />}>
+        <List.Item prefixElement={<ViewCalendar />}>
           <List.Value>Calendar</List.Value>
         </List.Item>
       </List.Content>
@@ -162,36 +198,35 @@ export const NestedList: Story = {
   ),
 }
 
+/**
+ * A list with large size.
+ *
+ * Use the `size` prop to make the list items large.
+ *
+ * ```tsx
+ * <List size="large">...</List>
+ * ```
+ */
 export const Size: Story = {
-  render: (args) => (
+  render: () => (
     <List
-      {...args}
+      className="w-80"
       size="large"
     >
+      <List.Label>Navigation</List.Label>
       <List.Content>
-        <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
-        <List.SubTrigger
-          id="docs"
-          prefixElement={<Folder />}
-        >
+        <List.Item prefixElement={<House />}>
+          <List.Value>Home</List.Value>
+        </List.Item>
+        <List.Item prefixElement={<File />}>
           <List.Value>Documents</List.Value>
-        </List.SubTrigger>
-        <List.Content parentId="docs">
-          <List.Item parentId="docs">
-            <List.Value>Getting Started</List.Value>
-          </List.Item>
-          <List.Item parentId="docs">
-            <List.Value>Components</List.Value>
-          </List.Item>
-          <List.Item
-            parentId="docs"
-            prefixElement={<File />}
-          >
-            <List.Value>API Reference</List.Value>
-          </List.Item>
-        </List.Content>
-        <List.Item prefixElement={<FieldTypeDate />}>
-          <List.Value>Calendar</List.Value>
+        </List.Item>
+      </List.Content>
+      <List.Divider />
+      <List.Label>System</List.Label>
+      <List.Content>
+        <List.Item prefixElement={<Settings />}>
+          <List.Value>Settings</List.Value>
         </List.Item>
       </List.Content>
     </List>
@@ -202,12 +237,31 @@ export const Size: Story = {
  * A list with pre-expanded nested content.
  *
  * Use the `defaultOpen` prop on `List.SubTrigger` to make nested content visible by default.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.Item>
+ *       <List.Value>Home</List.Value>
+ *     </List.Item>
+ *     <List.SubTrigger id="docs" defaultOpen>
+ *       <List.Value>Documents</List.Value>
+ *     </List.SubTrigger>
+ *     <List.Content parentId="docs">...</List.Content>
+ *     <List.Item>
+ *       <List.Value>Calendar</List.Value>
+ *     </List.Item>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const DefaultOpenNestedList: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
-        <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
+        <List.Item prefixElement={<House />}>
+          <List.Value>Home</List.Value>
+        </List.Item>
         <List.SubTrigger
           id="docs"
           prefixElement={<Folder />}
@@ -235,7 +289,7 @@ export const DefaultOpenNestedList: Story = {
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
-        <List.Item prefixElement={<FieldTypeDate />}>
+        <List.Item prefixElement={<ViewCalendar />}>
           <List.Value>Calendar</List.Value>
         </List.Item>
       </List.Content>
@@ -250,35 +304,35 @@ export const DefaultOpenNestedList: Story = {
  * visualize the hierarchical structure.
  */
 export const WithReferenceLines: Story = {
-  render: (args) => {
-    // 递归创建嵌套项目结构的函数
+  render: () => {
+    // Function to create nested items recursively
     const createNestedItems = (level: number, parentId: string = "", maxDepth: number = 5) => {
-      // 在达到最大深度时停止递归
+      // Stop recursion when reaching the maximum depth
       if (level > maxDepth) return null
 
       const currentId = parentId ? `${parentId}-level${level}` : `level${level}`
       const items: React.ReactNode[] = []
 
-      // 创建当前级别的标题
+      // Create title for the current level
       items.push(
         <List.SubTrigger
           key={`trigger-${currentId}`}
           id={currentId}
           parentId={parentId || undefined}
           prefixElement={<Folder />}
-          defaultOpen={level <= 3} // 默认展开前三级
+          defaultOpen={level <= 3} // Default open for the first three levels
         >
           <List.Value>{`Level ${level} Folder`}</List.Value>
         </List.SubTrigger>,
       )
 
-      // 创建该级别的内容容器
+      // Create content container for the current level
       items.push(
         <List.Content
           key={`content-${currentId}`}
           parentId={currentId}
         >
-          {/* 为当前级别添加一些文件项目 */}
+          {/* Add some file items for the current level */}
           {[1, 2].map((fileIndex) => (
             <List.Item
               key={`file-${currentId}-${fileIndex}`}
@@ -289,7 +343,7 @@ export const WithReferenceLines: Story = {
             </List.Item>
           ))}
 
-          {/* 递归创建下一级 */}
+          {/* Recursively create the next level */}
           {level < maxDepth && createNestedItems(level + 1, currentId, maxDepth)}
         </List.Content>,
       )
@@ -299,18 +353,18 @@ export const WithReferenceLines: Story = {
 
     return (
       <List
-        {...args}
+        className="w-80"
         shouldShowReferenceLine
       >
         <List.Content>
-          <List.Item prefixElement={<FieldTypeLongText />}>
+          <List.Item prefixElement={<House />}>
             <List.Value>Home</List.Value>
           </List.Item>
 
-          {/* 从第一级开始递归创建嵌套结构 */}
+          {/* Create nested items from level 1 */}
           {createNestedItems(1)}
 
-          <List.Item prefixElement={<FieldTypeDate />}>
+          <List.Item prefixElement={<ViewCalendar />}>
             <List.Value>Calendar</List.Value>
           </List.Item>
         </List.Content>
@@ -323,25 +377,41 @@ export const WithReferenceLines: Story = {
  * A list with keyboard shortcut hints.
  *
  * Use the `shortcut` prop to display keyboard shortcuts next to list items.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.Item shortcut={{ keys: "H" }}>
+ *       <List.Value>Home</List.Value>
+ *     </List.Item>
+ *     <List.Item shortcut={{ keys: "D" }}>
+ *       <List.Value>Documents</List.Value>
+ *     </List.Item>
+ *     <List.Item shortcut={{ modifier: "command", keys: "," }}>
+ *       <List.Value>Settings</List.Value>
+ *     </List.Item>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const WithShortcuts: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
         <List.Item
-          prefixElement={<FieldTypeLongText />}
+          prefixElement={<House />}
           shortcut={{ keys: "H" }}
         >
           <List.Value>Home</List.Value>
         </List.Item>
         <List.Item
-          prefixElement={<FieldTypeLongText />}
+          prefixElement={<File />}
           shortcut={{ keys: "D" }}
         >
           <List.Value>Documents</List.Value>
         </List.Item>
         <List.Item
-          prefixElement={<FieldTypeAttachment />}
+          prefixElement={<Settings />}
           shortcut={{ modifier: "command", keys: "," }}
         >
           <List.Value>Settings</List.Value>
@@ -361,33 +431,33 @@ export const WithShortcuts: Story = {
  */
 export const WithSelectionEnabled: Story = {
   render: function WithSelectionEnabled(args) {
-    // 使用useState管理选中项ID，null表示没有选中项
+    // Use useState to manage the selected item ID, null means no selection
     const [selectedId, setSelectedId] = useState<string | null>("doc1")
 
-    // 处理点击事件，实现单选和取消选择逻辑
+    // Handle click events, implement single selection and deselection logic
     const handleItemClick = (id: string) => {
-      // 如果点击已选中项，则取消选择
+      // If the clicked item is already selected, deselect it
       if (selectedId === id) {
         setSelectedId(null)
       } else {
-        // 否则，选择当前点击项
+        // Otherwise, select the clicked item
         setSelectedId(id)
       }
     }
 
-    // 要完全控制选择状态，我们不启用List组件的内置selection功能
-    // 而是手动为选中的项目添加check图标
+    // To fully control the selection state, we do not enable the built-in selection functionality of the List component
+    // Instead, we manually add a check icon to the selected items
     const getItemPrefixElement = (id: string) => {
       return selectedId === id ? <Check /> : <></>
     }
 
     return (
       <div className="flex flex-col gap-2">
-        <div>
-          <strong>Selected item:</strong> {selectedId || "None"}
+        <div className="text-secondary-foreground bg-secondary-background rounded-lg p-2">
+          Selected item: {selectedId || "None"}
         </div>
-        {/* 不启用内置selection功能，完全由外部状态控制 */}
-        <List {...args}>
+        {/* Do not enable the built-in selection functionality, completely controlled by external state */}
+        <List className="w-80">
           <List.Label>Radio-like selection with toggle</List.Label>
           <List.Content>
             <List.Item
@@ -422,21 +492,31 @@ export const WithSelectionEnabled: Story = {
  * A list with disabled items.
  *
  * Use the `disabled` prop to make items non-interactive.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.Item disabled>
+ *       <List.Value>Mail (Maintenance)</List.Value>
+ *     </List.Item>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const WithDisabledItems: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
-        <List.Item prefixElement={<FieldTypeLongText />}>
+        <List.Item prefixElement={<House />}>
           <List.Value>Home</List.Value>
         </List.Item>
         <List.Item
-          prefixElement={<FieldTypeLongText />}
+          prefixElement={<File />}
           disabled
         >
           <List.Value>Mail (Maintenance)</List.Value>
         </List.Item>
-        <List.Item prefixElement={<FieldTypeAttachment />}>
+        <List.Item prefixElement={<Settings />}>
           <List.Value>Settings</List.Value>
         </List.Item>
       </List.Content>
@@ -448,12 +528,25 @@ export const WithDisabledItems: Story = {
  * A nested list with non-collapsible sub-sections.
  *
  * Use the `disableCollapse` prop on `List.SubTrigger` to prevent toggling of the sub-list.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.SubTrigger id="docs" defaultOpen disableCollapse>
+ *       <List.Value>Documents</List.Value>
+ *     </List.SubTrigger>
+ *     <List.Content parentId="docs">...</List.Content>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const NonCollapsibleNestedList: Story = {
-  render: (args) => (
-    <List {...args}>
+  render: () => (
+    <List className="w-80">
       <List.Content>
-        <List.Item prefixElement={<FieldTypeLongText />}>Home</List.Item>
+        <List.Item prefixElement={<House />}>
+          <List.Value>Home</List.Value>
+        </List.Item>
         <List.SubTrigger
           id="docs"
           prefixElement={<Folder />}
@@ -482,7 +575,7 @@ export const NonCollapsibleNestedList: Story = {
             <List.Value>API Reference</List.Value>
           </List.Item>
         </List.Content>
-        <List.Item prefixElement={<FieldTypeDate />}>
+        <List.Item prefixElement={<ViewCalendar />}>
           <List.Value>Calendar</List.Value>
         </List.Item>
       </List.Content>
@@ -496,35 +589,35 @@ export const NonCollapsibleNestedList: Story = {
  * You can create deeply nested structures by using multiple layers of `List.SubTrigger` and `List.Content` with appropriate `parentId` props.
  */
 export const MultiLevelNestedList: Story = {
-  render: (args) => {
-    // 递归创建嵌套项目结构的函数
+  render: () => {
+    // Function to create nested items recursively
     const createNestedItems = (level: number, parentId: string = "", maxDepth: number = 5) => {
-      // 在达到最大深度时停止递归
+      // Stop recursion when reaching the maximum depth
       if (level > maxDepth) return null
 
       const currentId = parentId ? `${parentId}-level${level}` : `level${level}`
       const items: React.ReactNode[] = []
 
-      // 创建当前级别的标题
+      // Create title for the current level
       items.push(
         <List.SubTrigger
           key={`trigger-${currentId}`}
           id={currentId}
           parentId={parentId || undefined}
           prefixElement={<Folder />}
-          defaultOpen={level <= 2} // 默认展开前两级
+          defaultOpen={level <= 2} // Default open for the first two levels
         >
           <List.Value>{`Level ${level} Folder`}</List.Value>
         </List.SubTrigger>,
       )
 
-      // 创建该级别的内容容器
+      // Create content container for the current level
       items.push(
         <List.Content
           key={`content-${currentId}`}
           parentId={currentId}
         >
-          {/* 为当前级别添加一些文件项目 */}
+          {/* Add some file items for the current level */}
           {[1, 2].map((fileIndex) => (
             <List.Item
               key={`file-${currentId}-${fileIndex}`}
@@ -535,7 +628,7 @@ export const MultiLevelNestedList: Story = {
             </List.Item>
           ))}
 
-          {/* 递归创建下一级 */}
+          {/* Recursively create the next level */}
           {level < maxDepth && createNestedItems(level + 1, currentId, maxDepth)}
         </List.Content>,
       )
@@ -545,19 +638,19 @@ export const MultiLevelNestedList: Story = {
 
     return (
       <List
-        {...args}
+        className="w-80"
         size="large"
         shouldShowReferenceLine
       >
         <List.Content>
-          <List.Item prefixElement={<FieldTypeLongText />}>
+          <List.Item prefixElement={<House />}>
             <List.Value>Home</List.Value>
           </List.Item>
 
-          {/* 从第一级开始递归创建嵌套结构 */}
+          {/* Create nested items from level 1 */}
           {createNestedItems(1)}
 
-          <List.Item prefixElement={<FieldTypeDate />}>
+          <List.Item prefixElement={<ViewCalendar />}>
             <List.Value>Calendar</List.Value>
           </List.Item>
         </List.Content>
@@ -572,11 +665,11 @@ export const MultiLevelNestedList: Story = {
  * Combine the selection mode with nested lists to create hierarchical selectable content.
  */
 export const NestedListWithSelection: Story = {
-  render: function NestedListWithSelection(args) {
-    // 使用useState来管理选中状态
+  render: function NestedListWithSelection() {
+    // Use useState to manage the selected state
     const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set(["root1", "nested2"]))
 
-    // 处理选择变化
+    // Handle selection changes
     const handleItemClick = (id: string) => {
       setSelectedItems((prev) => {
         const newSet = new Set(prev)
@@ -591,8 +684,8 @@ export const NestedListWithSelection: Story = {
 
     return (
       <div className="flex flex-col gap-2">
-        <div>
-          <strong>Selected items:</strong>{" "}
+        <div className="text-secondary-foreground bg-secondary-background rounded-lg p-2">
+          Selected items:{" "}
           {[...selectedItems].map((id) => (
             <span
               key={id}
@@ -603,7 +696,7 @@ export const NestedListWithSelection: Story = {
           ))}
         </div>
         <List
-          {...args}
+          className="w-80"
           shouldShowReferenceLine
         >
           <List.Content>
@@ -672,34 +765,27 @@ export const NestedListWithSelection: Story = {
  * This is useful for semantic HTML, accessibility, or integrating with routing libraries.
  * All ListItem features (prefixElement, suffixElement, shortcut, active, selected, disabled)
  * work regardless of the `as` prop value.
+ *
+ * ```tsx
+ * <List>
+ *   <List.Content>
+ *     <List.Item as="div">
+ *       <List.Value>Div Item</List.Value>
+ *     </List.Item>
+ *   </List.Content>
+ * </List>
+ * ```
  */
 export const WithAsProp: Story = {
-  render: (args) => (
-    <div className="space-y-4">
-      <List {...args}>
-        <List.Label>As div:</List.Label>
-        <List.Content>
-          <List.Item as="div">
-            <List.Value>Div Item</List.Value>
-          </List.Item>
-        </List.Content>
-      </List>
-
-      <List {...args}>
-        <List.Label>As anchor:</List.Label>
-        <List.Content>
-          <List.Item
-            as="a"
-            onClick={(e) => {
-              e.preventDefault()
-              console.log("Link clicked")
-            }}
-          >
-            <List.Value>Link Item</List.Value>
-          </List.Item>
-        </List.Content>
-      </List>
-    </div>
+  render: () => (
+    <List className="w-80">
+      <List.Label>As div:</List.Label>
+      <List.Content>
+        <List.Item as="div">
+          <List.Value>Div Item</List.Value>
+        </List.Item>
+      </List.Content>
+    </List>
   ),
 }
 
@@ -708,36 +794,30 @@ export const WithAsProp: Story = {
  * - When `interactive={false}`, list items use `div` as default element instead of `button`.
  * - Hover effects and active states are disabled.
  * - Useful for read-only lists, documentation, or static content display.
+ *
+ * ```tsx
+ * <List interactive={false}>
+ *   <List.Content>...</List.Content>
+ * </List>
+ * ```
  */
 export const NonInteractive: Story = {
-  render: (args) => (
-    <div className="space-y-2">
-      <h3 className="text-body-large-strong">Non-Interactive List</h3>
-      <p className="text-body-small text-secondary-foreground">
-        Hover effects disabled. Items use div elements by default. No active state on hover.
-      </p>
-      <List
-        {...args}
-        interactive={false}
-      >
-        <List.Content>
-          <List.Item prefixElement={<FieldTypeCheckbox />}>
-            <List.Value>Home</List.Value>
-          </List.Item>
-          <List.Item prefixElement={<FieldTypeSingleSelect />}>
-            <List.Value>Documents</List.Value>
-          </List.Item>
-          <List.Item prefixElement={<FieldTypeAttachment />}>
-            <List.Value>Settings</List.Value>
-          </List.Item>
-          <List.Item prefixElement={<FieldTypeLongText />}>
-            <List.Value>Read-only Item</List.Value>
-          </List.Item>
-          <List.Item prefixElement={<FieldTypeDate />}>
-            <List.Value>Static Content</List.Value>
-          </List.Item>
-        </List.Content>
-      </List>
-    </div>
+  render: () => (
+    <List
+      className="w-80"
+      interactive={false}
+    >
+      <List.Content>
+        <List.Item prefixElement={<House />}>
+          <List.Value>Home</List.Value>
+        </List.Item>
+        <List.Item prefixElement={<File />}>
+          <List.Value>Documents</List.Value>
+        </List.Item>
+        <List.Item prefixElement={<Settings />}>
+          <List.Value>Settings</List.Value>
+        </List.Item>
+      </List.Content>
+    </List>
   ),
 }

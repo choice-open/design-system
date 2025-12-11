@@ -1,1 +1,2 @@
-export * from "./chips-input"
+export { ChipsInput } from "./chips-input"
+export type { ChipsInputProps, RenderChipProps } from "./chips-input"

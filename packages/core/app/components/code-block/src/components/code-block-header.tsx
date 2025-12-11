@@ -1,6 +1,6 @@
 import { IconButton } from "@choice-ui/icon-button"
 import { tcv } from "@choice-ui/shared"
-import { CircleCirclehecirclek, ClipboardSmall, Enlarge, FileCode } from "@choiceform/icons-react"
+import { Check, ClipboardSmall, Enlarge, FileCode } from "@choiceform/icons-react"
 import React, { memo } from "react"
 import type { CodeBlockHeaderProps } from "../types"
 import { getDefaultFilenameForLanguage, getIconFromFilename, getLanguageIcon } from "../utils"
@@ -100,11 +100,7 @@ export const CodeBlockHeader = memo(function CodeBlockHeader(props: CodeBlockHea
             onClick={() => handleCopy()}
             tooltip={{ content: copyTooltipContent }}
           >
-            {copied ? (
-              <CircleCirclehecirclek className="text-success-foreground" />
-            ) : (
-              <ClipboardSmall />
-            )}
+            {copied ? <Check className="text-success-foreground" /> : <ClipboardSmall />}
           </IconButton>
         )}
         {expandable && (

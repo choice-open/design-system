@@ -77,7 +77,7 @@ export const Basic: Story = {
 }
 
 /**
- * DefaultOpen: Demonstrates a popover that starts in the open state.
+ * [TEST] DefaultOpen: Demonstrates a popover that starts in the open state.
  *
  * Features:
  * - Pre-opened state on initial render
@@ -733,7 +733,7 @@ export const Nested: Story = {
 }
 
 /**
- * AlwaysOpen: Demonstrates a popover that is always open.
+ * [TEST] AlwaysOpen: Demonstrates a popover that is always open.
  *
  * Features:
  * - Pre-opened state on initial render
@@ -883,53 +883,28 @@ export const MultiTrigger: Story = {
   },
 }
 
-export const Test: Story = {
-  parameters: {
-    layout: "fullscreen",
-  },
-  decorators: [
-    (Story) => (
-      <div className="flex h-screen w-screen items-end justify-center p-8">
-        <Story />
-      </div>
-    ),
-  ],
-  render: function TestStory() {
-    const [open, setOpen] = useState(false)
-    const triggerRef = useRef<HTMLButtonElement>(null)
-    return (
-      <div>
-        <Popover
-          draggable
-          triggerRef={triggerRef}
-          open={open}
-          onOpenChange={setOpen}
-        >
-          <Popover.Content className="w-64 p-3">{faker.lorem.paragraph(3)}</Popover.Content>
-        </Popover>
-        <Button
-          ref={triggerRef}
-          onClick={() => setOpen(!open)}
-        >
-          Open
-        </Button>
-      </div>
-    )
-  },
-}
-
 /**
- * MultiplePopovers: 测试多个 Popover 同时存在的情况
+ * [TEST] MultiplePopovers: Reproduces multi-popover interaction behavior.
  *
- * Features:
- * - 多个 Popover 同时存在
- * - 测试开启关闭逻辑
- * - 验证 FloatingTree 的作用
+ * Purpose:
+ * - Multiple Popovers can exist at the same time
+ * - Validate open/close switching behavior
+ * - Verify the FloatingTree behavior
  *
- * 问题重现：
- * 1. 点击第一个 Popover 打开
- * 2. 点击第二个 Popover 时，第一个会先关闭
- * 3. 需要再次点击第二个按钮才能打开第二个 Popover
+ * Repro steps:
+ * 1. Click "Popover 1" to open the first Popover
+ * 2. While Popover 1 is open, click "Popover 2"
+ * 3. If Popover 2 requires a second click to open, the issue is present
+ *
+ * Expected:
+ * - Popover 1 closes and Popover 2 opens immediately on the first click
+ *
+ * Actual (issue):
+ * - Popover 1 closes, but Popover 2 only opens after a second click
+ *
+ * Additional manual checks:
+ * - Switch from Popover 2 -> Popover 3
+ * - Switch from Popover 3 -> Popover 1
  */
 export const MultiplePopovers: Story = {
   render: function MultiplePopoversStory() {
@@ -939,21 +914,6 @@ export const MultiplePopovers: Story = {
 
     return (
       <div className="w-md space-y-6">
-        <div className="rounded-xl border p-4">
-          <h3 className="font-strong mb-2">Test</h3>
-          <p>
-            Test scenario: There are multiple Popovers on a canvas, when the first Popover is
-            opened, click the second Popover button
-          </p>
-          <div className="mt-2">
-            <strong>Expected behavior:</strong> The first Popover closes, and the second opens
-            immediately
-            <br />
-            <strong>Actual behavior:</strong> The first Popover closes, and the second needs to be
-            clicked again to open
-          </div>
-        </div>
-
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-4">
             <h4 className="font-strong">Popover 1</h4>
@@ -970,10 +930,6 @@ export const MultiplePopovers: Story = {
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
                   <h5 className="font-strong">Popover 1 content</h5>
-                  <p className="text-body-small text-gray-600">
-                    This is the content of the first Popover. Now keep it open, then click the
-                    Popover 2 button to test.
-                  </p>
                   <Button
                     variant="secondary"
                     onClick={() => setPopover1Open(false)}
@@ -1000,10 +956,6 @@ export const MultiplePopovers: Story = {
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
                   <h5 className="font-strong">Popover 2 content</h5>
-                  <p className="text-body-small text-gray-600">
-                    This is the content of the second Popover. If it opens with one click, the
-                    problem has been fixed.
-                  </p>
                   <Button
                     variant="secondary"
                     onClick={() => setPopover2Open(false)}
@@ -1030,9 +982,6 @@ export const MultiplePopovers: Story = {
               <Popover.Content className="w-64 p-3">
                 <div className="space-y-2">
                   <h5 className="font-strong">Popover 3 content</h5>
-                  <p className="text-body-small text-gray-600">
-                    This is the content of the third Popover.
-                  </p>
                   <Button
                     variant="secondary"
                     onClick={() => setPopover3Open(false)}
@@ -1043,17 +992,6 @@ export const MultiplePopovers: Story = {
               </Popover.Content>
             </Popover>
           </div>
-        </div>
-
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-          <h4 className="font-strong mb-2">Test steps:</h4>
-          <ol className="text-body-small list-inside list-decimal space-y-1 text-gray-700">
-            <li>Click the &quot;Popover 1&quot; button to open the first Popover</li>
-            <li>Keep the Popover 1 open, click the &quot;Popover 2&quot; button</li>
-            <li>Observe if you need to click twice to open Popover 2</li>
-            <li>Test the switch from Popover 2 to Popover 3</li>
-            <li>Test the switch from Popover 3 to Popover 1</li>
-          </ol>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -1084,6 +1022,11 @@ export const MultiplePopovers: Story = {
   },
 }
 
+/**
+ * MaxWidth: Demonstrates the maxWidth prop functionality.
+ * By default, popovers will not have a maximum width. This story shows
+ * a popover with a maximum width of 640px.
+ */
 export const MaxWidth: Story = {
   render: function MaxWidthStory() {
     const [value, setValue] = useState(1)
@@ -1093,13 +1036,11 @@ export const MaxWidth: Story = {
           <Popover.Trigger>
             <Button>Open</Button>
           </Popover.Trigger>
-          <Popover.Content className="p-3">
-            {faker.lorem.paragraph(value)}
-            <div className="flex gap-2">
-              <Button onClick={() => setValue(value + 1)}>Add</Button>
-              <Button onClick={() => setValue(value - 1)}>Sub</Button>
-            </div>
-          </Popover.Content>
+          <Popover.Content className="p-4">{faker.lorem.paragraph(value)}</Popover.Content>
+          <Popover.Footer>
+            <Button onClick={() => setValue(value - 1)}>Sub</Button>
+            <Button onClick={() => setValue(value + 1)}>Add</Button>
+          </Popover.Footer>
         </Popover>
       </div>
     )
@@ -1115,11 +1056,16 @@ export const CloseOnEscape: Story = {
   render: function CloseOnEscapeStory() {
     const [escEnabledOpen, setEscEnabledOpen] = useState(false)
     const [escDisabledOpen, setEscDisabledOpen] = useState(false)
+    const escDisabledTriggerRef = useRef<HTMLButtonElement>(null)
+    const escEnabledTriggerRef = useRef<HTMLButtonElement>(null)
 
     return (
       <div className="flex gap-8">
         <div className="flex flex-col gap-2">
-          <Button onClick={() => setEscEnabledOpen(!escEnabledOpen)}>
+          <Button
+            ref={escEnabledTriggerRef}
+            onClick={() => setEscEnabledOpen(!escEnabledOpen)}
+          >
             Popover with ESC (Default)
           </Button>
           <p className="text-secondary-foreground text-body-small">Press ESC to close</p>
@@ -1128,10 +1074,8 @@ export const CloseOnEscape: Story = {
             open={escEnabledOpen}
             onOpenChange={setEscEnabledOpen}
             closeOnEscape={true}
+            triggerRef={escEnabledTriggerRef}
           >
-            <Popover.Trigger>
-              <Button style={{ display: "none" }}>Hidden Trigger</Button>
-            </Popover.Trigger>
             <Popover.Content className="w-72 p-3">
               <p>This popover can be closed by pressing the ESC key.</p>
               <p className="text-secondary-foreground text-body-small mt-2">
@@ -1142,17 +1086,20 @@ export const CloseOnEscape: Story = {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Button onClick={() => setEscDisabledOpen(!escDisabledOpen)}>Popover without ESC</Button>
+          <Button
+            ref={escDisabledTriggerRef}
+            onClick={() => setEscDisabledOpen(!escDisabledOpen)}
+          >
+            Popover without ESC
+          </Button>
           <p className="text-secondary-foreground text-body-small">ESC key disabled</p>
 
           <Popover
             open={escDisabledOpen}
             onOpenChange={setEscDisabledOpen}
             closeOnEscape={false}
+            triggerRef={escDisabledTriggerRef}
           >
-            <Popover.Trigger>
-              <Button style={{ display: "none" }}>Hidden Trigger</Button>
-            </Popover.Trigger>
             <Popover.Content className="w-72 p-3">
               <p>This popover cannot be closed by pressing the ESC key.</p>
               <p className="text-secondary-foreground text-body-small mt-2">
@@ -1167,7 +1114,7 @@ export const CloseOnEscape: Story = {
 }
 
 /**
- * EventPropagation: Verifies that ESC key events do not propagate to window.
+ * [TEST] EventPropagation: Verifies that ESC key events do not propagate to window.
  * Press ESC outside popover to increment counter, then press ESC inside popover
  * to close it without incrementing the counter.
  */

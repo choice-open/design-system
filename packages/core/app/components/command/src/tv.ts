@@ -57,6 +57,11 @@ export const commandGroupTv = tcv({
         heading: "text-white/50",
       },
     },
+    hidden: {
+      true: {
+        root: "hidden",
+      },
+    },
   },
 })
 
@@ -99,6 +104,11 @@ export const commandItemTv = tcv({
     disabled: {
       true: {
         root: "pointer-events-none",
+      },
+    },
+    hidden: {
+      true: {
+        root: "hidden",
       },
     },
   },

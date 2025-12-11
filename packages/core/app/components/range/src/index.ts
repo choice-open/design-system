@@ -1,2 +1,4 @@
-export * from "./range"
-export * from "./range-tuple"
+export { Range } from "./range"
+export { RangeTuple } from "./range-tuple"
+export type { RangeProps } from "./range"
+export type { RangeTupleProps } from "./range-tuple"

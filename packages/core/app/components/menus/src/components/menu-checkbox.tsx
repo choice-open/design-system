@@ -2,7 +2,7 @@ import { HTMLProps, memo } from "react"
 import { Check } from "@choiceform/icons-react"
 import { MenuCheckboxTv } from "../tv"
 
-interface MenuCheckboxProps extends HTMLProps<HTMLDivElement> {
+export interface MenuCheckboxProps extends HTMLProps<HTMLDivElement> {
   active?: boolean
   disabled?: boolean
   indeterminate?: boolean

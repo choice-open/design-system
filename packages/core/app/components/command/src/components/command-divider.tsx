@@ -4,7 +4,10 @@ import { useCommand, useCommandState } from "../hooks"
 import { commandTv } from "../tv"
 
 export interface CommandDividerProps extends HTMLProps<HTMLDivElement> {
-  /** 是否始终渲染此分隔符。当禁用自动过滤功能时特别有用。 */
+  /**
+   * Whether to always render this divider. Useful when automatic filtering is disabled.
+   * @default false
+   */
   alwaysRender?: boolean
 }
 

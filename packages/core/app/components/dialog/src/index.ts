@@ -1,2 +1,4 @@
-export * from "./dialog"
-export * from "./types"
+export { Dialog } from "./dialog"
+
+export type { DialogProps } from "./dialog"
+export type { DialogPosition } from "./types"

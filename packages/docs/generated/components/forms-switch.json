@@ -15,10 +15,8 @@
     }
   },
   "exports": [
-    "type SwitchLabelProps",
-    "SwitchLabel",
-    "type SwitchProps",
-    "Switch"
+    "Switch",
+    "type SwitchProps"
   ],
   "props": [
     {
@@ -34,7 +32,7 @@
       ]
     },
     {
-      "displayName": "Switch",
+      "displayName": "SwitchProps",
       "description": "",
       "props": [
         {

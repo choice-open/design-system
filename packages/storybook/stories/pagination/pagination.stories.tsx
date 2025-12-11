@@ -1,5 +1,5 @@
 import type { PaginationRootProps } from "@choice-ui/react"
-import { Pagination } from "@choice-ui/react"
+import { Button, Label, Pagination, ScrollArea } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
 
@@ -46,15 +46,6 @@ export const Default: Story = {
   render: () => <PaginationWrapper totalItems={100} />,
 }
 
-export const BasicPagination: Story = {
-  args: {
-    currentPage: 1,
-    totalItems: 100,
-    itemsPerPage: 10,
-  },
-  render: (args) => <PaginationWrapper {...args} />,
-}
-
 export const RealWorldExample: Story = {
   render: function Render() {
     const [currentPage, setCurrentPage] = useState(1)
@@ -71,17 +62,23 @@ export const RealWorldExample: Story = {
 
     return (
       <div className="w-full space-y-4">
-        <div className="rounded-lg border p-4">
-          <h3 className="mb-2 text-lg font-semibold">Data Table Example</h3>
-          <div className="mb-4 space-y-2">
-            {currentItems.map((item) => (
-              <div
-                key={item}
-                className="rounded bg-gray-50 px-3 py-2 dark:bg-gray-800"
-              >
-                {item}
-              </div>
-            ))}
+        <div className="flex flex-col gap-2">
+          <Label>Data Table Example</Label>
+          <div className="rounded-lg border">
+            <ScrollArea>
+              <ScrollArea.Viewport className="h-64 p-4">
+                <ScrollArea.Content className="space-y-2">
+                  {currentItems.map((item) => (
+                    <div
+                      key={item}
+                      className="bg-secondary-background rounded-md p-2"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </div>
         </div>
         <Pagination
@@ -111,8 +108,8 @@ export const ResponsiveExample: Story = {
 
     return (
       <div className="w-full space-y-8">
-        <div>
-          <h3 className="mb-2 text-sm font-medium">Desktop View (All Features)</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Desktop View (All Features)</Label>
           <Pagination
             currentPage={currentPage}
             totalItems={500}
@@ -127,8 +124,8 @@ export const ResponsiveExample: Story = {
           </Pagination>
         </div>
 
-        <div>
-          <h3 className="mb-2 text-sm font-medium">Mobile View (Compact)</h3>
+        <div className="flex flex-col gap-2">
+          <Label>Mobile View (Compact)</Label>
           <Pagination
             currentPage={currentPage}
             totalItems={500}
@@ -177,35 +174,34 @@ export const LoadingState: Story = {
 
     return (
       <div className="w-full space-y-4">
-        <div className="rounded-lg border p-4">
-          <div className="mb-4 flex items-center gap-4">
-            <h3 className="text-lg font-semibold">Loading State Example</h3>
-            <button
-              type="button"
-              onClick={() => setIsLoading(!isLoading)}
-              className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700"
-            >
-              Toggle Loading
-            </button>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Label className="flex-1 self-center">Loading State Example</Label>
+            <Button onClick={() => setIsLoading(!isLoading)}>Toggle Loading</Button>
           </div>
 
-          <div className="mb-4 space-y-2">
-            {isLoading ? (
-              <div className="space-y-2">
-                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-                <div className="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-              </div>
-            ) : (
-              Array.from({ length: itemsPerPage }, (_, i) => (
-                <div
-                  key={`${currentPage}-${i}`}
-                  className="rounded bg-gray-50 px-3 py-2 dark:bg-gray-800"
-                >
-                  Page {currentPage} - Item {i + 1}
-                </div>
-              ))
-            )}
+          <div className="rounded-lg border">
+            <ScrollArea>
+              <ScrollArea.Viewport className="h-64 p-4">
+                <ScrollArea.Content className="space-y-2">
+                  {isLoading ? (
+                    <div className="space-y-2">
+                      <div className="bg-secondary-background h-8 animate-pulse rounded-md" />
+                      <div className="bg-secondary-background h-8 animate-pulse rounded-md" />
+                    </div>
+                  ) : (
+                    Array.from({ length: itemsPerPage }, (_, i) => (
+                      <div
+                        key={`${currentPage}-${i}`}
+                        className="bg-secondary-background rounded-md p-2"
+                      >
+                        Page {currentPage} - Item {i + 1}
+                      </div>
+                    ))
+                  )}
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+            </ScrollArea>
           </div>
         </div>
 

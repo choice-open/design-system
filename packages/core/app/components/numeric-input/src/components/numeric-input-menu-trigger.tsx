@@ -5,7 +5,7 @@ import { forwardRef, HTMLProps } from "react"
 import { useNumericInputContext } from "../context"
 import { NumericInputMenuActionPromptTv, NumericInputMenuTriggerTv } from "../tv"
 
-interface NumericInputMenuTriggerProps extends IconButtonProps {
+export interface NumericInputMenuTriggerProps extends IconButtonProps {
   className?: string
   type?: "menu" | "action"
 }

@@ -34,11 +34,19 @@ export interface CommandProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
    * If `false`, you must conditionally render valid items based on the search query yourself.
    */
   shouldFilter?: boolean
+  /**
+   * The size of the command menu.
+   * @default "default"
+   */
   size?: "default" | "large"
   /**
    * Optional controlled state of the selected command menu item.
    */
   value?: string
+  /**
+   * The variant of the command menu.
+   * @default "default"
+   */
   variant?: "default" | "dark"
   /**
    * Set to `false` to disable ctrl+n/j/p/k shortcuts. Defaults to `true`.
@@ -54,9 +62,7 @@ export type Context = {
   item: (id: string, groupId?: string) => () => void
   label?: string
   labelId: string
-  // Ids
   listId: string
-  // Refs
   listInnerRef: React.MutableRefObject<HTMLDivElement | null>
   size?: "default" | "large"
   store: Store

@@ -3,6 +3,7 @@ import {
   autoUpdate,
   flip,
   offset,
+  safePolygon,
   shift,
   useDismiss,
   useFloating,
@@ -12,7 +13,7 @@ import {
 } from "@floating-ui/react"
 import { useMemo, useRef, useState } from "react"
 
-type HintPlacement = "left-start" | "right-start"
+type HintPlacement = "left-start" | "right-start" | "left-end" | "right-end"
 
 interface HintOptions {
   disabled?: boolean
@@ -20,6 +21,7 @@ interface HintOptions {
   onOpenChange?: (open: boolean) => void
   open?: boolean
   placement?: HintPlacement
+  delay?: number
 }
 
 interface UseHintReturn {
@@ -43,6 +45,7 @@ interface UseHintReturn {
   update: UseFloatingReturn["update"]
   x: number | null
   y: number | null
+  delay: number
 }
 
 export function useHint({
@@ -51,6 +54,7 @@ export function useHint({
   open: controlledOpen,
   onOpenChange: setControlledOpen,
   disabled = false,
+  delay = 0,
 }: HintOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen)
 
@@ -84,6 +88,12 @@ export function useHint({
   const hover = useHover(context, {
     move: false,
     enabled: !disabled,
+    delay: {
+      open: delay,
+      close: 0,
+    },
+    // 允许 hover 到 floating content 上时保持显示
+    handleClose: safePolygon(),
   })
 
   const dismiss = useDismiss(context, {
@@ -100,9 +110,10 @@ export function useHint({
       setOpen,
       arrowRef,
       disabled,
+      delay,
       ...interactions,
       ...data,
     }),
-    [open, setOpen, disabled, interactions, data],
+    [open, setOpen, disabled, interactions, data, delay],
   )
 }

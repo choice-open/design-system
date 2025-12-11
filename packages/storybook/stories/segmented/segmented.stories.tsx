@@ -313,7 +313,7 @@ export const Variants: Story = {
             </Segmented>
           </div>
           <div className="rounded-lg border bg-white p-4">
-            <div className="text-secondary-foreground mb-2">Light</div>
+            <div className="mb-2 text-gray-500">Light</div>
             <Segmented
               value={value}
               onChange={(value) => setValue(value)}
