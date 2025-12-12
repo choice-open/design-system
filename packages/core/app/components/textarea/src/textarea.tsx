@@ -15,11 +15,11 @@ import { ResizeHandle, TextareaAutosize } from "./components"
 import { TextareaTv } from "./tv"
 import type { TextareaContentProps, TextareaProps } from "./types"
 
-// 提取常量到组件外部，避免重复声明
+// Extract constants outside the component to avoid repeated allocations
 const DEFAULT_TEXTAREA_CONSTANTS = {
   lineHeight: 16,
   padding: 4, // py-1 = 4px top + 4px bottom
-  border: 0, // border 已经包含在 box-sizing 中
+  border: 0, // border is already included in box-sizing
 } as const
 
 // Content component for compound pattern
@@ -80,14 +80,14 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const [isDragging, setIsDragging] = useState(false)
     const [viewportHeight, setViewportHeight] = useState<number>()
 
-    // 添加依赖数组
+    // Use an explicit dependency array
     useImperativeHandle(ref, () => textareaRef.current!, [])
 
     useUnmount(() => {
       onIsEditingChange?.(false)
     })
 
-    // 使用 useMemo 缓存样式计算
+    // Memoize styles to reduce recalculations
     const tx = useMemo(() => {
       return TextareaTv({ variant, selected, disabled, readOnly, resize, isDragging })
     }, [variant, selected, disabled, readOnly, resize, isDragging])
@@ -159,21 +159,21 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       ],
     )
 
-    // 使用提取的常量
+    // Use extracted constants
     const heightConstraints = useMemo(() => {
-      // padding * 2 因为是上下两边
+      // padding * 2 because it applies to both top and bottom
       const minHeight = minRows ? minRows * lineHeight + padding * 2 : undefined
       const maxHeight = maxRows ? maxRows * lineHeight + padding * 2 : undefined
 
       return { minHeight, maxHeight }
     }, [minRows, maxRows, lineHeight, padding])
 
-    // TextareaAutosize props (用于 resize="auto")
+    // TextareaAutosize props (for resize="auto")
     const textareaAutosizeProps = useMemo(
       () => ({
         ...baseTextareaProps,
         minRows,
-        maxRows: undefined, // 在 ScrollArea 中不限制 maxRows
+        maxRows: undefined, // Do not constrain maxRows inside ScrollArea
         style: {
           lineHeight: `${lineHeight}px`,
           padding: `${padding}px`,
@@ -184,7 +184,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const containerClasses = useMemo(() => tcx(tx.container(), className), [tx, className])
 
-    // 简化拖拽处理逻辑
+    // Simplify drag handling
     const handleMouseDown = useEventCallback((e: React.MouseEvent) => {
       if (resize !== "handle" || disabled || readOnly) return
 
@@ -198,7 +198,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
         const deltaY = e.clientY - startY
         let newHeight = startHeight + deltaY
 
-        // 应用 minRows 和 maxRows 约束
+        // Apply minRows / maxRows constraints
         if (heightConstraints.minHeight) {
           newHeight = Math.max(newHeight, heightConstraints.minHeight)
         }
@@ -219,7 +219,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       document.addEventListener("mouseup", handleMouseUp)
     })
 
-    // 简化 ScrollArea viewport 样式计算
+    // Simplify ScrollArea viewport style calculation
     const viewportStyle = useMemo(() => {
       if (resize === "auto") {
         return heightConstraints.maxHeight
@@ -240,7 +240,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       return undefined
     }, [resize, heightConstraints, rest.rows, viewportHeight, lineHeight, padding])
 
-    // 使用 useMemo 缓存 ScrollArea.Content 的样式
+    // Memoize ScrollArea.Content style
     const contentStyle = useMemo(
       () => ({
         minHeight: viewportHeight || heightConstraints.minHeight,
@@ -248,7 +248,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       [viewportHeight, heightConstraints.minHeight],
     )
 
-    // 使用 ref 来管理 body cursor，避免频繁 DOM 操作
+    // Use a ref to manage body cursor to avoid frequent DOM access
     const bodyRef = useRef<HTMLElement>()
     useEffect(() => {
       if (!bodyRef.current) {
@@ -258,7 +258,7 @@ const TextareaBase = forwardRef<HTMLTextAreaElement, TextareaProps>(
       bodyRef.current.style.cursor = isDragging ? "ns-resize" : ""
     }, [isDragging])
 
-    // 清理事件监听器
+    // Cleanup side effects
     useEffect(() => {
       return () => {
         if (bodyRef.current) {

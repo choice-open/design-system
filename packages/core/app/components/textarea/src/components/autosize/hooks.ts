@@ -2,14 +2,12 @@ import React from "react"
 import { isBrowser } from "./utils"
 import { useIsomorphicLayoutEffect } from "usehooks-ts"
 
-// 简化的 useLatest hook
 function useLatest<T>(value: T): React.MutableRefObject<T> {
   const ref = React.useRef(value)
   ref.current = value
   return ref
 }
 
-// 简化的 useComposedRef hook
 export function useComposedRef<T>(
   libRef: React.MutableRefObject<T | null>,
   userRef: React.Ref<T>,
@@ -49,7 +47,7 @@ function useListener<TTarget extends EventTarget, TType extends InferEventType<T
   const latestListener = useLatest(listener)
 
   useIsomorphicLayoutEffect(() => {
-    // SSR 保护
+    // SSR guard
     if (!isBrowser || !target) {
       return
     }
@@ -62,11 +60,11 @@ function useListener<TTarget extends EventTarget, TType extends InferEventType<T
         try {
           target.removeEventListener(type, handler)
         } catch (error) {
-          // 静默处理清理错误，可能目标已被销毁
+          // Silently ignore cleanup errors (target may have been disposed)
         }
       }
     } catch (error) {
-      // 静默处理错误
+      // Silently ignore errors
       return
     }
   }, [target, type, latestListener])
@@ -98,7 +96,7 @@ export const useFontsLoadedListener = (listener: (event: Event) => void) => {
       try {
         listener(event)
       } catch (error) {
-        // 静默处理错误
+        // Silently ignore errors
       }
     },
     [listener],

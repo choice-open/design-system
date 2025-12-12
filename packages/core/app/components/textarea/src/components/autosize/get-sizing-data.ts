@@ -38,12 +38,12 @@ export type SizingData = {
   sizingStyle: SizingStyle
 }
 
-// SSR 安全的 IE 检测
+// SSR-safe IE detection
 const isIE = isBrowser
   ? !!(document.documentElement as Element & { currentStyle?: unknown }).currentStyle
   : false
 
-// 安全的 parseFloat，带有默认值
+// Safe parseFloat with a default fallback
 const safeParseFloat = (value: string | null | undefined, defaultValue = 0): number => {
   if (!value) return defaultValue
   const parsed = parseFloat(value)
@@ -51,22 +51,22 @@ const safeParseFloat = (value: string | null | undefined, defaultValue = 0): num
 }
 
 const getSizingData = (node: HTMLElement): SizingData | null => {
-  // SSR 保护
+  // SSR guard
   if (!isBrowser || !window?.getComputedStyle) {
     return null
   }
 
   try {
-    // 检查元素是否在 DOM 中且可见
+    // Ensure the element is connected to the DOM
     if (!node.isConnected) {
       return null
     }
 
-    // 检查元素是否有尺寸（避免在隐藏的 popover/dialog 中计算）
+    // Check if the element has a size (avoid measuring in hidden popover/dialog)
     const rect = node.getBoundingClientRect()
     if (rect.width === 0 && rect.height === 0) {
-      // 元素可能被隐藏，但我们仍然尝试获取样式
-      // 因为某些情况下元素可能有 display: none 但仍需要计算
+      // The element may be hidden, but we still try to read computed styles.
+      // In some cases it can be display:none while sizing is still needed.
     }
 
     const style = window.getComputedStyle(node)
@@ -112,7 +112,7 @@ const getSizingData = (node: HTMLElement): SizingData | null => {
       borderSize: Math.max(borderSize, 0),
     }
   } catch (error) {
-    // 错误降级
+    // Fallback on error
     return null
   }
 }

@@ -4,7 +4,7 @@ import type { SizingData } from "./get-sizing-data"
 
 export type CalculatedNodeHeights = [height: number, rowHeight: number]
 
-// 使用 WeakMap 来管理隐藏元素，避免内存泄漏
+// Use WeakMap to cache hidden elements and avoid memory leaks
 const hiddenTextareaCache = new WeakMap<Document, HTMLTextAreaElement>()
 
 const getOrCreateHiddenTextarea = (): HTMLTextAreaElement | null => {
@@ -43,25 +43,25 @@ export default function calculateNodeHeight(
   minRows = 1,
   maxRows = Infinity,
 ): CalculatedNodeHeights {
-  // SSR 保护：在服务端返回估算值
+  // SSR guard: return an estimated value on the server
   if (!isBrowser || !document?.createElement) {
     const estimatedRowHeight = 20
     const estimatedHeight = Math.max(estimatedRowHeight * minRows, estimatedRowHeight)
     return [estimatedHeight, estimatedRowHeight]
   }
 
-  // 边界值检查
+  // Clamp inputs
   if (minRows < 1) minRows = 1
   if (maxRows < minRows) maxRows = minRows
 
   const hiddenTextarea = getOrCreateHiddenTextarea()
   if (!hiddenTextarea) {
-    // 降级处理
+    // Fallback
     const fallbackRowHeight = 16
     return [fallbackRowHeight * minRows, fallbackRowHeight]
   }
 
-  // 确保元素在 DOM 中
+  // Ensure the element is attached to the DOM
   if (hiddenTextarea.parentNode === null) {
     document.body.appendChild(hiddenTextarea)
   }
@@ -70,7 +70,7 @@ export default function calculateNodeHeight(
   const { boxSizing } = sizingStyle
 
   try {
-    // 应用样式
+    // Apply sizing styles
     Object.keys(sizingStyle).forEach((_key) => {
       const key = _key as keyof typeof sizingStyle
       const value = sizingStyle[key]
@@ -81,26 +81,26 @@ export default function calculateNodeHeight(
 
     forceHiddenStyles(hiddenTextarea)
 
-    // 设置值并测量
+    // Set value and measure
     hiddenTextarea.value = value || "x"
     let height = getHeight(hiddenTextarea, sizingData)
 
-    // Firefox bug 修复：双重设置
+    // Firefox bug workaround: set twice
     hiddenTextarea.value = value || "x"
     height = getHeight(hiddenTextarea, sizingData)
 
-    // 测量单行高度
+    // Measure single row height
     hiddenTextarea.value = "x"
     const rowHeight = Math.max(hiddenTextarea.scrollHeight - paddingSize, 1)
 
-    // 计算最小高度
+    // Compute min height
     let minHeight = rowHeight * minRows
     if (boxSizing === "border-box") {
       minHeight = minHeight + paddingSize + borderSize
     }
     height = Math.max(minHeight, height)
 
-    // 计算最大高度
+    // Compute max height
     if (maxRows !== Infinity) {
       let maxHeight = rowHeight * maxRows
       if (boxSizing === "border-box") {
@@ -111,13 +111,13 @@ export default function calculateNodeHeight(
 
     return [Math.max(height, 1), Math.max(rowHeight, 1)]
   } catch (error) {
-    // 错误降级
+    // Fallback on error
     const fallbackRowHeight = 16
     return [fallbackRowHeight * minRows, fallbackRowHeight]
   }
 }
 
-// 清理函数，用于测试或特殊情况
+// Cleanup helper (for tests or special cases)
 export const cleanupHiddenTextarea = (): void => {
   if (!isBrowser) return
 
