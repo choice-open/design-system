@@ -18,14 +18,11 @@
     }
   },
   "exports": [
-    "type AlertDialogProps",
     "AlertDialog",
-    "AlertDialogContext",
+    "type AlertDialogProps",
     "AlertDialogProvider",
-    "useAlertDialogContext",
     "useAlertDialog",
-    "useAlertDialogProvider",
-    "type UseAlertDialogReturn"
+    "useAlertDialogProvider"
   ],
   "props": [
     {

@@ -1,15 +1,6 @@
 import { Check, ChevronRightSmall } from "@choiceform/icons-react"
 import { useFloatingTree, useListItem } from "@floating-ui/react"
-import {
-  forwardRef,
-  memo,
-  startTransition,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react"
+import { forwardRef, memo, startTransition, useCallback, useContext, useMemo, useRef } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { MenuItem, MenuItemProps } from "../components/menu-item"
 import { MenuContext } from "./menu-context"
@@ -42,28 +33,6 @@ export const MenuContextSubTrigger = memo(
       () => item.index === menu.activeIndex || !!active,
       [item.index, menu.activeIndex, active],
     )
-
-    // 优化：减少事件监听器重复绑定，将激活状态检查移到事件处理器内部
-    useEffect(() => {
-      const currentRef = buttonRef.current
-      if (!currentRef) return
-
-      const handleKeyDown = (e: KeyboardEvent) => {
-        // 将激活状态检查移到事件处理器内部，避免重复绑定
-        const currentlyActive = item.index === menu.activeIndex || !!active
-        if (currentlyActive && (e.key === "Enter" || e.key === "ArrowRight")) {
-          e.preventDefault()
-          e.stopPropagation()
-          // 直接调用 click() 方法，避免创建 MouseEvent
-          currentRef.click()
-        }
-      }
-
-      currentRef.addEventListener("keydown", handleKeyDown)
-      return () => {
-        currentRef.removeEventListener("keydown", handleKeyDown)
-      }
-    }, [item.index, menu.activeIndex, active]) // 依赖具体值而不是计算结果
 
     const handleFocus = useEventCallback((event: React.FocusEvent<HTMLButtonElement>) => {
       props.onFocus?.(event)
@@ -143,6 +112,7 @@ export const MenuContextSubTrigger = memo(
         selected={selected}
         suffixElement={suffixElement}
         prefixElement={prefixConfig}
+        aria-haspopup="menu"
         {...menu.getItemProps({
           ...rest,
           // 在 selection 模式下，如果 selected 属性存在（说明是可选的），则使用 handleClick 关闭菜单

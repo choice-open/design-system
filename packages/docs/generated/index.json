@@ -321,6 +321,13 @@
       "version": "0.0.3"
     },
     {
+      "slug": "collections/menubar",
+      "name": "@choice-ui/menubar",
+      "title": "Menubar",
+      "description": "子元素",
+      "version": "0.0.1"
+    },
+    {
       "slug": "collections/menus",
       "name": "@choice-ui/menus",
       "title": "Menus",
@@ -497,6 +504,13 @@
       ]
     },
     {
+      "slug": "layouts/separator",
+      "name": "@choice-ui/separator",
+      "title": "Separator",
+      "description": "分隔符的方向",
+      "version": "0.0.1"
+    },
+    {
       "slug": "components/skeleton",
       "name": "@choice-ui/skeleton",
       "title": "skeleton",
@@ -644,7 +658,10 @@
       "name": "@choice-ui/toggle-button",
       "title": "ToggleButton",
       "description": "",
-      "version": "0.0.4"
+      "version": "0.0.5",
+      "tags": [
+        "upgrade"
+      ]
     },
     {
       "slug": "feedback/tooltip",

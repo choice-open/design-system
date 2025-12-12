@@ -28,36 +28,38 @@ import * as StoryModule38 from "../../storybook/stories/list/list.stories"
 import * as StoryModule39 from "../../storybook/stories/loader/loader.stories"
 import * as StoryModule40 from "../../storybook/stories/md-input/md-input.stories"
 import * as StoryModule41 from "../../storybook/stories/md-render/md-render.stories"
-import * as StoryModule42 from "../../storybook/stories/menus/menus.stories"
-import * as StoryModule43 from "../../storybook/stories/modal/modal.stories"
-import * as StoryModule44 from "../../storybook/stories/multi-select/multi-select.stories"
-import * as StoryModule45 from "../../storybook/stories/notifications/notifications.stories"
-import * as StoryModule46 from "../../storybook/stories/numeric-input/numeric-input.stories"
-import * as StoryModule47 from "../../storybook/stories/pagination/pagination.stories"
-import * as StoryModule51 from "../../storybook/stories/picture-preview/picture-preview.stories"
-import * as StoryModule52 from "../../storybook/stories/popover/popover.stories"
-import * as StoryModule53 from "../../storybook/stories/progress-bar/progress-bar.stories"
-import * as StoryModule54 from "../../storybook/stories/progress-circle/progress-circle.stories"
-import * as StoryModule55 from "../../storybook/stories/radio/radio.stories"
-import * as StoryModule56 from "../../storybook/stories/range/range.stories"
-import * as StoryModule57 from "../../storybook/stories/rich-input/rich-input.stories"
-import * as StoryModule58 from "../../storybook/stories/scroll-area/scroll-area.stories"
-import * as StoryModule59 from "../../storybook/stories/search-input/search-input.stories"
-import * as StoryModule60 from "../../storybook/stories/segmented/segmented.stories"
-import * as StoryModule61 from "../../storybook/stories/select/select.stories"
-import * as StoryModule65 from "../../storybook/stories/skeleton/skeleton.stories"
-import * as StoryModule66 from "../../storybook/stories/slot/slot.stories"
-import * as StoryModule69 from "../../storybook/stories/splitter/splitter.stories"
-import * as StoryModule70 from "../../storybook/stories/spring-visualizer/spring-visualizer.stories"
-import * as StoryModule71 from "../../storybook/stories/stackflow/stackflow.stories"
-import * as StoryModule72 from "../../storybook/stories/switch/switch.stories"
-import * as StoryModule73 from "../../storybook/stories/tabs/tabs.stories"
-import * as StoryModule74 from "../../storybook/stories/text-field/text-field.stories"
-import * as StoryModule75 from "../../storybook/stories/textarea/textarea.stories"
-import * as StoryModule76 from "../../storybook/stories/toggle-button/toggle-button.stories"
-import * as StoryModule77 from "../../storybook/stories/tooltip/tooltip.stories"
-import * as StoryModule78 from "../../storybook/stories/tree-list/tree-list.stories"
-import * as StoryModule79 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
+import * as StoryModule42 from "../../storybook/stories/menubar/menubar.stories"
+import * as StoryModule43 from "../../storybook/stories/menus/menus.stories"
+import * as StoryModule44 from "../../storybook/stories/modal/modal.stories"
+import * as StoryModule45 from "../../storybook/stories/multi-select/multi-select.stories"
+import * as StoryModule46 from "../../storybook/stories/notifications/notifications.stories"
+import * as StoryModule47 from "../../storybook/stories/numeric-input/numeric-input.stories"
+import * as StoryModule48 from "../../storybook/stories/pagination/pagination.stories"
+import * as StoryModule52 from "../../storybook/stories/picture-preview/picture-preview.stories"
+import * as StoryModule53 from "../../storybook/stories/popover/popover.stories"
+import * as StoryModule54 from "../../storybook/stories/progress-bar/progress-bar.stories"
+import * as StoryModule55 from "../../storybook/stories/progress-circle/progress-circle.stories"
+import * as StoryModule56 from "../../storybook/stories/radio/radio.stories"
+import * as StoryModule57 from "../../storybook/stories/range/range.stories"
+import * as StoryModule58 from "../../storybook/stories/rich-input/rich-input.stories"
+import * as StoryModule59 from "../../storybook/stories/scroll-area/scroll-area.stories"
+import * as StoryModule60 from "../../storybook/stories/search-input/search-input.stories"
+import * as StoryModule61 from "../../storybook/stories/segmented/segmented.stories"
+import * as StoryModule62 from "../../storybook/stories/select/select.stories"
+import * as StoryModule63 from "../../storybook/stories/separator/separator.stories"
+import * as StoryModule67 from "../../storybook/stories/skeleton/skeleton.stories"
+import * as StoryModule68 from "../../storybook/stories/slot/slot.stories"
+import * as StoryModule71 from "../../storybook/stories/splitter/splitter.stories"
+import * as StoryModule72 from "../../storybook/stories/spring-visualizer/spring-visualizer.stories"
+import * as StoryModule73 from "../../storybook/stories/stackflow/stackflow.stories"
+import * as StoryModule74 from "../../storybook/stories/switch/switch.stories"
+import * as StoryModule75 from "../../storybook/stories/tabs/tabs.stories"
+import * as StoryModule76 from "../../storybook/stories/text-field/text-field.stories"
+import * as StoryModule77 from "../../storybook/stories/textarea/textarea.stories"
+import * as StoryModule78 from "../../storybook/stories/toggle-button/toggle-button.stories"
+import * as StoryModule79 from "../../storybook/stories/tooltip/tooltip.stories"
+import * as StoryModule80 from "../../storybook/stories/tree-list/tree-list.stories"
+import * as StoryModule81 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
 
 export const storyRegistry: Record<string, Record<string, unknown>> = {
   "overlays/alert-dialog": StoryModule0,
@@ -90,34 +92,36 @@ export const storyRegistry: Record<string, Record<string, unknown>> = {
   "layouts/loader": StoryModule39,
   "forms/md-input": StoryModule40,
   "components/md-render": StoryModule41,
-  "collections/menus": StoryModule42,
-  "overlays/modal": StoryModule43,
-  "collections/multi-select": StoryModule44,
-  "status/notifications": StoryModule45,
-  "forms/numeric-input": StoryModule46,
-  "navigation/pagination": StoryModule47,
-  "data-display/picture-preview": StoryModule51,
-  "overlays/popover": StoryModule52,
-  "feedback/progress-bar": StoryModule53,
-  "feedback/progress-circle": StoryModule54,
-  "forms/radio": StoryModule55,
-  "forms/range": StoryModule56,
-  "forms/rich-input": StoryModule57,
-  "layouts/scroll-area": StoryModule58,
-  "forms/search-input": StoryModule59,
-  "buttons/segmented": StoryModule60,
-  "collections/select": StoryModule61,
-  "components/skeleton": StoryModule65,
-  "utils/slot": StoryModule66,
-  "layouts/splitter": StoryModule69,
-  "utilities/spring-visualizer": StoryModule70,
-  "navigation/stackflow": StoryModule71,
-  "forms/switch": StoryModule72,
-  "navigation/tabs": StoryModule73,
-  "forms/text-field": StoryModule74,
-  "forms/textarea": StoryModule75,
-  "buttons/toggle-button": StoryModule76,
-  "feedback/tooltip": StoryModule77,
-  "components/tree-list": StoryModule78,
-  "utilities/virtualized-grid": StoryModule79,
+  "collections/menubar": StoryModule42,
+  "collections/menus": StoryModule43,
+  "overlays/modal": StoryModule44,
+  "collections/multi-select": StoryModule45,
+  "status/notifications": StoryModule46,
+  "forms/numeric-input": StoryModule47,
+  "navigation/pagination": StoryModule48,
+  "data-display/picture-preview": StoryModule52,
+  "overlays/popover": StoryModule53,
+  "feedback/progress-bar": StoryModule54,
+  "feedback/progress-circle": StoryModule55,
+  "forms/radio": StoryModule56,
+  "forms/range": StoryModule57,
+  "forms/rich-input": StoryModule58,
+  "layouts/scroll-area": StoryModule59,
+  "forms/search-input": StoryModule60,
+  "buttons/segmented": StoryModule61,
+  "collections/select": StoryModule62,
+  "layouts/separator": StoryModule63,
+  "components/skeleton": StoryModule67,
+  "utils/slot": StoryModule68,
+  "layouts/splitter": StoryModule71,
+  "utilities/spring-visualizer": StoryModule72,
+  "navigation/stackflow": StoryModule73,
+  "forms/switch": StoryModule74,
+  "navigation/tabs": StoryModule75,
+  "forms/text-field": StoryModule76,
+  "forms/textarea": StoryModule77,
+  "buttons/toggle-button": StoryModule78,
+  "feedback/tooltip": StoryModule79,
+  "components/tree-list": StoryModule80,
+  "utilities/virtualized-grid": StoryModule81,
 }

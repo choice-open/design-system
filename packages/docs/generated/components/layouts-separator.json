@@ -1,0 +1,99 @@
+{
+  "slug": "layouts/separator",
+  "title": "Separator",
+  "package": {
+    "name": "@choice-ui/separator",
+    "version": "0.0.1",
+    "description": "Separator component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/shared": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Separator",
+    "type SeparatorProps",
+    "type SeparatorOrientation"
+  ],
+  "props": [
+    {
+      "displayName": "SeparatorProps",
+      "description": "Separator - 分隔符组件\n\n用于在内容之间创建视觉分隔，支持水平和垂直两种方向。\n对屏幕阅读器友好，使用正确的 ARIA 属性。",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "undefined | \"horizontal\" | \"vertical\"",
+          "required": false,
+          "defaultValue": "\"horizontal\"",
+          "description": "分隔符的方向"
+        },
+        {
+          "name": "decorative",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "false",
+          "description": "是否为装饰性分隔符（不需要被屏幕阅读器读取）"
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"light\" | \"dark\" | \"reset\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ref",
+          "type": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "layouts-separator--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Separator is a visual divider used to separate content sections.\n\nFeatures:\n- Supports horizontal (default) and vertical orientations\n- Accessible to screen readers with proper ARIA attributes\n- Decorative mode available for purely visual separators\n- Minimal styling that integrates with design system\n\nUsage:\n- Use between content sections to create visual hierarchy\n- Horizontal separators work well between stacked content\n- Vertical separators work well between inline or flex items\n- Use `decorative` prop when separator is purely visual\n\nAccessibility:\n- Uses `role=\"separator\"` for semantic meaning\n- Includes `aria-orientation` for screen readers\n- Decorative separators use `role=\"none\"` to be ignored by assistive technology\nBasic: Default horizontal separator.\n\nThe most common use case - a simple horizontal line that divides content vertically.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"w-80\">\n      <div className=\"py-4\">Content above</div>\n      <Separator />\n      <div className=\"py-4\">Content below</div>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-separator--horizontal",
+      "name": "Horizontal",
+      "exportName": "Horizontal",
+      "description": "Horizontal: Demonstrates horizontal separator usage in a list context.\n\nHorizontal separators are useful for dividing stacked items like\nnavigation links, menu items, or content sections.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"border-default-boundary w-64 rounded-lg border p-4\">\n      <div className=\"space-y-3\">\n        <a\n          href=\"#\"\n          className=\"text-default-foreground hover:text-accent-foreground block\"\n        >\n          Home\n        </a>\n        <a\n          href=\"#\"\n          className=\"text-default-foreground hover:text-accent-foreground block\"\n        >\n          Pricing\n        </a>\n        <a\n          href=\"#\"\n          className=\"text-default-foreground hover:text-accent-foreground block\"\n        >\n          Blog\n        </a>\n        <Separator className=\"my-3\" />\n        <a\n          href=\"#\"\n          className=\"text-default-foreground hover:text-accent-foreground block\"\n        >\n          Log in\n        </a>\n        <a\n          href=\"#\"\n          className=\"text-default-foreground hover:text-accent-foreground block\"\n        >\n          Sign up\n        </a>\n      </div>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-separator--vertical",
+      "name": "Vertical",
+      "exportName": "Vertical",
+      "description": "Vertical: Demonstrates vertical separator in a navigation bar.\n\nVertical separators are ideal for dividing inline content like\nnavigation links, toolbar buttons, or horizontal lists.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"border-default-boundary flex h-8 items-center gap-4 rounded-lg border px-4\">\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Home\n      </a>\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Pricing\n      </a>\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Blog\n      </a>\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Support\n      </a>\n\n      <Separator orientation=\"vertical\" />\n\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Log in\n      </a>\n      <a\n        href=\"#\"\n        className=\"text-default-foreground hover:text-accent-foreground\"\n      >\n        Sign up\n      </a>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-separator--decorative",
+      "name": "Decorative",
+      "exportName": "Decorative",
+      "description": "Decorative: Separator that is ignored by screen readers.\n\nUse the `decorative` prop when the separator is purely visual and\ndoesn't convey any semantic meaning to users.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"w-80\">\n      <p className=\"text-secondary-foreground\">\n        This separator is decorative and will be ignored by screen readers.\n      </p>\n      <Separator\n        decorative\n        className=\"my-4\"\n      />\n      <p className=\"text-secondary-foreground\">\n        Use decorative separators when the visual break doesn&apos;t convey semantic meaning.\n      </p>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-separator--custom-styling",
+      "name": "Custom Styling",
+      "exportName": "CustomStyling",
+      "description": "CustomStyling: Demonstrates custom styling options.\n\nThe separator accepts className for custom styling. You can modify\nthickness, color, margins, and other CSS properties.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"flex flex-col gap-8\">\n      <div>\n        <p className=\"text-secondary-foreground mb-2\">Default</p>\n        <Separator />\n      </div>\n\n      <div>\n        <p className=\"text-secondary-foreground mb-2\">Custom color</p>\n        <Separator className=\"bg-accent-background\" />\n      </div>\n\n      <div>\n        <p className=\"text-secondary-foreground mb-2\">Thicker</p>\n        <Separator className=\"h-0.5\" />\n      </div>\n\n      <div>\n        <p className=\"text-secondary-foreground mb-2\">Dashed (via gradient)</p>\n        <Separator className=\"h-px bg-[repeating-linear-gradient(90deg,var(--color-default-boundary)_0,var(--color-default-boundary)_4px,transparent_4px,transparent_8px)]\" />\n      </div>\n\n      <div>\n        <p className=\"text-secondary-foreground mb-2\">With margin</p>\n        <Separator className=\"my-4\" />\n      </div>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-separator--in-card",
+      "name": "In Card",
+      "exportName": "InCard",
+      "description": "InCard: Separator used within a card component.\n\nA common pattern is using separators to divide card sections\nlike header, body, and footer.",
+      "source": "import { Separator } from \"@choice-ui/separator\"\n\nexport default function App() {\n\n  return (\n    <div className=\"border-default-boundary bg-default-background w-80 rounded-xl border shadow-sm\">\n      <div className=\"p-4\">\n        <h3 className=\"text-default-foreground font-semibold\">Card Title</h3>\n        <p className=\"text-secondary-foreground text-sm\">Card subtitle or description</p>\n      </div>\n      <Separator />\n      <div className=\"p-4\">\n        <p className=\"text-default-foreground\">\n          This is the main content area of the card. It can contain any content you need.\n        </p>\n      </div>\n      <Separator />\n      <div className=\"flex justify-end gap-2 p-4\">\n        <button className=\"text-secondary-foreground hover:bg-default-boundary rounded-md px-3 py-1.5 text-sm\">\n          Cancel\n        </button>\n        <button className=\"bg-accent-background text-on-accent-foreground rounded-md px-3 py-1.5 text-sm\">\n          Confirm\n        </button>\n      </div>\n    </div>\n  )\n\n}"
+    }
+  ]
+}

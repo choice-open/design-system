@@ -1648,6 +1648,49 @@ importers:
         specifier: ^5.5.3
         version: 5.9.3
 
+  packages/core/app/components/menubar:
+    dependencies:
+      '@choice-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@choice-ui/dropdown':
+        specifier: workspace:*
+        version: link:../dropdown
+      '@choice-ui/menus':
+        specifier: workspace:*
+        version: link:../menus
+      '@choice-ui/shared':
+        specifier: workspace:*
+        version: link:../../../../shared
+      '@floating-ui/react':
+        specifier: 0.27.15
+        version: 0.27.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      usehooks-ts:
+        specifier: ^3.1.1
+        version: 3.1.1(react@18.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.27
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.7(@types/react@18.3.27)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.1.2
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.1(@microsoft/api-extractor@7.55.2(@types/node@22.19.2))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: ^5.5.3
+        version: 5.9.3
+
   packages/core/app/components/menus:
     dependencies:
       '@choice-ui/button':
@@ -2323,6 +2366,34 @@ importers:
       usehooks-ts:
         specifier: ^3.1.0
         version: 3.1.1(react@18.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.27
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.7(@types/react@18.3.27)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.1.2
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.1(@microsoft/api-extractor@7.55.2(@types/node@22.19.2))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: ^5.5.3
+        version: 5.9.3
+
+  packages/core/app/components/separator:
+    dependencies:
+      '@choice-ui/shared':
+        specifier: workspace:*
+        version: link:../../../../shared
     devDependencies:
       '@types/react':
         specifier: ^18.3.12

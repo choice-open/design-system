@@ -1,0 +1,302 @@
+{
+  "slug": "collections/menubar",
+  "title": "Menubar",
+  "package": {
+    "name": "@choice-ui/menubar",
+    "version": "0.0.1",
+    "description": "Menubar component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/button": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/dropdown": "workspace:*",
+      "@choice-ui/menus": "workspace:*",
+      "@floating-ui/react": "0.27.15",
+      "usehooks-ts": "^3.1.1"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Menubar",
+    "type MenubarProps",
+    "type MenubarItemProps",
+    "type MenubarTriggerProps"
+  ],
+  "props": [
+    {
+      "displayName": "MenubarProps",
+      "description": "",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Child elements"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether the menubar is disabled"
+        },
+        {
+          "name": "loopFocus",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to loop focus when navigating"
+        },
+        {
+          "name": "dropdownProps",
+          "type": "MenubarDropdownProps | undefined",
+          "required": false,
+          "description": "Props to pass to all Dropdown components"
+        }
+      ]
+    },
+    {
+      "displayName": "MenubarDivider",
+      "description": "MenubarDivider - Separator component for Menubar\n\nUsed to create visual separation between Menubar items",
+      "props": [
+        {
+          "name": "ref",
+          "type": "((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "MenubarItemProps",
+      "description": "",
+      "props": [
+        {
+          "name": "placement",
+          "type": "undefined | \"top\" | \"right\" | \"bottom\" | \"left\" | \"top-start\" | \"top-end\" | \"right-start\" | \"right-end\" | \"bottom-start\" | \"bottom-end\" | \"left-start\" | \"left-end\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"light\" | \"reset\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "autoSelectFirstItem",
+          "type": "boolean | undefined",
+          "required": false,
+          "defaultValue": "true",
+          "description": "Whether to automatically select the first item in coordinate mode."
+        },
+        {
+          "name": "disabledNested",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focusManagerProps",
+          "type": "Partial<FloatingFocusManagerProps> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchTriggerWidth",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "offset",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "portalId",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "position",
+          "type": "{ x: number; y: number; } | null | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | null | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "selection",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "triggerRef",
+          "type": "RefObject<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "triggerSelector",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "MenubarTriggerProps",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "undefined | \"default\" | \"large\"",
+          "required": false,
+          "defaultValue": "\"default\"",
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "active",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "focused",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "tooltip",
+          "type": "TooltipProps | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"link\" | \"reset\" | \"primary\" | \"secondary\" | \"solid\" | \"destructive\" | \"secondary-destruct\" | \"inverse\" | \"success\" | \"link-danger\" | \"ghost\" | \"dark\"",
+          "required": false,
+          "defaultValue": "\"primary\"",
+          "description": ""
+        },
+        {
+          "name": "prefixElement",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "suffixElement",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "ref",
+          "type": "((instance: HTMLButtonElement | null) => void) | RefObject<HTMLButtonElement> | null | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "collections-menubar--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic: The simplest usage of Menubar.\n\nFeatures:\n- Horizontal menu bar layout\n- Click to open menu, hover to switch after opening\n- Standard menu items and dividers\n- Icon-only trigger support\n- Mutually exclusive menu opening (only one open at a time)\n\nUse cases:\n- Application main menu bar\n- Navigation menus\n- Command menus",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <Menubar className=\"rounded-lg border p-1\">\n      <Menubar.Item>\n        <Menubar.Trigger>File</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>New</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Open</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Print</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>Edit</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Cut</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Copy</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Paste</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom In</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom Out</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Full Screen</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Divider />\n\n      <Menubar.Item>\n        <Menubar.Trigger className=\"w-6 justify-center px-0\">\n          <EllipsisVerticalSmall />\n        </Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Print</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Full Screen</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n    </Menubar>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--light",
+      "name": "Light",
+      "exportName": "Light",
+      "description": "Light: Demonstrates Menubar with light variant.\n\nFeatures:\n- Light background styling for dropdown content\n- Suitable for dark backgrounds or specific design contexts\n- All functionality remains the same as default variant\n\nUse cases:\n- Menus on dark backgrounds\n- Alternative visual styling\n- Design system consistency",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <Menubar\n      dropdownProps={{ variant: \"light\" }}\n      className=\"rounded-lg border p-1\"\n    >\n      <Menubar.Item>\n        <Menubar.Trigger>File</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>New</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Open</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Print</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>Edit</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Cut</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Copy</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Paste</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom In</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom Out</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Full Screen</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>Help</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Documentation</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>About</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n    </Menubar>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--offset",
+      "name": "Offset",
+      "exportName": "Offset",
+      "description": "Offset: Demonstrates Menubar with custom dropdown offset.\n\nFeatures:\n- Custom spacing between trigger and dropdown\n- Configurable via dropdownProps.offset\n- Default offset is 4px\n\nUse cases:\n- Adjusting visual spacing\n- Accommodating different design requirements\n- Creating visual hierarchy",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <div className=\"flex gap-8\">\n      <div className=\"flex flex-col gap-2\">\n        <Label>offset: 0</Label>\n        <Menubar\n          dropdownProps={{ offset: 0 }}\n          className=\"rounded-lg border p-1\"\n        >\n          <Menubar.Item>\n            <Menubar.Trigger>File</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>New</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Open</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n          <Menubar.Item>\n            <Menubar.Trigger>Edit</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>Cut</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Copy</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n        </Menubar>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <Label>offset: 8</Label>\n        <Menubar\n          dropdownProps={{ offset: 8 }}\n          className=\"rounded-lg border p-1\"\n        >\n          <Menubar.Item>\n            <Menubar.Trigger>File</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>New</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Open</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n          <Menubar.Item>\n            <Menubar.Trigger>Edit</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>Cut</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Copy</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n        </Menubar>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <Label>offset: 16</Label>\n        <Menubar\n          dropdownProps={{ offset: 16 }}\n          className=\"rounded-lg border p-1\"\n        >\n          <Menubar.Item>\n            <Menubar.Trigger>File</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>New</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Open</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n          <Menubar.Item>\n            <Menubar.Trigger>Edit</Menubar.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>Cut</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Copy</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Menubar.Item>\n        </Menubar>\n      </div>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--with-icons",
+      "name": "With Icons",
+      "exportName": "WithIcons",
+      "description": "WithIcons: Demonstrates Menubar with icons.\n\nFeatures:\n- Icons in Trigger using prefixElement\n- Consistent menu item styling\n- Visual recognition enhancement\n- Mixed icon and text triggers\n\nUse cases:\n- Application menus with visual indicators\n- Toolbar-style menus\n- Enhanced user experience",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <Menubar className=\"rounded-lg border p-1\">\n      <Menubar.Item>\n        <Menubar.Trigger prefixElement={<File />}>File</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>New File</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Open File</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger prefixElement={<Edit />}>Edit</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Undo</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Redo</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Find</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Editor Layout</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Appearance</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>Help</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Documentation</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Keyboard Shortcuts</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n    </Menubar>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--with-submenus",
+      "name": "With Submenus",
+      "exportName": "WithSubmenus",
+      "description": "WithSubmenus: Demonstrates Menubar with nested submenus.\n\nFeatures:\n- Support for nested submenus\n- Hover to trigger submenus\n- Multi-level menu structure\n- Keyboard navigation: → key expands submenu, ← key closes submenu\n- Automatic positioning and overflow handling\n\nUse cases:\n- Complex application menus\n- Hierarchical command structures\n- File explorer menus",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <Menubar className=\"rounded-lg border p-1\">\n      <Menubar.Item>\n        <Menubar.Trigger>File</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>New</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Open</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n\n          <Dropdown>\n            <Dropdown.SubTrigger>\n              <Dropdown.Value>Export</Dropdown.Value>\n            </Dropdown.SubTrigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>PDF</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>PNG</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>SVG</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Dropdown>\n\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Print</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom In</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom Out</Dropdown.Value>\n          </Dropdown.Item>\n\n          <Dropdown>\n            <Dropdown.SubTrigger>\n              <Dropdown.Value>Layout</Dropdown.Value>\n            </Dropdown.SubTrigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>Single Page</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Two Pages</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Continuous</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Dropdown>\n\n          <Dropdown.Divider />\n          <Dropdown.Item>\n            <Dropdown.Value>Full Screen</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n    </Menubar>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--with-divider",
+      "name": "With Divider",
+      "exportName": "WithDivider",
+      "description": "WithDivider: Demonstrates Menubar with dividers to separate groups.\n\nFeatures:\n- Visual separation between menu groups\n- Vertical divider styling\n- Semantic separation (role=\"separator\")\n- Customizable via className\n\nUse cases:\n- Grouping related menu items\n- Separating primary and secondary actions\n- Creating visual hierarchy in menu bars",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <Menubar className=\"rounded-lg border p-1\">\n      <Menubar.Item>\n        <Menubar.Trigger>File</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>New</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Open</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Save</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Item>\n        <Menubar.Trigger>Edit</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Cut</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Copy</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Paste</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Divider />\n\n      <Menubar.Item>\n        <Menubar.Trigger>View</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom In</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>Zoom Out</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n\n      <Menubar.Divider />\n\n      <Menubar.Item>\n        <Menubar.Trigger>Help</Menubar.Trigger>\n        <Dropdown.Content>\n          <Dropdown.Item>\n            <Dropdown.Value>Documentation</Dropdown.Value>\n          </Dropdown.Item>\n          <Dropdown.Item>\n            <Dropdown.Value>About</Dropdown.Value>\n          </Dropdown.Item>\n        </Dropdown.Content>\n      </Menubar.Item>\n    </Menubar>\n  )\n\n}"
+    },
+    {
+      "id": "collections-menubar--disabled",
+      "name": "Disabled",
+      "exportName": "Disabled",
+      "description": "Disabled: Demonstrates disabled Menubar functionality.\n\nFeatures:\n- Entire menubar can be disabled\n- Individual menu items can be disabled\n- Keyboard navigation skips disabled items\n- Visual feedback for disabled states\n- Useful for conditional availability\n\nUse cases:\n- Conditional menu availability\n- Permission-based menus\n- Read-only interfaces",
+      "source": "import { Menubar } from \"@choice-ui/menubar\"\n\nexport default function App() {\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Menubar\n        disabled\n        className=\"rounded-lg border p-1\"\n      >\n        <Menubar.Item>\n          <Menubar.Trigger>File</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>New</Dropdown.Value>\n            </Dropdown.Item>\n            <Dropdown.Item>\n              <Dropdown.Value>Open</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n\n        <Menubar.Item>\n          <Menubar.Trigger>Edit</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>Cut</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n      </Menubar>\n\n      <Menubar className=\"rounded-lg border p-1\">\n        <Menubar.Item>\n          <Menubar.Trigger>File</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>New</Dropdown.Value>\n            </Dropdown.Item>\n            <Dropdown.Item>\n              <Dropdown.Value>Open</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n\n        <Menubar.Item disabled>\n          <Menubar.Trigger>Edit</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>Cut</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n\n        <Menubar.Item>\n          <Menubar.Trigger>View</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>Zoom In</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n\n        <Menubar.Item>\n          <Menubar.Trigger>Help</Menubar.Trigger>\n          <Dropdown.Content>\n            <Dropdown.Item>\n              <Dropdown.Value>About</Dropdown.Value>\n            </Dropdown.Item>\n          </Dropdown.Content>\n        </Menubar.Item>\n      </Menubar>\n    </div>\n  )\n\n}"
+    }
+  ],
+  "tags": [
+    "new"
+  ]
+}

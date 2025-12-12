@@ -386,7 +386,8 @@
           "name": "focusSelection",
           "type": "undefined | \"none\" | \"all\" | \"end\"",
           "required": false,
-          "description": ""
+          "defaultValue": "\"all\"",
+          "description": "Focus selection mode."
         },
         {
           "name": "onIsEditingChange",
@@ -398,13 +399,15 @@
           "name": "variant",
           "type": "undefined | \"default\" | \"light\" | \"dark\" | \"reset\"",
           "required": false,
-          "description": ""
+          "defaultValue": "\"default\"",
+          "description": "Visual style variant of the textarea."
         },
         {
           "name": "allowNewline",
           "type": "boolean | undefined",
           "required": false,
-          "description": "Whether to allow newline characters when pressing Enter. Default is true"
+          "defaultValue": "true",
+          "description": "Whether to allow newline characters when pressing Enter."
         },
         {
           "name": "contentRef",
@@ -416,31 +419,36 @@
           "name": "lineHeight",
           "type": "number | undefined",
           "required": false,
-          "description": "Line height in pixels for calculating textarea height. Default is 16"
+          "defaultValue": "16",
+          "description": "Line height in pixels for calculating textarea height."
         },
         {
           "name": "maxRows",
           "type": "number | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "undefined (no maximum)",
+          "description": "Maximum number of rows."
         },
         {
           "name": "minRows",
           "type": "number | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "3",
+          "description": "Minimum number of rows."
         },
         {
           "name": "padding",
           "type": "number | undefined",
           "required": false,
-          "description": "Padding in pixels (top/bottom) for calculating textarea height. Default is 4 (py-1)"
+          "defaultValue": "4 (py-1)",
+          "description": "Padding in pixels (top/bottom) for calculating textarea height."
         },
         {
           "name": "resize",
           "type": "false | \"auto\" | \"handle\" | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "\"auto\"",
+          "description": "Resize behavior mode."
         },
         {
           "name": "scrollRef",
@@ -554,7 +562,8 @@
           "name": "focusSelection",
           "type": "undefined | \"none\" | \"all\" | \"end\"",
           "required": false,
-          "description": ""
+          "defaultValue": "\"all\"",
+          "description": "Focus selection mode."
         },
         {
           "name": "onIsEditingChange",
@@ -566,13 +575,15 @@
           "name": "variant",
           "type": "undefined | \"default\" | \"light\" | \"dark\" | \"reset\"",
           "required": false,
-          "description": ""
+          "defaultValue": "\"default\"",
+          "description": "Visual style variant of the textarea."
         },
         {
           "name": "allowNewline",
           "type": "boolean | undefined",
           "required": false,
-          "description": "Whether to allow newline characters when pressing Enter. Default is true"
+          "defaultValue": "true",
+          "description": "Whether to allow newline characters when pressing Enter."
         },
         {
           "name": "contentRef",
@@ -584,31 +595,36 @@
           "name": "lineHeight",
           "type": "number | undefined",
           "required": false,
-          "description": "Line height in pixels for calculating textarea height. Default is 16"
+          "defaultValue": "16",
+          "description": "Line height in pixels for calculating textarea height."
         },
         {
           "name": "maxRows",
           "type": "number | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "undefined (no maximum)",
+          "description": "Maximum number of rows."
         },
         {
           "name": "minRows",
           "type": "number | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "3",
+          "description": "Minimum number of rows."
         },
         {
           "name": "padding",
           "type": "number | undefined",
           "required": false,
-          "description": "Padding in pixels (top/bottom) for calculating textarea height. Default is 4 (py-1)"
+          "defaultValue": "4 (py-1)",
+          "description": "Padding in pixels (top/bottom) for calculating textarea height."
         },
         {
           "name": "resize",
           "type": "false | \"auto\" | \"handle\" | undefined",
           "required": false,
-          "description": ""
+          "defaultValue": "\"auto\"",
+          "description": "Resize behavior mode."
         },
         {
           "name": "scrollRef",

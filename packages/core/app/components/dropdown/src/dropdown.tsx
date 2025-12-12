@@ -401,6 +401,21 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
     }
   })
 
+  // 处理键盘事件 - 用于触发 SubTrigger 打开子菜单
+  const handleFloatingKeyDown = useEventCallback((e: React.KeyboardEvent) => {
+    if (activeIndex !== null && (e.key === "Enter" || e.key === "ArrowRight")) {
+      const activeElement = elementsRef.current[activeIndex]
+      if (activeElement) {
+        // 检查是否是 SubTrigger（有 aria-haspopup 属性）
+        if (activeElement.getAttribute("aria-haspopup") === "menu") {
+          e.preventDefault()
+          e.stopPropagation()
+          activeElement.click()
+        }
+      }
+    }
+  })
+
   // 焦点处理
   const handleFocus = useEventCallback(() => {
     // 坐标模式下不执行嵌套焦点管理，避免干扰输入框焦点
@@ -525,6 +540,7 @@ const DropdownComponent = memo(function DropdownComponent(props: DropdownProps) 
                     onContextMenu(e: React.MouseEvent) {
                       e.preventDefault()
                     },
+                    onKeyDown: handleFloatingKeyDown,
                   })}
                 >
                   <MenuContext.Provider value={contextValue}>
