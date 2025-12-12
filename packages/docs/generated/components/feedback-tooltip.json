@@ -18,14 +18,8 @@
   },
   "exports": [
     "Tooltip",
-    "TooltipContent",
-    "TooltipTrigger",
-    "TooltipArrow",
     "type TooltipProps",
     "type TooltipContentProps",
-    "type TooltipArrowProps",
-    "TooltipContext",
-    "useTooltip",
     "TooltipProvider"
   ],
   "props": [
@@ -100,105 +94,6 @@
           "description": ""
         }
       ]
-    },
-    {
-      "displayName": "TooltipTrigger",
-      "description": "",
-      "props": []
-    },
-    {
-      "displayName": "TooltipContentProps",
-      "description": "",
-      "props": [
-        {
-          "name": "portalId",
-          "type": "string | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "variant",
-          "type": "undefined | \"default\" | \"light\"",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "withArrow",
-          "type": "boolean | undefined",
-          "required": false,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "TooltipArrowProps",
-      "description": "",
-      "props": [
-        {
-          "name": "className",
-          "type": "string | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "variant",
-          "type": "undefined | \"default\" | \"light\"",
-          "required": false,
-          "defaultValue": "default",
-          "description": ""
-        }
-      ]
-    },
-    {
-      "displayName": "Context",
-      "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
-      "props": []
-    },
-    {
-      "displayName": "useTooltip",
-      "description": "",
-      "props": [
-        {
-          "name": "disabled",
-          "type": "boolean | undefined",
-          "required": false,
-          "defaultValue": "false",
-          "description": ""
-        },
-        {
-          "name": "initialOpen",
-          "type": "boolean | undefined",
-          "required": false,
-          "defaultValue": "false",
-          "description": ""
-        },
-        {
-          "name": "offset",
-          "type": "number | undefined",
-          "required": false,
-          "defaultValue": "5",
-          "description": ""
-        },
-        {
-          "name": "onOpenChange",
-          "type": "((open: boolean) => void) | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "open",
-          "type": "boolean | undefined",
-          "required": false,
-          "description": ""
-        },
-        {
-          "name": "placement",
-          "type": "undefined | \"top\" | \"right\" | \"bottom\" | \"left\" | \"top-start\" | \"top-end\" | \"right-start\" | \"right-end\" | \"bottom-start\" | \"bottom-end\" | \"left-start\" | \"left-end\"",
-          "required": false,
-          "defaultValue": "top",
-          "description": ""
-        }
-      ]
     }
   ],
   "stories": [
@@ -207,7 +102,7 @@
       "name": "Basic",
       "exportName": "Basic",
       "description": "`Tooltip` is a floating label that appears on hover or focus to provide additional context.\n\n### Features\n- **Simple API**: Use `content` prop for quick tooltip creation\n- **Compound API**: Use `TooltipTrigger` + `TooltipContent` for full control\n- **12 Placements**: Support all positions around the trigger element\n- **2 Variants**: `default` (dark) and `light` styles\n- **Keyboard Shortcut**: Display shortcuts with `shortcut` prop\n- **Delay Group**: Smooth transitions via `TooltipProvider`\n\n### Simple API\n```tsx\n<Tooltip content=\"Helpful tip\">\n  <Button>Hover me</Button>\n</Tooltip>\n```\n\n### Compound API\n```tsx\n<Tooltip>\n  <TooltipTrigger>\n    <Button>Hover me</Button>\n  </TooltipTrigger>\n  <TooltipContent>Helpful tip</TooltipContent>\n</Tooltip>\n```\n\n### TooltipProvider\nEnables delay grouping - after first tooltip appears, subsequent tooltips show instantly.\n```tsx\n<TooltipProvider delay={{ open: 400, close: 200 }}>\n  <Tooltip content=\"Bold\"><Button>B</Button></Tooltip>\n  <Tooltip content=\"Italic\"><Button>I</Button></Tooltip>\n</TooltipProvider>\n```\nBasic: Simple API with `content` prop vs Compound API with separate components.",
-      "source": "import { Tooltip, TooltipContent, TooltipTrigger } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-8\">\n      <Tooltip content=\"Simple API tooltip\">\n        <Button>Simple API</Button>\n      </Tooltip>\n\n      <Tooltip>\n        <TooltipTrigger>\n          <Button variant=\"secondary\">Compound API</Button>\n        </TooltipTrigger>\n        <TooltipContent>Compound API tooltip</TooltipContent>\n      </Tooltip>\n    </div>\n\n  );\n}"
+      "source": "import { Tooltip } from \"@choice-ui/tooltip\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-8\">\n      <Tooltip content=\"Simple API tooltip\">\n        <Button>Simple API</Button>\n      </Tooltip>\n\n      <Tooltip>\n        <Tooltip.Trigger>\n          <Button variant=\"secondary\">Compound API</Button>\n        </Tooltip.Trigger>\n        <Tooltip.Content>Compound API tooltip</Tooltip.Content>\n      </Tooltip>\n    </div>\n\n  );\n}"
     },
     {
       "id": "feedback-tooltip--placements",

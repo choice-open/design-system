@@ -5,7 +5,7 @@ import { TooltipContext, PORTAL_ROOT_ID } from "./context/tooltip-context"
 import { useTooltip } from "./hooks/use-tooltip"
 import type { TooltipProps } from "./types"
 
-export function Tooltip(props: TooltipProps) {
+function TooltipRoot(props: TooltipProps) {
   const {
     children,
     className,
@@ -55,3 +55,9 @@ export function Tooltip(props: TooltipProps) {
 
   return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
 }
+
+export const Tooltip = Object.assign(TooltipRoot, {
+  Trigger: TooltipTrigger,
+  Content: TooltipContent,
+  displayName: "Tooltip",
+})

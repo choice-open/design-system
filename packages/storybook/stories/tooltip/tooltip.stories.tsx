@@ -1,4 +1,4 @@
-import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@choice-ui/react"
+import { Button, Tooltip, TooltipProvider } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { useState } from "react"
 
@@ -63,10 +63,10 @@ export const Basic: Story = {
       </Tooltip>
 
       <Tooltip>
-        <TooltipTrigger>
+        <Tooltip.Trigger>
           <Button variant="secondary">Compound API</Button>
-        </TooltipTrigger>
-        <TooltipContent>Compound API tooltip</TooltipContent>
+        </Tooltip.Trigger>
+        <Tooltip.Content>Compound API tooltip</Tooltip.Content>
       </Tooltip>
     </div>
   ),

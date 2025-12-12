@@ -2,7 +2,6 @@ import { tcx } from "@choice-ui/shared"
 import {
   FloatingPortal,
   useDelayGroup,
-  useDelayGroupContext,
   useMergeRefs,
   useTransitionStyles,
 } from "@floating-ui/react"
@@ -16,10 +15,12 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
   function TooltipContent(props, propRef) {
     const { className, withArrow = true, variant = "default", children, portalId, ...rest } = props
     const state = useTooltipState()
-    const { isInstantPhase, currentId } = useDelayGroupContext()
     const ref = useMergeRefs([state.refs.setFloating, propRef])
 
-    useDelayGroup(state.context, { id: state.context.floatingId })
+    // Use useDelayGroup instead of deprecated useDelayGroupContext
+    const { isInstantPhase, currentId } = useDelayGroup(state.context, {
+      id: state.context.floatingId,
+    })
 
     // Constants extraction, to avoid duplicate definitions
     const INSTANT_DURATION = 0
