@@ -2,11 +2,11 @@ import { tcv } from "@choice-ui/shared"
 
 export const toggleButtonTv = tcv({
   slots: {
-    root: ["relative"],
+    root: ["relative rounded-md"],
     input: ["absolute inset-0 h-full w-full", "peer pointer-events-auto appearance-none opacity-0"],
     label: [
-      "absolute inset-0 flex h-full w-full rounded-md",
-      "items-center justify-center",
+      "absolute inset-0 flex h-full w-full rounded-[inherit]",
+      "items-center justify-center select-none",
       "border border-solid border-transparent",
       "peer-focus-visible:border-selected-boundary",
     ],
@@ -28,7 +28,7 @@ export const toggleButtonTv = tcv({
     },
     disabled: {
       true: {
-        label: "text-secondary-foreground",
+        root: "text-secondary-foreground",
       },
       false: {},
     },
@@ -51,7 +51,7 @@ export const toggleButtonTv = tcv({
       active: false,
       disabled: false,
       class: {
-        label: "hover:bg-secondary-background",
+        root: "hover:bg-secondary-background",
       },
     },
     {
@@ -60,7 +60,7 @@ export const toggleButtonTv = tcv({
       event: "click",
       disabled: false,
       class: {
-        label: "active:bg-tertiary-background",
+        root: "active:bg-tertiary-background",
       },
     },
     {
@@ -70,7 +70,7 @@ export const toggleButtonTv = tcv({
       disabled: false,
       event: "click",
       class: {
-        label: "active:bg-tertiary-background",
+        root: "active:bg-tertiary-background",
       },
     },
     {
@@ -80,7 +80,7 @@ export const toggleButtonTv = tcv({
       disabled: false,
       event: "click",
       class: {
-        label: "active:bg-accent-background/10",
+        root: "active:bg-accent-background/10",
       },
     },
     {
@@ -88,7 +88,7 @@ export const toggleButtonTv = tcv({
       active: true,
       disabled: false,
       class: {
-        label: "bg-tertiary-background",
+        root: "bg-tertiary-background",
       },
     },
     {
@@ -106,7 +106,7 @@ export const toggleButtonTv = tcv({
       disabled: false,
       checked: false,
       class: {
-        label: "bg-secondary-background",
+        root: "bg-secondary-background",
       },
     },
     {
@@ -115,7 +115,7 @@ export const toggleButtonTv = tcv({
       disabled: false,
       checked: true,
       class: {
-        label: "bg-accent-background/10 text-accent-foreground",
+        root: "bg-accent-background/10 text-accent-foreground",
       },
     },
     {
@@ -124,7 +124,7 @@ export const toggleButtonTv = tcv({
       disabled: false,
       active: false,
       class: {
-        label: "bg-accent-background/10 text-accent-foreground hover:bg-accent-background/5",
+        root: "bg-accent-background/10 text-accent-foreground hover:bg-accent-background/5",
       },
     },
     {
@@ -132,7 +132,7 @@ export const toggleButtonTv = tcv({
       checked: true,
       disabled: true,
       class: {
-        label: "bg-tertiary-background",
+        root: "bg-tertiary-background",
       },
     },
   ],
@@ -144,5 +144,36 @@ export const toggleButtonTv = tcv({
     event: "click",
     active: false,
     focused: false,
+  },
+})
+
+export const toggleGroupTv = tcv({
+  slots: {
+    root: ["flex gap-1"],
+  },
+  variants: {
+    orientation: {
+      horizontal: {
+        root: "flex-row",
+      },
+      vertical: {
+        root: "flex-col",
+      },
+    },
+    disabled: {
+      true: {
+        root: "opacity-50 pointer-events-none",
+      },
+      false: {},
+    },
+    multiple: {
+      true: {},
+      false: {},
+    },
+  },
+  defaultVariants: {
+    orientation: "horizontal",
+    disabled: false,
+    multiple: false,
   },
 })
