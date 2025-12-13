@@ -1,27 +1,28 @@
 import type { ReactNode } from "react"
 import { CheckboxProps } from "@choice-ui/checkbox"
+import type { ChipsInputProps } from "@choice-ui/chips-input"
 import type { InputProps } from "@choice-ui/input"
-import type { SelectProps } from "@choice-ui/select"
-import { TextareaProps } from "@choice-ui/textarea"
-import type { RadioGroupProps } from "@choice-ui/radio"
-import { SwitchProps } from "@choice-ui/switch"
-import { RangeProps } from "@choice-ui/range"
-import { NumericInputProps } from "@choice-ui/numeric-input"
 import { MultiSelectProps } from "@choice-ui/multi-select"
+import { NumericInputProps } from "@choice-ui/numeric-input"
+import type { RadioGroupProps } from "@choice-ui/radio"
+import { RangeProps } from "@choice-ui/range"
 import { SegmentedProps } from "@choice-ui/segmented"
+import type { SelectProps } from "@choice-ui/select"
+import { SwitchProps } from "@choice-ui/switch"
+import { TextareaProps } from "@choice-ui/textarea"
 
 /**
- * 表单验证器类型
+ * Form validator type
  */
 export type FormValidator<T> = (values: T) => string | void | Promise<string | void>
 
 /**
- * 字段验证器类型
+ * Field validator type
  */
 export type FieldValidator<T> = (value: T) => string | void | Promise<string | void>
 
 /**
- * 字段验证器集合
+ * Field validator collection
  */
 export interface FieldValidators<T> {
   onBlur?: FieldValidator<T>
@@ -36,7 +37,7 @@ export interface FieldValidators<T> {
 }
 
 /**
- * 表单配置
+ * Form configuration
  */
 export interface FormConfig<T = Record<string, unknown>> {
   defaultValues?: Partial<T>
@@ -54,7 +55,7 @@ export interface FormConfig<T = Record<string, unknown>> {
 }
 
 /**
- * 字段配置
+ * Field configuration
  */
 export interface FieldConfig<T = unknown> {
   component?: React.ComponentType<{
@@ -80,7 +81,7 @@ export interface FieldConfig<T = unknown> {
 }
 
 /**
- * 表单状态
+ * Form state
  */
 export interface FormState<T = Record<string, unknown>> {
   canSubmit: boolean
@@ -93,7 +94,7 @@ export interface FormState<T = Record<string, unknown>> {
 }
 
 /**
- * 字段状态
+ * Field state
  */
 export interface FieldState<T = unknown> {
   error?: string
@@ -106,7 +107,7 @@ export interface FieldState<T = unknown> {
 }
 
 /**
- * 简化的表单 API 类型
+ * Simplified form API type
  */
 export interface SimpleFormApi<T = Record<string, unknown>> {
   getFieldValue: (name: keyof T) => T[keyof T]
@@ -119,7 +120,7 @@ export interface SimpleFormApi<T = Record<string, unknown>> {
 }
 
 /**
- * 简化的字段 API 类型
+ * Simplified field API type
  */
 export interface SimpleFieldApi<T = unknown> {
   handleBlur: () => void
@@ -130,7 +131,7 @@ export interface SimpleFieldApi<T = unknown> {
 }
 
 /**
- * 表单上下文类型
+ * Form context type
  */
 export interface FormContextValue<T = Record<string, unknown>> {
   config: FormConfig<T>
@@ -138,7 +139,7 @@ export interface FormContextValue<T = Record<string, unknown>> {
 }
 
 /**
- * 字段上下文类型
+ * Field context type
  */
 export interface FieldContextValue<T = unknown> {
   config: FieldConfig<T>
@@ -147,7 +148,7 @@ export interface FieldContextValue<T = unknown> {
 }
 
 /**
- * 表单提交结果
+ * Form submit result
  */
 export interface FormSubmitResult<T = Record<string, unknown>> {
   errors?: Record<string, string[]>
@@ -156,7 +157,7 @@ export interface FormSubmitResult<T = Record<string, unknown>> {
 }
 
 /**
- * 表单组件 Props
+ * Form component Props
  */
 export interface FormProps<T = Record<string, unknown>> extends FormConfig<T> {
   children?: ReactNode
@@ -166,7 +167,7 @@ export interface FormProps<T = Record<string, unknown>> extends FormConfig<T> {
 }
 
 /**
- * 字段组件 Props
+ * Field component Props
  */
 export interface FormFieldProps<T = unknown> extends FieldConfig<T> {
   children?: ReactNode | ((field: SimpleFieldApi<T>) => ReactNode)
@@ -176,7 +177,7 @@ export interface FormFieldProps<T = unknown> extends FieldConfig<T> {
 }
 
 /**
- * 提交按钮 Props
+ * Submit button Props
  */
 export interface FormSubmitProps {
   children?: ReactNode
@@ -189,7 +190,7 @@ export interface FormSubmitProps {
 }
 
 /**
- * 字段错误显示 Props
+ * Field error display Props
  */
 export interface FormFieldErrorProps {
   className?: string
@@ -199,7 +200,7 @@ export interface FormFieldErrorProps {
 }
 
 /**
- * 字段信息显示 Props
+ * Field information display Props
  */
 export interface FormFieldInfoProps {
   className?: string
@@ -210,7 +211,7 @@ export interface FormFieldInfoProps {
 }
 
 /**
- * 表单字段通用属性
+ * Form field common properties
  */
 export interface FormFieldCommonProps<T = unknown> {
   error?: string
@@ -221,44 +222,44 @@ export interface FormFieldCommonProps<T = unknown> {
 }
 
 // ============================================================================
-// 适配器基础类型 - 重构后的类型层次结构
+// Adapter base type - Reconstructed type hierarchy
 // ============================================================================
 
 /**
- * 表单字段适配器基础属性
- * 包含所有表单字段的通用属性
+ * Form field adapter base properties
+ * Contains all form field common properties
  */
 export interface FormFieldAdapterProps<T = unknown> {
-  /** 字段描述 */
+  /** Field description */
   description?: string | ReactNode
-  /** 单个错误信息 */
+  /** Single error message */
   error?: string | ReactNode
-  /** 字段标签 */
+  /** Field label */
   label?: string | ReactNode
-  /** 失焦回调 */
+  /** Blur callback */
   onBlur?: () => void
-  /** 异步失焦验证 */
+  /** Async blur validation */
   onBlurAsync?: () => void
   onBlurAsyncDebounceMs?: number
-  /** 值变化回调 */
+  /** Value change callback */
   onChange: (value: T) => void
-  /** 异步值变化验证 */
+  /** Async value change validation */
   onChangeAsync?: (value: T) => void
   onChangeAsyncDebounceMs?: number
-  /** 聚焦回调 */
+  /** Focus callback */
   onFocus?: () => void
-  /** 异步聚焦验证 */
+  /** Async focus validation */
   onFocusAsync?: () => void
   onFocusAsyncDebounceMs?: number
-  /** 字段大小 */
+  /** Field size */
   size?: "default" | "large"
-  /** 字段值 */
+  /** Field value */
   value: T
 }
 
 /**
- * 通用适配器属性排除模式
- * 定义需要从原组件 props 中排除的属性
+ * Common adapter property exclusion pattern
+ * Define properties to exclude from the original component props
  */
 type CommonExcludedProps = "value" | "onChange" | "onBlur" | "onFocus" | "label"
 type CommonExcludedPropsWithChildren = CommonExcludedProps | "children"
@@ -266,7 +267,7 @@ type CommonExcludedPropsWithSize = CommonExcludedProps | "size"
 type CommonExcludedPropsWithChildrenAndSize = CommonExcludedProps | "children" | "size"
 
 /**
- * 选择类组件的选项类型
+ * Select component option type
  */
 interface SelectOption<T = string> {
   divider?: boolean
@@ -275,7 +276,7 @@ interface SelectOption<T = string> {
 }
 
 /**
- * 分段控件的选项类型
+ * Segmented component option type
  */
 interface SegmentedOption<T = string> {
   content?: string | ReactNode
@@ -283,8 +284,8 @@ interface SegmentedOption<T = string> {
 }
 
 /**
- * 基础适配器工厂类型
- * 用于创建标准的适配器类型
+ * Base adapter factory type
+ * Used to create standard adapter types
  */
 export type BaseAdapterProps<
   TComponent,
@@ -293,8 +294,8 @@ export type BaseAdapterProps<
 > = Omit<TComponent, TExcluded> & FormFieldAdapterProps<TValue>
 
 /**
- * 带尺寸排除的适配器工厂类型
- * 用于需要排除 size 属性的组件
+ * Adapter factory type with size exclusion
+ * Used to create adapter types that need to exclude the size property
  */
 export type AdapterPropsWithoutSize<
   TComponent,
@@ -303,8 +304,8 @@ export type AdapterPropsWithoutSize<
 > = Omit<TComponent, TExcluded> & Omit<FormFieldAdapterProps<TValue>, "size">
 
 /**
- * 选择类适配器工厂类型
- * 用于需要 options 和 placeholder 的选择组件
+ * Select adapter factory type
+ * Used to create adapter types that need to exclude the options and placeholder properties
  */
 export type SelectAdapterPropsBase<
   TComponent,
@@ -318,11 +319,11 @@ export type SelectAdapterPropsBase<
   }
 
 // ============================================================================
-// 具体适配器类型定义
+// Specific adapter type definitions
 // ============================================================================
 
 /**
- * 文本输入类适配器 (Input, Textarea)
+ * Text input adapter (Input, Textarea)
  */
 export type InputAdapterProps<T extends string = string> = BaseAdapterProps<
   InputProps,
@@ -337,7 +338,7 @@ export type TextareaAdapterProps<T extends string = string> = BaseAdapterProps<
 >
 
 /**
- * 选择类适配器 (Select, MultiSelect)
+ * Select adapter (Select, MultiSelect)
  */
 export type SelectAdapterProps<T extends string = string> = SelectAdapterPropsBase<SelectProps, T>
 
@@ -352,7 +353,7 @@ export type MultiSelectAdapterProps<T extends string = string> = Omit<
   }
 
 /**
- * 布尔类适配器 (Checkbox, Switch)
+ * Boolean adapter (Checkbox, Switch)
  */
 export interface CheckboxAdapterProps<T extends boolean = boolean>
   extends
@@ -368,7 +369,7 @@ export type SwitchAdapterProps<T extends boolean = boolean> = BaseAdapterProps<
 >
 
 /**
- * 数字类适配器 (Range, NumericInput)
+ * Number adapter (Range, NumericInput)
  */
 export type RangeAdapterProps<T extends number = number> = BaseAdapterProps<
   RangeProps,
@@ -382,7 +383,7 @@ export type NumericInputAdapterProps<T extends number = number> = AdapterPropsWi
 >
 
 /**
- * 单选类适配器 (RadioGroup, Segmented)
+ * Single select adapter (RadioGroup, Segmented)
  */
 export type RadioGroupAdapterProps<T extends string = string> = BaseAdapterProps<
   RadioGroupProps,
@@ -396,4 +397,15 @@ export type SegmentedAdapterProps<T extends string = string> = Omit<
 > &
   FormFieldAdapterProps<T> & {
     options?: SegmentedOption<T>[]
+  }
+
+/**
+ * Tags input adapter (ChipsInput)
+ */
+export type ChipsInputAdapterProps<T extends string = string> = Omit<
+  ChipsInputProps,
+  CommonExcludedPropsWithChildrenAndSize
+> &
+  FormFieldAdapterProps<T[]> & {
+    name?: string
   }

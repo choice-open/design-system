@@ -1,11 +1,11 @@
-import { Textarea } from "@choice-ui/textarea"
-import type { TextareaAdapterProps } from "../types"
+import { ChipsInput } from "@choice-ui/chips-input"
+import type { ChipsInputAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Textarea Adapter for Form system
+ * ChipsInput Adapter for Form system
  */
-export function TextareaAdapter<T extends string>({
+export function ChipsInputAdapter<T extends string>({
   className,
   label,
   description,
@@ -14,7 +14,7 @@ export function TextareaAdapter<T extends string>({
   onChange,
   onBlur,
   ...props
-}: TextareaAdapterProps<T>) {
+}: ChipsInputAdapterProps<T>) {
   const filteredProps = filterFormProps(props)
 
   return (
@@ -25,10 +25,10 @@ export function TextareaAdapter<T extends string>({
       error={error}
       htmlFor={props.name}
     >
-      <Textarea
+      <ChipsInput
         id={props.name}
-        value={String(value || "")}
-        onChange={(inputValue) => onChange?.(inputValue as T)}
+        value={value}
+        onChange={(chips: string[]) => onChange?.(chips as T[])}
         onBlur={onBlur}
         {...filteredProps}
       />
@@ -37,17 +37,17 @@ export function TextareaAdapter<T extends string>({
 }
 
 // For convenience, export a factory function to create the adapter
-export const createTextareaAdapter = <T extends string>(
-  defaultProps?: Partial<TextareaAdapterProps<T>>,
+export const createChipsInputAdapter = <T extends string>(
+  defaultProps?: Partial<ChipsInputAdapterProps<T>>,
 ) => {
-  const AdapterComponent = (props: TextareaAdapterProps<T>) => (
-    <TextareaAdapter<T>
+  const AdapterComponent = (props: ChipsInputAdapterProps<T>) => (
+    <ChipsInputAdapter<T>
       {...defaultProps}
       {...props}
     />
   )
 
-  AdapterComponent.displayName = "TextareaAdapter"
+  AdapterComponent.displayName = "ChipsInputAdapter"
 
   return AdapterComponent
 }

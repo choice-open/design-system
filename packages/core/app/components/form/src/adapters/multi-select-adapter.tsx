@@ -4,7 +4,7 @@ import type { MultiSelectAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * MultiSelect 适配器 - 将 MultiSelect 组件适配到 Form 系统
+ * MultiSelect Adapter for Form system
  */
 export function MultiSelectAdapter<T extends string>({
   className,
@@ -61,7 +61,7 @@ export function MultiSelectAdapter<T extends string>({
   )
 }
 
-// 为了方便使用，导出一个创建适配器的工厂函数
+// For convenience, export a factory function to create the adapter
 export const createMultiSelectAdapter = <T extends string>(
   defaultProps?: Partial<MultiSelectAdapterProps<T>>,
 ) => {

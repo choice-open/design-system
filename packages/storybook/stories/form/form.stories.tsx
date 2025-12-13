@@ -5,20 +5,20 @@ import {
   IconButton,
   Label,
   LinkButton,
+  NumericInput as NI,
   Tabs,
   tcx,
   useForm,
 } from "@choice-ui/react"
-import { TrashSmall } from "@choiceform/icons-react"
+import { FillWidth, TrashSmall } from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react"
 import type { AnyFieldApi } from "@tanstack/react-form"
-import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query"
 import { useStore } from "@tanstack/react-store"
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useId, useState } from "react"
 import { z } from "zod"
 
 const meta: Meta = {
-  title: "Forms/Form/Examples",
+  title: "Forms/Form",
   parameters: {
     layout: "centered",
   },
@@ -29,10 +29,929 @@ export default meta
 type Story = StoryObj
 
 /**
- * Basic form example with Input and Select fields using TanStack Form
+ *
+ * Demonstrates the basic usage of `form.Input` adapter with two validation timing strategies.
+ *
+ * ### Features
+ * - **onChange validation**: Real-time validation as user types, ideal for instant feedback
+ * - **onBlur validation**: Validates when field loses focus, reduces validation frequency
+ * - **Custom label**: Supports ReactNode type for custom styling
+ * - **Error display**: Customize error appearance via `error` prop
+ *
+ * ### Tips
+ * - Return `string` from validator to indicate error, `undefined` for valid
+ * - Errors are stored in `field.state.meta.errors` array
+ * - Use `useId()` to avoid field name conflicts in multiple instances
  */
-export const Basic: Story = {
-  render: function BasicRender() {
+export const InputAdapter: Story = {
+  render: function InputAdapterRender() {
+    const uuid = useId()
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        username: "",
+        email: "",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name={`username-${uuid}`}
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as string).length < 3) {
+                  return "Username must be at least 3 characters"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Input
+                name={field.name}
+                label={<div className="text-red-500">onChange validation</div>}
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter username"
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Field
+            name={`email-${uuid}`}
+            validators={{
+              onBlur: ({ value }) => {
+                if ((value as string).length < 3) {
+                  return "Email must be at least 3 characters"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Input
+                name={field.name}
+                label="onBlur validation"
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter email"
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates various configuration options for `form.Textarea` adapter.
+ *
+ * ### Features
+ * - **Auto-resize**: Control auto-expand range with `minRows` and `maxRows`
+ * - **Manual resize**: Enable drag-to-resize with `resize="handle"`
+ * - **Character count**: Display real-time character count via `description`
+ * - **Length validation**: Combine with validators for max length enforcement
+ *
+ * ### Tips
+ * - Use `minRows/maxRows` for auto-height mode
+ * - Use `rows` for fixed-height mode
+ * - `description` supports dynamic content, perfect for character counters
+ */
+export const TextareaAdapter: Story = {
+  render: function TextareaAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        message: "",
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="message"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as string).length > 100) {
+                  return "Message must be less than 100 characters"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Textarea
+                name={field.name}
+                label="Textarea"
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter message"
+                minRows={4}
+                maxRows={8}
+                description={`${(field.state.value as string).length}/100 characters`}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Field
+            name="bio"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as string).length > 200) {
+                  return "Message must be less than 100 characters"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Textarea
+                name={field.name}
+                label="Bio"
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter bio"
+                rows={4}
+                maxRows={8}
+                minRows={4}
+                resize="handle"
+                description={`${(field.state.value as string).length}/200 characters`}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.Select` adapter for single-selection dropdown.
+ *
+ * ### Features
+ * - **Options array**: Define options with `{ label, value }` objects
+ * - **Dividers**: Add visual separation with `{ divider: true }`
+ * - **Placeholder**: Show hint text when no selection
+ * - **Match trigger width**: Use `matchTriggerWidth` to align dropdown width
+ *
+ * ### Tips
+ * - Options without `value` are rendered as labels/headers
+ * - Validate selection with `onChange` validator
+ * - Access selected value via `field.state.value`
+ */
+export const SelectAdapter: Story = {
+  render: function SelectAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        role: "admin",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="role"
+            validators={{
+              onChange: ({ value }) => {
+                if (value !== "admin") {
+                  return "Role must be admin"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Select
+                name={field.name}
+                label="Select"
+                matchTriggerWidth
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Select role"
+                options={[
+                  { label: "Admin", value: "admin" },
+                  { label: "User", value: "user" },
+                ]}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.MultiSelect` adapter for multi-selection dropdown.
+ *
+ * ### Features
+ * - **Multiple selection**: Select multiple options from dropdown
+ * - **Array value**: Value is `string[]` type
+ * - **Dividers & labels**: Organize options with dividers and group labels
+ * - **Min/max validation**: Enforce selection count limits
+ *
+ * ### Tips
+ * - Default value should be an array: `defaultValues: { roles: ["admin"] }`
+ * - Cast value to `string[]` when accessing: `field.state.value as string[]`
+ * - Validate array length for required selections
+ */
+export const MultiSelectAdapter: Story = {
+  render: function MultiSelectAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        roles: ["admin", "user"],
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="roles"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as string[]).length < 1) {
+                  return "You must select at least one role"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.MultiSelect
+                name={field.name}
+                label="MultiSelect"
+                matchTriggerWidth
+                value={field.state.value as string[]}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Select roles"
+                options={[
+                  { label: "Admin", value: "admin" },
+                  { label: "User", value: "user" },
+                  { label: "Guest", value: "guest" },
+                  { divider: true },
+                  { label: "Manager", value: "manager" },
+                  { label: "Viewer", value: "viewer" },
+                ]}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.ChipsInput` adapter for tag/chip input.
+ *
+ * ### Features
+ * - **Tag management**: Add tags by pressing Enter, remove by clicking X
+ * - **Array value**: Value is `string[]` type like MultiSelect
+ * - **Backspace removal**: Delete last tag with backspace when input is empty
+ * - **Blur-to-add**: Automatically converts input to tag on blur
+ *
+ * ### Tips
+ * - Validate tag count with array length checks
+ * - Great for keywords, labels, or email recipients
+ * - Combine with `allowDuplicates={false}` to prevent duplicate tags
+ */
+export const ChipsInputAdapter: Story = {
+  render: function ChipsInputAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        tags: ["react", "typescript"],
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="tags"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as string[]).length < 1) {
+                  return "You must enter at least one tag"
+                }
+                if ((value as string[]).length > 5) {
+                  return "You can only enter up to 5 tags"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.ChipsInput
+                name={field.name}
+                label="ChipsInput"
+                value={field.state.value as string[]}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter tags"
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.Checkbox` adapter for boolean toggle.
+ *
+ * ### Features
+ * - **Boolean value**: Value is `true` or `false`
+ * - **Required validation**: Ensure checkbox is checked before submit
+ * - **Label support**: Display label text next to checkbox
+ *
+ * ### Tips
+ * - Use for terms acceptance, opt-in features, or boolean flags
+ * - Validate with `if (!value) return "Error message"`
+ * - Default value should be boolean: `defaultValues: { agreed: false }`
+ */
+export const CheckboxAdapter: Story = {
+  render: function CheckboxAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        isAdmin: true,
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="isAdmin"
+            validators={{
+              onChange: ({ value }) => {
+                if (!value) {
+                  return "You must be an admin"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Checkbox
+                name={field.name}
+                label="Admin"
+                value={field.state.value as boolean}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.RadioGroup` adapter for single selection from visible options.
+ *
+ * ### Features
+ * - **Single selection**: Only one option can be selected at a time
+ * - **Visible options**: All options displayed at once (unlike Select dropdown)
+ * - **Options array**: Define with `{ label, value }` objects
+ *
+ * ### Tips
+ * - Use when options are few (2-5) and should all be visible
+ * - Use Select for longer option lists
+ * - Great for payment methods, shipping options, or plan selection
+ */
+export const RadioGroupAdapter: Story = {
+  render: function RadioGroupAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        role: "admin",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="role"
+            validators={{
+              onChange: ({ value }) => {
+                if (value !== "admin") {
+                  return "Role must be admin"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.RadioGroup
+                name={field.name}
+                label="Role"
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                options={[
+                  { label: "Admin", value: "admin" },
+                  { label: "User", value: "user" },
+                  { label: "Guest", value: "guest" },
+                ]}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.Switch` adapter for on/off toggle.
+ *
+ * ### Features
+ * - **Boolean value**: Same as Checkbox but with toggle UI
+ * - **Visual distinction**: Better for settings that take effect immediately
+ * - **Label support**: Display label next to switch
+ *
+ * ### Tips
+ * - Use for settings, preferences, or feature toggles
+ * - Prefer Switch over Checkbox for "on/off" semantics
+ * - Works identically to Checkbox in terms of value handling
+ */
+export const SwitchAdapter: Story = {
+  render: function SwitchAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        isAdmin: true,
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="isAdmin"
+            validators={{
+              onChange: ({ value }) => {
+                if (!value) {
+                  return "You must be an admin"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Switch
+                name={field.name}
+                label="Admin"
+                value={field.state.value as boolean}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.Range` adapter for numeric slider input.
+ *
+ * ### Features
+ * - **Numeric value**: Value is `number` type
+ * - **Min/Max bounds**: Set range with `min` and `max` props
+ * - **Step control**: Define increment with `step` prop
+ * - **Visual feedback**: Shows current value on slider
+ *
+ * ### Tips
+ * - Great for volume, brightness, or quantity selection
+ * - Validate minimum/maximum values with onChange validator
+ * - Consider NumericInput for precise number entry
+ */
+export const RangeAdapter: Story = {
+  render: function RangeAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        age: 18,
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="age"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as number) < 18) {
+                  return "You must be at least 18 years old"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Range
+                label="Age"
+                value={field.state.value as number}
+                min={0}
+                max={100}
+                step={1}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.NumericInput` adapter for precise numeric input.
+ *
+ * ### Features
+ * - **Numeric value**: Value is `number` type with precise input
+ * - **Increment buttons**: Built-in +/- buttons for adjustment
+ * - **Prefix/Suffix slots**: Add icons or units with `NI.Prefix` and `NI.Suffix`
+ * - **Children composition**: Supports compound component pattern
+ *
+ * ### Tips
+ * - Use for age, quantity, price, or any precise number input
+ * - Validate range with `if (value < min || value > max)`
+ * - Import as `NumericInput as NI` for cleaner slot access
+ */
+export const NumericInputAdapter: Story = {
+  render: function NumericInputAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        age: 18,
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="age"
+            validators={{
+              onChange: ({ value }) => {
+                if ((value as number) < 18) {
+                  return "You must be at least 18 years old"
+                } else if ((value as number) > 60) {
+                  return "You must be less than 60 years old"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.NumericInput
+                name={field.name}
+                label="Age"
+                value={field.state.value as number}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                placeholder="Enter age"
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              >
+                <NI.Prefix>
+                  <FillWidth />
+                </NI.Prefix>
+              </form.NumericInput>
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * Demonstrates the `form.Segmented` adapter for horizontal button-style selection.
+ *
+ * ### Features
+ * - **Single selection**: Select one option from horizontal buttons
+ * - **Compact UI**: All options visible in a single row
+ * - **Options array**: Use `{ content, value }` for each option
+ *
+ * ### Tips
+ * - Use for view toggles, time periods, or small option sets
+ * - `content` can be string or ReactNode for icons
+ * - Best for 2-4 options that fit horizontally
+ */
+export const SegmentedAdapter: Story = {
+  render: function SegmentedAdapterRender() {
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        role: "admin" as const,
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+      },
+    })
+
+    return (
+      <>
+        <form
+          className="w-80 space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field
+            name="role"
+            validators={{
+              onChange: ({ value }) => {
+                if (value !== "admin") {
+                  return "Role must be admin"
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <form.Segmented
+                name={field.name}
+                label="Segmented"
+                value={field.state.value as string}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                options={[
+                  { content: "Admin", value: "admin" },
+                  { content: "User", value: "user" },
+                  { content: "Guest", value: "guest" },
+                ]}
+                error={<em role="alert">{field.state.meta.errors.join(", ")}</em>}
+              />
+            )}
+          </form.Field>
+
+          <form.Button type="submit">Submit Form</form.Button>
+        </form>
+
+        <div className="bg-secondary-background mt-4 w-80 rounded-xl p-4">
+          <strong>Form Result:</strong>
+          <CodeBlock language="json">
+            <CodeBlock.Content code={result} />
+          </CodeBlock>
+        </div>
+      </>
+    )
+  },
+}
+
+/**
+ *
+ * A complete form example combining multiple field types with TanStack Form.
+ *
+ * ### Features
+ * - **Multiple adapters**: Combines Input and Select in one form
+ * - **Form submission**: Full submit flow with result display
+ * - **Default values**: Pre-populate form with initial data
+ *
+ * ### Tips
+ * - Always call `e.preventDefault()` and `e.stopPropagation()` in onSubmit
+ * - Use `form.handleSubmit()` to trigger form submission
+ * - Access all values in `onSubmit` callback via `value` parameter
+ */
+export const BasicForm: Story = {
+  render: function BasicFormRender() {
     const [result, setResult] = useState<string>("")
 
     const form = useForm({
@@ -117,9 +1036,19 @@ export const Basic: Story = {
 }
 
 /**
- * Form example with description
- * 1. description is a string
- * 2. description is a ReactNode
+ * ## Form with Description
+ *
+ * Demonstrates how to add helper text below form fields.
+ *
+ * ### Features
+ * - **String description**: Simple text hint below field
+ * - **ReactNode description**: Complex content with links, badges, etc.
+ * - **Dynamic description**: Update based on field state (e.g., character count)
+ *
+ * ### Tips
+ * - Use description for hints, requirements, or additional context
+ * - Combine with validation errors for complete field feedback
+ * - ReactNode allows inline links with `LinkButton`
  */
 export const WithDescription: Story = {
   render: function WithDescriptionRender() {
@@ -215,7 +1144,20 @@ export const WithDescription: Story = {
 }
 
 /**
- * Form with validation rules and error handling
+ * ## Form with Validation
+ *
+ * Demonstrates inline validation with custom rules and error display.
+ *
+ * ### Features
+ * - **Password validation**: Length and complexity requirements
+ * - **Confirm password**: Cross-field validation
+ * - **Numeric validation**: Range and format checks
+ * - **Real-time feedback**: Errors update as user types
+ *
+ * ### Tips
+ * - Access other field values via `form.state.values.fieldName`
+ * - Return error string or `undefined` from validators
+ * - Join multiple errors with `field.state.meta.errors.join(", ")`
  */
 export const WithValidation: Story = {
   render: function WithValidationRender() {
@@ -333,7 +1275,20 @@ export const WithValidation: Story = {
 }
 
 /**
- * Form with Zod schema validation
+ * ## Form with Zod Schema Validation
+ *
+ * Demonstrates integration with Zod for schema-based validation.
+ *
+ * ### Features
+ * - **Schema-level validation**: Define all rules in one Zod schema
+ * - **Type inference**: Automatic TypeScript types from schema
+ * - **Complex rules**: Email format, URL validation, optional fields
+ * - **Form state display**: Shows canSubmit, isDirty, isValid status
+ *
+ * ### Tips
+ * - Pass Zod schema to `validators.onChange` and `validators.onBlur`
+ * - Use `z.string().optional().or(z.literal(""))` for optional string fields
+ * - Format nested Zod errors with custom `formatErrors` helper
  */
 export const WithSchemaValidation: Story = {
   render: function WithSchemaValidationRender() {
@@ -544,302 +1499,21 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
 }
 
 /**
- * Form with TanStack Query integration
- */
-export const QueryIntegration: Story = {
-  decorators: [
-    (Story) => {
-      const queryClient = new QueryClient({
-        defaultOptions: {
-          queries: {
-            retry: 1,
-            refetchOnWindowFocus: false,
-          },
-        },
-      })
-      return (
-        <QueryClientProvider client={queryClient}>
-          <Story />
-        </QueryClientProvider>
-      )
-    },
-  ],
-  render: function QueryIntegrationRender() {
-    // Mock database class
-    class MockUserDB {
-      private data: { email: string; firstName: string; lastName: string }
-
-      constructor() {
-        this.data = {
-          firstName: "Wester",
-          lastName: "Xi",
-          email: "wester@gmail.com",
-        }
-      }
-
-      async getData(): Promise<{
-        email: string
-        firstName: string
-        lastName: string
-      }> {
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        return { ...this.data }
-      }
-
-      async saveUser(value: {
-        email: string
-        firstName: string
-        lastName: string
-      }): Promise<{ email: string; firstName: string; lastName: string }> {
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-
-        // Simulate server validation error
-        if (value.firstName.includes("error")) {
-          throw new Error("Server error: name cannot contain 'error'")
-        }
-
-        this.data = value
-        return value
-      }
-    }
-
-    // Mock database instance
-    const mockDB = new MockUserDB()
-
-    const [submitResult, setSubmitResult] = useState<string | null>(null)
-
-    // Use TanStack Query to fetch data
-    const {
-      data: userData,
-      isLoading,
-      refetch,
-    } = useQuery({
-      queryKey: ["userData"],
-      queryFn: async () => {
-        const result = await mockDB.getData()
-        return result
-      },
-      staleTime: 5000, // Data is considered fresh within 5 seconds
-    })
-
-    // Use TanStack Query mutation for data updates
-    const saveUserMutation = useMutation({
-      mutationFn: async (value: { email: string; firstName: string; lastName: string }) => {
-        return await mockDB.saveUser(value)
-      },
-      onSuccess: (data) => {
-        setSubmitResult(
-          `User information saved successfully! Name: ${data.firstName} ${data.lastName}`,
-        )
-      },
-      onError: (error: Error) => {
-        setSubmitResult(`Save failed: ${error.message}`)
-      },
-    })
-
-    const form = useForm({
-      defaultValues: {
-        firstName: userData?.firstName ?? "",
-        lastName: userData?.lastName ?? "",
-        email: userData?.email ?? "",
-      },
-      onSubmit: async ({ value }) => {
-        setSubmitResult(null)
-
-        try {
-          // Use mutation to save data
-          await saveUserMutation.mutateAsync(
-            value as { email: string; firstName: string; lastName: string },
-          )
-
-          // Refetch data to ensure synchronization
-          await refetch()
-
-          // Reset form
-          form.reset()
-        } catch (error) {
-          // Error is already handled in mutation's onError
-          console.error("Form submission error:", error)
-        }
-      },
-    })
-
-    // When data is loaded, update form default values
-    useEffect(() => {
-      if (userData) {
-        form.setFieldValue("firstName", userData.firstName)
-        form.setFieldValue("lastName", userData.lastName)
-        form.setFieldValue("email", userData.email)
-      }
-    }, [userData, form])
-
-    if (isLoading) {
-      return (
-        <div className="flex items-center justify-center p-8">
-          <div className="text-default-foreground text-body-large">Loading user data...</div>
-        </div>
-      )
-    }
-
-    return (
-      <div className="w-80 space-y-4">
-        <div>
-          <h3 className="text-body-large-strong">TanStack Query Integration Example</h3>
-          <p className="text-secondary-foreground">
-            Demonstrate the integration of the form with TanStack Query, supporting data
-            acquisition, update, and re-validation
-          </p>
-        </div>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            form.handleSubmit()
-          }}
-          className="space-y-4"
-        >
-          <form.Field
-            name="firstName"
-            validators={{
-              onChange: ({ value }) => {
-                const stringValue = String(value || "")
-                return !stringValue
-                  ? "Name cannot be empty"
-                  : stringValue.length < 2
-                    ? "Name must be at least 2 characters"
-                    : undefined
-              },
-              onChangeAsyncDebounceMs: 500,
-              onChangeAsync: async ({ value }) => {
-                await new Promise((resolve) => setTimeout(resolve, 1000))
-                const stringValue = String(value || "")
-                return stringValue.includes("error") && "Name cannot contain 'error'"
-              },
-            }}
-          >
-            {(field) => (
-              <form.Input
-                name={field.name}
-                required
-                label="First Name"
-                value={String(field.state.value || "")}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                placeholder="Enter your first name"
-                error={<FieldInfo field={field} />}
-              />
-            )}
-          </form.Field>
-
-          <form.Field
-            name="lastName"
-            validators={{
-              onChange: ({ value }) => {
-                const stringValue = String(value || "")
-                return !stringValue
-                  ? "Last name cannot be empty"
-                  : stringValue.length < 2
-                    ? "Last name must be at least 2 characters"
-                    : undefined
-              },
-            }}
-          >
-            {(field) => (
-              <form.Input
-                name={field.name}
-                required
-                label="Last Name"
-                value={String(field.state.value || "")}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                placeholder="Enter your last name"
-                error={<FieldInfo field={field} />}
-              />
-            )}
-          </form.Field>
-
-          <form.Field
-            name="email"
-            validators={{
-              onChange: ({ value }) => {
-                const stringValue = String(value || "")
-                if (!stringValue) return "Email cannot be empty"
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                return !emailRegex.test(stringValue)
-                  ? "Please enter a valid email address"
-                  : undefined
-              },
-            }}
-          >
-            {(field) => (
-              <form.Input
-                required
-                name={field.name}
-                label="Email"
-                value={String(field.state.value || "")}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                type="email"
-                placeholder="Enter your email address"
-                error={<FieldInfo field={field} />}
-              />
-            )}
-          </form.Field>
-
-          <div className="flex gap-2">
-            <form.Button
-              type="submit"
-              disabled={!form.state.canSubmit || saveUserMutation.isPending}
-            >
-              {saveUserMutation.isPending ? "Saving..." : "Save User"}
-            </form.Button>
-
-            <form.Button
-              type="button"
-              variant="secondary"
-              onClick={() => form.reset()}
-            >
-              Reset Form
-            </form.Button>
-          </div>
-
-          {submitResult && (
-            <div
-              className={`rounded-xl p-4 ${
-                submitResult.includes("success")
-                  ? "bg-success-background text-success-foreground"
-                  : "bg-danger-background text-danger-foreground"
-              }`}
-            >
-              {submitResult}
-            </div>
-          )}
-        </form>
-
-        <div className="bg-secondary-background space-y-2 rounded-xl p-4">
-          <div className="font-strong">Status Information:</div>
-          <div className="grid grid-cols-2 gap-2">
-            <div>Form can submit: {form.state.canSubmit ? "Yes" : "No"}</div>
-            <div>Form submitting: {form.state.isSubmitting ? "Yes" : "No"}</div>
-            <div>Data loading: {isLoading ? "Yes" : "No"}</div>
-            <div>Saving: {saveUserMutation.isPending ? "Yes" : "No"}</div>
-          </div>
-        </div>
-
-        <div className="bg-info-background rounded-xl p-4">
-          <div className="font-strong">Current Data:</div>
-          <pre className="mt-2">{JSON.stringify(userData, null, 2)}</pre>
-        </div>
-      </div>
-    )
-  },
-}
-
-/**
- * Form with async initial values
+ * ## Form with Async Initial Values
+ *
+ * Demonstrates loading form data from an API and editing existing records.
+ *
+ * ### Features
+ * - **Async data loading**: Fetch initial values from API/database
+ * - **Loading state**: Show loading indicator while fetching
+ * - **Error handling**: Display error message with retry option
+ * - **User switching**: Load different records dynamically
+ * - **Form reset**: Reload data after successful update
+ *
+ * ### Tips
+ * - Use `form.setFieldValue()` to update form when async data arrives
+ * - Add `key` prop to form to force re-render on record change
+ * - Handle loading/error states outside the form component
  */
 export const WithAsyncInitialValues: Story = {
   render: function WithAsyncInitialValuesRender() {
@@ -1238,7 +1912,21 @@ export const WithAsyncInitialValues: Story = {
 }
 
 /**
- * Form with array fields
+ * ## Form with Array Fields
+ *
+ * Demonstrates dynamic arrays of fields - both simple strings and complex objects.
+ *
+ * ### Features
+ * - **Simple arrays**: List of strings (e.g., skills/tags)
+ * - **Object arrays**: Complex items with multiple fields (e.g., hobbies, contacts)
+ * - **Dynamic add/remove**: Push and remove items at runtime
+ * - **Nested validation**: Validate individual array items
+ *
+ * ### Tips
+ * - Use `mode="array"` on Field for array operations
+ * - Access array methods: `field.pushValue()`, `field.removeValue(index)`
+ * - Name nested fields as `arrayName[index].property`
+ * - Provide unique `key` for each array item (avoid using index alone)
  */
 export const WithArrayFields: Story = {
   render: function WithArrayFieldsRender() {
@@ -1689,7 +2377,20 @@ export const WithArrayFields: Story = {
 }
 
 /**
- * Form with linked fields
+ * ## Form with Linked Fields
+ *
+ * Demonstrates cross-field validation where changing one field triggers validation of another.
+ *
+ * ### Features
+ * - **Password confirmation**: Re-validate confirm when password changes
+ * - **Email confirmation**: Similar pattern for email change flow
+ * - **onChangeListenTo**: Specify which fields trigger re-validation
+ * - **Cross-field access**: Read other field values in validators
+ *
+ * ### Tips
+ * - Use `onChangeListenTo: ["fieldName"]` to listen to other fields
+ * - Access other values via `fieldApi.form.getFieldValue("fieldName")`
+ * - Great for confirm fields, dependent dropdowns, or calculated values
  */
 export const WithLinkedFields: Story = {
   render: function WithLinkedFieldsRender() {
@@ -2029,7 +2730,22 @@ export const WithLinkedFields: Story = {
 }
 
 /**
- * Form with reactivity patterns
+ * ## Form with Reactivity Patterns
+ *
+ * Demonstrates reactive subscriptions to form state using `useStore` and `form.Subscribe`.
+ *
+ * ### Features
+ * - **useStore hook**: Subscribe to specific form values outside JSX
+ * - **form.Subscribe**: Reactive component that re-renders on value changes
+ * - **Conditional fields**: Show/hide fields based on form state
+ * - **Computed values**: Calculate derived values from form data
+ * - **Status badges**: Display real-time form status
+ *
+ * ### Tips
+ * - `useStore(form.store, (state) => state.values.field)` for single value
+ * - `form.Subscribe selector={...}` for JSX-embedded subscriptions
+ * - Use precise selectors to minimize re-renders
+ * - Great for dynamic pricing, conditional sections, or live previews
  */
 export const WithReactivity: Story = {
   render: function WithReactivityRender() {
@@ -2468,7 +3184,22 @@ export const WithReactivity: Story = {
 }
 
 /**
- * Form with listeners API
+ * ## Form with Listeners API
+ *
+ * Demonstrates the Listeners API for side effects and cascading field updates.
+ *
+ * ### Features
+ * - **Cascading selects**: Country → Province → City with auto-reset
+ * - **User type switching**: Reset related fields when type changes
+ * - **Linked checkboxes**: Auto-subscribe when enabling notifications
+ * - **Activity logging**: Track all field changes for debugging
+ * - **Lifecycle events**: onMount, onChange, onBlur handlers
+ *
+ * ### Tips
+ * - Listeners are for side effects, validators are for validation
+ * - Use `form.setFieldValue()` inside listeners to update other fields
+ * - `onChange` listener receives the new value as parameter
+ * - Perfect for dependent dropdowns, auto-fill, or analytics tracking
  */
 export const WithListeners: Story = {
   render: function WithListeners() {
@@ -3220,7 +3951,23 @@ interface FileValidationError {
 type CustomError = ValidationError | PasswordStrengthError | FileValidationError
 
 /**
- * Form with custom errors
+ * ## Form with Custom Errors
+ *
+ * Demonstrates advanced error handling with structured error objects and custom displays.
+ *
+ * ### Features
+ * - **Error types**: String, object, array, boolean, and number errors
+ * - **Severity levels**: Error, warning, and info severity
+ * - **Password strength**: Visual strength meter with requirement checklist
+ * - **File validation**: Multi-issue file validation with details
+ * - **Server errors**: Async validation with server-side checks
+ * - **Rich error display**: Custom rendering for complex error objects
+ *
+ * ### Tips
+ * - Return structured objects: `{ type, message, severity, code, details }`
+ * - Use `onBlurAsync` for server-side validation
+ * - Create custom `formatErrors` helper for rich error rendering
+ * - Different error types support different UX patterns
  */
 export const WithCustomErrors: Story = {
   render: function WithCustomErrorsRender() {

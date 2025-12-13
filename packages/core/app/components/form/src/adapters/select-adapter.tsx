@@ -4,7 +4,7 @@ import type { SelectAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Select 适配器 - 将 Select 组件适配到 Form 系统
+ * Select Adapter for Form system
  */
 export function SelectAdapter<T extends string>({
   className,
@@ -64,7 +64,7 @@ export function SelectAdapter<T extends string>({
   )
 }
 
-// 为了方便使用，导出一个创建适配器的工厂函数
+// For convenience, export a factory function to create the adapter
 export const createSelectAdapter = <T extends string>(
   defaultProps?: Partial<SelectAdapterProps<T>>,
 ) => {

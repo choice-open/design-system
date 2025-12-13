@@ -46,7 +46,8 @@
     "@choice-ui/segmented": "workspace:*",
     "@choice-ui/select": "workspace:*",
     "@choice-ui/switch": "workspace:*",
-    "@choice-ui/textarea": "workspace:*"
+    "@choice-ui/textarea": "workspace:*",
+    "@choice-ui/chips-input": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

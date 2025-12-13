@@ -3,13 +3,7 @@ import type { RangeAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Switch 适配器 - 将 Switch 组件适配到 Form 系统
- *
- * 核心功能：
- * 1. 值绑定
- * 2. 事件处理
- * 3. 错误状态显示
- * 4. 样式适配
+ * Range Adapter for Form system
  */
 export function RangeAdapter<T extends number>({
   className,
@@ -44,7 +38,7 @@ export function RangeAdapter<T extends number>({
   )
 }
 
-// 为了方便使用，导出一个创建适配器的工厂函数
+// For convenience, export a factory function to create the adapter
 export const createRangeAdapter = <T extends number>(
   defaultProps?: Partial<RangeAdapterProps<T>>,
 ) => {

@@ -4,8 +4,8 @@ import { ReactNode } from "react"
 import { FormTv } from "../tv"
 
 /**
- * 基础适配器组件
- * 提供统一的表单字段布局和样式
+ * Base Adapter component
+ * Provides a unified form field layout and style
  */
 export interface BaseAdapterProps {
   children: ReactNode
@@ -14,7 +14,7 @@ export interface BaseAdapterProps {
   error?: string | ReactNode
   htmlFor?: string
   label?: string | ReactNode
-  legendMode?: boolean // 是否使用 legend 模式（用于 radio/checkbox 组）
+  legendMode?: boolean // Whether to use legend mode (for radio/checkbox groups)
 }
 
 export function BaseAdapter({
@@ -47,7 +47,7 @@ export function BaseAdapter({
 }
 
 /**
- * 过滤表单特定属性的工具函数
+ * Utility function to filter form specific properties
  */
 export function filterFormProps<T extends Record<string, unknown>>(
   props: T,

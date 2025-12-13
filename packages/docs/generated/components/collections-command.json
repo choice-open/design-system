@@ -235,7 +235,7 @@
           "name": "children",
           "type": "ReactNode",
           "required": true,
-          "description": "标准children或render prop函数"
+          "description": "Standard children or render prop function"
         },
         {
           "name": "className",
@@ -253,13 +253,13 @@
           "name": "aria-label",
           "type": "string | undefined",
           "required": false,
-          "description": "可访问名称"
+          "description": "Accessible name"
         },
         {
           "name": "aria-labelledby",
           "type": "string | undefined",
           "required": false,
-          "description": "引用提供标签的元素ID"
+          "description": "Reference to the element ID providing the label"
         },
         {
           "name": "hoverBoundary",

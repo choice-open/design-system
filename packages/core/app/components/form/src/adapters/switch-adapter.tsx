@@ -3,7 +3,7 @@ import type { SwitchAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Switch 适配器 - 将 Switch 组件适配到 Form 系统
+ * Switch Adapter for Form system
  */
 export function SwitchAdapter<T extends boolean>({
   className,
@@ -39,7 +39,7 @@ export function SwitchAdapter<T extends boolean>({
   )
 }
 
-// 为了方便使用，导出一个创建适配器的工厂函数
+// For convenience, export a factory function to create the adapter
 export const createSwitchAdapter = <T extends boolean>(
   defaultProps?: Partial<SwitchAdapterProps<T>>,
 ) => {

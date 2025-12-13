@@ -1,16 +1,6 @@
 {
   "components": [
     {
-      "slug": "forms/form/adapters",
-      "name": "@choice-ui/form",
-      "title": "Adapters",
-      "description": "增强版的 useForm hook",
-      "version": "0.0.3",
-      "tags": [
-        "beta"
-      ]
-    },
-    {
       "slug": "overlays/alert-dialog",
       "name": "@choice-ui/alert-dialog",
       "title": "Alert Dialog",
@@ -221,13 +211,6 @@
       ]
     },
     {
-      "slug": "forms/form/examples",
-      "name": "@choice-ui/form",
-      "title": "Examples",
-      "description": "增强版的 useForm hook",
-      "version": "0.0.3"
-    },
-    {
       "slug": "forms/file-upload",
       "name": "@choice-ui/file-upload",
       "title": "FileUpload",
@@ -236,6 +219,13 @@
       "tags": [
         "beta"
       ]
+    },
+    {
+      "slug": "forms/form",
+      "name": "@choice-ui/form",
+      "title": "Form",
+      "description": "增强版的 useForm hook",
+      "version": "0.0.3"
     },
     {
       "slug": "feedback/hint",
@@ -311,7 +301,10 @@
       "name": "@choice-ui/md-input",
       "title": "MdInput",
       "description": "",
-      "version": "0.0.3"
+      "version": "0.0.3",
+      "tags": [
+        "beta"
+      ]
     },
     {
       "slug": "components/md-render",
@@ -324,8 +317,11 @@
       "slug": "collections/menubar",
       "name": "@choice-ui/menubar",
       "title": "Menubar",
-      "description": "子元素",
-      "version": "0.0.1"
+      "description": "Child elements",
+      "version": "0.0.1",
+      "tags": [
+        "new"
+      ]
     },
     {
       "slug": "collections/menus",
@@ -358,7 +354,7 @@
       "slug": "collections/multi-select",
       "name": "@choice-ui/multi-select",
       "title": "MultiSelect",
-      "description": "MultiSelect - 多选组件，支持标准下拉定位",
+      "description": "MultiSelect - Multi-select component with standard dropdown positioning",
       "version": "0.0.4",
       "tags": [
         "new"
@@ -408,7 +404,7 @@
       "slug": "overlays/popover",
       "name": "@choice-ui/popover",
       "title": "Popover",
-      "description": "@deprecated use focusManagerProps.initialFocus instead",
+      "description": "Portal root element. When specified, the popover will be rendered into this element.",
       "version": "0.0.7"
     },
     {
@@ -497,7 +493,7 @@
       "slug": "collections/select",
       "name": "@choice-ui/select",
       "title": "Select",
-      "description": "Select - 高性能的选择组件，支持 macOS 风格定位",
+      "description": "Select - High-performance select component with macOS-style positioning",
       "version": "0.0.8",
       "tags": [
         "upgrade"
@@ -507,7 +503,7 @@
       "slug": "layouts/separator",
       "name": "@choice-ui/separator",
       "title": "Separator",
-      "description": "分隔符的方向",
+      "description": "Separator direction",
       "version": "0.0.1"
     },
     {
@@ -521,7 +517,7 @@
       "slug": "utils/slot",
       "name": "@choice-ui/slot",
       "title": "Slot",
-      "description": "优化的 Slot 组件实现",
+      "description": "Optimized Slot component implementation",
       "version": "0.0.3"
     },
     {

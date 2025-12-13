@@ -1,29 +1,31 @@
-// 基础适配器
+// Base Adapter
 export { BaseAdapter, filterFormProps } from "./base-adapter"
 export type { BaseAdapterProps } from "./base-adapter"
 
-// 具体适配器
-export { InputAdapter, createInputAdapter } from "./input-adapter"
-export { TextareaAdapter, createTextareaAdapter } from "./textarea-adapter"
-export { SelectAdapter, createSelectAdapter } from "./select-adapter"
+// Specific Adapters
 export { CheckboxAdapter, createCheckboxAdapter } from "./checkbox-adapter"
-export { RadioGroupAdapter, createRadioGroupAdapter } from "./raido-group-adapter"
-export { SwitchAdapter, createSwitchAdapter } from "./switch-adapter"
-export { RangeAdapter, createRangeAdapter } from "./range-adapter"
-export { NumericInputAdapter, createNumericInputAdapter } from "./numeric-input-adapter"
+export { ChipsInputAdapter, createChipsInputAdapter } from "./chips-input-adapter"
+export { InputAdapter, createInputAdapter } from "./input-adapter"
 export { MultiSelectAdapter, createMultiSelectAdapter } from "./multi-select-adapter"
+export { NumericInputAdapter, createNumericInputAdapter } from "./numeric-input-adapter"
+export { RadioGroupAdapter, createRadioGroupAdapter } from "./raido-group-adapter"
+export { RangeAdapter, createRangeAdapter } from "./range-adapter"
 export { SegmentedAdapter, createSegmentedAdapter } from "./segmented-adapter"
+export { SelectAdapter, createSelectAdapter } from "./select-adapter"
+export { SwitchAdapter, createSwitchAdapter } from "./switch-adapter"
+export { TextareaAdapter, createTextareaAdapter } from "./textarea-adapter"
 
-// 重新导出所有适配器类型
+// Re-export all adapter types
 export type {
-  InputAdapterProps,
-  TextareaAdapterProps,
-  SelectAdapterProps,
-  MultiSelectAdapterProps,
   CheckboxAdapterProps,
-  SwitchAdapterProps,
-  RangeAdapterProps,
+  ChipsInputAdapterProps,
+  InputAdapterProps,
+  MultiSelectAdapterProps,
   NumericInputAdapterProps,
   RadioGroupAdapterProps,
+  RangeAdapterProps,
   SegmentedAdapterProps,
+  SelectAdapterProps,
+  SwitchAdapterProps,
+  TextareaAdapterProps,
 } from "../types"

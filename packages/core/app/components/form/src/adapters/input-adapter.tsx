@@ -3,7 +3,7 @@ import type { InputAdapterProps } from "../types"
 import { BaseAdapter, filterFormProps } from "./base-adapter"
 
 /**
- * Input 适配器 - 将 Input 组件适配到 Form 系统
+ * Input Adapter for Form system
  */
 export function InputAdapter<T extends string>({
   className,
@@ -36,7 +36,7 @@ export function InputAdapter<T extends string>({
   )
 }
 
-// 为了方便使用，导出一个创建适配器的工厂函数
+// For convenience, export a factory function to create the adapter
 export const createInputAdapter = <T extends string>(
   defaultProps?: Partial<InputAdapterProps<T>>,
 ) => {
