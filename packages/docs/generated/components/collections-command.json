@@ -275,7 +275,7 @@
         },
         {
           "name": "scrollbarMode",
-          "type": "undefined | \"default\" | \"large-y\" | \"large-t\" | \"large-b\" | \"large-x\" | \"large-l\" | \"large-r\"",
+          "type": "undefined | \"default\" | \"padding-y\" | \"padding-x\" | \"padding-b\" | \"padding-t\" | \"padding-l\" | \"padding-r\"",
           "required": false,
           "description": ""
         },

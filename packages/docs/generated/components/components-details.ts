@@ -80,7 +80,7 @@ import ComponentDetail76 from "./forms-textarea.json"
 import ComponentDetail77 from "./buttons-toggle-button.json"
 import ComponentDetail78 from "./feedback-tooltip.json"
 import ComponentDetail79 from "./components-tree-list.json"
-import ComponentDetail80 from "./utilities-virtualized-grid.json"
+import ComponentDetail80 from "./layouts-virtualized-grid.json"
 
 export const componentsDetails = {
   "overlays/alert-dialog": ComponentDetail0 as ComponentDetail,
@@ -163,5 +163,5 @@ export const componentsDetails = {
   "buttons/toggle-button": ComponentDetail77 as ComponentDetail,
   "feedback/tooltip": ComponentDetail78 as ComponentDetail,
   "components/tree-list": ComponentDetail79 as ComponentDetail,
-  "utilities/virtualized-grid": ComponentDetail80 as ComponentDetail,
+  "layouts/virtualized-grid": ComponentDetail80 as ComponentDetail,
 } as Record<string, ComponentDetail>

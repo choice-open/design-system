@@ -19,28 +19,42 @@ import {
 export function useContainerData(
   internalRef: RefObject<HTMLElement>,
   externalRef?: RefObject<HTMLElement>,
-  containerRef?: RefObject<HTMLElement>,
+  _containerRef?: RefObject<HTMLElement>,
 ): ContainerDataProps {
+  // Determine mode based on whether externalRef is provided (not its current value)
+  // This ensures stable behavior across renders
+  const isUsingCustomScrollContainer = externalRef !== undefined
+
   const windowSize = useWindowSize()
   const windowScrollPosition = useWindowScroll()
-  const actualRef = externalRef && externalRef.current ? externalRef : internalRef
-  const elementScrollPosition = useElementScroll(actualRef)
 
-  const windowScroll =
-    externalRef && externalRef.current ? elementScrollPosition : windowScrollPosition
-  const elementWindowOffset = useElementWindowOffset(actualRef)
+  // Always call hooks unconditionally, but use the appropriate ref
+  const scrollRef = isUsingCustomScrollContainer ? externalRef : internalRef
+  const elementScrollPosition = useElementScroll(scrollRef)
+  const scrollContainerSize = useElementSize(scrollRef)
+
+  // Choose values based on mode
+  const windowScroll = isUsingCustomScrollContainer ? elementScrollPosition : windowScrollPosition
+  const viewportSize =
+    isUsingCustomScrollContainer && scrollContainerSize ? scrollContainerSize : windowSize
+
+  // When using custom scroll container, calculate offset relative to that container
+  const elementWindowOffset = useElementWindowOffset(
+    internalRef,
+    isUsingCustomScrollContainer ? externalRef : undefined,
+  )
+
   // Always use internalRef (actual grid container) for elementSize calculation
-  // containerRef may have different width (e.g., with padding) and should not be used for column width calculation
   const elementSize = useElementSize(internalRef)
 
   return useMemo(() => {
     return {
-      windowSize,
+      windowSize: viewportSize,
       windowScroll,
       elementWindowOffset,
       elementSize,
     }
-  }, [windowSize, windowScroll, elementWindowOffset, elementSize])
+  }, [viewportSize, windowScroll, elementWindowOffset, elementSize])
 }
 
 export function useConfigData<P>(

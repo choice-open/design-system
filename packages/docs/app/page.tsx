@@ -11,6 +11,7 @@ import {
   Textarea,
   tcx,
 } from "@choice-ui/react"
+import { SiteHeader } from "@/components/site-header"
 import Link from "next/link"
 import { ArrowRight, Github, CreditCard } from "lucide-react"
 import { useState } from "react"
@@ -396,157 +397,163 @@ function CreateAccountDemo() {
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center py-24">
-      {/* Hero Section */}
-      <div className="container mb-20 flex flex-col items-center space-y-4 px-4 text-center md:px-6">
-        <Link
-          href="/docs/guide/installation"
-          className="bg-secondary-background inline-flex items-center rounded-lg px-3 py-1 text-sm font-medium"
-        >
-          <span className="bg-primary-500 mr-2 flex h-2 w-2 rounded-full"></span>
-          v1.0.0 is now available
-          <ArrowRight className="ml-1 h-4 w-4" />
-        </Link>
-        <h1 className="from-foreground to-foreground/70 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-6xl lg:text-7xl">
-          The Foundation for your <br className="hidden sm:inline" /> Design System
-        </h1>
-        <p className="text-secondary-foreground mx-auto max-w-[700px] text-lg md:text-xl">
-          A set of beautifully designed components that you can customize, extend, and build on.
-          Open Source. Open Code.
-        </p>
-        <div className="mt-6 flex gap-4">
-          <Link href="/docs/guide/installation">
-            <Button
-              size="default"
-              className="h-12 rounded-md px-8 font-medium"
-            >
-              Get Started
-            </Button>
+    <>
+      <SiteHeader />
+      <main className="flex flex-1 flex-col items-center py-24">
+        {/* Hero Section */}
+        <div className="container mb-20 flex flex-col items-center space-y-4 px-4 text-center md:px-6">
+          <Link
+            href="/docs/guide/installation"
+            className="bg-secondary-background inline-flex items-center rounded-lg px-3 py-1 text-sm font-medium"
+          >
+            <span className="bg-primary-500 mr-2 flex h-2 w-2 rounded-full"></span>
+            v1.0.0 is now available
+            <ArrowRight className="ml-1 h-4 w-4" />
           </Link>
-          <Link href="/docs/components">
-            <Button
-              variant="secondary"
-              size="default"
-              className="h-12 rounded-md border bg-white px-8 font-medium dark:bg-zinc-900"
-            >
-              View Components
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Components Grid Showcase */}
-      <div className="container px-4 md:px-6">
-        <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {/* Column 1 */}
-          <div className="grid gap-6 lg:gap-8">
-            <PaymentMethodDemo />
-            <CreateAccountDemo />
+          <h1 className="from-foreground to-foreground/70 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-6xl lg:text-7xl">
+            The Foundation for your <br className="hidden sm:inline" /> Design System
+          </h1>
+          <p className="text-secondary-foreground mx-auto max-w-[700px] text-lg md:text-xl">
+            A set of beautifully designed components that you can customize, extend, and build on.
+            Open Source. Open Code.
+          </p>
+          <div className="mt-6 flex gap-4">
+            <Link href="/docs/guide/installation">
+              <Button
+                size="default"
+                className="h-12 rounded-md px-8 font-medium"
+              >
+                Get Started
+              </Button>
+            </Link>
+            <Link href="/docs/components">
+              <Button
+                variant="secondary"
+                size="default"
+                className="h-12 rounded-md border bg-white px-8 font-medium dark:bg-zinc-900"
+              >
+                View Components
+              </Button>
+            </Link>
           </div>
+        </div>
 
-          {/* Column 2 */}
-          <div className="grid gap-6 lg:gap-8">
-            <TeamMembersDemo />
-            <div className="space-y-6">
-              {/* Floating small cards */}
-              <DemoCard className="w-full">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm leading-none font-medium">Notifications</p>
-                    <p className="text-secondary-foreground text-sm">Enable push notifications.</p>
+        {/* Components Grid Showcase */}
+        <div className="container px-4 md:px-6">
+          <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {/* Column 1 */}
+            <div className="grid gap-6 lg:gap-8">
+              <PaymentMethodDemo />
+              <CreateAccountDemo />
+            </div>
+
+            {/* Column 2 */}
+            <div className="grid gap-6 lg:gap-8">
+              <TeamMembersDemo />
+              <div className="space-y-6">
+                {/* Floating small cards */}
+                <DemoCard className="w-full">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm leading-none font-medium">Notifications</p>
+                      <p className="text-secondary-foreground text-sm">
+                        Enable push notifications.
+                      </p>
+                    </div>
+                    <Switch
+                      value={true}
+                      onChange={() => {}}
+                    />
                   </div>
-                  <Switch
-                    value={true}
-                    onChange={() => {}}
-                  />
-                </div>
-              </DemoCard>
-              <DemoCard className="w-full">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm leading-none font-medium">Dark Mode</p>
-                    <p className="text-secondary-foreground text-sm">Switch to dark theme.</p>
+                </DemoCard>
+                <DemoCard className="w-full">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm leading-none font-medium">Dark Mode</p>
+                      <p className="text-secondary-foreground text-sm">Switch to dark theme.</p>
+                    </div>
+                    <Switch
+                      value={false}
+                      onChange={() => {}}
+                    />
                   </div>
-                  <Switch
-                    value={false}
-                    onChange={() => {}}
-                  />
+                </DemoCard>
+              </div>
+            </div>
+
+            {/* Column 3 */}
+            <div className="grid gap-6 lg:gap-8">
+              <ReportIssueDemo />
+              {/* Cookie Settings Demo */}
+              <DemoCard
+                title="Cookie Settings"
+                description="Manage your cookie settings here."
+                footer={
+                  <Button
+                    className="w-full"
+                    variant="secondary"
+                  >
+                    Save preferences
+                  </Button>
+                }
+                className="w-full max-w-md"
+              >
+                <div className="grid gap-6">
+                  <div className="flex items-start space-y-0 space-x-3">
+                    <Checkbox
+                      defaultChecked
+                      id="strictly"
+                      disabled
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="strictly"
+                        className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Strictly Necessary
+                      </label>
+                      <p className="text-secondary-foreground text-sm">
+                        These cookies are essential in order to use the website and use its
+                        features.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-y-0 space-x-3">
+                    <Checkbox id="functional" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="functional"
+                        className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Functional Cookies
+                      </label>
+                      <p className="text-secondary-foreground text-sm">
+                        These cookies allow the website to provide personalized functionality.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-y-0 space-x-3">
+                    <Checkbox id="performance" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="performance"
+                        className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Performance Cookies
+                      </label>
+                      <p className="text-secondary-foreground text-sm">
+                        These cookies help to improve the performance of the website.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </DemoCard>
             </div>
           </div>
-
-          {/* Column 3 */}
-          <div className="grid gap-6 lg:gap-8">
-            <ReportIssueDemo />
-            {/* Cookie Settings Demo */}
-            <DemoCard
-              title="Cookie Settings"
-              description="Manage your cookie settings here."
-              footer={
-                <Button
-                  className="w-full"
-                  variant="secondary"
-                >
-                  Save preferences
-                </Button>
-              }
-              className="w-full max-w-md"
-            >
-              <div className="grid gap-6">
-                <div className="flex items-start space-y-0 space-x-3">
-                  <Checkbox
-                    defaultChecked
-                    id="strictly"
-                    disabled
-                  />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="strictly"
-                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Strictly Necessary
-                    </label>
-                    <p className="text-secondary-foreground text-sm">
-                      These cookies are essential in order to use the website and use its features.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-y-0 space-x-3">
-                  <Checkbox id="functional" />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="functional"
-                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Functional Cookies
-                    </label>
-                    <p className="text-secondary-foreground text-sm">
-                      These cookies allow the website to provide personalized functionality.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-y-0 space-x-3">
-                  <Checkbox id="performance" />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="performance"
-                      className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Performance Cookies
-                    </label>
-                    <p className="text-secondary-foreground text-sm">
-                      These cookies help to improve the performance of the website.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </DemoCard>
-          </div>
         </div>
-      </div>
 
-      <div className="h-20" />
-    </main>
+        <div className="h-20" />
+      </main>
+    </>
   )
 }

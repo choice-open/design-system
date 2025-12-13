@@ -9,7 +9,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-  tags: ["new"],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Splitter>
 
 export default meta
@@ -51,7 +51,7 @@ type Story = StoryObj<typeof meta>
 export const Basic = {
   render: function BasicStory() {
     return (
-      <Splitter className="h-screen w-full">
+      <Splitter className="w-128 h-64 rounded-xl border">
         <div className="grid h-full place-content-center">Pane 1</div>
         <div className="grid h-full place-content-center">Pane 2</div>
       </Splitter>
@@ -71,7 +71,7 @@ export const Basic = {
 export const Pane = {
   render: function PaneStory() {
     return (
-      <Splitter className="h-screen w-full">
+      <Splitter className="w-128 h-64 rounded-xl border">
         <Splitter.Pane>
           <div className="grid h-full place-content-center">Pane 1</div>
         </Splitter.Pane>
@@ -100,7 +100,7 @@ export const Nested = {
     return (
       <Splitter
         minSize={100}
-        className="h-screen w-screen"
+        className="w-128 h-64 rounded-xl border"
       >
         <Splitter.Pane maxSize={400}>
           <Splitter vertical>
@@ -142,7 +142,7 @@ export const Close = {
       <Splitter
         vertical
         minSize={100}
-        className="h-screen w-screen"
+        className="w-128 h-64 rounded-xl border"
       >
         <Splitter.Pane maxSize={400}>
           <Splitter>
@@ -151,7 +151,7 @@ export const Close = {
                 <div className="grid h-full place-content-center">Pane {index + 1}</div>
                 <div className="absolute top-0 h-full w-full">
                   <IconButton
-                    className="absolute top-2 right-2"
+                    className="absolute right-2 top-2"
                     onClick={() =>
                       setPanes((panes) => {
                         const newPanes = [...panes]
@@ -191,15 +191,15 @@ export const Visible = {
   render: function VisibleStory() {
     const [visible, setVisible] = useState(true)
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4">
         <Button
           onClick={() => {
             setVisible((visible) => !visible)
           }}
         >
-          {visible ? "Hide" : "Show"}
+          {visible ? "Hide Pane 2" : "Show Pane 2"}
         </Button>
-        <div className="h-96 w-96 rounded-xl border">
+        <div className="w-128 h-64 rounded-xl border">
           <Splitter
             snap
             onVisibleChange={(_index, value) => {
@@ -235,7 +235,7 @@ export const Reset = {
     const ref = useRef<SplitterHandle>(null)
 
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4">
         <Button
           onClick={() => {
             ref.current?.reset()
@@ -243,7 +243,7 @@ export const Reset = {
         >
           Reset
         </Button>
-        <div className="h-96 w-96 rounded-xl border">
+        <div className="w-128 h-64 rounded-xl border">
           <Splitter ref={ref}>
             <div className="grid h-full place-content-center">Pane 1</div>
             <div className="grid h-full place-content-center">Pane 2</div>

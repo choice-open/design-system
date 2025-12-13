@@ -172,6 +172,8 @@ export default function DocsCatchAllPage({ params }: { params: Promise<{ slug?: 
                   code={code}
                   language="tsx"
                   filename={`${story.name.toLowerCase().replace(/ /g, "-")}.tsx`}
+                  slug={slugKey}
+                  exportName={story.exportName}
                 >
                   <StoryRenderer
                     moduleExports={storyModule}

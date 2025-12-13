@@ -469,7 +469,7 @@
       "description": "",
       "version": "0.0.5",
       "tags": [
-        "new"
+        "upgrade"
       ]
     },
     {
@@ -546,10 +546,7 @@
       "name": "@choice-ui/splitter",
       "title": "Splitter",
       "description": "",
-      "version": "0.0.3",
-      "tags": [
-        "new"
-      ]
+      "version": "0.0.3"
     },
     {
       "slug": "utilities/spring-visualizer",
@@ -677,13 +674,13 @@
       ]
     },
     {
-      "slug": "utilities/virtualized-grid",
+      "slug": "layouts/virtualized-grid",
       "name": "@choice-ui/virtualized-grid",
       "title": "VirtualizedGrid",
       "description": "",
       "version": "0.0.2",
       "tags": [
-        "new"
+        "upgrade"
       ]
     },
     {

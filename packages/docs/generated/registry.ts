@@ -161,5 +161,5 @@ export const storyRegistry: Record<string, Record<string, unknown>> = {
   "buttons/toggle-button": StoryModule77,
   "feedback/tooltip": StoryModule78,
   "components/tree-list": StoryModule79,
-  "utilities/virtualized-grid": StoryModule80,
+  "layouts/virtualized-grid": StoryModule80,
 }

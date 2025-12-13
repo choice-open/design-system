@@ -1,6 +1,7 @@
 "use client"
 
-import { CodeBlock, Tabs, tcx } from "@choice-ui/react"
+import { Button, CodeBlock, Tabs, tcx } from "@choice-ui/react"
+import { ArrowsMaximizeSmall } from "@choiceform/icons-react"
 import { useState } from "react"
 
 type ComponentPreviewProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -8,6 +9,8 @@ type ComponentPreviewProps = React.HTMLAttributes<HTMLDivElement> & {
   code?: string
   language?: "tsx" | "ts" | "jsx" | "js"
   filename?: string
+  slug?: string
+  exportName?: string
 }
 
 type TabKey = "preview" | "code"
@@ -19,33 +22,52 @@ export function ComponentPreview({
   code,
   language = "tsx",
   filename,
+  slug,
+  exportName,
   ...props
 }: ComponentPreviewProps) {
   const [tab, setTab] = useState<TabKey>("preview")
 
   const hasCode = typeof code === "string" && code.trim().length > 0
+  const canOpenStandalone = slug && exportName
+
+  const openInNewWindow = () => {
+    if (!canOpenStandalone) return
+    const storyUrl = `/story/${slug}/${exportName}`
+    window.open(storyUrl, "_blank", "width=1200,height=800")
+  }
 
   return (
     <div
       className={tcx("group relative my-4 w-full", className)}
       {...props}
     >
-      {hasCode ? (
-        <Tabs
-          value={tab}
-          onChange={(value) => setTab(value as TabKey)}
-          className="mb-4 px-2"
-        >
-          <Tabs.Item value="preview">Preview</Tabs.Item>
-          <Tabs.Item value="code">Code</Tabs.Item>
-        </Tabs>
-      ) : null}
+      <div className="mb-2 flex items-center justify-between gap-2 px-2">
+        {hasCode ? (
+          <Tabs
+            value={tab}
+            onChange={(value) => setTab(value as TabKey)}
+          >
+            <Tabs.Item value="preview">Preview</Tabs.Item>
+            <Tabs.Item value="code">Code</Tabs.Item>
+          </Tabs>
+        ) : null}
+        {canOpenStandalone && (
+          <Button
+            variant="ghost"
+            onClick={openInNewWindow}
+            className="opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            <ArrowsMaximizeSmall />
+            <span>New window</span>
+          </Button>
+        )}
+      </div>
 
       {tab === "preview" ? (
         <div
           className={tcx(
-            "flex w-full items-center justify-center rounded-xl border px-4 py-8",
-            // "bg-[radial-gradient(var(--color-secondary-background)_1px,transparent_1px)] [background-size:8px_8px]",
+            "relative flex w-full items-center justify-center rounded-xl border px-4 py-8",
             align === "start" && "items-start",
             align === "end" && "items-end",
           )}

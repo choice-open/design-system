@@ -195,139 +195,139 @@
           "name": "className",
           "type": "string | undefined",
           "required": false,
-          "description": "自定义类名"
+          "description": "Custom class name"
         },
         {
           "name": "currentMonth",
           "type": "Date | undefined",
           "required": false,
-          "description": "当前显示的月份"
+          "description": "Currently displayed month"
         },
         {
           "name": "dateComparisonMode",
           "type": "undefined | \"exact-time\" | \"date-only\"",
           "required": false,
-          "description": "日期比较模式"
+          "description": "Date comparison mode"
         },
         {
           "name": "defaultValue",
           "type": "CalendarValue | undefined",
           "required": false,
-          "description": "非受控模式的默认值"
+          "description": "Non-controlled mode default value"
         },
         {
           "name": "disabledDates",
           "type": "Date[] | undefined",
           "required": false,
-          "description": "禁用的日期数组"
+          "description": "Disabled dates array"
         },
         {
           "name": "fixedGrid",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否固定6行显示（42天），默认true确保高度一致"
+          "description": "Whether to fix 6 rows display (42 days), default true to ensure height consistency"
         },
         {
           "name": "highlightDates",
           "type": "Date[] | undefined",
           "required": false,
-          "description": "需要高亮的日期数组"
+          "description": "Dates to highlight"
         },
         {
           "name": "highlightToday",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否高亮今天"
+          "description": "Whether to highlight today"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxDate",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大可选日期"
+          "description": "Maximum可选日期"
         },
         {
           "name": "minDate",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小可选日期"
+          "description": "Minimum可选日期"
         },
         {
           "name": "onChange",
           "type": "((value: CalendarValue) => void) | undefined",
           "required": false,
-          "description": "值变更回调"
+          "description": "Value change callback"
         },
         {
           "name": "onMonthChange",
           "type": "((month: Date) => void) | undefined",
           "required": false,
-          "description": "月份变更回调"
+          "description": "Month change callback"
         },
         {
           "name": "readOnly",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否只读（禁用选择但不改变样式）"
+          "description": "Whether it is read-only (disable selection but do not change style)"
         },
         {
           "name": "selectionMode",
           "type": "undefined | \"single\" | \"multiple\" | \"range\"",
           "required": false,
-          "description": "选择模式，如果未指定，会根据 value 类型自动推断"
+          "description": "Selection mode, if not specified, will be automatically inferred based on value type"
         },
         {
           "name": "showOutsideDays",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否显示非当前月份的日期"
+          "description": "Whether to show dates of non-current months"
         },
         {
           "name": "showWeekNumbers",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否显示周数，默认false"
+          "description": "Whether to show week numbers, default false"
         },
         {
           "name": "timeZone",
           "type": "string | undefined",
           "required": false,
-          "description": "时区"
+          "description": "Time zone"
         },
         {
           "name": "value",
           "type": "CalendarValue | undefined",
           "required": false,
-          "description": "受控模式的值"
+          "description": "Controlled mode value"
         },
         {
           "name": "weekStartsOn",
           "type": "undefined | 0 | 1 | 2 | 3 | 4 | 5 | 6",
           "required": false,
-          "description": "一周开始的日期（0=周日, 1=周一）"
+          "description": "Week starts on (0=Sunday, 1=Monday)"
         },
         {
           "name": "weekdayNames",
           "type": "string[] | undefined",
           "required": false,
-          "description": "自定义星期名称"
+          "description": "Custom weekday names"
         },
         {
           "name": "direction",
           "type": "undefined | \"horizontal\" | \"vertical\"",
           "required": false,
-          "description": "方向"
+          "description": "Direction"
         },
         {
           "name": "variant",
           "type": "undefined | \"default\" | \"dark\"",
           "required": false,
-          "description": "变体样式"
+          "description": "Variant style"
         }
       ]
     },
@@ -614,127 +614,127 @@
           "name": "className",
           "type": "string | undefined",
           "required": false,
-          "description": "自定义类名"
+          "description": "Custom class name"
         },
         {
           "name": "hourStep",
           "type": "number | undefined",
           "required": false,
-          "description": "小时步进，默认1小时"
+          "description": "Hour step, default 1 hour"
         },
         {
           "name": "minuteStep",
           "type": "number | undefined",
           "required": false,
-          "description": "分钟步进，默认15分钟"
+          "description": "Minute step, default 15 minutes"
         },
         {
           "name": "defaultValue",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否禁用"
+          "description": "Whether it is disabled"
         },
         {
           "name": "format",
           "type": "string | undefined",
           "required": false,
-          "description": "时间格式，支持所有 date-fns 格式字符串"
+          "description": "Time format, supports all date-fns format strings"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大时间"
+          "description": "Maximum time"
         },
         {
           "name": "minTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小时间"
+          "description": "Minimum time"
         },
         {
           "name": "onChange",
           "type": "((time: Date | null) => void) | undefined",
           "required": false,
-          "description": "时间变化回调"
+          "description": "Time change callback"
         },
         {
           "name": "readOnly",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否只读（禁用选择但不改变样式）"
+          "description": "Whether it is read-only (disable selection but do not change style)"
         },
         {
           "name": "value",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "当前选中的时间"
+          "description": "Currently selected time"
         },
         {
           "name": "metaStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Meta/Ctrl + 按键的步长（分钟），默认60分钟"
+          "description": "Meta/Ctrl + key step (minutes), default 60 minutes"
         },
         {
           "name": "shiftStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Shift + 按键的步长（分钟），默认15分钟"
+          "description": "Shift + key step (minutes), default 15 minutes"
         },
         {
           "name": "step",
           "type": "number | undefined",
           "required": false,
-          "description": "基础步长（分钟），默认1分钟"
+          "description": "Base step (minutes), default 1 minute"
         }
       ]
     },
     {
       "displayName": "TimeInputValue",
-      "description": "高级时间输入组件\n\n特性：\n- 🎯 智能时间解析：支持多种格式和自然语言\n- ⌨️ 键盘导航：上键减少，下键增加（符合列表导航逻辑）\n- 🔄 竞态保护：智能检测数据流方向，避免循环更新\n- 🚀 性能优化：使用 useEventCallback 和缓存机制\n- 🛡️ 类型安全：完整的 TypeScript 支持\n- 🌍 国际化支持：可配置语言区域\n- 📱 拖拽交互：支持通过前缀图标拖拽调整时间",
+      "description": "Advanced time input component\n\nFeatures:\n- 🎯 Intelligent time parsing: support multiple formats and natural language\n- ⌨️ Keyboard navigation: up key decreases, down key increases (符合列表导航逻辑)\n- 🔄 Race protection: smartly detect data flow direction, avoid loop updates\n- 🚀 Performance optimization: use useEventCallback and caching mechanism\n- 🛡️ Type safety: complete TypeScript support\n- 🌍 Internationalization support: configurable language region\n- 📱 Drag interaction: support dragging adjustment through prefix icon",
       "props": [
         {
           "name": "value",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "当前选中的时间"
+          "description": "Currently selected time"
         },
         {
           "name": "onChange",
           "type": "((time: Date | null) => void) | undefined",
           "required": false,
-          "description": "时间变化回调"
+          "description": "Time change callback"
         },
         {
           "name": "format",
           "type": "string | undefined",
           "required": false,
-          "description": "时间格式，支持所有 date-fns 格式字符串"
+          "description": "Time format, supports all date-fns format strings"
         },
         {
           "name": "defaultValue",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "step",
           "type": "number | undefined",
           "required": false,
-          "description": "基础步长（分钟），默认1分钟"
+          "description": "Base step (minutes), default 1 minute"
         },
         {
           "name": "size",
@@ -788,55 +788,55 @@
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大时间"
+          "description": "Maximum time"
         },
         {
           "name": "minTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小时间"
+          "description": "Minimum time"
         },
         {
           "name": "metaStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Meta/Ctrl + 按键的步长（分钟），默认60分钟"
+          "description": "Meta/Ctrl + key step (minutes), default 60 minutes"
         },
         {
           "name": "shiftStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Shift + 按键的步长（分钟），默认15分钟"
+          "description": "Shift + key step (minutes), default 15 minutes"
         },
         {
           "name": "enableCache",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用解析缓存"
+          "description": "Whether to enable parsing cache"
         },
         {
           "name": "enableKeyboardNavigation",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用键盘导航（默认启用）"
+          "description": "Whether to enable keyboard navigation (default enabled)"
         },
         {
           "name": "enableProfiling",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用性能分析"
+          "description": "Whether to enable performance analysis"
         },
         {
           "name": "onEnterKeyDown",
           "type": "(() => void) | undefined",
           "required": false,
-          "description": "按下 Enter 键的回调"
+          "description": "Callback when Enter key is pressed"
         }
       ]
     },
@@ -992,85 +992,85 @@
           "name": "currentYear",
           "type": "number | undefined",
           "required": false,
-          "description": "当前显示的年份"
+          "description": "Currently displayed year"
         },
         {
           "name": "defaultValue",
           "type": "Quarter | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否禁用"
+          "description": "Whether it is disabled"
         },
         {
           "name": "disabledQuarters",
           "type": "{ quarter: number; year: number; }[] | undefined",
           "required": false,
-          "description": "禁用的季度数组"
+          "description": "Disabled quarters array"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxYear",
           "type": "number | undefined",
           "required": false,
-          "description": "最大可选年份"
+          "description": "Maximum selectable year"
         },
         {
           "name": "minYear",
           "type": "number | undefined",
           "required": false,
-          "description": "最小可选年份"
+          "description": "Minimum selectable year"
         },
         {
           "name": "onChange",
           "type": "((quarter: Quarter | null) => void) | undefined",
           "required": false,
-          "description": "季度选择变化回调"
+          "description": "Quarter change callback"
         },
         {
           "name": "readOnly",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否只读（禁用选择但不改变样式）"
+          "description": "Whether it is read-only (disable selection but do not change style)"
         },
         {
           "name": "startYear",
           "type": "number | undefined",
           "required": false,
-          "description": "显示的年份"
+          "description": "Displayed year"
         },
         {
           "name": "value",
           "type": "Quarter | null | undefined",
           "required": false,
-          "description": "当前选中的季度"
+          "description": "Currently selected quarter"
         },
         {
           "name": "onNavigate",
           "type": "((direction: \"prev\" | \"next\", newYear: number) => void) | undefined",
           "required": false,
-          "description": "年份范围导航回调"
+          "description": "Year range navigation callback"
         },
         {
           "name": "className",
           "type": "string | undefined",
           "required": false,
-          "description": "自定义类名"
+          "description": "Custom class name"
         },
         {
           "name": "variant",
           "type": "undefined | \"default\" | \"dark\"",
           "required": false,
-          "description": "变体样式"
+          "description": "Variant style"
         }
       ]
     },
@@ -1082,97 +1082,97 @@
           "name": "currentYear",
           "type": "Date | undefined",
           "required": false,
-          "description": "当前显示的年份（用于高亮）"
+          "description": "Currently displayed year (for highlighting)"
         },
         {
           "name": "defaultValue",
           "type": "Date | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否禁用"
+          "description": "Whether it is disabled"
         },
         {
           "name": "disabledYears",
           "type": "Date[] | undefined",
           "required": false,
-          "description": "禁用的年份数组"
+          "description": "Disabled years array"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxYear",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大可选年份"
+          "description": "Maximum selectable year"
         },
         {
           "name": "minYear",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小可选年份"
+          "description": "Minimum selectable year"
         },
         {
           "name": "onChange",
           "type": "((year: Date | null) => void) | undefined",
           "required": false,
-          "description": "年份选择变化回调"
+          "description": "Year change callback"
         },
         {
           "name": "readOnly",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否只读（禁用选择但不改变样式）"
+          "description": "Whether it is read-only (disable selection but do not change style)"
         },
         {
           "name": "startYear",
           "type": "Date | undefined",
           "required": false,
-          "description": "显示年份范围的起始年份，默认为当前年份-10"
+          "description": "Displayed year range start year, default current year - 10"
         },
         {
           "name": "value",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "当前选中的年份"
+          "description": "Currently selected year"
         },
         {
           "name": "yearCount",
           "type": "number | undefined",
           "required": false,
-          "description": "显示年份的数量，默认12个"
+          "description": "Displayed year count, default 12"
         },
         {
           "name": "onNavigate",
           "type": "((direction: \"prev\" | \"next\", newStartYear: Date) => void) | undefined",
           "required": false,
-          "description": "年份范围导航回调"
+          "description": "Year range navigation callback"
         },
         {
           "name": "className",
           "type": "string | undefined",
           "required": false,
-          "description": "自定义类名"
+          "description": "Custom class name"
         },
         {
           "name": "variant",
           "type": "undefined | \"default\" | \"dark\"",
           "required": false,
-          "description": "变体样式"
+          "description": "Variant style"
         }
       ]
     },
     {
       "displayName": "inferSelectionMode",
-      "description": "根据值类型推断选择模式",
+      "description": "Infer selection mode based on value type",
       "props": [
         {
           "name": "end",
@@ -1190,7 +1190,7 @@
     },
     {
       "displayName": "inferMonthFromValue",
-      "description": "从 CalendarValue 推断应该显示的月份",
+      "description": "Infer month from CalendarValue",
       "props": [
         {
           "name": "end",
@@ -1208,82 +1208,82 @@
     },
     {
       "displayName": "isCalendarValueEqual",
-      "description": "比较两个 CalendarValue 是否相等（支持时区感知和比较精度）",
+      "description": "Compare two CalendarValue for equality (supports time zone aware and comparison precision)",
       "props": []
     },
     {
       "displayName": "resolveLocale",
-      "description": "🔧 安全的 locale 解析函数\n\n支持以下输入格式：\n- Locale 对象：直接返回\n- 字符串：自动映射到对应的 Locale 对象\n- 无效值：返回中文 locale (zhCN)",
+      "description": "🔧 Safe locale parsing function\n\nSupports the following input formats:\n- Locale object: return directly\n- String: automatically map to the corresponding Locale object\n- Invalid value: return Chinese locale (zhCN)",
       "props": []
     },
     {
       "displayName": "getSupportedLocales",
-      "description": "🔍 获取所有支持的 locale 列表",
+      "description": "🔍 Get all supported locale list",
       "props": []
     },
     {
       "displayName": "isChineseLocale",
-      "description": "🎯 检查是否为中文 locale",
+      "description": "🎯 Check if it is a Chinese locale",
       "props": []
     },
     {
       "displayName": "createTimeZoneContext",
-      "description": "创建时区上下文选项（用于 date-fns 4.0+）",
+      "description": "Create time zone context options (for date-fns 4.0+)",
       "props": []
     },
     {
       "displayName": "isSameDayInTimeZone",
-      "description": "时区感知的日期比较（仅比较日期部分）",
+      "description": "Time zone aware date comparison (only compares date part)",
       "props": []
     },
     {
       "displayName": "isSameMonthInTimeZone",
-      "description": "时区感知的月份比较",
+      "description": "Time zone aware month comparison",
       "props": []
     },
     {
       "displayName": "isSameYearInTimeZone",
-      "description": "时区感知的年份比较",
+      "description": "Time zone aware year comparison",
       "props": []
     },
     {
       "displayName": "isSameWeekInTimeZone",
-      "description": "时区感知的星期比较",
+      "description": "Time zone aware week comparison",
       "props": []
     },
     {
       "displayName": "isTodayInTimeZone",
-      "description": "时区感知的今天判断",
+      "description": "Time zone aware today check",
       "props": []
     },
     {
       "displayName": "isWithinRange",
-      "description": "判断日期是否在指定范围内（支持时区和比较模式）",
+      "description": "Check if date is within specified range (supports time zone and comparison mode)",
       "props": []
     },
     {
       "displayName": "getDateParts",
-      "description": "获取时区感知的详细日期部分",
+      "description": "Get time zone aware detailed date parts",
       "props": []
     },
     {
       "displayName": "getDateKey",
-      "description": "获取日期的唯一键（用于 Map/Set 等数据结构）",
+      "description": "Get the unique key of the date (for Map/Set etc. data structures)",
       "props": []
     },
     {
       "displayName": "areDatesEqual",
-      "description": "批量比较日期数组是否相等（时区感知）",
+      "description": "Batch compare date arrays for equality (time zone aware)",
       "props": []
     },
     {
       "displayName": "clearTimeZoneCache",
-      "description": "清除时区日期缓存（用于测试或内存管理）",
+      "description": "Clear time zone date cache (for testing or memory management)",
       "props": []
     },
     {
       "displayName": "parseDate",
-      "description": "统一的日期解析器 - 合并了原来的 tryRelaxedParsing 和 smartParseDate\n\n解析策略按优先级排序（修正为正确的优先级）：\n1. 标准格式解析 - 严格按照指定格式解析\n2. 智能数字解析（核心功能） - 纯数字输入的智能猜测 [最重要]\n3. 快捷键解析 - today, tomorrow, yesterday 等\n4. 扩展相对日期解析 - \"3 days ago\", \"next week\" 等\n5. 自然语言解析 - \"今天\", \"明天\", \"下周三\" 等\n6. 相对日期解析 - \"+3d\", \"-1w\" 等简短格式\n7. 英文日期解析 - \"Jan 15, 2024\", \"March 3rd\" 等\n8. 常见格式尝试 - 尝试其他常用日期格式",
+      "description": "Unified date parser - merged the original tryRelaxedParsing and smartParseDate\n\nParsing strategy sorted by priority (corrected to correct priority):\n1. Standard format parsing - strictly parse according to the specified format\n2. Intelligent numeric parsing (core function) - intelligent guess of pure numeric input [most important]\n3. Shortcut parsing - today, tomorrow, yesterday, etc.\n4. Extended relative date parsing - \"3 days ago\", \"next week\", etc.\n5. Natural language parsing - \"today\", \"tomorrow\", \"next Wednesday\", etc.\n6. Relative date parsing - \"+3d\", \"-1w\", etc. short format\n7. English date parsing - \"Jan 15, 2024\", \"March 3rd\", etc.\n8. Common format attempt - try other commonly used date formats",
       "props": []
     },
     {
@@ -1293,7 +1293,7 @@
     },
     {
       "displayName": "getEnhancedPrediction",
-      "description": "增强的智能预测功能\n直接使用 parseDate 函数，确保预测结果与实际格式化100%一致",
+      "description": "Enhanced intelligent prediction function\nDirectly use parseDate function, ensure prediction result is 100% consistent with actual formatting",
       "props": []
     },
     {
@@ -1343,47 +1343,47 @@
     },
     {
       "displayName": "extractDigits",
-      "description": "提取纯数字字符串",
+      "description": "Extract pure numeric string",
       "props": []
     },
     {
       "displayName": "convertTwoDigitYear",
-      "description": "年份转换工具",
+      "description": "Year conversion tool",
       "props": []
     },
     {
       "displayName": "isValidMonthDay",
-      "description": "检查是否为有效的月日组合",
+      "description": "Check if it is a valid month and day combination",
       "props": []
     },
     {
       "displayName": "canBeMonthDay",
-      "description": "检查3位数字是否可以解释为月日",
+      "description": "Check if 3 digits can be interpreted as month and day",
       "props": []
     },
     {
       "displayName": "isReasonableYear",
-      "description": "检查是否为合理的年份",
+      "description": "Check if it is a reasonable year",
       "props": []
     },
     {
       "displayName": "parseYYMMDD",
-      "description": "通用的6位数字解析器 (YYMMDD)",
+      "description": "General 6-digit parser (YYMMDD)",
       "props": []
     },
     {
       "displayName": "parseYYYYMMDD",
-      "description": "通用的8位数字解析器 (YYYYMMDD)",
+      "description": "General 8-digit parser (YYYYMMDD)",
       "props": []
     },
     {
       "displayName": "parse3Digits",
-      "description": "智能的3位数字解析器",
+      "description": "Intelligent 3-digit parser",
       "props": []
     },
     {
       "displayName": "DigitExtractor",
-      "description": "数字段提取器",
+      "description": "Numeric segment extractor",
       "props": []
     },
     {
@@ -1393,47 +1393,47 @@
     },
     {
       "displayName": "createYearDate",
-      "description": "创建年份的开始日期",
+      "description": "Create year start date",
       "props": []
     },
     {
       "displayName": "getCurrentYear",
-      "description": "获取当前年份",
+      "description": "Get current year",
       "props": []
     },
     {
       "displayName": "isYearInRange",
-      "description": "验证年份是否在有效范围内",
+      "description": "Validate if year is in valid range",
       "props": []
     },
     {
       "displayName": "getQuarterMonths",
-      "description": "获取季度的月份名称",
+      "description": "Get quarter month names",
       "props": []
     },
     {
       "displayName": "createQuarter",
-      "description": "创建季度对象",
+      "description": "Create quarter object",
       "props": []
     },
     {
       "displayName": "getCurrentQuarter",
-      "description": "获取当前季度",
+      "description": "Get current quarter",
       "props": []
     },
     {
       "displayName": "getYearQuarters",
-      "description": "获取年份的所有季度",
+      "description": "Get all quarters of a year",
       "props": []
     },
     {
       "displayName": "isQuarterEqual",
-      "description": "检查两个季度是否相等",
+      "description": "Check if two quarters are equal",
       "props": []
     },
     {
       "displayName": "formatQuarter",
-      "description": "格式化季度显示",
+      "description": "Format quarter display",
       "props": [
         {
           "name": "label",
@@ -1463,7 +1463,7 @@
     },
     {
       "displayName": "getQuarterDateRange",
-      "description": "获取季度的日期范围",
+      "description": "Get quarter date range",
       "props": [
         {
           "name": "label",
@@ -1493,32 +1493,32 @@
     },
     {
       "displayName": "getCurrentQuarterNumber",
-      "description": "获取当前季度数字 (1-4)",
+      "description": "Get current quarter number (1-4)",
       "props": []
     },
     {
       "displayName": "createQuarterStartDate",
-      "description": "创建季度的开始日期",
+      "description": "Create quarter start date",
       "props": []
     },
     {
       "displayName": "createQuarterEndDate",
-      "description": "创建季度的结束日期",
+      "description": "Create quarter end date",
       "props": []
     },
     {
       "displayName": "dateToTimeString",
-      "description": "将 Date 对象转换为时间字符串 (HH:mm)",
+      "description": "Convert Date object to time string (HH:mm)",
       "props": []
     },
     {
       "displayName": "timeStringToDate",
-      "description": "将时间字符串转换为 Date 对象（今天的日期 + 指定时间）",
+      "description": "Convert time string to Date object (today's date + specified time)",
       "props": []
     },
     {
       "displayName": "normalizeTimeValue",
-      "description": "将任意 Date 值标准化为时间字符串格式",
+      "description": "Normalize any Date value to time string format",
       "props": []
     },
     {
@@ -1586,97 +1586,97 @@
           "name": "defaultValue",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否禁用"
+          "description": "Whether it is disabled"
         },
         {
           "name": "format",
           "type": "string | undefined",
           "required": false,
-          "description": "日期格式，支持所有 date-fns 格式字符串"
+          "description": "Date format, supports all date-fns format strings"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxDate",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大日期"
+          "description": "Maximum date"
         },
         {
           "name": "minDate",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小日期"
+          "description": "Minimum date"
         },
         {
           "name": "onChange",
           "type": "((date: Date | null) => void) | undefined",
           "required": false,
-          "description": "日期变化回调"
+          "description": "Date change callback"
         },
         {
           "name": "value",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "当前选中的日期"
+          "description": "Currently selected date"
         },
         {
           "name": "metaStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Meta/Ctrl + 按键的步长（分钟），默认60分钟"
+          "description": "Meta/Ctrl + key step (minutes), default 60 minutes"
         },
         {
           "name": "shiftStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Shift + 按键的步长（分钟），默认15分钟"
+          "description": "Shift + key step (minutes), default 15 minutes"
         },
         {
           "name": "step",
           "type": "number | undefined",
           "required": false,
-          "description": "基础步长（分钟），默认1分钟"
+          "description": "Base step (minutes), default 1 minute"
         },
         {
           "name": "enableCache",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用解析缓存"
+          "description": "Whether to enable parsing cache"
         },
         {
           "name": "enableKeyboardNavigation",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用键盘导航（默认启用）"
+          "description": "Whether to enable keyboard navigation (default enabled)"
         },
         {
           "name": "enablePrediction",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用预测功能"
+          "description": "Whether to enable prediction"
         },
         {
           "name": "enableProfiling",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用性能分析"
+          "description": "Whether to enable performance analysis"
         },
         {
           "name": "onEnterKeyDown",
           "type": "(() => void) | undefined",
           "required": false,
-          "description": "按下 Enter 键的回调"
+          "description": "Callback when Enter key is pressed"
         }
       ]
     },
@@ -1700,7 +1700,7 @@
           "name": "readOnly",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否只读（禁用选择但不改变样式）"
+          "description": "Whether it is read-only (disable selection but do not change style)"
         },
         {
           "name": "ref",
@@ -1712,91 +1712,91 @@
           "name": "defaultValue",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "默认值"
+          "description": "Default value"
         },
         {
           "name": "disabled",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否禁用"
+          "description": "Whether it is disabled"
         },
         {
           "name": "format",
           "type": "string | undefined",
           "required": false,
-          "description": "时间格式，支持所有 date-fns 格式字符串"
+          "description": "Time format, supports all date-fns format strings"
         },
         {
           "name": "locale",
           "type": "string | Locale | undefined",
           "required": false,
-          "description": "语言区域 - 支持 Locale 对象或字符串（如 \"zh-CN\", \"en-US\"）"
+          "description": "Language environment - supports Locale object or string (e.g., \"zh-CN\", \"en-US\")"
         },
         {
           "name": "maxTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最大时间"
+          "description": "Maximum time"
         },
         {
           "name": "minTime",
           "type": "Date | undefined",
           "required": false,
-          "description": "最小时间"
+          "description": "Minimum time"
         },
         {
           "name": "onChange",
           "type": "((time: Date | null) => void) | undefined",
           "required": false,
-          "description": "时间变化回调"
+          "description": "Time change callback"
         },
         {
           "name": "value",
           "type": "Date | null | undefined",
           "required": false,
-          "description": "当前选中的时间"
+          "description": "Currently selected time"
         },
         {
           "name": "metaStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Meta/Ctrl + 按键的步长（分钟），默认60分钟"
+          "description": "Meta/Ctrl + key step (minutes), default 60 minutes"
         },
         {
           "name": "shiftStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Shift + 按键的步长（分钟），默认15分钟"
+          "description": "Shift + key step (minutes), default 15 minutes"
         },
         {
           "name": "step",
           "type": "number | undefined",
           "required": false,
-          "description": "基础步长（分钟），默认1分钟"
+          "description": "Base step (minutes), default 1 minute"
         },
         {
           "name": "enableCache",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用解析缓存"
+          "description": "Whether to enable parsing cache"
         },
         {
           "name": "enableKeyboardNavigation",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用键盘导航（默认启用）"
+          "description": "Whether to enable keyboard navigation (default enabled)"
         },
         {
           "name": "enableProfiling",
           "type": "boolean | undefined",
           "required": false,
-          "description": "是否启用性能分析"
+          "description": "Whether to enable performance analysis"
         },
         {
           "name": "onEnterKeyDown",
           "type": "(() => void) | undefined",
           "required": false,
-          "description": "按下 Enter 键的回调"
+          "description": "Callback when Enter key is pressed"
         }
       ]
     }

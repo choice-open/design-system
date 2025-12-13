@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/sidebar"
+import { SiteHeader } from "@/components/site-header"
 import { TableOfContents } from "@/components/table-of-contents"
 import indexData from "@/generated/index.json"
 import { componentsDetails } from "@/generated/components/components-details"
@@ -100,16 +101,19 @@ const docsConfig = {
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto max-w-[90rem] flex-1 items-start px-4 md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
-      <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
-        <div className="h-full py-6 pr-6 lg:py-8">
-          <Sidebar items={docsConfig.sidebarNav} />
-        </div>
-      </aside>
-      <main className="relative min-w-0 py-6 lg:gap-8 lg:py-8 xl:grid xl:grid-cols-[1fr_12rem]">
-        <div className="min-w-0">{children}</div>
-        <TableOfContents />
-      </main>
-    </div>
+    <>
+      <SiteHeader />
+      <div className="mx-auto max-w-[90rem] flex-1 items-start px-4 md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
+        <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+          <div className="h-full py-6 pr-6 lg:py-8">
+            <Sidebar items={docsConfig.sidebarNav} />
+          </div>
+        </aside>
+        <main className="relative min-w-0 py-6 lg:gap-8 lg:py-8 xl:grid xl:grid-cols-[1fr_12rem]">
+          <div className="min-w-0">{children}</div>
+          <TableOfContents />
+        </main>
+      </div>
+    </>
   )
 }

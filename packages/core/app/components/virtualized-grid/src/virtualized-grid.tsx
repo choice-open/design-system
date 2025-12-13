@@ -1,5 +1,5 @@
 import { tcx } from "@choice-ui/shared"
-import { useRef } from "react"
+import { useMemo, useRef } from "react"
 import { VirtualizedGridErrorBoundary } from "./error-boundary"
 import { VirtualizedGridTv } from "./tv"
 import { type VirtualizedGridProps } from "./types"
@@ -12,6 +12,9 @@ import {
 } from "./use-virtualized-grid"
 import { getGridRowStart, useIntersecting } from "./utility"
 
+// Stable empty array for fallback
+const EMPTY_VISIBLE_ITEMS: Array<{ key: string; item: never }> = []
+
 function VirtualizedGridInner<P>(props: VirtualizedGridProps<P>) {
   const ref = useRef<HTMLDivElement>(null)
   const containerData = useContainerData(ref, props.scrollRef, props.containerRef)
@@ -19,19 +22,32 @@ function VirtualizedGridInner<P>(props: VirtualizedGridProps<P>) {
   const layoutData = useLayoutData(configData)
   const renderData = useRenderData(containerData, configData, layoutData)
 
-  const intersecting = useIntersecting(
-    ref,
-    `${configData !== null ? configData.overscan * 100 : 0}px`,
+  // Pre-compute item to index mapping for O(1) lookup instead of O(n) findIndex
+  const itemIndexMap = useMemo(() => {
+    const map = new Map<P, number>()
+    props.items.forEach((item, index) => map.set(item, index))
+    return map
+  }, [props.items])
+
+  // Memoize rootMargin to prevent useIntersecting from recreating observer
+  const rootMargin = useMemo(
+    () => `${configData !== null ? configData.overscan * 100 : 0}px`,
+    [configData?.overscan],
   )
 
+  const intersecting = useIntersecting(ref, rootMargin)
+
+  // Memoize visible items array to prevent useItemPool from unnecessary recalculations
+  const visibleItemsForPool = useMemo(() => {
+    if (!renderData?.cellsToRender) return EMPTY_VISIBLE_ITEMS
+    return renderData.cellsToRender.map((cell) => ({ key: cell.key, item: cell }))
+  }, [renderData?.cellsToRender])
+
   // Use item pooling if enabled
-  const pooledCells = useItemPool(
-    renderData?.cellsToRender.map((cell) => ({ key: cell.key, item: cell })) || [],
-    {
-      poolSize: props.poolSize || 50,
-      maxPoolSize: props.maxPoolSize || 200,
-    },
-  )
+  const pooledCells = useItemPool(visibleItemsForPool, {
+    poolSize: props.poolSize || 50,
+    maxPoolSize: props.maxPoolSize || 200,
+  })
 
   const colWidth = props.fixedColumnWidth ? `${props.fixedColumnWidth}px` : "1fr"
 
@@ -66,10 +82,11 @@ function VirtualizedGridInner<P>(props: VirtualizedGridProps<P>) {
           {renderData !== null && props.enablePooling
             ? pooledCells.map((pooledCell) => {
                 const cell = pooledCell.item
+                const itemIndex = itemIndexMap.get(cell.item) ?? -1
                 return (
                   <div
                     className={tv.item()}
-                    data-index={props.items.findIndex((item) => item === cell.item)}
+                    data-index={itemIndex}
                     data-render-index={pooledCell.index}
                     data-id={cell.key}
                     data-pool-id={pooledCell.poolId}
@@ -81,17 +98,18 @@ function VirtualizedGridInner<P>(props: VirtualizedGridProps<P>) {
                       ...props.itemProps?.style,
                     }}
                   >
-                    {props.renderItem(cell.item, pooledCell.index)}
+                    {props.renderItem(cell.item, itemIndex)}
                   </div>
                 )
               })
             : renderData !== null &&
-              renderData.cellsToRender.map((cell, index) => {
+              renderData.cellsToRender.map((cell) => {
+                const itemIndex = itemIndexMap.get(cell.item) ?? -1
                 return (
                   <div
                     className={tv.item()}
-                    data-index={props.items.findIndex((item) => item === cell.item)}
-                    data-render-index={index}
+                    data-index={itemIndex}
+                    data-render-index={itemIndex}
                     data-id={cell.key}
                     key={cell.key}
                     style={{
@@ -101,7 +119,7 @@ function VirtualizedGridInner<P>(props: VirtualizedGridProps<P>) {
                       ...props.itemProps?.style,
                     }}
                   >
-                    {props.renderItem(cell.item, index)}
+                    {props.renderItem(cell.item, itemIndex)}
                   </div>
                 )
               })}

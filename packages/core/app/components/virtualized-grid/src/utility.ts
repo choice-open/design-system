@@ -35,8 +35,14 @@ function getWindowScroll(): ElementScroll {
   }
 }
 
-function getElementOffset(element: Element) {
+function getElementOffset(element: Element, scrollContainer?: Element | null) {
   if (!isBrowser) return 0
+  if (scrollContainer) {
+    // Calculate offset relative to scroll container
+    const elementRect = element.getBoundingClientRect()
+    const containerRect = scrollContainer.getBoundingClientRect()
+    return elementRect.top - containerRect.top + scrollContainer.scrollTop
+  }
   return window.scrollY + element.getBoundingClientRect().top
 }
 
@@ -98,77 +104,95 @@ export function useElementSize(ref: RefObject<Element>): ElementSize | null {
 }
 
 export function useWindowScroll(): ElementScroll {
-  const [scrollPosition, setScrollPosition] = useState(getWindowScroll())
-  const ref = useConstRef(scrollPosition)
+  const [scrollPosition, setScrollPosition] = useState(getWindowScroll)
+  const scrollPositionRef = useConstRef(scrollPosition)
 
   useEffect(() => {
     function update() {
       const nextScrollPosition = getWindowScroll()
-      if (!isSameElementScroll(ref.current, nextScrollPosition)) {
+      if (!isSameElementScroll(scrollPositionRef.current, nextScrollPosition)) {
         setScrollPosition(nextScrollPosition)
       }
     }
 
-    window.addEventListener("scroll", update)
-    window.addEventListener("resize", update)
+    // Use passive listeners for better scroll performance
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update, { passive: true })
 
     return () => {
       window.removeEventListener("scroll", update)
       window.removeEventListener("resize", update)
     }
-  }, [ref])
+  }, [scrollPositionRef])
 
   return scrollPosition
 }
 
+// Stable initial scroll state to avoid recreating object
+const INITIAL_SCROLL: ElementScroll = { x: 0, y: 0 }
+
 export function useElementScroll(ref: RefObject<HTMLElement>): ElementScroll {
-  const [scrollPosition, setScrollPosition] = useState(() => {
+  const [scrollPosition, setScrollPosition] = useState<ElementScroll>(() => {
     if (ref.current) {
       return getElementScroll(ref.current)
-    } else {
-      return { x: 0, y: 0 }
     }
+    return INITIAL_SCROLL
   })
 
   const scrollPositionRef = useConstRef(scrollPosition)
 
   useEffect(() => {
-    const currentRef = ref.current
+    const element = ref.current
+    if (!element) return
 
     const onScroll = () => {
-      if (currentRef) {
-        const nextScrollPosition = getElementScroll(currentRef)
-        if (!isSameElementScroll(scrollPositionRef.current, nextScrollPosition)) {
-          setScrollPosition(nextScrollPosition)
-        }
+      const nextScrollPosition = getElementScroll(element)
+      if (!isSameElementScroll(scrollPositionRef.current, nextScrollPosition)) {
+        setScrollPosition(nextScrollPosition)
       }
     }
 
-    if (currentRef) currentRef.addEventListener("scroll", onScroll)
-    return () => {
-      if (currentRef) currentRef.removeEventListener("scroll", onScroll)
-    }
+    // Initialize on mount
+    onScroll()
+
+    // Use passive listener for better scroll performance
+    element.addEventListener("scroll", onScroll, { passive: true })
+    return () => element.removeEventListener("scroll", onScroll)
   }, [ref, scrollPositionRef])
 
   return scrollPosition
 }
 
-export function useElementWindowOffset(ref: RefObject<HTMLElement>) {
-  const [elementOffset, setElementOffset] = useState(() => {
-    if (ref.current) {
-      return getElementOffset(ref.current)
-    } else {
-      return null
-    }
-  })
+export function useElementWindowOffset(
+  ref: RefObject<HTMLElement>,
+  scrollContainerRef?: RefObject<HTMLElement>,
+) {
+  const [elementOffset, setElementOffset] = useState<number | null>(null)
+  const offsetRef = useConstRef(elementOffset)
 
   useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
-      setElementOffset(getElementOffset(entries[0].target))
-    })
+    const updateOffset = () => {
+      if (ref.current) {
+        const newOffset = getElementOffset(ref.current, scrollContainerRef?.current)
+        // Only update if value actually changed to prevent unnecessary re-renders
+        if (offsetRef.current !== newOffset) {
+          setElementOffset(newOffset)
+        }
+      }
+    }
+
+    // Initial calculation
+    updateOffset()
+
+    // Only observe resize changes, not scroll
+    // For custom scroll container: offset is relative position within container content
+    // This doesn't change during scrolling, only when elements resize
+    const observer = new ResizeObserver(updateOffset)
     if (ref.current) observer.observe(ref.current)
+    if (scrollContainerRef?.current) observer.observe(scrollContainerRef.current)
+
     return () => observer.disconnect()
-  }, [ref])
+  }, [ref, scrollContainerRef, offsetRef])
 
   return elementOffset
 }

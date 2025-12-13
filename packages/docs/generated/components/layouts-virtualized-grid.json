@@ -1,0 +1,267 @@
+{
+  "slug": "layouts/virtualized-grid",
+  "title": "VirtualizedGrid",
+  "package": {
+    "name": "@choice-ui/virtualized-grid",
+    "version": "0.0.2",
+    "description": "Virtualized Grid component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/button": "workspace:*",
+      "@choice-ui/shared": "workspace:*"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "VirtualizedGrid",
+    "useContainerData",
+    "useConfigData",
+    "useLayoutData",
+    "useRenderData",
+    "useConstRef",
+    "useWindowSize",
+    "useElementSize",
+    "useWindowScroll",
+    "useElementScroll",
+    "useElementWindowOffset",
+    "useIntersecting",
+    "getColumnWidth",
+    "getGridRowStart",
+    "type ConstRef",
+    "type ElementSize",
+    "type ElementScroll",
+    "type ItemDataProps",
+    "type EntryProps",
+    "type ConfigDataProps",
+    "type ContainerDataProps",
+    "type CellProps",
+    "type LayoutDataProps",
+    "type RenderDataProps",
+    "type VirtualizedGridProps",
+    "type PooledItem",
+    "type ItemPoolOptions",
+    "useItemPool"
+  ],
+  "props": [
+    {
+      "displayName": "VirtualizedGrid",
+      "description": "",
+      "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "columnCount",
+          "type": "(elementWidth: number, gridGap: number) => number",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "containerRef",
+          "type": "RefObject<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "enablePooling",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "errorFallback",
+          "type": "ComponentType<{ error?: Error | undefined; retry: () => void; }> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "fixedColumnWidth",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "gridGap",
+          "type": "((elementWidth: number, windowHeight: number) => number) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "itemData",
+          "type": "(item: P, columnWidth: number) => ItemDataProps",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "itemProps",
+          "type": "HTMLAttributes<HTMLDivElement> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "P[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "listMode",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "maxPoolSize",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onError",
+          "type": "((error: Error, errorInfo: ErrorInfo) => void) | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "overscan",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Number of items to render outside the visible area for smoother scrolling (default: 5)"
+        },
+        {
+          "name": "poolSize",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: P, index?: number | undefined) => ReactNode",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "scrollRef",
+          "type": "RefObject<HTMLElement> | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "useLayoutData",
+      "description": "",
+      "props": [
+        {
+          "name": "columnCount",
+          "type": "number",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "entries",
+          "type": "EntryProps<P>[]",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "gridGap",
+          "type": "number",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "required": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "displayName": "useConstRef",
+      "description": "",
+      "props": []
+    },
+    {
+      "displayName": "useElementSize",
+      "description": "",
+      "props": []
+    },
+    {
+      "displayName": "useElementScroll",
+      "description": "",
+      "props": []
+    },
+    {
+      "displayName": "VirtualizedGridErrorBoundary",
+      "description": "",
+      "props": [
+        {
+          "name": "fallback",
+          "type": "ComponentType<{ error?: Error | undefined; retry: () => void; }> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "onError",
+          "type": "((error: Error, errorInfo: ErrorInfo) => void) | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "layouts-virtualizedgrid--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic grid layout with responsive columns.\n\nNote: This component uses window scroll by default.\nFor best testing experience, open in a standalone window.\n\nDemonstrates:\n- Basic setup with responsive column calculation\n- Default overscan behavior (5 rows)\n- Dynamic item height based on column width",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\n\nexport default function App() {\n\n  const openInNewWindow = () => {\n    const storyUrl = \"/story/layouts/virtualized-grid/BasicDemo\"\n    window.open(storyUrl, \"_blank\", \"width=1200,height=800\")\n  }\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <p className=\"text-secondary-foreground text-center\">\n        This component uses window scroll. Open in a standalone window for best experience.\n      </p>\n      <Button onClick={openInNewWindow}>Open in New Window</Button>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-virtualizedgrid--list-mode",
+      "name": "List Mode",
+      "exportName": "ListMode",
+      "description": "List mode for single-column vertical layouts.\n\nDemonstrates:\n- List mode with single column (`listMode={true}`)\n- Fixed row height for consistent layout\n- Horizontal card layout with avatar",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\n\nexport default function App() {\n\n  const openInNewWindow = () => {\n    const storyUrl = \"/story/layouts/virtualized-grid/ListModeDemo\"\n    window.open(storyUrl, \"_blank\", \"width=1200,height=800\")\n  }\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <p className=\"text-secondary-foreground text-center\">\n        This component uses window scroll. Open in a standalone window for best experience.\n      </p>\n      <Button onClick={openInNewWindow}>Open in New Window</Button>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-virtualizedgrid--performance-optimized",
+      "name": "Performance Optimized",
+      "exportName": "PerformanceOptimized",
+      "description": "Performance optimized setup with DOM node pooling.\n\nDemonstrates:\n- DOM node pooling for memory efficiency\n- Minimal overscan for better performance\n- Large dataset handling (10k items)",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\n\nexport default function App() {\n\n  const openInNewWindow = () => {\n    const storyUrl = \"/story/layouts/virtualized-grid/PerformanceOptimizedDemo\"\n    window.open(storyUrl, \"_blank\", \"width=1200,height=800\")\n  }\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <p className=\"text-secondary-foreground text-center\">\n        This component uses window scroll. Open in a standalone window for best experience.\n      </p>\n      <Button onClick={openInNewWindow}>Open in New Window</Button>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-virtualizedgrid--container-scroll",
+      "name": "Container Scroll",
+      "exportName": "ContainerScroll",
+      "description": "Container scroll implementation within a ScrollArea.\n\nDemonstrates:\n- Custom scroll container setup\n- Integration with ScrollArea component\n- Constrained height virtualization\n\n```tsx\nconst scrollRef = useRef<HTMLDivElement>(null)\nconst containerRef = useRef<HTMLDivElement>(null)\n\n<ScrollArea>\n  <ScrollArea.Viewport ref={scrollRef}>\n    <ScrollArea.Content ref={containerRef}>\n      <VirtualizedGrid\n        scrollRef={scrollRef}\n        containerRef={containerRef}\n        // ... other props\n      />\n    </ScrollArea.Content>\n  </ScrollArea.Viewport>\n</ScrollArea>\n```",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\nimport { useMemo, useRef } from \"react\"\n\nexport default function App() {\n\n  const items = useMemo(() => generateItems(800), [])\n  const scrollRef = useRef<HTMLDivElement>(null)\n  const containerRef = useRef<HTMLDivElement>(null)\n\n  return (\n    <ScrollArea className=\"w-128 h-96 rounded-xl border\">\n      <ScrollArea.Viewport ref={scrollRef}>\n        <ScrollArea.Content\n          ref={containerRef}\n          className=\"p-4\"\n        >\n          <VirtualizedGrid\n            scrollRef={scrollRef}\n            containerRef={containerRef}\n            items={items}\n            overscan={3}\n            columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (128 + gap)))}\n            gridGap={() => 16}\n            itemData={(item, columnWidth) => ({\n              key: item.id,\n              height: columnWidth * 0.75,\n            })}\n            renderItem={(item, index) => (\n              <div\n                className=\"bg-default-background flex flex-col rounded-lg border p-2\"\n                style={{ height: \"inherit\" }}\n              >\n                <div\n                  className=\"mb-2 w-full flex-1 rounded-md\"\n                  style={{ backgroundColor: item.color }}\n                />\n                <div className=\"flex items-center justify-between\">\n                  <h3 className=\"font-strong line-clamp-2\">{item.title}</h3>\n                  <Badge>{item.category}</Badge>\n                </div>\n              </div>\n            )}\n          />\n        </ScrollArea.Content>\n      </ScrollArea.Viewport>\n    </ScrollArea>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-virtualizedgrid--error-handling",
+      "name": "Error Handling",
+      "exportName": "ErrorHandling",
+      "description": "Error handling and edge cases demonstration.\n\nDemonstrates:\n- Custom error boundary fallback\n- Error recovery mechanisms\n- Empty state handling",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\n\nexport default function App() {\n\n  const openInNewWindow = () => {\n    const storyUrl = \"/story/layouts/virtualized-grid/ErrorHandlingDemo\"\n    window.open(storyUrl, \"_blank\", \"width=1200,height=800\")\n  }\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <p className=\"text-secondary-foreground text-center\">\n        This component uses window scroll. Open in a standalone window for best experience.\n      </p>\n      <Button onClick={openInNewWindow}>Open in New Window</Button>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "layouts-virtualizedgrid--playground",
+      "name": "Playground",
+      "exportName": "Playground",
+      "description": "Interactive configuration playground.\n\nDemonstrates:\n- Dynamic configuration changes\n- Real-time performance impact visualization\n- Different overscan values\n- Variable item sizes",
+      "source": "import { VirtualizedGrid } from \"@choice-ui/virtualized-grid\"\n\nexport default function App() {\n\n  const openInNewWindow = () => {\n    const storyUrl = \"/story/layouts/virtualized-grid/PlaygroundDemo\"\n    window.open(storyUrl, \"_blank\", \"width=1200,height=800\")\n  }\n\n  return (\n    <div className=\"flex flex-col items-center justify-center gap-4\">\n      <p className=\"text-secondary-foreground text-center\">\n        This component uses window scroll. Open in a standalone window for best experience.\n      </p>\n      <Button onClick={openInNewWindow}>Open in New Window</Button>\n    </div>\n  )\n\n}"
+    }
+  ],
+  "tags": [
+    "upgrade"
+  ]
+}

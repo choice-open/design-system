@@ -1,8 +1,8 @@
+import { ThemeProvider } from "@/components/providers"
+import { ChoiceUiProvider } from "@/components/ui"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/providers"
-import { SiteHeader } from "@/components/site-header"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,18 +25,17 @@ export default function RootLayout({
       suppressHydrationWarning
       className={inter.variable}
     >
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col">
-            <SiteHeader />
-            <div className="flex-1">{children}</div>
-          </div>
-        </ThemeProvider>
+      <body className="flex min-h-dvh flex-col">
+        <ChoiceUiProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ChoiceUiProvider>
       </body>
     </html>
   )

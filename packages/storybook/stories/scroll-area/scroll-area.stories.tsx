@@ -16,7 +16,7 @@ import { useMemo, useState } from "react"
 const meta: Meta<typeof ScrollArea> = {
   title: "Layouts/ScrollArea",
   component: ScrollArea,
-  tags: ["upgrade"],
+  tags: ["upgrade", "autodocs"],
 }
 
 export default meta

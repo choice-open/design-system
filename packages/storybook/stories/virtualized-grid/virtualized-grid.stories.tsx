@@ -1,16 +1,11 @@
-import { Badge } from "@choice-ui/react"
-import { Button } from "@choice-ui/react"
-import { Input } from "@choice-ui/react"
-import { ScrollArea } from "@choice-ui/react"
-import { faker } from "@faker-js/faker"
+import { Avatar, Badge, Button, Input, ScrollArea, VirtualizedGrid } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import React, { useMemo, useRef, useState } from "react"
-import { VirtualizedGrid } from "@choice-ui/react"
+import { useCallback, useMemo, useRef, useState } from "react"
 
 const meta: Meta<typeof VirtualizedGrid> = {
-  title: "Utilities/VirtualizedGrid",
+  title: "Layouts/VirtualizedGrid",
   component: VirtualizedGrid,
-  tags: ["new"],
+  tags: ["autodocs", "upgrade"],
   parameters: {
     layout: "fullscreen",
   },
@@ -57,62 +52,88 @@ const generateItems = (count: number) =>
   Array.from({ length: count }, (_, index) => ({
     id: `item-${index}`,
     index,
-    title: faker.commerce.productName(),
-    description: faker.commerce.productDescription(),
-    category: faker.commerce.department(),
-    price: faker.commerce.price(),
+    title: `Item ${index + 1}`,
+    description: `Description for Item ${index + 1}`,
+    category: `${index + 1}`,
+    price: `$${index + 1}`,
     image: `https://api.dicebear.com/7.x/avataaars/svg?seed=${index}`,
-    color: faker.color.rgb(),
+    color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
   }))
 
 /**
  * Basic grid layout with responsive columns.
  *
+ * Note: This component uses window scroll by default.
+ * For best testing experience, open in a standalone window.
+ *
  * Demonstrates:
  * - Basic setup with responsive column calculation
  * - Default overscan behavior (5 rows)
- * - Simple card rendering with images
- *
- * ```tsx
- * <VirtualizedGrid
- *   items={items}
- *   columnCount={(width) => Math.floor(width / 250)}
- *   itemData={(item) => ({ key: item.id, height: 280 })}
- *   renderItem={(item) => <ProductCard {...item} />}
- * />
- * ```
+ * - Dynamic item height based on column width
  */
 export const Basic: Story = {
   render: function BasicStory() {
+    const openInNewWindow = () => {
+      const storyUrl = "/story/layouts/virtualized-grid/BasicDemo"
+      window.open(storyUrl, "_blank", "width=1200,height=800")
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-secondary-foreground text-center">
+          This component uses window scroll. Open in a standalone window for best experience.
+        </p>
+        <Button onClick={openInNewWindow}>Open in New Window</Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] BasicDemo - Actual demo for standalone window, not shown in docs.
+ */
+export const BasicDemo: Story = {
+  render: function BasicDemoStory() {
     const items = useMemo(() => generateItems(1000), [])
+
+    const card = useCallback(
+      (item: (typeof items)[number]) => (
+        <div
+          className="bg-secondary-background flex min-h-0 flex-col overflow-hidden rounded-lg transition-shadow hover:shadow-md"
+          style={{ height: "inherit" }}
+        >
+          <div className="min-h-0 p-4">
+            <Avatar
+              size={64}
+              photo={item.image}
+              name={item.title}
+            />
+          </div>
+          <div className="flex flex-1 flex-col p-4">
+            <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
+            <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
+            <div className="flex items-center justify-between">
+              <Badge>{item.category}</Badge>
+              <span className="text-success-foreground font-strong">${item.price}</span>
+            </div>
+          </div>
+        </div>
+      ),
+      [],
+    )
 
     return (
       <VirtualizedGrid
+        className="h-full w-full"
         items={items}
         overscan={5}
         columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (250 + gap)))}
         gridGap={(width) => (width > 768 ? 24 : 16)}
-        itemData={(item) => ({
+        itemData={(item, columnWidth) => ({
           key: item.id,
-          height: 280,
+          height: columnWidth * 0.75,
         })}
-        renderItem={(item, index) => (
-          <div className="bg-default-background overflow-hidden rounded-lg shadow-sm transition-shadow hover:shadow-md">
-            <img
-              src={item.image}
-              alt={item.title}
-              className="h-32 w-full object-contain"
-            />
-            <div className="p-4">
-              <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
-              <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
-              <div className="flex items-center justify-between">
-                <Badge>{item.category}</Badge>
-                <span className="text-success-foreground font-strong">${item.price}</span>
-              </div>
-            </div>
-          </div>
-        )}
+        renderItem={(item, index) => card(item)}
       />
     )
   },
@@ -122,26 +143,64 @@ export const Basic: Story = {
  * List mode for single-column vertical layouts.
  *
  * Demonstrates:
- * - List mode with single column
- * - Variable item heights
- * - Horizontal layout within items
- *
- * ```tsx
- * <VirtualizedGrid
- *   listMode={true}
- *   items={items}
- *   columnCount={() => 1}
- *   itemData={(item) => ({ key: item.id, height: 120 })}
- *   renderItem={(item) => <ListItem {...item} />}
- * />
- * ```
+ * - List mode with single column (`listMode={true}`)
+ * - Fixed row height for consistent layout
+ * - Horizontal card layout with avatar
  */
 export const ListMode: Story = {
   render: function ListModeStory() {
+    const openInNewWindow = () => {
+      const storyUrl = "/story/layouts/virtualized-grid/ListModeDemo"
+      window.open(storyUrl, "_blank", "width=1200,height=800")
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-secondary-foreground text-center">
+          This component uses window scroll. Open in a standalone window for best experience.
+        </p>
+        <Button onClick={openInNewWindow}>Open in New Window</Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] ListModeDemo - Actual demo for standalone window, not shown in docs.
+ */
+export const ListModeDemo: Story = {
+  render: function ListModeDemoStory() {
     const items = useMemo(() => generateItems(500), [])
+
+    const card = useCallback(
+      (item: (typeof items)[number]) => (
+        <div
+          className="bg-secondary-background flex min-h-0 overflow-hidden rounded-lg transition-shadow hover:shadow-md"
+          style={{ height: "inherit" }}
+        >
+          <div className="min-h-0 p-4">
+            <Avatar
+              size={64}
+              photo={item.image}
+              name={item.title}
+            />
+          </div>
+          <div className="flex flex-1 flex-col p-4">
+            <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
+            <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
+            <div className="flex items-center justify-between">
+              <Badge>{item.category}</Badge>
+              <span className="text-success-foreground font-strong">${item.price}</span>
+            </div>
+          </div>
+        </div>
+      ),
+      [],
+    )
 
     return (
       <VirtualizedGrid
+        className="h-full w-full"
         listMode={true}
         items={items}
         overscan={3}
@@ -149,30 +208,9 @@ export const ListMode: Story = {
         gridGap={() => 8}
         itemData={(item) => ({
           key: item.id,
-          height: 120,
+          height: 64 + 32,
         })}
-        renderItem={(item, index) => (
-          <div className="bg-default-background rounded-lg border p-4 transition-colors hover:bg-gray-50">
-            <div className="flex items-center gap-4">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="h-16 w-16 flex-shrink-0 rounded-lg object-cover"
-              />
-              <div className="min-w-0 flex-grow">
-                <div className="mb-1 flex items-center justify-between">
-                  <h3 className="font-strong truncate">{item.title}</h3>
-                  <span className="text-success-foreground font-strong">${item.price}</span>
-                </div>
-                <p className="text-secondary-foreground mb-2 line-clamp-2">{item.description}</p>
-                <div className="flex items-center gap-2">
-                  <Badge>{item.category}</Badge>
-                  <span className="text-secondary-foreground">#{(index ?? 0) + 1}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        renderItem={(item) => card(item)}
       />
     )
   },
@@ -185,38 +223,48 @@ export const ListMode: Story = {
  * - DOM node pooling for memory efficiency
  * - Minimal overscan for better performance
  * - Large dataset handling (10k items)
- * - Performance monitoring indicators
- *
- * ```tsx
- * <VirtualizedGrid
- *   enablePooling={true}
- *   poolSize={50}
- *   maxPoolSize={200}
- *   overscan={2}
- *   items={largeDataset}
- *   // ... other props
- * />
- * ```
  */
 export const PerformanceOptimized: Story = {
-  render: function PerformanceStory() {
+  render: function PerformanceOptimizedStory() {
+    const openInNewWindow = () => {
+      const storyUrl = "/story/layouts/virtualized-grid/PerformanceOptimizedDemo"
+      window.open(storyUrl, "_blank", "width=1200,height=800")
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-secondary-foreground text-center">
+          This component uses window scroll. Open in a standalone window for best experience.
+        </p>
+        <Button onClick={openInNewWindow}>Open in New Window</Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] PerformanceOptimizedDemo - Actual demo for standalone window, not shown in docs.
+ */
+export const PerformanceOptimizedDemo: Story = {
+  render: function PerformanceOptimizedDemoStory() {
     const items = useMemo(() => generateItems(10000), [])
 
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-4 rounded-lg bg-blue-50 p-4">
-          <div className="">
+      <>
+        <div className="flex items-center gap-4 p-4">
+          <div>
             <strong>Dataset:</strong> {items.length.toLocaleString()} items
           </div>
-          <div className="">
+          <div>
             <strong>Rendered:</strong> ~50-100 DOM nodes (pooled)
           </div>
-          <div className="">
+          <div>
             <strong>Performance:</strong> O(log n) rendering
           </div>
         </div>
 
         <VirtualizedGrid
+          className="h-full w-full"
           enablePooling={true}
           poolSize={50}
           maxPoolSize={200}
@@ -224,13 +272,16 @@ export const PerformanceOptimized: Story = {
           items={items}
           columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (200 + gap)))}
           gridGap={() => 12}
-          itemData={(item) => ({
+          itemData={(item, columnWidth) => ({
             key: item.id,
-            height: 200,
+            height: columnWidth * 0.75,
           })}
           renderItem={(item, index) => (
-            <div className="bg-default-background rounded-lg border p-3 transition-shadow hover:shadow-md">
-              <div className="mb-3 h-20 w-full rounded bg-gradient-to-br from-blue-400 to-purple-500" />
+            <div
+              className="bg-default-background flex flex-col rounded-lg border p-3 transition-shadow hover:shadow-md"
+              style={{ height: "inherit" }}
+            >
+              <div className="mb-3 w-full flex-1 rounded bg-gradient-to-br from-blue-400 to-purple-500" />
               <div className="space-y-2">
                 <h3 className="font-strong line-clamp-1">{item.title}</h3>
                 <div className="flex items-center justify-between">
@@ -241,7 +292,7 @@ export const PerformanceOptimized: Story = {
             </div>
           )}
         />
-      </div>
+      </>
     )
   },
 }
@@ -278,52 +329,42 @@ export const ContainerScroll: Story = {
     const containerRef = useRef<HTMLDivElement>(null)
 
     return (
-      <div className="space-y-4">
-        <div className="rounded-lg bg-green-50 p-4">
-          <p className="">
-            <strong>Container Scroll:</strong> Virtualization within a custom scroll container
-            instead of the window. Useful for modals, sidebars, or embedded layouts.
-          </p>
-        </div>
-
-        <ScrollArea>
-          <ScrollArea.Viewport
-            ref={scrollRef}
-            className="max-h-96 rounded-xl border"
+      <ScrollArea className="w-128 h-96 rounded-xl border">
+        <ScrollArea.Viewport ref={scrollRef}>
+          <ScrollArea.Content
+            ref={containerRef}
+            className="p-4"
           >
-            <ScrollArea.Content
-              ref={containerRef}
-              className="p-4"
-            >
-              <VirtualizedGrid
-                scrollRef={scrollRef}
-                containerRef={containerRef}
-                items={items}
-                overscan={3}
-                columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (220 + gap)))}
-                gridGap={() => 16}
-                itemData={(item) => ({
-                  key: item.id,
-                  height: 180,
-                })}
-                renderItem={(item, index) => (
-                  <div className="bg-default-background rounded-lg border p-3">
-                    <div
-                      className="mb-3 h-16 w-full rounded"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
-                    <div className="flex items-center justify-between">
-                      <span className="text-secondary-foreground">Item {(index ?? 0) + 1}</span>
-                      <Badge>{item.category}</Badge>
-                    </div>
+            <VirtualizedGrid
+              scrollRef={scrollRef}
+              containerRef={containerRef}
+              items={items}
+              overscan={3}
+              columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (128 + gap)))}
+              gridGap={() => 16}
+              itemData={(item, columnWidth) => ({
+                key: item.id,
+                height: columnWidth * 0.75,
+              })}
+              renderItem={(item, index) => (
+                <div
+                  className="bg-default-background flex flex-col rounded-lg border p-2"
+                  style={{ height: "inherit" }}
+                >
+                  <div
+                    className="mb-2 w-full flex-1 rounded-md"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-strong line-clamp-2">{item.title}</h3>
+                    <Badge>{item.category}</Badge>
                   </div>
-                )}
-              />
-            </ScrollArea.Content>
-          </ScrollArea.Viewport>
-        </ScrollArea>
-      </div>
+                </div>
+              )}
+            />
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+      </ScrollArea>
     )
   },
 }
@@ -335,30 +376,36 @@ export const ContainerScroll: Story = {
  * - Custom error boundary fallback
  * - Error recovery mechanisms
  * - Empty state handling
- * - Loading states
- *
- * ```tsx
- * <VirtualizedGrid
- *   items={items}
- *   errorFallback={({ error, retry }) => (
- *     <CustomErrorState error={error} onRetry={retry} />
- *   )}
- *   onError={(error, errorInfo) => {
- *     console.error('Grid error:', error)
- *   }}
- *   // ... other props
- * />
- * ```
  */
 export const ErrorHandling: Story = {
   render: function ErrorHandlingStory() {
+    const openInNewWindow = () => {
+      const storyUrl = "/story/layouts/virtualized-grid/ErrorHandlingDemo"
+      window.open(storyUrl, "_blank", "width=1200,height=800")
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-secondary-foreground text-center">
+          This component uses window scroll. Open in a standalone window for best experience.
+        </p>
+        <Button onClick={openInNewWindow}>Open in New Window</Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] ErrorHandlingDemo - Actual demo for standalone window, not shown in docs.
+ */
+export const ErrorHandlingDemo: Story = {
+  render: function ErrorHandlingDemoStory() {
     const [shouldError, setShouldError] = useState(false)
     const [items, setItems] = useState(() => generateItems(100))
 
     const errorProneItems = shouldError
       ? items.map((item, index) => {
           if (index === 50) {
-            // Simulate an error condition
             return { ...item, title: null as unknown as string }
           }
           return item
@@ -366,14 +413,8 @@ export const ErrorHandling: Story = {
       : items
 
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-4 rounded-lg bg-yellow-50 p-4">
-          <div className="flex-grow">
-            <p className="">
-              <strong>Error Handling:</strong> Demonstrates error boundaries, recovery, and edge
-              cases.
-            </p>
-          </div>
+      <>
+        <div className="flex items-center gap-4 p-4">
           <div className="flex gap-2">
             <Button
               variant={shouldError ? "destructive" : "secondary"}
@@ -397,20 +438,29 @@ export const ErrorHandling: Story = {
         </div>
 
         <VirtualizedGrid
+          className="h-full w-full"
           items={errorProneItems}
           overscan={5}
           columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (250 + gap)))}
           gridGap={() => 16}
-          itemData={(item) => ({
+          itemData={(item, columnWidth) => ({
             key: item.id,
-            height: 200,
+            height: columnWidth * 0.75,
           })}
           renderItem={(item, index) => (
-            <div className="bg-default-background rounded-lg border p-4">
-              <div className="mb-3 h-24 w-full rounded bg-gray-200" />
+            <div
+              className="bg-default-background flex flex-col rounded-lg border p-4"
+              style={{ height: "inherit" }}
+            >
+              <div
+                className="mb-3 w-full flex-1 rounded-md"
+                style={{ backgroundColor: item.color }}
+              />
               <h3 className="font-strong mb-2">{item.title?.toUpperCase()}</h3>
-              <p className="text-secondary-foreground mb-3 line-clamp-2">{item.description}</p>
-              <Badge>#{(index ?? 0) + 1}</Badge>
+              <div className="flex items-center justify-between">
+                <p className="text-secondary-foreground line-clamp-2">{item.description}</p>
+                <Badge>#{(index ?? 0) + 1}</Badge>
+              </div>
             </div>
           )}
           errorFallback={({ error, retry }) => (
@@ -420,8 +470,7 @@ export const ErrorHandling: Story = {
               </div>
               <h3 className="text-body-large-strong mb-2">Something went wrong</h3>
               <p className="text-secondary-foreground mb-4 max-w-md">
-                The virtualized grid encountered an error while rendering items. This could be due
-                to invalid data or rendering issues.
+                The virtualized grid encountered an error while rendering items.
               </p>
               <div className="flex gap-2">
                 <Button onClick={retry}>Try Again</Button>
@@ -432,23 +481,13 @@ export const ErrorHandling: Story = {
                   Fix Data
                 </Button>
               </div>
-              {process.env.NODE_ENV === "development" && (
-                <details className="mt-4 text-left">
-                  <summary className="text-secondary-foreground cursor-pointer">
-                    Error Details (Dev Mode)
-                  </summary>
-                  <pre className="mt-2 max-w-md overflow-auto rounded bg-gray-100 p-2">
-                    {error?.stack}
-                  </pre>
-                </details>
-              )}
             </div>
           )}
           onError={(error, errorInfo) => {
             console.error("VirtualizedGrid Error:", error, errorInfo)
           }}
         />
-      </div>
+      </>
     )
   },
 }
@@ -461,20 +500,30 @@ export const ErrorHandling: Story = {
  * - Real-time performance impact visualization
  * - Different overscan values
  * - Variable item sizes
- *
- * ```tsx
- * const [overscan, setOverscan] = useState(5)
- * const [itemCount, setItemCount] = useState(1000)
- *
- * <VirtualizedGrid
- *   overscan={overscan}
- *   items={items.slice(0, itemCount)}
- *   // ... other props
- * />
- * ```
  */
 export const Playground: Story = {
   render: function PlaygroundStory() {
+    const openInNewWindow = () => {
+      const storyUrl = "/story/layouts/virtualized-grid/PlaygroundDemo"
+      window.open(storyUrl, "_blank", "width=1200,height=800")
+    }
+
+    return (
+      <div className="flex flex-col items-center justify-center gap-4">
+        <p className="text-secondary-foreground text-center">
+          This component uses window scroll. Open in a standalone window for best experience.
+        </p>
+        <Button onClick={openInNewWindow}>Open in New Window</Button>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] PlaygroundDemo - Actual demo for standalone window, not shown in docs.
+ */
+export const PlaygroundDemo: Story = {
+  render: function PlaygroundDemoStory() {
     const [overscan, setOverscan] = useState(5)
     const [itemCount, setItemCount] = useState(1000)
     const [enablePooling, setEnablePooling] = useState(false)
@@ -484,8 +533,8 @@ export const Playground: Story = {
     const items = useMemo(() => generateItems(itemCount), [itemCount])
 
     return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-4 rounded-lg bg-gray-50 p-4 md:grid-cols-4">
+      <>
+        <div className="flex items-center gap-4 p-4">
           <div>
             <label className="font-strong mb-1 block">Item Count</label>
             <Input
@@ -531,14 +580,14 @@ export const Playground: Story = {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 rounded-lg bg-blue-50 p-4">
+        <div className="flex items-center gap-4 p-4">
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
               checked={enablePooling}
               onChange={(e) => setEnablePooling(e.target.checked)}
             />
-            <span className="">Enable DOM Node Pooling</span>
+            <span>Enable DOM Node Pooling</span>
           </label>
           <div className="text-secondary-foreground">
             Items: {itemCount.toLocaleString()} | Overscan: {overscan} | Pool:{" "}
@@ -547,6 +596,7 @@ export const Playground: Story = {
         </div>
 
         <VirtualizedGrid
+          className="h-full w-full"
           enablePooling={enablePooling}
           poolSize={50}
           maxPoolSize={200}
@@ -555,7 +605,6 @@ export const Playground: Story = {
           columnCount={(width, gap) => Math.max(1, Math.floor((width + gap) / (240 + gap)))}
           gridGap={() => 16}
           itemData={(item) => {
-            // Variable height based on settings
             const height = minHeight + (item.index % (maxHeight - minHeight))
             return {
               key: item.id,
@@ -570,9 +619,9 @@ export const Playground: Story = {
                 className="bg-default-background flex flex-col rounded-lg border p-4"
                 style={{ height }}
               >
-                <div className="flex-grow">
+                <div className="flex flex-1 flex-col">
                   <div
-                    className="mb-3 h-16 w-full rounded"
+                    className="mb-3 w-full flex-1 rounded-md"
                     style={{ backgroundColor: item.color }}
                   />
                   <h3 className="font-strong mb-2 line-clamp-2">{item.title}</h3>
@@ -586,7 +635,7 @@ export const Playground: Story = {
             )
           }}
         />
-      </div>
+      </>
     )
   },
 }

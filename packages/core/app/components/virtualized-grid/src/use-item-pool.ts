@@ -1,4 +1,4 @@
-import { useRef, useMemo, useCallback } from "react"
+import { useRef, useMemo, useEffect } from "react"
 
 export interface PooledItem<P> {
   index: number
@@ -18,16 +18,20 @@ export function useItemPool<P>(
 ) {
   const { poolSize = 50, maxPoolSize = 200 } = options
 
-  // Pool storage
+  // Pool storage - stable refs that persist across renders
   const poolRef = useRef<Map<number, PooledItem<P>>>(new Map())
   const keyToPoolIdRef = useRef<Map<string, number>>(new Map())
   const nextPoolIdRef = useRef(0)
 
-  // Get or create pooled item
-  const getPooledItem = useCallback(
-    (key: string, item: P, index: number): PooledItem<P> => {
+  // Generate pooled items synchronously
+  const pooledItems = useMemo(() => {
+    const visibleKeys = new Set(visibleItems.map((v) => v.key))
+
+    return visibleItems.map((visibleItem, index) => {
+      const { key, item } = visibleItem
       const existingPoolId = keyToPoolIdRef.current.get(key)
 
+      // Reuse existing pool slot if available
       if (existingPoolId !== undefined) {
         const pooledItem = poolRef.current.get(existingPoolId)
         if (pooledItem) {
@@ -37,43 +41,37 @@ export function useItemPool<P>(
         }
       }
 
-      // Find an unused pool slot or create new one
+      // Find an unused pool slot
       let poolId: number | undefined
-
-      // Check if we can reuse an existing pool slot
       const usedPoolIds = new Set(keyToPoolIdRef.current.values())
-      let reusablePoolId: number | undefined
 
+      // First try to find a reusable slot
       for (let i = 0; i < nextPoolIdRef.current && i < maxPoolSize; i++) {
         if (!usedPoolIds.has(i)) {
-          reusablePoolId = i
+          poolId = i
           break
         }
       }
 
-      if (reusablePoolId !== undefined) {
-        poolId = reusablePoolId
-      } else if (nextPoolIdRef.current < maxPoolSize) {
+      // If no reusable slot, create new one
+      if (poolId === undefined && nextPoolIdRef.current < maxPoolSize) {
         poolId = nextPoolIdRef.current++
-      } else {
-        // Pool is full, evict least recently used
-        const keysToEvict: string[] = []
-        const visibleKeys = new Set(visibleItems.map((v) => v.key))
+      }
 
+      // If pool is full, evict an item not in visible set
+      if (poolId === undefined) {
         for (const [k, pid] of keyToPoolIdRef.current.entries()) {
           if (!visibleKeys.has(k)) {
-            keysToEvict.push(k)
+            keyToPoolIdRef.current.delete(k)
             poolId = pid
             break
           }
         }
-
-        keysToEvict.forEach((k) => keyToPoolIdRef.current.delete(k))
       }
 
-      // Ensure poolId is always assigned
+      // Ultimate fallback
       if (poolId === undefined) {
-        poolId = 0 // Fallback
+        poolId = 0
       }
 
       const pooledItem: PooledItem<P> = { key, item, index, poolId }
@@ -81,22 +79,19 @@ export function useItemPool<P>(
       keyToPoolIdRef.current.set(key, poolId)
 
       return pooledItem
-    },
-    [maxPoolSize, visibleItems],
-  )
+    })
+  }, [visibleItems, maxPoolSize])
 
-  // Clean up unused items
-  const cleanupPool = useCallback(() => {
+  // Cleanup in useEffect instead of setTimeout in useMemo
+  useEffect(() => {
     const visibleKeys = new Set(visibleItems.map((v) => v.key))
     const keysToRemove: string[] = []
 
     for (const [key, poolId] of keyToPoolIdRef.current.entries()) {
       if (!visibleKeys.has(key)) {
         keysToRemove.push(key)
-
-        // Keep pool slots but mark them as reusable
-        const pooledItem = poolRef.current.get(poolId)
-        if (pooledItem && poolRef.current.size > poolSize) {
+        // Only delete from pool if exceeding poolSize
+        if (poolRef.current.size > poolSize) {
           poolRef.current.delete(poolId)
         }
       }
@@ -104,18 +99,6 @@ export function useItemPool<P>(
 
     keysToRemove.forEach((key) => keyToPoolIdRef.current.delete(key))
   }, [visibleItems, poolSize])
-
-  // Generate pooled items
-  const pooledItems = useMemo(() => {
-    const items = visibleItems.map((visibleItem, index) =>
-      getPooledItem(visibleItem.key, visibleItem.item, index),
-    )
-
-    // Cleanup after render
-    setTimeout(cleanupPool, 0)
-
-    return items
-  }, [visibleItems, getPooledItem, cleanupPool])
 
   return pooledItems
 }
