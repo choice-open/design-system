@@ -1,6 +1,5 @@
 import { IconButton } from "@choice-ui/icon-button"
 import { memo } from "react"
-import { useEventCallback } from "usehooks-ts"
 
 interface ToolbarButtonProps {
   disabled?: boolean
@@ -9,21 +8,16 @@ interface ToolbarButtonProps {
   onClick?: () => void
 }
 
+/** Toolbar button with icon and tooltip (IconButton handles disabled state internally) */
 export const ToolbarButton = memo(function ToolbarButton({
   label,
   icon,
   onClick,
   disabled,
 }: ToolbarButtonProps) {
-  const handleClick = useEventCallback(() => {
-    if (!disabled) {
-      onClick?.()
-    }
-  })
-
   return (
     <IconButton
-      onClick={handleClick}
+      onClick={onClick}
       disabled={disabled}
       aria-label={label}
       tooltip={{ content: label }}

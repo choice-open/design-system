@@ -1,8 +1,35 @@
 import type { MentionRenderProps } from "@choice-ui/react"
-import { Avatar, MdRender, ScrollArea, Tooltip } from "@choice-ui/react"
+import { Avatar, Button, MdRender, ScrollArea, Tabs, Tooltip } from "@choice-ui/react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useStickToBottom } from "use-stick-to-bottom"
+
+/**
+ * Hook to detect dark mode by observing HTML element class changes
+ */
+function useDarkMode(): boolean {
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  useEffect(() => {
+    // Initial check
+    setIsDarkMode(document.documentElement.classList.contains("dark"))
+
+    // Observe class changes on html element
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          setIsDarkMode(document.documentElement.classList.contains("dark"))
+        }
+      })
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+
+    return () => observer.disconnect()
+  }, [])
+
+  return isDarkMode
+}
 
 const meta: Meta<typeof MdRender> = {
   title: "Components/MdRender",
@@ -30,8 +57,10 @@ type Story = StoryObj<typeof MdRender>
  * - Links and inline code
  */
 export const Basic: Story = {
-  args: {
-    content: `# Heading 1
+  render: function BasicRender() {
+    return (
+      <MdRender
+        content={`# Heading 1
 
 ## Heading 2
 
@@ -49,7 +78,9 @@ You can also use \`inline code\` in your content.
 2. Ordered list item 2
 3. Ordered list item 3
 
-[Link to example](https://example.com)`,
+[Link to example](https://example.com)`}
+      />
+    )
   },
 }
 
@@ -141,32 +172,8 @@ ___`
  * - Complex nested structures
  */
 export const GitHubFlavoredMarkdown: Story = {
-  args: {
-    content: GitHubFlavoredMarkdownContent,
-  },
-}
-
-/**
- * GitHub Flavored Markdown with custom color.
- * - Demonstrates custom color options for the markdown renderer.
- */
-export const CustomColor: Story = {
-  render: function CustomColorRender() {
-    const isDarkMode = true
-    const customColor = {
-      defaultBackground: isDarkMode ? "var(--color-pink-pale-700)" : "var(--color-pink-300)",
-      defaultBoundary: isDarkMode ? "var(--color-pink-pale-500)" : "var(--color-pink-400)",
-      secondaryBackground: isDarkMode ? "var(--color-pink-pale-600)" : "var(--color-pink-200)",
-      secondaryForeground: isDarkMode ? "var(--color-pink-pale-900)" : "var(--color-pink-pale-500)",
-      codeBackground: isDarkMode ? "var(--color-pink-pale-800)" : "var(--color-pink-100)",
-    }
-    return (
-      <MdRender
-        className="p-4"
-        content={GitHubFlavoredMarkdownContent}
-        customColor={customColor}
-      />
-    )
+  render: function GitHubFlavoredMarkdownRender() {
+    return <MdRender content={GitHubFlavoredMarkdownContent} />
   },
 }
 
@@ -177,8 +184,11 @@ export const CustomColor: Story = {
  * - Support for JavaScript, TypeScript, Python, JSON, and more
  */
 export const CodeBlocks: Story = {
-  args: {
-    content: `# Code Examples
+  render: function CodeBlocksRender() {
+    return (
+      <MdRender
+        className="w-96"
+        content={`# Code Examples
 
 ## JavaScript
 
@@ -252,7 +262,9 @@ def quicksort(arr):
 
 ## Inline Code
 
-Use \`const greeting = "Hello"\` for inline code examples.`,
+Use \`const greeting = "Hello"\` for inline code examples.`}
+      />
+    )
   },
 }
 
@@ -263,8 +275,12 @@ Use \`const greeting = "Hello"\` for inline code examples.`,
  * - Nested task lists support
  */
 export const TaskLists: Story = {
-  args: {
-    content: `# Project Tasks
+  render: function TaskListsRender() {
+    return (
+      <MdRender
+        className="w-96"
+        content={`
+# Project Tasks
 
 ## Development Tasks
 
@@ -292,7 +308,9 @@ export const TaskLists: Story = {
 - [x] Bread
 - [ ] Eggs
 - [ ] Butter
-- [ ] Cheese`,
+- [ ] Cheese`}
+      />
+    )
   },
 }
 
@@ -303,41 +321,47 @@ export const TaskLists: Story = {
  * - Tables with formatted content
  */
 export const Tables: Story = {
-  args: {
-    content: `# Table Examples
+  render: function TablesRender() {
+    return (
+      <MdRender
+        className="w-96"
+        content={`
+  # Table Examples
 
-## Basic Table
+  ## Basic Table
 
-| Name | Age | Location |
-|------|-----|----------|
-| John Doe | 28 | New York |
-| Jane Smith | 32 | San Francisco |
-| Bob Johnson | 45 | Chicago |
+  | Name | Age | Location |
+  |------|-----|----------|
+  | John Doe | 28 | New York |
+  | Jane Smith | 32 | San Francisco |
+  | Bob Johnson | 45 | Chicago |
 
-## Aligned Columns
+  ## Aligned Columns
 
-| Left Aligned | Center Aligned | Right Aligned |
-|:-------------|:--------------:|--------------:|
-| Text | Text | Text |
-| More text | More text | More text |
+  | Left Aligned | Center Aligned | Right Aligned |
+  |:-------------|:--------------:|--------------:|
+  | Text | Text | Text |
+  | More text | More text | More text |
 
-## Table with Formatting
+  ## Table with Formatting
 
-| Feature | Status | Description |
-|---------|:------:|-------------|
-| **Markdown** | ✅ | Full GFM support |
-| *Syntax Highlighting* | ✅ | Via Shiki |
-| ~~Old Feature~~ | ❌ | Deprecated |
-| \`Code inline\` | ✅ | Supported |
+  | Feature | Status | Description |
+  |---------|:------:|-------------|
+  | **Markdown** | ✅ | Full GFM support |
+  | *Syntax Highlighting* | ✅ | Via Shiki |
+  | ~~Old Feature~~ | ❌ | Deprecated |
+  | \`Code inline\` | ✅ | Supported |
 
-## Comparison Table
+  ## Comparison Table
 
-| Framework | Language | Performance | Learning Curve |
-|-----------|----------|:-----------:|:--------------:|
-| React | JavaScript | ⭐⭐⭐⭐ | Medium |
-| Vue | JavaScript | ⭐⭐⭐⭐⭐ | Easy |
-| Angular | TypeScript | ⭐⭐⭐ | Hard |
-| Svelte | JavaScript | ⭐⭐⭐⭐⭐ | Easy |`,
+  | Framework | Language | Performance | Learning Curve |
+  |-----------|----------|:-----------:|:--------------:|
+  | React | JavaScript | ⭐⭐⭐⭐ | Medium |
+  | Vue | JavaScript | ⭐⭐⭐⭐⭐ | Easy |
+  | Angular | TypeScript | ⭐⭐⭐ | Hard |
+  | Svelte | JavaScript | ⭐⭐⭐⭐⭐ | Easy |`}
+      />
+    )
   },
 }
 
@@ -348,8 +372,11 @@ export const Tables: Story = {
  * - Mixed content types
  */
 export const NestedStructures: Story = {
-  args: {
-    content: `# Nested Content
+  render: function NestedStructuresRender() {
+    return (
+      <MdRender
+        className="w-96"
+        content={`# Nested Content
 
 ## Nested Lists
 
@@ -391,7 +418,9 @@ export const NestedStructures: Story = {
 
 - List item with task list:
   - [x] Nested task 1
-  - [ ] Nested task 2`,
+  - [ ] Nested task 2`}
+      />
+    )
   },
 }
 
@@ -402,8 +431,20 @@ export const NestedStructures: Story = {
  * - Default mention styling
  */
 export const WithMentions: Story = {
-  args: {
-    content: `# Team Discussion
+  render: function WithMentionsRender() {
+    return (
+      <MdRender
+        className="w-96"
+        mentionItems={[
+          { id: "1", label: "John Doe" },
+          { id: "2", label: "Jane Smith" },
+          { id: "3", label: "Bob Johnson" },
+          { id: "4", label: "Alice Williams" },
+          { id: "5", label: "Charlie Brown" },
+          { id: "6", label: "Diana Prince" },
+          { id: "7", label: "Edward Norton" },
+        ]}
+        content={`# Team Discussion
 
 Hey @John Doe and @Jane Smith, I wanted to update you on the project progress.
 
@@ -415,16 +456,9 @@ Hey @John Doe and @Jane Smith, I wanted to update you on the project progress.
 
 Thanks everyone for your collaboration!
 
-cc: @Diana Prince @Edward Norton`,
-    mentionItems: [
-      { id: "1", label: "John Doe" },
-      { id: "2", label: "Jane Smith" },
-      { id: "3", label: "Bob Johnson" },
-      { id: "4", label: "Alice Williams" },
-      { id: "5", label: "Charlie Brown" },
-      { id: "6", label: "Diana Prince" },
-      { id: "7", label: "Edward Norton" },
-    ],
+cc: @Diana Prince @Edward Norton`}
+      />
+    )
   },
 }
 
@@ -647,8 +681,10 @@ Check out @John Doe's [profile](https://example.com)`
  * - Technical documentation format
  */
 export const ComplexDocument: Story = {
-  args: {
-    content: `# Project Documentation
+  render: function ComplexDocumentRender() {
+    return (
+      <MdRender
+        content={`# Project Documentation
 
 > **Note**: This is a comprehensive example of markdown rendering capabilities.
 
@@ -734,224 +770,8 @@ function App() {
 
 MIT License - see [LICENSE](LICENSE) for details.
 
-**Made with ❤️ by the ChoiceForm team**`,
-  },
-}
-
-/**
- * Empty content handling.
- * - Shows how component behaves with empty string
- * - Graceful handling of no content
- */
-export const EmptyContent: Story = {
-  args: {
-    content: "",
-  },
-}
-
-/**
- * URL Whitelist Security: Demonstrates URL prefix whitelisting for links and images.
- * - Only URLs matching allowedPrefixes are rendered
- * - Protects against malicious external links
- * - Applies to both links and images
- * - Essential for user-generated content
- */
-export const URLWhitelist: Story = {
-  render: function URLWhitelistRender() {
-    const content = `# URL Security Demo
-
-## Allowed URLs (Whitelisted)
-
-These URLs are in the allowedPrefixes list and will work normally:
-
-### Links
-- [ChoiceForm Official](https://choiceform.com)
-- [ChoiceForm Docs](https://choice-ui.com)
-- [GitHub Repository](https://github.com/choiceform/design-system)
-
-### Images
-![Placeholder from allowed domain](https://via.placeholder.com/150)
-
-## Blocked URLs (Not Whitelisted)
-
-These URLs are NOT in the allowedPrefixes and will be filtered out:
-
-### Blocked Links
-- [Malicious Site](https://malicious-site.com) ← This link will be removed
-- [Unknown Domain](https://random-domain.xyz) ← This link will be removed
-
-### Blocked Images
-![Blocked Image](https://unsafe-domain.com/image.jpg) ← This image will not load
-
-## Security Benefits
-
-> **Important**: The allowedPrefixes feature protects your application from:
-> - Phishing links
-> - Malicious redirects  
-> - Tracking pixels
-> - XSS attacks via images
-> - Unwanted external resources
-
-## Configuration
-
-Current allowed prefixes:
-- \`https://choiceform.com\`
-- \`https://choice-ui.com\`
-- \`https://github.com/choiceform\`
-- \`https://via.placeholder.com\`
-
-Any URL not starting with these prefixes will be automatically filtered out for security.`
-
-    return (
-      <div className="max-w-3xl">
-        <MdRender
-          content={content}
-          allowedPrefixes={[
-            "https://choiceform.com",
-            "https://choice-ui.com",
-            "https://github.com/choiceform",
-            "https://via.placeholder.com",
-          ]}
-        />
-      </div>
-    )
-  },
-}
-
-/**
- * URL Whitelist with Mentions: Shows URL whitelisting combined with custom mentions.
- * - Demonstrates mention avatars from whitelisted domains
- * - Shows how allowedPrefixes applies to both markdown and mention components
- * - Essential for user mentions with external avatar URLs
- */
-export const URLWhitelistWithMentions: Story = {
-  render: function URLWhitelistWithMentionsRender() {
-    const content = `# Team Collaboration
-
-## Team Members
-
-Hey @John Doe and @Jane Smith, please review this document.
-
-### Allowed Avatar Sources
-
-These avatars use whitelisted domains (api.dicebear.com) and will display:
-
-- @Bob Johnson
-- @Alice Williams
-- @Charlie Brown
-
-### Task Assignments
-
-- [x] @John Doe - Complete authentication (uses allowed avatar)
-- [ ] @Jane Smith - Design review (uses allowed avatar)
-- [ ] @Bob Johnson - Testing phase (uses allowed avatar)
-
-## External Resources
-
-### Whitelisted Images
-
-![Team Photo](https://api.dicebear.com/7.x/avataaars/svg?seed=1)
-
-### Blocked Resources
-
-![External Image](https://unknown-domain.com/image.jpg) ← This image is blocked
-
-[Suspicious Link](https://phishing-site.com) ← This link is removed
-
-## Security Note
-
-> All avatars and external resources are validated against the allowedPrefixes list, ensuring only trusted domains can load content.`
-
-    const mentionItems = [
-      {
-        id: "1",
-        label: "John Doe",
-        email: "john@example.com",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
-      },
-      {
-        id: "2",
-        label: "Jane Smith",
-        email: "jane@example.com",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=2",
-      },
-      {
-        id: "3",
-        label: "Bob Johnson",
-        email: "bob@example.com",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=3",
-      },
-      {
-        id: "4",
-        label: "Alice Williams",
-        email: "alice@example.com",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=4",
-      },
-      {
-        id: "5",
-        label: "Charlie Brown",
-        email: "charlie@example.com",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=5",
-      },
-    ]
-
-    const CustomMention = ({ mention }: MentionRenderProps) => {
-      const user = mentionItems.find((item) => item.label === mention)
-      if (!user) {
-        return (
-          <span className="bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle">
-            @{mention}
-          </span>
-        )
-      }
-
-      return (
-        <Tooltip
-          withArrow={false}
-          className="grid grid-cols-[auto_1fr] items-center gap-2 border-none p-2 shadow-lg"
-          variant="light"
-          content={
-            <>
-              <Avatar
-                as="span"
-                photo={user?.avatar}
-                name={user?.label}
-                size="large"
-              />
-              <div className="flex flex-col">
-                <span className="text-body-medium-strong">{user?.label}</span>
-                <span className="text-secondary-foreground">{user?.email}</span>
-              </div>
-            </>
-          }
-        >
-          <a
-            href={`mailto:${user?.email}`}
-            className="bg-secondary-background text-accent-foreground inline-flex cursor-default items-center gap-1 rounded-md px-1 align-middle"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Avatar
-              as="span"
-              photo={user?.avatar}
-              name={user?.label}
-              size="small"
-            />
-            {mention}
-          </a>
-        </Tooltip>
-      )
-    }
-
-    return (
-      <div className="max-w-3xl">
-        <MdRender
-          content={content}
-          mentionItems={mentionItems}
-          mentionRenderComponent={CustomMention}
-          allowedPrefixes={["https://api.dicebear.com"]}
-        />
-      </div>
+**Made with ❤️ by the ChoiceForm team**`}
+      />
     )
   },
 }
@@ -963,8 +783,10 @@ These avatars use whitelisted domains (api.dicebear.com) and will display:
  * - Various content types mixed together
  */
 export const LongDocument: Story = {
-  args: {
-    content: `# Comprehensive Documentation
+  render: function LongDocumentRender() {
+    return (
+      <MdRender
+        content={`# Comprehensive Documentation
 
 ## Table of Contents
 
@@ -1159,7 +981,9 @@ const users = [
 
 MdRender provides a complete solution for rendering markdown content in React applications. With its extensive feature set and customization options, it's perfect for documentation, blogs, comments, and any content that needs rich formatting.
 
-For more information, visit our [documentation](https://choice-ui.com/) or check out the [GitHub repository](https://github.com/choiceform/choice-ui).`,
+For more information, visit our [documentation](https://choice-ui.com/) or check out the [GitHub repository](https://github.com/choiceform/choice-ui).`}
+      />
+    )
   },
 }
 
@@ -1285,26 +1109,22 @@ function fibonacci(n) {
  */
 export const SizeComparison: Story = {
   render: function SizeComparisonRender() {
+    const [activeTab, setActiveTab] = useState("small")
     return (
-      <div className="flex gap-6 p-6">
-        <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Small (13px)</h3>
+      <div className="flex flex-col gap-4">
+        <Tabs
+          value={activeTab}
+          onChange={setActiveTab}
+        >
+          <Tabs.Item value="small">Small (13px)</Tabs.Item>
+          <Tabs.Item value="default">Default (14px)</Tabs.Item>
+          <Tabs.Item value="large">Large (16px)</Tabs.Item>
+        </Tabs>
+
+        <div className="p-2">
           <MdRender
             content={sizingContent}
-            size="small"
-          />
-        </div>
-        <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">
-            Default (14px)
-          </h3>
-          <MdRender content={sizingContent} />
-        </div>
-        <div className="w-80 rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Large (16px)</h3>
-          <MdRender
-            content={sizingContent}
-            size="large"
+            size={activeTab as "small" | "default" | "large"}
           />
         </div>
       </div>
@@ -1320,9 +1140,11 @@ export const SizeComparison: Story = {
  * - Better visual hierarchy with larger headings
  */
 export const LargeModeDocumentation: Story = {
-  args: {
-    size: "large",
-    content: `# API Documentation
+  render: function LargeModeDocumentationRender() {
+    return (
+      <MdRender
+        size="large"
+        content={`# API Documentation
 
 Welcome to the comprehensive API documentation. This large format is optimized for reading detailed technical content.
 
@@ -1428,7 +1250,9 @@ For security, you can restrict which URLs are allowed:
 
 ---
 
-**That's it!** You're now ready to use the markdown renderer in your application.`,
+**That's it!** You're now ready to use the markdown renderer in your application.`}
+      />
+    )
   },
 }
 
@@ -1441,7 +1265,7 @@ export const GithubVariant: Story = {
     return (
       <div className="grid grid-cols-2 gap-6 p-6">
         <div className="w-full rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Default</h3>
+          <h3 className="font-strong mb-4 uppercase text-gray-500">Default</h3>
           <MdRender
             content={sizingContent}
             variant="default"
@@ -1449,13 +1273,38 @@ export const GithubVariant: Story = {
         </div>
 
         <div className="w-full rounded-xl border bg-white p-4 dark:bg-gray-900">
-          <h3 className="text-body-small font-strong mb-4 text-gray-500 uppercase">Github</h3>
+          <h3 className="font-strong mb-4 uppercase text-gray-500">Github</h3>
           <MdRender
             content={sizingContent}
             variant="github"
           />
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * GitHub Flavored Markdown with custom color.
+ * - Demonstrates custom color options for the markdown renderer.
+ * - Colors adapt automatically when switching between light/dark mode.
+ */
+export const CustomColor: Story = {
+  render: function CustomColorRender() {
+    const isDarkMode = useDarkMode()
+    const customColor = {
+      defaultBackground: isDarkMode ? "var(--color-pink-pale-700)" : "var(--color-pink-300)",
+      defaultBoundary: isDarkMode ? "var(--color-pink-pale-500)" : "var(--color-pink-400)",
+      secondaryBackground: isDarkMode ? "var(--color-pink-pale-600)" : "var(--color-pink-200)",
+      secondaryForeground: isDarkMode ? "var(--color-pink-pale-900)" : "var(--color-pink-pale-500)",
+      codeBackground: isDarkMode ? "var(--color-pink-pale-800)" : "var(--color-pink-100)",
+    }
+    return (
+      <MdRender
+        className="p-4"
+        content={GitHubFlavoredMarkdownContent}
+        customColor={customColor}
+      />
     )
   },
 }
@@ -1583,6 +1432,7 @@ export const StreamingMarkdown: Story = {
     const [content, setContent] = useState("")
     const [isStreaming, setIsStreaming] = useState(false)
     const chunkIndexRef = useRef(0)
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     const { scrollRef, contentRef, isAtBottom, scrollToBottom } = useStickToBottom({
       resize: "smooth",
@@ -1600,17 +1450,29 @@ export const StreamingMarkdown: Story = {
       if (isStreaming) return
       setIsStreaming(true)
 
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         if (chunkIndexRef.current < streamingMarkdownChunks.length) {
           addChunk()
         } else {
-          clearInterval(interval)
+          if (intervalRef.current) clearInterval(intervalRef.current)
           setIsStreaming(false)
         }
       }, 800)
     }
 
+    const stopStreaming = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      setIsStreaming(false)
+    }
+
     const reset = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
       setContent("")
       chunkIndexRef.current = 0
       setIsStreaming(false)
@@ -1619,37 +1481,43 @@ export const StreamingMarkdown: Story = {
     return (
       <div className="flex h-[600px] w-[700px] flex-col gap-4">
         <div className="flex items-center gap-2">
-          <button
+          <Button
             onClick={addChunk}
             disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
-            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
           >
             Add Chunk
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={startStreaming}
             disabled={isStreaming || chunkIndexRef.current >= streamingMarkdownChunks.length}
-            className="rounded bg-green-500 px-3 py-1.5 text-sm text-white hover:bg-green-600 disabled:opacity-50"
+            variant="secondary"
           >
             {isStreaming ? "Streaming..." : "Auto Stream"}
-          </button>
-          <button
+          </Button>
+          <Button
+            onClick={stopStreaming}
+            disabled={!isStreaming}
+            variant="secondary"
+          >
+            Stop
+          </Button>
+          <Button
             onClick={reset}
-            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+            variant="secondary"
           >
             Reset
-          </button>
+          </Button>
           {!isAtBottom && (
-            <button
+            <Button
               onClick={() => scrollToBottom()}
-              className="rounded bg-orange-500 px-3 py-1.5 text-sm text-white hover:bg-orange-600"
+              variant="secondary"
             >
               Scroll to Bottom
-            </button>
+            </Button>
           )}
         </div>
 
-        <div className="text-body-small text-fg-subtle">
+        <div className="text-secondary-foreground">
           Chunks: {chunkIndexRef.current}/{streamingMarkdownChunks.length} | At bottom:{" "}
           {isAtBottom ? "Yes" : "No"}
         </div>
@@ -1663,7 +1531,7 @@ export const StreamingMarkdown: Story = {
               {content ? (
                 <MdRender content={content} />
               ) : (
-                <div className="text-body-small text-fg-subtle py-8 text-center">
+                <div className="text-secondary-foreground py-8 text-center">
                   Click &quot;Add Chunk&quot; or &quot;Auto Stream&quot; to start
                 </div>
               )}
@@ -1675,18 +1543,7 @@ export const StreamingMarkdown: Story = {
   },
 }
 
-/**
- * Character-by-character streaming markdown simulation.
- * - Content appears gradually like typing effect
- * - Auto-scroll follows the content
- * - Demonstrates real-time markdown parsing
- */
-export const CharacterStreamingMarkdown: Story = {
-  render: function CharacterStreamingMarkdownRender() {
-    const [streamedContent, setStreamedContent] = useState("")
-    const [isStreaming, setIsStreaming] = useState(false)
-
-    const fullContent = `# Welcome to the Design System
+const fullContent = `# Welcome to the Design System
 
 This is a **streaming demonstration** that shows how markdown content can be rendered progressively with multiple long code blocks.
 
@@ -2252,6 +2109,18 @@ if __name__ == "__main__":
 
 **Testing complete!**`
 
+/**
+ * Character-by-character streaming markdown simulation.
+ * - Content appears gradually like typing effect
+ * - Auto-scroll follows the content
+ * - Demonstrates real-time markdown parsing
+ */
+export const CharacterStreamingMarkdown: Story = {
+  render: function CharacterStreamingMarkdownRender() {
+    const [streamedContent, setStreamedContent] = useState("")
+    const [isStreaming, setIsStreaming] = useState(false)
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
     const { scrollRef, contentRef } = useStickToBottom({
       resize: "smooth",
       initial: "instant",
@@ -2263,19 +2132,31 @@ if __name__ == "__main__":
       setStreamedContent("")
 
       let index = 0
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         if (index < fullContent.length) {
           const chunkSize = Math.floor(Math.random() * 8) + 2
           setStreamedContent(fullContent.slice(0, index + chunkSize))
           index += chunkSize
         } else {
-          clearInterval(interval)
+          if (intervalRef.current) clearInterval(intervalRef.current)
           setIsStreaming(false)
         }
       }, 15)
     }
 
+    const stopStream = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      setIsStreaming(false)
+    }
+
     const reset = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
       setStreamedContent("")
       setIsStreaming(false)
     }
@@ -2283,19 +2164,26 @@ if __name__ == "__main__":
     return (
       <div className="flex h-[500px] w-[600px] flex-col gap-4">
         <div className="flex items-center gap-2">
-          <button
+          <Button
             onClick={startCharacterStream}
             disabled={isStreaming}
-            className="rounded bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 disabled:opacity-50"
+            variant="secondary"
           >
             {isStreaming ? "Streaming..." : "Start Stream"}
-          </button>
-          <button
+          </Button>
+          <Button
+            onClick={stopStream}
+            disabled={!isStreaming}
+            variant="secondary"
+          >
+            Stop
+          </Button>
+          <Button
             onClick={reset}
-            className="rounded bg-gray-500 px-3 py-1.5 text-sm text-white hover:bg-gray-600"
+            variant="secondary"
           >
             Reset
-          </button>
+          </Button>
         </div>
 
         <ScrollArea className="flex-1 rounded-lg border">
@@ -2307,13 +2195,216 @@ if __name__ == "__main__":
               {streamedContent ? (
                 <MdRender content={streamedContent} />
               ) : (
-                <div className="text-body-small text-fg-subtle py-8 text-center">
+                <div className="text-secondary-foreground py-8 text-center">
                   Click &quot;Start Stream&quot; to begin character-by-character streaming
                 </div>
               )}
             </ScrollArea.Content>
           </ScrollArea.Viewport>
         </ScrollArea>
+      </div>
+    )
+  },
+}
+
+/**
+ * [TEST] URL Whitelist Security: Demonstrates URL prefix whitelisting for links and images.
+ * - Only URLs matching allowedPrefixes are rendered
+ * - Protects against malicious external links
+ * - Applies to both links and images
+ * - Essential for user-generated content
+ */
+export const URLWhitelist: Story = {
+  render: function URLWhitelistRender() {
+    return (
+      <MdRender
+        content={`# URL Security Demo
+
+## Allowed URLs (Whitelisted)
+
+These URLs are in the allowedPrefixes list and will work normally:
+
+### Links
+- [ChoiceForm Official](https://choiceform.com)
+- [ChoiceForm Docs](https://choice-ui.com)
+- [GitHub Repository](https://github.com/choiceform/design-system)
+
+### Images
+![Placeholder from allowed domain](https://via.placeholder.com/150)
+
+## Blocked URLs (Not Whitelisted)
+
+These URLs are NOT in the allowedPrefixes and will be filtered out:
+
+### Blocked Links
+- [Malicious Site](https://malicious-site.com) ← This link will be removed
+- [Unknown Domain](https://random-domain.xyz) ← This link will be removed
+
+### Blocked Images
+![Blocked Image](https://unsafe-domain.com/image.jpg) ← This image will not load
+
+## Security Benefits
+
+> **Important**: The allowedPrefixes feature protects your application from:
+> - Phishing links
+> - Malicious redirects  
+> - Tracking pixels
+> - XSS attacks via images
+> - Unwanted external resources
+
+## Configuration
+
+Current allowed prefixes:
+- \`https://choiceform.com\`
+- \`https://choice-ui.com\`
+- \`https://github.com/choiceform\`
+- \`https://via.placeholder.com\`
+
+Any URL not starting with these prefixes will be automatically filtered out for security.`}
+        allowedPrefixes={[
+          "https://choiceform.com",
+          "https://choice-ui.com",
+          "https://github.com/choiceform",
+          "https://via.placeholder.com",
+        ]}
+      />
+    )
+  },
+}
+
+/**
+ * [TEST] URL Whitelist with Mentions: Shows URL whitelisting combined with custom mentions.
+ * - Demonstrates mention avatars from whitelisted domains
+ * - Shows how allowedPrefixes applies to both markdown and mention components
+ * - Essential for user mentions with external avatar URLs
+ */
+export const URLWhitelistWithMentions: Story = {
+  render: function URLWhitelistWithMentionsRender() {
+    const content = `# Team Collaboration
+
+## Team Members
+
+Hey @John Doe and @Jane Smith, please review this document.
+
+### Allowed Avatar Sources
+
+These avatars use whitelisted domains (api.dicebear.com) and will display:
+
+- @Bob Johnson
+- @Alice Williams
+- @Charlie Brown
+
+### Task Assignments
+
+- [x] @John Doe - Complete authentication (uses allowed avatar)
+- [ ] @Jane Smith - Design review (uses allowed avatar)
+- [ ] @Bob Johnson - Testing phase (uses allowed avatar)
+
+## External Resources
+
+### Whitelisted Images
+
+![Team Photo](https://api.dicebear.com/7.x/avataaars/svg?seed=1)
+
+### Blocked Resources
+
+![External Image](https://unknown-domain.com/image.jpg) ← This image is blocked
+
+[Suspicious Link](https://phishing-site.com) ← This link is removed
+
+## Security Note
+
+> All avatars and external resources are validated against the allowedPrefixes list, ensuring only trusted domains can load content.`
+
+    const mentionItems = [
+      {
+        id: "1",
+        label: "John Doe",
+        email: "john@example.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1",
+      },
+      {
+        id: "2",
+        label: "Jane Smith",
+        email: "jane@example.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=2",
+      },
+      {
+        id: "3",
+        label: "Bob Johnson",
+        email: "bob@example.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=3",
+      },
+      {
+        id: "4",
+        label: "Alice Williams",
+        email: "alice@example.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=4",
+      },
+      {
+        id: "5",
+        label: "Charlie Brown",
+        email: "charlie@example.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=5",
+      },
+    ]
+
+    const CustomMention = ({ mention }: MentionRenderProps) => {
+      const user = mentionItems.find((item) => item.label === mention)
+      if (!user) {
+        return (
+          <span className="bg-secondary-background inline-flex items-center gap-1 rounded-md px-1 align-middle">
+            @{mention}
+          </span>
+        )
+      }
+
+      return (
+        <Tooltip
+          withArrow={false}
+          className="grid grid-cols-[auto_1fr] items-center gap-2 border-none p-2 shadow-lg"
+          variant="light"
+          content={
+            <>
+              <Avatar
+                as="span"
+                photo={user?.avatar}
+                name={user?.label}
+                size="large"
+              />
+              <div className="flex flex-col">
+                <span className="text-body-medium-strong">{user?.label}</span>
+                <span className="text-secondary-foreground">{user?.email}</span>
+              </div>
+            </>
+          }
+        >
+          <a
+            href={`mailto:${user?.email}`}
+            className="bg-secondary-background text-accent-foreground inline-flex cursor-default items-center gap-1 rounded-md px-1 align-middle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Avatar
+              as="span"
+              photo={user?.avatar}
+              name={user?.label}
+              size="small"
+            />
+            {mention}
+          </a>
+        </Tooltip>
+      )
+    }
+
+    return (
+      <div className="max-w-3xl">
+        <MdRender
+          content={content}
+          mentionItems={mentionItems}
+          mentionRenderComponent={CustomMention}
+          allowedPrefixes={["https://api.dicebear.com"]}
+        />
       </div>
     )
   },

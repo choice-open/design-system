@@ -18,7 +18,7 @@ export const MdInputRender = memo(
 
     const tv = mdInputTv({ disabled, readOnly, hasTabs })
 
-    // 如果有 Tabs，根据 activeTab 判断可见性；如果没有 Tabs，始终可见
+    // If Tabs exist, visibility depends on activeTab; otherwise always visible
     if (hasTabs && activeTab !== "preview") {
       return null
     }

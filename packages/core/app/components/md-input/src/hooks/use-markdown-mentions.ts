@@ -1,8 +1,8 @@
-import { useRef, useState, useMemo } from "react"
+import { useRef, useState, useMemo, useEffect } from "react"
 import { useEventCallback } from "usehooks-ts"
-import type { MentionItemProps, UseMentionsOptions } from "../types"
+import type { MdInputMentionItemProps, UseMdInputMentionsOptions } from "../types"
 
-const EMPTY_ITEMS: MentionItemProps[] = []
+const EMPTY_ITEMS: MdInputMentionItemProps[] = []
 
 export function useMarkdownMentions({
   items = EMPTY_ITEMS,
@@ -10,15 +10,17 @@ export function useMarkdownMentions({
   onChange,
   disabled,
   readOnly,
-}: UseMentionsOptions) {
+}: UseMdInputMentionsOptions) {
   const [isOpen, setIsOpen] = useState(false)
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
   const [query, setQuery] = useState("")
   const [mentionStart, setMentionStart] = useState<number | null>(null)
+  // Virtual selection index for keyboard navigation (focus stays in textarea)
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const filteredItems = useMemo(() => {
-    // 如果没有 items，直接返回空数组（缓存的引用）
+    // Return empty array (cached reference) if no items
     if (!items || items.length === 0) {
       return EMPTY_ITEMS
     }
@@ -34,13 +36,18 @@ export function useMarkdownMentions({
     )
   }, [items, query])
 
+  // Reset selectedIndex when filteredItems change
+  useEffect(() => {
+    setSelectedIndex(0)
+  }, [filteredItems])
+
   const getCaretCoordinates = useEventCallback(
     (textarea: HTMLTextAreaElement, position: number) => {
-      // 创建一个隐藏的 div 来模拟 textarea 的布局
+      // Create a hidden div to simulate textarea layout
       const div = document.createElement("div")
       const style = getComputedStyle(textarea)
 
-      // 复制所有影响布局的样式属性
+      // Copy all style properties that affect layout
       const properties = [
         "direction",
         "boxSizing",
@@ -79,28 +86,28 @@ export function useMarkdownMentions({
         div.style.setProperty(prop, style.getPropertyValue(prop))
       })
 
-      // 设置定位和可见性
+      // Set positioning and visibility
       div.style.position = "absolute"
       div.style.visibility = "hidden"
       div.style.whiteSpace = "pre-wrap"
       div.style.wordWrap = "break-word"
       div.style.overflow = "hidden"
 
-      // 设置宽度为 textarea 的 clientWidth（不包括滚动条）
+      // Set width to textarea's clientWidth (excluding scrollbar)
       div.style.width = `${textarea.clientWidth}px`
 
-      // 将文本内容分割为光标前和光标后
+      // Split text content into before and after cursor
       const textBefore = textarea.value.substring(0, position)
       const textAfter = textarea.value.substring(position)
 
-      // 创建光标标记元素
+      // Create cursor marker element
       const marker = document.createElement("span")
       marker.style.width = "1px"
       marker.style.height = "1px"
       marker.style.display = "inline-block"
-      marker.textContent = "\u200B" // 零宽空格，用于标记位置
+      marker.textContent = "\u200B" // Zero-width space to mark position
 
-      // 构建内容：光标前的文本 + 标记 + 光标后的文本
+      // Build content: text before cursor + marker + text after cursor
       div.textContent = textBefore
       div.appendChild(marker)
       if (textAfter) {
@@ -109,30 +116,24 @@ export function useMarkdownMentions({
         div.appendChild(afterSpan)
       }
 
-      // 添加到 DOM 以计算位置
+      // Add to DOM to calculate position
       document.body.appendChild(div)
 
-      // 获取位置信息
+      // Get position information
       const textareaRect = textarea.getBoundingClientRect()
       const markerRect = marker.getBoundingClientRect()
       const divRect = div.getBoundingClientRect()
 
-      // 计算光标位置
-      // x: textarea 左边缘 + 标记相对于 div 的偏移（考虑 padding）+ 8px 偏移（露出 @ 符号）
-      // y: textarea 顶部 + 标记相对于 div 的垂直偏移 + 行高
-      // 注意：markerRect 是相对于 viewport 的，divRect 也是相对于 viewport 的
-      // 所以 markerRect.left - divRect.left 就是标记相对于 div 的偏移
+      // Calculate caret position
+      // x: textarea left edge + marker offset relative to div (considering padding) + 8px offset (to show @ symbol)
+      // y: textarea top + marker vertical offset relative to div + line height
+      // Note: getBoundingClientRect() returns viewport-relative coordinates, no need for scrollY
       const coordinates = {
-        x: textareaRect.left + (markerRect.left - divRect.left) + 8, // 右侧偏移 8px，露出 @ 符号
-        y:
-          textareaRect.top +
-          (markerRect.top - divRect.top) +
-          markerRect.height +
-          window.scrollY +
-          8, // 添加8px间距（4px + 4px）和scrollY
+        x: textareaRect.left + (markerRect.left - divRect.left) + 8, // 8px right offset to show @ symbol
+        y: textareaRect.top + (markerRect.top - divRect.top) + markerRect.height + 8, // 8px gap
       }
 
-      // 清理
+      // Cleanup
       document.body.removeChild(div)
 
       return coordinates
@@ -169,7 +170,7 @@ export function useMarkdownMentions({
     },
   )
 
-  const handleSelect = useEventCallback((item: MentionItemProps) => {
+  const handleSelect = useEventCallback((item: MdInputMentionItemProps) => {
     if (!textareaRef.current || mentionStart === null) {
       return
     }
@@ -214,9 +215,41 @@ export function useMarkdownMentions({
       return
     }
 
+    // Escape: close menu
     if (event.key === "Escape") {
       event.preventDefault()
       closeMentionSearch()
+      return
+    }
+
+    // No items to navigate
+    if (filteredItems.length === 0) {
+      return
+    }
+
+    // ArrowDown: select next item
+    if (event.key === "ArrowDown") {
+      event.preventDefault()
+      setSelectedIndex((prev) => (prev + 1) % filteredItems.length)
+      return
+    }
+
+    // ArrowUp: select previous item
+    if (event.key === "ArrowUp") {
+      event.preventDefault()
+      setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)
+      return
+    }
+
+    // Enter/Tab: confirm selection
+    if (event.key === "Enter" || event.key === "Tab") {
+      event.preventDefault()
+      // Safe bounds check for selectedIndex
+      const safeIndex = Math.min(selectedIndex, filteredItems.length - 1)
+      const selectedItem = filteredItems[safeIndex]
+      if (selectedItem) {
+        handleSelect(selectedItem)
+      }
     }
   })
 
@@ -232,6 +265,7 @@ export function useMarkdownMentions({
     position,
     query,
     filteredItems,
+    selectedIndex,
     handleInputChange,
     handleSelect,
     handleKeyDown,

@@ -25,7 +25,7 @@ export const mdRenderTv = tcv({
     tr: "",
     thead: "",
     tbody: "",
-    tableWrapper: "",
+    tableWrapper: "h-auto",
     strong: "",
     em: "",
     del: "",

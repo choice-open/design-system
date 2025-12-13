@@ -2,7 +2,7 @@ import type {
   ContextInputRef,
   ContextInputValue,
   ContextMentionElement,
-  MentionItemProps,
+  ContextMentionItemProps,
 } from "@choice-ui/react"
 import {
   Avatar,
@@ -45,7 +45,7 @@ const userNames = [
   "Julia Roberts",
 ]
 
-const users: MentionItemProps[] = userNames.map((name, i) => ({
+const users: ContextMentionItemProps[] = userNames.map((name, i) => ({
   id: i.toString(),
   type: "user",
   label: name,
@@ -74,7 +74,7 @@ const channelNames = [
   "projects",
 ]
 
-const channels: MentionItemProps[] = channelNames.map((name, i) => ({
+const channels: ContextMentionItemProps[] = channelNames.map((name, i) => ({
   id: i.toString(),
   type: "channel",
   label: name,

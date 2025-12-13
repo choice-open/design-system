@@ -9,9 +9,9 @@ import {
   ParagraphListTodo,
   ParagraphQuote,
 } from "@choiceform/icons-react"
-import type { ToolbarAction } from "../../types"
+import type { MdInputToolbarAction } from "../../types"
 
-export const DEFAULT_TOOLBAR_GROUPS: ToolbarAction[][] = [
+export const DEFAULT_TOOLBAR_GROUPS: MdInputToolbarAction[][] = [
   [
     { id: "heading", label: "Heading", icon: <ParagraphHeading /> },
     { id: "bold", label: "Bold", icon: <FontBoldSmall /> },

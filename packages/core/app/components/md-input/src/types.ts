@@ -1,17 +1,17 @@
 import type { HTMLAttributes } from "react"
 import { useMarkdownFormatting } from "./hooks/use-markdown-formatting"
 
-export interface MentionItemProps {
+export interface MdInputMentionItemProps {
   [key: string]: unknown
   id: string
   label: string
 }
 
-export interface UseMentionsOptions {
+export interface UseMdInputMentionsOptions {
   disabled?: boolean
-  items?: MentionItemProps[]
+  items?: MdInputMentionItemProps[]
   onChange?: (value: string) => void
-  onSelect?: (item: MentionItemProps, query: string) => string
+  onSelect?: (item: MdInputMentionItemProps, query: string) => string
   readOnly?: boolean
 }
 
@@ -21,20 +21,22 @@ export interface MdInputProps extends Omit<
 > {
   children: React.ReactNode
   disabled?: boolean
-  mentionItems?: MentionItemProps[]
-  mentionOnSelect?: (item: MentionItemProps, query: string) => string
+  mentionItems?: MdInputMentionItemProps[]
+  mentionOnSelect?: (item: MdInputMentionItemProps, query: string) => string
   onChange?: (value: string) => void
   readOnly?: boolean
   value?: string
 }
 
-export interface MentionState {
+export interface MdInputMentionState {
   closeMentionSearch: () => void
-  filteredItems: MentionItemProps[]
-  handleSelect: (item: MentionItemProps) => void
+  filteredItems: MdInputMentionItemProps[]
+  handleSelect: (item: MdInputMentionItemProps) => void
   isOpen: boolean
   position: { x: number; y: number } | null
   query: string
+  /** Virtual selection index for keyboard navigation */
+  selectedIndex: number
 }
 
 export interface MdInputContextValue {
@@ -44,31 +46,31 @@ export interface MdInputContextValue {
   hasTabs: boolean
   insertListPrefix: ReturnType<typeof useMarkdownFormatting>["insertListPrefix"]
   insertText: ReturnType<typeof useMarkdownFormatting>["insertText"]
-  mentionItems?: MentionItemProps[]
-  mentionOnSelect?: (item: MentionItemProps, query: string) => string
-  mentionState?: MentionState
+  mentionItems?: MdInputMentionItemProps[]
+  mentionOnSelect?: (item: MdInputMentionItemProps, query: string) => string
+  mentionState?: MdInputMentionState
   onChange?: (value: string) => void
   readOnly?: boolean
   setActiveTab: (tab: "write" | "preview") => void
-  setMentionState?: (state: MentionState) => void
+  setMentionState?: (state: MdInputMentionState) => void
   textareaRef: React.RefObject<HTMLTextAreaElement>
   value: string
   wrapText: ReturnType<typeof useMarkdownFormatting>["wrapText"]
 }
 
-export interface ToolbarAction {
+export interface MdInputToolbarAction {
   icon?: React.ReactNode
   id: string
   label?: string
 }
 
-export interface ToolbarProps {
+export interface MdInputToolbarProps {
   afterElement?: React.ReactNode
   beforeElement?: React.ReactNode
   children?: React.ReactNode
   className?: string
   disabled?: boolean
-  groups?: ToolbarAction[][]
+  groups?: MdInputToolbarAction[][]
   i18n?: {
     bold: string
     code: string

@@ -13,10 +13,15 @@ import {
 } from "./components"
 import { ContextInputEditorContext, useContextInput, useMentions, useSlateEditor } from "./hooks"
 import { contextInputTv } from "./tv"
-import type { ContextInputProps, ContextInputRef, MentionItemProps, MentionTrigger } from "./types"
+import type {
+  ContextInputProps,
+  ContextInputRef,
+  ContextMentionItemProps,
+  ContextMentionTrigger,
+} from "./types"
 
 // Empty array constant to avoid creating new references on each render
-const EMPTY_TRIGGERS: MentionTrigger[] = []
+const EMPTY_TRIGGERS: ContextMentionTrigger[] = []
 
 interface ContextInputComponent extends React.ForwardRefExoticComponent<
   ContextInputProps & React.RefAttributes<ContextInputRef>
@@ -165,9 +170,11 @@ const ContextInputBase = forwardRef<ContextInputRef, ContextInputProps>(function
   })
 
   // Handle suggestion selection
-  const handleSuggestionSelect = useEventCallback((mention: MentionItemProps, index: number) => {
-    mentions.selectMention(index)
-  })
+  const handleSuggestionSelect = useEventCallback(
+    (mention: ContextMentionItemProps, index: number) => {
+      mentions.selectMention(index)
+    },
+  )
 
   // Cache style object
   const tv = useMemo(

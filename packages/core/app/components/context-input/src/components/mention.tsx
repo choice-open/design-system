@@ -1,13 +1,13 @@
 import React, { useMemo } from "react"
 import { useFocused, useSelected } from "slate-react"
-import type { ContextMentionElement, MentionMatch, MentionProps } from "../types"
+import type { ContextMentionElement, MentionMatch, ContextMentionProps } from "../types"
 import { mentionElementTv } from "./tv"
 
 /**
  * Default Mention component
  * Users can customize this component via ContextInput.Mention
  */
-const MentionComponent = (props: MentionProps) => {
+const MentionComponent = (props: ContextMentionProps) => {
   const { attributes, children, element, renderMention, mentionPrefix = "@", variant } = props
   const selected = useSelected()
   const focused = useFocused()

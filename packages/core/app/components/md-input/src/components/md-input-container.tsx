@@ -27,6 +27,7 @@ export const MdInputContainer = memo(
             position={mentionState.position}
             query={mentionState.query}
             filteredItems={mentionState.filteredItems}
+            selectedIndex={mentionState.selectedIndex}
             onSelect={mentionState.handleSelect}
             onClose={mentionState.closeMentionSearch}
           />

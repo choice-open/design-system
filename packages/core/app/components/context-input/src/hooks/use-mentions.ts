@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { Editor, Node, Point, Range, Transforms } from "slate"
 import { ReactEditor } from "slate-react"
 import { useEventCallback } from "usehooks-ts"
-import type { MentionItemProps, MentionTrigger } from "../types"
+import type { ContextMentionItemProps, ContextMentionTrigger } from "../types"
 import { insertWithSmartSpacing } from "../utils"
 import type { ContextEditor } from "../types/editor"
 
@@ -12,7 +12,7 @@ export interface MentionSearchState {
   loading: boolean
   position: { x: number; y: number } | null
   query: string
-  suggestions: MentionItemProps[]
+  suggestions: ContextMentionItemProps[]
   target: Range | null
   trigger: string
 }
@@ -21,9 +21,9 @@ export interface UseMentionsProps {
   editor: ContextEditor
   maxSuggestions?: number
   mentionPrefix?: string
-  onMentionSelect?: (mention: MentionItemProps, trigger: string) => void
+  onMentionSelect?: (mention: ContextMentionItemProps, trigger: string) => void
   onSearchClose?: () => void
-  triggers: MentionTrigger[]
+  triggers: ContextMentionTrigger[]
 }
 
 export function useMentions({
@@ -47,7 +47,7 @@ export function useMentions({
 
   // Create fast lookup map for triggers
   const triggerMap = useMemo(() => {
-    const map = new Map<string, MentionTrigger>()
+    const map = new Map<string, ContextMentionTrigger>()
     triggers.forEach((trigger) => {
       map.set(trigger.char, trigger)
     })
@@ -68,7 +68,7 @@ export function useMentions({
 
   // Search mentions - use useEventCallback to keep reference stable
   const searchMentions = useEventCallback(
-    (query: string, trigger: string, triggerConfig: MentionTrigger) => {
+    (query: string, trigger: string, triggerConfig: ContextMentionTrigger) => {
       // Clear previous search
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current)
@@ -220,7 +220,7 @@ export function useMentions({
   })
 
   // Insert mention - use useEventCallback to keep reference stable
-  const insertMention = useEventCallback((mention: MentionItemProps) => {
+  const insertMention = useEventCallback((mention: ContextMentionItemProps) => {
     const { target, trigger } = searchState
 
     if (!target) return

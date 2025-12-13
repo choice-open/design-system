@@ -38,24 +38,28 @@ const MdInputRoot = memo(
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const { insertText, wrapText, insertListPrefix } = useMarkdownFormatting(textareaRef)
 
-    // 检测是否有 Tabs 组件
+    // Detect if Tabs component exists (recursive check with displayName for reliability)
     const hasTabs = useMemo(() => {
-      let foundTabs = false
-      React.Children.forEach(children, (child) => {
-        if (React.isValidElement(child)) {
-          if (child.type === MdInputTabs) {
-            foundTabs = true
-          } else if (child.type === MdInputHeader) {
-            // 检查 Header 的 children 中是否有 Tabs
-            React.Children.forEach(child.props.children, (headerChild) => {
-              if (React.isValidElement(headerChild) && headerChild.type === MdInputTabs) {
-                foundTabs = true
-              }
-            })
+      const checkForTabs = (node: React.ReactNode): boolean => {
+        let found = false
+        React.Children.forEach(node, (child) => {
+          if (found) return
+          if (React.isValidElement(child)) {
+            // Check displayName for memo-wrapped components
+            const type = child.type as React.ComponentType & { displayName?: string }
+            if (type.displayName === "MdInputTabs" || type === MdInputTabs) {
+              found = true
+              return
+            }
+            // Recursively check children
+            if (child.props?.children) {
+              found = checkForTabs(child.props.children)
+            }
           }
-        }
-      })
-      return foundTabs
+        })
+        return found
+      }
+      return checkForTabs(children)
     }, [children])
 
     const handleChange = useEventCallback((newValue: string) => {

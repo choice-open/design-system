@@ -8,6 +8,7 @@ export const mdInputTv = tcv({
     content: "flex-1 relative",
     textarea: "border-none rounded-none",
     render: "",
+    footer: "border-t border-default-border p-2",
   },
   variants: {
     visible: {

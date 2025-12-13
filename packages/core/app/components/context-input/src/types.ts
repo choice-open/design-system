@@ -1,13 +1,13 @@
 import { ComponentType } from "react"
 import { RenderElementProps } from "slate-react"
 
-export interface MentionProps extends RenderElementProps {
+export interface ContextMentionProps extends RenderElementProps {
   mentionPrefix?: string
   renderMention?: (mention: MentionMatch) => React.ReactNode
   variant?: "default" | "light" | "dark" | "reset"
 }
 
-export interface MentionItemProps {
+export interface ContextMentionItemProps {
   description?: string
   id: string
   label: string
@@ -22,7 +22,7 @@ export interface MentionMatch {
     mentionText: string
   }
   endIndex: number
-  item: MentionItemProps
+  item: ContextMentionItemProps
   startIndex: number
   text: string
 }
@@ -32,12 +32,15 @@ export interface ContextInputValue {
   text: string
 }
 
-export interface MentionTrigger {
+export interface ContextMentionTrigger {
   allowSpaceInQuery?: boolean
   char: string
   mentionRegex?: RegExp
-  onSearch: (query: string, char: string) => Promise<MentionItemProps[]> | MentionItemProps[]
-  renderItem?: (item: MentionItemProps, isSelected: boolean) => React.ReactNode
+  onSearch: (
+    query: string,
+    char: string,
+  ) => Promise<ContextMentionItemProps[]> | ContextMentionItemProps[]
+  renderItem?: (item: ContextMentionItemProps, isSelected: boolean) => React.ReactNode
 }
 
 export interface ContextInputProps {
@@ -47,7 +50,7 @@ export interface ContextInputProps {
   children?: React.ReactNode
   className?: string
   // Custom Mention component
-  customMentionComponent?: ComponentType<MentionProps>
+  customMentionComponent?: ComponentType<ContextMentionProps>
   disabled?: boolean
   maxLength?: number
   maxSuggestions?: number
@@ -61,19 +64,19 @@ export interface ContextInputProps {
   onCompositionStart?: (event: React.CompositionEvent) => void
   onFocus?: () => void
   onKeyDown?: (event: React.KeyboardEvent) => void
-  onMentionSelect?: (mention: MentionItemProps, trigger: string) => void
+  onMentionSelect?: (mention: ContextMentionItemProps, trigger: string) => void
   placeholder?: string
 
   readOnly?: boolean
   // Custom rendering
   renderMention?: (mention: MentionMatch) => React.ReactNode
-  renderSuggestion?: (item: MentionItemProps, isSelected: boolean) => React.ReactNode
+  renderSuggestion?: (item: ContextMentionItemProps, isSelected: boolean) => React.ReactNode
   root?: HTMLElement | null
   size?: "default" | "large"
 
   suggestionListClassName?: string
   // Mentions configuration
-  triggers?: MentionTrigger[]
+  triggers?: ContextMentionTrigger[]
   value?: ContextInputValue
   variant?: "default" | "light" | "dark" | "reset"
 }
@@ -81,11 +84,11 @@ export interface ContextInputProps {
 // Slate.js 扩展类型
 export interface ContextMentionElement {
   children: [{ text: "" }]
-  mentionData?: MentionItemProps["metadata"]
+  mentionData?: ContextMentionItemProps["metadata"]
   mentionId: string
   mentionLabel: string
   mentionPrefix?: string
-  mentionType: MentionItemProps["type"]
+  mentionType: ContextMentionItemProps["type"]
   type: "mention"
 }
 

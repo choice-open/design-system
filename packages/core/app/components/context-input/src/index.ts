@@ -6,6 +6,7 @@ export type {
   ContextInputValue,
   ContextMentionElement,
   ContextInputRef,
-  MentionProps,
-  MentionItemProps,
+  ContextMentionProps,
+  ContextMentionItemProps,
+  ContextMentionTrigger,
 } from "./types"

@@ -50,8 +50,9 @@ const INITIAL_COMPONENTS: InitialComponents = {
         language={language}
         filename={effectiveFilename}
         lineThreshold={undefined}
+        expandable={false}
       >
-        <CodeBlock.Header />
+        <CodeBlock.Header showLineCount={false} />
         <CodeBlock.Content code={children as string} />
       </CodeBlock>
     )

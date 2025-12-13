@@ -1,6 +1,6 @@
 import { Combobox } from "@choice-ui/combobox"
 import React, { forwardRef, memo, useImperativeHandle } from "react"
-import type { MentionItemProps } from "../types"
+import type { ContextMentionItemProps } from "../types"
 
 // Focus management disabled config - as constant to avoid creating new object on each render
 const FOCUS_MANAGER_PROPS = {
@@ -26,11 +26,11 @@ interface MentionMenuProps {
   isOpen: boolean
   loading: boolean
   onClose: () => void
-  onSelect: (mention: MentionItemProps, index: number) => void
+  onSelect: (mention: ContextMentionItemProps, index: number) => void
   position: MentionMenuPosition | null
-  renderSuggestion?: (item: MentionItemProps, isSelected: boolean) => React.ReactNode
+  renderSuggestion?: (item: ContextMentionItemProps, isSelected: boolean) => React.ReactNode
   root?: HTMLElement | null
-  suggestions: MentionItemProps[]
+  suggestions: ContextMentionItemProps[]
   disabled?: boolean
 }
 

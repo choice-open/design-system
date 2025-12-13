@@ -2,13 +2,13 @@ import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, memo, useContext, useMemo } from "react"
 import { useEventCallback } from "usehooks-ts"
 import { MdInputContext } from "../../context"
-import type { ToolbarProps } from "../../types"
+import type { MdInputToolbarProps } from "../../types"
 import { DEFAULT_TOOLBAR_GROUPS } from "./default-actions"
 import { ToolbarButton } from "./toolbar-button"
 import { toolbarTv } from "./tv"
 
 export const Toolbar = memo(
-  forwardRef<HTMLDivElement, ToolbarProps>(function Toolbar(
+  forwardRef<HTMLDivElement, MdInputToolbarProps>(function Toolbar(
     {
       afterElement,
       beforeElement,

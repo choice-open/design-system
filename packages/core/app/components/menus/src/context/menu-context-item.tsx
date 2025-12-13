@@ -54,10 +54,10 @@ export const MenuContextItem = memo(
         )
       }
 
-      // Calculate active state
+      // Calculate active state (customActive overrides internal activeIndex)
       const isActive = useMemo(
-        () => item.index === menu.activeIndex,
-        [item.index, menu.activeIndex],
+        () => customActive ?? item.index === menu.activeIndex,
+        [customActive, item.index, menu.activeIndex],
       )
 
       // Handle click event

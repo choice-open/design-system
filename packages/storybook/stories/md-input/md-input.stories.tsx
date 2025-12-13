@@ -1,5 +1,5 @@
 import type { MentionRenderProps } from "@choice-ui/react"
-import { Avatar, MdInput, ToolbarAction, Tooltip } from "@choice-ui/react"
+import { Avatar, MdInput, MdInputToolbarAction, Tooltip } from "@choice-ui/react"
 import { FontBoldSmall, ParagraphCode, ParagraphItalic } from "@choiceform/icons-react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { useState } from "react"
@@ -7,7 +7,7 @@ import { useState } from "react"
 const meta: Meta<typeof MdInput> = {
   title: "Forms/MdInput",
   component: MdInput,
-  tags: ["autodocs"],
+  tags: ["autodocs", "beta"],
 }
 
 export default meta
@@ -28,6 +28,7 @@ export const Basic: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -35,6 +36,57 @@ export const Basic: Story = {
         </MdInput.Header>
         <MdInput.Container>
           <MdInput.Editor placeholder="Enter markdown..." />
+          <MdInput.Render />
+        </MdInput.Container>
+      </MdInput>
+    )
+  },
+}
+
+/**
+ * Keyboard Shortcuts: Demonstrates all supported keyboard shortcuts.
+ *
+ * **Text Formatting:**
+ * - `Cmd/Ctrl + B` — Bold text
+ * - `Cmd/Ctrl + I` — Italic text
+ * - `Cmd/Ctrl + K` — Insert link
+ *
+ * **Code:**
+ * - `Cmd/Ctrl + `` ` `` — Inline code
+ * - `Cmd/Ctrl + Shift + `` ` `` — Code block
+ *
+ * **Structure:**
+ * - `Cmd/Ctrl + Shift + .` — Blockquote
+ * - `Cmd/Ctrl + 1-6` — Heading levels (H1-H6)
+ *
+ * **Mentions:**
+ * - Type `@` followed by name to trigger mention menu
+ * - Use `↑/↓` to navigate, `Enter/Tab` to select, `Esc` to close
+ */
+export const KeyboardShortcuts: Story = {
+  render: function KeyboardShortcuts() {
+    const [value, setValue] = useState(
+      "Try these shortcuts:\n\n" +
+        "1. Select text and press **Cmd+B** for bold\n" +
+        "2. Select text and press **Cmd+I** for italic\n" +
+        "3. Press **Cmd+K** to insert a link\n" +
+        "4. Press **Cmd+`** for inline code\n" +
+        "5. Press **Cmd+Shift+`** for code block\n" +
+        "6. Press **Cmd+Shift+.** for blockquote\n" +
+        "7. Press **Cmd+1** through **Cmd+6** for headings\n",
+    )
+    return (
+      <MdInput
+        value={value}
+        onChange={setValue}
+        className="w-md"
+      >
+        <MdInput.Header>
+          <MdInput.Tabs />
+          <MdInput.Toolbar />
+        </MdInput.Header>
+        <MdInput.Container>
+          <MdInput.Editor placeholder="Try the keyboard shortcuts..." />
           <MdInput.Render />
         </MdInput.Container>
       </MdInput>
@@ -54,6 +106,7 @@ export const WithoutPreview: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Toolbar />
@@ -75,17 +128,12 @@ export const OnlyPreview: Story = {
   render: function OnlyPreview() {
     const [value, setValue] = useState("### Heading\n\n**Bold text**")
     return (
-      <div className="flex flex-col gap-4">
-        <p>With ScrollArea</p>
-        <MdInput value={value}>
-          <MdInput.Render />
-        </MdInput>
-
-        <p>Without ScrollArea</p>
-        <MdInput value={value}>
-          <MdInput.Render className="p-4" />
-        </MdInput>
-      </div>
+      <MdInput
+        value={value}
+        className="w-md"
+      >
+        <MdInput.Render />
+      </MdInput>
     )
   },
 }
@@ -102,6 +150,7 @@ export const WithoutToolbar: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -127,6 +176,7 @@ export const ReadOnly: Story = {
       <MdInput
         value={value}
         readOnly
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -152,6 +202,7 @@ export const Disabled: Story = {
       <MdInput
         value={value}
         disabled
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -178,6 +229,7 @@ export const CustomHeight: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -207,6 +259,7 @@ export const Empty: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -234,6 +287,7 @@ export const CustomToolbarActions: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -263,6 +317,7 @@ export const ListsOnly: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -510,18 +565,11 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Note**: This example demonstrates all GitHub Flavored Markdown features supported by the component.`)
 
-    const isDarkMode = true
-    const customColor = {
-      defaultBackground: isDarkMode ? "var(--color-pink-pale-700)" : "var(--color-pink-300)",
-      defaultBoundary: isDarkMode ? "var(--color-pink-pale-500)" : "var(--color-pink-400)",
-      secondaryBackground: isDarkMode ? "var(--color-pink-pale-600)" : "var(--color-pink-200)",
-      secondaryForeground: isDarkMode ? "var(--color-pink-pale-900)" : "var(--color-pink-pale-500)",
-      codeBackground: isDarkMode ? "var(--color-pink-pale-800)" : "var(--color-pink-100)",
-    }
     return (
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -532,7 +580,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
             minRows={48}
             maxRows={72}
           />
-          <MdInput.Render customColor={customColor} />
+          <MdInput.Render />
         </MdInput.Container>
       </MdInput>
     )
@@ -551,6 +599,7 @@ export const CustomLayout: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Toolbar />
@@ -578,7 +627,7 @@ export const CustomToolbar: Story = {
   render: function CustomToolbar() {
     const [value, setValue] = useState("### Custom Toolbar\n\n**Bold** and *italic* text")
 
-    const customGroups: ToolbarAction[][] = [
+    const customGroups: MdInputToolbarAction[][] = [
       [
         { id: "heading", label: "Heading", icon: "H" },
         { id: "bold", label: "Bold", icon: "B" },
@@ -590,6 +639,7 @@ export const CustomToolbar: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -619,6 +669,7 @@ export const ToolbarInFooter: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -644,7 +695,7 @@ export const CustomToolbarInFooter: Story = {
   render: function CustomToolbarInFooter() {
     const [value, setValue] = useState("### Custom Footer Toolbar\n\n**Bold** and *italic* text")
 
-    const footerGroups: ToolbarAction[][] = [
+    const footerGroups: MdInputToolbarAction[][] = [
       [
         { id: "bold", label: "Bold", icon: <FontBoldSmall /> },
         { id: "italic", label: "Italic", icon: <ParagraphItalic /> },
@@ -656,6 +707,7 @@ export const CustomToolbarInFooter: Story = {
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -702,6 +754,7 @@ export const WithMentions: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -766,6 +819,7 @@ export const CustomMentionFormat: Story = {
         onChange={setValue}
         mentionItems={mentionItems}
         mentionOnSelect={handleMentionSelect}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -808,6 +862,7 @@ export const MentionsWithFiltering: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -847,6 +902,7 @@ export const MentionsInExistingContent: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -959,6 +1015,7 @@ export const CustomMentionRendering: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -1006,6 +1063,7 @@ export const MentionRenderingInVariousFormats: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -1072,6 +1130,7 @@ export const MentionWithAllowedDomains: Story = {
         value={value}
         onChange={setValue}
         mentionItems={mentionItems}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />
@@ -1082,6 +1141,91 @@ export const MentionWithAllowedDomains: Story = {
           <MdInput.Render
             mentionRenderComponent={CustomMention}
             allowedPrefixes={["https://api.dicebear.com"]}
+          />
+        </MdInput.Container>
+      </MdInput>
+    )
+  },
+}
+
+/**
+ * URL Whitelist Security: Demonstrates URL prefix whitelisting for links and images.
+ *
+ * **Security Feature:**
+ * For security reasons, URLs that are not in the whitelist will NOT be rendered.
+ * You must manually add trusted domain prefixes to `allowedPrefixes` prop.
+ *
+ * **How it works:**
+ * - Only URLs starting with whitelisted prefixes are rendered as clickable links or images
+ * - Non-whitelisted URLs are stripped or rendered as plain text
+ * - This prevents XSS attacks, phishing links, and malicious content
+ *
+ * **Example whitelist:**
+ * ```tsx
+ * allowedPrefixes={[
+ *   "https://your-domain.com",
+ *   "https://trusted-cdn.com",
+ *   "https://api.dicebear.com"
+ * ]}
+ * ```
+ *
+ * **Note:** This applies to both markdown links `[text](url)` and images `![alt](url)`.
+ */
+export const WhitelistSecurity: Story = {
+  render: function URLWhitelistSecurity() {
+    const [value, setValue] = useState(
+      `## URL Whitelist Demo
+
+### Whitelisted URLs (will render)
+
+These URLs are in the allowedPrefixes list:
+
+- [GitHub](https://github.com/choiceform)
+- [Dicebear Avatar](https://api.dicebear.com/7.x/avataaars/svg?seed=test)
+
+![Whitelisted Image](https://api.dicebear.com/7.x/avataaars/svg?seed=demo)
+
+### Non-whitelisted URLs (will NOT render)
+
+These URLs are NOT in the allowedPrefixes list:
+
+- [Google](https://google.com) ← Link will be stripped
+- [Example](https://example.com) ← Link will be stripped
+
+![Blocked Image](https://example.com/image.jpg) ← Image will not load
+
+### Why use allowedPrefixes?
+
+> **Security Benefits:**
+> - Prevents phishing attacks via malicious links
+> - Blocks tracking pixels and unwanted images
+> - Protects against XSS via image URLs
+> - Controls which external resources can be loaded
+
+### Current whitelist in this demo:
+
+\`\`\`
+- https://github.com/choiceform
+- https://api.dicebear.com
+\`\`\`
+
+Add more prefixes to allow additional domains.`,
+    )
+
+    return (
+      <MdInput
+        value={value}
+        onChange={setValue}
+        className="w-md"
+      >
+        <MdInput.Header>
+          <MdInput.Tabs />
+          <MdInput.Toolbar />
+        </MdInput.Header>
+        <MdInput.Container>
+          <MdInput.Editor placeholder="Try adding links to test the whitelist..." />
+          <MdInput.Render
+            allowedPrefixes={["https://github.com/choiceform", "https://api.dicebear.com"]}
           />
         </MdInput.Container>
       </MdInput>
@@ -1334,6 +1478,7 @@ And continue with more text after the code block.
       <MdInput
         value={value}
         onChange={setValue}
+        className="w-md"
       >
         <MdInput.Header>
           <MdInput.Tabs />

@@ -5,7 +5,7 @@ import { useEventCallback } from "usehooks-ts"
 import { useMdInputContext } from "../context"
 import { useMarkdownMentions, useMarkdownShortcuts } from "../hooks"
 import { mdInputTv } from "../tv"
-import type { MentionState } from "../types"
+import type { MdInputMentionState } from "../types"
 
 export interface MdInputEditorProps extends Omit<TextareaProps, "value" | "onChange"> {
   className?: string
@@ -45,10 +45,11 @@ export const MdInputEditor = memo(
       position,
       query,
       filteredItems,
+      selectedIndex,
       handleSelect,
     } = mentionHook
 
-    const prevMentionStateRef = useRef<MentionState | null>(null)
+    const prevMentionStateRef = useRef<MdInputMentionState | null>(null)
 
     useEffect(() => {
       if (textareaRef.current) {
@@ -57,30 +58,32 @@ export const MdInputEditor = memo(
     }, [textareaRef, setMentionTextareaRef])
 
     useEffect(() => {
-      // 只在有 mentionItems 时才设置 mentionState，避免无限循环
+      // Only set mentionState when mentionItems exist to avoid infinite loops
       if (!setMentionState || !mentionItems || mentionItems.length === 0) {
         return
       }
 
-      const newState: MentionState = {
+      const newState: MdInputMentionState = {
         isOpen,
         position,
         query,
         filteredItems,
+        selectedIndex,
         handleSelect,
         closeMentionSearch: mentionHook.closeMentionSearch,
       }
 
-      // 检查状态是否真的改变了，避免不必要的更新
+      // Check if state has actually changed to avoid unnecessary updates
       const prev = prevMentionStateRef.current
       if (
         prev &&
         prev.isOpen === newState.isOpen &&
         prev.position === newState.position &&
         prev.query === newState.query &&
-        prev.filteredItems === newState.filteredItems
+        prev.filteredItems === newState.filteredItems &&
+        prev.selectedIndex === newState.selectedIndex
       ) {
-        // 状态没有改变，不需要更新
+        // State unchanged, no update needed
         return
       }
 
@@ -91,6 +94,7 @@ export const MdInputEditor = memo(
       position,
       query,
       filteredItems,
+      selectedIndex,
       handleSelect,
       mentionHook.closeMentionSearch,
       setMentionState,

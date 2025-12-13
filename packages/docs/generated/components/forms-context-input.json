@@ -29,8 +29,9 @@
     "type ContextInputValue",
     "type ContextMentionElement",
     "type ContextInputRef",
-    "type MentionProps",
-    "type MentionItemProps"
+    "type ContextMentionProps",
+    "type ContextMentionItemProps",
+    "type ContextMentionTrigger"
   ],
   "props": [
     {
@@ -197,7 +198,7 @@
         },
         {
           "name": "onSelect",
-          "type": "(mention: MentionItemProps, index: number) => void",
+          "type": "(mention: ContextMentionItemProps, index: number) => void",
           "required": true,
           "description": ""
         },
@@ -227,7 +228,7 @@
         },
         {
           "name": "renderSuggestion",
-          "type": "((item: MentionItemProps, isSelected: boolean) => ReactNode) | undefined",
+          "type": "((item: ContextMentionItemProps, isSelected: boolean) => ReactNode) | undefined",
           "required": false,
           "description": ""
         },
@@ -239,7 +240,7 @@
         },
         {
           "name": "suggestions",
-          "type": "MentionItemProps[]",
+          "type": "ContextMentionItemProps[]",
           "required": true,
           "description": ""
         },
@@ -358,7 +359,7 @@
         },
         {
           "name": "customMentionComponent",
-          "type": "ComponentType<MentionProps> | undefined",
+          "type": "ComponentType<ContextMentionProps> | undefined",
           "required": false,
           "description": ""
         },
