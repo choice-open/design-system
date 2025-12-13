@@ -1,0 +1,360 @@
+{
+  "slug": "components/table",
+  "title": "Table",
+  "package": {
+    "name": "@choice-ui/table",
+    "version": "0.0.1",
+    "description": "Table component for Choiceform Design System",
+    "dependencies": {
+      "@choice-ui/checkbox": "workspace:*",
+      "@choice-ui/scroll-area": "workspace:*",
+      "@choice-ui/shared": "workspace:*",
+      "@choice-ui/spinner": "workspace:*",
+      "@choiceform/icons-react": "^1.3.8",
+      "@tanstack/react-virtual": "^3.13.2"
+    },
+    "peerDependencies": {
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
+    }
+  },
+  "exports": [
+    "Table",
+    "type TableBodyProps",
+    "type TableCellProps",
+    "type TableColumnProps",
+    "type TableHeaderProps",
+    "type TableProps",
+    "type TableRowProps",
+    "type SelectionMode",
+    "type ScrollMode",
+    "type RowKey",
+    "type SortDirection",
+    "type SortingState",
+    "type SelectionState",
+    "type TableColumnDef",
+    "type TableInstance",
+    "type InternalRow",
+    "type ConsecutiveStyle",
+    "type TableContextValue",
+    "type TableProps",
+    "type TableHeaderProps",
+    "type TableColumnProps",
+    "type TableBodyProps",
+    "type TableRowProps",
+    "type TableCellProps",
+    "type TableSelectCellProps",
+    "useTableContext",
+    "tableVariants"
+  ],
+  "props": [
+    {
+      "displayName": "Table",
+      "description": "Table component with compound components pattern.\n\nSupports:\n- Row selection (single/multiple)\n- Consecutive selection rounded corners\n- Virtualization for large datasets\n- Two scroll modes: \"container\" (internal ScrollArea) or \"window\" (window scroll)",
+      "props": [
+        {
+          "name": "data",
+          "type": "T[]",
+          "required": true,
+          "description": "Table data"
+        },
+        {
+          "name": "getRowKey",
+          "type": "(row: T, index: number) => RowKey",
+          "required": true,
+          "description": "Function to get unique key for each row"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to show selection column"
+        },
+        {
+          "name": "selectionMode",
+          "type": "undefined | \"single\" | \"multiple\" | \"none\"",
+          "required": false,
+          "description": "Selection mode"
+        },
+        {
+          "name": "selectedKeys",
+          "type": "RowKey[] | undefined",
+          "required": false,
+          "description": "Controlled selected keys"
+        },
+        {
+          "name": "defaultSelectedKeys",
+          "type": "RowKey[] | undefined",
+          "required": false,
+          "description": "Default selected keys (uncontrolled)"
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "((selectedKeys: RowKey[]) => void) | undefined",
+          "required": false,
+          "description": "Selection change callback"
+        },
+        {
+          "name": "virtualized",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether to enable virtualization"
+        },
+        {
+          "name": "estimateRowHeight",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Estimated row height for virtualization"
+        },
+        {
+          "name": "overscan",
+          "type": "number | undefined",
+          "required": false,
+          "description": "Number of rows to render outside viewport"
+        },
+        {
+          "name": "scrollMode",
+          "type": "undefined | \"container\" | \"window\"",
+          "required": false,
+          "description": "Scroll mode"
+        },
+        {
+          "name": "scrollRef",
+          "type": "RefObject<HTMLElement> | undefined",
+          "required": false,
+          "description": "Custom scroll element ref (for custom container scroll)"
+        },
+        {
+          "name": "containerRef",
+          "type": "RefObject<HTMLElement> | undefined",
+          "required": false,
+          "description": "Custom container ref (for custom container scroll)"
+        },
+        {
+          "name": "sortable",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Whether table is sortable"
+        },
+        {
+          "name": "sorting",
+          "type": "SortingState[] | undefined",
+          "required": false,
+          "description": "Controlled sorting state"
+        },
+        {
+          "name": "defaultSorting",
+          "type": "SortingState[] | undefined",
+          "required": false,
+          "description": "Default sorting state"
+        },
+        {
+          "name": "onSortingChange",
+          "type": "((sorting: SortingState[]) => void) | undefined",
+          "required": false,
+          "description": "Sorting change callback"
+        },
+        {
+          "name": "activeRowKey",
+          "type": "RowKey | null | undefined",
+          "required": false,
+          "description": "Active row key (for highlighting)"
+        },
+        {
+          "name": "onRowClick",
+          "type": "((row: T, event: MouseEvent<Element, MouseEvent>) => void) | undefined",
+          "required": false,
+          "description": "Row click handler"
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "required": false,
+          "description": "Custom class name"
+        },
+        {
+          "name": "height",
+          "type": "string | number | undefined",
+          "required": false,
+          "description": "Container height (for container scroll mode)"
+        },
+        {
+          "name": "loading",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Loading state"
+        },
+        {
+          "name": "tableRef",
+          "type": "RefObject<TableInstance<T> | null> | undefined",
+          "required": false,
+          "description": "Ref to table instance"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Children (Table.Header, Table.Body)"
+        }
+      ]
+    },
+    {
+      "displayName": "TableBodyProps",
+      "description": "Props for Table.Body",
+      "props": []
+    },
+    {
+      "displayName": "TableCellProps",
+      "description": "Props for Table.Cell",
+      "props": []
+    },
+    {
+      "displayName": "TableColumnProps",
+      "description": "Props for Table.Column (used inside Table.Header)",
+      "props": []
+    },
+    {
+      "displayName": "TableHeaderProps",
+      "description": "Props for Table.Header",
+      "props": []
+    },
+    {
+      "displayName": "TableProps",
+      "description": "Props for the Table root component",
+      "props": []
+    },
+    {
+      "displayName": "TableRowProps",
+      "description": "Props for Table.Row",
+      "props": []
+    },
+    {
+      "displayName": "tableVariants",
+      "description": "",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "active",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "undefined | \"medium\" | \"small\" | \"large\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"striped\" | \"bordered\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "class",
+          "type": "ClassNameValue",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "ClassNameValue",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "id": "components-table--basic",
+      "name": "Basic",
+      "exportName": "Basic",
+      "description": "Basic table with selection support.\n\nFeatures:\n- Multi-row selection with checkboxes\n- Consecutive selection rounded corners\n- Fixed height container scroll",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(20), [])\n  const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"text-secondary-foreground text-sm\">\n        Selected: {selectedKeys.length} rows\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable\n        selectionMode=\"multiple\"\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n        height={400}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\" width={250}>\n            Email\n          </Table.Column>\n          <Table.Column id=\"role\" width={120}>\n            Role\n          </Table.Column>\n          <Table.Column id=\"status\" width={100}>\n            Status\n          </Table.Column>\n        </Table.Header>\n        <Table.Body emptyContent={<span>No users found</span>}>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"role\">{user.role}</Table.Cell>\n              <Table.Cell columnId=\"status\">\n                <StatusBadge status={user.status} />\n              </Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--single-selection",
+      "name": "Single Selection",
+      "exportName": "SingleSelection",
+      "description": "Single selection mode.\n\nFeatures:\n- Only one row can be selected at a time\n- Clicking a new row deselects the previous one",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(10), [])\n  const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"text-secondary-foreground text-sm\">\n        Selected: {selectedKeys.length > 0 ? selectedKeys[0] : \"None\"}\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable\n        selectionMode=\"single\"\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n        height={300}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"department\" width={150}>\n            Department\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"department\">{user.department}</Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--no-selection",
+      "name": "No Selection",
+      "exportName": "NoSelection",
+      "description": "Table without selection.\n\nFeatures:\n- No checkbox column\n- Read-only display mode\n- Row click handler for navigation or details",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(10), [])\n  const [clickedUser, setClickedUser] = useState<string | null>(null)\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"text-secondary-foreground text-sm\">\n        Last clicked: {clickedUser || \"None\"}\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable={false}\n        onRowClick={(user) => setClickedUser(user.name)}\n        height={300}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"joinDate\" width={120}>\n            Join Date\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"joinDate\">{user.joinDate}</Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--sortable",
+      "name": "Sortable",
+      "exportName": "Sortable",
+      "description": "Sortable columns.\n\nFeatures:\n- Click column headers to sort\n- Toggle between ascending, descending, and unsorted\n- Sort indicator icons",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(15), [])\n\n  return (\n    <Table\n      data={users}\n      getRowKey={(user) => user.id}\n      sortable\n      height={400}\n      className=\"w-full rounded-lg border\"\n    >\n      <Table.Header>\n        <Table.Column\n          id=\"name\"\n          width={200}\n          sortable\n        >\n          Name\n        </Table.Column>\n        <Table.Column\n          id=\"email\"\n          sortable\n        >\n          Email\n        </Table.Column>\n        <Table.Column\n          id=\"role\"\n          width={120}\n          sortable\n        >\n          Role\n        </Table.Column>\n        <Table.Column\n          id=\"department\"\n          width={150}\n          sortable\n        >\n          Department\n        </Table.Column>\n      </Table.Header>\n      <Table.Body>\n        {(user, index) => (\n          <Table.Row\n            rowKey={user.id}\n            index={index}\n          >\n            <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n            <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n            <Table.Cell columnId=\"role\">{user.role}</Table.Cell>\n            <Table.Cell columnId=\"department\">{user.department}</Table.Cell>\n          </Table.Row>\n        )}\n      </Table.Body>\n    </Table>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--virtualized",
+      "name": "Virtualized",
+      "exportName": "Virtualized",
+      "description": "Large dataset with virtualization.\n\nFeatures:\n- Renders 10,000 rows efficiently\n- Virtual scrolling for performance\n- Smooth scrolling experience",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(10000), [])\n  const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"text-secondary-foreground text-sm\">\n        Total rows: {users.length} | Selected: {selectedKeys.length}\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable\n        virtualized\n        estimateRowHeight={32}\n        overscan={10}\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n        height={500}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"id\" width={100}>\n            ID\n          </Table.Column>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"role\" width={120}>\n            Role\n          </Table.Column>\n          <Table.Column id=\"status\" width={100}>\n            Status\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"id\">{user.id}</Table.Cell>\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"role\">{user.role}</Table.Cell>\n              <Table.Cell columnId=\"status\">\n                <StatusBadge status={user.status} />\n              </Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--window-scroll",
+      "name": "Window Scroll",
+      "exportName": "WindowScroll",
+      "description": "Window scroll mode - uses browser window for scrolling.\n\nFeatures:\n- No internal scroll container\n- Integrates with page scroll\n- Useful for full-page table layouts",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(100), [])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"bg-warning-background/20 rounded-md p-4\">\n        <p className=\"text-sm\">\n          This table uses window scroll mode. The table content scrolls with the page.\n        </p>\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable\n        scrollMode=\"window\"\n        virtualized\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"department\" width={150}>\n            Department\n          </Table.Column>\n          <Table.Column id=\"status\" width={100}>\n            Status\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"department\">{user.department}</Table.Cell>\n              <Table.Cell columnId=\"status\">\n                <StatusBadge status={user.status} />\n              </Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--custom-scroll-container",
+      "name": "Custom Scroll Container",
+      "exportName": "CustomScrollContainer",
+      "description": "Custom scroll container - uses external ScrollArea.\n\nFeatures:\n- Provides scrollRef and containerRef for custom integration\n- Full control over scroll behavior\n- Useful for complex layouts",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useMemo, useRef } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(100), [])\n  const scrollRef = useRef<HTMLDivElement>(null)\n  const containerRef = useRef<HTMLDivElement>(null)\n\n  return (\n    <ScrollArea className=\"h-[400px] w-full rounded-lg border\">\n      <ScrollArea.Viewport ref={scrollRef}>\n        <ScrollArea.Content ref={containerRef}>\n          <Table\n            data={users}\n            getRowKey={(user) => user.id}\n            selectable\n            scrollRef={scrollRef}\n            containerRef={containerRef}\n            virtualized\n          >\n            <Table.Header>\n              <Table.Column id=\"name\" width={200}>\n                Name\n              </Table.Column>\n              <Table.Column id=\"email\">Email</Table.Column>\n              <Table.Column id=\"role\" width={120}>\n                Role\n              </Table.Column>\n            </Table.Header>\n            <Table.Body>\n              {(user, index) => (\n                <Table.Row\n                  rowKey={user.id}\n                  index={index}\n                >\n                  <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n                  <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n                  <Table.Cell columnId=\"role\">{user.role}</Table.Cell>\n                </Table.Row>\n              )}\n            </Table.Body>\n          </Table>\n        </ScrollArea.Content>\n      </ScrollArea.Viewport>\n    </ScrollArea>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--rich-content",
+      "name": "Rich Content",
+      "exportName": "RichContent",
+      "description": "Rich cell content with avatars and badges.\n\nFeatures:\n- Custom cell rendering\n- Avatar integration\n- Multiple badges per row",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(20), [])\n\n  return (\n    <Table\n      data={users}\n      getRowKey={(user) => user.id}\n      selectable\n      height={400}\n      className=\"w-full rounded-lg border\"\n    >\n      <Table.Header>\n        <Table.Column id=\"user\" width={280}>\n          User\n        </Table.Column>\n        <Table.Column id=\"role\" width={120}>\n          Role\n        </Table.Column>\n        <Table.Column id=\"department\" width={150}>\n          Department\n        </Table.Column>\n        <Table.Column id=\"status\" width={100}>\n          Status\n        </Table.Column>\n      </Table.Header>\n      <Table.Body>\n        {(user, index) => (\n          <Table.Row\n            rowKey={user.id}\n            index={index}\n          >\n            <Table.Cell columnId=\"user\">\n              <div className=\"flex items-center gap-3\">\n                <Avatar\n                  name={user.name}\n                  size={28}\n                />\n                <div className=\"flex flex-col\">\n                  <span className=\"font-medium\">{user.name}</span>\n                  <span className=\"text-secondary-foreground text-xs\">{user.email}</span>\n                </div>\n              </div>\n            </Table.Cell>\n            <Table.Cell columnId=\"role\">\n              <Badge variant=\"outline\">{user.role}</Badge>\n            </Table.Cell>\n            <Table.Cell columnId=\"department\">{user.department}</Table.Cell>\n            <Table.Cell columnId=\"status\">\n              <StatusBadge status={user.status} />\n            </Table.Cell>\n          </Table.Row>\n        )}\n      </Table.Body>\n    </Table>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--empty-state",
+      "name": "Empty State",
+      "exportName": "EmptyState",
+      "description": "Empty state display.\n\nFeatures:\n- Custom empty content\n- Call-to-action button",
+      "source": "import { Table } from \"@choice-ui/table\"\n\nexport default function App() {\n\n  return (\n    <Table\n      data={[]}\n      getRowKey={(user: User) => user.id}\n      height={300}\n      className=\"w-full rounded-lg border\"\n    >\n      <Table.Header>\n        <Table.Column id=\"name\" width={200}>\n          Name\n        </Table.Column>\n        <Table.Column id=\"email\">Email</Table.Column>\n        <Table.Column id=\"status\" width={100}>\n          Status\n        </Table.Column>\n      </Table.Header>\n      <Table.Body\n        emptyContent={\n          <div className=\"flex flex-col items-center gap-4 py-8\">\n            <div className=\"text-secondary-foreground text-center\">\n              <p className=\"text-lg font-medium\">No users found</p>\n              <p className=\"text-sm\">Get started by adding your first user.</p>\n            </div>\n            <Button variant=\"primary\">Add User</Button>\n          </div>\n        }\n      >\n        {(user, index) => (\n          <Table.Row\n            rowKey={user.id}\n            index={index}\n          >\n            <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n            <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n            <Table.Cell columnId=\"status\">\n              <StatusBadge status={user.status} />\n            </Table.Cell>\n          </Table.Row>\n        )}\n      </Table.Body>\n    </Table>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--loading",
+      "name": "Loading",
+      "exportName": "Loading",
+      "description": "Loading state.\n\nFeatures:\n- Spinner display while loading\n- Maintains table layout",
+      "source": "import { Table } from \"@choice-ui/table\"\n\nexport default function App() {\n\n  return (\n    <Table\n      data={[]}\n      getRowKey={(user: User) => user.id}\n      loading\n      height={300}\n      className=\"w-full rounded-lg border\"\n    >\n      <Table.Header>\n        <Table.Column id=\"name\" width={200}>\n          Name\n        </Table.Column>\n        <Table.Column id=\"email\">Email</Table.Column>\n        <Table.Column id=\"status\" width={100}>\n          Status\n        </Table.Column>\n      </Table.Header>\n      <Table.Body>\n        {(user, index) => (\n          <Table.Row\n            rowKey={user.id}\n            index={index}\n          >\n            <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n            <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n            <Table.Cell columnId=\"status\">\n              <StatusBadge status={user.status} />\n            </Table.Cell>\n          </Table.Row>\n        )}\n      </Table.Body>\n    </Table>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--range-selection",
+      "name": "Range Selection",
+      "exportName": "RangeSelection",
+      "description": "Shift+Click range selection.\n\nFeatures:\n- Hold Shift and click to select a range\n- Works with multi-selection mode\n- Visual feedback with consecutive rounded corners",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const users = useMemo(() => generateUsers(30), [])\n  const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"bg-accent-background/10 rounded-md p-4\">\n        <p className=\"text-sm\">\n          <strong>Tip:</strong> Hold <kbd className=\"bg-secondary-background rounded px-1\">Shift</kbd> and\n          click checkboxes to select a range of rows.\n        </p>\n      </div>\n      <div className=\"text-secondary-foreground text-sm\">Selected: {selectedKeys.length} rows</div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable\n        selectionMode=\"multiple\"\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n        height={400}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"department\" width={150}>\n            Department\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"department\">{user.department}</Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "components-table--playground",
+      "name": "Playground",
+      "exportName": "Playground",
+      "description": "Interactive playground with all features.\n\nFeatures:\n- Toggle selection mode\n- Toggle virtualization\n- Adjustable row count",
+      "source": "import { Table } from \"@choice-ui/table\"\nimport { useState, useMemo } from \"react\"\n\nexport default function App() {\n\n  const [rowCount, setRowCount] = useState(100)\n  const [selectionMode, setSelectionMode] = useState<\"none\" | \"single\" | \"multiple\">(\"multiple\")\n  const [virtualized, setVirtualized] = useState(true)\n  const [selectedKeys, setSelectedKeys] = useState<(string | number)[]>([])\n\n  const users = useMemo(() => generateUsers(rowCount), [rowCount])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"flex flex-wrap items-center gap-4\">\n        <label className=\"flex items-center gap-2\">\n          <span className=\"text-sm\">Rows:</span>\n          <select\n            value={rowCount}\n            onChange={(e) => setRowCount(Number(e.target.value))}\n            className=\"rounded border px-2 py-1\"\n          >\n            <option value={10}>10</option>\n            <option value={100}>100</option>\n            <option value={1000}>1,000</option>\n            <option value={10000}>10,000</option>\n          </select>\n        </label>\n        <label className=\"flex items-center gap-2\">\n          <span className=\"text-sm\">Selection:</span>\n          <select\n            value={selectionMode}\n            onChange={(e) => setSelectionMode(e.target.value as typeof selectionMode)}\n            className=\"rounded border px-2 py-1\"\n          >\n            <option value=\"none\">None</option>\n            <option value=\"single\">Single</option>\n            <option value=\"multiple\">Multiple</option>\n          </select>\n        </label>\n        <label className=\"flex items-center gap-2\">\n          <input\n            type=\"checkbox\"\n            checked={virtualized}\n            onChange={(e) => setVirtualized(e.target.checked)}\n          />\n          <span className=\"text-sm\">Virtualized</span>\n        </label>\n        {selectionMode !== \"none\" && (\n          <span className=\"text-secondary-foreground text-sm\">Selected: {selectedKeys.length}</span>\n        )}\n      </div>\n      <Table\n        data={users}\n        getRowKey={(user) => user.id}\n        selectable={selectionMode !== \"none\"}\n        selectionMode={selectionMode === \"none\" ? \"multiple\" : selectionMode}\n        virtualized={virtualized}\n        selectedKeys={selectedKeys}\n        onSelectionChange={setSelectedKeys}\n        height={400}\n        className=\"w-full rounded-lg border\"\n      >\n        <Table.Header>\n          <Table.Column id=\"id\" width={100}>\n            ID\n          </Table.Column>\n          <Table.Column id=\"name\" width={200}>\n            Name\n          </Table.Column>\n          <Table.Column id=\"email\">Email</Table.Column>\n          <Table.Column id=\"role\" width={120}>\n            Role\n          </Table.Column>\n          <Table.Column id=\"status\" width={100}>\n            Status\n          </Table.Column>\n        </Table.Header>\n        <Table.Body>\n          {(user, index) => (\n            <Table.Row\n              rowKey={user.id}\n              index={index}\n            >\n              <Table.Cell columnId=\"id\">{user.id}</Table.Cell>\n              <Table.Cell columnId=\"name\">{user.name}</Table.Cell>\n              <Table.Cell columnId=\"email\">{user.email}</Table.Cell>\n              <Table.Cell columnId=\"role\">{user.role}</Table.Cell>\n              <Table.Cell columnId=\"status\">\n                <StatusBadge status={user.status} />\n              </Table.Cell>\n            </Table.Row>\n          )}\n        </Table.Body>\n      </Table>\n    </div>\n  )\n\n}"
+    }
+  ]
+}

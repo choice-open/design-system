@@ -99,29 +99,29 @@
       "id": "status-spinner-spinnerbounce--basic",
       "name": "Basic",
       "exportName": "Basic",
-      "description": "",
-      "source": ""
+      "description": "Default bounce spinner with medium size.",
+      "source": "import { SpinnerBounce } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <SpinnerBounce />\n  );\n}"
     },
     {
-      "id": "status-spinner-spinnerbounce--set-sizes",
-      "name": "Set Sizes",
-      "exportName": "SetSizes",
-      "description": "",
+      "id": "status-spinner-spinnerbounce--size",
+      "name": "Size",
+      "exportName": "Size",
+      "description": "Available sizes: `small`, `medium`, and `large`.",
       "source": "import { SpinnerBounce } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex items-center gap-4\">\n      <SpinnerBounce size=\"small\" />\n      <SpinnerBounce size=\"medium\" />\n      <SpinnerBounce size=\"large\" />\n    </div>\n\n  );\n}"
     },
     {
-      "id": "status-spinner-spinnerbounce--variants",
-      "name": "Variants",
-      "exportName": "Variants",
-      "description": "Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`.",
+      "id": "status-spinner-spinnerbounce--variant",
+      "name": "Variant",
+      "exportName": "Variant",
+      "description": "Available variants: `default` and `primary`.",
       "source": "import { SpinnerBounce } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex items-center gap-4\">\n      <SpinnerBounce variant=\"default\" />\n      <SpinnerBounce variant=\"primary\" />\n    </div>\n\n  );\n}"
     },
     {
       "id": "status-spinner-spinnerbounce--label",
       "name": "Label",
       "exportName": "Label",
-      "description": "",
-      "source": ""
+      "description": "Display a text label alongside the spinner.",
+      "source": "import { SpinnerBounce } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <SpinnerBounce label=\"Loading...\" />\n  );\n}"
     }
   ]
 }

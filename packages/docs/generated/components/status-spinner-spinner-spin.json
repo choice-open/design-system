@@ -99,43 +99,43 @@
       "id": "status-spinner-spinnerspin--basic",
       "name": "Basic",
       "exportName": "Basic",
-      "description": "",
-      "source": ""
+      "description": "Default spin spinner with medium size.",
+      "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <SpinnerSpin />\n  );\n}"
     },
     {
       "id": "status-spinner-spinnerspin--size",
       "name": "Size",
       "exportName": "Size",
-      "description": "",
+      "description": "Available sizes: `small`, `medium`, and `large`.",
       "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex items-center gap-4\">\n      <SpinnerSpin size=\"small\" />\n      <SpinnerSpin size=\"medium\" />\n      <SpinnerSpin size=\"large\" />\n    </div>\n\n  );\n}"
     },
     {
       "id": "status-spinner-spinnerspin--opacity",
       "name": "Opacity",
       "exportName": "Opacity",
-      "description": "The shapeOpacity slots will not append classes, but instead replace the original classes as a whole.",
-      "source": ""
+      "description": "Customize individual shape opacity using `classNames.shape` with nth-of-type selectors.",
+      "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <SpinnerSpin\n      classNames={{\n        shape: tcx(\n          \"[&:nth-of-type(1)]:opacity-100 [&:nth-of-type(2)]:opacity-10 [&:nth-of-type(3)]:opacity-10 [&:nth-of-type(4)]:opacity-100\",\n        ),\n      }}\n    />\n\n  );\n}"
     },
     {
-      "id": "status-spinner-spinnerspin--variants",
-      "name": "Variants",
-      "exportName": "Variants",
-      "description": "Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`.",
+      "id": "status-spinner-spinnerspin--variant",
+      "name": "Variant",
+      "exportName": "Variant",
+      "description": "Available variants: `default` and `primary`.",
       "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex items-center gap-4\">\n      <SpinnerSpin />\n      <SpinnerSpin variant=\"primary\" />\n    </div>\n\n  );\n}"
     },
     {
       "id": "status-spinner-spinnerspin--custom-color",
       "name": "Custom Color",
       "exportName": "CustomColor",
-      "description": "",
-      "source": ""
+      "description": "Apply custom colors to each shape using `classNames.shape`.",
+      "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n\n    <SpinnerSpin\n      classNames={{\n        shape: tcx(\n          \"!opacity-100\",\n          \"[&:nth-of-type(1)]:bg-warning-background\",\n          \"[&:nth-of-type(2)]:bg-success-background\",\n          \"[&:nth-of-type(3)]:bg-accent-background\",\n          \"[&:nth-of-type(4)]:bg-danger-background\",\n        ),\n      }}\n    />\n\n  );\n}"
     },
     {
       "id": "status-spinner-spinnerspin--label",
       "name": "Label",
       "exportName": "Label",
-      "description": "",
-      "source": ""
+      "description": "Display a text label alongside the spinner.",
+      "source": "import { SpinnerSpin } from \"@choice-ui/spinner\"\n\nexport default function App() {\n  return (\n    <SpinnerSpin label=\"Loading...\" />\n  );\n}"
     }
   ]
 }

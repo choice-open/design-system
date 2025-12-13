@@ -7,16 +7,19 @@ const meta: Meta<typeof SpinnerSpin> = {
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
 }
 
 export default meta
 
 type Story = StoryObj<typeof SpinnerSpin>
 
+/** Default spin spinner with medium size. */
 export const Basic: Story = {
-  args: {},
+  render: () => <SpinnerSpin />,
 }
 
+/** Available sizes: `small`, `medium`, and `large`. */
 export const Size: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -27,22 +30,21 @@ export const Size: Story = {
   ),
 }
 
-/** The shapeOpacity slots will not append classes, but instead replace the original classes as a whole. */
-export const Opacity: StoryObj<typeof SpinnerSpin> = {
-  args: {
-    classNames: {
-      shape: tcx(
-        "[&:nth-of-type(1)]:opacity-100",
-        "[&:nth-of-type(2)]:opacity-10",
-        "[&:nth-of-type(3)]:opacity-10",
-        "[&:nth-of-type(4)]:opacity-100",
-      ),
-    },
-  },
+/** Customize individual shape opacity using `classNames.shape` with nth-of-type selectors. */
+export const Opacity: Story = {
+  render: () => (
+    <SpinnerSpin
+      classNames={{
+        shape: tcx(
+          "[&:nth-of-type(1)]:opacity-100 [&:nth-of-type(2)]:opacity-10 [&:nth-of-type(3)]:opacity-10 [&:nth-of-type(4)]:opacity-100",
+        ),
+      }}
+    />
+  ),
 }
 
-/** Spinner has 5 variants: `primary`, `success`, `warning`, `danger`, and `default`. */
-export const Variants: StoryObj<typeof SpinnerSpin> = {
+/** Available variants: `default` and `primary`. */
+export const Variant: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <SpinnerSpin />
@@ -51,22 +53,24 @@ export const Variants: StoryObj<typeof SpinnerSpin> = {
   ),
 }
 
-export const CustomColor: StoryObj<typeof SpinnerSpin> = {
-  args: {
-    classNames: {
-      shape: tcx(
-        "!opacity-100",
-        "[&:nth-of-type(1)]:bg-warning-background",
-        "[&:nth-of-type(2)]:bg-success-background",
-        "[&:nth-of-type(3)]:bg-accent-background",
-        "[&:nth-of-type(4)]:bg-danger-background",
-      ),
-    },
-  },
+/** Apply custom colors to each shape using `classNames.shape`. */
+export const CustomColor: Story = {
+  render: () => (
+    <SpinnerSpin
+      classNames={{
+        shape: tcx(
+          "!opacity-100",
+          "[&:nth-of-type(1)]:bg-warning-background",
+          "[&:nth-of-type(2)]:bg-success-background",
+          "[&:nth-of-type(3)]:bg-accent-background",
+          "[&:nth-of-type(4)]:bg-danger-background",
+        ),
+      }}
+    />
+  ),
 }
 
-export const Label: StoryObj<typeof SpinnerSpin> = {
-  args: {
-    label: "Loading...",
-  },
+/** Display a text label alongside the spinner. */
+export const Label: Story = {
+  render: () => <SpinnerSpin label="Loading..." />,
 }

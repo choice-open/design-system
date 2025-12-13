@@ -128,7 +128,7 @@ export default function StoryPage({ params }: { params: Promise<{ slug?: string[
         </div>
         <ThemeToggle />
       </div>
-      <div className="flex flex-1 flex-col items-center justify-center p-8">
+      <div className="flex min-w-0 flex-1 flex-col items-center justify-center p-8">
         <StoryRenderer
           moduleExports={storyModule}
           exportName={exportName}

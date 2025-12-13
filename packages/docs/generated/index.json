@@ -576,6 +576,13 @@
       "version": "0.0.4"
     },
     {
+      "slug": "data-display/table",
+      "name": "@choice-ui/table",
+      "title": "Table",
+      "description": "Table component with compound components pattern.",
+      "version": "0.0.1"
+    },
+    {
       "slug": "navigation/tabs",
       "name": "@choice-ui/tabs",
       "title": "Tabs",

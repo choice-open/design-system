@@ -74,13 +74,14 @@ import ComponentDetail70 from "./layouts-splitter.json"
 import ComponentDetail71 from "./utilities-spring-visualizer.json"
 import ComponentDetail72 from "./navigation-stackflow.json"
 import ComponentDetail73 from "./forms-switch.json"
-import ComponentDetail74 from "./navigation-tabs.json"
-import ComponentDetail75 from "./forms-text-field.json"
-import ComponentDetail76 from "./forms-textarea.json"
-import ComponentDetail77 from "./buttons-toggle-button.json"
-import ComponentDetail78 from "./feedback-tooltip.json"
-import ComponentDetail79 from "./components-tree-list.json"
-import ComponentDetail80 from "./layouts-virtualized-grid.json"
+import ComponentDetail74 from "./data-display-table.json"
+import ComponentDetail75 from "./navigation-tabs.json"
+import ComponentDetail76 from "./forms-text-field.json"
+import ComponentDetail77 from "./forms-textarea.json"
+import ComponentDetail78 from "./buttons-toggle-button.json"
+import ComponentDetail79 from "./feedback-tooltip.json"
+import ComponentDetail80 from "./components-tree-list.json"
+import ComponentDetail81 from "./layouts-virtualized-grid.json"
 
 export const componentsDetails = {
   "overlays/alert-dialog": ComponentDetail0 as ComponentDetail,
@@ -157,11 +158,12 @@ export const componentsDetails = {
   "utilities/spring-visualizer": ComponentDetail71 as ComponentDetail,
   "navigation/stackflow": ComponentDetail72 as ComponentDetail,
   "forms/switch": ComponentDetail73 as ComponentDetail,
-  "navigation/tabs": ComponentDetail74 as ComponentDetail,
-  "forms/text-field": ComponentDetail75 as ComponentDetail,
-  "forms/textarea": ComponentDetail76 as ComponentDetail,
-  "buttons/toggle-button": ComponentDetail77 as ComponentDetail,
-  "feedback/tooltip": ComponentDetail78 as ComponentDetail,
-  "components/tree-list": ComponentDetail79 as ComponentDetail,
-  "layouts/virtualized-grid": ComponentDetail80 as ComponentDetail,
+  "data-display/table": ComponentDetail74 as ComponentDetail,
+  "navigation/tabs": ComponentDetail75 as ComponentDetail,
+  "forms/text-field": ComponentDetail76 as ComponentDetail,
+  "forms/textarea": ComponentDetail77 as ComponentDetail,
+  "buttons/toggle-button": ComponentDetail78 as ComponentDetail,
+  "feedback/tooltip": ComponentDetail79 as ComponentDetail,
+  "components/tree-list": ComponentDetail80 as ComponentDetail,
+  "layouts/virtualized-grid": ComponentDetail81 as ComponentDetail,
 } as Record<string, ComponentDetail>

@@ -72,13 +72,14 @@ import * as StoryModule70 from "../../storybook/stories/splitter/splitter.storie
 import * as StoryModule71 from "../../storybook/stories/spring-visualizer/spring-visualizer.stories"
 import * as StoryModule72 from "../../storybook/stories/stackflow/stackflow.stories"
 import * as StoryModule73 from "../../storybook/stories/switch/switch.stories"
-import * as StoryModule74 from "../../storybook/stories/tabs/tabs.stories"
-import * as StoryModule75 from "../../storybook/stories/text-field/text-field.stories"
-import * as StoryModule76 from "../../storybook/stories/textarea/textarea.stories"
-import * as StoryModule77 from "../../storybook/stories/toggle-button/toggle-button.stories"
-import * as StoryModule78 from "../../storybook/stories/tooltip/tooltip.stories"
-import * as StoryModule79 from "../../storybook/stories/tree-list/tree-list.stories"
-import * as StoryModule80 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
+import * as StoryModule74 from "../../storybook/stories/table/table.stories"
+import * as StoryModule75 from "../../storybook/stories/tabs/tabs.stories"
+import * as StoryModule76 from "../../storybook/stories/text-field/text-field.stories"
+import * as StoryModule77 from "../../storybook/stories/textarea/textarea.stories"
+import * as StoryModule78 from "../../storybook/stories/toggle-button/toggle-button.stories"
+import * as StoryModule79 from "../../storybook/stories/tooltip/tooltip.stories"
+import * as StoryModule80 from "../../storybook/stories/tree-list/tree-list.stories"
+import * as StoryModule81 from "../../storybook/stories/virtualized-grid/virtualized-grid.stories"
 
 export const storyRegistry: Record<string, Record<string, unknown>> = {
   "overlays/alert-dialog": StoryModule0,
@@ -155,11 +156,12 @@ export const storyRegistry: Record<string, Record<string, unknown>> = {
   "utilities/spring-visualizer": StoryModule71,
   "navigation/stackflow": StoryModule72,
   "forms/switch": StoryModule73,
-  "navigation/tabs": StoryModule74,
-  "forms/text-field": StoryModule75,
-  "forms/textarea": StoryModule76,
-  "buttons/toggle-button": StoryModule77,
-  "feedback/tooltip": StoryModule78,
-  "components/tree-list": StoryModule79,
-  "layouts/virtualized-grid": StoryModule80,
+  "data-display/table": StoryModule74,
+  "navigation/tabs": StoryModule75,
+  "forms/text-field": StoryModule76,
+  "forms/textarea": StoryModule77,
+  "buttons/toggle-button": StoryModule78,
+  "feedback/tooltip": StoryModule79,
+  "components/tree-list": StoryModule80,
+  "layouts/virtualized-grid": StoryModule81,
 }

@@ -41,7 +41,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
     type: "checkbox",
     variant,
     disabled,
-    checked: value,
+    checked: value || mixed, // mixed state should have same style as checked
     focused: focused,
   })
 
@@ -98,7 +98,7 @@ const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(function Checkb
             {...rest}
           />
 
-          <div className={tv.box()}>{value && (mixed ? <Indeterminate /> : <Check />)}</div>
+          <div className={tv.box()}>{mixed ? <Indeterminate /> : value ? <Check /> : null}</div>
         </div>
 
         {renderChildren()}
