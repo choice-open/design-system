@@ -1,11 +1,11 @@
 import { startOfDay, startOfWeek, startOfMonth, addDays, subDays } from "date-fns"
 
-// 快捷键处理
+// Shortcut processing
 export function handleShortcuts(input: string): Date | null {
   const lower = input.toLowerCase().trim()
   const now = new Date()
 
-  // 中英文快捷键
+  // Chinese and English shortcuts
   const shortcuts: Record<string, () => Date> = {
     t: () => startOfDay(now),
     today: () => startOfDay(now),

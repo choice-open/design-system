@@ -137,7 +137,7 @@ export function buildAll(): DocsData {
   for (const storyPath of storyFiles) {
     try {
       const { index, detail } = collectDocFromStory(storyPath)
-      data[detail.slug] = { index, detail }
+      data[detail.slug] = { index, detail, storyPath }
     } catch (err) {
       console.error(`  ❌ Error processing ${path.relative(workspaceRoot, storyPath)}:`, err)
     }
@@ -150,7 +150,7 @@ export function buildAll(): DocsData {
 export function rebuildFile(storyPath: string, data: DocsData): boolean {
   try {
     const { index, detail } = collectDocFromStory(storyPath)
-    data[detail.slug] = { index, detail }
+    data[detail.slug] = { index, detail, storyPath }
     // 只更新对应组件的 JSON 文件
     generateSingleOutput(detail)
     return true

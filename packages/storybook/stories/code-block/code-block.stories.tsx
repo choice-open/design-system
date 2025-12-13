@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react"
 import { useStickToBottom } from "use-stick-to-bottom"
 
 const meta = {
-  title: "Components/CodeBlock",
+  title: "Data Display/CodeBlock",
   component: CodeBlock,
   parameters: {
     layout: "centered",

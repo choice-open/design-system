@@ -32,14 +32,14 @@ interface TimeRangeInputProps extends Omit<
 }
 
 /**
- * 计算时间差（以分钟为单位）
+ * Calculate time difference (in minutes)
  */
 function calculateTimeDifferenceInMinutes(startTime: Date, endTime: Date): number {
   let timeDiff = differenceInMinutes(endTime, startTime)
 
-  // 处理跨日情况（如 22:00 到 02:00）
+  // Handle cross-day cases (e.g., 22:00 to 02:00)
   if (timeDiff < 0) {
-    // 假设是跨日，加一天的分钟数
+    // Assume it is cross-day, add the number of minutes in one day
     timeDiff += 24 * 60
   }
 
@@ -47,7 +47,7 @@ function calculateTimeDifferenceInMinutes(startTime: Date, endTime: Date): numbe
 }
 
 /**
- * 格式化时间差显示
+ * Format time difference display
  */
 function formatTimeDuration(minutes: number, locale: Locale): string {
   const hours = Math.floor(minutes / 60)
@@ -55,7 +55,7 @@ function formatTimeDuration(minutes: number, locale: Locale): string {
 
   const localeKey = locale.code || "en-US"
 
-  // 中文系列
+  // Chinese series
   if (localeKey.startsWith("zh")) {
     if (hours === 0) {
       return `${remainingMinutes}分钟`
@@ -66,7 +66,7 @@ function formatTimeDuration(minutes: number, locale: Locale): string {
     }
   }
 
-  // 日文
+  // Japanese
   if (localeKey.startsWith("ja")) {
     if (hours === 0) {
       return `${remainingMinutes}分`
@@ -77,7 +77,7 @@ function formatTimeDuration(minutes: number, locale: Locale): string {
     }
   }
 
-  // 韩文
+  // Korean
   if (localeKey.startsWith("ko")) {
     if (hours === 0) {
       return `${remainingMinutes}분`
@@ -88,7 +88,7 @@ function formatTimeDuration(minutes: number, locale: Locale): string {
     }
   }
 
-  // 英文和其他语言（默认）
+  // English and other languages (default)
   if (hours === 0) {
     return `${remainingMinutes} min${remainingMinutes !== 1 ? "s" : ""}`
   } else if (remainingMinutes === 0) {
@@ -120,7 +120,7 @@ export const TimeRangeInput = (props: TimeRangeInputProps) => {
     ...rest
   } = props
 
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale to parse
   const locale = resolveLocale(propLocale)
 
   const rangeDuration = useMemo(() => {
@@ -129,7 +129,7 @@ export const TimeRangeInput = (props: TimeRangeInputProps) => {
     try {
       const minutes = calculateTimeDifferenceInMinutes(startValue, endValue)
 
-      // 防止负数或异常大的值
+      // Prevent negative or extremely large values
       if (minutes < 0 || minutes > 24 * 60) {
         return ""
       }

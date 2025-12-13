@@ -19,7 +19,7 @@ import type { CalendarValue, SelectionMode, WeekStartsOn } from "../types"
 import { isSameDayInTimeZone } from "./date-comparisons"
 import { resolveLocale, isChineseLocale } from "./locale"
 
-// 使用 date-fns 的日期工具函数
+// Use date-fns date utility functions
 export const dateUtils = {
   now: () => new Date(),
   isSameDay,
@@ -32,24 +32,24 @@ export const dateUtils = {
   endOfWeek,
 }
 
-// 生成星期名称（使用 date-fns 多语言）
+// Generate weekday names (using date-fns multilingual)
 export function generateWeekdayNames(
   locale: Locale | string = zhCN,
   weekStartsOn: number = 1,
 ): string[] {
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale parsing
   const safeLocale = resolveLocale(locale)
 
-  // 使用一个已知的周日作为基准（2024年1月7日是周日）
+  // Use a known Sunday as the base (January 7, 2024 is Sunday)
   const baseSunday = new Date(2024, 0, 7)
 
   const weekdays: string[] = []
   for (let i = 0; i < 7; i++) {
-    // 计算从weekStartsOn开始的每一天
+    // Calculate each day starting from weekStartsOn
     const dayIndex = (weekStartsOn + i) % 7
     const day = addDays(baseSunday, dayIndex)
 
-    // 根据语言选择格式 - 使用 isChineseLocale 判断
+    // Select format based on language - use isChineseLocale to determine
     const formatPattern = isChineseLocale(safeLocale) ? "EEEEE" : "EEE"
     const dayName = format(day, formatPattern, { locale: safeLocale })
     weekdays.push(dayName)
@@ -58,7 +58,7 @@ export function generateWeekdayNames(
   return weekdays
 }
 
-// 生成日历日期数组（使用 date-fns）
+// Generate calendar date array (using date-fns)
 export function generateCalendarDays(
   currentMonth: Date,
   weekStartsOn: number = 0,
@@ -69,11 +69,11 @@ export function generateCalendarDays(
   })
 
   if (fixedGrid) {
-    // 固定返回42天（6行），确保高度一致
+    // Fixed return 42 days (6 rows), ensure consistent height
     const end = addDays(start, 41) // 0-41 = 42天
     return eachDayOfInterval({ start, end })
   } else {
-    // 根据实际需要动态调整行数
+    // Dynamically adjust row count based on actual needs
     const end = endOfWeek(endOfMonth(currentMonth), {
       weekStartsOn: weekStartsOn as WeekStartsOn,
     })
@@ -81,32 +81,32 @@ export function generateCalendarDays(
   }
 }
 
-// 格式化月份标题（使用 date-fns）
+// Format month title (using date-fns)
 export function formatMonthTitle(date: Date, locale: Locale | string = zhCN): string {
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale parsing
   const safeLocale = resolveLocale(locale)
 
-  // 根据语言选择格式 - 使用 isChineseLocale 判断
+  // Select format based on language - use isChineseLocale to determine
   const formatPattern = isChineseLocale(safeLocale) ? "yyyy年M月" : "MMMM yyyy"
   return format(date, formatPattern, { locale: safeLocale })
 }
 
-// 计算周数数组
+// Calculate week number array
 export function calculateWeekNumbers(
   calendarDays: Date[],
   locale: Locale | string = zhCN,
 ): number[] {
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale parsing
   const safeLocale = resolveLocale(locale)
 
   const weekNumbers: number[] = []
 
-  // 每7天计算一次周数（取每周的第一天）
+  // Calculate week number for each 7 days (take the first day of each week)
   for (let i = 0; i < calendarDays.length; i += 7) {
     const weekFirstDay = calendarDays[i]
     const weekNumber = getWeek(weekFirstDay, {
       locale: safeLocale,
-      weekStartsOn: 1, // ISO周数标准，周一开始
+      weekStartsOn: 1, // ISO week number standard, week starts on Monday
     })
     weekNumbers.push(weekNumber)
   }
@@ -115,7 +115,7 @@ export function calculateWeekNumbers(
 }
 
 /**
- * 根据值类型推断选择模式
+ * Infer selection mode based on value type
  */
 export function inferSelectionMode(value: CalendarValue): SelectionMode {
   if (value === undefined || value === null) {
@@ -131,7 +131,7 @@ export function inferSelectionMode(value: CalendarValue): SelectionMode {
 }
 
 /**
- * 从 CalendarValue 推断应该显示的月份
+ * Infer month from CalendarValue
  */
 export function inferMonthFromValue(value: CalendarValue): Date | null {
   if (!value) return null
@@ -141,12 +141,12 @@ export function inferMonthFromValue(value: CalendarValue): Date | null {
   }
 
   if (Array.isArray(value) && value.length > 0) {
-    // 取最后选择的日期，通常是用户最关心的
+    // Take the last selected date, usually the user is most interested in
     return value[value.length - 1]
   }
 
   if (typeof value === "object" && "start" in value) {
-    // 范围选择时显示开始日期所在的月份
+    // Display the month of the start date when range selection
     return value.start
   }
 
@@ -154,7 +154,7 @@ export function inferMonthFromValue(value: CalendarValue): Date | null {
 }
 
 /**
- * 比较两个 CalendarValue 是否相等（支持时区感知和比较精度）
+ * Compare two CalendarValue for equality (supports time zone aware and comparison precision)
  */
 export function isCalendarValueEqual(
   a: CalendarValue,
@@ -165,17 +165,17 @@ export function isCalendarValueEqual(
   if (a === b) return true
   if (!a || !b) return a === b
 
-  // Date 类型比较 - 根据比较模式选择策略
+  // Date type comparison - select strategy based on comparison mode
   if (a instanceof Date && b instanceof Date) {
     if (dateComparisonMode === "date-only") {
       return isSameDayInTimeZone(a, b, timeZone)
     } else {
-      // exact-time 模式：比较完整时间戳（考虑时区）
+      // exact-time mode: compare full timestamp (consider time zone)
       return getDateKey(a, timeZone, true) === getDateKey(b, timeZone, true)
     }
   }
 
-  // Array 类型比较
+  // Array type comparison
   if (Array.isArray(a) && Array.isArray(b)) {
     if (a.length !== b.length) return false
     return a.every((dateA, index) => {
@@ -190,7 +190,7 @@ export function isCalendarValueEqual(
     })
   }
 
-  // DateRange 类型比较 - 根据比较模式选择策略
+  // DateRange type comparison - select strategy based on comparison mode
   if (typeof a === "object" && "start" in a && typeof b === "object" && "start" in b) {
     if (dateComparisonMode === "date-only") {
       return (

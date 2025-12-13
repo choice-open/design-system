@@ -15,14 +15,14 @@ import {
 import { type Locale } from "date-fns"
 import { naturalLanguageMap, defaultLocaleMap } from "../constants"
 
-// 解析自然语言日期
+// Parse natural language date
 export function parseNaturalLanguage(input: string, localeKey: string = "zh-CN"): Date | null {
   const normalizedInput = input.toLowerCase().trim()
   const keywords = naturalLanguageMap[localeKey] || naturalLanguageMap["en-US"]
   const now = new Date()
   const locale = defaultLocaleMap[localeKey]
 
-  // 检查各种自然语言关键词
+  // Check various natural language keywords
   for (const [key, values] of Object.entries(keywords)) {
     for (const value of values as string[]) {
       if (normalizedInput.includes(value.toLowerCase())) {
@@ -61,11 +61,11 @@ export function parseNaturalLanguage(input: string, localeKey: string = "zh-CN")
   return null
 }
 
-// 获取语言环境key
+// Get language environment key
 export function getLocaleKey(locale?: Locale): string {
   if (!locale) return "en-US"
 
-  // 查找对应的 key
+  // Find corresponding key
   for (const [key, value] of Object.entries(defaultLocaleMap)) {
     if (value === locale) {
       return key

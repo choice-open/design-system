@@ -1,13 +1,13 @@
 import { isValid } from "date-fns"
 import { parseMonthName } from "./month-names"
 
-// 增强的英文日期解析
+// Enhanced English date parsing
 export function parseEnglishDate(input: string): Date | null {
   const normalized = input.toLowerCase().trim()
   const now = new Date()
   const currentYear = now.getFullYear()
 
-  // 模式1: "may 15, 2024" 或 "may 15 2024" 或 "15 may 2024" 或 "15th may 2024" (包含年份，优先匹配)
+  // Pattern 1: "may 15, 2024" or "may 15 2024" or "15 may 2024" or "15th may 2024" (contains year, priority matching)
   const fullDatePattern =
     /^(?:([a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})|(\d{1,2})(?:st|nd|rd|th)?\s+([a-z]+)\s+(\d{4}))$/
   const fullDateMatch = normalized.match(fullDatePattern)
@@ -29,7 +29,7 @@ export function parseEnglishDate(input: string): Date | null {
     }
   }
 
-  // 模式2: "may 15" 或 "may 15th" 或 "15 may" 或 "15th may" (不包含年份)
+  // Pattern 2: "may 15" or "may 15th" or "15 may" or "15th may" (does not contain year)
   const monthDayPattern =
     /^(?:([a-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?|(\d{1,2})(?:st|nd|rd|th)?\s+([a-z]+))$/
   const monthDayMatch = normalized.match(monthDayPattern)
@@ -49,7 +49,7 @@ export function parseEnglishDate(input: string): Date | null {
     }
   }
 
-  // 模式3: 只输入月份名 "may" → 当年5月1日
+  // Pattern 3: only input month name "may" → May 1st of the current year
   const monthOnlyPattern = /^[a-z]{3,}$/
   if (monthOnlyPattern.test(normalized)) {
     const month = parseMonthName(normalized)

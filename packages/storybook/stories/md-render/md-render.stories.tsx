@@ -32,7 +32,7 @@ function useDarkMode(): boolean {
 }
 
 const meta: Meta<typeof MdRender> = {
-  title: "Components/MdRender",
+  title: "Data Display/MdRender",
   component: MdRender,
   parameters: {
     layout: "centered",

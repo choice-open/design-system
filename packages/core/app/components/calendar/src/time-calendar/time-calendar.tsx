@@ -8,11 +8,11 @@ import { generateTimeOptions, normalizeTimeValue, timeStringToDate } from "../ut
 
 export interface TimeCalendarProps extends BaseTimeProps, StepProps {
   children?: React.ReactNode
-  /** 自定义类名 */
+  /** Custom class name */
   className?: string
-  /** 小时步进，默认1小时 */
+  /** Hour step, default 1 hour */
   hourStep?: number
-  /** 分钟步进，默认15分钟 */
+  /** Minute step, default 15 minutes */
   minuteStep?: number
 }
 
@@ -32,7 +32,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
   // References
   const scrollRef = useRef<HTMLDivElement>(null)
   const elementsRef = useRef<Array<HTMLButtonElement | null>>([])
-  const customElementRef = useRef<HTMLButtonElement | null>(null) // 自定义时间项的独立 ref
+  const customElementRef = useRef<HTMLButtonElement | null>(null) // Custom time item independent ref
   const hasInitialScrolled = useRef(false)
   const lastSelectedIndexRef = useRef<number | null>(null)
   const isInternalOperationRef = useRef(false)
@@ -49,7 +49,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
     allowEmpty: true,
   })
 
-  // Generate time options - 保持完全稳定
+  // Generate time options - keep completely stable
   const timeOptions = useMemo(() => {
     return generateTimeOptions(timeFormat, step)
   }, [timeFormat, step])
@@ -68,21 +68,21 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
   const customTimeOption = useMemo(() => {
     if (!normalizedTimeString) return null
 
-    // 检查是否在标准选项中
+    // Check if it is in the standard options
     const hasStandardOption = timeOptions.some((option) => option.value === normalizedTimeString)
     if (hasStandardOption) return null
 
-    // 生成自定义选项
+    // Generate custom options
     const is12Hour = timeFormat.toLowerCase().includes("a") || timeFormat === "12h"
     return {
       value: normalizedTimeString,
       label: is12Hour ? formatTo12Hour(normalizedTimeString) : normalizedTimeString,
     }
-  }, [normalizedTimeString, timeOptions, timeFormat, formatTo12Hour]) // 添加 formatTo12Hour 到依赖数组
+  }, [normalizedTimeString, timeOptions, timeFormat, formatTo12Hour]) // Add formatTo12Hour to the dependency array
 
   const renderTimeLabel = useCallback(
     (label: string) => {
-      // 检查是否为12小时格式 - 检查格式字符串中是否包含12小时制标识
+      // Check if it is 12 hour format - check if the format string contains 12 hour identifier
       const is12Hour = timeFormat.toLowerCase().includes("a") || timeFormat === "12h"
       if (is12Hour && label.includes(" ")) {
         const [timePart, ampmPart] = label.split(" ")
@@ -101,16 +101,16 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
   const selectedIndex = useMemo(() => {
     if (!normalizedTimeString) return null
 
-    // 在标准选项中查找
+    // Find in the standard options
     const index = timeOptions.findIndex((option) => option.value === normalizedTimeString)
 
-    // 如果找到了，返回索引；如果没找到，说明是自定义时间，返回 -1
+    // If found, return the index; if not found, it means it is a custom time, return -1
     return index === -1 ? -1 : index
   }, [normalizedTimeString, timeOptions])
 
   // Check if we need divider between AM and PM
   const needsDivider = useMemo(() => {
-    // 检查是否为12小时格式 - 检查格式字符串中是否包含12小时制标识
+    // Check if it is 12 hour format - check if the format string contains 12 hour identifier
     const is12Hour = timeFormat.toLowerCase().includes("a") || timeFormat === "12h"
     if (!is12Hour) return () => false
 
@@ -128,34 +128,34 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
     return isSelected ? <Check /> : <></>
   }, [])
 
-  // 滚动事件处理：滚动时隐藏 active，停止后立即恢复
+  // Scroll event handling: hide active when scrolling, restore immediately after stopping
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mousePositionRef = useRef<{ x: number; y: number } | null>(null)
 
   const handleScroll = useEventCallback(() => {
-    // 开始滚动时立即隐藏 active 状态
+    // Immediately hide active state when scrolling
     if (!isScrolling) {
       setIsScrolling(true)
       setActiveIndex(null)
     }
 
-    // 清除之前的定时器
+    // Clear the previous timer
     if (scrollTimeoutRef.current) {
       clearTimeout(scrollTimeoutRef.current)
     }
 
-    // 滚动停止后立即恢复 active 状态显示
+    // Immediately restore active state display after scrolling stops
     scrollTimeoutRef.current = setTimeout(() => {
       setIsScrolling(false)
 
-      // 使用记录的鼠标位置检测应该激活的元素
+      // Use the recorded mouse position to detect the element that should be activated
       if (mousePositionRef.current) {
         const elementUnderMouse = document.elementFromPoint(
           mousePositionRef.current.x,
           mousePositionRef.current.y,
         )
 
-        // 首先检查自定义时间项
+        // First check the custom time item
         if (
           customElementRef.current &&
           (customElementRef.current === elementUnderMouse ||
@@ -165,7 +165,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
           return
         }
 
-        // 检查标准时间项
+        // Check the standard time item
         const elements = elementsRef.current
         for (let i = 0; i < elements.length; i++) {
           if (
@@ -180,12 +180,12 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
     }, 200)
   })
 
-  // 记录鼠标位置
+  // Record the mouse position
   const handleMouseMove = useEventCallback((event: React.MouseEvent) => {
     mousePositionRef.current = { x: event.clientX, y: event.clientY }
   })
 
-  // 清理定时器
+  // Clear the timer
   useEffect(() => {
     return () => {
       if (scrollTimeoutRef.current) {
@@ -194,9 +194,9 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
     }
   }, [])
 
-  // 智能滚动逻辑：支持初始化滚动和外部值变化滚动
+  // Smart scrolling logic: support initial scrolling and external value change scrolling
   useEffect(() => {
-    // 处理自定义时间项（selectedIndex = -1）
+    // Handle custom time items (selectedIndex = -1)
     if (selectedIndex === -1) {
       const customElement = customElementRef.current
       if (!customElement || !scrollRef.current) {
@@ -206,45 +206,45 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
       const previousSelectedIndex = lastSelectedIndexRef.current
       const isSelectedIndexChanged = previousSelectedIndex !== selectedIndex
 
-      // 记录当前选中的索引
+      // Record the current selected index
       lastSelectedIndexRef.current = selectedIndex
 
-      // 判断是否需要滚动
+      // Check if it is necessary to scroll
       const shouldScroll =
-        !hasInitialScrolled.current || // 初始化滚动
-        (isSelectedIndexChanged && !isInternalOperationRef.current) // 外部值变化滚动
+        !hasInitialScrolled.current || // Initial scrolling
+        (isSelectedIndexChanged && !isInternalOperationRef.current) // External value change scrolling
 
       if (shouldScroll) {
         const isInitialScroll = !hasInitialScrolled.current
 
         if (isInitialScroll) {
-          // 自定义项总是在顶部，直接滚动到顶部
+          // Custom items are always at the top, scroll to the top
           scrollRef.current.scrollTo({
             top: 0,
             behavior: "auto",
           })
         } else {
-          // 确保自定义项可见
+          // Ensure the custom item is visible
           customElement.scrollIntoView({
             block: "nearest",
             behavior: "smooth",
           })
         }
 
-        // 标记已完成初始化滚动
+        // Marked as completed initial scrolling
         if (!hasInitialScrolled.current) {
           hasInitialScrolled.current = true
         }
       }
 
-      // 重置内部操作标记
+      // Reset the internal operation marker
       if (isInternalOperationRef.current) {
         isInternalOperationRef.current = false
       }
       return
     }
 
-    // 处理标准时间项
+    // Handle standard time items
     if (selectedIndex === null || !scrollRef.current || !elementsRef.current[selectedIndex]) {
       return
     }
@@ -252,55 +252,55 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
     const previousSelectedIndex = lastSelectedIndexRef.current
     const isSelectedIndexChanged = previousSelectedIndex !== selectedIndex
 
-    // 记录当前选中的索引
+    // Record the current selected index
     lastSelectedIndexRef.current = selectedIndex
 
-    // 判断是否需要滚动
+    // Check if it is necessary to scroll
     const shouldScroll =
-      !hasInitialScrolled.current || // 初始化滚动
-      (isSelectedIndexChanged && !isInternalOperationRef.current) // 外部值变化滚动
+      !hasInitialScrolled.current || // Initial scrolling
+      (isSelectedIndexChanged && !isInternalOperationRef.current) // External value change scrolling
 
     if (shouldScroll) {
-      // 初始化滚动：定位到中间，无动画
-      // 受控/键盘导航滚动：自然定位（nearest），平滑动画
+      // Initial scrolling: position in the middle, no animation
+      // Controlled/keyboard navigation scrolling: natural positioning (nearest), smooth animation
       const isInitialScroll = !hasInitialScrolled.current
 
       if (isInitialScroll) {
-        // 初始化滚动：居中对齐
+        // Initial scrolling: center alignment
         elementsRef.current[selectedIndex]?.scrollIntoView({
           block: "center",
           behavior: "auto",
         })
       } else {
-        // 受控/键盘导航滚动：带 8px 边距的智能定位
+        // Controlled/keyboard navigation scrolling: intelligent positioning with 8px margin
         const container = scrollRef.current
         const element = elementsRef.current[selectedIndex]
 
         if (container && element) {
           const containerRect = container.getBoundingClientRect()
           const elementRect = element.getBoundingClientRect()
-          const margin = 8 // 8px 边距
+          const margin = 8 // 8px margin
 
-          // 计算元素相对于容器的位置
+          // Calculate the position of the element relative to the container
           const elementTop = elementRect.top - containerRect.top + container.scrollTop
           const elementBottom = elementTop + elementRect.height
 
-          // 容器可视区域（考虑边距）
+          // Container visible area (considering margin)
           const visibleTop = container.scrollTop + margin
           const visibleBottom = container.scrollTop + container.clientHeight - margin
 
           let targetScrollTop = container.scrollTop
 
-          // 如果元素在可视区域上方，向下滚动
+          // If the element is above the visible area, scroll down
           if (elementTop < visibleTop) {
             targetScrollTop = elementTop - margin
           }
-          // 如果元素在可视区域下方，向上滚动
+          // If the element is below the visible area, scroll up
           else if (elementBottom > visibleBottom) {
             targetScrollTop = elementBottom - container.clientHeight + margin
           }
 
-          // 平滑滚动到目标位置
+          // Smooth scroll to the target position
           if (targetScrollTop !== container.scrollTop) {
             container.scrollTo({
               top: targetScrollTop,
@@ -309,13 +309,13 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
         }
       }
 
-      // 标记已完成初始化滚动
+      // Marked as completed initial scrolling
       if (!hasInitialScrolled.current) {
         hasInitialScrolled.current = true
       }
     }
 
-    // 重置内部操作标记
+    // Reset the internal operation marker
     if (isInternalOperationRef.current) {
       isInternalOperationRef.current = false
     }
@@ -324,7 +324,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
   // Handle time selection
   const handleTimeSelect = useEventCallback((timeValue: string) => {
     if (readOnly) return
-    // 标记为内部操作，避免触发自动滚动
+    // Marked as internal operation, avoid triggering automatic scrolling
     isInternalOperationRef.current = true
 
     // Convert time string to Date object using public utility
@@ -334,7 +334,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
 
   // Handle mouse enter - ignore during scrolling
   const handleMouseEnter = useEventCallback((index: number) => {
-    // 滚动时不设置 active 状态
+    // Do not set active state when scrolling
     if (isScrolling) {
       return
     }
@@ -361,7 +361,7 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
       data-testid="time-calendar-menu"
       {...rest}
     >
-      {/* 自定义时间项（如果存在） */}
+      {/* Custom time items (if exist) */}
       {customTimeOption && (
         <>
           <Menus.Item
@@ -382,11 +382,11 @@ export const TimeCalendar = memo(function TimeCalendar(props: TimeCalendarProps)
         </>
       )}
 
-      {/* 标准时间列表 */}
+      {/* Standard time list */}
       {timeOptions.map((option, index) => {
         const isAmToPmTransition = needsDivider(index)
         const isItemSelected = selectedIndex === index
-        // 滚动时不显示 active 状态
+        // Do not display active state when scrolling
         const isItemActive = !isScrolling && activeIndex === index
 
         return (

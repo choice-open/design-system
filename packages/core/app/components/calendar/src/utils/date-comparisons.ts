@@ -11,33 +11,33 @@ import {
   isValid,
 } from "date-fns"
 
-// === 导出类型定义 ===
+// === Export type definitions ===
 
 /**
- * 日期比较精度模式
- * - 'exact-time': 精确时间比较（包含时、分、秒、毫秒）
- * - 'date-only': 仅日期比较（忽略时间部分，比较年、月、日）
+ * Date comparison precision mode
+ * - 'exact-time': Exact time comparison (includes hours, minutes, seconds, milliseconds)
+ * - 'date-only': Date only comparison (ignores time part, compares year, month, day)
  */
 export type DateComparisonMode = "exact-time" | "date-only"
 
 /**
- * 时区感知的日期部分
+ * Time zone aware date parts
  */
 export interface DateParts {
-  /** 日期（1-31） */
+  /** Day (1-31) */
   day: number
-  /** 月份（0-11） */
+  /** Month (0-11) */
   month: number
-  /** 星期几（0-6，0为周日） */
+  /** Weekday (0-6, 0 is Sunday) */
   weekday: number
-  /** 年份 */
+  /** Year */
   year: number
 }
 
-// === 内部工具函数 ===
+// === Internal utility functions ===
 
 /**
- * LRU 缓存，避免重复创建 TZDate
+ * LRU cache, avoid duplicate creation of TZDate
  */
 class TimeZoneCache {
   private cache = new Map<string, TZDate>()
@@ -46,7 +46,7 @@ class TimeZoneCache {
   get(key: string): TZDate | undefined {
     const value = this.cache.get(key)
     if (value) {
-      // LRU: 重新设置以更新访问顺序
+      // LRU: reset to update access order
       this.cache.delete(key)
       this.cache.set(key, value)
     }
@@ -55,7 +55,7 @@ class TimeZoneCache {
 
   set(key: string, value: TZDate): void {
     if (this.cache.size >= this.maxSize) {
-      // 删除最旧的条目
+      // Delete oldest entry
       const firstKey = this.cache.keys().next().value
       if (firstKey) this.cache.delete(firstKey)
     }
@@ -70,7 +70,7 @@ class TimeZoneCache {
 const tzDateCache = new TimeZoneCache()
 
 /**
- * 创建时区感知的日期对象（带缓存）
+ * Create time zone aware date object (with cache)
  */
 function createTZDateCached(date: Date, timeZone: string): TZDate {
   if (!isValid(date)) {
@@ -94,7 +94,7 @@ function createTZDateCached(date: Date, timeZone: string): TZDate {
 }
 
 /**
- * 创建时区上下文选项（用于 date-fns 4.0+）
+ * Create time zone context options (for date-fns 4.0+)
  */
 export function createTimeZoneContext(timeZone?: string) {
   if (!timeZone) return undefined
@@ -107,20 +107,20 @@ export function createTimeZoneContext(timeZone?: string) {
   }
 }
 
-// === 核心比较函数 ===
+// === Core comparison functions ===
 
 /**
- * 时区感知的日期比较（仅比较日期部分）
+ * Time zone aware date comparison (only compares date part)
  *
- * @param date1 第一个日期
- * @param date2 第二个日期
- * @param timeZone 时区（可选，默认使用本地时区）
- * @returns 是否为同一天
+ * @param date1 First date
+ * @param date2 Second date
+ * @param timeZone Time zone (optional, default uses local timezone)
+ * @returns Whether they are the same day
  *
  * @example
  * ```typescript
  * const date1 = new Date('2025-01-15T23:30:00Z')    // UTC
- * const date2 = new Date('2025-01-16T08:30:00+09:00') // JST (同一天)
+ * const date2 = new Date('2025-01-16T08:30:00+09:00') // JST (same day)
  * isSameDayInTimeZone(date1, date2, 'Asia/Tokyo') // true
  * ```
  */
@@ -139,7 +139,7 @@ export function isSameDayInTimeZone(date1: Date, date2: Date, timeZone?: string)
 }
 
 /**
- * 时区感知的月份比较
+ * Time zone aware month comparison
  */
 export function isSameMonthInTimeZone(date1: Date, date2: Date, timeZone?: string): boolean {
   if (!isValid(date1) || !isValid(date2)) return false
@@ -156,7 +156,7 @@ export function isSameMonthInTimeZone(date1: Date, date2: Date, timeZone?: strin
 }
 
 /**
- * 时区感知的年份比较
+ * Time zone aware year comparison
  */
 export function isSameYearInTimeZone(date1: Date, date2: Date, timeZone?: string): boolean {
   if (!isValid(date1) || !isValid(date2)) return false
@@ -173,7 +173,7 @@ export function isSameYearInTimeZone(date1: Date, date2: Date, timeZone?: string
 }
 
 /**
- * 时区感知的星期比较
+ * Time zone aware week comparison
  */
 export function isSameWeekInTimeZone(date1: Date, date2: Date, timeZone?: string): boolean {
   if (!isValid(date1) || !isValid(date2)) return false
@@ -190,7 +190,7 @@ export function isSameWeekInTimeZone(date1: Date, date2: Date, timeZone?: string
 }
 
 /**
- * 时区感知的今天判断
+ * Time zone aware today check
  */
 export function isTodayInTimeZone(date: Date, timeZone?: string): boolean {
   if (!isValid(date)) return false
@@ -200,14 +200,14 @@ export function isTodayInTimeZone(date: Date, timeZone?: string): boolean {
 }
 
 /**
- * 判断日期是否在指定范围内（支持时区和比较模式）
+ * Check if date is within specified range (supports time zone and comparison mode)
  *
- * @param date 要检查的日期
- * @param rangeStart 范围开始日期
- * @param rangeEnd 范围结束日期
- * @param timeZone 时区（可选）
- * @param mode 比较模式（默认仅日期）
- * @returns 是否在范围内
+ * @param date Date to check
+ * @param rangeStart Range start date
+ * @param rangeEnd Range end date
+ * @param timeZone Time zone (optional)
+ * @param mode Comparison mode (default is date-only)
+ * @returns Whether it is within the range
  *
  * @example
  * ```typescript
@@ -231,11 +231,11 @@ export function isWithinRange(
 
   try {
     if (mode === "exact-time") {
-      // 精确时间比较
+      // Exact time comparison
       const interval = { start: rangeStart, end: rangeEnd }
       return isWithinInterval(date, interval, contextOptions)
     } else {
-      // 仅日期比较：将所有日期转换为当天的开始和结束时间
+      // Date only comparison: convert all dates to start and end of the day
       const dateStart = startOfDay(date, contextOptions)
       const rangeStartDay = startOfDay(rangeStart, contextOptions)
       const rangeEndDay = endOfDay(rangeEnd, contextOptions)
@@ -249,10 +249,10 @@ export function isWithinRange(
   }
 }
 
-// === 实用工具函数 ===
+// === Utility functions ===
 
 /**
- * 获取时区感知的详细日期部分
+ * Get time zone aware detailed date parts
  */
 export function getDateParts(date: Date, timeZone?: string): DateParts {
   if (!isValid(date)) {
@@ -288,12 +288,12 @@ export function getDateParts(date: Date, timeZone?: string): DateParts {
 }
 
 /**
- * 获取日期的唯一键（用于 Map/Set 等数据结构）
+ * Get the unique key of the date (for Map/Set etc. data structures)
  *
- * @param date 日期对象
- * @param timeZone 时区（可选）
- * @param includeTime 是否包含时间部分（默认false）
- * @returns 格式化的日期键
+ * @param date Date object
+ * @param timeZone Time zone (optional)
+ * @param includeTime Whether to include time part (default is false)
+ * @returns Formatted date key
  *
  * @example
  * ```typescript
@@ -311,7 +311,7 @@ export function getDateKey(date: Date, timeZone?: string, includeTime = false): 
 
   if (!includeTime) return dateKey
 
-  // 包含时间部分
+  // Include time part
   const timeKey = timeZone
     ? createTZDateCached(date, timeZone).toISOString().split("T")[1]
     : date.toISOString().split("T")[1]
@@ -320,7 +320,7 @@ export function getDateKey(date: Date, timeZone?: string, includeTime = false): 
 }
 
 /**
- * 批量比较日期数组是否相等（时区感知）
+ * Batch compare date arrays for equality (time zone aware)
  */
 export function areDatesEqual(
   dates1: Date[],
@@ -337,14 +337,14 @@ export function areDatesEqual(
     if (mode === "date-only") {
       return isSameDayInTimeZone(date1, date2, timeZone)
     } else {
-      // exact-time 比较
+      // exact-time comparison
       return getDateKey(date1, timeZone, true) === getDateKey(date2, timeZone, true)
     }
   })
 }
 
 /**
- * 清除时区日期缓存（用于测试或内存管理）
+ * Clear time zone date cache (for testing or memory management)
  */
 export function clearTimeZoneCache(): void {
   tzDateCache.clear()

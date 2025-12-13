@@ -60,6 +60,7 @@ export interface DocsData {
   [slug: string]: {
     index: IndexItem
     detail: ComponentDetail
+    storyPath: string
   }
 }
 

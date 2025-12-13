@@ -1,45 +1,45 @@
 /**
- * 数字解析统一工具函数
- * 用于消除parsers中的重复代码
+ * Unified numeric parsing tool functions
+ * Used to eliminate duplicate code in parsers
  */
 
 import { smartCorrectDate } from "./validators"
 
-/** 提取纯数字字符串 */
+/** Extract pure numeric string */
 export function extractDigits(input: string): string {
   return input.replace(/[^\d]/g, "")
 }
 
-/** 数字段提取器 */
+/** Numeric segment extractor */
 export class DigitExtractor {
   constructor(private digits: string) {}
 
-  /** 提取指定位置的数字 */
+  /** Extract number at specified position */
   extract(start: number, length: number): number {
     return parseInt(this.digits.substring(start, start + length), 10)
   }
 
-  /** 提取年份 (前2位) */
+  /** Extract year (first 2 digits) */
   getYear2(): number {
     return this.extract(0, 2)
   }
 
-  /** 提取年份 (前4位) */
+  /** Extract year (first 4 digits) */
   getYear4(): number {
     return this.extract(0, 4)
   }
 
-  /** 提取月份 (前2位) */
+  /** Extract month (first 2 digits) */
   getMonth(): number {
     return this.extract(0, 2)
   }
 
-  /** 提取日期 (第3-4位) */
+  /** Extract date (3-4th digits) */
   getDay(): number {
     return this.extract(2, 2)
   }
 
-  /** 提取6位数字的各个部分 (YYMMDD格式) */
+  /** Extract each part of 6 digits (YYMMDD format) */
   getYYMMDD(): { day: number; month: number; year: number } {
     return {
       year: this.extract(0, 2),
@@ -48,7 +48,7 @@ export class DigitExtractor {
     }
   }
 
-  /** 提取8位数字的各个部分 (YYYYMMDD格式) */
+  /** Extract each part of 8 digits (YYYYMMDD format) */
   getYYYYMMDD(): { day: number; month: number; year: number } {
     return {
       year: this.extract(0, 4),
@@ -57,7 +57,7 @@ export class DigitExtractor {
     }
   }
 
-  /** 提取3位数字的各个部分 */
+  /** Extract each part of 3 digits */
   get3DigitParts(): { first: number; lastTwo: number } {
     return {
       first: this.extract(0, 1),
@@ -66,27 +66,27 @@ export class DigitExtractor {
   }
 }
 
-/** 年份转换工具 */
+/** Year conversion tool */
 export function convertTwoDigitYear(year: number): number {
   return year < 50 ? 2000 + year : 1900 + year
 }
 
-/** 检查是否为有效的月日组合 */
+/** Check if it is a valid month and day combination */
 export function isValidMonthDay(month: number, day: number): boolean {
   return month >= 1 && month <= 12 && day >= 1 && day <= 31
 }
 
-/** 检查3位数字是否可以解释为月日 */
+/** Check if 3 digits can be interpreted as month and day */
 export function canBeMonthDay(firstDigit: number, lastTwoDigits: number): boolean {
   return firstDigit >= 1 && firstDigit <= 12 && lastTwoDigits >= 1 && lastTwoDigits <= 31
 }
 
-/** 检查是否为合理的年份 */
+/** Check if it is a reasonable year */
 export function isReasonableYear(year: number): boolean {
   return year >= 1950 && year <= 2100
 }
 
-/** 数字解析结果 */
+/** Numeric parsing result */
 export interface NumericParseResult {
   day: number
   formatted: string
@@ -94,7 +94,7 @@ export interface NumericParseResult {
   year: number
 }
 
-/** 通用的6位数字解析器 (YYMMDD) */
+/** General 6-digit parser (YYMMDD) */
 export function parseYYMMDD(digits: string, targetFormat: string): NumericParseResult | null {
   const extractor = new DigitExtractor(digits)
   const { year: yy, month, day } = extractor.getYYMMDD()
@@ -123,7 +123,7 @@ export function parseYYMMDD(digits: string, targetFormat: string): NumericParseR
   }
 }
 
-/** 通用的8位数字解析器 (YYYYMMDD) */
+/** General 8-digit parser (YYYYMMDD) */
 export function parseYYYYMMDD(digits: string, targetFormat: string): NumericParseResult | null {
   const extractor = new DigitExtractor(digits)
   const { year, month, day } = extractor.getYYYYMMDD()
@@ -151,7 +151,7 @@ export function parseYYYYMMDD(digits: string, targetFormat: string): NumericPars
   }
 }
 
-/** 智能的3位数字解析器 */
+/** Intelligent 3-digit parser */
 export function parse3Digits(
   digits: string,
   currentYear: number,
@@ -161,7 +161,7 @@ export function parse3Digits(
   const { first, lastTwo } = extractor.get3DigitParts()
 
   if (canBeMonthDay(first, lastTwo)) {
-    // 解释为月日，如 315 → 3月15日
+    // Interpret as month and day, e.g., 315 → March 15th
     const corrected = smartCorrectDate(currentYear, first, lastTwo)
 
     let formatted: string

@@ -541,8 +541,8 @@
           "name": "rangePrecision",
           "type": "number | undefined",
           "required": false,
-          "defaultValue": "1 - 最小单位为1天",
-          "description": "范围长度显示精度，控制范围计算的最小单位\n@example 0.5 - 最小单位为0.5天（半天）\n@example 0.1 - 最小单位为0.1天（2.4小时）\n@example 0.25 - 最小单位为0.25天（6小时）"
+          "defaultValue": "1 - Minimum unit is 1 day",
+          "description": "Range length display precision, control the minimum unit of range calculation\n@example 0.5 - Minimum unit is 0.5 days (half a day)\n@example 0.1 - Minimum unit is 0.1 days (2.4 hours)\n@example 0.25 - Minimum unit is 0.25 days (6 hours)"
         },
         {
           "name": "startDisabled",

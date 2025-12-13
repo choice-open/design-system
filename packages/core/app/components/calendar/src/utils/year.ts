@@ -11,17 +11,17 @@ export const yearUtils = {
     return undefined
   },
 
-  /** 创建年份的开始日期 */
+  /** Create year start date */
   createYearDate(year: number): Date {
     return new Date(year, 0, 1)
   },
 
-  /** 获取当前年份 */
+  /** Get current year */
   getCurrentYear(): number {
     return new Date().getFullYear()
   },
 
-  /** 验证年份是否在有效范围内 */
+  /** Validate if year is in valid range */
   isYearInRange(year: number, minYear?: number, maxYear?: number): boolean {
     const minValid = minYear === undefined || year >= minYear
     const maxValid = maxYear === undefined || year <= maxYear

@@ -1,13 +1,13 @@
 import { enUS, zhCN, type Locale } from "date-fns/locale"
 import type { CalendarValue, NaturalLanguageMap, RelativeDatePattern } from "../types"
 
-// 默认语言环境映射
+// Default language environment mapping
 export const defaultLocaleMap: Record<string, Locale> = {
   "zh-CN": zhCN,
   "en-US": enUS,
 }
 
-// 自然语言关键词映射
+// Natural language keyword mapping
 export const naturalLanguageMap: Record<string, NaturalLanguageMap> = {
   "zh-CN": {
     today: ["今天", "今日", "现在"],
@@ -49,82 +49,82 @@ export const naturalLanguageMap: Record<string, NaturalLanguageMap> = {
   },
 }
 
-// 相对日期模式
+// Relative date pattern
 export const relativeDatePatterns: RelativeDatePattern[] = [
-  // 数字 + 天/日
+  // Number + day/day
   { pattern: /(\d+)\s*天[后前]?/g, type: "day", multiplier: 1 },
   { pattern: /(\d+)\s*日[后前]?/g, type: "day", multiplier: 1 },
   { pattern: /(\d+)\s*days?\s*(later|ago)?/gi, type: "day", multiplier: 1 },
 
-  // 数字 + 周/星期
+  // Number + week/week
   { pattern: /(\d+)\s*周[后前]?/g, type: "week", multiplier: 1 },
   { pattern: /(\d+)\s*星期[后前]?/g, type: "week", multiplier: 1 },
   { pattern: /(\d+)\s*weeks?\s*(later|ago)?/gi, type: "week", multiplier: 1 },
 
-  // 数字 + 月
+  // Number + month
   { pattern: /(\d+)\s*个?月[后前]?/g, type: "month", multiplier: 1 },
   { pattern: /(\d+)\s*months?\s*(later|ago)?/gi, type: "month", multiplier: 1 },
 
-  // 数字 + 年
+  // Number + year
   { pattern: /(\d+)\s*年[后前]?/g, type: "year", multiplier: 1 },
   { pattern: /(\d+)\s*years?\s*(later|ago)?/gi, type: "year", multiplier: 1 },
 ]
 
-// 常见日期格式 - 按使用频率排序优化性能
+// Common date formats - optimized for performance by usage frequency
 export const commonDateFormats = [
-  "yyyy-MM-dd", // 最常用的 ISO 格式
-  "MM/dd/yyyy", // 美式格式
-  "dd/MM/yyyy", // 欧式格式
-  "yyyy/MM/dd", // 日式格式
-  "yyyyMMdd", // 紧凑格式
-  "yyyy-M-d", // 宽松格式
+  "yyyy-MM-dd", // Most commonly used ISO format
+  "MM/dd/yyyy", // American format
+  "dd/MM/yyyy", // European format
+  "yyyy/MM/dd", // Japanese format
+  "yyyyMMdd", // Compact format
+  "yyyy-M-d", // Loose format
   "yyyy/M/d",
   "M/d/yyyy",
-  "d/M/yyyy",
-  "dd.MM.yyyy", // 德式格式
+  "d/M/yyyy", // German format
+  "dd.MM.yyyy", // German format
   "yyyy.MM.dd",
 ]
 
-// 常见时间格式 - 按使用频率排序
+// Common time formats - optimized for performance by usage frequency
 export const commonTimeFormats = [
-  "HH:mm", // 24小时制（最常用）
-  "H:mm", // 24小时制不补零
-  "HH:mm:ss", // 带秒
-  "h:mm a", // 12小时制
-  "hh:mm a", // 12小时制补零
+  "HH:mm", // 24 hour format (most commonly used)
+  "H:mm", // 24 hour format without zero padding
+  "HH:mm:ss", // With seconds
+  "h:mm a", // 12 hour format without zero padding
+  "hh:mm a", // 12 hour format with zero padding
   "h:mm aa",
-  "HHmm", // 紧凑格式
+  "HHmm", // Compact format
   "Hmm",
 ]
 
-// 解析器性能配置
+// Parser performance configuration
 export const parserConfig = {
-  // 解析器优先级（数字越小优先级越高）
+  // Parser priority (number越小优先级越高）
   priority: {
-    digits: 1, // 纯数字解析（最快）
-    shortcuts: 2, // 快捷键解析
-    standardFormat: 3, // 标准格式解析
-    naturalLanguage: 4, // 自然语言解析
-    relativeDate: 5, // 相对日期解析
-    englishDate: 6, // 英文日期解析
-    fuzzyMatch: 7, // 模糊匹配（最慢）
+    digits: 1, // Pure numeric parsing (fastest)
+    shortcuts: 2, // Shortcut parsing
+    standardFormat: 3, // Standard format parsing
+    naturalLanguage: 4, // Natural language parsing
+    relativeDate: 5, // Relative date parsing
+    englishDate: 6, // English date parsing
+    fuzzyMatch: 7, // Fuzzy matching (slowest)
   },
 
-  // 缓存配置
+  // Cache configuration
   cache: {
     enabled: true,
-    maxSize: 100, // 最大缓存条目数
-    ttl: 60000, // 缓存时间 (ms)
+    maxSize: 100, // Maximum cache entries
+    ttl: 60000, // Cache time (ms)
   },
 
-  // 性能阈值
+  // Performance threshold
   performance: {
-    maxParseTime: 50, // 最大解析时间 (ms)
-    enableProfiling: false, // 是否启用性能分析
+    maxParseTime: 50, // Maximum parse time (ms)
+    enableProfiling: false, // Whether to enable performance analysis
   },
 }
 
-// 简单的 LRU 缓存实现
+// Simple LRU cache implementation
 class SimpleCache<T> {
   private cache = new Map<string, { timestamp: number; value: T }>()
   private maxSize: number
@@ -163,7 +163,7 @@ class SimpleCache<T> {
   }
 }
 
-// 全局解析缓存
+// Global parse cache
 export const parseCache = new SimpleCache<Date | null>(
   parserConfig.cache.maxSize,
   parserConfig.cache.ttl,

@@ -59,7 +59,7 @@
       "version": "0.0.4"
     },
     {
-      "slug": "feedback/chip",
+      "slug": "buttons/chip",
       "name": "@choice-ui/chip",
       "title": "Chip",
       "description": "",
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "slug": "components/code-block",
+      "slug": "data-display/code-block",
       "name": "@choice-ui/code-block",
       "title": "CodeBlock",
       "description": "",
@@ -307,7 +307,7 @@
       ]
     },
     {
-      "slug": "components/md-render",
+      "slug": "data-display/md-render",
       "name": "@choice-ui/md-render",
       "title": "MdRender",
       "description": "",

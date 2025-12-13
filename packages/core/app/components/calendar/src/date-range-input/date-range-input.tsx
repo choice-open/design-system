@@ -26,11 +26,11 @@ interface DateRangeInputProps extends Omit<
   onStartChange?: (date: Date | null) => void
   onStartFocus?: () => void
   /**
-   * 范围长度显示精度，控制范围计算的最小单位
-   * @default 1 - 最小单位为1天
-   * @example 0.5 - 最小单位为0.5天（半天）
-   * @example 0.1 - 最小单位为0.1天（2.4小时）
-   * @example 0.25 - 最小单位为0.25天（6小时）
+   * Range length display precision, control the minimum unit of range calculation
+   * @default 1 - Minimum unit is 1 day
+   * @example 0.5 - Minimum unit is 0.5 days (half a day)
+   * @example 0.1 - Minimum unit is 0.1 days (2.4 hours)
+   * @example 0.25 - Minimum unit is 0.25 days (6 hours)
    */
   rangePrecision?: number
   startDisabled?: boolean
@@ -61,15 +61,15 @@ export const DateRangeInput = (props: DateRangeInputProps) => {
     ...rest
   } = props
 
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale to parse
   const locale = resolveLocale(propLocale)
 
   const rangeLength = useMemo(() => {
     if (!startValue || !endValue) return ""
 
-    // 特殊处理：相同日期显示为1天
+    // Special handling: same date displays as 1 day
     if (startValue.getTime() === endValue.getTime()) {
-      // 创建1天的差距让formatDistanceStrict处理
+      // Create a 1 day gap to let formatDistanceStrict handle it
       const oneDayLater = new Date(startValue.getTime() + 24 * 60 * 60 * 1000)
       return formatDistanceStrict(startValue, oneDayLater, {
         locale,
@@ -78,7 +78,7 @@ export const DateRangeInput = (props: DateRangeInputProps) => {
       })
     }
 
-    // 其他情况使用 formatDistanceStrict
+    // Other cases use formatDistanceStrict
     return formatDistanceStrict(startValue, endValue, {
       locale,
       unit: "day",

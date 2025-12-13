@@ -12,5 +12,12 @@ export const skeletonTv = tcv({
       },
       false: {},
     },
+    hasChildren: {
+      true: {},
+      false: { root: "block" },
+    },
+  },
+  defaultVariants: {
+    hasChildren: true,
   },
 })

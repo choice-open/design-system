@@ -34,6 +34,7 @@ export const Skeleton = memo(
       () =>
         skeletonTv({
           loading,
+          hasChildren,
         }),
       [loading],
     )

@@ -80,10 +80,10 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>((props, re
     ...rest
   } = props
 
-  // 智能预测状态
+  // Intelligent prediction state
   const [prediction, setPrediction] = useState<PredictionResult | null>(null)
 
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale to parse
   const locale = resolveLocale(propLocale)
 
   const dateFormat = useMemo(() => {
@@ -94,41 +94,41 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>((props, re
     const localeKey = typeof propLocale === "string" ? propLocale : locale.code || "en-US"
     const isCurrentYear = value && isThisYear(value)
 
-    // 中文系列
+    // Chinese series
     if (localeKey.startsWith("zh")) {
       return isCurrentYear ? "MMM do eee" : "yy\u5e74 MMM do eee"
     }
 
-    // 日文
+    // Japanese
     if (localeKey.startsWith("ja")) {
       return isCurrentYear ? "MMM do\uff08eee\uff09" : "yy\u5e74 MMM do\uff08eee\uff09"
     }
 
-    // 韩文
+    // Korean
     if (localeKey.startsWith("ko")) {
       return isCurrentYear ? "MMM do\uff08eee\uff09" : "yy\ub144 MMM do\uff08eee\uff09"
     }
 
-    // 德文
+    // German
     if (localeKey.startsWith("de")) {
       return isCurrentYear ? "EE dd.MM" : "EE dd.MM ''yy"
     }
 
-    // 法文
+    // French
     if (localeKey.startsWith("fr")) {
       return isCurrentYear ? "EE dd MM" : "EE dd MM yy"
     }
 
-    // 西班牙文
+    // Spanish
     if (localeKey.startsWith("es")) {
       return isCurrentYear ? "EE dd MM" : "EE dd MM ''yy"
     }
 
-    // 英文和其他语言（默认）
+    // English and other languages (default)
     return isCurrentYear ? "EE MM dd" : "EE MM dd ''yy"
   }, [propFormat, value, propLocale, locale])
 
-  // 使用 use-date-input hook 管理所有逻辑
+  // Use use-date-input hook to manage all logic
   const { inputProps, handlerProps } = useDateInput({
     value,
     onChange,
@@ -146,7 +146,7 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>((props, re
     ref,
   })
 
-  // 监听输入变化，更新预测
+  // Listen for input changes and update prediction
   useEffect(() => {
     if (!enablePrediction || !inputProps.value) {
       setPrediction(null)
@@ -162,7 +162,7 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>((props, re
     }
   }, [inputProps.value, dateFormat, enablePrediction])
 
-  // 生成预测提示内容
+  // Generate prediction prompt content
   const renderPrediction = () => {
     if (!prediction) return null
 

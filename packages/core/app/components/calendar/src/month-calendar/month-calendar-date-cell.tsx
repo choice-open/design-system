@@ -31,10 +31,10 @@ export const MonthCalendarDateCell = memo(function MonthCalendarDateCell(props: 
 
   const dateNumber = useMemo(() => date.getDate(), [date])
 
-  // 生成唯一的testid，包含年月日信息
+  // Generate a unique testid, containing year, month, and day information
   const testId = useMemo(() => {
     const year = date.getFullYear()
-    const month = date.getMonth() + 1 // 月份从0开始，需要+1
+    const month = date.getMonth() + 1 // Months start from 0, need to add 1
     const day = date.getDate()
     return `${year}-${month}-${day}`
   }, [date])

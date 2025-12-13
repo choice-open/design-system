@@ -18,20 +18,20 @@ interface TimeInputProps
 }
 
 /**
- * 高级时间输入组件
+ * Advanced time input component
  *
- * 特性：
- * - 🎯 智能时间解析：支持多种格式和自然语言
- * - ⌨️ 键盘导航：上键减少，下键增加（符合列表导航逻辑）
- * - 🔄 竞态保护：智能检测数据流方向，避免循环更新
- * - 🚀 性能优化：使用 useEventCallback 和缓存机制
- * - 🛡️ 类型安全：完整的 TypeScript 支持
- * - 🌍 国际化支持：可配置语言区域
- * - 📱 拖拽交互：支持通过前缀图标拖拽调整时间
+ * Features:
+ * - 🎯 Intelligent time parsing: support multiple formats and natural language
+ * - ⌨️ Keyboard navigation: up key decreases, down key increases (符合列表导航逻辑)
+ * - 🔄 Race protection: smartly detect data flow direction, avoid loop updates
+ * - 🚀 Performance optimization: use useEventCallback and caching mechanism
+ * - 🛡️ Type safety: complete TypeScript support
+ * - 🌍 Internationalization support: configurable language region
+ * - 📱 Drag interaction: support dragging adjustment through prefix icon
  */
 export const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>((props, ref) => {
   const {
-    // 时间相关属性
+    // Time related properties
     defaultValue,
     value,
     onChange,
@@ -43,22 +43,22 @@ export const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>((props, re
     shiftStep = 15,
     metaStep = 60,
 
-    // 交互相关属性
+    // Interaction related properties
     enableCache = true,
     enableKeyboardNavigation = true,
     enableProfiling = false,
     onEnterKeyDown,
 
-    // UI 相关属性
+    // UI related properties
     placeholder = "Enter time...",
     prefixElement = <Clock />,
     suffixElement,
 
-    // TextField 属性
+    // TextField properties
     ...rest
   } = props
 
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale to parse
   const locale = resolveLocale(propLocale)
 
   const { inputProps, handlerProps } = useTimeInput({

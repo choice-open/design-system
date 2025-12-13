@@ -33,23 +33,23 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     defaultValue,
   } = props
 
-  // 创建 onChange 适配器来处理类型兼容性
+  // Create onChange adapter to handle type compatibility
   const handleYearChange = useCallback(
     (year: Date | null | undefined) => {
-      // 将 undefined 转换为 null，因为 onChange 不接受 undefined
+      // Convert undefined to null because onChange does not accept undefined
       onChange?.(year ?? null)
     },
     [onChange],
   )
 
-  // 使用简化的状态管理
+  // Use simplified state management
   const [selectedYear, setSelectedYear] = useMergedValue<Date | null | undefined>({
     value,
     defaultValue,
     onChange: handleYearChange,
   })
 
-  // 解析和验证输入参数
+  // Parse and validate input parameters
   const safeLocale = resolveLocale(locale)
 
   const currentYearNum = useMemo(() => {
@@ -68,7 +68,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     [minYear, maxYear, disabledYears],
   )
 
-  // 内部状态：显示的年份范围起始年
+  // Internal state: displayed year range start year
   const [internalStartYear, setInternalStartYear] = useState<number>(() => {
     const propStart = yearUtils.extractYear(propStartYear)
     return propStart ?? currentYearNum - Math.floor(yearCount / 2)
@@ -76,7 +76,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
 
   const startYear = yearUtils.extractYear(propStartYear) ?? internalStartYear
 
-  // 生成年份数据
+  // Generate year data
   const years = useMemo((): YearItem[] => {
     const yearsList: YearItem[] = []
     const selectedYearNum =
@@ -105,7 +105,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     return yearsList
   }, [startYear, yearCount, selectedYear, currentYearNum, disabled, yearConstraints])
 
-  // 事件处理器
+  // Event handler
   const handleYearSelect = useEventCallback((year: Date) => {
     if (disabled || readOnly) return
 
@@ -124,7 +124,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
       const offset = direction === "prev" ? -yearCount : yearCount
       const newStartYear = startYear + offset
 
-      // 边界检查
+      // Boundary check
       if (direction === "prev" && yearConstraints.min !== undefined) {
         if (newStartYear + yearCount - 1 < yearConstraints.min) return
       }
@@ -135,7 +135,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
       const newStartDate = yearUtils.createYearDate(newStartYear)
       onNavigate?.(direction, newStartDate)
 
-      // 如果没有外部控制，更新内部状态
+      // If there is no external control, update internal state
       if (propStartYear === undefined) {
         setInternalStartYear(newStartYear)
       }
@@ -154,7 +154,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     setSelectedYear(todayYearDate)
   })
 
-  // 导航按钮状态
+  // Navigation button state
   const navigationState = useMemo(() => {
     if (disabled) return { isPrevDisabled: true, isNextDisabled: true }
 
@@ -168,7 +168,7 @@ export const YearCalendar = forwardRef<HTMLDivElement, YearCalendarProps>((props
     return { isPrevDisabled, isNextDisabled }
   }, [disabled, yearConstraints, startYear, yearCount])
 
-  // 显示信息
+  // Display information
   const displayInfo = useMemo(() => {
     const startDisplayYear = years[0]?.year.getFullYear() ?? yearUtils.getCurrentYear()
     const endDisplayYear = years[years.length - 1]?.year.getFullYear() ?? yearUtils.getCurrentYear()

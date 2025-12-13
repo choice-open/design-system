@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { useState } from "react"
 
 const meta = {
-  title: "Feedback/Chip",
+  title: "Buttons/Chip",
   component: Chip,
   tags: ["autodocs"],
 } satisfies Meta<typeof Chip>

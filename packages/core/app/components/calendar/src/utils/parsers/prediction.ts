@@ -2,21 +2,21 @@ import { format } from "date-fns"
 import type { DateDataFormat } from "../../types"
 import { parseDate } from "./parsers"
 
-// 预测结果类型
+// Prediction result type
 export interface PredictionResult {
-  /** 置信度 (0-1) */
+  /** Confidence (0-1) */
   confidence: number
-  /** 描述信息 */
+  /** Description */
   description: string
-  /** 预测的日期字符串 */
+  /** Predicted date string */
   prediction: string
-  /** 预测类型 */
+  /** Prediction type */
   type: "numeric" | "shortcut" | "relative" | "parsed"
 }
 
 /**
- * 增强的智能预测功能
- * 直接使用 parseDate 函数，确保预测结果与实际格式化100%一致
+ * Enhanced intelligent prediction function
+ * Directly use parseDate function, ensure prediction result is 100% consistent with actual formatting
  */
 export function getEnhancedPrediction(
   input: string,
@@ -26,7 +26,7 @@ export function getEnhancedPrediction(
 
   const trimmedInput = input.trim()
 
-  // 直接使用真实的解析器！
+  // Directly use the real parser!
   try {
     const parsed = parseDate(trimmedInput, {
       format: targetFormat,
@@ -36,16 +36,16 @@ export function getEnhancedPrediction(
     })
 
     if (parsed && !isNaN(parsed.getTime())) {
-      // 成功解析，生成预测结果
+      // Successfully parsed, generate prediction result
       const formatted = format(parsed, targetFormat)
 
-      // 生成智能描述
+      // Generate intelligent description
       const description = generateDescription(trimmedInput, parsed)
 
-      // 计算置信度
+      // Calculate confidence
       const confidence = calculateConfidence(trimmedInput, parsed)
 
-      // 确定预测类型
+      // Determine prediction type
       const type = determineType(trimmedInput)
 
       return {
@@ -56,14 +56,14 @@ export function getEnhancedPrediction(
       }
     }
   } catch {
-    // 解析失败，返回null
+    // Parsing failed, return null
   }
 
   return null
 }
 
 /**
- * 生成智能描述
+ * Generate intelligent description
  */
 function generateDescription(input: string, parsedDate: Date): string {
   const trimmedInput = input.trim().toLowerCase()
@@ -71,7 +71,7 @@ function generateDescription(input: string, parsedDate: Date): string {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const parsed = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate())
 
-  // 快捷键描述
+  // Shortcut description
   const shortcuts: Record<string, string> = {
     t: "今天",
     today: "今天",
@@ -89,10 +89,10 @@ function generateDescription(input: string, parsedDate: Date): string {
     return shortcuts[trimmedInput]
   }
 
-  // 计算日期差
+  // Calculate date difference
   const dayDiff = Math.round((parsed.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 
-  // 相对日期描述
+  // Relative date description
   if (dayDiff === 0) {
     return "今天"
   } else if (dayDiff === 1) {
@@ -105,7 +105,7 @@ function generateDescription(input: string, parsedDate: Date): string {
     return `${Math.abs(dayDiff)}天前`
   }
 
-  // 年月日描述
+  // Year month day description
   const year = parsedDate.getFullYear()
   const month = parsedDate.getMonth() + 1
   const day = parsedDate.getDate()
@@ -119,30 +119,30 @@ function generateDescription(input: string, parsedDate: Date): string {
 }
 
 /**
- * 计算置信度
+ * Calculate confidence
  */
 function calculateConfidence(input: string, parsedDate: Date): number {
   const trimmedInput = input.trim().toLowerCase()
 
-  // 快捷键：最高置信度
+  // Shortcuts: highest confidence
   const shortcuts = ["t", "today", "今", "今天", "y", "yesterday", "昨", "tm", "tomorrow", "明"]
   if (shortcuts.includes(trimmedInput)) {
     return 1.0
   }
 
-  // 纯数字：根据长度判断置信度
+  // Pure numeric: determine confidence based on length
   if (/^\d+$/.test(trimmedInput)) {
     const length = trimmedInput.length
-    if (length === 8) return 0.95 // YYYYMMDD：很可信
-    if (length === 6) return 0.9 // YYMMDD：很可信
-    if (length === 4) return 0.85 // MMDD或年份：比较可信
-    if (length === 3) return 0.8 // 月日：中等可信
-    if (length === 2) return 0.75 // 日期或年份：中等可信
-    if (length === 1) return 0.6 // 年份个位：较低可信
-    return 0.7 // 其他长度
+    if (length === 8) return 0.95 // YYYYMMDD: very reliable
+    if (length === 6) return 0.9 // YYMMDD: very reliable
+    if (length === 4) return 0.85 // MMDD or year: relatively reliable
+    if (length === 3) return 0.8 // Month and day: medium reliable
+    if (length === 2) return 0.75 // Date or year: medium reliable
+    if (length === 1) return 0.6 // Year last digit: low reliable
+    return 0.7 // Other lengths
   }
 
-  // 包含文字的复杂输入
+  // Complex input with text
   if (trimmedInput.includes("年") || trimmedInput.includes("月") || trimmedInput.includes("日")) {
     return 0.85
   }
@@ -151,28 +151,28 @@ function calculateConfidence(input: string, parsedDate: Date): number {
     return 0.8
   }
 
-  // 默认置信度
+  // Default confidence
   return 0.7
 }
 
 /**
- * 确定预测类型
+ * Determine prediction type
  */
 function determineType(input: string): PredictionResult["type"] {
   const trimmedInput = input.trim().toLowerCase()
 
-  // 快捷键
+  // Shortcuts
   const shortcuts = ["t", "today", "今", "今天", "y", "yesterday", "昨", "tm", "tomorrow", "明"]
   if (shortcuts.includes(trimmedInput)) {
     return "shortcut"
   }
 
-  // 纯数字
+  // Pure numeric
   if (/^\d+$/.test(trimmedInput)) {
     return "numeric"
   }
 
-  // 相对日期
+  // Relative date
   if (
     trimmedInput.includes("天前") ||
     trimmedInput.includes("天后") ||
@@ -184,12 +184,12 @@ function determineType(input: string): PredictionResult["type"] {
     return "relative"
   }
 
-  // 其他解析结果
+  // Other parsed results
   return "parsed"
 }
 
 /**
- * 向后兼容的 getPredictionInfo 函数
+ * Backward compatible getPredictionInfo function
  */
 export function getPredictionInfo(
   input: string,

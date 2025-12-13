@@ -1,23 +1,23 @@
 /**
- * 日期格式字符串
+ * Date format string
  *
- * 支持所有 date-fns 格式字符串，常用格式示例：
+ * Supports all date-fns format strings, common format examples:
  *
- * **年份**：
- * - yyyy: 2025 (4位年份)
- * - yy: 25 (2位年份)
+ * **Year**：
+ * - yyyy: 2025 (4-digit year)
+ * - yy: 25 (2-digit year)
  *
- * **月份**：
- * - MMMM: December (完整月份名)
- * - MMM: Dec (缩写月份名)
- * - MM: 12 (2位数字月份)
- * - M: 12 (1-2位数字月份)
+ * **Month**：
+ * - MMMM: December (full month name)
+ * - MMM: Dec (abbreviated month name)
+ * - MM: 12 (2-digit month)
+ * - M: 12 (1-2 digit month)
  *
- * **日期**：
- * - dd: 31 (2位日期)
- * - d: 31 (1-2位日期)
+ * **Date**：
+ * - dd: 31 (2-digit date)
+ * - d: 31 (1-2 digit date)
  *
- * **常用组合**：
+ * **Common combinations**：
  * - "yyyy-MM-dd" → 2025-12-31
  * - "yy-MM-dd" → 25-12-31
  * - "yyyy年MM月dd日" → 2025年12月31日
@@ -32,32 +32,32 @@
 export type DateDataFormat = string
 
 /**
- * 时间格式字符串
+ * Time format string
  *
- * 支持所有 date-fns 时间格式字符串，常用格式示例：
+ * Supports all date-fns time format strings, common format examples:
  *
- * **24小时制**：
- * - "HH:mm" → 09:30, 14:45 (2位小时)
- * - "H:mm" → 9:30, 14:45 (1-2位小时)
- * - "HH:mm:ss" → 09:30:15 (带秒)
- * - "HHmm" → 0930, 1445 (紧凑格式)
+ * **24-hour format**：
+ * - "HH:mm" → 09:30, 14:45 (2-digit hour)
+ * - "H:mm" → 9:30, 14:45 (1-2 digit hour)
+ * - "HH:mm:ss" → 09:30:15 (with seconds)
+ * - "HHmm" → 0930, 1445 (compact format)
  *
- * **12小时制**：
+ * **12-hour format**：
  * - "h:mm a" → 9:30 AM, 2:45 PM
- * - "hh:mm a" → 09:30 AM, 02:45 PM (2位小时)
- * - "h:mm aa" → 9:30 A.M., 2:45 P.M. (完整AM/PM)
- * - "h:mm:ss a" → 9:30:15 AM (带秒)
+ * - "hh:mm a" → 09:30 AM, 02:45 PM (2-digit hour)
+ * - "h:mm aa" → 9:30 A.M., 2:45 P.M. (full AM/PM)
+ * - "h:mm:ss a" → 9:30:15 AM (with seconds)
  *
  * @see https://date-fns.org/v2.29.3/docs/format
  */
 export type TimeDataFormat = string
 
-// ====== 时间相关的基础类型 ======
+// ====== Time related base types ======
 
 import type { Day, Locale, Quarter as Quarters } from "date-fns"
 
 /**
- * 时间对象（小时和分钟）
+ * Time object (hour and minute)
  */
 export interface Time {
   hour: number
@@ -65,94 +65,94 @@ export interface Time {
 }
 
 /**
- * 时间布局模式
+ * Time layout mode
  */
 export type TimeLayout = "single" | "dual"
 
-// ====== 时间解析相关类型 ======
+// ====== Time parsing related types ======
 
 /**
- * 时间输入解析结果
+ * Time input parsing result
  */
 export interface TimeInputValue {
-  /** 解析错误信息 */
+  /** Parsing error message */
   error: string | null
-  /** 格式化后的显示值 */
+  /** Formatted display value */
   formatted: string
-  /** 原始输入值 */
+  /** Original input value */
   input: string
-  /** 是否为有效时间 */
+  /** Whether it is a valid time */
   isValid: boolean
-  /** 解析后的时间 Date 对象 */
+  /** Parsed time Date object */
   time: Date | null
 }
 
 /**
- * 时间解析选项
+ * Time parsing options
  */
 export interface TimeParserOptions {
-  /** 时间格式 */
+  /** Time format */
   format: TimeDataFormat
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 严格模式 */
+  /** Strict mode */
   strict?: boolean
 }
 
-// ====== 时间组件的公共属性接口 ======
+// ====== Time component public property interface ======
 
 /**
- * 时间组件的基础属性
+ * Time component base properties
  */
 export interface BaseTimeProps {
-  /** 默认值 */
+  /** Default value */
   defaultValue?: Date | null
-  /** 是否禁用 */
+  /** Whether it is disabled */
   disabled?: boolean
-  /** 时间格式，支持所有 date-fns 格式字符串 */
+  /** Time format, supports all date-fns format strings */
   format?: TimeDataFormat
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大时间 */
+  /** Maximum time */
   maxTime?: Date
-  /** 最小时间 */
+  /** Minimum time */
   minTime?: Date
-  /** 时间变化回调 */
+  /** Time change callback */
   onChange?: (time: Date | null) => void
-  /** 是否只读（禁用选择但不改变样式） */
+  /** Whether it is read-only (disable selection but do not change style) */
   readOnly?: boolean
-  /** 当前选中的时间 */
+  /** Currently selected time */
   value?: Date | null
 }
 
 /**
- * 时间步长相关属性
+ * Time step related properties
  */
 export interface StepProps {
-  /** Meta/Ctrl + 按键的步长（分钟），默认60分钟 */
+  /** Meta/Ctrl + key step (minutes), default 60 minutes */
   metaStep?: number
-  /** Shift + 按键的步长（分钟），默认15分钟 */
+  /** Shift + key step (minutes), default 15 minutes */
   shiftStep?: number
-  /** 基础步长（分钟），默认1分钟 */
+  /** Base step (minutes), default 1 minute */
   step?: number
 }
 
 /**
- * 时间交互功能属性
+ * Time interaction properties
  */
 export interface TimeInteractionProps {
-  /** 是否启用解析缓存 */
+  /** Whether to enable parsing cache */
   enableCache?: boolean
-  /** 是否启用键盘导航（默认启用） */
+  /** Whether to enable keyboard navigation (default enabled) */
   enableKeyboardNavigation?: boolean
-  /** 是否启用性能分析 */
+  /** Whether to enable performance analysis */
   enableProfiling?: boolean
-  /** 按下 Enter 键的回调 */
+  /** Callback when Enter key is pressed */
   onEnterKeyDown?: () => void
 }
 
 /**
- * 时间选项项
+ * Time option item
  */
 export interface TimeOptionItem {
   disabled?: boolean
@@ -161,22 +161,22 @@ export interface TimeOptionItem {
 }
 
 export interface SmartInputOptions {
-  /** 去抖延迟（毫秒） */
+  /** Debounce delay (milliseconds) */
   debounceMs?: number
-  /** 是否启用自动完成 */
+  /** Whether to enable auto complete */
   enableAutoComplete?: boolean
-  /** 是否启用键盘导航 */
+  /** Whether to enable keyboard navigation */
   enableKeyboardNavigation?: boolean
-  /** 是否启用实时验证 */
+  /** Whether to enable real-time validation */
   enableLiveValidation?: boolean
-  /** 是否显示解析预览 */
+  /** Whether to show parse preview */
   showParsePreview?: boolean
 }
 
-// ====== 日期相关的基础类型 ======
+// ====== Date related base types ======
 
 /**
- * 日期范围对象
+ * Date range object
  */
 export interface DateRange {
   end: Date
@@ -184,69 +184,69 @@ export interface DateRange {
 }
 
 /**
- * 一周开始的日期
+ * Date of the week starts
  */
 export type WeekStartsOn = Day
 
 /**
- * 日期比较模式
+ * Date comparison mode
  */
 export type DateComparisonMode = "exact-time" | "date-only"
 
 /**
- * 日历选择值的类型
+ * Calendar selection value type
  */
 export type CalendarValue = Date | Date[] | DateRange | null
 
 /**
- * 选择模式
+ * Selection mode
  */
 export type SelectionMode = "single" | "multiple" | "range"
 
-// ====== 日期解析相关类型 ======
+// ====== Date parsing related types ======
 
 /**
- * 日期输入解析结果
+ * Date input parsing result
  */
 export interface DateInputValue {
-  /** 解析后的日期对象 */
+  /** Parsed date object */
   date: Date | null
-  /** 解析错误信息 */
+  /** Parsing error message */
   error: string | null
-  /** 格式化后的显示值 */
+  /** Formatted display value */
   formatted: string
-  /** 原始输入值 */
+  /** Original input value */
   input: string
-  /** 是否为有效日期 */
+  /** Whether it is a valid date */
   isValid: boolean
 }
 
 /**
- * 日期解析选项
+ * Date parsing options
  */
 export interface DateParserOptions {
-  /** 是否启用自然语言解析 */
+  /** Whether to enable natural language parsing */
   enableNaturalLanguage?: boolean
-  /** 是否启用相对日期解析 */
+  /** Whether to enable relative date parsing */
   enableRelativeDate?: boolean
-  /** 是否启用智能修正 */
+  /** Whether to enable smart correction */
   enableSmartCorrection?: boolean
-  /** 日期格式 */
+  /** Date format */
   format: DateDataFormat
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大日期 */
+  /** Maximum date */
   maxDate?: Date
-  /** 最小日期 */
+  /** Minimum date */
   minDate?: Date
-  /** 严格模式（不允许无效日期） */
+  /** Strict mode (not allowed invalid date) */
   strict?: boolean
 }
 
-// ====== 自然语言相关类型 ======
+// ====== Natural language related types ======
 
 /**
- * 自然语言关键词映射
+ * Natural language keyword mapping
  */
 export interface NaturalLanguageMap {
   afternoon: string[]
@@ -269,7 +269,7 @@ export interface NaturalLanguageMap {
 }
 
 /**
- * 相对日期模式
+ * Relative date pattern
  */
 export interface RelativeDatePattern {
   multiplier: number
@@ -277,109 +277,109 @@ export interface RelativeDatePattern {
   type: "day" | "week" | "month" | "year"
 }
 
-// ====== 日期组件的公共属性接口 ======
+// ====== Date component public property interface ======
 
 /**
- * 日期组件的基础属性
+ * Date component base properties
  */
 export interface BaseDateProps {
-  /** 默认值 */
+  /** Default value */
   defaultValue?: Date | null
-  /** 是否禁用 */
+  /** Whether it is disabled */
   disabled?: boolean
-  /** 日期格式，支持所有 date-fns 格式字符串 */
+  /** Date format, supports all date-fns format strings */
   format?: DateDataFormat
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大日期 */
+  /** Maximum date */
   maxDate?: Date
-  /** 最小日期 */
+  /** Minimum date */
   minDate?: Date
-  /** 日期变化回调 */
+  /** Date change callback */
   onChange?: (date: Date | null) => void
-  /** 当前选中的日期 */
+  /** Currently selected date */
   value?: Date | null
 }
 
 /**
- * 日期交互功能属性
+ * Date interaction properties
  */
 export interface DateInteractionProps {
-  /** 是否启用解析缓存 */
+  /** Whether to enable parsing cache */
   enableCache?: boolean
-  /** 是否启用键盘导航（默认启用） */
+  /** Whether to enable keyboard navigation (default enabled) */
   enableKeyboardNavigation?: boolean
-  /** 是否启用预测功能 */
+  /** Whether to enable prediction */
   enablePrediction?: boolean
-  /** 是否启用性能分析 */
+  /** Whether to enable performance analysis */
   enableProfiling?: boolean
-  /** 按下 Enter 键的回调 */
+  /** Callback when Enter key is pressed */
   onEnterKeyDown?: () => void
 }
 
 /**
- * 月历组件的基础属性
+ * Month calendar component base properties
  */
 export interface BaseCalendarProps {
   children?: React.ReactNode
-  /** 自定义类名 */
+  /** Custom class name */
   className?: string
-  /** 当前显示的月份 */
+  /** Currently displayed month */
   currentMonth?: Date
-  /** 日期比较模式 */
+  /** Date comparison mode */
   dateComparisonMode?: DateComparisonMode
-  /** 非受控模式的默认值 */
+  /** Non-controlled mode default value */
   defaultValue?: CalendarValue
-  /** 禁用的日期数组 */
+  /** Disabled dates array */
   disabledDates?: Date[]
-  /** 是否固定6行显示（42天），默认true确保高度一致 */
+  /** Whether to fix 6 rows display (42 days), default true to ensure height consistency */
   fixedGrid?: boolean
-  /** 需要高亮的日期数组 */
+  /** Dates to highlight */
   highlightDates?: Date[]
-  /** 是否高亮今天 */
+  /** Whether to highlight today */
   highlightToday?: boolean
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大可选日期 */
+  /** Maximum可选日期 */
   maxDate?: Date
-  /** 最小可选日期 */
+  /** Minimum可选日期 */
   minDate?: Date
-  /** 值变更回调 */
+  /** Value change callback */
   onChange?: (value: CalendarValue) => void
-  /** 月份变更回调 */
+  /** Month change callback */
   onMonthChange?: (month: Date) => void
-  /** 是否只读（禁用选择但不改变样式） */
+  /** Whether it is read-only (disable selection but do not change style) */
   readOnly?: boolean
-  /** 选择模式，如果未指定，会根据 value 类型自动推断 */
+  /** Selection mode, if not specified, will be automatically inferred based on value type */
   selectionMode?: SelectionMode
-  /** 是否显示非当前月份的日期 */
+  /** Whether to show dates of non-current months */
   showOutsideDays?: boolean
-  /** 是否显示周数，默认false */
+  /** Whether to show week numbers, default false */
   showWeekNumbers?: boolean
-  /** 时区 */
+  /** Time zone */
   timeZone?: string
-  /** 受控模式的值 */
+  /** Controlled mode value */
   value?: CalendarValue
-  /** 一周开始的日期（0=周日, 1=周一） */
+  /** Week starts on (0=Sunday, 1=Monday) */
   weekStartsOn?: WeekStartsOn
-  /** 自定义星期名称 */
+  /** Custom weekday names */
   weekdayNames?: string[]
 }
 
 /**
- * 月历布局相关属性
+ * Month calendar layout related properties
  */
 export interface CalendarLayoutProps {
-  /** 方向 */
+  /** Direction */
   direction?: "horizontal" | "vertical"
-  /** 变体样式 */
+  /** Variant style */
   variant?: "default" | "dark"
 }
 
-// ====== 日历状态相关类型 ======
+// ====== Calendar state related types ======
 
 /**
- * 日历状态接口
+ * Calendar state interface
  */
 export interface CalendarState {
   isSingleDay: boolean
@@ -392,7 +392,7 @@ export interface CalendarState {
 }
 
 /**
- * 日历拖拽选择状态
+ * Calendar drag selection state
  */
 export interface CalendarDragSelectionState {
   currentDate: Date | null
@@ -402,7 +402,7 @@ export interface CalendarDragSelectionState {
 }
 
 /**
- * 日历操作接口
+ * Calendar actions interface
  */
 export interface CalendarActions {
   clearSelection(): void
@@ -412,10 +412,10 @@ export interface CalendarActions {
   selectRange(start: Date, end: Date): void
 }
 
-// ====== 季度相关的基础类型 ======
+// ====== Quarter related base types ======
 
 /**
- * 季度对象
+ * Quarter object
  */
 export interface Quarter {
   label: string
@@ -425,7 +425,7 @@ export interface Quarter {
 }
 
 /**
- * 季度项目状态
+ * Quarter item state
  */
 export interface QuarterItem {
   isCurrent: boolean
@@ -436,7 +436,7 @@ export interface QuarterItem {
 }
 
 /**
- * 年份项目状态
+ * Year item state
  */
 export interface YearItem {
   isCurrent: boolean
@@ -446,102 +446,102 @@ export interface YearItem {
   year: Date
 }
 
-// ====== 季度组件的公共属性接口 ======
+// ====== Quarter component public property interface ======
 
 /**
- * 季度组件的基础属性
+ * Quarter component base properties
  */
 export interface BaseQuarterProps {
   children?: React.ReactNode
-  /** 当前显示的年份 */
+  /** Currently displayed year */
   currentYear?: number
-  /** 默认值 */
+  /** Default value */
   defaultValue?: Quarter
-  /** 是否禁用 */
+  /** Whether it is disabled */
   disabled?: boolean
-  /** 禁用的季度数组 */
+  /** Disabled quarters array */
   disabledQuarters?: Array<{ quarter: number; year: number }>
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大可选年份 */
+  /** Maximum selectable year */
   maxYear?: number
-  /** 最小可选年份 */
+  /** Minimum selectable year */
   minYear?: number
-  /** 季度选择变化回调 */
+  /** Quarter change callback */
   onChange?: (quarter: Quarter | null) => void
-  /** 是否只读（禁用选择但不改变样式） */
+  /** Whether it is read-only (disable selection but do not change style) */
   readOnly?: boolean
-  /** 显示的年份 */
+  /** Displayed year */
   startYear?: number
-  /** 当前选中的季度 */
+  /** Currently selected quarter */
   value?: Quarter | null
 }
 
 /**
- * 季度导航相关属性
+ * Quarter navigation related properties
  */
 export interface QuarterNavigationProps {
-  /** 年份范围导航回调 */
+  /** Year range navigation callback */
   onNavigate?: (direction: "prev" | "next", newYear: number) => void
 }
 
 /**
- * 季度布局相关属性
+ * Quarter layout related properties
  */
 export interface QuarterLayoutProps {
-  /** 自定义类名 */
+  /** Custom class name */
   className?: string
-  /** 变体样式 */
+  /** Variant style */
   variant?: "default" | "dark"
 }
 
-// ====== 年份组件的公共属性接口 ======
+// ====== Year component public property interface ======
 
 /**
- * 年份组件的基础属性
+ * Year component base properties
  */
 export interface BaseYearProps {
   children?: React.ReactNode
-  /** 当前显示的年份（用于高亮） */
+  /** Currently displayed year (for highlighting) */
   currentYear?: Date
-  /** 默认值 */
+  /** Default value */
   defaultValue?: Date
-  /** 是否禁用 */
+  /** Whether it is disabled */
   disabled?: boolean
-  /** 禁用的年份数组 */
+  /** Disabled years array */
   disabledYears?: Date[]
-  /** 语言区域 - 支持 Locale 对象或字符串（如 "zh-CN", "en-US"） */
+  /** Language environment - supports Locale object or string (e.g., "zh-CN", "en-US") */
   locale?: Locale | string
-  /** 最大可选年份 */
+  /** Maximum selectable year */
   maxYear?: Date
-  /** 最小可选年份 */
+  /** Minimum selectable year */
   minYear?: Date
-  /** 年份选择变化回调 */
+  /** Year change callback */
   onChange?: (year: Date | null) => void
-  /** 是否只读（禁用选择但不改变样式） */
+  /** Whether it is read-only (disable selection but do not change style) */
   readOnly?: boolean
-  /** 显示年份范围的起始年份，默认为当前年份-10 */
+  /** Displayed year range start year, default current year - 10 */
   startYear?: Date
-  /** 当前选中的年份 */
+  /** Currently selected year */
   value?: Date | null
-  /** 显示年份的数量，默认12个 */
+  /** Displayed year count, default 12 */
   yearCount?: number
 }
 
 /**
- * 年份导航相关属性
+ * Year navigation related properties
  */
 export interface YearNavigationProps {
-  /** 年份范围导航回调 */
+  /** Year range navigation callback */
   onNavigate?: (direction: "prev" | "next", newStartYear: Date) => void
 }
 
 /**
- * 年份布局相关属性
+ * Year layout related properties
  */
 export interface YearLayoutProps {
-  /** 自定义类名 */
+  /** Custom class name */
   className?: string
-  /** 变体样式 */
+  /** Variant style */
   variant?: "default" | "dark"
 }

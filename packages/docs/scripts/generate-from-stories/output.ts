@@ -1,8 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
-import { outputComponentsDir, outputIndex, outputRegistry, storybookStoriesDir } from "./constants"
+import { outputComponentsDir, outputIndex, outputRegistry } from "./constants"
 import type { ComponentDetail, DocsData } from "./types"
-import { walkStories } from "./utils"
 
 /** 只更新单个组件的 JSON 文件 */
 export function generateSingleOutput(detail: ComponentDetail) {
@@ -54,28 +53,9 @@ ${componentMap}
   const componentsDetailsPath = path.join(outputComponentsDir, "components-details.ts")
   fs.writeFileSync(componentsDetailsPath, componentsDetailsContent, "utf8")
 
-  // 生成 registry.ts
-  const storyFiles = walkStories(storybookStoriesDir)
-  const slugToStoryPath = new Map<string, string>()
-
-  for (const [slug] of entries) {
-    const componentFolder = slug.split("/").pop()
-    if (componentFolder) {
-      // 精确匹配文件名：componentFolder.stories.tsx
-      const storyPath = storyFiles.find((f) =>
-        f.endsWith(`/${componentFolder}/${componentFolder}.stories.tsx`),
-      )
-      if (storyPath) {
-        slugToStoryPath.set(slug, storyPath)
-      }
-    }
-  }
-
+  // 生成 registry.ts - 直接使用 DocsData 中保存的 storyPath
   const registryEntries = entries
-    .map(([slug, { detail }], idx) => {
-      const storyPath = slugToStoryPath.get(slug)
-      if (!storyPath) return null
-
+    .map(([, { detail, storyPath }], idx) => {
       const importVar = `StoryModule${idx}`
       const importPath = path
         .relative(path.dirname(outputRegistry), storyPath)
@@ -84,7 +64,6 @@ ${componentMap}
 
       return { importVar, importPath, slug: detail.slug }
     })
-    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   const imports = registryEntries
     .map(

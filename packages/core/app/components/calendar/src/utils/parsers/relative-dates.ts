@@ -10,7 +10,7 @@ import {
 } from "date-fns"
 import { relativeDatePatterns } from "../constants"
 
-// 解析相对日期
+// Parse relative date
 export function parseRelativeDate(input: string): Date | null {
   const now = new Date()
 
@@ -37,22 +37,22 @@ export function parseRelativeDate(input: string): Date | null {
   return null
 }
 
-// 相对日期扩展处理
+// Extended relative date processing
 export function parseExtendedRelativeDate(input: string): Date | null {
   const now = new Date()
   const patterns = [
-    // +数字 (天数)
+    // +number (days)
     {
       regex: /^\+(\d+)$/,
       handler: (match: RegExpMatchArray) => addDays(now, parseInt(match[1], 10)),
     },
-    // -数字 (天数)
+    // -number (days)
     {
       regex: /^-(\d+)$/,
       handler: (match: RegExpMatchArray) => subDays(now, parseInt(match[1], 10)),
     },
 
-    // w+数字 (周数)
+    // w+number (weeks)
     {
       regex: /^w\+(\d+)$/i,
       handler: (match: RegExpMatchArray) => addWeeks(now, parseInt(match[1], 10)),
@@ -62,7 +62,7 @@ export function parseExtendedRelativeDate(input: string): Date | null {
       handler: (match: RegExpMatchArray) => subWeeks(now, parseInt(match[1], 10)),
     },
 
-    // m+数字 (月数)
+    // m+number (months)
     {
       regex: /^m\+(\d+)$/i,
       handler: (match: RegExpMatchArray) => addMonths(now, parseInt(match[1], 10)),
@@ -72,7 +72,7 @@ export function parseExtendedRelativeDate(input: string): Date | null {
       handler: (match: RegExpMatchArray) => subMonths(now, parseInt(match[1], 10)),
     },
 
-    // y+数字 (年数)
+    // y+number (years)
     {
       regex: /^y\+(\d+)$/i,
       handler: (match: RegExpMatchArray) => addYears(now, parseInt(match[1], 10)),
@@ -82,7 +82,7 @@ export function parseExtendedRelativeDate(input: string): Date | null {
       handler: (match: RegExpMatchArray) => subYears(now, parseInt(match[1], 10)),
     },
 
-    // 中文相对表达
+    // Chinese relative expression
     {
       regex: /^(\d+)天后$/,
       handler: (match: RegExpMatchArray) => addDays(now, parseInt(match[1], 10)),

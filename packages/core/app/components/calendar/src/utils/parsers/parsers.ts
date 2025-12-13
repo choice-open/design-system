@@ -19,40 +19,40 @@ import { parseExtendedRelativeDate, parseRelativeDate } from "./relative-dates"
 import { handleShortcuts } from "./shortcuts"
 import { smartCorrectDate, smartCorrectYear } from "./validators"
 
-// 解析结果类型
+// Parsing result type
 export type ParseResult = Date | null
 export type DetailedParseResult = DateInputValue
 
-// 解析选项
+// Parsing options
 export interface ParseOptions {
-  /** 是否返回详细信息 */
+  /** Whether to return detailed information */
   detailed?: boolean
-  /** 是否启用自然语言解析 */
+  /** Whether to enable natural language parsing */
   enableNaturalLanguage?: boolean
-  /** 是否启用相对日期解析 */
+  /** Whether to enable relative date parsing */
   enableRelativeDate?: boolean
-  /** 是否启用智能修正 */
+  /** Whether to enable smart correction */
   enableSmartCorrection?: boolean
-  /** 目标格式 */
+  /** Target format */
   format?: DateDataFormat
-  /** 语言环境 */
+  /** Language environment */
   locale?: Locale
-  /** 是否严格模式 */
+  /** Whether to strict mode */
   strict?: boolean
 }
 
 /**
- * 统一的日期解析器 - 合并了原来的 tryRelaxedParsing 和 smartParseDate
+ * Unified date parser - merged the original tryRelaxedParsing and smartParseDate
  *
- * 解析策略按优先级排序（修正为正确的优先级）：
- * 1. 标准格式解析 - 严格按照指定格式解析
- * 2. 智能数字解析（核心功能） - 纯数字输入的智能猜测 [最重要]
- * 3. 快捷键解析 - today, tomorrow, yesterday 等
- * 4. 扩展相对日期解析 - "3 days ago", "next week" 等
- * 5. 自然语言解析 - "今天", "明天", "下周三" 等
- * 6. 相对日期解析 - "+3d", "-1w" 等简短格式
- * 7. 英文日期解析 - "Jan 15, 2024", "March 3rd" 等
- * 8. 常见格式尝试 - 尝试其他常用日期格式
+ * Parsing strategy sorted by priority (corrected to correct priority):
+ * 1. Standard format parsing - strictly parse according to the specified format
+ * 2. Intelligent numeric parsing (core function) - intelligent guess of pure numeric input [most important]
+ * 3. Shortcut parsing - today, tomorrow, yesterday, etc.
+ * 4. Extended relative date parsing - "3 days ago", "next week", etc.
+ * 5. Natural language parsing - "today", "tomorrow", "next Wednesday", etc.
+ * 6. Relative date parsing - "+3d", "-1w", etc. short format
+ * 7. English date parsing - "Jan 15, 2024", "March 3rd", etc.
+ * 8. Common format attempt - try other commonly used date formats
  */
 export function parseDate(
   input: string,
@@ -73,7 +73,7 @@ export function parseDate(
     detailed = false,
   } = options
 
-  // 详细结果对象 - 用于返回完整的解析信息
+  // Detailed result object - used to return complete parsing information
   const detailedResult: DateInputValue = {
     input,
     date: null,
@@ -90,17 +90,17 @@ export function parseDate(
   let result: Date | null = null
 
   try {
-    // 1. 标准格式解析 - 严格按照用户指定的格式解析
+    // 1. Standard format parsing - strictly parse according to the specified format
     try {
       result = parse(trimmedInput, dateFormat, new Date(), { locale })
       if (isValid(result)) {
         return formatResult(result, dateFormat, locale, detailed, detailedResult)
       }
     } catch {
-      // 标准格式解析失败，继续尝试其他解析策略
+      // Standard format parsing failed, continue to try other parsing strategies
     }
 
-    // 1.1 智能格式修正 - 处理格式正确但日期无效的输入（如 2025-04-31）
+    // 1.1 Intelligent format correction - handle input with correct format but invalid date (e.g., 2025-04-31)
     if (enableSmartCorrection) {
       result = parseInvalidFormattedDate(trimmedInput, dateFormat, locale)
       if (result && isValid(result)) {
@@ -108,7 +108,7 @@ export function parseDate(
       }
     }
 
-    // 1.2 复合日期格式智能解析 - 处理包含星期但date-fns不支持的格式
+    // 1.2 Composite date format intelligent parsing - handle formats containing weekdays but date-fns does not support
     if (hasWeekdayInFormat(dateFormat)) {
       result = parseCompositeFormat(trimmedInput, dateFormat, locale)
       if (result && isValid(result)) {
@@ -116,7 +116,7 @@ export function parseDate(
       }
     }
 
-    // 2. 智能数字解析（核心功能，优先级最高）- 处理纯数字输入，如 20240315, 1225, 315, 25 等
+    // 2. Intelligent numeric parsing (core function, highest priority) - handle pure numeric input, e.g., 20240315, 1225, 315, 25, etc.
     if (enableSmartCorrection) {
       result = parseNumericInput(trimmedInput, dateFormat, locale)
       if (result && isValid(result)) {
@@ -124,13 +124,13 @@ export function parseDate(
       }
     }
 
-    // 3. 快捷键解析 - 处理 today, tomorrow, yesterday 等常用词
+    // 3. Shortcut parsing - handle today, tomorrow, yesterday, etc. common words
     result = handleShortcuts(trimmedInput)
     if (result && isValid(result)) {
       return formatResult(result, dateFormat, locale, detailed, detailedResult)
     }
 
-    // 4. 扩展相对日期解析 - 处理 "3 days ago", "next week", "last month" 等
+    // 4. Extended relative date parsing - handle "3 days ago", "next week", "last month", etc.
     if (enableRelativeDate) {
       result = parseExtendedRelativeDate(trimmedInput)
       if (result && isValid(result)) {
@@ -138,7 +138,7 @@ export function parseDate(
       }
     }
 
-    // 5. 自然语言解析 - 处理 "今天", "明天", "下周三" 等自然语言表达
+    // 5. Natural language parsing - handle "today", "tomorrow", "next Wednesday", etc. natural language expressions
     if (enableNaturalLanguage) {
       result = parseNaturalLanguage(trimmedInput, getLocaleKey(locale))
       if (result && isValid(result)) {
@@ -146,7 +146,7 @@ export function parseDate(
       }
     }
 
-    // 6. 相对日期解析 - 处理 "+3d", "-1w", "2m" 等简短相对格式
+    // 6. Relative date parsing - handle "+3d", "-1w", "2m", etc. short relative formats
     if (enableRelativeDate) {
       result = parseRelativeDate(trimmedInput)
       if (result && isValid(result)) {
@@ -154,13 +154,13 @@ export function parseDate(
       }
     }
 
-    // 7. 英文日期解析 - 处理 "Jan 15, 2024", "March 3rd", "15th of May" 等
+    // 7. English date parsing - handle "Jan 15, 2024", "March 3rd", "15th of May", etc.
     result = parseEnglishDate(trimmedInput)
     if (result && isValid(result)) {
       return formatResult(result, dateFormat, locale, detailed, detailedResult)
     }
 
-    // 8. 常见格式尝试 - 最后尝试其他常用的日期格式
+    // 8. Common format attempt - try other commonly used date formats
     for (const tryFormat of commonDateFormats) {
       if (tryFormat !== dateFormat) {
         try {
@@ -169,19 +169,19 @@ export function parseDate(
             return formatResult(result, dateFormat, locale, detailed, detailedResult)
           }
         } catch {
-          // 继续尝试下一个格式
+          // Continue to try the next format
         }
       }
     }
 
-    // 解析失败 - 所有策略都失效
+    // Parsing failed - all strategies failed
     if (detailed) {
       detailedResult.error = strict ? "Invalid date format" : null
       return detailedResult
     }
     return null
   } catch (error) {
-    // 捕获异常并提供错误信息
+    // Capture exception and provide error information
     if (detailed) {
       detailedResult.error = error instanceof Error ? error.message : "Parse error"
       return detailedResult
@@ -191,7 +191,7 @@ export function parseDate(
 }
 
 /**
- * 格式化解析结果 - 统一处理返回值格式
+ * Format parsing result - unified handling of return value format
  */
 function formatResult(
   date: Date,
@@ -210,24 +210,24 @@ function formatResult(
 }
 
 /**
- * 智能数字解析（原 tryRelaxedParsing 的核心逻辑）
+ * Intelligent numeric parsing (original tryRelaxedParsing core logic)
  *
- * 处理纯数字输入的智能猜测，支持多种长度和格式：
- * - 1-3位：年份补全
- * - 4位：智能判断是年份还是月日
- * - 5-8位：逐步构建完整日期
+ * Handle intelligent guess of pure numeric input, supporting multiple lengths and formats:
+ * - 1-3 digits: year completion
+ * - 4 digits: intelligent guess is year or MMDD
+ * - 5-8 digits: gradually build complete date
  *
- * 特色功能：
- * - 智能年份修正（如 25 → 2025）
- * - 无效日期修正（如 0431 → 0430）
- * - 格式适配（根据目标格式调整解析逻辑）
+ * Features:
+ * - Smart year correction (e.g., 25 → 2025)
+ * - Invalid date correction (e.g., 0431 → 0430)
+ * - Format adaptation (adjust parsing logic according to target format)
  */
 function parseNumericInput(
   input: string,
   targetFormat: DateDataFormat,
   locale: Locale,
 ): Date | null {
-  // 只处理真正的纯数字输入 - 原始输入必须完全是数字
+  // Only process true pure numeric input - original input must be completely numeric
   if (!/^\d+$/.test(input.trim())) {
     return null
   }
@@ -240,7 +240,7 @@ function parseNumericInput(
 
   let tempDisplayValue = ""
 
-  // 根据目标格式和输入长度构建日期字符串
+  // Build date string according to target format and input length
   if (targetFormat === "yyyy-MM-dd") {
     tempDisplayValue = buildYYYYMMDDFormat(
       digitOnlyInput,
@@ -258,35 +258,35 @@ function parseNumericInput(
       currentDay,
     )
   } else {
-    // 其他格式，尝试通用解析
+    // Other formats, try generic parsing
     return tryGenericNumericParsing(digitOnlyInput, digitOnlyInput.length, now)
   }
 
-  // 尝试解析构建的日期字符串
+  // Try to parse the built date string
   try {
     const parsedDate = parse(tempDisplayValue, targetFormat, new Date(), { locale })
     if (isValid(parsedDate)) {
       return parsedDate
     }
   } catch {
-    // 解析失败，返回 null
+    // Parsing failed, return null
   }
 
   return null
 }
 
 /**
- * 构建 yyyy-MM-dd 格式（修正3位数字逻辑）
+ * Build yyyy-MM-dd format (corrected 3-digit logic)
  *
- * 根据输入数字长度智能构建日期字符串：
- * 1位：用作年份个位数，如 5 → 2025-03-15
- * 2位：用作年份后两位，如 25 → 2025-03-15
- * 3位：智能判断是月日还是年份
- * 4位：智能判断是年份还是MMDD
- * 5位：年份+月份十位，如 20253 → 2025-3-15
- * 6位：年份+完整月份，如 202503 → 2025-03-15
- * 7位：年份+月份+日期十位，如 2025031 → 2025-03-1
- * 8位：完整日期，如 20250315 → 2025-03-15, 20250431 → 2025-04-30 (智能修正)
+ * Intelligent build date string according to input digit length:
+ * 1 digit: use as year last digit, e.g., 5 → 2025-03-15
+ * 2 digits: use as year last two digits, e.g., 25 → 2025-03-15
+ * 3 digits: intelligent guess is month and day or year
+ * 4 digits: intelligent guess is year or MMDD
+ * 5 digits: year + month tens, e.g., 20253 → 2025-3-15
+ * 6 digits: year + complete month, e.g., 202503 → 2025-03-15
+ * 7 digits: year + month + date tens, e.g., 2025031 → 2025-03-1
+ * 8 digits: complete date, e.g., 20250315 → 2025-03-15, 20250431 → 2025-04-30 (intelligent correction)
  */
 function buildYYYYMMDDFormat(
   digitOnlyInput: string,
@@ -296,33 +296,33 @@ function buildYYYYMMDDFormat(
   currentDay: string,
 ): string {
   if (length === 1) {
-    // 1位：用作年份个位数，如 5 → 2025-03-15
+    // 1 digit: use as year last digit, e.g., 5 → 2025-03-15
     return `${currentYear.substring(0, 3)}${digitOnlyInput}-${currentMonth}-${currentDay}`
   } else if (length === 2) {
-    // 2位：智能判断是日期还是年份
+    // 2 digits: intelligent guess is date or year
     const num = parseInt(digitOnlyInput, 10)
 
     if (num >= 1 && num <= 31) {
-      // 1-31：优先当作当月日期，如 25 → 当月25日
+      // 1-31: prioritize as current month date, e.g., 25 → current month 25th
       const month = parseInt(currentMonth, 10)
       const corrected = smartCorrectDate(parseInt(currentYear, 10), month, num)
       return `${corrected.year}-${corrected.month.toString().padStart(2, "0")}-${corrected.day.toString().padStart(2, "0")}`
     } else {
-      // 其他情况：当作年份后两位，如 99 → 2099年
+      // Other cases: treat as year last two digits, e.g., 99 → 2099
       return `${currentYear.substring(0, 2)}${digitOnlyInput}-${currentMonth}-${currentDay}`
     }
   } else if (length === 3) {
-    // 3位：智能判断是月日还是年份
+    // 3 digits: intelligent guess is month and day or year
     const result = parse3Digits(digitOnlyInput, parseInt(currentYear, 10), "yyyy-MM-dd")
     if (result) {
       return result.formatted
     }
 
-    // 降级：当作年份后三位处理
+    // Degrade: treat as year last three digits
     const year = digitOnlyInput + currentYear.substring(3, 4)
     return `${year}-${currentMonth}-${currentDay}`
   } else if (length === 4) {
-    // 4位：智能判断是年份还是MMDD
+    // 4 digits: intelligent guess is year or MMDD
     const asYear = parseInt(digitOnlyInput, 10)
     const asMonth = parseInt(digitOnlyInput.substring(0, 2), 10)
     const asDay = parseInt(digitOnlyInput.substring(2, 4), 10)
@@ -331,28 +331,28 @@ function buildYYYYMMDDFormat(
     const isValidMMDD = asMonth >= 1 && asMonth <= 12 && asDay >= 1 && asDay <= 31
 
     if (isReasonableYear && !isValidMMDD) {
-      // 当作年份处理，如 2024 → 2024年当前月日
+      // Treat as year, e.g., 2024 → 2024 current month and day
       const year = smartCorrectYear(asYear)
       return `${year}-${currentMonth}-${currentDay}`
     } else if (isValidMMDD) {
-      // 当作MMDD处理，如 1212 → 当年12月12日
+      // Treat as MMDD, e.g., 1212 → current year 12 month 12th
       return `${currentYear}-${asMonth.toString().padStart(2, "0")}-${asDay.toString().padStart(2, "0")}`
     } else {
-      // 既不是合理年份也不是有效MMDD，尝试智能修正
+      // Neither reasonable year nor valid MMDD, try intelligent correction
       const year = smartCorrectYear(asYear)
       return `${year}-${currentMonth}-${currentDay}`
     }
   } else if (length === 5) {
-    // 5位：年份+月份十位，如 20253 → 2025-3-15
+    // 5 digits: year + month tens, e.g., 20253 → 2025-3-15
     const year = smartCorrectYear(parseInt(digitOnlyInput.substring(0, 4), 10))
     const monthTens = digitOnlyInput.substring(4, 5)
     return `${year}-${monthTens}-${currentDay}`
   } else if (length === 6) {
-    // 6位数字：智能判断是 YYMMDD 格式
+    // 6 digits: intelligent guess is YYMMDD format
     const result = parseYYMMDD(digitOnlyInput, "yyyy-MM-dd")
     return (
       result?.formatted ||
-      // 降级到智能修正，强制使用 YYMMDD 格式
+      // Degrade to intelligent correction, force using YYMMDD format
       (() => {
         const yymmddYear = parseInt(digitOnlyInput.substring(0, 2), 10)
         const yymmddMonth = parseInt(digitOnlyInput.substring(2, 4), 10)
@@ -363,18 +363,18 @@ function buildYYYYMMDDFormat(
       })()
     )
   } else if (length === 7) {
-    // 7位：年份+月份+日期十位，如 2025031 → 2025-03-1
+    // 7 digits: year + month + date tens, e.g., 2025031 → 2025-03-1
     const year = smartCorrectYear(parseInt(digitOnlyInput.substring(0, 4), 10))
     const month = parseInt(digitOnlyInput.substring(4, 6), 10)
     const dayTens = digitOnlyInput.substring(6, 7)
     const validMonth = month >= 1 && month <= 12 ? month.toString().padStart(2, "0") : currentMonth
     return `${year}-${validMonth}-${dayTens}`
   } else if (length === 8) {
-    // 8位数字：YYYYMMDD 格式
+    // 8 digits: YYYYMMDD format
     const result = parseYYYYMMDD(digitOnlyInput, "yyyy-MM-dd")
     return (
       result?.formatted ||
-      // 降级到智能修正
+      // Degrade to intelligent correction
       (() => {
         const year = parseInt(digitOnlyInput.substring(0, 4), 10)
         const month = parseInt(digitOnlyInput.substring(4, 6), 10)
@@ -384,7 +384,7 @@ function buildYYYYMMDDFormat(
       })()
     )
   } else {
-    // 超过8位，截取前8位处理
+    // More than 8 digits, process first 8 digits
     return buildYYYYMMDDFormat(
       digitOnlyInput.substring(0, 8),
       8,

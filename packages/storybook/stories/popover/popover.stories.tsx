@@ -240,7 +240,7 @@ export const Controlled: Story = {
 }
 
 /**
- * ControlledFixed: Demonstrates a controlled popover with fixed position.
+ * [TEST] ControlledFixed: Demonstrates a controlled popover with fixed position.
  *
  * Features:
  * - Fixed position

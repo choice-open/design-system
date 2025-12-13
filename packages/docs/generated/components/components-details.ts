@@ -15,9 +15,9 @@ import ComponentDetail11 from "./date-and-time-time-input.json"
 import ComponentDetail12 from "./date-and-time-time-range-input.json"
 import ComponentDetail13 from "./date-and-time-year-calendar.json"
 import ComponentDetail14 from "./forms-checkbox.json"
-import ComponentDetail15 from "./feedback-chip.json"
+import ComponentDetail15 from "./buttons-chip.json"
 import ComponentDetail16 from "./forms-chips-input.json"
-import ComponentDetail17 from "./components-code-block.json"
+import ComponentDetail17 from "./data-display-code-block.json"
 import ComponentDetail18 from "./collections-combobox.json"
 import ComponentDetail19 from "./collections-command.json"
 import ComponentDetail20 from "./components-comments-comment-input.json"
@@ -40,7 +40,7 @@ import ComponentDetail36 from "./buttons-link-button.json"
 import ComponentDetail37 from "./collections-list.json"
 import ComponentDetail38 from "./layouts-loader.json"
 import ComponentDetail39 from "./forms-md-input.json"
-import ComponentDetail40 from "./components-md-render.json"
+import ComponentDetail40 from "./data-display-md-render.json"
 import ComponentDetail41 from "./collections-menubar.json"
 import ComponentDetail42 from "./collections-menus.json"
 import ComponentDetail43 from "./overlays-modal.json"
@@ -98,9 +98,9 @@ export const componentsDetails = {
   "date-and-time/time-range-input": ComponentDetail12 as ComponentDetail,
   "date-and-time/year-calendar": ComponentDetail13 as ComponentDetail,
   "forms/checkbox": ComponentDetail14 as ComponentDetail,
-  "feedback/chip": ComponentDetail15 as ComponentDetail,
+  "buttons/chip": ComponentDetail15 as ComponentDetail,
   "forms/chips-input": ComponentDetail16 as ComponentDetail,
-  "components/code-block": ComponentDetail17 as ComponentDetail,
+  "data-display/code-block": ComponentDetail17 as ComponentDetail,
   "collections/combobox": ComponentDetail18 as ComponentDetail,
   "collections/command": ComponentDetail19 as ComponentDetail,
   "components/comments/comment-input": ComponentDetail20 as ComponentDetail,
@@ -123,7 +123,7 @@ export const componentsDetails = {
   "collections/list": ComponentDetail37 as ComponentDetail,
   "layouts/loader": ComponentDetail38 as ComponentDetail,
   "forms/md-input": ComponentDetail39 as ComponentDetail,
-  "components/md-render": ComponentDetail40 as ComponentDetail,
+  "data-display/md-render": ComponentDetail40 as ComponentDetail,
   "collections/menubar": ComponentDetail41 as ComponentDetail,
   "collections/menus": ComponentDetail42 as ComponentDetail,
   "overlays/modal": ComponentDetail43 as ComponentDetail,

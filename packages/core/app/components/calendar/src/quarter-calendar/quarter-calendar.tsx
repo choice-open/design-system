@@ -38,7 +38,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     defaultValue,
   } = props
 
-  // 创建 onChange 适配器来处理类型兼容性
+  // Create onChange adapter to handle type compatibility
   const handleQuarterChange = useCallback(
     (quarter: Quarter | null | undefined) => {
       onChange?.(quarter ?? null)
@@ -46,14 +46,14 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     [onChange],
   )
 
-  // 使用简化的状态管理
+  // Use simplified state management
   const [selectedQuarter, setSelectedQuarter] = useMergedValue<Quarter | null | undefined>({
     value,
     defaultValue,
     onChange: handleQuarterChange,
   })
 
-  // 解析和验证输入参数
+  // Parse and validate input parameters
   const safeLocale = resolveLocale(locale)
 
   const currentYearNum = useMemo(() => {
@@ -70,7 +70,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     [minYear, maxYear, disabledQuarters],
   )
 
-  // 内部状态：显示的年份
+  // Internal state: displayed year
   const [internalYear, setInternalYear] = useState<number>(() => {
     const propStart = quarterUtils.extractYear(propStartYear)
     return propStart ?? currentYearNum
@@ -78,19 +78,19 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
 
   const displayYear = quarterUtils.extractYear(propStartYear) ?? internalYear
 
-  // 获取真实的当前季度（用于高亮今天所在的季度）
+  // Get the actual current quarter (for highlighting the current quarter)
   const actualCurrentQuarter = useMemo(() => {
-    // 不传年份参数，使用真实的当前日期
+    // No year parameter, use the actual current date
     return getCurrentQuarter(undefined, safeLocale)
   }, [safeLocale])
 
-  // 生成季度数据
+  // Generate quarter data
   const quarters = useMemo((): QuarterItem[] => {
     const yearQuarters = getYearQuarters(displayYear, safeLocale)
 
     return yearQuarters.map((quarter) => {
       const isSelected = selectedQuarter ? isQuarterEqual(selectedQuarter, quarter) : false
-      // 只有当季度的年份和当前真实年份相同时，才可能是当前季度
+      // Only when the year of the quarter and the actual current year are the same, it may be the current quarter
       const isCurrent = isQuarterEqual(actualCurrentQuarter, quarter)
       const isInRange = quarterUtils.isYearInRange(
         quarter.year,
@@ -114,7 +114,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     })
   }, [displayYear, safeLocale, selectedQuarter, actualCurrentQuarter, disabled, yearConstraints])
 
-  // 事件处理器
+  // Event handler
   const handleQuarterSelect = useEventCallback((quarter: Quarter) => {
     if (disabled || readOnly) return
 
@@ -131,7 +131,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
       const offset = direction === "prev" ? -1 : 1
       const newYear = displayYear + offset
 
-      // 边界检查
+      // Boundary check
       if (direction === "prev" && yearConstraints.min !== undefined) {
         if (newYear < yearConstraints.min) return
       }
@@ -141,7 +141,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
 
       onNavigate?.(direction, newYear)
 
-      // 如果没有外部控制，更新内部状态
+      // If there is no external control, update the internal state
       if (propStartYear === undefined) {
         setInternalYear(newYear)
       }
@@ -160,7 +160,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     setSelectedQuarter(todayQuarter)
   })
 
-  // 导航按钮状态
+  // Navigation button state
   const navigationState = useMemo(() => {
     if (disabled) return { isPrevDisabled: true, isNextDisabled: true }
 
@@ -170,7 +170,7 @@ export const QuarterCalendar = forwardRef<HTMLDivElement, QuarterCalendarProps>(
     return { isPrevDisabled, isNextDisabled }
   }, [disabled, yearConstraints, displayYear])
 
-  // 显示信息
+  // Display information
   const displayInfo = useMemo(() => {
     const todayYear = quarterUtils.getCurrentYear()
     const currentYearContainsToday = displayYear === todayYear

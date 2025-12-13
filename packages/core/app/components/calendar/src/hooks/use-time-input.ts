@@ -40,13 +40,13 @@ export function useTimeInput(props: UseTimeInputProps) {
     ref,
   } = props
 
-  // 解析 locale
+  // Parse locale
   const locale = resolveLocale(propLocale)
 
   const innerRef = useRef<HTMLInputElement>(null)
   const [inputValue, setInputValue] = useState("")
 
-  // 🎯 高级数据流方向检测
+  // 🎯 Advanced data flow direction detection
   const dataFlowRef = useRef<{
     direction: "external" | "internal" | "idle"
     handledByEnter: boolean
@@ -59,21 +59,21 @@ export function useTimeInput(props: UseTimeInputProps) {
     handledByEnter: false,
   })
 
-  // 修饰键状态
+  // Modifier key state
   const { shiftPressed, metaPressed } = useModifierKeys(disabled)
 
-  // 计算当前步长
+  // Calculate current step
   const getCurrentStep = useCallback(() => {
     if (metaPressed) {
-      return metaStep // Ctrl/Cmd: 1小时 = 60分钟
+      return metaStep // Ctrl/Cmd: 1 hour = 60 minutes
     }
     if (shiftPressed) {
-      return shiftStep // Shift: 15分钟
+      return shiftStep // Shift: 15 minutes
     }
-    return step // 默认: 1分钟
+    return step // Default: 1 minute
   }, [metaPressed, shiftPressed, step, metaStep, shiftStep])
 
-  // 使用 useMergedValue 管理内外状态
+  // Use useMergedValue to manage inner and outer states
   const [innerValue, setValue] = useMergedValue({
     value,
     defaultValue,
@@ -81,7 +81,7 @@ export function useTimeInput(props: UseTimeInputProps) {
     allowEmpty: true,
   })
 
-  // 检查时间是否在范围内
+  // Check if the time is in range
   const isTimeInRange = useCallback(
     (time: Date): boolean => {
       if (!time) return false
@@ -92,7 +92,7 @@ export function useTimeInput(props: UseTimeInputProps) {
     [minTime, maxTime],
   )
 
-  // 🎯 将时间调整到允许范围内
+  // 🎯 Clamp the time to the allowed range
   const clampTimeToRange = useCallback(
     (time: Date): Date | null => {
       if (!time) return null
@@ -103,21 +103,21 @@ export function useTimeInput(props: UseTimeInputProps) {
     [minTime, maxTime],
   )
 
-  // 从外部 value 同步到内部 input（外部 → 内部）
+  // Sync external value to internal input (external → internal)
   useEffect(() => {
     const flow = dataFlowRef.current
 
-    // 检测是否为外部数据变化
+    // Check if it is an external data change (handle undefined)
     const normalizedValue = innerValue ?? null
     const isExternalChange = normalizedValue !== flow.lastExternalValue
 
     if (isExternalChange) {
-      // 🔄 外部数据流：暂停内部解析，同步显示
+      // 🔄 External data flow: pause internal parsing, synchronize display
       flow.direction = "external"
       flow.lastExternalValue = normalizedValue
 
       if (normalizedValue) {
-        // 格式化显示
+        // Format display
         const formatted = format(normalizedValue, timeFormat, { locale })
         setInputValue(formatted)
         flow.lastInternalInput = formatted
@@ -126,24 +126,24 @@ export function useTimeInput(props: UseTimeInputProps) {
         flow.lastInternalInput = ""
       }
 
-      // 短暂延迟后恢复内部处理
+      // Short delay to resume internal processing
       setTimeout(() => {
         flow.direction = "idle"
       }, 50)
     }
   }, [innerValue, timeFormat, locale])
 
-  // 🔧 专门处理 locale/format 变化的 useEffect
+  // 🔧 UseEffect specifically for locale/format changes
   useEffect(() => {
-    // 如果当前有值且不在外部数据流状态，重新格式化
+    // If there is a value and not in external data flow state, reformat
     if (innerValue && dataFlowRef.current.direction !== "external") {
       const formatted = format(innerValue, timeFormat, { locale })
       setInputValue(formatted)
       dataFlowRef.current.lastInternalInput = formatted
     }
-  }, [timeFormat, locale, innerValue]) // 添加 innerValue 依赖
+  }, [timeFormat, locale, innerValue]) // Add innerValue dependency
 
-  // 更新时间值的函数
+  // Function to update the time value
   const updateValue = useCallback(
     (updateFn?: (currentTime: Date) => Date) => {
       if (disabled || readOnly) return
@@ -151,14 +151,14 @@ export function useTimeInput(props: UseTimeInputProps) {
       setValue((prev) => {
         let baseTime = prev
 
-        // 如果没有当前值，智能选择基准时间
+        // If there is no current value, smartly select the base time
         if (!baseTime) {
           if (minTime && maxTime) {
-            // 如果有最小和最大时间限制，使用中间值作为基准
+            // If there is a minimum and maximum time limit, use the middle value as the base
             const minTotalMinutes = minTime.getHours() * 60 + minTime.getMinutes()
             let maxTotalMinutes = maxTime.getHours() * 60 + maxTime.getMinutes()
 
-            // 处理跨日情况
+            // Handle cross-day cases
             if (maxTotalMinutes < minTotalMinutes) {
               maxTotalMinutes += 24 * 60
             }
@@ -168,23 +168,23 @@ export function useTimeInput(props: UseTimeInputProps) {
             const minutes = midTotalMinutes % 60
             baseTime = setMinutes(setHours(startOfDay(new Date()), hours), minutes)
           } else if (minTime) {
-            // 只有最小时间限制，使用最小时间作为基准
+            // Only minimum time limit, use minimum time as base
             baseTime = minTime
           } else if (maxTime) {
-            // 只有最大时间限制，使用最大时间往前1小时作为基准（给拖拽留空间）
+            // Only maximum time limit, use maximum time 1 hour ago as base (leave space for dragging)
             baseTime = addMinutes(maxTime, -60)
           } else {
-            // 没有时间限制，使用当前时间
+            // No time limit, use current time
             baseTime = new Date()
           }
         }
 
-        // 如果提供了更新函数，应用它
+        // If an update function is provided, apply it
         const newTime = updateFn ? updateFn(baseTime) : baseTime
 
-        // 检查范围限制
+        // Check range limit
         if (!isTimeInRange(newTime)) {
-          return prev // 保持原值
+          return prev // Keep the original value
         }
 
         return newTime
@@ -193,22 +193,22 @@ export function useTimeInput(props: UseTimeInputProps) {
     [disabled, readOnly, setValue, isTimeInRange, minTime, maxTime],
   )
 
-  // 🚀 优化：使用 useEventCallback 的解析函数
+  // 🚀 Optimization: useEventCallback parser function
   const parseWithOptimization = useEventCallback((text: string): Date | null => {
     const startTime = enableProfiling ? Date.now() : 0
 
-    // 使用智能时间解析
+    // Use smart time parsing
     const result = smartParseTimeValue(text, {
       format: timeFormat,
       locale: propLocale,
       strict: false,
     })
 
-    // 性能分析
+    // Performance analysis
     if (enableProfiling) {
       const parseTime = Date.now() - startTime
       if (parseTime > 100) {
-        // 时间解析应该比日期解析更快
+        // Time parsing should be faster than date parsing
         console.warn(`Slow time parse detected: ${parseTime}ms for "${text}"`)
       }
     }
@@ -216,16 +216,16 @@ export function useTimeInput(props: UseTimeInputProps) {
     return result.isValid && result.time ? result.time : null
   })
 
-  // 🚀 优化：使用 useEventCallback 处理用户输入变化
+  // 🚀 Optimization: useEventCallback to handle user input changes
   const handleInputChange = useEventCallback((newValue: string) => {
     const flow = dataFlowRef.current
 
-    // 如果正在处理外部数据流，忽略内部变化
+    // If processing an external data flow, ignore internal changes
     if (flow.direction === "external") {
       return
     }
 
-    // 🔄 内部数据流：记录输入变化
+    // 🔄 Internal data flow: record input changes
     flow.direction = "internal"
     flow.lastInternalInput = newValue
     setInputValue(newValue)
@@ -234,7 +234,7 @@ export function useTimeInput(props: UseTimeInputProps) {
   const handleSubmit = useEventCallback(() => {
     const flow = dataFlowRef.current
 
-    // 🚫 数据流保护：外部数据流期间不处理内部提交
+    // 🚫 Data flow protection: do not process internal submissions during external data flow
     if (flow.direction === "external") {
       return
     }
@@ -246,43 +246,43 @@ export function useTimeInput(props: UseTimeInputProps) {
       return
     }
 
-    // 检查是否为重复输入
+    // Check if it is a repeated input (only for onChange optimization, does not affect onTimeSubmit)
     const isRepeatInput = text === flow.lastInternalInput && flow.direction !== "internal"
 
     try {
       const parsedTime = parseWithOptimization(text)
 
       if (parsedTime) {
-        // 🎯 检查时间范围约束
+        // 🎯 Check time range constraint
         let finalTime = parsedTime
         if (!isTimeInRange(parsedTime)) {
-          // 如果时间不在范围内，尝试调整到范围内
+          // If the time is not in range, try to adjust to the range
           const clampedTime = clampTimeToRange(parsedTime)
           if (!clampedTime) {
-            // 如果无法调整，保持原始输入但不更新值
+            // If it cannot be adjusted, keep the original input but do not update the value
             return
           }
-          // 使用调整后的时间
+          // Use the adjusted time
           finalTime = clampedTime
         }
 
-        // 智能去重：避免设置相同的时间
+        // Smart deduplication: avoid setting the same time
         const currentValue = flow.lastExternalValue
         const isSameTime = currentValue && finalTime.getTime() === currentValue.getTime()
 
-        // 只有在非重复输入且时间不同时才调用 setValue
+        // Only call setValue if the input is not repeated and the time is different
         if (!isRepeatInput && !isSameTime) {
-          // 🔄 内部 → 外部：触发更新
+          // 🔄 Internal → External: trigger update
           setValue(finalTime)
         }
 
-        // 格式化显示
+        // Format display
         const formatted = format(finalTime, timeFormat, { locale })
         if (formatted !== text) {
           setInputValue(formatted)
           flow.lastInternalInput = formatted
         } else if (!isRepeatInput) {
-          // 更新内部输入记录，即使格式化结果相同
+          // Update internal input record, even if the formatted result is the same
           flow.lastInternalInput = text
         }
       }
@@ -290,11 +290,11 @@ export function useTimeInput(props: UseTimeInputProps) {
       console.warn("Time parsing error:", error)
     }
 
-    // 处理完成，重置为空闲状态
+    // Processing complete, reset to idle state
     flow.direction = "idle"
   })
 
-  // 拖拽交互处理
+  // Drag interaction processing
   const { isPressed: handlerPressed, pressMoveProps } = usePressMove({
     disabled: disabled || readOnly,
     onPressStart: (e) => {
@@ -304,33 +304,33 @@ export function useTimeInput(props: UseTimeInputProps) {
       onPressEnd?.(e as PointerEvent)
     },
     onPressMoveLeft: (delta) => {
-      // 左拖：减少时间
+      // Left drag: reduce time
       updateValue((currentTime) => {
         return addMinutes(currentTime, -delta * getCurrentStep())
       })
     },
     onPressMoveRight: (delta) => {
-      // 右拖：增加时间
+      // Right drag: increase time
       updateValue((currentTime) => {
         return addMinutes(currentTime, delta * getCurrentStep())
       })
     },
   })
 
-  // 🚀 优化：使用 useEventCallback 处理键盘事件
+  // 🚀 Optimization: useEventCallback to handle keyboard events
   const handleKeyDown = useEventCallback((event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       event.preventDefault()
 
-      // 标记已被 Enter 处理
+      // Marked as handled by Enter
       dataFlowRef.current.handledByEnter = true
 
       handleSubmit()
 
-      // 🎯 触发回车键回调（用于控制popover关闭等）
+      // 🎯 Trigger enter key callback (for controlling popover close, etc.)
       onEnterKeyDown?.()
 
-      // 延迟失焦，避免与 useEffect 竞态
+      // Delay blur, avoid race condition with useEffect
       setTimeout(() => {
         const target = event.target as HTMLInputElement
         target.blur()
@@ -340,87 +340,87 @@ export function useTimeInput(props: UseTimeInputProps) {
 
       const flow = dataFlowRef.current
 
-      // 🎯 智能基准时间选择
+      // 🎯 Smart base time selection
       let baseTime: Date
 
       if (innerValue) {
-        // 优先使用当前有效的 innerValue
+        // Use the current valid innerValue first
         baseTime = innerValue
       } else if (inputValue.trim()) {
-        // 尝试解析当前输入
+        // Try to parse the current input
         const parsed = parseWithOptimization(inputValue.trim())
         baseTime = parsed || new Date()
       } else {
-        // 使用当前时间作为默认基准
+        // Use current time as default base
         baseTime = new Date()
       }
 
-      // 🔄 计算增量和新时间
+      // 🔄 Calculate the increment and new time
       const isUp = event.key === "ArrowUp"
-      const increment = isUp ? -1 : 1 // 上键减少时间（向列表上方），下键增加时间（向列表下方）
+      const increment = isUp ? -1 : 1 // Up key reduces time (up list), down key increases time (down list)
 
       let newDate: Date
 
       if (event.altKey || event.metaKey) {
-        // Alt/Meta + 上下键：使用 metaStep（默认60分钟）
+        // Alt/Meta + up/down keys: use metaStep (default 60 minutes)
         newDate = addMinutes(baseTime, increment * metaStep)
       } else if (event.shiftKey) {
-        // Shift + 上下键：使用 shiftStep（可配置，默认15分钟）
+        // Shift + up/down keys: use shiftStep (configurable, default 15 minutes)
         newDate = addMinutes(baseTime, increment * shiftStep)
       } else {
-        // 上下键：使用 step（可配置，默认1分钟）
+        // up/down keys: use step (configurable, default 1 minute)
         newDate = addMinutes(baseTime, increment * step)
       }
 
-      // 🎯 检查时间范围约束
+      // 🎯 Check time range constraint
       if (!isTimeInRange(newDate)) {
-        // 如果新时间超出范围，尝试调整到边界
+        // If the new time is out of range, try to adjust to the boundary
         const clampedTime = clampTimeToRange(newDate)
         if (!clampedTime || clampedTime.getTime() === baseTime.getTime()) {
-          // 如果无法调整或调整后与当前时间相同，忽略该操作
+          // If it cannot be adjusted or adjusted to the same time as the current time, ignore the operation
           return
         }
         newDate = clampedTime
       }
 
-      // 🔄 更新状态和显示
+      // 🔄 Update the state and display
       const formatted = format(newDate, timeFormat, { locale })
 
-      // 标记为内部数据流
+      // Marked as internal data flow
       flow.direction = "internal"
       flow.lastInternalInput = formatted
 
-      // 更新显示
+      // Update display
       setInputValue(formatted)
 
-      // 触发外部更新
+      // Trigger external update
       setValue(newDate)
 
-      // 完成后重置状态
+      // After completion, reset the state
       setTimeout(() => {
         flow.direction = "idle"
       }, 0)
     }
   })
 
-  // 🚀 优化：使用 useEventCallback 处理失焦
+  // 🚀 Optimization: useEventCallback to handle blur
   const handleBlur = useEventCallback(() => {
     const flow = dataFlowRef.current
 
-    // 如果是 Enter 键触发的失焦，不重复处理
+    // If the blur is triggered by the Enter key, do not repeat processing
     if (flow.handledByEnter) {
       flow.handledByEnter = false
       return
     }
 
-    // 外部数据流期间不处理失焦
+    // Do not process blur during external data flow
     if (flow.direction === "external") {
       return
     }
 
-    // 智能延迟：给外部组件足够时间完成操作
+    // Smart delay: give the external component enough time to complete the operation
     setTimeout(() => {
-      // 二次检查：确保不是在外部数据流期间
+      // Secondary check: ensure it is not during an external data flow
       if (dataFlowRef.current.direction !== "external") {
         handleSubmit()
       }

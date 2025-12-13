@@ -41,13 +41,13 @@ export function useDateInput(props: UseDateInputProps) {
     ref,
   } = props
 
-  // 🔧 使用公用的 locale 解析
+  // 🔧 Use common locale to parse
   const locale = resolveLocale(propLocale)
 
   const innerRef = useRef<HTMLInputElement>(null)
   const [inputValue, setInputValue] = useState("")
 
-  // 🎯 高级数据流方向检测
+  // 🎯 Advanced data flow direction detection
   const dataFlowRef = useRef<{
     direction: "external" | "internal" | "idle"
     handledByEnter: boolean
@@ -60,21 +60,21 @@ export function useDateInput(props: UseDateInputProps) {
     handledByEnter: false,
   })
 
-  // 修饰键状态
+  // Modifier key state
   const { shiftPressed, metaPressed } = useModifierKeys(disabled)
 
-  // 计算当前步长
+  // Calculate current step
   const getCurrentStep = useCallback(() => {
     if (metaPressed) {
-      return metaStep // Ctrl/Cmd: 1个月 ≈ 30天
+      return metaStep // Ctrl/Cmd: 1 month ≈ 30 days
     }
     if (shiftPressed) {
-      return shiftStep // Shift: 7天
+      return shiftStep // Shift: 7 days
     }
-    return step // 默认: 1天
+    return step // Default: 1 day
   }, [metaPressed, shiftPressed, step, metaStep, shiftStep])
 
-  // 使用 useMergedValue 管理内外状态
+  // Use useMergedValue to manage inner and outer states
   const [innerValue, setValue] = useMergedValue({
     value,
     defaultValue,
@@ -82,7 +82,7 @@ export function useDateInput(props: UseDateInputProps) {
     allowEmpty: true,
   })
 
-  // 检查日期是否在范围内
+  // Check if the date is in range
   const isDateInRange = useCallback(
     (date: Date): boolean => {
       if (!isValid(date)) return false
@@ -93,7 +93,7 @@ export function useDateInput(props: UseDateInputProps) {
     [minDate, maxDate],
   )
 
-  // 🎯 将日期调整到允许范围内
+  // 🎯 Clamp the date to the allowed range
   const clampDateToRange = useCallback(
     (date: Date): Date | null => {
       if (!isValid(date)) return null
@@ -104,16 +104,16 @@ export function useDateInput(props: UseDateInputProps) {
     [minDate, maxDate],
   )
 
-  // 从外部 value 同步到内部 input（外部 → 内部）
+  // Sync external value to internal input (external → internal)
   useEffect(() => {
     const flow = dataFlowRef.current
 
-    // 检测是否为外部数据变化（处理 undefined）
+    // Check if it is an external data change (handle undefined)
     const normalizedValue = innerValue ?? null
     const isExternalChange = normalizedValue !== flow.lastExternalValue
 
     if (isExternalChange) {
-      // 🔄 外部数据流：暂停内部解析，同步显示
+      // 🔄 External data flow: pause internal parsing, synchronize display
       flow.direction = "external"
       flow.lastExternalValue = normalizedValue
 
@@ -124,13 +124,13 @@ export function useDateInput(props: UseDateInputProps) {
           flow.lastInternalInput = formatted
         } catch (error) {
           console.warn("Date formatting error:", error)
-          // 降级使用默认格式
+          // Fallback to default format
           try {
             const formatted = format(normalizedValue, "yyyy-MM-dd", { locale })
             setInputValue(formatted)
             flow.lastInternalInput = formatted
           } catch {
-            // 最后降级：不格式化，直接显示 ISO 字符串
+            // Last fallback: don't format, just display ISO string
             const isoString = normalizedValue.toISOString().split("T")[0]
             setInputValue(isoString)
             flow.lastInternalInput = isoString
@@ -141,16 +141,16 @@ export function useDateInput(props: UseDateInputProps) {
         flow.lastInternalInput = ""
       }
 
-      // 短暂延迟后恢复内部处理
+      // Restore internal processing after a short delay
       setTimeout(() => {
         flow.direction = "idle"
       }, 50)
     }
   }, [innerValue, dateFormat, locale])
 
-  // 🔧 专门处理 locale/format 变化的 useEffect
+  // 🔧 Special useEffect for locale/format changes
   useEffect(() => {
-    // 如果当前有值且不在外部数据流状态，重新格式化
+    // If there is a value and it is not in the external data flow state, re-format
     if (innerValue && isValid(innerValue) && dataFlowRef.current.direction !== "external") {
       try {
         const formatted = format(innerValue, dateFormat || "yyyy-MM-dd", { locale })
@@ -158,22 +158,22 @@ export function useDateInput(props: UseDateInputProps) {
         dataFlowRef.current.lastInternalInput = formatted
       } catch (error) {
         console.warn("Date formatting error:", error)
-        // 降级使用默认格式
+        // Fallback to default format
         try {
           const formatted = format(innerValue, "yyyy-MM-dd", { locale })
           setInputValue(formatted)
           dataFlowRef.current.lastInternalInput = formatted
         } catch {
-          // 最后降级：显示 ISO 字符串
+          // Last fallback: display ISO string
           const isoString = innerValue.toISOString().split("T")[0]
           setInputValue(isoString)
           dataFlowRef.current.lastInternalInput = isoString
         }
       }
     }
-  }, [dateFormat, locale]) // 只依赖 dateFormat 和 locale
+  }, [dateFormat, locale]) // Only depend on dateFormat and locale
 
-  // 更新日期值的函数 - 参考 numeric-input 的模式
+  // Function to update the date value - reference numeric-input pattern
   const updateValue = useCallback(
     (updateFn?: (currentDate: Date) => Date) => {
       if (disabled || readOnly) return
@@ -181,37 +181,37 @@ export function useDateInput(props: UseDateInputProps) {
       setValue((prev) => {
         let baseDate = prev
 
-        // 如果没有当前值，智能选择基准日期
+        // If there is no current value, smartly select a base date
         if (!baseDate || !isValid(baseDate)) {
           if (minDate && maxDate) {
-            // 如果有最小和最大日期限制，使用中间值作为基准
+            // If there is a minimum and maximum date limit, use the middle value as the base
             const minTime = minDate.getTime()
             const maxTime = maxDate.getTime()
             const midTime = Math.floor((minTime + maxTime) / 2)
             baseDate = new Date(midTime)
           } else if (minDate) {
-            // 只有最小日期限制，使用最小日期作为基准
+            // Only minimum date limit, use the minimum date as the base
             baseDate = minDate
           } else if (maxDate) {
-            // 只有最大日期限制，使用最大日期往前1天作为基准（给拖拽留空间）
+            // Only maximum date limit, use the maximum date 1 day ago as the base
             baseDate = addDays(maxDate, -1)
           } else {
-            // 没有日期限制，使用今天
+            // No date limit, use today
             baseDate = new Date()
           }
         }
 
-        // 如果提供了更新函数，应用它
+        // If an update function is provided, apply it
         const newDate = updateFn ? updateFn(baseDate) : baseDate
 
-        // 检查范围限制
+        // Check range limit
         if (!isDateInRange(newDate)) {
-          return prev // 保持原值
+          return prev // Keep the original value
         }
 
-        // 确保新日期有效
+        // Ensure the new date is valid
         if (!isValid(newDate)) {
-          return prev // 保持原值
+          return prev // Keep the original value
         }
 
         return newDate
@@ -220,11 +220,11 @@ export function useDateInput(props: UseDateInputProps) {
     [disabled, readOnly, setValue, isDateInRange, minDate, maxDate],
   )
 
-  // 🚀 优化：使用 useEventCallback 的解析函数
+  // 🚀 Optimization: useEventCallback parser function
   const parseWithOptimization = useEventCallback((text: string): Date | null => {
     const startTime = enableProfiling ? Date.now() : 0
 
-    // 检查缓存
+    // Check cache
     if (enableCache && parserConfig.cache.enabled) {
       const cacheKey = `${text}-${dateFormat || "yyyy-MM-dd"}-${locale.code || "unknown"}`
       const cached = parseCache.get(cacheKey)
@@ -233,7 +233,7 @@ export function useDateInput(props: UseDateInputProps) {
       }
     }
 
-    // 使用新的统一解析器
+    // Use the new unified parser
     const result = parseDate(text, {
       format: dateFormat || "yyyy-MM-dd",
       locale,
@@ -242,13 +242,13 @@ export function useDateInput(props: UseDateInputProps) {
       enableRelativeDate: true,
     })
 
-    // 缓存结果
+    // Cache the result
     if (enableCache && parserConfig.cache.enabled) {
       const cacheKey = `${text}-${dateFormat || "yyyy-MM-dd"}-${locale.code || "unknown"}`
       parseCache.set(cacheKey, result)
     }
 
-    // 性能分析
+    // Performance analysis
     if (enableProfiling) {
       const parseTime = Date.now() - startTime
       if (parseTime > parserConfig.performance.maxParseTime) {
@@ -259,7 +259,7 @@ export function useDateInput(props: UseDateInputProps) {
     return result
   })
 
-  // 确保日期有效的辅助函数
+  // Helper function to ensure the date is valid
   const ensureValidDate = useCallback((date: Date): Date => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
@@ -278,16 +278,16 @@ export function useDateInput(props: UseDateInputProps) {
     return new Date(corrected.year, corrected.month - 1, corrected.day)
   }, [])
 
-  // 🚀 优化：使用 useEventCallback 处理用户输入变化
+  // 🚀 Optimization: useEventCallback to handle user input changes
   const handleInputChange = useEventCallback((newValue: string) => {
     const flow = dataFlowRef.current
 
-    // 如果正在处理外部数据流，忽略内部变化
+    // If processing an external data flow, ignore internal changes
     if (flow.direction === "external") {
       return
     }
 
-    // 🔄 内部数据流：记录输入变化
+    // 🔄 Internal data flow: record input changes
     flow.direction = "internal"
     flow.lastInternalInput = newValue
     setInputValue(newValue)
@@ -296,7 +296,7 @@ export function useDateInput(props: UseDateInputProps) {
   const handleSubmit = useEventCallback(() => {
     const flow = dataFlowRef.current
 
-    // 🚫 数据流保护：外部数据流期间不处理内部提交
+    // 🚫 Data flow protection: do not process internal submissions during external data flow
     if (flow.direction === "external") {
       return
     }
@@ -308,30 +308,30 @@ export function useDateInput(props: UseDateInputProps) {
       return
     }
 
-    // 检查是否为重复输入（仅用于 onChange 优化，不影响 onDateSubmit）
+    // Check if it is a repeated input (only for onChange optimization, does not affect onDateSubmit)
     const isRepeatInput = text === flow.lastInternalInput && flow.direction !== "internal"
 
     try {
       const parsedDate = parseWithOptimization(text)
 
       if (parsedDate && isValid(parsedDate)) {
-        // 最终验证：确保日期有效
+        // Final validation: ensure the date is valid
         const validDate = ensureValidDate(parsedDate)
 
-        // 🎯 检查日期范围约束
+        // 🎯 Check date range constraint
         let finalDate = validDate
         if (!isDateInRange(validDate)) {
-          // 如果日期不在范围内，尝试调整到范围内
+          // If the date is not in range, try to adjust to the range
           const clampedDate = clampDateToRange(validDate)
           if (!clampedDate) {
-            // 如果无法调整，保持原始输入但不更新值
+            // If it cannot be adjusted, keep the original input but do not update the value
             return
           }
-          // 使用调整后的日期
+          // Use the adjusted date
           finalDate = clampedDate
         }
 
-        // 智能去重：避免设置相同的日期（仅影响 onChange）
+        // Smart deduplication: avoid setting the same date (only affects onChange)
         const currentValue = flow.lastExternalValue
         const isSameDate =
           currentValue &&
@@ -339,31 +339,31 @@ export function useDateInput(props: UseDateInputProps) {
           finalDate.getMonth() === currentValue.getMonth() &&
           finalDate.getDate() === currentValue.getDate()
 
-        // 只有在非重复输入且日期不同时才调用 setValue
+        // Only call setValue if the input is not repeated and the date is different
         if (!isRepeatInput && !isSameDate) {
-          // 🔄 内部 → 外部：触发更新
+          // 🔄 Internal → External: trigger update
           setValue(finalDate)
         }
 
-        // 格式化显示
+        // Format display
         try {
           const formatted = format(finalDate, dateFormat || "yyyy-MM-dd", { locale })
           if (formatted !== text) {
             setInputValue(formatted)
             flow.lastInternalInput = formatted
           } else if (!isRepeatInput) {
-            // 更新内部输入记录，即使格式化结果相同
+            // Update internal input record, even if the formatted result is the same
             flow.lastInternalInput = text
           }
         } catch (error) {
           console.warn("Date formatting error in handleSubmit:", error)
-          // 降级处理：使用默认格式或保持原输入
+          // Fallback to default format or keep the original input
           try {
             const formatted = format(finalDate, "yyyy-MM-dd", { locale })
             setInputValue(formatted)
             flow.lastInternalInput = formatted
           } catch {
-            // 最后降级：保持用户输入
+            // Last fallback: keep the user input
             if (!isRepeatInput) {
               flow.lastInternalInput = text
             }
@@ -374,11 +374,11 @@ export function useDateInput(props: UseDateInputProps) {
       console.warn("Date parsing error:", error)
     }
 
-    // 处理完成，重置为空闲状态
+    // Processing complete, reset to idle state
     flow.direction = "idle"
   })
 
-  // 拖拽交互处理
+  // Drag interaction processing
   const { isPressed: handlerPressed, pressMoveProps } = usePressMove({
     disabled: disabled || readOnly,
     onPressStart: (e) => {
@@ -388,29 +388,29 @@ export function useDateInput(props: UseDateInputProps) {
       onPressEnd?.(e as PointerEvent)
     },
     onPressMoveLeft: (delta) => {
-      // 左拖：向过去移动（减少天数）
+      // Left drag: move to the past (reduce days)
       updateValue((currentDate) => addDays(currentDate, -delta * getCurrentStep()))
     },
     onPressMoveRight: (delta) => {
-      // 右拖：向未来移动（增加天数）
+      // Right drag: move to the future (increase days)
       updateValue((currentDate) => addDays(currentDate, delta * getCurrentStep()))
     },
   })
 
-  // 🚀 优化：使用 useEventCallback 处理键盘事件
+  // 🚀 Optimization: useEventCallback to handle keyboard events
   const handleKeyDown = useEventCallback((event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       event.preventDefault()
 
-      // 标记已被 Enter 处理
+      // Marked as handled by Enter
       dataFlowRef.current.handledByEnter = true
 
       handleSubmit()
 
-      // 🎯 触发回车键回调（用于控制popover关闭等）
+      // 🎯 Trigger enter key callback (for controlling popover close, etc.)
       onEnterKeyDown?.()
 
-      // 延迟失焦，避免与 useEffect 竞态
+      // Delay blur, avoid race condition with useEffect
       setTimeout(() => {
         const target = event.target as HTMLInputElement
         target.blur()
@@ -420,19 +420,19 @@ export function useDateInput(props: UseDateInputProps) {
 
       const flow = dataFlowRef.current
 
-      // 🎯 智能基准日期选择
+      // 🎯 Smart base date selection
       let baseDate: Date
 
       if (innerValue && isValid(innerValue)) {
-        // 优先使用当前有效的 innerValue
+        // Use the current valid innerValue first
         baseDate = innerValue
       } else if (inputValue.trim()) {
-        // 尝试解析当前输入
+        // Try to parse the current input
         const parsed = parseWithOptimization(inputValue.trim())
         if (parsed && isValid(parsed)) {
           baseDate = parsed
         } else {
-          // 解析失败时使用智能基准日期选择
+          // Use smart base date selection if parsing fails
           if (minDate && maxDate) {
             const minTime = minDate.getTime()
             const maxTime = maxDate.getTime()
@@ -447,7 +447,7 @@ export function useDateInput(props: UseDateInputProps) {
           }
         }
       } else {
-        // 没有输入时使用智能基准日期选择
+        // Use smart base date selection if there is no input
         if (minDate && maxDate) {
           const minTime = minDate.getTime()
           const maxTime = maxDate.getTime()
@@ -462,58 +462,58 @@ export function useDateInput(props: UseDateInputProps) {
         }
       }
 
-      // 🔄 计算增量和新日期
+      // 🔄 Calculate the increment and new date
       const isUp = event.key === "ArrowUp"
-      const increment = isUp ? -1 : 1 // 🔄 反转：上键减少，下键增加
+      const increment = isUp ? -1 : 1 // 🔄 Reverse: up key reduces, down key increases
 
       let newDate: Date
 
       if (event.altKey) {
-        // Alt + 上下键：按月跳转
+        // Alt + up/down keys: jump to the next month
         newDate = addMonths(baseDate, increment)
       } else if (event.shiftKey) {
-        // Shift + 上下键：按周跳转
+        // Shift + up/down keys: jump to the next week
         newDate = addWeeks(baseDate, increment)
       } else {
-        // 上下键：按天跳转
+        // up/down keys: jump to the next day
         newDate = addDays(baseDate, increment)
       }
 
-      // 🎯 检查日期范围约束
+      // 🎯 Check date range constraint
       if (!isDateInRange(newDate)) {
-        // 如果新日期超出范围，尝试调整到边界
+        // If the new date is out of range, try to adjust to the boundary
         const clampedDate = clampDateToRange(newDate)
         if (!clampedDate || clampedDate.getTime() === baseDate.getTime()) {
-          // 如果无法调整或调整后与当前日期相同，忽略该操作
+          // If it cannot be adjusted or adjusted to the same date as the current date, ignore the operation
           return
         }
         newDate = clampedDate
       }
 
-      // 🔄 更新状态和显示
+      // 🔄 Update the state and display
       try {
         const formatted = format(newDate, dateFormat || "yyyy-MM-dd", { locale })
 
-        // 🚀 关键修复：立即更新显示，延迟更新值以避免竞态条件
+        // 🚀 Critical fix: immediately update the display, delay updating the value to avoid race conditions
         flow.direction = "internal"
         flow.lastInternalInput = formatted
         setInputValue(formatted)
 
-        // 延迟更新值，避免与 useEffect 的数据流检测冲突
+        // Delay updating the value, avoid race condition with useEffect's data flow detection
         setTimeout(() => {
-          // 二次检查：确保状态仍然是内部操作
+          // Secondary check: ensure the state is still internal operation
           if (flow.direction === "internal") {
-            // 更新外部值状态以防止 useEffect 误判为外部变化
+            // Update the external value state to prevent useEffect from misjudging it as an external change
             flow.lastExternalValue = newDate
             setValue(newDate)
 
-            // 标记操作完成
+            // Mark the operation as complete
             flow.direction = "idle"
           }
         }, 10)
       } catch (error) {
         console.warn("Date formatting error during keyboard navigation:", error)
-        // 降级处理：直接更新值而不格式化
+        // Fallback to update the value without formatting
         flow.direction = "internal"
         setValue(newDate)
         flow.lastExternalValue = newDate
@@ -522,24 +522,24 @@ export function useDateInput(props: UseDateInputProps) {
     }
   })
 
-  // 🚀 优化：使用 useEventCallback 处理失焦
+  // 🚀 Optimization: useEventCallback to handle blur
   const handleBlur = useEventCallback(() => {
     const flow = dataFlowRef.current
 
-    // 如果是 Enter 键触发的失焦，不重复处理
+    // If the blur is triggered by the Enter key, do not repeat processing
     if (flow.handledByEnter) {
       flow.handledByEnter = false
       return
     }
 
-    // 外部数据流期间不处理失焦
+    // Do not process blur during external data flow
     if (flow.direction === "external") {
       return
     }
 
-    // 智能延迟：给外部组件足够时间完成操作
+    // Smart delay: give the external component enough time to complete the operation
     setTimeout(() => {
-      // 二次检查：确保不是在外部数据流期间
+      // Secondary check: ensure it is not during an external data flow
       if (dataFlowRef.current.direction !== "external") {
         handleSubmit()
       }

@@ -40,6 +40,174 @@ export const Basic: Story = {
 }
 
 /**
+ * Standalone: Demonstrates Skeleton as an independent placeholder element.
+ * - Use without children to create standalone skeleton placeholders.
+ * - Specify dimensions using `width` and `height` props.
+ * - Accepts both number (pixels) and string (any CSS unit) values.
+ * - Useful for creating custom loading layouts before content structure is known.
+ */
+export const Standalone: Story = {
+  name: "Standalone",
+  render: function StandaloneStory() {
+    return (
+      <div className="flex flex-col gap-6">
+        <p className="text-tertiary-foreground">
+          Skeleton without children - dimensions specified via props:
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <div>
+            <p className="text-tertiary-foreground mb-2">Text line (width: 200, height: 16):</p>
+            <Skeleton
+              loading
+              width={200}
+              height={16}
+            />
+          </div>
+
+          <div>
+            <p className="text-tertiary-foreground mb-2">
+              Paragraph block (width: 100%, height: 80):
+            </p>
+            <Skeleton
+              loading
+              width="100%"
+              height={80}
+            />
+          </div>
+
+          <div>
+            <p className="text-tertiary-foreground mb-2">
+              Avatar placeholder (width: 48, height: 48):
+            </p>
+            <Skeleton
+              loading
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+          </div>
+
+          <div>
+            <p className="text-tertiary-foreground mb-2">
+              Button placeholder (width: 120, height: 36):
+            </p>
+            <Skeleton
+              loading
+              width={120}
+              height={36}
+              className="rounded-md"
+            />
+          </div>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * StandaloneLayout: Shows how to build a complete loading layout using standalone Skeletons.
+ * - Creates a card-like loading state without actual content components.
+ * - Useful when the actual content structure hasn't been loaded yet.
+ * - Demonstrates combining multiple standalone Skeletons for complex layouts.
+ */
+export const StandaloneLayout: Story = {
+  name: "Standalone Layout",
+  render: function StandaloneLayoutStory() {
+    const [loading, setLoading] = useState(true)
+
+    return (
+      <div className="flex w-80 flex-col gap-6">
+        <Button
+          onClick={() => setLoading(!loading)}
+          className="self-start"
+        >
+          {loading ? "Show Content" : "Show Loading"}
+        </Button>
+
+        {loading ? (
+          <div className="flex flex-col gap-4 rounded-lg border p-4">
+            {/* Avatar + Name row */}
+            <div className="flex items-center gap-3">
+              <Skeleton
+                loading
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+              <div className="flex flex-1 flex-col gap-2">
+                <Skeleton
+                  loading
+                  width="60%"
+                  height={16}
+                />
+                <Skeleton
+                  loading
+                  width="40%"
+                  height={14}
+                />
+              </div>
+            </div>
+
+            {/* Content lines */}
+            <div className="flex flex-col gap-2">
+              <Skeleton
+                loading
+                width="100%"
+                height={14}
+              />
+
+              <Skeleton
+                loading
+                width="75%"
+                height={14}
+              />
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex gap-2">
+              <Skeleton
+                loading
+                width={80}
+                height={24}
+                className="rounded-md"
+              />
+              <Skeleton
+                loading
+                width={80}
+                height={24}
+                className="rounded-md"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4 rounded-lg border p-4">
+            <div className="flex items-center gap-3">
+              <Avatar
+                name="John Doe"
+                className="size-12"
+              />
+              <div>
+                <p className="font-semibold">John Doe</p>
+                <p className="text-secondary-foreground text-sm">@johndoe</p>
+              </div>
+            </div>
+            <p className="text-secondary-foreground">
+              This is the actual content that appears after loading. It shows a user profile with
+              some description text.
+            </p>
+            <div className="flex gap-2">
+              <Button variant="primary">Follow</Button>
+              <Button variant="secondary">Message</Button>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  },
+}
+
+/**
  * LoadingProp: Shows how to control individual Skeleton components with the `loading` prop.
  * - Each Skeleton can be controlled independently.
  * - When `loading` is true, children are hidden and replaced with a skeleton effect.
