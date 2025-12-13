@@ -38,12 +38,12 @@ export const ScrollTv = tcv({
       default: {
         scrollbar: "p-0.5",
       },
-      "large-y": {},
-      "large-t": {},
-      "large-b": {},
-      "large-x": {},
-      "large-l": {},
-      "large-r": {},
+      "padding-y": {},
+      "padding-t": {},
+      "padding-b": {},
+      "padding-x": {},
+      "padding-l": {},
+      "padding-r": {},
     },
     hoverBoundary: {
       none: {},
@@ -102,42 +102,42 @@ export const ScrollTv = tcv({
     },
     {
       orientation: "vertical",
-      scrollbarMode: "large-y",
+      scrollbarMode: "padding-y",
       class: {
         scrollbar: "px-0.5 py-2",
       },
     },
     {
       orientation: "vertical",
-      scrollbarMode: "large-t",
+      scrollbarMode: "padding-t",
       class: {
         scrollbar: "px-0.5 pt-2",
       },
     },
     {
       orientation: "vertical",
-      scrollbarMode: "large-b",
+      scrollbarMode: "padding-b",
       class: {
         scrollbar: "px-0.5 pb-2",
       },
     },
     {
       orientation: "horizontal",
-      scrollbarMode: "large-x",
+      scrollbarMode: "padding-x",
       class: {
         scrollbar: "px-2 py-0.5",
       },
     },
     {
       orientation: "horizontal",
-      scrollbarMode: "large-l",
+      scrollbarMode: "padding-l",
       class: {
         scrollbar: "py-0.5 pl-2",
       },
     },
     {
       orientation: "horizontal",
-      scrollbarMode: "large-r",
+      scrollbarMode: "padding-r",
       class: {
         scrollbar: "py-0.5 pr-2",
       },

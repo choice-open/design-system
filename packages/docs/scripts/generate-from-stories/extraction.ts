@@ -226,6 +226,7 @@ function detectReactHooks(code: string): string[] {
     "useDeferredValue",
     "useTransition",
     "useId",
+    "useVirtualizer",
   ]
   return hooks.filter((hook) => new RegExp(`\\b${hook}\\s*[(<]`).test(code))
 }

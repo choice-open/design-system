@@ -3,7 +3,7 @@ import { tcv } from "@choice-ui/shared"
 export const tooltipContentVariants = tcv({
   slots: {
     root: "rounded-md px-2 py-1",
-    arrow: "translate-none",
+    arrow: "box-border",
   },
   variants: {
     variant: {
