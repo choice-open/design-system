@@ -4,7 +4,7 @@
   "package": {
     "name": "@choice-ui/menubar",
     "version": "0.0.1",
-    "description": "Menubar component for Choiceform Design System",
+    "description": "A menubar component for creating application-level navigation menus with dropdowns and submenus",
     "dependencies": {
       "@choice-ui/button": "workspace:*",
       "@choice-ui/shared": "workspace:*",

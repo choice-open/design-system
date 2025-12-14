@@ -8,6 +8,23 @@ interface SlotCloneProps {
   children: React.ReactNode
 }
 
+// Check if React 19+ (ref is a regular prop)
+const REACT_MAJOR = parseInt(React.version.split(".")[0], 10)
+const IS_REACT_19 = REACT_MAJOR >= 19
+
+/**
+ * Get child ref safely across React 18 and 19
+ * React 18: Cannot access element.ref without triggering warning, return undefined
+ * React 19: ref is a regular prop in props
+ */
+function getChildRef(children: React.ReactElement): React.Ref<unknown> | undefined {
+  if (IS_REACT_19) {
+    return (children.props as { ref?: React.Ref<unknown> }).ref
+  }
+  // React 18: accessing element.ref triggers warning, skip it
+  return undefined
+}
+
 /**
  * Optimized Slot component implementation
  *
@@ -25,10 +42,7 @@ export const Slot = forwardRef<HTMLElement, SlotProps>(
         return children
       }
 
-      // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
-      // Prefer reading ref from children.props to avoid accessing element.ref.
-      const childProps = (children as React.ReactElement<Record<string, unknown>>).props
-      const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
+      const childRef = getChildRef(children)
       const mergedProps = mergeProps(slotProps, children.props)
 
       return React.cloneElement(children, {
@@ -54,9 +68,7 @@ export const SlotClone = forwardRef<HTMLElement, SlotCloneProps>(
         return children
       }
 
-      // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
-      const childProps = (children as React.ReactElement<Record<string, unknown>>).props
-      const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
+      const childRef = getChildRef(children)
       const mergedProps = mergeProps(slotProps, children.props)
 
       return React.cloneElement(children, {
@@ -145,9 +157,7 @@ export function useSlot(
       return children
     }
 
-    // React 19: element.ref is deprecated/removed; ref is treated as a normal prop.
-    const childProps = (children as React.ReactElement<Record<string, unknown>>).props
-    const childRef = (childProps as { ref?: React.Ref<unknown> }).ref
+    const childRef = getChildRef(children)
     const mergedProps = mergeProps(slotProps, children.props)
 
     return React.cloneElement(children, {

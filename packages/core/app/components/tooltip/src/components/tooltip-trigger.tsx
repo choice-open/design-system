@@ -1,14 +1,14 @@
 import { Slot } from "@choice-ui/slot"
 import { useMergeRefs } from "@floating-ui/react"
-import { forwardRef, HTMLProps, Ref } from "react"
+import { forwardRef, HTMLProps } from "react"
 import { useTooltipState } from "../context/tooltip-context"
 
 export const TooltipTrigger = forwardRef<HTMLElement, HTMLProps<HTMLElement>>(
   function TooltipTrigger({ children, ...props }, propRef) {
     const state = useTooltipState()
 
-    const childrenRef = (children as { ref?: Ref<HTMLElement> })?.ref
-    const ref = useMergeRefs([state.refs.setReference, propRef, childrenRef])
+    // Slot will handle merging childRef internally
+    const ref = useMergeRefs([state.refs.setReference, propRef])
 
     return (
       <Slot
