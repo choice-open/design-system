@@ -3,8 +3,8 @@
   "title": "Tabs",
   "package": {
     "name": "@choice-ui/tabs",
-    "version": "0.0.4",
-    "description": "Tabs component for Choiceform Design System",
+    "version": "0.0.5",
+    "description": "A tabs component for organizing content into multiple panels with tab navigation",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "usehooks-ts": "^3.1.0"

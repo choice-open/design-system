@@ -3,8 +3,8 @@
   "title": "List",
   "package": {
     "name": "@choice-ui/list",
-    "version": "0.0.4",
-    "description": "List component for Choiceform Design System",
+    "version": "0.0.5",
+    "description": "A list component for displaying structured data with items, actions, and keyboard navigation",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choiceform/icons-react": "^1.3.8",

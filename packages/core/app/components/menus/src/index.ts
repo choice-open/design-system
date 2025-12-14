@@ -2,6 +2,7 @@ export {
   MenuButton,
   MenuCheckbox,
   MenuDivider,
+  MenuEmpty,
   MenuInput,
   MenuItem,
   MenuLabel,

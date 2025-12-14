@@ -3,8 +3,8 @@
   "title": "Select",
   "package": {
     "name": "@choice-ui/select",
-    "version": "0.0.8",
-    "description": "Select component for Choiceform Design System",
+    "version": "0.0.10",
+    "description": "A select dropdown component for choosing a single option from a list of choices",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/menus": "workspace:*",
@@ -210,6 +210,13 @@
       "exportName": "CloseOnEscape",
       "description": "CloseOnEscape: Demonstrates ESC key behavior control and event propagation.\n\nFeatures:\n- closeOnEscape prop controls ESC key behavior\n- When enabled (default): Pressing ESC closes menu and prevents event propagation\n- When disabled: Pressing ESC does NOT close menu, allowing event to propagate\n- Event propagation verification with counter\n\nUse cases:\n- Custom ESC key handling\n- Nested menu scenarios\n- Event propagation control",
       "source": "import { Select } from \"@choice-ui/select\"\nimport { useState, useEffect } from \"react\"\n\nexport default function App() {\n\n  const [value, setValue] = useState<string>(\"Option 2\")\n  const [closeOnEscape, setCloseOnEscape] = useState(true)\n  const [escCount, setEscCount] = useState(0)\n\n  React.useEffect(() => {\n    const handleEscape = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") {\n        setEscCount((prev) => prev + 1)\n      }\n    }\n\n    window.addEventListener(\"keydown\", handleEscape)\n    return () => window.removeEventListener(\"keydown\", handleEscape)\n  }, [])\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <Checkbox\n        value={closeOnEscape}\n        onChange={setCloseOnEscape}\n      >\n        <Checkbox.Label>Close on ESC key</Checkbox.Label>\n      </Checkbox>\n\n      <div className=\"bg-secondary-background w-64 rounded-xl p-4\">\n        <p className=\"mb-2\">\n          Window ESC count: <strong>{escCount}</strong>\n        </p>\n        <p className=\"text-secondary-foreground\">\n          {closeOnEscape\n            ? \"When select is open, pressing ESC will close it but NOT increment the counter (event is stopped).\"\n            : \"When select is open, pressing ESC will increment the counter (event propagates).\"}\n        </p>\n      </div>\n\n      <Select\n        matchTriggerWidth\n        value={value}\n        onChange={setValue}\n        closeOnEscape={closeOnEscape}\n      >\n        <Select.Trigger>\n          <Select.Value>{value || \"Select an option...\"}</Select.Value>\n        </Select.Trigger>\n        <Select.Content>\n          {Array.from({ length: 5 }, (_, i) => (\n            <Select.Item\n              key={i}\n              value={`Option ${i + 1}`}\n            >\n              <Select.Value>Option {i + 1}</Select.Value>\n            </Select.Item>\n          ))}\n        </Select.Content>\n      </Select>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "collections-select--empty",
+      "name": "Empty",
+      "exportName": "Empty",
+      "description": "Empty: Demonstrates Select with empty state when no options available.\n\nFeatures:\n- Empty state display when options array is empty\n- Custom empty message support\n- Consistent with menu styling\n\nUse cases:\n- Search results with no matches\n- Dynamic option lists that may be empty\n- Placeholder for loading states",
+      "source": "import { Select } from \"@choice-ui/select\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [value, setValue] = useState<string | null>(null)\n  const options: { value: string; label: string }[] = []\n\n  return (\n    <Select\n      value={value}\n      onChange={setValue}\n    >\n      <Select.Trigger>\n        <Select.Value>{value || \"Select an option...\"}</Select.Value>\n      </Select.Trigger>\n      <Select.Content>\n        {options.length > 0 ? (\n          options.map((option) => (\n            <Select.Item\n              key={option.value}\n              value={option.value}\n            >\n              <Select.Value>{option.label}</Select.Value>\n            </Select.Item>\n          ))\n        ) : (\n          <Select.Empty>No options</Select.Empty>\n        )}\n      </Select.Content>\n    </Select>\n  )\n\n}"
     }
   ],
   "tags": [

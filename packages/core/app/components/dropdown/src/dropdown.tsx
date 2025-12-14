@@ -8,6 +8,7 @@ import {
   MenuContextLabel,
   MenuContextSubTrigger,
   MenuDivider,
+  MenuEmpty,
   MenuInput,
   MenuScrollArrow,
   MenuSearch,
@@ -91,6 +92,7 @@ interface DropdownComponentType extends React.ForwardRefExoticComponent<
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
+  Empty: typeof MenuEmpty
   Input: typeof MenuInput
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
@@ -595,14 +597,15 @@ const BaseDropdown = memo(function Dropdown(props: DropdownProps) {
 // Export component with static properties
 export const Dropdown = Object.assign(BaseDropdown, {
   displayName: "Dropdown",
-  Trigger: MenuTrigger,
-  Item: MenuContextItem,
-  SubTrigger: MenuContextSubTrigger,
+  Button: MenuButton,
+  Content: MenuContextContent,
   Divider: MenuDivider,
+  Empty: MenuEmpty,
+  Input: MenuInput,
+  Item: MenuContextItem,
   Label: MenuContextLabel,
   Search: MenuSearch,
-  Button: MenuButton,
-  Input: MenuInput,
-  Content: MenuContextContent,
+  SubTrigger: MenuContextSubTrigger,
+  Trigger: MenuTrigger,
   Value: MenuValue,
 }) as unknown as DropdownComponentType

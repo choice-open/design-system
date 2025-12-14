@@ -3,8 +3,8 @@
   "title": "TimeInput",
   "package": {
     "name": "@choice-ui/calendar",
-    "version": "0.0.5",
-    "description": "Calendar components for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "A calendar component for date selection with support for single, range, and multiple date picking",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/icon-button": "workspace:*",

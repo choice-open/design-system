@@ -3,8 +3,8 @@
   "title": "Label",
   "package": {
     "name": "@choice-ui/label",
-    "version": "0.0.3",
-    "description": "Label component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A label component for form fields with proper accessibility and association with inputs",
     "dependencies": {
       "@choice-ui/shared": "workspace:*"
     },

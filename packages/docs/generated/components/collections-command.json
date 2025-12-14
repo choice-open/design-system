@@ -3,8 +3,8 @@
   "title": "Command",
   "package": {
     "name": "@choice-ui/command",
-    "version": "0.0.3",
-    "description": "Command component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A command palette component for quick actions, search, and keyboard navigation",
     "dependencies": {
       "usehooks-ts": "^3.1.0",
       "@choice-ui/shared": "workspace:*",

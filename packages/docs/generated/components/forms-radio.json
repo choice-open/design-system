@@ -3,8 +3,8 @@
   "title": "Radio",
   "package": {
     "name": "@choice-ui/radio",
-    "version": "0.0.4",
-    "description": "Radio component for Choiceform Design System",
+    "version": "0.0.5",
+    "description": "A radio button component for single selection from a group of mutually exclusive options",
     "dependencies": {
       "usehooks-ts": "^3.1.0",
       "@choice-ui/shared": "workspace:*",

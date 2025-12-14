@@ -188,6 +188,17 @@ export const MenuSearchEmptyTv = tcv({
   },
 })
 
+export const MenuEmptyTv = tcv({
+  slots: {
+    root: [
+      "flex items-center justify-center py-3 px-2",
+      "text-body-medium text-secondary-foreground",
+      "group-data-[variant=light]/menus:text-gray-500",
+      "group-data-[variant=default]/menus:text-white/50",
+    ],
+  },
+})
+
 export const MenuLabelTv = tcv({
   base: "flex h-6 w-full flex-none items-center gap-2 opacity-50",
   variants: {

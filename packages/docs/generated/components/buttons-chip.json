@@ -3,8 +3,8 @@
   "title": "Chip",
   "package": {
     "name": "@choice-ui/chip",
-    "version": "0.0.3",
-    "description": "Chip component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A chip component for displaying compact labels, tags, or removable items",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/icon-button": "workspace:*",

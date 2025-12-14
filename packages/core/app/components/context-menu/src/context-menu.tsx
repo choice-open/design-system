@@ -6,6 +6,7 @@ import {
   MenuContextLabel,
   MenuContextSubTrigger,
   MenuDivider,
+  MenuEmpty,
   MenuInput,
   MenuScrollArrow,
   MenuSearch,
@@ -86,6 +87,7 @@ interface ContextMenuComponentProps extends React.ForwardRefExoticComponent<
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
+  Empty: typeof MenuEmpty
   Input: typeof MenuInput
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
@@ -579,14 +581,15 @@ const BaseContextMenu = memo(function ContextMenu(props: ContextMenuProps) {
 // Add static properties and export
 export const ContextMenu = Object.assign(BaseContextMenu, {
   displayName: "ContextMenu",
-  Trigger: ContextMenuTrigger,
-  Item: MenuContextItem,
-  SubTrigger: MenuContextSubTrigger,
+  Button: MenuButton,
+  Content: MenuContextContent,
   Divider: MenuDivider,
+  Empty: MenuEmpty,
+  Input: MenuInput,
+  Item: MenuContextItem,
   Label: MenuContextLabel,
   Search: MenuSearch,
-  Button: MenuButton,
-  Input: MenuInput,
-  Content: MenuContextContent,
+  SubTrigger: MenuContextSubTrigger,
+  Trigger: ContextMenuTrigger,
   Value: MenuValue,
 }) as unknown as ContextMenuComponentProps

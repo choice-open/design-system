@@ -1384,3 +1384,43 @@ export const Readonly: Story = {
     )
   },
 }
+
+/**
+ * Empty: Demonstrates empty state display when no options are available.
+ *
+ * Features:
+ * - Show custom empty message when options list is empty
+ * - Useful for async loading or filtered results scenarios
+ */
+export const Empty: Story = {
+  render: function EmptyStory() {
+    const [values, setValues] = useState<string[]>([])
+    const options: { value: string; label: string }[] = []
+
+    return (
+      <MultiSelect
+        values={values}
+        onChange={setValues}
+      >
+        <MultiSelect.Trigger
+          placeholder="Select options..."
+          className="w-80"
+        />
+        <MultiSelect.Content>
+          {options.length > 0 ? (
+            options.map((option) => (
+              <MultiSelect.Item
+                key={option.value}
+                value={option.value}
+              >
+                {option.label}
+              </MultiSelect.Item>
+            ))
+          ) : (
+            <MultiSelect.Empty>No options available</MultiSelect.Empty>
+          )}
+        </MultiSelect.Content>
+      </MultiSelect>
+    )
+  },
+}

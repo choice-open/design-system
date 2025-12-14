@@ -3,8 +3,8 @@
   "title": "NumericInput",
   "package": {
     "name": "@choice-ui/numeric-input",
-    "version": "0.0.7",
-    "description": "Numeric Input component for Choiceform Design System",
+    "version": "0.0.8",
+    "description": "A numeric input component with increment/decrement controls and number validation",
     "dependencies": {
       "@choice-ui/chip": "workspace:*",
       "@choice-ui/shared": "workspace:*",

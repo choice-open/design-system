@@ -6,6 +6,7 @@ import {
   MenuContextItem,
   MenuContextLabel,
   MenuDivider,
+  MenuEmpty,
   MenuScrollArrow,
   MenuTrigger,
   MenuValue,
@@ -77,6 +78,7 @@ interface SelectComponentType extends React.ForwardRefExoticComponent<
 > {
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
+  Empty: typeof MenuEmpty
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
   Trigger: typeof MenuTrigger
@@ -148,7 +150,8 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
         if (
           child.type === MenuContextItem ||
           child.type === MenuDivider ||
-          child.type === MenuContextLabel
+          child.type === MenuContextLabel ||
+          child.type === MenuEmpty
         ) {
           result.push(child)
         } else if (child.type === React.Fragment && child.props.children) {
@@ -179,6 +182,10 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
         return { label: true, children: child.props.children }
       }
 
+      if (child.type === MenuEmpty) {
+        return { empty: true, children: child.props.children, element: child }
+      }
+
       // Extract props from MenuContextItem element
       const {
         value: itemValue,
@@ -196,9 +203,9 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
     })
   }, [itemElements])
 
-  // Create array containing only selectable items (excluding divider and label)
+  // Create array containing only selectable items (excluding divider, label and empty)
   const selectableOptions = useMemo(() => {
-    return options.filter((option) => !option.divider && !option.label)
+    return options.filter((option) => !option.divider && !option.label && !option.empty)
   }, [options])
 
   // References
@@ -456,6 +463,11 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
         return <MenuContextLabel key={`label-${index}`}>{option.children}</MenuContextLabel>
       }
 
+      // Empty
+      if (option.empty) {
+        return <MenuEmpty key={`empty-${index}`}>{option.children}</MenuEmpty>
+      }
+
       // Option item
       const currentSelectableIndex = selectableIndex
       selectableIndex++ // Increment selectable item index
@@ -651,11 +663,12 @@ const BaseSelect = memo(function Select(props: SelectProps) {
 })
 
 export const Select = Object.assign(BaseSelect, {
-  Item: MenuContextItem,
-  Trigger: MenuTrigger,
-  Divider: MenuDivider,
-  Label: MenuContextLabel,
   Content: MenuContextContent,
+  Divider: MenuDivider,
+  Empty: MenuEmpty,
+  Item: MenuContextItem,
+  Label: MenuContextLabel,
+  Trigger: MenuTrigger,
   Value: MenuValue,
 }) as SelectComponentType
 

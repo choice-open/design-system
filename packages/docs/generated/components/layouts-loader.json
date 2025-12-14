@@ -3,8 +3,8 @@
   "title": "Loader",
   "package": {
     "name": "@choice-ui/loader",
-    "version": "0.0.1",
-    "description": "Loader component for Choiceform Design System",
+    "version": "0.0.2",
+    "description": "A loading indicator component with animated visual feedback for async operations",
     "dependencies": {
       "framer-motion": "^11",
       "@choice-ui/shared": "workspace:*"

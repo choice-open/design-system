@@ -3,8 +3,8 @@
   "title": "Skeleton",
   "package": {
     "name": "@choice-ui/skeleton",
-    "version": "0.0.2",
-    "description": "Skeleton component for Choiceform Design System",
+    "version": "0.0.3",
+    "description": "A skeleton loading component that displays placeholder content while data is loading",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/slot": "workspace:*"

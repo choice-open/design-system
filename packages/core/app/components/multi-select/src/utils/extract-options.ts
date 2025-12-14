@@ -2,6 +2,7 @@ import {
   MenuContextItem,
   MenuContextLabel,
   MenuDivider,
+  MenuEmpty,
   type MenuContextItemProps,
 } from "@choice-ui/menus"
 import React, { Children, isValidElement } from "react"
@@ -21,7 +22,8 @@ export function extractItemElements(children: React.ReactNode) {
       if (
         child.type === MenuContextItem ||
         child.type === MenuDivider ||
-        child.type === MenuContextLabel
+        child.type === MenuContextLabel ||
+        child.type === MenuEmpty
       ) {
         result.push(child)
       } else if (child.type === React.Fragment && child.props.children) {
@@ -50,6 +52,10 @@ export function processOptions(itemElements: React.ReactNode[]) {
       return { label: true, children: child.props.children }
     }
 
+    if (child.type === MenuEmpty) {
+      return { empty: true, children: child.props.children, element: child }
+    }
+
     // Extract props from MenuContextItem element
     const {
       value: itemValue,
@@ -72,9 +78,10 @@ export function filterSelectableOptions(
     disabled?: boolean
     divider?: boolean
     element?: React.ReactElement
+    empty?: boolean
     label?: boolean
     value?: string
   }>,
 ) {
-  return options.filter((option) => !option.divider && !option.label)
+  return options.filter((option) => !option.divider && !option.label && !option.empty)
 }

@@ -32,7 +32,7 @@ export const Basic: Story = {
     return (
       <ContextMenu>
         <ContextMenu.Trigger>
-          <div className="bg-secondary-background rounded-xl border border-dashed p-8 select-none">
+          <div className="bg-secondary-background select-none rounded-xl border border-dashed p-8">
             Right click me to open context menu
           </div>
         </ContextMenu.Trigger>
@@ -302,7 +302,7 @@ export const WithSelection: Story = {
     return (
       <ContextMenu selection={true}>
         <ContextMenu.Trigger>
-          <div className="bg-secondary-background rounded-xl border border-dashed p-8 select-none">
+          <div className="bg-secondary-background select-none rounded-xl border border-dashed p-8">
             Right click me for selection menu
           </div>
         </ContextMenu.Trigger>
@@ -1100,6 +1100,40 @@ export const Readonly: Story = {
           menu can still be opened and closed normally.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * Empty: Demonstrates empty state display when no items are available.
+ *
+ * Features:
+ * - Show custom empty message when menu has no items
+ * - Useful for dynamic menu content scenarios
+ */
+export const Empty: Story = {
+  render: function EmptyStory() {
+    const items: { id: string; label: string }[] = []
+
+    return (
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div className="bg-secondary-background select-none rounded-xl border border-dashed p-8">
+            Right click me to open context menu
+          </div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content>
+          {items.length > 0 ? (
+            items.map((item) => (
+              <ContextMenu.Item key={item.id}>
+                <ContextMenu.Value>{item.label}</ContextMenu.Value>
+              </ContextMenu.Item>
+            ))
+          ) : (
+            <ContextMenu.Empty>No actions available</ContextMenu.Empty>
+          )}
+        </ContextMenu.Content>
+      </ContextMenu>
     )
   },
 }

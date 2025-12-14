@@ -3,8 +3,8 @@
   "title": "Badge",
   "package": {
     "name": "@choice-ui/badge",
-    "version": "0.0.3",
-    "description": "Badge component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A badge component for displaying labels, counts, or status indicators",
     "dependencies": {
       "@choice-ui/shared": "workspace:*"
     },

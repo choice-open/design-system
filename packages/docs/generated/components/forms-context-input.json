@@ -3,7 +3,7 @@
   "title": "ContextInput",
   "package": {
     "name": "@choice-ui/context-input",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "A rich text input component with context-aware suggestions, mentions, and inline editing capabilities",
     "dependencies": {
       "@choice-ui/combobox": "workspace:*",

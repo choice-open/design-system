@@ -363,48 +363,6 @@ export const Clearable: Story = {
 }
 
 /**
- * Empty: Demonstrates Combobox with no initial value.
- *
- * Features:
- * - Shows placeholder text
- * - Filtered options visible when typing
- * - Empty state handling
- * - Standard search functionality
- */
-export const Empty: Story = {
-  render: function EmptyStory() {
-    const [value, setValue] = useState("")
-
-    const filteredFruits = useMemo(() => {
-      if (!value.trim()) return []
-      return fruits.filter((fruit) => fruit.toLowerCase().startsWith(value.toLowerCase()))
-    }, [value])
-
-    return (
-      <div className="w-64">
-        <Combobox
-          value={value}
-          onChange={setValue}
-        >
-          <Combobox.Trigger placeholder="Choose a fruit..." />
-          <Combobox.Content>
-            <Combobox.Label>Popular Fruits</Combobox.Label>
-            {filteredFruits.map((fruit) => (
-              <Combobox.Item
-                key={fruit}
-                onClick={() => setValue(fruit)}
-              >
-                <Combobox.Value>{fruit}</Combobox.Value>
-              </Combobox.Item>
-            ))}
-          </Combobox.Content>
-        </Combobox>
-      </div>
-    )
-  },
-}
-
-/**
  * CustomWidth: Demonstrates Combobox with custom width that doesn't match trigger.
  *
  * Features:
@@ -1048,6 +1006,54 @@ export const Readonly: Story = {
           should not change and the change count should remain at 0. The input field is read-only.
         </div>
       </div>
+    )
+  },
+}
+
+/**
+ * Empty: Demonstrates empty state display when no results match.
+ *
+ * Features:
+ * - Show custom empty message when no options match the search
+ * - Useful for filtered results scenarios
+ */
+export const Empty: Story = {
+  render: function EmptyStory() {
+    const [value, setValue] = useState("")
+
+    const allOptions = [
+      { value: "apple", label: "Apple" },
+      { value: "banana", label: "Banana" },
+      { value: "orange", label: "Orange" },
+    ]
+
+    const filteredOptions = useMemo(() => {
+      if (!value.trim()) return allOptions
+      return allOptions.filter((opt) => opt.label.toLowerCase().includes(value.toLowerCase()))
+    }, [value])
+
+    return (
+      <Combobox
+        value={value}
+        onChange={setValue}
+      >
+        <Combobox.Trigger placeholder="Search fruits..." />
+        <Combobox.Content>
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((option) => (
+              <Combobox.Item
+                key={option.value}
+                value={option.value}
+                onClick={() => setValue(option.label)}
+              >
+                <Combobox.Value>{option.label}</Combobox.Value>
+              </Combobox.Item>
+            ))
+          ) : (
+            <Combobox.Empty>No results found</Combobox.Empty>
+          )}
+        </Combobox.Content>
+      </Combobox>
     )
   },
 }

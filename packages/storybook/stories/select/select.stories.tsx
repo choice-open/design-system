@@ -832,6 +832,51 @@ export const CloseOnEscape: Story = {
 }
 
 /**
+ * Empty: Demonstrates Select with empty state when no options available.
+ *
+ * Features:
+ * - Empty state display when options array is empty
+ * - Custom empty message support
+ * - Consistent with menu styling
+ *
+ * Use cases:
+ * - Search results with no matches
+ * - Dynamic option lists that may be empty
+ * - Placeholder for loading states
+ */
+export const Empty: Story = {
+  render: function EmptyStory() {
+    const [value, setValue] = useState<string | null>(null)
+    const options: { value: string; label: string }[] = []
+
+    return (
+      <Select
+        value={value}
+        onChange={setValue}
+      >
+        <Select.Trigger>
+          <Select.Value>{value || "Select an option..."}</Select.Value>
+        </Select.Trigger>
+        <Select.Content>
+          {options.length > 0 ? (
+            options.map((option) => (
+              <Select.Item
+                key={option.value}
+                value={option.value}
+              >
+                <Select.Value>{option.label}</Select.Value>
+              </Select.Item>
+            ))
+          ) : (
+            <Select.Empty>No options</Select.Empty>
+          )}
+        </Select.Content>
+      </Select>
+    )
+  },
+}
+
+/**
  * [TEST] CompoundComponent: Demonstrates compound component pattern.
  *
  * Features:

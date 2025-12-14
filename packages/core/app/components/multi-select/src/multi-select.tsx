@@ -7,6 +7,7 @@ import {
   MenuContextItem,
   MenuContextLabel,
   MenuDivider,
+  MenuEmpty,
   MenuScrollArrow,
   MenuValue,
   useMenuBaseRefs,
@@ -101,6 +102,7 @@ interface MultiSelectComponentType extends React.ForwardRefExoticComponent<
 > {
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
+  Empty: typeof MenuEmpty
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
   Trigger: typeof MultiSelectTrigger
@@ -458,6 +460,11 @@ const MultiSelectComponent = memo(
           return <MenuContextLabel key={`label-${index}`}>{option.children}</MenuContextLabel>
         }
 
+        // Empty
+        if (option.empty) {
+          return <MenuEmpty key={`empty-${index}`}>{option.children}</MenuEmpty>
+        }
+
         // Option item
         const currentSelectableIndex = selectableIndex
         selectableIndex++ // Increment selectable item index
@@ -665,11 +672,12 @@ const BaseMultiSelect = memo(function MultiSelect(props: MultiSelectProps) {
 })
 
 export const MultiSelect = Object.assign(BaseMultiSelect, {
-  Item: MenuContextItem,
-  Trigger: MultiSelectTrigger,
-  Divider: MenuDivider,
-  Label: MenuContextLabel,
   Content: MenuContextContent,
+  Divider: MenuDivider,
+  Empty: MenuEmpty,
+  Item: MenuContextItem,
+  Label: MenuContextLabel,
+  Trigger: MultiSelectTrigger,
   Value: MenuValue,
 }) as MultiSelectComponentType
 

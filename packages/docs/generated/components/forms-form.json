@@ -3,8 +3,8 @@
   "title": "Form",
   "package": {
     "name": "@choice-ui/form",
-    "version": "0.0.3",
-    "description": "Form components for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A form component library with validation, field management, and integration with various input types",
     "dependencies": {
       "@tanstack/react-form": "^1.27.1",
       "usehooks-ts": "^3.1.0",

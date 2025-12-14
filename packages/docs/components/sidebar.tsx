@@ -3,7 +3,7 @@
 import { Badge, List, ScrollArea, tcx } from "@choice-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Fragment, useEffect, useRef } from "react"
+import { createContext, Fragment, useContext, useEffect, useRef } from "react"
 
 type NavItem = {
   title: string
@@ -28,54 +28,116 @@ function isActiveHref(current: string, target?: string) {
   return cur === tar
 }
 
-function renderTree(
-  items: NavItem[],
-  parentId: string | null,
-  activeHref: string,
-  activeRef: React.RefObject<HTMLAnchorElement | null>,
-  level = 0,
-): { node: React.ReactNode; containsActive: boolean } {
-  let anyActive = false
+// Context to pass activeRef down
+const ActiveRefContext = createContext<React.RefObject<HTMLAnchorElement | null> | null>(null)
 
-  const rendered = items.map((item, idx) => {
-    const nodeId = parentId ? `${parentId}-${idx}` : `node-${idx}`
-    const selfActive = isActiveHref(activeHref, item.href)
-    const hasChildren = !!item.items && item.items.length > 0
+interface NavTreeProps {
+  items: NavItem[]
+  parentId: string | null
+  activeHref: string
+  level?: number
+}
 
-    if (hasChildren) {
-      const { node: childNode, containsActive: childActive } = renderTree(
-        item.items ?? [],
-        nodeId,
-        activeHref,
-        activeRef,
-        level + 1,
-      )
-      const active = selfActive || childActive
+function NavTree({ items, parentId, activeHref, level = 0 }: NavTreeProps) {
+  const activeRef = useContext(ActiveRefContext)
 
-      anyActive = anyActive || active
+  return (
+    <>
+      {items.map((item, idx) => {
+        const nodeId = parentId ? `${parentId}-${idx}` : `node-${idx}`
+        const selfActive = isActiveHref(activeHref, item.href)
+        const hasChildren = !!item.items && item.items.length > 0
 
-      return (
-        <Fragment key={nodeId}>
-          <List.SubTrigger
-            defaultOpen={level <= 1 || active}
-            id={nodeId}
-            parentId={parentId ?? undefined}
-          >
-            <List.Value className="text-body-large text-secondary-foreground">
-              {item.title}
-            </List.Value>
-          </List.SubTrigger>
-          <List.Content parentId={nodeId}>{childNode}</List.Content>
-        </Fragment>
-      )
+        if (hasChildren) {
+          return (
+            <NavTreeGroup
+              key={nodeId}
+              item={item}
+              nodeId={nodeId}
+              parentId={parentId}
+              activeHref={activeHref}
+              selfActive={selfActive}
+              level={level}
+            />
+          )
+        }
+
+        return (
+          <NavTreeItem
+            key={nodeId}
+            item={item}
+            nodeId={nodeId}
+            parentId={parentId}
+            active={selfActive}
+            activeRef={activeRef}
+          />
+        )
+      })}
+    </>
+  )
+}
+
+interface NavTreeGroupProps {
+  item: NavItem
+  nodeId: string
+  parentId: string | null
+  activeHref: string
+  selfActive: boolean
+  level: number
+}
+
+function NavTreeGroup({
+  item,
+  nodeId,
+  parentId,
+  activeHref,
+  selfActive,
+  level,
+}: NavTreeGroupProps) {
+  const childItems = item.items ?? []
+  const childActive = childItems.some((child) => {
+    if (isActiveHref(activeHref, child.href)) return true
+    if (child.items) {
+      return child.items.some((subChild) => isActiveHref(activeHref, subChild.href))
     }
+    return false
+  })
+  const active = selfActive || childActive
 
-    const active = selfActive
-    anyActive = anyActive || active
+  return (
+    <Fragment>
+      <List.SubTrigger
+        defaultOpen={level <= 1 || active}
+        id={nodeId}
+        parentId={parentId ?? undefined}
+      >
+        <List.Value className="text-body-large text-secondary-foreground">{item.title}</List.Value>
+      </List.SubTrigger>
+      <List.Content parentId={nodeId}>
+        <NavTree
+          items={childItems}
+          parentId={nodeId}
+          activeHref={activeHref}
+          level={level + 1}
+        />
+      </List.Content>
+    </Fragment>
+  )
+}
 
-    return item.href ? (
+interface NavTreeItemProps {
+  item: NavItem
+  nodeId: string
+  parentId: string | null
+  active: boolean
+  activeRef: React.RefObject<HTMLAnchorElement | null> | null
+}
+
+function NavTreeItem({ item, nodeId, parentId, active, activeRef }: NavTreeItemProps) {
+  if (item.href) {
+    return (
       <Link
-        ref={active ? activeRef : undefined}
+        ref={active && activeRef ? (activeRef as React.RefObject<HTMLAnchorElement>) : undefined}
         href={item.href}
         key={nodeId}
       >
@@ -97,24 +159,24 @@ function renderTree(
           <List.Value>{item.title}</List.Value>
         </List.Item>
       </Link>
-    ) : (
-      <List.Item
-        key={nodeId}
-        selected={active}
-        parentId={parentId ?? undefined}
-        className="text-body-large"
-      >
-        <List.Value>{item.title}</List.Value>
-      </List.Item>
     )
-  })
+  }
 
-  return { node: rendered, containsActive: anyActive }
+  return (
+    <List.Item
+      key={nodeId}
+      selected={active}
+      parentId={parentId ?? undefined}
+      className="text-body-large"
+    >
+      <List.Value>{item.title}</List.Value>
+    </List.Item>
+  )
 }
 
 export function Sidebar({ items, className, ...props }: SidebarNavProps) {
   const pathname = usePathname()
-  const activeRef = useRef<HTMLAnchorElement>(null)
+  const activeRef = useRef<HTMLAnchorElement | null>(null)
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -123,19 +185,30 @@ export function Sidebar({ items, className, ...props }: SidebarNavProps) {
   }, [])
 
   return (
-    <ScrollArea {...props}>
-      <ScrollArea.Viewport className="pb-16">
-        <ScrollArea.Content>
-          <List
-            selection
-            shouldShowReferenceLine
-            size="large"
-            className="py-0 pr-4 pl-0"
-          >
-            <List.Content>{renderTree(items, null, pathname, activeRef).node}</List.Content>
-          </List>
-        </ScrollArea.Content>
-      </ScrollArea.Viewport>
-    </ScrollArea>
+    <ActiveRefContext.Provider value={activeRef}>
+      <ScrollArea
+        className={className}
+        {...props}
+      >
+        <ScrollArea.Viewport className="pb-16">
+          <ScrollArea.Content>
+            <List
+              selection
+              shouldShowReferenceLine
+              size="large"
+              className="py-0 pr-4 pl-0"
+            >
+              <List.Content>
+                <NavTree
+                  items={items}
+                  parentId={null}
+                  activeHref={pathname}
+                />
+              </List.Content>
+            </List>
+          </ScrollArea.Content>
+        </ScrollArea.Viewport>
+      </ScrollArea>
+    </ActiveRefContext.Provider>
   )
 }

@@ -3,8 +3,8 @@
   "title": "Checkbox",
   "package": {
     "name": "@choice-ui/checkbox",
-    "version": "0.0.4",
-    "description": "Checkbox component for Choiceform Design System",
+    "version": "0.0.5",
+    "description": "A checkbox component for binary selection with support for checked, unchecked, and indeterminate states",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choiceform/icons-react": "^1.3.8",

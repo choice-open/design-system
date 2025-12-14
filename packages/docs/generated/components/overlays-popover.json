@@ -3,8 +3,8 @@
   "title": "Popover",
   "package": {
     "name": "@choice-ui/popover",
-    "version": "0.0.7",
-    "description": "Popover component for Choiceform Design System",
+    "version": "0.0.8",
+    "description": "A popover component for displaying floating content relative to a trigger element",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/modal": "workspace:*",

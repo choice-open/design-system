@@ -3,8 +3,8 @@
   "title": "Kbd",
   "package": {
     "name": "@choice-ui/kbd",
-    "version": "0.0.3",
-    "description": "Kbd component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A keyboard key indicator component for displaying keyboard shortcuts and key combinations",
     "dependencies": {
       "@choice-ui/shared": "workspace:*"
     },

@@ -3,8 +3,8 @@
   "title": "Dialog",
   "package": {
     "name": "@choice-ui/dialog",
-    "version": "0.0.7",
-    "description": "Dialog component for Choiceform Design System",
+    "version": "0.0.8",
+    "description": "A modal dialog component for displaying content, forms, or confirmations in an overlay",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/modal": "workspace:*",

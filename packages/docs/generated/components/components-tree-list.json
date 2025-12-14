@@ -3,8 +3,8 @@
   "title": "TreeList",
   "package": {
     "name": "@choice-ui/tree-list",
-    "version": "0.0.5",
-    "description": "Tree List component for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "A tree list component for displaying hierarchical data with expand/collapse, selection, and drag-and-drop",
     "dependencies": {
       "@tanstack/react-virtual": "^3.13.12",
       "@choice-ui/shared": "workspace:*",

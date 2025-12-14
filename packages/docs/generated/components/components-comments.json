@@ -3,8 +3,8 @@
   "title": "Comments",
   "package": {
     "name": "@choice-ui/comments",
-    "version": "0.0.3",
-    "description": "Comments component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A rich text comment system component with threading, mentions, and emoji support",
     "dependencies": {
       "@choice-ui/avatar": "workspace:*",
       "@choice-ui/button": "workspace:*",

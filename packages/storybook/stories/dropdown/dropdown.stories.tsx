@@ -1790,3 +1790,35 @@ export const NestedMenuClickTest: Story = {
     )
   },
 }
+
+/**
+ * Empty: Demonstrates empty state display when no items are available.
+ *
+ * Features:
+ * - Show custom empty message when menu has no items
+ * - Useful for dynamic menu content scenarios
+ */
+export const Empty: Story = {
+  render: function EmptyStory() {
+    const items: { id: string; label: string }[] = []
+
+    return (
+      <Dropdown>
+        <Dropdown.Trigger>
+          <Dropdown.Value>Open Menu</Dropdown.Value>
+        </Dropdown.Trigger>
+        <Dropdown.Content>
+          {items.length > 0 ? (
+            items.map((item) => (
+              <Dropdown.Item key={item.id}>
+                <Dropdown.Value>{item.label}</Dropdown.Value>
+              </Dropdown.Item>
+            ))
+          ) : (
+            <Dropdown.Empty>No items available</Dropdown.Empty>
+          )}
+        </Dropdown.Content>
+      </Dropdown>
+    )
+  },
+}

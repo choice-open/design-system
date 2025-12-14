@@ -3,8 +3,8 @@
   "title": "ScrollArea",
   "package": {
     "name": "@choice-ui/scroll-area",
-    "version": "0.0.5",
-    "description": "Scroll Area component for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "A customizable scroll area component with native-like scrolling and custom scrollbar styling",
     "dependencies": {
       "@choice-ui/shared": "workspace:*"
     },

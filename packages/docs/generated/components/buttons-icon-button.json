@@ -3,8 +3,8 @@
   "title": "IconButton",
   "package": {
     "name": "@choice-ui/icon-button",
-    "version": "0.0.5",
-    "description": "Icon Button component for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "An icon-only button component with various sizes and states for compact actions",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choiceform/icons-react": "^1.3.8",

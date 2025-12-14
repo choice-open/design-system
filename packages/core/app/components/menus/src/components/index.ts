@@ -1,6 +1,7 @@
 export * from "./menu-button"
 export * from "./menu-checkbox"
 export * from "./menu-divider"
+export * from "./menu-empty"
 export * from "./menu-item"
 export * from "./menu-label"
 export * from "./menu-scroll-arrow"

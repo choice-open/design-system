@@ -3,8 +3,8 @@
   "title": "SearchInput",
   "package": {
     "name": "@choice-ui/search-input",
-    "version": "0.0.5",
-    "description": "Search Input component for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "A search input component with search icon, clear button, and search-specific styling",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/icon-button": "workspace:*",

@@ -3,8 +3,8 @@
   "title": "CodeBlock",
   "package": {
     "name": "@choice-ui/code-block",
-    "version": "0.0.2",
-    "description": "Code Block component for Choiceform Design System",
+    "version": "0.0.3",
+    "description": "A syntax-highlighted code block component with copy functionality and language detection",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/icon-button": "workspace:*",

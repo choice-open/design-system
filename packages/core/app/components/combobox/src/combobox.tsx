@@ -6,6 +6,7 @@ import {
   MenuContextItem,
   MenuContextLabel,
   MenuDivider,
+  MenuEmpty,
   MenuInput,
   MenuScrollArrow,
   MenuValue,
@@ -102,6 +103,7 @@ interface ComboboxComponentType extends React.ForwardRefExoticComponent<
   Button: typeof MenuButton
   Content: typeof MenuContextContent
   Divider: typeof MenuDivider
+  Empty: typeof MenuEmpty
   Input: typeof MenuInput
   Item: typeof MenuContextItem
   Label: typeof MenuContextLabel
@@ -614,12 +616,13 @@ const BaseCombobox = memo(function Combobox(props: ComboboxProps) {
 // Export component with static properties
 export const Combobox = Object.assign(BaseCombobox, {
   displayName: "Combobox",
-  Trigger: ComboboxTrigger,
-  Item: MenuContextItem,
-  Divider: MenuDivider,
-  Label: MenuContextLabel,
   Button: MenuButton,
-  Input: MenuInput,
   Content: MenuContextContent,
+  Divider: MenuDivider,
+  Empty: MenuEmpty,
+  Input: MenuInput,
+  Item: MenuContextItem,
+  Label: MenuContextLabel,
+  Trigger: ComboboxTrigger,
   Value: MenuValue,
 }) as unknown as ComboboxComponentType

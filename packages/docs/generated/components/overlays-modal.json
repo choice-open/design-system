@@ -3,8 +3,8 @@
   "title": "Modal",
   "package": {
     "name": "@choice-ui/modal",
-    "version": "0.0.5",
-    "description": "Modal component for Choiceform Design System",
+    "version": "0.0.6",
+    "description": "A modal component with header, footer, and content sections for structured dialog layouts",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
       "@choice-ui/icon-button": "workspace:*",

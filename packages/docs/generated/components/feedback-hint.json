@@ -3,8 +3,8 @@
   "title": "Hint",
   "package": {
     "name": "@choice-ui/hint",
-    "version": "0.0.3",
-    "description": "Hint component for Choiceform Design System",
+    "version": "0.0.4",
+    "description": "A hint component that displays helpful information or tips in a floating tooltip",
     "dependencies": {
       "@floating-ui/react": "0.27.15",
       "@choice-ui/shared": "workspace:*",

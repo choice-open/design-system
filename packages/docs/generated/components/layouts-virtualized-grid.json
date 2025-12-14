@@ -3,8 +3,8 @@
   "title": "VirtualizedGrid",
   "package": {
     "name": "@choice-ui/virtualized-grid",
-    "version": "0.0.2",
-    "description": "Virtualized Grid component for Choiceform Design System",
+    "version": "0.0.3",
+    "description": "A virtualized grid component for efficiently rendering large datasets in a grid layout",
     "dependencies": {
       "@choice-ui/button": "workspace:*",
       "@choice-ui/shared": "workspace:*"
