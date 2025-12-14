@@ -381,6 +381,13 @@
       ]
     },
     {
+      "slug": "forms/otp-input",
+      "name": "@choice-ui/otp-input",
+      "title": "OtpInput",
+      "description": "Visual style variant",
+      "version": "0.0.1"
+    },
+    {
       "slug": "navigation/pagination",
       "name": "@choice-ui/pagination",
       "title": "Pagination",
