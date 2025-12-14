@@ -1,14 +1,14 @@
 import { FloatingDelayGroup } from "@floating-ui/react"
 import type { ReactNode } from "react"
-import { AlertDialogProvider } from "../components/alert-dialog"
-import type { AlertDialogProps } from "../components/alert-dialog"
+import { AlertDialogProvider } from "../components/alert-dialog/src/context"
+import type { AlertDialogProviderProps } from "../components/alert-dialog/src/context"
 
 export interface ChoiceUiProviderProps {
   children: ReactNode
   /**
    * AlertDialog configuration
    */
-  alertDialog?: Omit<AlertDialogProps, "children">
+  alertDialog?: Omit<AlertDialogProviderProps, "children">
   /**
    * Tooltip delay configuration
    * @default { open: 400, close: 200 }
