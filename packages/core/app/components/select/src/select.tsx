@@ -216,6 +216,8 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
   const allowMouseUpRef = useRef(true)
   const selectTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const scrollRef = useRef<HTMLDivElement>(null)
+  // Track if mouse is being held down from trigger (for native select-like behavior)
+  const isMouseDownFromTriggerRef = useRef(false)
 
   // Combine all refs into one object, wrapped with useMemo to avoid recreation
   const refs = useMemo(
@@ -227,6 +229,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
       allowMouseUp: allowMouseUpRef,
       selectTimeout: selectTimeoutRef,
       scroll: scrollRef,
+      isMouseDownFromTrigger: isMouseDownFromTriggerRef,
     }),
     [], // refs are stable references, no dependencies needed
   )
@@ -387,6 +390,7 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
     } else {
       refs.allowSelect.current = false
       refs.allowMouseUp.current = true
+      refs.isMouseDownFromTrigger.current = false
     }
   }, [isControlledOpen])
 
@@ -500,6 +504,15 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
         onMouseUp: () => {
           if (!refs.allowMouseUp.current || customActive) return
 
+          // Native select-like behavior: if mouse was held from trigger and released on item, select it
+          if (refs.isMouseDownFromTrigger.current) {
+            refs.isMouseDownFromTrigger.current = false
+            if (!isDisabled) {
+              handleSelect(currentSelectableIndex)
+            }
+            return
+          }
+
           if (refs.allowSelect.current) {
             handleSelect(currentSelectableIndex)
           }
@@ -567,6 +580,10 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
           onTouchStart() {
             setTouch(true)
           },
+          onMouseDown() {
+            // Mark that mouse is being held down from trigger (for native select-like behavior)
+            refs.isMouseDownFromTrigger.current = true
+          },
           onPointerMove({ pointerType }: React.PointerEvent) {
             if (pointerType !== "touch") {
               setTouch(false)
@@ -585,6 +602,10 @@ const SelectComponent = memo(function SelectComponent(props: SelectProps) {
           <FloatingOverlay
             lockScroll={!touch}
             className={tcx("z-menu", focusManagerProps.modal ? "" : "pointer-events-none")}
+            onMouseUp={() => {
+              // Reset drag select state when mouse is released outside menu items
+              refs.isMouseDownFromTrigger.current = false
+            }}
           >
             <FloatingFocusManager
               context={floating.context}
