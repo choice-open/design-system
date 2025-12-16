@@ -384,8 +384,11 @@
       "slug": "forms/otp-input",
       "name": "@choice-ui/otp-input",
       "title": "OtpInput",
-      "description": "Visual style variant",
-      "version": "0.0.1"
+      "description": "",
+      "version": "0.0.1",
+      "tags": [
+        "new"
+      ]
     },
     {
       "slug": "navigation/pagination",
@@ -524,7 +527,7 @@
       "slug": "utils/slot",
       "name": "@choice-ui/slot",
       "title": "Slot",
-      "description": "Get child ref safely across React 18 and 19",
+      "description": "优化的 Slot 组件实现",
       "version": "0.0.4"
     },
     {
