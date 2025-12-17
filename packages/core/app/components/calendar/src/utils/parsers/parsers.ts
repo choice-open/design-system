@@ -802,13 +802,21 @@ function parseCompositeFormat(input: string, format: string, locale: Locale): Da
 }
 
 /**
- * 从格式字符串中移除星期相关的标记
+ * 从格式字符串中移除星期相关的标记，并修复月份格式兼容性问题
+ *
+ * 问题背景：
+ * - 在中文 locale 下，format(date, "MMM") 输出 "12月"（数字+月）
+ * - 但 parse("12月", "MMM") 期望的是 "十二月"（中文月份名）
+ * - 这导致解析失败，需要将 MMM 替换为 M月 以正确解析
  */
 function removeWeekdayFromFormat(format: string): string {
   return (
     format
       // 移除星期标记及其周围的空格和标点
       .replace(/\s*[eEic]{1,4}\s*/g, "")
+      // 修复中文月份格式：MMM 在中文下输出 "12月" 但无法正确解析
+      // 将 "MMM" 替换为 "M月" 以支持 "12月" 这样的格式
+      .replace(/MMM(?!M)/g, "M月")
       // 清理多余的连续空格和标点
       .replace(/\s+/g, " ")
       .replace(/\s*([,，、])\s*/g, "$1")
@@ -823,17 +831,43 @@ function removeWeekdayFromFormat(format: string): string {
 function removeWeekdayFromInput(input: string, locale: Locale): string {
   try {
     // 生成所有星期名字的数组（包括完整名称和缩写）
-    const weekdayNames = generateWeekdayNames(locale)
+    const { longNames, shortNames } = generateWeekdayNames(locale)
 
-    if (weekdayNames.length === 0) {
-      return input
+    let result = input
+
+    // 1. 首先移除长名称（如 "星期三"、"日曜日"），这些不会有歧义
+    if (longNames.length > 0) {
+      const sortedLongNames = longNames.sort((a, b) => b.length - a.length)
+      const longPattern = new RegExp(`\\s*(${sortedLongNames.join("|")})\\s*`, "gi")
+      result = result.replace(longPattern, " ")
     }
 
-    // 构建正则表达式，按长度降序排列以优先匹配完整名称
-    const sortedNames = weekdayNames.sort((a, b) => b.length - a.length)
-    const pattern = new RegExp(`\\s*(${sortedNames.join("|")})\\s*`, "gi")
+    // 2. 对于短名称（如 "周三"、"水"），需要特殊处理以避免误删月份等
+    if (shortNames.length > 0) {
+      const sortedShortNames = shortNames.sort((a, b) => b.length - a.length)
 
-    return input.replace(pattern, "").replace(/\s+/g, " ").trim()
+      // 对于单字符的短名称，只匹配在括号内的情况
+      // 例如：（水）、(Wed)、「木」等
+      const singleCharNames = sortedShortNames.filter((name) => name.length === 1)
+      const multiCharNames = sortedShortNames.filter((name) => name.length > 1)
+
+      // 多字符短名称直接匹配（如 "周三"、"Mon"）
+      if (multiCharNames.length > 0) {
+        const multiPattern = new RegExp(`\\s*(${multiCharNames.join("|")})\\s*`, "gi")
+        result = result.replace(multiPattern, " ")
+      }
+
+      // 单字符名称只匹配括号内的（避免误删 "12月" 中的 "月"）
+      if (singleCharNames.length > 0) {
+        const singlePattern = new RegExp(
+          `([（(「【])(${singleCharNames.join("|")})([）)」】])`,
+          "gi",
+        )
+        result = result.replace(singlePattern, "$1$3")
+      }
+    }
+
+    return result.replace(/\s+/g, " ").trim()
   } catch {
     // 如果获取星期名字失败，降级到简单的中文处理
     return input
@@ -845,10 +879,11 @@ function removeWeekdayFromInput(input: string, locale: Locale): string {
 
 /**
  * 使用 date-fns 生成指定语言环境的所有星期名字
- * 包括完整名称（Monday）和缩写（Mon）
+ * 返回分类的名称：长名称（如 "星期三"）和短名称（如 "周三"、"水"）
  */
-function generateWeekdayNames(locale: Locale): string[] {
-  const names: string[] = []
+function generateWeekdayNames(locale: Locale): { longNames: string[]; shortNames: string[] } {
+  const longNames: string[] = []
+  const shortNames: string[] = []
 
   try {
     // 创建一个星期的 7 天（从周日开始）
@@ -858,50 +893,43 @@ function generateWeekdayNames(locale: Locale): string[] {
       const currentDate = new Date(baseDate)
       currentDate.setDate(baseDate.getDate() + i)
 
-      // 获取完整星期名称 (eeee)
+      // 获取完整星期名称 (eeee) - 归类为长名称
       const fullName = format(currentDate, "eeee", { locale })
-      if (fullName && fullName !== "eeee") {
-        names.push(fullName)
+      if (fullName && fullName !== "eeee" && !fullName.includes("e")) {
+        longNames.push(fullName)
       }
 
-      // 获取缩写星期名称 (eee)
+      // 获取缩写星期名称 (eee) - 归类为短名称
       const shortName = format(currentDate, "eee", { locale })
-      if (shortName && shortName !== "eee" && shortName !== fullName) {
-        names.push(shortName)
+      if (shortName && shortName !== "eee" && shortName !== fullName && !shortName.includes("e")) {
+        shortNames.push(shortName)
       }
 
-      // 获取最短星期名称 (ee)
-      const veryShortName = format(currentDate, "ee", { locale })
-      if (
-        veryShortName &&
-        veryShortName !== "ee" &&
-        veryShortName !== shortName &&
-        veryShortName !== fullName
-      ) {
-        names.push(veryShortName)
-      }
+      // 注意：ee 格式返回数字（如 "01"），不是星期名称，所以不使用
 
-      // 对于中文，还要尝试获取其他格式
+      // 对于中文，还要尝试获取 "周X" 格式 - 归类为短名称
       const localeKey = getLocaleKey(locale)
-      if (localeKey === "zh") {
-        // 尝试获取 "周X" 格式
-        const weekFormat = format(currentDate, "eeee", { locale }).replace("星期", "周")
+      if (localeKey === "zh" && fullName) {
+        const weekFormat = fullName.replace("星期", "周")
         if (weekFormat !== fullName) {
-          names.push(weekFormat)
+          shortNames.push(weekFormat)
         }
       }
     }
 
     // 去重并过滤无效值
-    return [...new Set(names)].filter(
-      (name) =>
-        name &&
-        name.length > 0 &&
-        !name.includes("e") && // 过滤掉格式化失败的情况
-        name !== "Invalid Date",
-    )
+    const filterNames = (names: string[]) =>
+      [...new Set(names)].filter(
+        (name) =>
+          name && name.length > 0 && !/^\d+$/.test(name) && name !== "Invalid Date",
+      )
+
+    return {
+      longNames: filterNames(longNames),
+      shortNames: filterNames(shortNames),
+    }
   } catch {
-    return []
+    return { longNames: [], shortNames: [] }
   }
 }
 
