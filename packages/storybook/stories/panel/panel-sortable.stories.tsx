@@ -554,8 +554,8 @@ export const Basic: Story = {
   },
 }
 
-export const Basic: Story = {
-  render: function BasicStory() {
+export const MultipleItems: Story = {
+  render: function MultipleItemsStory() {
     const sortableTriggerRefs = useRef<Map<string, HTMLFieldSetElement>>(new Map())
     const open$ = useObservable<string | null>(null)
     const selectedId$ = useObservable<string | null>(null)

@@ -439,7 +439,7 @@ export const WithBadgeStory: Story = {
 }
 
 /**
- * Basic: Demonstrates the standard Menus component with simple items.
+ * MenusWithOptions: Demonstrates the standard Menus component with simple items.
  *
  * Features:
  * - Active state on hover for visual feedback
@@ -448,8 +448,8 @@ export const WithBadgeStory: Story = {
  *
  * This example shows the fundamental usage pattern with dynamic content.
  */
-export const Basic: Story = {
-  render: function BasicStory() {
+export const MenusWithOptions: Story = {
+  render: function MenusWithOptionsStory() {
     const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
     const options = [
