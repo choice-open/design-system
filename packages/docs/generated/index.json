@@ -168,7 +168,7 @@
       "name": "@choice-ui/calendar",
       "title": "DateInput",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -178,7 +178,7 @@
       "name": "@choice-ui/calendar",
       "title": "DateRangeInput",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -328,7 +328,7 @@
       "name": "@choice-ui/menus",
       "title": "Menus",
       "description": "",
-      "version": "0.1.4"
+      "version": "0.1.5"
     },
     {
       "slug": "overlays/modal",
@@ -345,7 +345,7 @@
       "name": "@choice-ui/calendar",
       "title": "MonthCalendar",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -436,7 +436,7 @@
       "name": "@choice-ui/calendar",
       "title": "QuarterCalendar",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -634,7 +634,7 @@
       "name": "@choice-ui/calendar",
       "title": "TimeCalendar",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -644,7 +644,7 @@
       "name": "@choice-ui/calendar",
       "title": "TimeInput",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -654,7 +654,7 @@
       "name": "@choice-ui/calendar",
       "title": "TimeRangeInput",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]
@@ -708,7 +708,7 @@
       "name": "@choice-ui/calendar",
       "title": "YearCalendar",
       "description": "",
-      "version": "0.0.6",
+      "version": "0.0.10",
       "tags": [
         "new"
       ]

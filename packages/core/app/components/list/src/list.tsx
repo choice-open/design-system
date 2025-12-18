@@ -10,7 +10,8 @@ import { ListProvider, useActiveItemContext } from "./context"
 import { useListKeyboard } from "./hooks"
 import { ListTv } from "./tv"
 
-export interface ListProps extends Omit<HTMLProps<HTMLDivElement>, "size"> {
+export interface ListProps extends Omit<HTMLProps<HTMLDivElement>, "size" | "as"> {
+  as?: React.ElementType
   children: React.ReactNode
   interactive?: boolean
   selection?: boolean
@@ -32,6 +33,7 @@ interface ListComponentProps extends React.ForwardRefExoticComponent<
 
 export const ListBase = forwardRef<HTMLDivElement, ListProps>((props, ref) => {
   const {
+    as,
     children,
     className,
     interactive = true,
@@ -52,6 +54,7 @@ export const ListBase = forwardRef<HTMLDivElement, ListProps>((props, ref) => {
     >
       <ListRoot
         ref={ref}
+        as={as}
         className={className}
         {...rest}
       >
@@ -62,14 +65,14 @@ export const ListBase = forwardRef<HTMLDivElement, ListProps>((props, ref) => {
 })
 
 const ListRoot = forwardRef<HTMLDivElement, ListProps>((props, ref) => {
-  const { children, className, ...rest } = props
+  const { as: As = "div", children, className, ...rest } = props
   const handleKeyDown = useListKeyboard()
   const { setActiveItem } = useActiveItemContext()
 
   const tv = ListTv()
 
   return (
-    <div
+    <As
       ref={ref}
       role="list"
       tabIndex={0}
@@ -79,7 +82,7 @@ const ListRoot = forwardRef<HTMLDivElement, ListProps>((props, ref) => {
       className={tcx(tv, className)}
     >
       {children}
-    </div>
+    </As>
   )
 })
 

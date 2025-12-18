@@ -2,6 +2,7 @@ import type { DialogPosition } from "@choice-ui/react"
 import {
   Button,
   Checkbox,
+  CodeBlock,
   Dialog,
   Dropdown,
   Input,
@@ -9,6 +10,7 @@ import {
   Popover,
   ScrollArea,
   Select,
+  useForm,
 } from "@choice-ui/react"
 import { FillWidth } from "@choiceform/icons-react"
 import { faker } from "@faker-js/faker"
@@ -756,6 +758,254 @@ export const WithInput: Story = {
           </Dialog.Footer>
         </Dialog>
       </>
+    )
+  },
+}
+
+/**
+ * AsForm: Demonstrates using the `as` prop to render the dialog container as a form element.
+ * This allows wrapping all dialog content in a native HTML form for better form semantics.
+ *
+ * Benefits:
+ * - Native form validation
+ * - Submit on Enter key in inputs
+ * - Form data can be collected via FormData API
+ * - Better accessibility with proper form semantics
+ *
+ * Usage: Set `as="form"` and add `onSubmit` handler to the Dialog.
+ */
+export const AsForm: Story = {
+  render: function AsFormStory() {
+    const [open, setOpen] = useState(false)
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      const data = Object.fromEntries(formData.entries())
+      console.log("Form submitted:", data)
+      alert(`Form submitted!\nName: ${data.name}\nEmail: ${data.email}`)
+      setOpen(false)
+    }
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>Open Form Dialog</Button>
+        <Dialog
+          as="form"
+          open={open}
+          onOpenChange={setOpen}
+          onSubmit={handleSubmit}
+          outsidePress
+        >
+          <Dialog.Header title="User Registration" />
+          <Dialog.Content className="w-96 p-4">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="form-name"
+                  className="text-body-medium font-strong"
+                >
+                  Name
+                </label>
+                <Input
+                  id="form-name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                  autoFocus
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="form-email"
+                  className="text-body-medium font-strong"
+                >
+                  Email
+                </label>
+                <Input
+                  id="form-email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <p className="text-secondary-foreground text-body-small">
+                Press Enter in any input to submit the form, or click the Submit button.
+              </p>
+            </div>
+          </Dialog.Content>
+          <Dialog.Footer className="justify-end gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+            >
+              Submit
+            </Button>
+          </Dialog.Footer>
+        </Dialog>
+      </>
+    )
+  },
+}
+
+/**
+ * WithUseForm: Demonstrates integrating Dialog with the `useForm` hook for complex form handling.
+ * This example shows how to use the `as="form"` prop combined with `useForm` for:
+ *
+ * - Field-level validation with real-time feedback
+ * - Form state management
+ * - Structured form submission
+ * - Reset form on dialog close
+ *
+ * The `as="form"` prop allows the dialog to act as a native form element,
+ * enabling proper form semantics while `useForm` provides powerful validation and state management.
+ */
+export const WithUseForm: Story = {
+  render: function WithUseFormStory() {
+    const [open, setOpen] = useState(false)
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        username: "",
+        email: "",
+        role: "user",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+        setOpen(false)
+      },
+    })
+
+    const handleOpenChange = (isOpen: boolean) => {
+      setOpen(isOpen)
+      if (!isOpen) {
+        form.reset()
+      }
+    }
+
+    return (
+      <div className="flex gap-8">
+        <div className="flex flex-col gap-4">
+          <Button onClick={() => setOpen(true)}>Open Form Dialog</Button>
+          <Dialog
+            as="form"
+            open={open}
+            onOpenChange={handleOpenChange}
+            onSubmit={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              form.handleSubmit()
+            }}
+          >
+            <Dialog.Header title="User Registration" />
+            <Dialog.Content className="w-96 space-y-4 p-4">
+              <form.Field
+                name="username"
+                validators={{
+                  onChange: ({ value }) => {
+                    if ((value as string).length < 3) {
+                      return "Username must be at least 3 characters"
+                    }
+                  },
+                }}
+              >
+                {(field) => (
+                  <form.Input
+                    name={field.name}
+                    label="Username"
+                    value={field.state.value as string}
+                    onChange={field.handleChange}
+                    onBlur={field.handleBlur}
+                    placeholder="Enter username"
+                    error={field.state.meta.errors.join(", ")}
+                    autoFocus
+                  />
+                )}
+              </form.Field>
+
+              <form.Field
+                name="email"
+                validators={{
+                  onBlur: ({ value }) => {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    if (!emailRegex.test(value as string)) {
+                      return "Please enter a valid email address"
+                    }
+                  },
+                }}
+              >
+                {(field) => (
+                  <form.Input
+                    name={field.name}
+                    label="Email"
+                    type="email"
+                    value={field.state.value as string}
+                    onChange={field.handleChange}
+                    onBlur={field.handleBlur}
+                    placeholder="Enter email"
+                    error={field.state.meta.errors.join(", ")}
+                  />
+                )}
+              </form.Field>
+
+              <form.Field name="role">
+                {(field) => (
+                  <form.Select
+                    name={field.name}
+                    label="Role"
+                    value={field.state.value as string}
+                    onChange={field.handleChange}
+                    options={[
+                      { label: "Admin", value: "admin" },
+                      { label: "User", value: "user" },
+                      { label: "Guest", value: "guest" },
+                    ]}
+                  />
+                )}
+              </form.Field>
+            </Dialog.Content>
+            <Dialog.Footer className="justify-end gap-2">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
+              <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+                {([canSubmit, isSubmitting]) => (
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={!canSubmit}
+                    loading={isSubmitting as boolean}
+                  >
+                    Submit
+                  </Button>
+                )}
+              </form.Subscribe>
+            </Dialog.Footer>
+          </Dialog>
+        </div>
+
+        {result && (
+          <div className="bg-secondary-background w-64 rounded-xl p-4">
+            <strong className="mb-2 block">Form Result:</strong>
+            <CodeBlock language="json">
+              <CodeBlock.Content code={result} />
+            </CodeBlock>
+          </div>
+        )}
+      </div>
     )
   },
 }

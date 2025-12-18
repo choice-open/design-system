@@ -18,7 +18,8 @@ import { PopoverContext } from "./popover-context"
 const PORTAL_ROOT_ID = "floating-popover-root"
 const DEFAULT_OFFSET = { mainAxis: 8, crossAxis: 0 }
 
-export interface PopoverProps {
+export interface PopoverProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+  as?: React.ElementType
   autoSize?: boolean
   autoUpdate?: boolean
   children?: React.ReactNode
@@ -50,6 +51,7 @@ export interface PopoverProps {
 
 // Popover component implementation
 export const DragPopover = memo(function DragPopover({
+  as,
   className,
   children,
   triggerRef: externalTriggerRef,
@@ -76,6 +78,7 @@ export const DragPopover = memo(function DragPopover({
   rememberPosition = false,
   maxWidth,
   matchTriggerWidth = false,
+  ...restProps
 }: PopoverProps) {
   const titleId = useId()
   const descriptionId = useId()
@@ -229,6 +232,7 @@ export const DragPopover = memo(function DragPopover({
             {floating.innerOpen && (
               <Modal
                 ref={handleFloatingRef}
+                as={as}
                 style={combinedStyles}
                 className={tcx(matchTriggerWidth && "max-w-none", className)}
                 data-state={floating.positionReady ? "open" : "opening"}
@@ -236,6 +240,7 @@ export const DragPopover = memo(function DragPopover({
                 data-draggable={draggable ? "true" : undefined}
                 data-closing={floating.isClosing ? "true" : undefined}
                 {...floating.getFloatingProps()}
+                {...restProps}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={titleId}

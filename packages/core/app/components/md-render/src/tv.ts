@@ -45,7 +45,7 @@ export const mdRenderTv = tcv({
     },
     variant: {
       github: {
-        root: "markdown-body",
+        root: "github-md",
         tableWrapper: "table-wrapper",
       },
       default: {

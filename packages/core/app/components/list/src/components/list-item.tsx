@@ -19,6 +19,7 @@ export interface ListItemProps extends React.HTMLAttributes<HTMLElement> {
     shortcut?: string
   }
   disabled?: boolean
+  href?: string
   id?: string
   parentId?: string
   prefixElement?: ReactNode
@@ -28,6 +29,8 @@ export interface ListItemProps extends React.HTMLAttributes<HTMLElement> {
     modifier?: KbdKey | KbdKey[] | undefined
   }
   suffixElement?: ReactNode
+  target?: string
+  rel?: string
 }
 
 export const ListItem = memo(

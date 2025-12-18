@@ -36,6 +36,12 @@
           "description": ""
         },
         {
+          "name": "as",
+          "type": "ElementType<any, keyof IntrinsicElements> | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
           "name": "interactive",
           "type": "boolean | undefined",
           "required": false,
@@ -65,6 +71,12 @@
       "displayName": "ListContentProps",
       "description": "",
       "props": [
+        {
+          "name": "as",
+          "type": "ElementType<any, keyof IntrinsicElements> | undefined",
+          "required": false,
+          "description": ""
+        },
         {
           "name": "parentId",
           "type": "string | undefined",
@@ -102,6 +114,12 @@
           "description": ""
         },
         {
+          "name": "href",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
           "name": "id",
           "type": "string | undefined",
           "required": false,
@@ -134,6 +152,18 @@
         {
           "name": "suffixElement",
           "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "target",
+          "type": "string | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "rel",
+          "type": "string | undefined",
           "required": false,
           "description": ""
         },
@@ -315,8 +345,8 @@
       "id": "collections-list--with-as-prop",
       "name": "With As Prop",
       "exportName": "WithAsProp",
-      "description": "A list demonstrating the `as` prop functionality on ListItem.\n\nThe `as` prop allows you to render ListItem as different HTML elements or React components.\nThis is useful for semantic HTML, accessibility, or integrating with routing libraries.\nAll ListItem features (prefixElement, suffixElement, shortcut, active, selected, disabled)\nwork regardless of the `as` prop value.\n\n```tsx\n<List>\n  <List.Content>\n    <List.Item as=\"div\">\n      <List.Value>Div Item</List.Value>\n    </List.Item>\n  </List.Content>\n</List>\n```",
-      "source": "import { List } from \"@choice-ui/list\"\n\nexport default function App() {\n  return (\n\n    <List className=\"w-64\">\n      <List.Label>As div:</List.Label>\n      <List.Content>\n        <List.Item as=\"div\">\n          <List.Value>Div Item</List.Value>\n        </List.Item>\n      </List.Content>\n    </List>\n\n  );\n}"
+      "description": "WithAsProp: Demonstrates using the `as` prop to render List.Content and List.Item as different HTML elements.\n\nUse cases:\n- `List.Content as=\"ul\"` with `List.Item as=\"li\"` for semantic HTML lists\n- `List as=\"nav\"` for navigation wrapper\n- Custom elements for specific use cases\n\nNote: For proper HTML structure, use `as` on `List.Content` for list containers (ul/ol),\nnot on the `List` root which serves as the outer wrapper.\n\n```tsx\n<List>\n  <List.Content as=\"ul\">\n    <List.Item as=\"li\">Item 1</List.Item>\n    <List.Item as=\"li\">Item 2</List.Item>\n  </List.Content>\n</List>\n```",
+      "source": "import { List } from \"@choice-ui/list\"\n\nexport default function App() {\n  return (\n\n    <div className=\"flex gap-8\">\n      <List\n        className=\"w-64\"\n        interactive={false}\n      >\n        <List.Label>Semantic List (ul/li):</List.Label>\n        <List.Content as=\"ul\">\n          <List.Item\n            as=\"li\"\n            prefixElement={<House />}\n          >\n            <List.Value>Home</List.Value>\n          </List.Item>\n          <List.Item\n            as=\"li\"\n            prefixElement={<File />}\n          >\n            <List.Value>Documents</List.Value>\n          </List.Item>\n          <List.Item\n            as=\"li\"\n            prefixElement={<Settings />}\n          >\n            <List.Value>Settings</List.Value>\n          </List.Item>\n        </List.Content>\n      </List>\n\n      <List className=\"w-64\">\n        <List.Label>Navigation (nav/a):</List.Label>\n        <List.Content as=\"nav\">\n          <List.Item\n            as=\"a\"\n            href=\"#home\"\n            prefixElement={<House />}\n          >\n            <List.Value>Home</List.Value>\n          </List.Item>\n          <List.Item\n            as=\"a\"\n            href=\"#docs\"\n            prefixElement={<File />}\n          >\n            <List.Value>Documents</List.Value>\n          </List.Item>\n          <List.Item\n            as=\"a\"\n            href=\"#settings\"\n            prefixElement={<Settings />}\n          >\n            <List.Value>Settings</List.Value>\n          </List.Item>\n        </List.Content>\n      </List>\n    </div>\n\n  );\n}"
     },
     {
       "id": "collections-list--non-interactive",

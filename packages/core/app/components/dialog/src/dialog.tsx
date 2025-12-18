@@ -17,8 +17,9 @@ import { dragDialogTv } from "./tv"
 const PORTAL_ROOT_ID = "floating-modal-root"
 
 import type { DialogPosition } from "./types"
-export interface DialogProps {
+export interface DialogProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   afterOpenChange?: (isOpen: boolean) => void
+  as?: React.ElementType
   children?: React.ReactNode
   className?: string
   closeOnEscape?: boolean
@@ -47,6 +48,7 @@ export interface DialogProps {
 }
 
 const DialogComponent = memo(function DialogComponent({
+  as,
   className,
   children,
   closeOnEscape = true,
@@ -70,6 +72,7 @@ const DialogComponent = memo(function DialogComponent({
   focusManagerProps = { initialFocus: 1 },
   transitionStylesProps,
   root,
+  ...restProps
 }: DialogProps) {
   const dialogRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -250,9 +253,11 @@ const DialogComponent = memo(function DialogComponent({
                     floating.refs.setFloating(node)
                   }
                 }}
+                as={as}
                 style={getStyleWithDefaults}
                 className={tcx(style.dialog(), className)}
                 {...floating.getFloatingProps()}
+                {...restProps}
                 aria-labelledby={titleId}
                 aria-describedby={descriptionId}
                 role="dialog"

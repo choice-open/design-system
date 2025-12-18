@@ -3,7 +3,7 @@
   "title": "DateInput",
   "package": {
     "name": "@choice-ui/calendar",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "A calendar component for date selection with support for single, range, and multiple date picking",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",

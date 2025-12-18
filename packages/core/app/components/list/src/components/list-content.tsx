@@ -3,13 +3,14 @@ import { forwardRef, useMemo } from "react"
 import { LevelContext, useExpandContext, useStructureContext } from "../context"
 import { ListContentTv } from "../tv"
 
-export interface ListContentProps extends React.HTMLProps<HTMLDivElement> {
+export interface ListContentProps extends Omit<React.HTMLAttributes<HTMLElement>, "as"> {
+  as?: React.ElementType
   children: React.ReactNode
   parentId?: string
 }
 
 export const ListContent = forwardRef<HTMLDivElement, ListContentProps>((props, ref) => {
-  const { children, className, parentId, ...rest } = props
+  const { as: As = "div", children, className, parentId, ...rest } = props
 
   const { isSubListExpanded } = useExpandContext()
   const { itemsMap, shouldShowReferenceLine, size } = useStructureContext()
@@ -56,7 +57,7 @@ export const ListContent = forwardRef<HTMLDivElement, ListContentProps>((props, 
 
   return (
     <LevelContext.Provider value={{ level: safeLevel }}>
-      <div
+      <As
         ref={ref}
         role="group"
         data-level={safeLevel}
@@ -64,7 +65,7 @@ export const ListContent = forwardRef<HTMLDivElement, ListContentProps>((props, 
         {...rest}
       >
         {children}
-      </div>
+      </As>
     </LevelContext.Provider>
   )
 })

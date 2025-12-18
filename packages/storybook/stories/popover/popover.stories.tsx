@@ -1,5 +1,6 @@
 import {
   Button,
+  CodeBlock,
   Dropdown,
   Input,
   NumericInput,
@@ -9,6 +10,7 @@ import {
   Select,
   Tabs,
   tcx,
+  useForm,
 } from "@choice-ui/react"
 import { faker } from "@faker-js/faker"
 import type { Placement as FloatingPlacement } from "@floating-ui/react"
@@ -1330,6 +1332,212 @@ export const WithInput: Story = {
           </Button>
         </Popover.Footer>
       </Popover>
+    )
+  },
+}
+
+/**
+ * AsForm: Demonstrates using the `as` prop to render the popover container as a form element.
+ * This allows wrapping all popover content in a native HTML form for better form semantics.
+ *
+ * Benefits:
+ * - Native form validation
+ * - Submit on Enter key in inputs
+ * - Form data can be collected via FormData API
+ * - Better accessibility with proper form semantics
+ *
+ * Usage: Set `as="form"` and add `onSubmit` handler to the Popover.
+ */
+export const AsForm: Story = {
+  render: function AsFormStory() {
+    const [open, setOpen] = useState(false)
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      const data = Object.fromEntries(formData.entries())
+      console.log("Form submitted:", data)
+      alert(`Form submitted!\nSearch: ${data.search}`)
+      setOpen(false)
+    }
+
+    return (
+      <Popover
+        as="form"
+        open={open}
+        onOpenChange={setOpen}
+        onSubmit={handleSubmit}
+      >
+        <Popover.Trigger>
+          <Button>Search</Button>
+        </Popover.Trigger>
+        <Popover.Header title="Quick Search" />
+        <Popover.Content className="w-72 p-4">
+          <div className="flex flex-col gap-3">
+            <Input
+              name="search"
+              placeholder="Enter search term..."
+              required
+              autoFocus
+            />
+            <p className="text-secondary-foreground text-body-small">
+              Press Enter to search, or click the Search button.
+            </p>
+          </div>
+        </Popover.Content>
+        <Popover.Footer className="flex justify-end gap-2 p-3">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => setOpen(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+          >
+            Search
+          </Button>
+        </Popover.Footer>
+      </Popover>
+    )
+  },
+}
+
+/**
+ * WithUseForm: Demonstrates integrating Popover with the `useForm` hook for complex form handling.
+ * This example shows how to use the `as="form"` prop combined with `useForm` for:
+ *
+ * - Field-level validation with real-time feedback
+ * - Form state management
+ * - Structured form submission
+ * - Reset form on popover close
+ *
+ * The `as="form"` prop allows the popover to act as a native form element,
+ * enabling proper form semantics while `useForm` provides powerful validation and state management.
+ */
+export const WithUseForm: Story = {
+  render: function WithUseFormStory() {
+    const [open, setOpen] = useState(false)
+    const [result, setResult] = useState<string>("")
+
+    const form = useForm({
+      defaultValues: {
+        name: "",
+        email: "",
+      },
+      onSubmit: async ({ value }) => {
+        setResult(JSON.stringify(value, null, 2))
+        setOpen(false)
+      },
+    })
+
+    const handleOpenChange = (isOpen: boolean) => {
+      setOpen(isOpen)
+      if (!isOpen) {
+        form.reset()
+      }
+    }
+
+    return (
+      <div className="flex gap-8">
+        <Popover
+          as="form"
+          open={open}
+          onOpenChange={handleOpenChange}
+          onSubmit={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+          }}
+        >
+          <Popover.Trigger>
+            <Button>Add Contact</Button>
+          </Popover.Trigger>
+          <Popover.Header title="New Contact" />
+          <Popover.Content className="w-80 space-y-4 p-4">
+            <form.Field
+              name="name"
+              validators={{
+                onChange: ({ value }) => {
+                  if ((value as string).length < 2) {
+                    return "Name must be at least 2 characters"
+                  }
+                },
+              }}
+            >
+              {(field) => (
+                <form.Input
+                  name={field.name}
+                  label="Name"
+                  value={field.state.value as string}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  placeholder="Enter name"
+                  error={field.state.meta.errors.join(", ")}
+                  autoFocus
+                />
+              )}
+            </form.Field>
+
+            <form.Field
+              name="email"
+              validators={{
+                onBlur: ({ value }) => {
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                  if ((value as string) && !emailRegex.test(value as string)) {
+                    return "Please enter a valid email"
+                  }
+                },
+              }}
+            >
+              {(field) => (
+                <form.Input
+                  name={field.name}
+                  label="Email"
+                  type="email"
+                  value={field.state.value as string}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  placeholder="Enter email"
+                  error={field.state.meta.errors.join(", ")}
+                />
+              )}
+            </form.Field>
+          </Popover.Content>
+          <Popover.Footer className="flex justify-end gap-2 p-3">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
+              {([canSubmit, isSubmitting]) => (
+                <Button
+                  type="submit"
+                  variant="primary"
+                  disabled={!canSubmit}
+                  loading={isSubmitting as boolean}
+                >
+                  Add
+                </Button>
+              )}
+            </form.Subscribe>
+          </Popover.Footer>
+        </Popover>
+
+        {result && (
+          <div className="bg-secondary-background w-64 rounded-xl p-4">
+            <strong className="mb-2 block">Result:</strong>
+            <CodeBlock language="json">
+              <CodeBlock.Content code={result} />
+            </CodeBlock>
+          </div>
+        )}
+      </div>
     )
   },
 }

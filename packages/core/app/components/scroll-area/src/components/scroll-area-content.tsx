@@ -2,8 +2,12 @@ import { tcx } from "@choice-ui/shared"
 import React, { forwardRef, useCallback, useMemo } from "react"
 import { useScrollAreaContext } from "../context/scroll-area-context"
 
-export const ScrollAreaContent = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<"div">>(
-  ({ className, children, ...props }, ref) => {
+export interface ScrollAreaContentProps extends Omit<React.HTMLAttributes<HTMLElement>, "as"> {
+  as?: React.ElementType
+}
+
+export const ScrollAreaContent = forwardRef<HTMLDivElement, ScrollAreaContentProps>(
+  ({ as: As = "div", className, children, ...props }, ref) => {
     const { setContent, orientation } = useScrollAreaContext()
 
     // Optimize ref setting
@@ -34,13 +38,13 @@ export const ScrollAreaContent = forwardRef<HTMLDivElement, React.ComponentProps
     }, [orientation])
 
     return (
-      <div
+      <As
         ref={setRef}
         className={tcx(sizeClasses, className)}
         {...props}
       >
         {children}
-      </div>
+      </As>
     )
   },
 )

@@ -759,33 +759,82 @@ export const NestedListWithSelection: Story = {
 }
 
 /**
- * A list demonstrating the `as` prop functionality on ListItem.
+ * WithAsProp: Demonstrates using the `as` prop to render List.Content and List.Item as different HTML elements.
  *
- * The `as` prop allows you to render ListItem as different HTML elements or React components.
- * This is useful for semantic HTML, accessibility, or integrating with routing libraries.
- * All ListItem features (prefixElement, suffixElement, shortcut, active, selected, disabled)
- * work regardless of the `as` prop value.
+ * Use cases:
+ * - `List.Content as="ul"` with `List.Item as="li"` for semantic HTML lists
+ * - `List as="nav"` for navigation wrapper
+ * - Custom elements for specific use cases
+ *
+ * Note: For proper HTML structure, use `as` on `List.Content` for list containers (ul/ol),
+ * not on the `List` root which serves as the outer wrapper.
  *
  * ```tsx
  * <List>
- *   <List.Content>
- *     <List.Item as="div">
- *       <List.Value>Div Item</List.Value>
- *     </List.Item>
+ *   <List.Content as="ul">
+ *     <List.Item as="li">Item 1</List.Item>
+ *     <List.Item as="li">Item 2</List.Item>
  *   </List.Content>
  * </List>
  * ```
  */
 export const WithAsProp: Story = {
   render: () => (
-    <List className="w-64">
-      <List.Label>As div:</List.Label>
-      <List.Content>
-        <List.Item as="div">
-          <List.Value>Div Item</List.Value>
-        </List.Item>
-      </List.Content>
-    </List>
+    <div className="flex gap-8">
+      <List
+        className="w-64"
+        interactive={false}
+      >
+        <List.Label>Semantic List (ul/li):</List.Label>
+        <List.Content as="ul">
+          <List.Item
+            as="li"
+            prefixElement={<House />}
+          >
+            <List.Value>Home</List.Value>
+          </List.Item>
+          <List.Item
+            as="li"
+            prefixElement={<File />}
+          >
+            <List.Value>Documents</List.Value>
+          </List.Item>
+          <List.Item
+            as="li"
+            prefixElement={<Settings />}
+          >
+            <List.Value>Settings</List.Value>
+          </List.Item>
+        </List.Content>
+      </List>
+
+      <List className="w-64">
+        <List.Label>Navigation (nav/a):</List.Label>
+        <List.Content as="nav">
+          <List.Item
+            as="a"
+            href="#home"
+            prefixElement={<House />}
+          >
+            <List.Value>Home</List.Value>
+          </List.Item>
+          <List.Item
+            as="a"
+            href="#docs"
+            prefixElement={<File />}
+          >
+            <List.Value>Documents</List.Value>
+          </List.Item>
+          <List.Item
+            as="a"
+            href="#settings"
+            prefixElement={<Settings />}
+          >
+            <List.Value>Settings</List.Value>
+          </List.Item>
+        </List.Content>
+      </List>
+    </div>
   ),
 }
 

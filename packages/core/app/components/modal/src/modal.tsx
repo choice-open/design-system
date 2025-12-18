@@ -11,7 +11,8 @@ import {
 } from "./components"
 import { ModalTv } from "./tv"
 
-interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "title"> {
+interface ModalProps extends Omit<HTMLProps<HTMLDivElement>, "title" | "as"> {
+  as?: React.ElementType
   className?: string
   onClose?: () => void
   title?: ReactNode
@@ -30,11 +31,11 @@ interface ModalComponent extends React.ForwardRefExoticComponent<
 }
 
 const ModalBase = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
-  const { className, title, onClose, ...rest } = props
+  const { as: As = "div", className, title, onClose, ...rest } = props
   const tv = ModalTv()
 
   return (
-    <div
+    <As
       ref={ref}
       className={tcx(tv.root(), className)}
       {...rest}

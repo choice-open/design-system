@@ -3,7 +3,7 @@
   "title": "DateRangeInput",
   "package": {
     "name": "@choice-ui/calendar",
-    "version": "0.0.6",
+    "version": "0.0.10",
     "description": "A calendar component for date selection with support for single, range, and multiple date picking",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
@@ -612,58 +612,52 @@
       "description": "",
       "props": [
         {
-          "name": "children",
-          "type": "ReactNode",
-          "required": false,
-          "description": "Custom trigger element. Use Dropdown.Trigger as wrapper"
-        },
-        {
           "name": "className",
           "type": "string | undefined",
           "required": false,
-          "description": "Custom class name for dropdown content"
+          "description": ""
         },
         {
           "name": "hourStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Hour step, default 1 hour"
+          "description": ""
         },
         {
           "name": "minuteStep",
           "type": "number | undefined",
           "required": false,
-          "description": "Minute step, default 15 minutes"
+          "description": ""
         },
         {
           "name": "open",
           "type": "boolean | undefined",
           "required": false,
-          "description": "Whether the dropdown is open (controlled)"
+          "description": ""
         },
         {
           "name": "onOpenChange",
           "type": "((open: boolean) => void) | undefined",
           "required": false,
-          "description": "Callback when open state changes"
+          "description": ""
         },
         {
           "name": "closeOnSelect",
           "type": "boolean | undefined",
           "required": false,
-          "description": "Whether to close dropdown after selection"
+          "description": ""
         },
         {
           "name": "triggerRef",
           "type": "RefObject<HTMLElement> | undefined",
           "required": false,
-          "description": "External trigger element ref"
+          "description": ""
         },
         {
           "name": "triggerSelector",
           "type": "string | undefined",
           "required": false,
-          "description": "CSS selector for external trigger element"
+          "description": ""
         },
         {
           "name": "defaultValue",
@@ -736,6 +730,30 @@
           "type": "number | undefined",
           "required": false,
           "description": "Base step (minutes), default 1 minute"
+        },
+        {
+          "name": "offset",
+          "type": "number | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "placement",
+          "type": "undefined | \"top\" | \"right\" | \"bottom\" | \"left\" | \"top-start\" | \"top-end\" | \"right-start\" | \"right-end\" | \"bottom-start\" | \"bottom-end\" | \"left-start\" | \"left-end\"",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "matchTriggerWidth",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "undefined | \"default\" | \"light\" | \"reset\"",
+          "required": false,
+          "description": ""
         }
       ]
     },
