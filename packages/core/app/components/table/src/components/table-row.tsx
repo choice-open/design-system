@@ -2,7 +2,7 @@ import { tcx } from "@choice-ui/shared"
 import { Checkbox } from "@choice-ui/checkbox"
 import { Children, isValidElement, type ReactNode, useCallback, useMemo } from "react"
 import { memo } from "react"
-import type { ConsecutiveStyle, RowKey, TableRowProps } from "../types"
+import type { ConsecutiveStyle, TableRowProps } from "../types"
 import { tableVariants } from "../tv"
 
 // Stable empty function for Checkbox onChange
@@ -28,7 +28,7 @@ interface TableRowInternalProps extends TableRowProps {
 }
 
 function TableRowPure({
-  rowKey,
+  rowKey: _rowKey,
   index,
   children,
   className,
@@ -127,24 +127,8 @@ function TableRowPure({
 }
 
 // Memoized pure component - no context dependencies
-// Note: We don't compare children because render props always create new children.
-// The row's own rendering (checkbox, className, etc.) will still be memoized.
-const TableRowMemo = memo(TableRowPure, (prev, next) => {
-  // Compare only the values that affect the row's own rendering
-  // Children are intentionally not compared - they're managed by render props
-  return (
-    prev.rowKey === next.rowKey &&
-    prev.index === next.index &&
-    prev.className === next.className &&
-    prev.selectable === next.selectable &&
-    prev.isSelected === next.isSelected &&
-    prev.isActive === next.isActive &&
-    prev.consecutiveStyle === next.consecutiveStyle &&
-    prev.reorderable === next.reorderable &&
-    prev.hasRowClick === next.hasRowClick &&
-    prev.columnOrder === next.columnOrder
-  )
-})
+// Use default shallow comparison to ensure children updates are detected
+const TableRowMemo = memo(TableRowPure)
 
 // Re-export types for the public API
 export type { TableRowProps }

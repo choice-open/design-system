@@ -35,7 +35,6 @@ const VirtualRowWrapper = memo(
         position: "absolute",
         top: 0,
         left: 0,
-        right: 0,
         height,
         transform: `translateY(${start}px)`,
       }),
