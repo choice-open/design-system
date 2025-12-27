@@ -47,6 +47,11 @@ export interface PopoverProps extends Omit<React.HTMLAttributes<HTMLElement>, "t
    */
   root?: HTMLElement | null
   triggerRef?: React.RefObject<HTMLElement>
+  /**
+   * CSS selector string to find the trigger element in the DOM.
+   * Alternative to triggerRef for cases where you want to use a selector instead of a ref.
+   */
+  triggerSelector?: string
 }
 
 // Popover component implementation
@@ -55,6 +60,7 @@ export const DragPopover = memo(function DragPopover({
   className,
   children,
   triggerRef: externalTriggerRef,
+  triggerSelector,
   draggable = false,
   placement = "bottom",
   interactions = "click",
@@ -118,6 +124,7 @@ export const DragPopover = memo(function DragPopover({
     rememberPosition,
     resetDragState,
     resetPosition,
+    triggerSelector,
   })
 
   useEffect(() => {

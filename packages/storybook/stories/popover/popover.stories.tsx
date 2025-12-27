@@ -388,6 +388,186 @@ export const TriggerRef: Story = {
 }
 
 /**
+ * TriggerSelector: Demonstrates using a CSS selector to bind popover to an element.
+ *
+ * Features:
+ * - Supports any valid CSS selector (#id, .class, [data-*], etc.)
+ * - Same functionality as triggerRef
+ * - triggerRef takes priority if both are provided
+ *
+ * This pattern is useful for:
+ * - When you cannot access the element via ref (e.g., third-party components)
+ * - When the trigger element is rendered elsewhere in the DOM
+ * - When you prefer a simpler, selector-based approach
+ */
+export const TriggerSelector: Story = {
+  render: function TriggerSelectorStory() {
+    const [isOpen1, setIsOpen1] = useState(false)
+    const [isOpen2, setIsOpen2] = useState(false)
+    const [isOpen3, setIsOpen3] = useState(false)
+
+    return (
+      <div className="flex gap-8">
+        {/* Using id selector */}
+        <div>
+          <p className="text-body-small-strong mb-2">Using #id selector</p>
+          <button
+            id="popover-trigger-by-id"
+            className="bg-secondary-background rounded-lg border border-dashed px-4 py-2"
+          >
+            Click me (id selector)
+          </button>
+          <Popover
+            triggerSelector="#popover-trigger-by-id"
+            open={isOpen1}
+            onOpenChange={setIsOpen1}
+          >
+            <Popover.Content className="w-64 p-3">
+              <h5 className="font-strong mb-2">ID Selector Popover</h5>
+              <p>{faker.lorem.paragraph(2)}</p>
+            </Popover.Content>
+          </Popover>
+        </div>
+
+        {/* Using class selector */}
+        <div>
+          <p className="text-body-small-strong mb-2">Using .class selector</p>
+          <button className="popover-trigger-by-class bg-secondary-background rounded-lg border border-dashed px-4 py-2">
+            Click me (class selector)
+          </button>
+          <Popover
+            triggerSelector=".popover-trigger-by-class"
+            open={isOpen2}
+            onOpenChange={setIsOpen2}
+          >
+            <Popover.Content className="w-64 p-3">
+              <h5 className="font-strong mb-2">Class Selector Popover</h5>
+              <p>{faker.lorem.paragraph(2)}</p>
+            </Popover.Content>
+          </Popover>
+        </div>
+
+        {/* Using data attribute selector */}
+        <div>
+          <p className="text-body-small-strong mb-2">Using [data-*] selector</p>
+          <button
+            data-popover-trigger="custom"
+            className="bg-secondary-background rounded-lg border border-dashed px-4 py-2"
+          >
+            Click me (data-* selector)
+          </button>
+          <Popover
+            triggerSelector="[data-popover-trigger='custom']"
+            open={isOpen3}
+            onOpenChange={setIsOpen3}
+          >
+            <Popover.Content className="w-64 p-3">
+              <h5 className="font-strong mb-2">Data Attribute Popover</h5>
+              <p>{faker.lorem.paragraph(2)}</p>
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    )
+  },
+}
+
+/**
+ * TriggerSelectorWithDropdown: Demonstrates using triggerSelector to position Popover
+ * relative to a Dropdown's parent container when triggered from a Dropdown item.
+ *
+ * Features:
+ * - Popover triggered from within a Dropdown menu item
+ * - Popover positioned relative to the parent container (not the menu item)
+ * - Useful for secondary actions that need more space
+ *
+ * Use case:
+ * - Click a Dropdown item to open a Popover with additional options or forms
+ * - The Popover appears anchored to a stable element rather than the ephemeral menu item
+ */
+export const TriggerSelectorWithDropdown: Story = {
+  render: function TriggerSelectorWithDropdownStory() {
+    const [popoverOpen, setPopoverOpen] = useState(false)
+
+    return (
+      <div className="flex flex-col gap-4">
+        <p className="text-secondary-foreground text-body-small">
+          Click &quot;Open Settings&quot; in the Dropdown to open the Popover anchored to the
+          container.
+        </p>
+
+        {/* Parent container that will be the Popover anchor */}
+        <div
+          id="dropdown-parent-container"
+          className="bg-secondary-background w-64 rounded-xl border p-4"
+        >
+          <div className="mb-3 flex items-center justify-between">
+            <span className="font-strong">Card Title</span>
+            <Dropdown disabledNested>
+              <Dropdown.Trigger>
+                <Dropdown.Value>Actions</Dropdown.Value>
+              </Dropdown.Trigger>
+              <Dropdown.Content>
+                <Dropdown.Item>
+                  <Dropdown.Value>Edit</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Dropdown.Value>Duplicate</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onMouseUp={() => setPopoverOpen(true)}>
+                  <Dropdown.Value>Open Settings</Dropdown.Value>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item variant="danger">
+                  <Dropdown.Value>Delete</Dropdown.Value>
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
+          <p className="text-secondary-foreground text-body-small">
+            This is the card content. The Popover will be anchored to this container.
+          </p>
+        </div>
+
+        {/* Popover using triggerSelector to anchor to the parent container */}
+        <Popover
+          triggerSelector="#dropdown-parent-container"
+          open={popoverOpen}
+          onOpenChange={setPopoverOpen}
+          placement="bottom-start"
+        >
+          <Popover.Header title="Settings" />
+          <Popover.Content className="w-72 p-4">
+            <div className="flex flex-col gap-3">
+              <p className="text-body-small">
+                This Popover is triggered from the Dropdown menu but anchored to the parent
+                container using <code>triggerSelector</code>.
+              </p>
+              <Input placeholder="Setting value..." />
+            </div>
+          </Popover.Content>
+          <Popover.Footer className="flex justify-end gap-2 p-3">
+            <Button
+              variant="ghost"
+              onClick={() => setPopoverOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => setPopoverOpen(false)}
+            >
+              Save
+            </Button>
+          </Popover.Footer>
+        </Popover>
+      </div>
+    )
+  },
+}
+
+/**
  * Placement: Demonstrates different positioning options for the popover.
  *
  * Features:

@@ -3,7 +3,7 @@
   "title": "Popover",
   "package": {
     "name": "@choice-ui/popover",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "description": "A popover component for displaying floating content relative to a trigger element",
     "dependencies": {
       "@choice-ui/shared": "workspace:*",
@@ -157,6 +157,12 @@
           "type": "RefObject<HTMLElement> | undefined",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "triggerSelector",
+          "type": "string | undefined",
+          "required": false,
+          "description": "CSS selector string to find the trigger element in the DOM.\nAlternative to triggerRef for cases where you want to use a selector instead of a ref."
         }
       ]
     },
@@ -295,6 +301,12 @@
           "type": "RefObject<HTMLElement> | undefined",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "triggerSelector",
+          "type": "string | undefined",
+          "required": false,
+          "description": "CSS selector string to find the trigger element in the DOM.\nAlternative to triggerRef for cases where you want to use a selector instead of a ref."
         }
       ]
     }
@@ -334,6 +346,20 @@
       "exportName": "TriggerRef",
       "description": "TriggerRef: Demonstrates using an external trigger element.\n\nFeatures:\n- Reference to external trigger element\n- Complete separation of trigger and popover\n- Controlled open state\n\nThis pattern is useful for:\n- Complex layouts where the trigger needs to be in a different component\n- Dynamically generated UI where the popover needs to be positioned relative to existing elements\n- Advanced application architectures with separated components",
       "source": "import { Popover } from \"@choice-ui/popover\"\nimport { useState, useRef } from \"react\"\n\nexport default function App() {\n\n  const [open, setOpen] = useState(false)\n  const triggerRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <Button\n        ref={triggerRef}\n        active={open}\n        onClick={() => setOpen(!open)}\n      >\n        {open ? \"Close\" : \"Open\"}\n      </Button>\n\n      <Popover\n        triggerRef={triggerRef}\n        open={open}\n        onOpenChange={setOpen}\n      >\n        <Popover.Content className=\"w-64 p-3\">{faker.lorem.paragraph(3)}</Popover.Content>\n      </Popover>\n    </>\n  )\n\n}"
+    },
+    {
+      "id": "overlays-popover--trigger-selector",
+      "name": "Trigger Selector",
+      "exportName": "TriggerSelector",
+      "description": "TriggerSelector: Demonstrates using a CSS selector to bind popover to an element.\n\nFeatures:\n- Supports any valid CSS selector (#id, .class, [data-*], etc.)\n- Same functionality as triggerRef\n- triggerRef takes priority if both are provided\n\nThis pattern is useful for:\n- When you cannot access the element via ref (e.g., third-party components)\n- When the trigger element is rendered elsewhere in the DOM\n- When you prefer a simpler, selector-based approach",
+      "source": "import { Popover } from \"@choice-ui/popover\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [isOpen1, setIsOpen1] = useState(false)\n  const [isOpen2, setIsOpen2] = useState(false)\n  const [isOpen3, setIsOpen3] = useState(false)\n\n  return (\n    <div className=\"flex gap-8\">\n      {/* Using id selector */}\n      <div>\n        <p className=\"text-body-small-strong mb-2\">Using #id selector</p>\n        <button\n          id=\"popover-trigger-by-id\"\n          className=\"bg-secondary-background rounded-lg border border-dashed px-4 py-2\"\n        >\n          Click me (id selector)\n        </button>\n        <Popover\n          triggerSelector=\"#popover-trigger-by-id\"\n          open={isOpen1}\n          onOpenChange={setIsOpen1}\n        >\n          <Popover.Content className=\"w-64 p-3\">\n            <h5 className=\"font-strong mb-2\">ID Selector Popover</h5>\n            <p>{faker.lorem.paragraph(2)}</p>\n          </Popover.Content>\n        </Popover>\n      </div>\n\n      {/* Using class selector */}\n      <div>\n        <p className=\"text-body-small-strong mb-2\">Using .class selector</p>\n        <button className=\"popover-trigger-by-class bg-secondary-background rounded-lg border border-dashed px-4 py-2\">\n          Click me (class selector)\n        </button>\n        <Popover\n          triggerSelector=\".popover-trigger-by-class\"\n          open={isOpen2}\n          onOpenChange={setIsOpen2}\n        >\n          <Popover.Content className=\"w-64 p-3\">\n            <h5 className=\"font-strong mb-2\">Class Selector Popover</h5>\n            <p>{faker.lorem.paragraph(2)}</p>\n          </Popover.Content>\n        </Popover>\n      </div>\n\n      {/* Using data attribute selector */}\n      <div>\n        <p className=\"text-body-small-strong mb-2\">Using [data-*] selector</p>\n        <button\n          data-popover-trigger=\"custom\"\n          className=\"bg-secondary-background rounded-lg border border-dashed px-4 py-2\"\n        >\n          Click me (data-* selector)\n        </button>\n        <Popover\n          triggerSelector=\"[data-popover-trigger='custom']\"\n          open={isOpen3}\n          onOpenChange={setIsOpen3}\n        >\n          <Popover.Content className=\"w-64 p-3\">\n            <h5 className=\"font-strong mb-2\">Data Attribute Popover</h5>\n            <p>{faker.lorem.paragraph(2)}</p>\n          </Popover.Content>\n        </Popover>\n      </div>\n    </div>\n  )\n\n}"
+    },
+    {
+      "id": "overlays-popover--trigger-selector-with-dropdown",
+      "name": "Trigger Selector With Dropdown",
+      "exportName": "TriggerSelectorWithDropdown",
+      "description": "TriggerSelectorWithDropdown: Demonstrates using triggerSelector to position Popover\nrelative to a Dropdown's parent container when triggered from a Dropdown item.\n\nFeatures:\n- Popover triggered from within a Dropdown menu item\n- Popover positioned relative to the parent container (not the menu item)\n- Useful for secondary actions that need more space\n\nUse case:\n- Click a Dropdown item to open a Popover with additional options or forms\n- The Popover appears anchored to a stable element rather than the ephemeral menu item",
+      "source": "import { Popover } from \"@choice-ui/popover\"\nimport { useState } from \"react\"\n\nexport default function App() {\n\n  const [popoverOpen, setPopoverOpen] = useState(false)\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <p className=\"text-secondary-foreground text-body-small\">\n        Click &quot;Open Settings&quot; in the Dropdown to open the Popover anchored to the\n        container.\n      </p>\n\n      {/* Parent container that will be the Popover anchor */}\n      <div\n        id=\"dropdown-parent-container\"\n        className=\"bg-secondary-background w-64 rounded-xl border p-4\"\n      >\n        <div className=\"mb-3 flex items-center justify-between\">\n          <span className=\"font-strong\">Card Title</span>\n          <Dropdown disabledNested>\n            <Dropdown.Trigger>\n              <Dropdown.Value>Actions</Dropdown.Value>\n            </Dropdown.Trigger>\n            <Dropdown.Content>\n              <Dropdown.Item>\n                <Dropdown.Value>Edit</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Item>\n                <Dropdown.Value>Duplicate</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Divider />\n              <Dropdown.Item onMouseUp={() => setPopoverOpen(true)}>\n                <Dropdown.Value>Open Settings</Dropdown.Value>\n              </Dropdown.Item>\n              <Dropdown.Divider />\n              <Dropdown.Item variant=\"danger\">\n                <Dropdown.Value>Delete</Dropdown.Value>\n              </Dropdown.Item>\n            </Dropdown.Content>\n          </Dropdown>\n        </div>\n        <p className=\"text-secondary-foreground text-body-small\">\n          This is the card content. The Popover will be anchored to this container.\n        </p>\n      </div>\n\n      {/* Popover using triggerSelector to anchor to the parent container */}\n      <Popover\n        triggerSelector=\"#dropdown-parent-container\"\n        open={popoverOpen}\n        onOpenChange={setPopoverOpen}\n        placement=\"bottom-start\"\n      >\n        <Popover.Header title=\"Settings\" />\n        <Popover.Content className=\"w-72 p-4\">\n          <div className=\"flex flex-col gap-3\">\n            <p className=\"text-body-small\">\n              This Popover is triggered from the Dropdown menu but anchored to the parent\n              container using <code>triggerSelector</code>.\n            </p>\n            <Input placeholder=\"Setting value...\" />\n          </div>\n        </Popover.Content>\n        <Popover.Footer className=\"flex justify-end gap-2 p-3\">\n          <Button\n            variant=\"ghost\"\n            onClick={() => setPopoverOpen(false)}\n          >\n            Cancel\n          </Button>\n          <Button\n            variant=\"primary\"\n            onClick={() => setPopoverOpen(false)}\n          >\n            Save\n          </Button>\n        </Popover.Footer>\n      </Popover>\n    </div>\n  )\n\n}"
     },
     {
       "id": "overlays-popover--placement",

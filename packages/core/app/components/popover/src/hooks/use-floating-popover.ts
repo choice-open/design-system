@@ -72,6 +72,7 @@ interface UseFloatingPopoverParams {
   resetDragState: () => void
   resetPosition: () => void
   transitionStylesProps?: UseTransitionStylesProps
+  triggerSelector?: string
 }
 
 export function useFloatingPopover({
@@ -96,6 +97,7 @@ export function useFloatingPopover({
   transitionStylesProps = {
     duration: 0,
   },
+  triggerSelector,
 }: UseFloatingPopoverParams): UseFloatingPopoverReturn {
   const [isClosing, setIsClosing] = useState(false)
   const positionRef = useRef({ x: 0, y: 0 })
@@ -307,6 +309,31 @@ export function useFloatingPopover({
     },
     [refs],
   )
+
+  // Store current open state in ref to avoid useEffect dependency on innerOpen
+  const isOpenRef = useRef(innerOpen)
+  isOpenRef.current = innerOpen
+
+  // Handle triggerSelector
+  useEffect(() => {
+    if (!triggerSelector) return
+
+    const element = document.querySelector<HTMLElement>(triggerSelector)
+    if (!element) return
+
+    refs.setReference(element)
+
+    const handleClick = (e: MouseEvent) => {
+      e.preventDefault()
+      handleOpenChange(!isOpenRef.current)
+    }
+
+    element.addEventListener("click", handleClick)
+
+    return () => {
+      element.removeEventListener("click", handleClick)
+    }
+  }, [triggerSelector, refs, handleOpenChange])
 
   return {
     refs,
